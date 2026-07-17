@@ -421,7 +421,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
 
       {/* 对话面板 */}
       {panelOpen && (
-        <div className="fixed bottom-20 right-4 z-[70] w-[28rem] max-w-[calc(100vw-2rem)] h-[36rem] max-h-[calc(100vh-6rem)] flex flex-col bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl">
+        <div className="fixed bottom-20 right-4 z-[70] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-6rem)] flex flex-col bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl resize overflow-auto" style={{ width: 450, height: 580, minWidth: 320, minHeight: 360 }}>
           {/* 当前角色卡片（persona 激活时显示） */}
           {personaSystemPrompt && (() => {
             const person = peopleData.find(p => p.id === contextPersonId)

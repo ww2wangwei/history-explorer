@@ -822,8 +822,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
               description: selectedMajorNode.node.description,
               importance: selectedMajorNode.node.importance,
             }
-            setSelectedMajorNode(null)
-            setSelectedMajorWar(null)
+            // 不关闭弹窗 — 用户要对照内容提问
             handleChat(adHocWar)
           }}
         />

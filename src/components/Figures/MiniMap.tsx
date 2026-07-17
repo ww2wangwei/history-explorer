@@ -197,7 +197,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
             const arr = point as any
             const x = arr[0] ?? arr.x ?? arr.getX?.()
             const y = arr[1] ?? arr.y ?? arr.getY?.()
-            console.log('[MiniMap] marker pos:', { x, y, raw0: arr[0], raw1: arr[1], rawX: arr.x, rawY: arr.y })
+            console.log('[MiniMap] marker pos:', { x, y, raw0: arr[0], raw1: arr[1], rawX: arr.x, rawY: arr.y, display: markerEl.style.display, left: markerEl.style.left, top: markerEl.style.top, inDOM: document.body.contains(markerEl), overlayPaneRect: overlayPane.getBoundingClientRect() })
             markerEl.style.left = x + 'px'
             markerEl.style.top = y + 'px'
             markerEl.style.display = 'block'

@@ -218,6 +218,38 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const isStreamingRef = useRef(false)
 
+  // 面板位置（可拖动）
+  const [panelPos, setPanelPos] = useState<{ left: number; top: number } | null>(null)
+  const dragRef = useRef<{ startX: number; startY: number; origLeft: number; origTop: number } | null>(null)
+
+  const handleDragStart = (e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).closest('button, input, textarea, select')) return
+    e.preventDefault()
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect()
+    const current = panelPos ?? { left: rect.left, top: rect.top }
+    dragRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      origLeft: current.left,
+      origTop: current.top,
+    }
+    const onMove = (ev: MouseEvent) => {
+      if (!dragRef.current) return
+      const dx = ev.clientX - dragRef.current.startX
+      const dy = ev.clientY - dragRef.current.startY
+      const newLeft = Math.max(0, Math.min(window.innerWidth - 200, dragRef.current.origLeft + dx))
+      const newTop = Math.max(0, Math.min(window.innerHeight - 100, dragRef.current.origTop + dy))
+      setPanelPos({ left: newLeft, top: newTop })
+    }
+    const onUp = () => {
+      dragRef.current = null
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+    }
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+  }
+
   // 当前活动 thread
   const activeThread = threads.find((t) => t.id === activeThreadId) ?? null
 
@@ -421,7 +453,16 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
 
       {/* 对话面板 */}
       {panelOpen && (
-        <div className="fixed bottom-20 right-4 z-[70] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-6rem)] flex flex-col bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl resize overflow-auto" style={{ width: 450, height: 580, minWidth: 320, minHeight: 360 }}>
+        <div
+          className="fixed z-[70] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-6rem)] flex flex-col bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl resize overflow-auto"
+          style={{
+            width: 450,
+            height: 580,
+            minWidth: 320,
+            minHeight: 360,
+            ...(panelPos ? { left: panelPos.left, top: panelPos.top, right: 'auto', bottom: 'auto' } : { right: 16, bottom: 80 }),
+          }}
+        >
           {/* 当前角色卡片（persona 激活时显示） */}
           {personaSystemPrompt && (() => {
             const person = peopleData.find(p => p.id === contextPersonId)
@@ -458,8 +499,12 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
             )
           })()}
 
-          {/* 头部 */}
-          <div className="flex items-center justify-between px-4 py-3 border-b border-ink-600">
+          {/* 头部 - 可拖动手柄（不响应 button/input） */}
+          <div
+            className="flex items-center justify-between px-4 py-3 border-b border-ink-600 select-none"
+            style={{ cursor: 'move' }}
+            onMouseDown={handleDragStart}
+          >
             <div className="flex items-center gap-2">
               <span className="text-xl">🤖</span>
               <div>

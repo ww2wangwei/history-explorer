@@ -1,0 +1,263 @@
+/**
+ * WarsOverview — 全战争全屏浏览页
+ * 数据源：events.json 中 category='军事' 的事件
+ * 复用模式与 FiguresOverview 相同（区域筛选 + importance 筛选 + 搜索 + 详情弹窗）
+ */
+import { useEffect, useMemo, useState } from 'react'
+import eventsData from '@/data/events.json'
+import erasData from '@/data/eras.json'
+import { useAIStore } from '@/store/useAIStore'
+import { useAllLearningContexts } from '@/utils/useLearningContext'
+import { enhancePersonaPrompt } from '@/utils/useLearningContext'
+import type { Era, HistoricalEvent } from '@/types'
+
+const events = eventsData as HistoricalEvent[]
+const eras = erasData as Era[]
+const wars = events.filter(e => e.category === '军事' || e.category === 'military')
+
+interface Props {
+  isActive: boolean
+  onClose: () => void
+}
+
+type RegionFilter = 'all' | 'china' | 'world'
+
+export default function WarsOverview({ isActive, onClose }: Props) {
+  const [region, setRegion] = useState<RegionFilter>('all')
+  const [importance, setImportance] = useState<0 | 1 | 2 | 3>(0)
+  const [query, setQuery] = useState('')
+  const [selectedWar, setSelectedWar] = useState<HistoricalEvent | null>(null)
+
+  const setContext = useAIStore(s => s.setContext)
+  const setPersonaPrompt = useAIStore(s => s.setPersonaPrompt)
+  const newThread = useAIStore(s => s.newThread)
+  const openPanel = useAIStore(s => s.openPanel)
+  const allContexts = useAllLearningContexts()
+
+  // ESC 关闭
+  useEffect(() => {
+    if (!isActive) return
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (selectedWar) setSelectedWar(null)
+        else onClose()
+        e.stopPropagation()
+      }
+    }
+    window.addEventListener('keydown', handler, true)
+    return () => window.removeEventListener('keydown', handler, true)
+  }, [isActive, selectedWar, onClose])
+
+  if (!isActive) return null
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    return wars.filter(w => {
+      if (region === 'china' && w.region !== 'china') return false
+      if (region === 'world' && w.region === 'china') return false
+      if (importance > 0 && w.importance !== importance) return false
+      if (q && !(w.title.toLowerCase().includes(q) || (w.description ?? '').toLowerCase().includes(q))) return false
+      return true
+    }).sort((a, b) => a.year - b.year)
+  }, [region, importance, query])
+
+  const handleChat = (war: HistoricalEvent) => {
+    setContext(war.relatedEraId ?? null, war.id, null)
+    const contextString = allContexts[war.relatedEraId ?? '']?.contextString ?? ''
+    const persona = enhancePersonaPrompt(
+      `你是历史军事专家。请基于以下战争背景回答用户问题，保持客观中立，引述史料：\n\n【战争】${war.title}（${war.year < 0 ? `BC ${-war.year}` : war.year}）\n${war.description ?? ''}${contextString}`,
+      '军事专家',
+    )
+    setPersonaPrompt(persona)
+    newThread(`关于 ${war.title}`)
+    openPanel()
+    setSelectedWar(null)
+  }
+
+  return (
+    <div className="w-full h-full bg-ink-900 overflow-y-auto">
+      {/* 头部 */}
+      <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-red-700/40">
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <h2 className="text-2xl font-serif text-red-300">⚔️ 全战争</h2>
+              <p className="text-xs text-ink-500 mt-1">
+                {filtered.length} / {wars.length} 场战争 · 从公元前 1046 武王伐纣到 20 世纪
+              </p>
+            </div>
+            <button
+              onClick={onClose}
+              className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+              title="返回 Dashboard (ESC)"
+            >
+              ×
+            </button>
+          </div>
+          {/* 筛选条 */}
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex rounded bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
+              {(['all', 'china', 'world'] as const).map(r => (
+                <button
+                  key={r}
+                  onClick={() => setRegion(r)}
+                  className={`px-3 py-1.5 transition-colors ${
+                    region === r
+                      ? 'bg-red-700/40 text-red-300'
+                      : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'
+                  }`}
+                >
+                  {r === 'all' ? '全部' : r === 'china' ? '🇨🇳 中国' : '🌍 世界'}
+                </button>
+              ))}
+            </div>
+            <div className="flex rounded bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
+              {([0, 1, 2, 3] as const).map(i => (
+                <button
+                  key={i}
+                  onClick={() => setImportance(i)}
+                  className={`px-2.5 py-1.5 transition-colors ${
+                    importance === i
+                      ? 'bg-red-700/40 text-red-300'
+                      : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'
+                  }`}
+                  title={i === 0 ? '全部' : `重要性 ${i}（${i === 3 ? '关键' : i === 2 ? '重要' : '一般'}）`}
+                >
+                  {i === 0 ? '全部' : `${'⭐'.repeat(i)}`}
+                </button>
+              ))}
+            </div>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="搜索战争名/描述..."
+              className="flex-1 min-w-[200px] text-xs px-3 py-1.5 bg-ink-700/60 border border-ink-600 rounded text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-red-500"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* 列表 */}
+      <div className="max-w-6xl mx-auto px-6 py-6">
+        {filtered.length === 0 ? (
+          <div className="text-center text-ink-500 py-12">未找到匹配的战争</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            {filtered.map(war => {
+              const yearLabel = war.year < 0 ? `BC ${-war.year}` : `${war.year}`
+              const relatedEra = war.relatedEraId ? eras.find(e => e.id === war.relatedEraId) : null
+              return (
+                <button
+                  key={war.id}
+                  onClick={() => setSelectedWar(war)}
+                  className="text-left p-3 rounded border border-ink-600 bg-ink-800/60 hover:border-red-500/60 hover:bg-ink-700/60 transition-colors group"
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs text-red-400 tabular-nums font-serif">{yearLabel}</span>
+                    {war.importance === 3 && <span className="text-amber-400 text-xs">⭐ 关键</span>}
+                    {war.importance === 2 && <span className="text-amber-400/60 text-xs">⭐ 重要</span>}
+                    {war.region === 'china'
+                      ? <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-900/30 text-amber-300 border border-amber-700/40">中国</span>
+                      : <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-900/30 text-blue-300 border border-blue-700/40">世界</span>
+                    }
+                    <span className="text-sm font-serif text-parchment-50 truncate">{war.title}</span>
+                  </div>
+                  <div className="text-[11px] text-ink-400 line-clamp-2">{war.description}</div>
+                  {relatedEra && (
+                    <div className="text-[10px] text-ink-500 mt-1">
+                      朝代：<span style={{ color: relatedEra.color }}>{relatedEra.name}</span>
+                    </div>
+                  )}
+                </button>
+              )
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* 详情弹窗 */}
+      {selectedWar && (
+        <WarDetailDialog war={selectedWar} onClose={() => setSelectedWar(null)} onChat={() => handleChat(selectedWar)} />
+      )}
+    </div>
+  )
+}
+
+function WarDetailDialog({ war, onClose, onChat }: {
+  war: HistoricalEvent
+  onClose: () => void
+  onChat: () => void
+}) {
+  const yearLabel = war.year < 0 ? `BC ${-war.year}` : `${war.year}`
+  const relatedEra = war.relatedEraId ? eras.find(e => e.id === war.relatedEraId) : null
+  return (
+    <div
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-red-700/40 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-red-700/30 px-6 py-4 flex items-center justify-between">
+          <div>
+            <div className="text-[10px] text-ink-500 mb-1">⚔️ 战争 · {yearLabel}</div>
+            <h3 className="text-xl font-serif text-red-300">{war.title}</h3>
+          </div>
+          <button
+            onClick={onClose}
+            className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+          >
+            ×
+          </button>
+        </div>
+        <div className="p-6 space-y-4">
+          {relatedEra && (
+            <div>
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">所属朝代</div>
+              <span
+                className="text-xs px-2 py-0.5 rounded border"
+                style={{ background: relatedEra.color + '20', color: relatedEra.color, borderColor: relatedEra.color + '40' }}
+              >
+                {relatedEra.name}
+              </span>
+            </div>
+          )}
+          {war.country && (
+            <div>
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">📍 地区</div>
+              <div className="text-sm text-parchment-50">{war.country}</div>
+            </div>
+          )}
+          <div>
+            <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">📜 经过与影响</div>
+            <div className="text-sm text-parchment-100 leading-relaxed">{war.description ?? '（无描述）'}</div>
+          </div>
+          {war.coordinates && (
+            <div>
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">🗺️ 位置</div>
+              <div className="text-xs text-ink-400 tabular-nums">
+                经度 {war.coordinates[0].toFixed(2)}°, 纬度 {war.coordinates[1].toFixed(2)}°
+              </div>
+            </div>
+          )}
+          <div className="flex gap-2 pt-3 border-t border-ink-700">
+            <button
+              onClick={onChat}
+              className="flex-1 px-4 py-2.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors"
+            >
+              💬 询问这场战争
+            </button>
+            <button
+              onClick={onClose}
+              className="px-4 py-2.5 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm transition-colors"
+            >
+              关闭
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

@@ -827,6 +827,12 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
           onClose={() => setSelectedMajorNode(null)}
           onBack={() => setSelectedMajorNode(null)}
           onSwitchNode={(n) => setSelectedMajorNode({ mw: selectedMajorNode.mw, node: n })}
+          onJumpToMap={(lngLat, year, label) => {
+            setSelectedMajorNode(null)
+            setSelectedMajorWar(null)
+            setMapFocus({ center: lngLat, zoom: 5, label })
+            setYear(year)
+          }}
           onChat={() => {
             const adHocWar: HistoricalEvent = {
               id: `major-${selectedMajorNode.mw.key}-${selectedMajorNode.node.year}-${selectedMajorNode.node.title.slice(0, 4)}`,
@@ -1134,7 +1140,7 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
  * 风格与 WarDetailDialog 一致：背景 / 经过 / 结果 / 影响
  * 没补 4 段详细内容的节点用通用模板回退
  */
-function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchNode }: {
+function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchNode, onJumpToMap }: {
   mw: MajorWar
   node: MajorWarNode
   onClose: () => void
@@ -1142,6 +1148,8 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
   onChat: () => void
   /** 切换到其他节点（从缩略图点击其他节点触发） */
   onSwitchNode: (node: MajorWarNode) => void
+  /** 跳到主地图（从缩略图跳到主地图按钮触发） */
+  onJumpToMap: (lngLat: [number, number], year: number, label: string) => void
 }) {
   const yearLabel = node.year < 0 ? `BC ${-node.year}` : `${node.year}`
 
@@ -1208,6 +1216,7 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
                 setYear(year)
               }}
               onSwitchNode={onSwitchNode}
+              onJumpToMap={onJumpToMap}
             />
           </div>
 

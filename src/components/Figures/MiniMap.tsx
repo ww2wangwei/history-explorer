@@ -119,10 +119,12 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
 
     // 只加 focus 节点（自己用 Web Mercator 算像素位置，不依赖天地图 API）
     const focusEntry = nodePositions.find(({ node }) => node === focusNode)
+    console.log('[MiniMap] focusEntry:', focusEntry ? `${focusEntry.node.title} @ ${focusEntry.pos}` : 'NOT FOUND')
     if (focusEntry && focusEntry.pos) {
       const { node, pos } = focusEntry
       const mapContainer = containerRef.current
-      if (!mapContainer) return
+      if (!mapContainer) { console.log('[MiniMap] no mapContainer'); return }
+      console.log('[MiniMap] starting marker creation')
 
       // 创建一个绝对定位的 HTML div 作为 marker
       const markerEl = document.createElement('div')

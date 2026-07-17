@@ -1201,7 +1201,7 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat }: {
               onJumpToMap={(lngLat, year, label) => {
                 onClose()
                 onBack()
-                setMapFocus({ center: lngLat, zoom: 4, label })
+                setMapFocus({ center: lngLat, zoom: 5, label })
                 setYear(year)
               }}
               onSwitchNode={(n) => {

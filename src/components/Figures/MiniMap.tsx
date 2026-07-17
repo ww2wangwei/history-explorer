@@ -155,22 +155,23 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
         >
           {/* 海洋底色 + 大陆轮廓 */}
           <Geographies geography={worldBase as any}>
-            {({ geographies }: any) =>
-              geographies.map((geo: any) => (
+            {({ geographies }: any) => {
+              console.log('[MiniMap] geographies count:', geographies?.length)
+              return geographies.map((geo: any) => (
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  fill="#1a2a35"
-                  stroke="#3a4a55"
-                  strokeWidth={0.3}
+                  fill="#3a5a70"
+                  stroke="#5a8090"
+                  strokeWidth={0.5}
                   style={{
                     default: { outline: 'none' },
-                    hover: { fill: '#243a45', outline: 'none' },
+                    hover: { fill: '#4a6a80', outline: 'none' },
                     pressed: { outline: 'none' },
                   }}
                 />
               ))
-            }
+            }}
           </Geographies>
 
           {/* 所有节点标记 */}

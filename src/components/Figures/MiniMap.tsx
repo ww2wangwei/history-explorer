@@ -118,7 +118,11 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
     markersRef.current = []
 
     // 只加 focus 节点（自己用 Web Mercator 算像素位置，不依赖天地图 API）
-    const focusEntry = nodePositions.find(({ node }) => node === focusNode)
+    // 注意: focusNode 是 props，每次 render 都是新 MapNode 对象
+    // 不能用 === 比较，按 title + year 比较
+    const focusEntry = nodePositions.find(
+      ({ node }) => node.title === focusNode.title && node.year === focusNode.year
+    )
     console.log('[MiniMap] focusEntry:', focusEntry ? `${focusEntry.node.title} @ ${focusEntry.pos}` : 'NOT FOUND')
     if (focusEntry && focusEntry.pos) {
       const { node, pos } = focusEntry

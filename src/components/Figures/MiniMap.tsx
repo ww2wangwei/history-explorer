@@ -24,24 +24,77 @@ interface MiniMapProps {
 const WIDTH = 360
 const HEIGHT = 220
 
-/** 把 CONTINENTS (LineString 折线) 转换成 GeoJSON Polygon（自动闭合） */
+/** 硬编码的简化世界大陆轮廓（用于 MiniMap，不依赖 CONTINENTS 复杂数据） */
 const CONTINENTS_GEO: any = {
   type: 'FeatureCollection',
-  features: CONTINENTS.map(c => {
-    // CONTINENTS 的 geometry 是 [[lng, lat], [lng, lat], ...] 折线
-    // 转为 Polygon：自动添加首点到末尾形成闭合
-    if (!c.geometry || c.geometry.length < 3) return null
-    // 闭合折线（首尾点相同）
-    const closed: [number, number][] = [...c.geometry, c.geometry[0]] as [number, number][]
-    return {
+  features: [
+    // 欧亚大陆（连成一片的大轮廓）
+    {
       type: 'Feature',
-      properties: { id: c.id, name: c.name, type: c.type },
+      properties: { id: 'eurasia', name: '欧亚大陆' },
       geometry: {
         type: 'Polygon',
-        coordinates: [closed],
+        coordinates: [[
+          [-10, 70], [10, 75], [40, 75], [70, 75], [100, 75], [140, 70], [160, 65],
+          [170, 60], [170, 50], [150, 45], [140, 38], [130, 35], [120, 30], [120, 22],
+          [108, 20], [105, 10], [98, 8], [95, 15], [88, 22], [78, 25], [70, 22],
+          [60, 25], [50, 25], [45, 30], [35, 30], [25, 35], [15, 40], [10, 45],
+          [5, 50], [-5, 55], [-10, 60], [-10, 70],
+        ]],
       },
-    }
-  }).filter(Boolean),
+    },
+    // 非洲
+    {
+      type: 'Feature',
+      properties: { id: 'africa', name: '非洲' },
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[
+          [-15, 35], [-10, 30], [0, 30], [10, 33], [20, 32], [30, 30], [40, 20],
+          [50, 12], [50, 0], [40, -10], [30, -25], [20, -34], [10, -25], [0, -10],
+          [-10, 0], [-15, 15], [-15, 35],
+        ]],
+      },
+    },
+    // 北美洲
+    {
+      type: 'Feature',
+      properties: { id: 'north-america', name: '北美洲' },
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[
+          [-170, 70], [-130, 72], [-100, 70], [-80, 75], [-65, 80], [-55, 70],
+          [-55, 55], [-65, 45], [-80, 40], [-85, 30], [-100, 30], [-110, 32],
+          [-125, 40], [-130, 50], [-135, 58], [-160, 60], [-170, 70],
+        ]],
+      },
+    },
+    // 南美洲
+    {
+      type: 'Feature',
+      properties: { id: 'south-america', name: '南美洲' },
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[
+          [-80, 12], [-70, 12], [-60, 5], [-50, 0], [-40, -5], [-35, -15],
+          [-45, -25], [-55, -35], [-65, -45], [-72, -55], [-75, -50], [-78, -35],
+          [-82, -15], [-80, 0], [-80, 12],
+        ]],
+      },
+    },
+    // 澳大利亚
+    {
+      type: 'Feature',
+      properties: { id: 'australia', name: '澳大利亚' },
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[
+          [115, -12], [130, -12], [142, -10], [152, -20], [150, -35], [140, -38],
+          [120, -35], [115, -25], [115, -12],
+        ]],
+      },
+    },
+  ],
 }
 
 export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode }: MiniMapProps) {

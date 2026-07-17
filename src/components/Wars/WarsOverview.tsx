@@ -6,9 +6,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import eventsData from '@/data/events.json'
 import erasData from '@/data/eras.json'
-import { useAIStore } from '@/store/useAIStore'
-import { useAllLearningContexts } from '@/utils/useLearningContext'
-import { enhancePersonaPrompt } from '@/utils/useLearningContext'
 import type { Era, HistoricalEvent } from '@/types'
 
 const events = eventsData as HistoricalEvent[]
@@ -27,12 +24,6 @@ export default function WarsOverview({ isActive, onClose }: Props) {
   const [importance, setImportance] = useState<0 | 1 | 2 | 3>(0)
   const [query, setQuery] = useState('')
   const [selectedWar, setSelectedWar] = useState<HistoricalEvent | null>(null)
-
-  const setContext = useAIStore(s => s.setContext)
-  const setPersonaPrompt = useAIStore(s => s.setPersonaPrompt)
-  const newThread = useAIStore(s => s.newThread)
-  const openPanel = useAIStore(s => s.openPanel)
-  const allContexts = useAllLearningContexts()
 
   // ESC 关闭
   useEffect(() => {
@@ -61,17 +52,8 @@ export default function WarsOverview({ isActive, onClose }: Props) {
     }).sort((a, b) => a.year - b.year)
   }, [region, importance, query])
 
-  const handleChat = (war: HistoricalEvent) => {
-    setContext(war.relatedEraId ?? null, war.id, null)
-    const contextString = allContexts[war.relatedEraId ?? '']?.contextString ?? ''
-    const persona = enhancePersonaPrompt(
-      `你是历史军事专家。请基于以下战争背景回答用户问题，保持客观中立，引述史料：\n\n【战争】${war.title}（${war.year < 0 ? `BC ${-war.year}` : war.year}）\n${war.description ?? ''}${contextString}`,
-      '军事专家',
-    )
-    setPersonaPrompt(persona)
-    newThread(`关于 ${war.title}`)
-    openPanel()
-    setSelectedWar(null)
+  const handleChat = (_war: HistoricalEvent) => {
+    // 已废弃：战争详情改为纯内容展示，不再走 AI 对话
   }
 
   return (
@@ -178,19 +160,23 @@ export default function WarsOverview({ isActive, onClose }: Props) {
 
       {/* 详情弹窗 */}
       {selectedWar && (
-        <WarDetailDialog war={selectedWar} onClose={() => setSelectedWar(null)} onChat={() => handleChat(selectedWar)} />
+        <WarDetailDialog war={selectedWar} onClose={() => setSelectedWar(null)} />
       )}
     </div>
   )
 }
 
-function WarDetailDialog({ war, onClose, onChat }: {
+function WarDetailDialog({ war, onClose }: {
   war: HistoricalEvent
   onClose: () => void
-  onChat: () => void
 }) {
   const yearLabel = war.year < 0 ? `BC ${-war.year}` : `${war.year}`
   const relatedEra = war.relatedEraId ? eras.find(e => e.id === war.relatedEraId) : null
+
+  // 根据 importance 决定内容丰富度
+  const isKey = war.importance === 3
+  const isMajor = war.importance === 2
+
   return (
     <div
       className="fixed inset-0 z-[60] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
@@ -202,7 +188,12 @@ function WarDetailDialog({ war, onClose, onChat }: {
       >
         <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-red-700/30 px-6 py-4 flex items-center justify-between">
           <div>
-            <div className="text-[10px] text-ink-500 mb-1">⚔️ 战争 · {yearLabel}</div>
+            <div className="text-[10px] text-ink-500 mb-1 flex items-center gap-2">
+              <span>⚔️ 战争</span>
+              <span className="tabular-nums">{yearLabel}</span>
+              {isKey && <span className="text-amber-400">⭐ 关键</span>}
+              {isMajor && <span className="text-amber-400/60">⭐ 重要</span>}
+            </div>
             <h3 className="text-xl font-serif text-red-300">{war.title}</h3>
           </div>
           <button
@@ -213,45 +204,83 @@ function WarDetailDialog({ war, onClose, onChat }: {
           </button>
         </div>
         <div className="p-6 space-y-4">
+          {/* 朝代 / 时期 */}
           {relatedEra && (
             <div>
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">所属朝代</div>
-              <span
-                className="text-xs px-2 py-0.5 rounded border"
-                style={{ background: relatedEra.color + '20', color: relatedEra.color, borderColor: relatedEra.color + '40' }}
-              >
-                {relatedEra.name}
-              </span>
-            </div>
-          )}
-          {war.country && (
-            <div>
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">📍 地区</div>
-              <div className="text-sm text-parchment-50">{war.country}</div>
-            </div>
-          )}
-          <div>
-            <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">📜 经过与影响</div>
-            <div className="text-sm text-parchment-100 leading-relaxed">{war.description ?? '（无描述）'}</div>
-          </div>
-          {war.coordinates && (
-            <div>
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">🗺️ 位置</div>
-              <div className="text-xs text-ink-400 tabular-nums">
-                经度 {war.coordinates[0].toFixed(2)}°, 纬度 {war.coordinates[1].toFixed(2)}°
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🏛️ 所属朝代</div>
+              <div className="flex flex-wrap items-center gap-2">
+                <span
+                  className="text-xs px-2 py-0.5 rounded border"
+                  style={{ background: relatedEra.color + '20', color: relatedEra.color, borderColor: relatedEra.color + '40' }}
+                >
+                  {relatedEra.name}
+                </span>
+                <span className="text-[10px] text-ink-500 tabular-nums">
+                  {relatedEra.startYear < 0 ? `BC ${-relatedEra.startYear}` : relatedEra.startYear} ~ {relatedEra.endYear < 0 ? `BC ${-relatedEra.endYear}` : relatedEra.endYear}
+                </span>
               </div>
             </div>
           )}
+
+          {/* 地理位置 */}
+          {war.country && (
+            <div>
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📍 地点</div>
+              <div className="text-sm text-parchment-50">{war.country}</div>
+              {war.coordinates && (
+                <div className="text-[10px] text-ink-500 tabular-nums mt-0.5">
+                  {war.coordinates[0].toFixed(2)}°E, {war.coordinates[1].toFixed(2)}°N
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* 经过 — 主要描述 */}
+          <div>
+            <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">⚔️ 战争经过</div>
+            <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
+              {war.description ?? '（暂无描述）'}
+            </div>
+          </div>
+
+          {/* 关联事件（同一战争的后续/前奏） */}
+          {war.relatedEventIds && war.relatedEventIds.length > 0 && (
+            <div>
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🔗 关联事件</div>
+              <div className="flex flex-wrap gap-1.5">
+                {war.relatedEventIds.map(eid => {
+                  const related = events.find(e => e.id === eid)
+                  if (!related) return null
+                  return (
+                    <span
+                      key={eid}
+                      className="text-xs px-2 py-0.5 rounded bg-ink-700/60 text-ink-300 border border-ink-600"
+                      title={`${related.year < 0 ? `BC ${-related.year}` : related.year} · ${related.title}`}
+                    >
+                      {related.title}
+                    </span>
+                  )
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* 重要度提示 */}
+          {isKey && (
+            <div className="p-3 rounded bg-amber-900/20 border border-amber-700/40">
+              <div className="text-[10px] text-amber-400 uppercase tracking-wider mb-1">🎯 历史意义</div>
+              <div className="text-xs text-parchment-100 leading-relaxed">
+                这场战争被史学界视为<strong className="text-amber-300">改写历史进程</strong>的关键事件。
+                {relatedEra && <>它直接影响了<strong style={{ color: relatedEra.color }}>{relatedEra.name}</strong>的走向。 </>}
+                建议从其所属朝代/时期的"朝代时间线"路径了解更完整的上下文。
+              </div>
+            </div>
+          )}
+
           <div className="flex gap-2 pt-3 border-t border-ink-700">
             <button
-              onClick={onChat}
-              className="flex-1 px-4 py-2.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors"
-            >
-              💬 询问这场战争
-            </button>
-            <button
               onClick={onClose}
-              className="px-4 py-2.5 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm transition-colors"
+              className="flex-1 px-4 py-2.5 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm transition-colors"
             >
               关闭
             </button>

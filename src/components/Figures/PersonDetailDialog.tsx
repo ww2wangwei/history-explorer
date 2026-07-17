@@ -140,6 +140,25 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
             <div className="text-sm text-parchment-50 leading-relaxed">{person.description}</div>
           </div>
 
+          {/* 代表作品（文化人物用） */}
+          {person.culturalWorks && person.culturalWorks.length > 0 && (
+            <div>
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">
+                📖 代表作品（{person.culturalWorks.length}）
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {person.culturalWorks.map((w, i) => (
+                  <span
+                    key={i}
+                    className="text-xs px-2 py-0.5 rounded bg-bronze-900/30 text-bronze-200 border border-bronze-700/40"
+                  >
+                    {w}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* 操作按钮 */}
           <div className="flex gap-2 pt-3 border-t border-ink-700">
             <button

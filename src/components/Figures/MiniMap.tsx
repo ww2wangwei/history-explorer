@@ -121,18 +121,16 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
     if (focusEntry && focusEntry.pos) {
       const { node, pos } = focusEntry
       // 大号金色图钉 + 金色光晕 + 节点名 label
-      const svg = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="56" viewBox="0 0 80 56">
-          <!-- 金色光晕 -->
-          <circle cx="40" cy="24" r="22" fill="#ffd47a" opacity="0.25"/>
-          <circle cx="40" cy="24" r="14" fill="#ffd47a" opacity="0.35"/>
-          <!-- 中心圆点 -->
-          <circle cx="40" cy="24" r="9" fill="#ffd47a" stroke="#fdf8f0" stroke-width="2.5"/>
-          <circle cx="40" cy="24" r="3" fill="#fdf8f0"/>
-          <!-- 节点名 label（圆点下方） -->
-          <rect x="0" y="38" width="80" height="18" rx="3" fill="rgba(15, 14, 12, 0.85)"/>
-          <text x="40" y="50" text-anchor="middle" font-size="11" fill="#ffd47a" font-family="serif" font-weight="600" paint-order="stroke" stroke="#0f0e0c" stroke-width="2.5">${node.title.slice(0, 10)}</text>
-        </svg>`
+      // 用更简单的 SVG（避免复杂 opacity/text 嵌套导致部分不渲染）
+      const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="56" viewBox="0 0 80 56">
+  <circle cx="40" cy="24" r="22" fill="#ffd47a" fill-opacity="0.3"/>
+  <circle cx="40" cy="24" r="14" fill="#ffd47a" fill-opacity="0.5"/>
+  <circle cx="40" cy="24" r="9" fill="#ffd47a" stroke="#ffffff" stroke-width="2.5"/>
+  <circle cx="40" cy="24" r="3" fill="#ffffff"/>
+  <rect x="0" y="38" width="80" height="18" fill="#0f0e0c" fill-opacity="0.9" rx="3"/>
+  <text x="40" y="50" text-anchor="middle" font-family="serif" font-size="11" font-weight="600" fill="#ffd47a">${node.title.slice(0, 10)}</text>
+</svg>`
       const iconUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg)
       const icon = new T.Icon({
         iconUrl,

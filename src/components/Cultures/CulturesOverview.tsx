@@ -15,6 +15,7 @@ import { useAllLearningContexts } from '@/utils/useLearningContext'
 import { enhancePersonaPrompt } from '@/utils/useLearningContext'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import PersonDetailDialog from '@/components/Figures/PersonDetailDialog'
+import MiniMap from '@/components/Figures/MiniMap'
 import type { Era, HistoricalFigure } from '@/types'
 
 const people = peopleData as HistoricalFigure[]
@@ -365,9 +366,26 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                 </div>
               </div>
 
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📍 位置</div>
-              <div className="text-xs text-ink-300 tabular-nums">
-                经度 {selectedEvent.location[0].toFixed(2)}°, 纬度 {selectedEvent.location[1].toFixed(2)}°
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
+              <MiniMap
+                focusNode={{
+                  title: selectedEvent.title,
+                  year: selectedEvent.year,
+                  location: selectedEvent.region,
+                  importance: selectedEvent.importance,
+                  coordinates: selectedEvent.location,
+                }}
+                allNodes={[{
+                  title: selectedEvent.title,
+                  year: selectedEvent.year,
+                  location: selectedEvent.region,
+                  importance: selectedEvent.importance,
+                  coordinates: selectedEvent.location,
+                }]}
+                onJumpToMap={() => handleEventViewOnMap(selectedEvent)}
+              />
+              <div className="text-xs text-ink-400 tabular-nums mt-2">
+                经度 {selectedEvent.location[0].toFixed(2)}°, 纬度 {selectedEvent.location[1].toFixed(2)}° ({selectedEvent.region})
               </div>
 
               <div className="flex gap-2 pt-3 border-t border-ink-700">

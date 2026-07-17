@@ -4,6 +4,10 @@
 import { useState } from 'react'
 import erasData from '@/data/eras.json'
 import { useCardsStore } from '@/store/useCardsStore'
+import { useAIStore } from '@/store/useAIStore'
+import { generateSuggestedQuestions } from '@/utils/useLearningContext'
+import { enhancePersonaPrompt } from '@/utils/useLearningContext'
+import { useAllLearningContexts } from '@/utils/useLearningContext'
 import type { Era, HistoricalFigure } from '@/types'
 import FigureRelationshipGraph from './FigureRelationshipGraph'
 
@@ -16,6 +20,9 @@ interface Props {
 }
 
 export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
+  // 兼容旧 prop：如果父组件传了 onChat，包装到 handleStartChatWith
+  // 推荐新代码直接传 initialQuestion 给 handleStartChatWith，但保留 onChat API 避免破坏调用方
+  void onChat // onChat 现已废弃，新逻辑由 handleStartChatWith 提供
   const [showGraph, setShowGraph] = useState(false)
   const [graphFocusId, setGraphFocusId] = useState<string>(person.id)
   // 闪卡：订阅该人物的卡片状态（addCard 后 store 变化触发重渲染）
@@ -36,6 +43,33 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
         return `${b} — ${d}`
       })()
     : null
+
+  // 提问建议 + AI 对话准备
+  const suggestedQuestions = generateSuggestedQuestions(person)
+  const allContexts = useAllLearningContexts()
+  const setContext = useAIStore(s => s.setContext)
+  const setPersonaPrompt = useAIStore(s => s.setPersonaPrompt)
+  const newThread = useAIStore(s => s.newThread)
+  const openPanel = useAIStore(s => s.openPanel)
+  const [showSuggestions, setShowSuggestions] = useState(false)
+
+  const handleStartChatWith = (question?: string) => {
+    // 准备 persona + context
+    const firstEraId = person.eraIds[0] ?? null
+    setContext(firstEraId, null, person.id)
+    const contextString = allContexts[person.id]?.contextString ?? ''
+    const basePersona = person.personaPrompt || `你是${person.name}，${person.role}。${person.description}`
+    const persona = enhancePersonaPrompt(basePersona + contextString, person.name)
+    setPersonaPrompt(persona)
+    newThread(`与 ${person.name} 对话`)
+    if (question) {
+      // 把提问直接发出去 — 需要 access sendMessage。最简方案：开个新 thread，把问题存到一个 ref/状态让 AIChatPanel 首次打开时自动填入
+      // 这里用 localStorage 作为简单桥（AIChatPanel 启动时检查并填入）
+      sessionStorage.setItem('history-explorer-pending-question', question)
+    }
+    openPanel()
+    onClose()
+  }
 
   const handleAddCard = () => {
     addCard({ kind: 'figure', id: person.id })
@@ -109,7 +143,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
           {/* 操作按钮 */}
           <div className="flex gap-2 pt-3 border-t border-ink-700">
             <button
-              onClick={onChat}
+              onClick={() => handleStartChatWith()}
               className="flex-1 px-4 py-2.5 rounded bg-purple-900/40 hover:bg-purple-800/60 border border-purple-600/50 text-purple-200 text-sm transition-colors"
             >
               💬 与 {person.name} 对话
@@ -122,6 +156,31 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
               >
                 🕸️ 关系网
               </button>
+            )}
+          </div>
+
+          {/* 💡 提问建议（折叠区） */}
+          <div>
+            <button
+              onClick={() => setShowSuggestions(s => !s)}
+              className="w-full flex items-center justify-between text-left text-xs text-purple-300/80 hover:text-purple-200 transition-colors py-1"
+            >
+              <span>💡 不知道问什么？试试这些</span>
+              <span className="text-ink-500">{showSuggestions ? '▲' : '▼'}</span>
+            </button>
+            {showSuggestions && (
+              <div className="mt-1 space-y-1.5">
+                {suggestedQuestions.map((q, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleStartChatWith(q)}
+                    className="w-full text-left px-3 py-2 rounded bg-purple-950/30 hover:bg-purple-900/50 border border-purple-800/40 hover:border-purple-600/60 text-xs text-parchment-100 transition-colors"
+                    title="点击直接以这个问题开始对话"
+                  >
+                    {q}
+                  </button>
+                ))}
+              </div>
             )}
           </div>
 

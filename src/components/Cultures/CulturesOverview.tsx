@@ -390,12 +390,6 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
 
               <div className="flex gap-2 pt-3 border-t border-ink-700">
                 <button
-                  onClick={() => handleEventViewOnMap(selectedEvent)}
-                  className="flex-1 px-4 py-2.5 rounded bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-600/50 text-emerald-200 text-sm transition-colors"
-                >
-                  🗺️ 在地图看位置
-                </button>
-                <button
                   onClick={() => handleEventChat(selectedEvent)}
                   className="flex-1 px-4 py-2.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors"
                 >

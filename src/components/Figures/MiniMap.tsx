@@ -104,9 +104,10 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
 
   // 当节点位置确定后，加 markers
   useEffect(() => {
+    console.log('[MiniMap] marker effect triggered', { status, hasMap: !!mapRef.current, focusNode: focusNode?.title, nodeCount: nodePositions.length })
     if (status !== 'ready' || !mapRef.current) return
     const T = (window as any).T
-    if (!T) return
+    if (!T) { console.log('[MiniMap] T not available'); return }
 
     const map = mapRef.current
 

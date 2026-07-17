@@ -116,57 +116,85 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
     })
     markersRef.current = []
 
-    // 只加 focus 节点（静态显示，无点击交互）
+    // 只加 focus 节点（用绝对定位 HTML marker，不依赖天地图 img 加载器）
     const focusEntry = nodePositions.find(({ node }) => node === focusNode)
     if (focusEntry && focusEntry.pos) {
       const { node, pos } = focusEntry
-      // 用 Canvas 生成 PNG base64（比 SVG dataURL 更兼容，避免天地图 img 解析问题）
-      const canvas = document.createElement('canvas')
-      canvas.width = 80
-      canvas.height = 56
-      const ctx = canvas.getContext('2d')!
-      // 外光晕
-      ctx.fillStyle = 'rgba(255, 212, 122, 0.3)'
-      ctx.beginPath()
-      ctx.arc(40, 24, 22, 0, Math.PI * 2)
-      ctx.fill()
-      // 内光晕
-      ctx.fillStyle = 'rgba(255, 212, 122, 0.5)'
-      ctx.beginPath()
-      ctx.arc(40, 24, 14, 0, Math.PI * 2)
-      ctx.fill()
-      // 中心圆点
-      ctx.fillStyle = '#ffd47a'
-      ctx.beginPath()
-      ctx.arc(40, 24, 9, 0, Math.PI * 2)
-      ctx.fill()
-      ctx.strokeStyle = '#ffffff'
-      ctx.lineWidth = 2.5
-      ctx.stroke()
-      // 内部白点
-      ctx.fillStyle = '#ffffff'
-      ctx.beginPath()
-      ctx.arc(40, 24, 3, 0, Math.PI * 2)
-      ctx.fill()
-      // 节点名 label
-      ctx.fillStyle = 'rgba(15, 14, 12, 0.9)'
-      ctx.fillRect(0, 38, 80, 18)
-      // 文字
-      ctx.fillStyle = '#ffd47a'
-      ctx.font = '600 11px serif'
-      ctx.textAlign = 'center'
-      ctx.textBaseline = 'middle'
-      ctx.fillText(node.title.slice(0, 10), 40, 47)
-      const iconUrl = canvas.toDataURL('image/png')
-      const icon = new T.Icon({
-        iconUrl,
-        iconSize: new T.Point(80, 56),
-        iconAnchor: new T.Point(40, 24),
-      })
-      const marker = new T.Marker(new T.LngLat(pos[0], pos[1]), { icon })
-      marker.setZIndexOffset(1000)  // 强制 marker 在瓦片之上
-      map.addOverLay(marker)
-      markersRef.current.push(marker)
+      // 创建一个绝对定位的 HTML div 作为 marker
+      const markerEl = document.createElement('div')
+      markerEl.style.cssText = `
+        position: absolute;
+        width: 80px;
+        height: 56px;
+        margin-left: -40px;
+        margin-top: -24px;
+        pointer-events: none;
+        z-index: 1000;
+        font-family: serif;
+      `
+      markerEl.innerHTML = `
+        <div style="position:absolute;left:18px;top:2px;width:44px;height:44px;border-radius:50%;background:rgba(255,212,122,0.3);"></div>
+        <div style="position:absolute;left:26px;top:10px;width:28px;height:28px;border-radius:50%;background:rgba(255,212,122,0.5);"></div>
+        <div style="position:absolute;left:31px;top:15px;width:18px;height:18px;border-radius:50%;background:#ffd47a;border:2.5px solid #ffffff;"></div>
+        <div style="position:absolute;left:36px;top:20px;width:8px;height:8px;border-radius:50%;background:#ffffff;"></div>
+        <div style="position:absolute;left:0;top:38px;width:80px;height:18px;background:rgba(15,14,12,0.9);border-radius:3px;display:flex;align-items:center;justify-content:center;">
+          <span style="color:#ffd47a;font-size:11px;font-weight:600;text-shadow:0 0 3px #0f0e0c;">${node.title.slice(0, 10)}</span>
+        </div>
+      `
+      // 把 div 放在 TMap 地图的 overlay 容器里
+      const mapContainer = containerRef.current
+      if (!mapContainer) return
+      // 找到 TMap 内部的 overlay 容器（最后一个 div 子元素通常是 mapPane）
+      const overlayPane = mapContainer.querySelector('div') || mapContainer
+      overlayPane.appendChild(markerEl)
+      markersRef.current.push({ el: markerEl, pos })
+
+      // 定位 marker 跟随地图缩放/平移
+      const updatePosition = () => {
+        try {
+          const T = (window as any).T
+          // 尝试多种 TMap API
+          let point: { x: number; y: number } | null = null
+          if (typeof map.lngLatToContainerPoint === 'function') {
+            point = map.lngLatToContainerPoint(new T.LngLat(pos[0], pos[1]))
+          } else if (typeof map.lngLatToPoint === 'function') {
+            point = map.lngLatToPoint(new T.LngLat(pos[0], pos[1]))
+          } else if (typeof map.project === 'function') {
+            // 找到 map.getSize 和 map.getBounds 自己算
+            const p = map.project(new T.LngLat(pos[0], pos[1]))
+            const size = map.getSize?.()
+            const tl = map.getBounds?.()
+            if (size && tl) {
+              const nwPx = map.project(new T.LngLat(tl.getWest(), tl.getNorth()))
+              const sePx = map.project(new T.LngLat(tl.getEast(), tl.getSouth()))
+              const ratio = (p.x - nwPx.x) / (sePx.x - nwPx.x)
+              const ratioY = (p.y - nwPx.y) / (sePx.y - nwPx.y)
+              point = { x: ratio * size.w, y: ratioY * size.h }
+            }
+          }
+          if (point) {
+            markerEl.style.left = point.x + 'px'
+            markerEl.style.top = point.y + 'px'
+            markerEl.style.display = 'block'
+          } else {
+            markerEl.style.display = 'none'
+          }
+        } catch {
+          markerEl.style.display = 'none'
+        }
+      }
+      // 初始定位
+      updatePosition()
+      // 跟随地图缩放/平移
+      map.addEventListener?.('moveend', updatePosition)
+      map.addEventListener?.('zoomend', updatePosition)
+      map.addEventListener?.('viewreset', updatePosition)
+      // 存清理函数
+      markersRef.current.push({ cleanup: () => {
+        map.removeEventListener?.('moveend', updatePosition)
+        map.removeEventListener?.('zoomend', updatePosition)
+        map.removeEventListener?.('viewreset', updatePosition)
+      }})
     }
   }, [status, focusNode, nodePositions, onJumpToMap])
 

@@ -5,8 +5,7 @@
  */
 import { useMemo, useState, useEffect, useRef } from 'react'
 import { ComposableMap, Geographies, Geography, Marker, ZoomableGroup } from 'react-simple-maps'
-import worldBaseRaw from '@/data/world_base.geojson?raw'
-const worldBase = JSON.parse(worldBaseRaw) as any
+import { CONTINENTS } from '@/data/geographic-features'
 import { lookupLocation, type LngLat } from '@/utils/locationCoords'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import type { MajorWarNode } from './WarsOverview'
@@ -24,6 +23,25 @@ interface MiniMapProps {
 
 const WIDTH = 360
 const HEIGHT = 220
+
+/** 把 CONTINENTS 转换成 GeoJSON FeatureCollection（供 react-simple-maps 渲染） */
+const CONTINENTS_GEO: any = {
+  type: 'FeatureCollection',
+  features: CONTINENTS.map(c => ({
+    type: 'Feature',
+    properties: { id: c.id, name: c.name, type: c.type },
+    geometry: c.geometry
+      ? {
+          type: c.geometry.length > 0 && Array.isArray(c.geometry[0]) && Array.isArray(c.geometry[0][0])
+            ? 'MultiPolygon'
+            : 'Polygon',
+          coordinates: c.geometry.length > 0 && Array.isArray(c.geometry[0]) && Array.isArray(c.geometry[0][0])
+            ? c.geometry
+            : [c.geometry],
+        }
+      : null,
+  })).filter(f => f.geometry),
+}
 
 export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode }: MiniMapProps) {
   // 计算所有节点的位置（解析 location → 经纬度）
@@ -153,13 +171,19 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
           minZoom={1}
           maxZoom={8}
         >
-          {/* 海洋底色 + 大陆轮廓 */}
-          <Geographies geography={worldBase as any}>
+          {/* 海洋底色 + 大陆轮廓（用 CONTINENTS 数据） */}
+          <Geographies geography={CONTINENTS_GEO}>
             {({ geographies }: any) => {
-              console.log('[MiniMap] geographies count:', geographies?.length)
+              if (!geographies || geographies.length === 0) {
+                return (
+                  <text x={WIDTH / 2} y={HEIGHT / 2} textAnchor="middle" fill="#666" fontSize={12}>
+                    地图加载失败
+                  </text>
+                )
+              }
               return geographies.map((geo: any) => (
                 <Geography
-                  key={geo.rsmKey}
+                  key={geo.rsmKey || geo.properties?.id}
                   geography={geo}
                   fill="#3a5a70"
                   stroke="#5a8090"

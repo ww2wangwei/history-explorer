@@ -472,9 +472,9 @@ export default function WorldMap() {
                   selectEvent(event.id)
                 }}
               >
-                {/* 透明 hit area，扩大点击区域 */}
+                {/* 透明 hit area，扩大点击区域（war=18px，普通=12px） */}
                 <circle
-                  r={12}
+                  r={isWar ? 18 : 12}
                   fill="transparent"
                   style={{ pointerEvents: 'all', cursor: 'pointer' }}
                 />
@@ -497,19 +497,37 @@ export default function WorldMap() {
                   />
                 )}
                 {isWar ? (
-                  // 战争专用：红色实心圆 + ⚔ 字符
+                  // 战争专用：红色实心圆 + ⚔ 字符 + 加大尺寸
                   <>
+                    {event.importance === 3 && (
+                      <circle
+                        r={16}
+                        fill="#b85450"
+                        opacity={0.18}
+                        style={{ pointerEvents: 'none' }}
+                      />
+                    )}
+                    {event.importance === 3 && (
+                      <circle
+                        r={11}
+                        fill="none"
+                        stroke="#b85450"
+                        strokeWidth={1.5}
+                        opacity={0.7}
+                        style={{ pointerEvents: 'none' }}
+                      />
+                    )}
                     <circle
-                      r={event.importance === 3 ? 6 : event.importance === 2 ? 5 : 4}
+                      r={event.importance === 3 ? 9 : event.importance === 2 ? 7 : 5}
                       fill="#b85450"
                       stroke="#fdf8f0"
-                      strokeWidth={1.2}
+                      strokeWidth={1.5}
                       style={{ pointerEvents: 'none' }}
                     />
                     <text
                       textAnchor="middle"
                       dominantBaseline="central"
-                      fontSize={event.importance === 3 ? 8 : event.importance === 2 ? 7 : 6}
+                      fontSize={event.importance === 3 ? 12 : event.importance === 2 ? 10 : 8}
                       fill="#fdf8f0"
                       style={{ pointerEvents: 'none', userSelect: 'none', fontWeight: 'bold' }}
                     >
@@ -546,8 +564,8 @@ export default function WorldMap() {
                     <circle r={16} fill="none" stroke="#ffd47a" strokeWidth={1} opacity={0.5} />
                   </g>
                 )}
-                {/* 战争名标签：仅 importance=3 显示 */}
-                {isWar && event.importance === 3 && (
+                {/* 战争名标签：importance>=2 显示（之前仅 imp=3） */}
+                {isWar && event.importance >= 2 && (
                   <text
                     textAnchor="middle"
                     y={-12}

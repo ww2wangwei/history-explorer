@@ -235,13 +235,43 @@ function WarDetailDialog({ war, onClose }: {
             </div>
           )}
 
-          {/* 经过 — 主要描述 */}
+          {/* 背景 — 战前形势 */}
+          {war.warBackground && (
+            <div>
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📜 战争背景</div>
+              <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
+                {war.warBackground}
+              </div>
+            </div>
+          )}
+
+          {/* 经过 — 主描述（必显示） */}
           <div>
             <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">⚔️ 战争经过</div>
             <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
               {war.description ?? '（暂无描述）'}
             </div>
           </div>
+
+          {/* 结果 — 胜负/签约 */}
+          {war.warResult && (
+            <div>
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🏁 战争结果</div>
+              <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
+                {war.warResult}
+              </div>
+            </div>
+          )}
+
+          {/* 影响 — 后世格局变化（如果有） */}
+          {war.warImpact && (
+            <div className="p-3 rounded bg-amber-900/15 border border-amber-700/40">
+              <div className="text-[10px] text-amber-400 uppercase tracking-wider mb-1.5">🎯 历史影响</div>
+              <div className="text-sm text-parchment-100 leading-relaxed">
+                {war.warImpact}
+              </div>
+            </div>
+          )}
 
           {/* 关联事件（同一战争的后续/前奏） */}
           {war.relatedEventIds && war.relatedEventIds.length > 0 && (
@@ -265,8 +295,8 @@ function WarDetailDialog({ war, onClose }: {
             </div>
           )}
 
-          {/* 重要度提示 */}
-          {isKey && (
+          {/* 重要度提示（无 warImpact 时 fallback） */}
+          {isKey && !war.warImpact && (
             <div className="p-3 rounded bg-amber-900/20 border border-amber-700/40">
               <div className="text-[10px] text-amber-400 uppercase tracking-wider mb-1">🎯 历史意义</div>
               <div className="text-xs text-parchment-100 leading-relaxed">

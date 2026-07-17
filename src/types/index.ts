@@ -15,6 +15,12 @@ export interface HistoricalEvent {
   importance: 1 | 2 | 3;              // 用于时间轴视觉权重
   relatedEraId?: string;              // 关联的朝代/文明
   relatedEventIds?: string[];        // 因果/时间关联事件（跨朝代故事线）
+  /** 战争专用：背景（开战前的政治/经济/军事形势） */
+  warBackground?: string;
+  /** 战争专用：结果（胜负/签约/将领命运） */
+  warResult?: string;
+  /** 战争专用：对后世的影响（格局变化/文明转折/制度演进） */
+  warImpact?: string;
 }
 
 // 历史人物

@@ -457,6 +457,12 @@ export default function WorldMap() {
         {/* 事件标记点 */}
         {visibleEvents.filter(e => e.coordinates).map(event => {
           const eventIsGhost = !isInRange(event)
+          const isWar = event.category === '军事' || event.category === 'military'
+          // 是否是当前聚焦的战争（用户从 WarsOverview 跳过来）
+          const isFocusedWar = isWar && mapFocusTarget
+            && event.coordinates
+            && Math.abs(event.coordinates[0] - mapFocusTarget.center[0]) < 0.5
+            && Math.abs(event.coordinates[1] - mapFocusTarget.center[1]) < 0.5
           return (
             <Marker key={event.id} coordinates={event.coordinates!}>
               <g
@@ -466,30 +472,96 @@ export default function WorldMap() {
                   selectEvent(event.id)
                 }}
               >
-                {/* 透明 hit area，扩大点击区域（不影响视觉） */}
+                {/* 透明 hit area，扩大点击区域 */}
                 <circle
                   r={12}
                   fill="transparent"
                   style={{ pointerEvents: 'all', cursor: 'pointer' }}
                 />
-                {event.importance === 3 && (
+                {isWar && event.importance === 3 && (
                   <circle
-                    r={10}
-                    fill={CATEGORY_COLORS[event.category]}
-                    opacity={0.25}
+                    r={11}
+                    fill="#b85450"
+                    opacity={0.18}
                     style={{ pointerEvents: 'none' }}
                   />
                 )}
-                <circle
-                  r={event.importance === 3 ? 5 : event.importance === 2 ? 3.8 : 2.8}
-                  fill={CATEGORY_COLORS[event.category]}
-                  stroke="#fdf8f0"
-                  strokeWidth={1}
-                  style={{ pointerEvents: 'none' }}
-                />
-              <title>{`${event.title}（${event.year < 0 ? '公元前' + Math.abs(event.year) : event.year} 年）`}</title>
-            </g>
-          </Marker>
+                {isWar && event.importance === 3 && (
+                  <circle
+                    r={8}
+                    fill="none"
+                    stroke="#b85450"
+                    strokeWidth={0.8}
+                    opacity={0.5}
+                    style={{ pointerEvents: 'none' }}
+                  />
+                )}
+                {isWar ? (
+                  // 战争专用：红色实心圆 + ⚔ 字符
+                  <>
+                    <circle
+                      r={event.importance === 3 ? 6 : event.importance === 2 ? 5 : 4}
+                      fill="#b85450"
+                      stroke="#fdf8f0"
+                      strokeWidth={1.2}
+                      style={{ pointerEvents: 'none' }}
+                    />
+                    <text
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      fontSize={event.importance === 3 ? 8 : event.importance === 2 ? 7 : 6}
+                      fill="#fdf8f0"
+                      style={{ pointerEvents: 'none', userSelect: 'none', fontWeight: 'bold' }}
+                    >
+                      ⚔
+                    </text>
+                  </>
+                ) : (
+                  // 非战争：原有纯色圆
+                  <>
+                    {event.importance === 3 && (
+                      <circle
+                        r={10}
+                        fill={CATEGORY_COLORS[event.category]}
+                        opacity={0.25}
+                        style={{ pointerEvents: 'none' }}
+                      />
+                    )}
+                    <circle
+                      r={event.importance === 3 ? 5 : event.importance === 2 ? 3.8 : 2.8}
+                      fill={CATEGORY_COLORS[event.category]}
+                      stroke="#fdf8f0"
+                      strokeWidth={1}
+                      style={{ pointerEvents: 'none' }}
+                    />
+                  </>
+                )}
+                {/* 聚焦的战争：加高亮靶心环 */}
+                {isFocusedWar && (
+                  <g style={{ pointerEvents: 'none' }}>
+                    <circle r={20} fill="none" stroke="#ffd47a" strokeWidth={1.5} opacity={0.7}>
+                      <animate attributeName="r" values="14;26;14" dur="2s" repeatCount="indefinite" />
+                      <animate attributeName="opacity" values="0.9;0.2;0.9" dur="2s" repeatCount="indefinite" />
+                    </circle>
+                    <circle r={16} fill="none" stroke="#ffd47a" strokeWidth={1} opacity={0.5} />
+                  </g>
+                )}
+                {/* 战争名标签：仅 importance=3 显示 */}
+                {isWar && event.importance === 3 && (
+                  <text
+                    textAnchor="middle"
+                    y={-12}
+                    fontSize={9}
+                    fill="#ffd47a"
+                    fontWeight="600"
+                    style={{ pointerEvents: 'none', userSelect: 'none', paintOrder: 'stroke', stroke: '#0f0e0c', strokeWidth: 2.5, strokeLinejoin: 'round' }}
+                  >
+                    ⚔ {event.title}
+                  </text>
+                )}
+                <title>{`${event.title}（${event.year < 0 ? '公元前' + Math.abs(event.year) : event.year} 年）${isWar ? ' · 战争' : ''}`}</title>
+              </g>
+            </Marker>
           )
         })}
 

@@ -141,11 +141,25 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
           <span style="color:#ffd47a;font-size:11px;font-weight:600;text-shadow:0 0 3px #0f0e0c;">${node.title.slice(0, 10)}</span>
         </div>
       `
-      // 把 div 放在 TMap 地图的 overlay 容器里
+      // 把 div 放在 TMap 内部 mapPane（最大尺寸的 div 子元素）
       const mapContainer = containerRef.current
       if (!mapContainer) return
-      // 找到 TMap 内部的 overlay 容器（最后一个 div 子元素通常是 mapPane）
-      const overlayPane = mapContainer.querySelector('div') || mapContainer
+      // 找最深的 div 子元素（mapPane 嵌套最深）
+      let overlayPane: HTMLElement = mapContainer
+      let deepestSize = 0
+      mapContainer.querySelectorAll('div').forEach(div => {
+        const rect = div.getBoundingClientRect()
+        const size = rect.width * rect.height
+        if (size > deepestSize) {
+          deepestSize = size
+          overlayPane = div as HTMLElement
+        }
+      })
+      // 确保 overlayPane 是 relative 或 absolute（这样 absolute 子元素定位正确）
+      const cs = window.getComputedStyle(overlayPane)
+      if (cs.position === 'static') {
+        overlayPane.style.position = 'relative'
+      }
       overlayPane.appendChild(markerEl)
       markersRef.current.push({ el: markerEl, pos })
 

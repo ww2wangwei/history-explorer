@@ -63,12 +63,12 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
           containerRef.current.removeChild(containerRef.current.firstChild)
         }
 
-        // 创建地图（中心 = 当前节点位置，zoom 3 国家级）
+        // 创建地图（中心 = 当前节点位置，zoom 5 城市级）
         const map = new T.Map(containerRef.current, {
           projection: 'EPSG:4326',
         })
         const center: [number, number] = focusPos ?? [104, 35]
-        const zoom = focusPos ? 4 : 3
+        const zoom = focusPos ? 5 : 3
         map.centerAndZoom(new T.LngLat(center[0], center[1]), zoom)
         if (typeof map.enableScrollWheelZoom === 'function') {
           map.enableScrollWheelZoom()
@@ -107,40 +107,36 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
     })
     markersRef.current = []
 
-    // 加所有节点 marker（TMap v4.0 的 icon 必须是 T.Icon 对象，不能是 DOM 元素）
-    nodePositions.forEach(({ node, pos }) => {
-      if (!pos) return
-      const isFocus = node === focusNode
-      const isImp3 = node.importance === 3
-
-      // 生成 SVG 图钉（dataURL）
-      const size = isFocus ? 18 : isImp3 ? 12 : 10
-      const color = isFocus ? '#ffd47a' : isImp3 ? '#b85450' : '#7a8a98'
-      const strokeColor = isFocus ? '#fdf8f0' : '#000'
-      const labelText = isFocus
-        ? `<text x="0" y="-12" text-anchor="middle" font-size="9" fill="#ffd47a" font-family="serif" font-weight="600" paint-order="stroke" stroke="#0f0e0c" stroke-width="2.5">${node.title.slice(0, 8)}</text>`
-        : ''
-      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size + 4}" height="${size + 12}" viewBox="0 0 ${size + 4} ${size + 12}">${labelText}<circle cx="${(size + 4) / 2}" cy="${size / 2 + 2}" r="${size / 2}" fill="${color}" stroke="${strokeColor}" stroke-width="1.5"/></svg>`
+    // 只加 focus 节点（简化设计：只显示当前事件的位置）
+    const focusEntry = nodePositions.find(({ node }) => node === focusNode)
+    if (focusEntry && focusEntry.pos) {
+      const { node, pos } = focusEntry
+      // 大号金色图钉 + 金色光晕 + 节点名 label
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="56" viewBox="0 0 80 56">
+          <!-- 金色光晕 -->
+          <circle cx="40" cy="24" r="22" fill="#ffd47a" opacity="0.25"/>
+          <circle cx="40" cy="24" r="14" fill="#ffd47a" opacity="0.35"/>
+          <!-- 中心圆点 -->
+          <circle cx="40" cy="24" r="9" fill="#ffd47a" stroke="#fdf8f0" stroke-width="2.5"/>
+          <circle cx="40" cy="24" r="3" fill="#fdf8f0"/>
+          <!-- 节点名 label（圆点下方） -->
+          <rect x="0" y="38" width="80" height="18" rx="3" fill="rgba(15, 14, 12, 0.85)"/>
+          <text x="40" y="50" text-anchor="middle" font-size="11" fill="#ffd47a" font-family="serif" font-weight="600" paint-order="stroke" stroke="#0f0e0c" stroke-width="2.5">${node.title.slice(0, 10)}</text>
+        </svg>`
       const iconUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg)
-
       const icon = new T.Icon({
         iconUrl,
-        iconSize: new T.Point(size + 4, size + 12),
-        iconAnchor: new T.Point((size + 4) / 2, size / 2 + 2),
+        iconSize: new T.Point(80, 56),
+        iconAnchor: new T.Point(40, 24),
       })
       const marker = new T.Marker(new T.LngLat(pos[0], pos[1]), { icon })
-
       marker.addEventListener('click', () => {
-        if (isFocus) {
-          onJumpToMap(pos, node.year, node.title)
-        } else {
-          onSwitchNodeRef.current?.(node)
-        }
+        onJumpToMap(pos, node.year, node.title)
       })
-
       map.addOverLay(marker)
       markersRef.current.push(marker)
-    })
+    }
   }, [status, focusNode, nodePositions, onJumpToMap])
 
   if (!focusPos) {

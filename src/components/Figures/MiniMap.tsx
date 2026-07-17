@@ -151,25 +151,35 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
       // 直接放到 mapContainer（MiniMap 根 div）
       mapContainer.appendChild(markerEl)
 
-      // 自己用 Web Mercator 算像素位置（不依赖 TMap API）
-      // zoom=5（与 TMap 初始化一致）
+      // 自己用 Web Mercator 算 marker 位置
+      // 关键: TMap 渲染逻辑 = 整世界 (lngToX/latToY) 缩放到容器
+      // 公式: 屏幕位置 = (世界坐标差 * 缩放比例) + 容器中心
+      // TMap zoom=5: 世界宽 256 * 2^5 = 8192 像素
+      // 缩放比例 = containerWidth / 8192
       const TILE_SIZE = 256
       const ZOOM = 5
       const n = Math.pow(2, ZOOM)
       const containerRect = mapContainer.getBoundingClientRect()
       const W = containerRect.width
       const H = containerRect.height
-      // TMap 在 zoom 5 下，世界以 256 * 2^5 = 8192 像素宽度平铺到 W×H
-      // map.centerAndZoom 居中
-      // 经度 → x: (lng + 180) / 360 * 8192
-      // 纬度 → y: (1 - log(tan(lat*PI/4 + PI/4)) / PI) / 2 * 8192
+      const scale = W / (TILE_SIZE * n)  // 缩放比例
+
+      // TMap 内部坐标转换（Web Mercator）
       const lngToX = (lng: number) => (lng + 180) / 360 * (TILE_SIZE * n)
       const latToY = (lat: number) => (1 - Math.log(Math.tan(lat * Math.PI / 180 / 2 + Math.PI / 4)) / Math.PI) / 2 * (TILE_SIZE * n)
-      const worldX = lngToX(pos[0])
-      const worldY = latToY(pos[1])
-      // 居中：屏幕坐标 = world - (worldCenter) + containerCenter
-      // TMap 中心是 (W/2, H/2)
-      markerEl.style.transform = `translate3d(${W / 2 - worldX}px, ${H / 2 - worldY}px, 0)`
+
+      // TMap center 坐标（= focusPos）
+      const centerWorldX = lngToX(focusPos[0])
+      const centerWorldY = latToY(focusPos[1])
+      // 节点坐标
+      const nodeWorldX = lngToX(pos[0])
+      const nodeWorldY = latToY(pos[1])
+      // 屏幕位置
+      const screenX = (nodeWorldX - centerWorldX) * scale + W / 2
+      const screenY = (nodeWorldY - centerWorldY) * scale + H / 2
+
+      markerEl.style.transform = `translate3d(${screenX}px, ${screenY}px, 0)`
+      console.log('[MiniMap] marker at', { screenX, screenY, focusPos: focusPos, nodePos: pos })
 
       markersRef.current.push({ el: markerEl })
     }

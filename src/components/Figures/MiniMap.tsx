@@ -126,17 +126,14 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
       // 创建一个绝对定位的 HTML div 作为 marker
       const markerEl = document.createElement('div')
       markerEl.style.cssText = `
-        position: absolute;
+        position: fixed;
         width: 80px;
         height: 56px;
-        left: 0;
-        top: 0;
         margin-left: -40px;
         margin-top: -24px;
         pointer-events: none;
-        z-index: 9999;
+        z-index: 99999;
         font-family: serif;
-        transform: translate3d(0,0,0);
         will-change: transform;
       `
       markerEl.innerHTML = `
@@ -148,10 +145,10 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
           <span style="color:#ffd47a;font-size:11px;font-weight:600;text-shadow:0 0 3px #0f0e0c;">${node.title.slice(0, 10)}</span>
         </div>
       `
-      // 直接放到 mapContainer（MiniMap 根 div）
-      mapContainer.appendChild(markerEl)
+      // 直接放到 body（最顶层，不被 TMap 内部遮挡）
+      document.body.appendChild(markerEl)
 
-      // 自己用 Web Mercator 算 marker 位置
+      // 自己用 Web Mercator 算 marker 位置（fixed 定位用 viewport 坐标）
       // 关键: TMap 渲染逻辑 = 整世界 (lngToX/latToY) 缩放到容器
       // 公式: 屏幕位置 = (世界坐标差 * 缩放比例) + 容器中心
       // TMap zoom=5: 世界宽 256 * 2^5 = 8192 像素
@@ -174,12 +171,14 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
       // 节点坐标
       const nodeWorldX = lngToX(pos[0])
       const nodeWorldY = latToY(pos[1])
-      // 屏幕位置
-      const screenX = (nodeWorldX - centerWorldX) * scale + W / 2
-      const screenY = (nodeWorldY - centerWorldY) * scale + H / 2
+      // 屏幕位置（容器内 + 容器 viewport 位置）
+      const screenX = (nodeWorldX - centerWorldX) * scale + containerRect.left + W / 2
+      const screenY = (nodeWorldY - centerWorldY) * scale + containerRect.top + H / 2
 
-      markerEl.style.transform = `translate3d(${screenX}px, ${screenY}px, 0)`
-      console.log('[MiniMap] marker at', { screenX, screenY, focusPos: focusPos, nodePos: pos })
+      markerEl.style.left = screenX + 'px'
+      markerEl.style.top = screenY + 'px'
+
+      console.log('[MiniMap] marker at', { screenX, screenY, containerLeft: containerRect.left, containerTop: containerRect.top })
 
       markersRef.current.push({ el: markerEl })
     }

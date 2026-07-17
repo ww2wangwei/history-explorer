@@ -912,7 +912,7 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
             </div>
           )}
 
-          {/* 🗺️ 缩略地图 — 显示战争位置 */}
+          {/* 🗺️ 缩略地图 — 显示战争位置（直接用 war.coordinates 经纬度） */}
           {war.coordinates && (
             <div>
               <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
@@ -920,14 +920,16 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
                 focusNode={{
                   title: war.title,
                   year: war.year,
-                  location: war.country || (war.coordinates ? `${war.coordinates[0].toFixed(1)}, ${war.coordinates[1].toFixed(1)}` : ''),
+                  location: war.country || `${war.coordinates[0].toFixed(1)}, ${war.coordinates[1].toFixed(1)}`,
                   importance: war.importance,
+                  coordinates: war.coordinates,
                 }}
                 allNodes={[{
                   title: war.title,
                   year: war.year,
                   location: war.country || `${war.coordinates[0].toFixed(1)}, ${war.coordinates[1].toFixed(1)}`,
                   importance: war.importance,
+                  coordinates: war.coordinates,
                 }]}
                 onJumpToMap={(lngLat, year, label) => {
                   onClose()

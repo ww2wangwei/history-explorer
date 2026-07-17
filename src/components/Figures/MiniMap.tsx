@@ -13,6 +13,8 @@ export interface MapNode {
   year: number
   location: string
   importance: 1 | 2 | 3
+  /** 优先使用：直接经纬度（如果有） */
+  coordinates?: [number, number]
 }
 
 interface MiniMapProps {
@@ -34,9 +36,9 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
   const [status, setStatus] = useState<'init' | 'loading' | 'ready' | 'error'>('init')
   const [error, setError] = useState<string | null>(null)
 
-  // 节点位置
+  // 节点位置：优先用 node.coordinates（精确），否则查 location 字典
   const nodePositions = allNodes
-    .map(node => ({ node, pos: lookupLocation(node.location) }))
+    .map(node => ({ node, pos: node.coordinates || lookupLocation(node.location) }))
     .filter(x => x.pos) as Array<{ node: MajorWarNode; pos: LngLat }>
 
   const focusPos = lookupLocation(focusNode.location)

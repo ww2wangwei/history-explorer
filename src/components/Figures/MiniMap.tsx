@@ -116,21 +116,28 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
     })
     markersRef.current = []
 
-    // 只加 focus 节点（用绝对定位 HTML marker，不依赖天地图 img 加载器）
+    // 只加 focus 节点（自己用 Web Mercator 算像素位置，不依赖天地图 API）
     const focusEntry = nodePositions.find(({ node }) => node === focusNode)
     if (focusEntry && focusEntry.pos) {
       const { node, pos } = focusEntry
+      const mapContainer = containerRef.current
+      if (!mapContainer) return
+
       // 创建一个绝对定位的 HTML div 作为 marker
       const markerEl = document.createElement('div')
       markerEl.style.cssText = `
         position: absolute;
         width: 80px;
         height: 56px;
+        left: 0;
+        top: 0;
         margin-left: -40px;
         margin-top: -24px;
         pointer-events: none;
-        z-index: 1000;
+        z-index: 9999;
         font-family: serif;
+        transform: translate3d(0,0,0);
+        will-change: transform;
       `
       markerEl.innerHTML = `
         <div style="position:absolute;left:18px;top:2px;width:44px;height:44px;border-radius:50%;background:rgba(255,212,122,0.3);"></div>
@@ -141,85 +148,30 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
           <span style="color:#ffd47a;font-size:11px;font-weight:600;text-shadow:0 0 3px #0f0e0c;">${node.title.slice(0, 10)}</span>
         </div>
       `
-      // 把 div 放在 TMap 内部 mapPane（最大尺寸的 div 子元素）
-      const mapContainer = containerRef.current
-      if (!mapContainer) return
-      // 找最深的 div 子元素（mapPane 嵌套最深）
-      let overlayPane: HTMLElement = mapContainer
-      let deepestSize = 0
-      mapContainer.querySelectorAll('div').forEach(div => {
-        const rect = div.getBoundingClientRect()
-        const size = rect.width * rect.height
-        if (size > deepestSize) {
-          deepestSize = size
-          overlayPane = div as HTMLElement
-        }
-      })
-      // 确保 overlayPane 是 relative 或 absolute（这样 absolute 子元素定位正确）
-      const cs = window.getComputedStyle(overlayPane)
-      if (cs.position === 'static') {
-        overlayPane.style.position = 'relative'
-      }
-      overlayPane.appendChild(markerEl)
-      markersRef.current.push({ el: markerEl, pos })
+      // 直接放到 mapContainer（MiniMap 根 div）
+      mapContainer.appendChild(markerEl)
 
-      // 定位 marker 跟随地图缩放/平移
-      const updatePosition = () => {
-        try {
-          const T = (window as any).T
-          // 尝试多种 TMap API
-          let point: { x: number; y: number } | null = null
-          if (typeof map.lngLatToContainerPoint === 'function') {
-            point = map.lngLatToContainerPoint(new T.LngLat(pos[0], pos[1]))
-          } else if (typeof map.lngLatToPoint === 'function') {
-            point = map.lngLatToPoint(new T.LngLat(pos[0], pos[1]))
-          } else if (typeof map.project === 'function') {
-            // 找到 map.getSize 和 map.getBounds 自己算
-            const p = map.project(new T.LngLat(pos[0], pos[1]))
-            const size = map.getSize?.()
-            const tl = map.getBounds?.()
-            if (size && tl) {
-              const nwPx = map.project(new T.LngLat(tl.getWest(), tl.getNorth()))
-              const sePx = map.project(new T.LngLat(tl.getEast(), tl.getSouth()))
-              const ratio = (p.x - nwPx.x) / (sePx.x - nwPx.x)
-              const ratioY = (p.y - nwPx.y) / (sePx.y - nwPx.y)
-              point = { x: ratio * size.w, y: ratioY * size.h }
-            }
-          }
-          console.log('[MiniMap] updatePosition', { pos, point, methods: {
-            lngLatToContainerPoint: typeof map.lngLatToContainerPoint,
-            lngLatToPoint: typeof map.lngLatToPoint,
-            project: typeof map.project,
-          }, pointType: typeof point, pointKeys: point ? Object.keys(point) : null, pointX: (point as any).x, pointGetX: typeof (point as any).getX === 'function' ? (point as any).getX() : null })
-          if (point) {
-            // TMap T.Point 是类数组 [x, y]
-            // 优先用 [0]/[1]，fallback 到 .x/.y
-            const arr = point as any
-            const x = arr[0] ?? arr.x ?? arr.getX?.()
-            const y = arr[1] ?? arr.y ?? arr.getY?.()
-            console.log('[MiniMap] marker pos:', { x, y, raw0: arr[0], raw1: arr[1], rawX: arr.x, rawY: arr.y, display: markerEl.style.display, left: markerEl.style.left, top: markerEl.style.top, inDOM: document.body.contains(markerEl), overlayPaneRect: overlayPane.getBoundingClientRect() })
-            markerEl.style.left = x + 'px'
-            markerEl.style.top = y + 'px'
-            markerEl.style.display = 'block'
-          } else {
-            markerEl.style.display = 'none'
-          }
-        } catch {
-          markerEl.style.display = 'none'
-        }
-      }
-      // 初始定位
-      updatePosition()
-      // 跟随地图缩放/平移
-      map.addEventListener?.('moveend', updatePosition)
-      map.addEventListener?.('zoomend', updatePosition)
-      map.addEventListener?.('viewreset', updatePosition)
-      // 存清理函数
-      markersRef.current.push({ cleanup: () => {
-        map.removeEventListener?.('moveend', updatePosition)
-        map.removeEventListener?.('zoomend', updatePosition)
-        map.removeEventListener?.('viewreset', updatePosition)
-      }})
+      // 自己用 Web Mercator 算像素位置（不依赖 TMap API）
+      // zoom=5（与 TMap 初始化一致）
+      const TILE_SIZE = 256
+      const ZOOM = 5
+      const n = Math.pow(2, ZOOM)
+      const containerRect = mapContainer.getBoundingClientRect()
+      const W = containerRect.width
+      const H = containerRect.height
+      // TMap 在 zoom 5 下，世界以 256 * 2^5 = 8192 像素宽度平铺到 W×H
+      // map.centerAndZoom 居中
+      // 经度 → x: (lng + 180) / 360 * 8192
+      // 纬度 → y: (1 - log(tan(lat*PI/4 + PI/4)) / PI) / 2 * 8192
+      const lngToX = (lng: number) => (lng + 180) / 360 * (TILE_SIZE * n)
+      const latToY = (lat: number) => (1 - Math.log(Math.tan(lat * Math.PI / 180 / 2 + Math.PI / 4)) / Math.PI) / 2 * (TILE_SIZE * n)
+      const worldX = lngToX(pos[0])
+      const worldY = latToY(pos[1])
+      // 居中：屏幕坐标 = world - (worldCenter) + containerCenter
+      // TMap 中心是 (W/2, H/2)
+      markerEl.style.transform = `translate3d(${W / 2 - worldX}px, ${H / 2 - worldY}px, 0)`
+
+      markersRef.current.push({ el: markerEl })
     }
   }, [status, focusNode, nodePositions, onJumpToMap])
 

@@ -107,48 +107,30 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
     })
     markersRef.current = []
 
-    // 加所有节点 marker
+    // 加所有节点 marker（TMap v4.0 的 icon 必须是 T.Icon 对象，不能是 DOM 元素）
     nodePositions.forEach(({ node, pos }) => {
       if (!pos) return
       const isFocus = node === focusNode
       const isImp3 = node.importance === 3
 
-      // 自定义 marker DOM
-      const el = document.createElement('div')
-      el.style.cssText = `
-        position: relative;
-        width: ${isFocus ? 18 : isImp3 ? 12 : 10}px;
-        height: ${isFocus ? 18 : isImp3 ? 12 : 10}px;
-        background: ${isFocus ? '#ffd47a' : isImp3 ? '#b85450' : '#7a8a98'};
-        border: ${isFocus ? '2px solid #fdf8f0' : '1px solid rgba(255,255,255,0.3)'};
-        border-radius: 50%;
-        cursor: pointer;
-        box-shadow: ${isFocus ? '0 0 12px rgba(255,212,122,0.6)' : '0 1px 3px rgba(0,0,0,0.5)'};
-      `
-      el.title = `${node.year < 0 ? 'BC ' + (-node.year) : node.year} · ${node.title}`
+      // 生成 SVG 图钉（dataURL）
+      const size = isFocus ? 18 : isImp3 ? 12 : 10
+      const color = isFocus ? '#ffd47a' : isImp3 ? '#b85450' : '#7a8a98'
+      const strokeColor = isFocus ? '#fdf8f0' : '#000'
+      const labelText = isFocus
+        ? `<text x="0" y="-12" text-anchor="middle" font-size="9" fill="#ffd47a" font-family="serif" font-weight="600" paint-order="stroke" stroke="#0f0e0c" stroke-width="2.5">${node.title.slice(0, 8)}</text>`
+        : ''
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size + 4}" height="${size + 12}" viewBox="0 0 ${size + 4} ${size + 12}">${labelText}<circle cx="${(size + 4) / 2}" cy="${size / 2 + 2}" r="${size / 2}" fill="${color}" stroke="${strokeColor}" stroke-width="1.5"/></svg>`
+      const iconUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg)
 
-      if (isFocus) {
-        const label = document.createElement('div')
-        label.textContent = node.title
-        label.style.cssText = `
-          position: absolute;
-          left: 50%;
-          top: -22px;
-          transform: translateX(-50%);
-          background: rgba(15, 14, 12, 0.85);
-          color: #ffd47a;
-          font-size: 11px;
-          font-family: serif;
-          padding: 1px 6px;
-          border-radius: 3px;
-          white-space: nowrap;
-          text-shadow: 0 0 3px #0f0e0c;
-        `
-        el.appendChild(label)
-      }
+      const icon = new T.Icon({
+        iconUrl,
+        iconSize: new T.Point(size + 4, size + 12),
+        iconAnchor: new T.Point((size + 4) / 2, size / 2 + 2),
+      })
+      const marker = new T.Marker(new T.LngLat(pos[0], pos[1]), { icon })
 
-      el.addEventListener('click', (e) => {
-        e.stopPropagation()
+      marker.addEventListener('click', () => {
         if (isFocus) {
           onJumpToMap(pos, node.year, node.title)
         } else {
@@ -156,7 +138,6 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
         }
       })
 
-      const marker = new T.Marker(new T.LngLat(pos[0], pos[1]), { icon: el })
       map.addOverLay(marker)
       markersRef.current.push(marker)
     })

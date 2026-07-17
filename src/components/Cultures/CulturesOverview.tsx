@@ -1,37 +1,65 @@
 /**
  * CulturesOverview — 全文化全屏浏览页
- * 数据源：people.json 中 category in ['thinker', 'literati', 'religious'] 的人物
- * 完全复用 FiguresOverview 的模式 + PersonDetailDialog
+ * 两个 tab:
+ *   - 人物: people.json 中 thinker/literati/religious 的人物（孔子、达芬奇、释迦牟尼等）
+ *   - 文化内容: culture-events.json 中的事件/作品/思想/建筑/科技/制度
+ *     （造纸术、印刷术、《蒙娜丽莎》、金字塔、长城、四大发明等）
  */
 import { useEffect, useMemo, useState } from 'react'
 import peopleData from '@/data/people.json'
 import erasData from '@/data/eras.json'
+import cultureEventsData from '@/data/culture-events.json'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
 import { useAIStore } from '@/store/useAIStore'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
 import { enhancePersonaPrompt } from '@/utils/useLearningContext'
+import { useHistoryStore } from '@/store/useHistoryStore'
 import PersonDetailDialog from '@/components/Figures/PersonDetailDialog'
 import type { Era, HistoricalFigure } from '@/types'
 
 const people = peopleData as HistoricalFigure[]
 const eras = erasData as Era[]
+const cultureEvents = cultureEventsData as Array<{
+  id: string
+  title: string
+  year: number
+  category: string
+  location: [number, number]
+  region: string
+  importance: 1 | 2 | 3
+  description: string
+}>
 
-// 全文化只展示这些分类的人物
 const CULTURE_CATEGORIES: HistoricalFigure['category'][] = ['thinker', 'literati', 'religious']
 const culturePeople = people.filter(p => p.category && CULTURE_CATEGORIES.includes(p.category))
+
+const CULTURE_CATEGORY_LABELS: Record<string, { icon: string; color: string }> = {
+  '文字': { icon: '✍️', color: '#9bc89a' },
+  '制度': { icon: '📜', color: '#c89a5b' },
+  '建筑': { icon: '🏛️', color: '#b85450' },
+  '学术': { icon: '📚', color: '#5b9bc8' },
+  '科技': { icon: '⚙️', color: '#9b7eb6' },
+  '艺术': { icon: '🎨', color: '#c8a85b' },
+  '文学': { icon: '✒️', color: '#5bc89a' },
+  '思想': { icon: '💭', color: '#7a8a98' },
+  '宗教': { icon: '☸️', color: '#c89a8a' },
+}
 
 interface Props {
   isActive: boolean
   onClose: () => void
 }
 
+type Tab = 'people' | 'events'
 type RegionFilter = 'all' | 'china' | 'world'
 
 export default function CulturesOverview({ isActive, onClose }: Props) {
+  const [tab, setTab] = useState<Tab>('events')  // 默认显示文化内容（更丰富）
   const [region, setRegion] = useState<RegionFilter>('all')
-  const [category, setCategory] = useState<'all' | 'thinker' | 'literati' | 'religious'>('all')
-  const [query, setQuery] = useState('')
   const [selectedPerson, setSelectedPerson] = useState<HistoricalFigure | null>(null)
+  const [selectedEvent, setSelectedEvent] = useState<(typeof cultureEvents)[number] | null>(null)
+  const [category, setCategory] = useState<string>('all')
+  const [query, setQuery] = useState('')
 
   const setContext = useAIStore(s => s.setContext)
   const setPersonaPrompt = useAIStore(s => s.setPersonaPrompt)
@@ -40,23 +68,27 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
   const markVisited = useLearningPathStore(s => s.markFigureVisited)
   const visitedFigureIds = useLearningPathStore(s => s.progressByPath.allFigures.visitedFigureIds) ?? []
   const allContexts = useAllLearningContexts()
+  const setMapFocus = useHistoryStore(s => s.setMapFocus)
+  const setYear = useHistoryStore(s => s.setYear)
 
   useEffect(() => {
     if (!isActive) return
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        if (selectedPerson) setSelectedPerson(null)
+        if (selectedEvent) setSelectedEvent(null)
+        else if (selectedPerson) setSelectedPerson(null)
         else onClose()
         e.stopPropagation()
       }
     }
     window.addEventListener('keydown', handler, true)
     return () => window.removeEventListener('keydown', handler, true)
-  }, [isActive, selectedPerson, onClose])
+  }, [isActive, selectedEvent, selectedPerson, onClose])
 
   if (!isActive) return null
 
-  const filtered = useMemo(() => {
+  // ===== 人物过滤 =====
+  const filteredPeople = useMemo(() => {
     const q = query.trim().toLowerCase()
     return culturePeople.filter(p => {
       if (region === 'china') {
@@ -78,6 +110,28 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
     })
   }, [region, category, query])
 
+  // ===== 文化内容过滤 =====
+  const filteredEvents = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    return cultureEvents.filter(e => {
+      if (region === 'china' && !e.region.includes('中国')) return false
+      if (region === 'world' && e.region.includes('中国')) return false
+      if (category !== 'all' && e.category !== category) return false
+      if (q) {
+        const text = (e.title + ' ' + e.category + ' ' + e.description).toLowerCase()
+        if (!text.includes(q)) return false
+      }
+      return true
+    }).sort((a, b) => a.year - b.year)
+  }, [region, category, query])
+
+  // ===== 类别 chips（根据 tab 切换）=====
+  const categoryOptions = tab === 'people'
+    ? [['all', '全部'], ['thinker', '📚 思想家'], ['literati', '✒️ 文人'], ['religious', '☸️ 宗教']]
+    : [['all', '全部'], ['文字', '✍️ 文字'], ['制度', '📜 制度'], ['建筑', '🏛️ 建筑'],
+       ['学术', '📚 学术'], ['科技', '⚙️ 科技'], ['艺术', '🎨 艺术'],
+       ['文学', '✒️ 文学'], ['思想', '💭 思想'], ['宗教', '☸️ 宗教']]
+
   const handlePersonClick = (person: HistoricalFigure) => {
     setSelectedPerson(person)
     markVisited(person.id)
@@ -95,6 +149,25 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
     setSelectedPerson(null)
   }
 
+  // 文化内容 → AI 对话：把人当历史专家问
+  const handleEventChat = (event: typeof cultureEvents[number]) => {
+    setContext(null, null, null)
+    const yearLabel = event.year < 0 ? `BC ${-event.year}` : `${event.year}`
+    const persona = `你是历史学家，精通${event.region}历史。用户询问关于「${event.title}」（${yearLabel}年，${event.category}）的内容。请基于公认历史学和考古学回答，保持客观中立。如不知道请明确说。\n\n事件背景：${event.description}`
+    setPersonaPrompt(enhancePersonaPrompt(persona, '历史学家'))
+    newThread(`关于 ${event.title}`)
+    openPanel()
+    setSelectedEvent(null)
+  }
+
+  // 文化内容 → 跳到主地图
+  const handleEventViewOnMap = (event: typeof cultureEvents[number]) => {
+    onClose()
+    setMapFocus({ center: event.location, zoom: 5, label: event.title })
+    setYear(event.year)
+    setSelectedEvent(null)
+  }
+
   return (
     <div className="w-full h-full bg-ink-900 overflow-y-auto">
       <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-bronze-500/40">
@@ -103,7 +176,9 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
             <div>
               <h2 className="text-2xl font-serif text-bronze-300">📚 全文化</h2>
               <p className="text-xs text-ink-500 mt-1">
-                {filtered.length} / {culturePeople.length} 位思想者、文学家、宗教人物
+                {tab === 'people'
+                  ? `${filteredPeople.length} / ${culturePeople.length} 位思想者、文学家、宗教人物`
+                  : `${filteredEvents.length} / ${cultureEvents.length} 个文化内容（事件/作品/思想/科技）`}
               </p>
             </div>
             <button
@@ -114,37 +189,41 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
               ×
             </button>
           </div>
+
+          {/* Tab 切换 */}
+          <div className="flex rounded bg-ink-700/60 border border-ink-600 overflow-hidden text-xs mb-3 w-fit">
+            <button
+              onClick={() => { setTab('events'); setCategory('all') }}
+              className={`px-4 py-1.5 transition-colors ${tab === 'events' ? 'bg-bronze-600/40 text-bronze-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'}`}
+            >
+              🏛️ 文化内容 ({cultureEvents.length})
+            </button>
+            <button
+              onClick={() => { setTab('people'); setCategory('all') }}
+              className={`px-4 py-1.5 transition-colors ${tab === 'people' ? 'bg-bronze-600/40 text-bronze-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'}`}
+            >
+              👤 人物 ({culturePeople.length})
+            </button>
+          </div>
+
           <div className="flex flex-wrap items-center gap-2">
             <div className="flex rounded bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
               {(['all', 'china', 'world'] as const).map(r => (
                 <button
                   key={r}
                   onClick={() => setRegion(r)}
-                  className={`px-3 py-1.5 transition-colors ${
-                    region === r
-                      ? 'bg-bronze-600/40 text-bronze-300'
-                      : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'
-                  }`}
+                  className={`px-3 py-1.5 transition-colors ${region === r ? 'bg-bronze-600/40 text-bronze-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'}`}
                 >
                   {r === 'all' ? '全部' : r === 'china' ? '🇨🇳 中国' : '🌍 世界'}
                 </button>
               ))}
             </div>
-            <div className="flex rounded bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
-              {([
-                ['all', '全部'],
-                ['thinker', '📚 思想家'],
-                ['literati', '✒️ 文人'],
-                ['religious', '☸️ 宗教'],
-              ] as const).map(([k, label]) => (
+            <div className="flex flex-wrap rounded bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
+              {categoryOptions.map(([k, label]) => (
                 <button
                   key={k}
-                  onClick={() => setCategory(k as typeof category)}
-                  className={`px-3 py-1.5 transition-colors ${
-                    category === k
-                      ? 'bg-bronze-600/40 text-bronze-300'
-                      : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'
-                  }`}
+                  onClick={() => setCategory(k as string)}
+                  className={`px-3 py-1.5 transition-colors ${category === k ? 'bg-bronze-600/40 text-bronze-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'}`}
                 >
                   {label}
                 </button>
@@ -154,7 +233,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="搜索名字/角色/作品..."
+              placeholder={tab === 'people' ? '搜索名字/角色/作品...' : '搜索文化内容...'}
               className="flex-1 min-w-[200px] text-xs px-3 py-1.5 bg-ink-700/60 border border-ink-600 rounded text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
             />
           </div>
@@ -162,36 +241,83 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 py-6">
-        {filtered.length === 0 ? (
-          <div className="text-center text-ink-500 py-12">未找到匹配的人物</div>
+        {tab === 'people' ? (
+          // ===== 人物 grid =====
+          filteredPeople.length === 0 ? (
+            <div className="text-center text-ink-500 py-12">未找到匹配的人物</div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {filteredPeople.map(p => {
+                const visited = visitedFigureIds.includes(p.id)
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => handlePersonClick(p)}
+                    className="text-left p-4 rounded-lg bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-700/60 transition-all relative group"
+                  >
+                    {visited && (
+                      <span className="absolute top-2 right-2 text-green-400 text-sm" title="已了解">✓</span>
+                    )}
+                    <div className="text-4xl mb-2">{p.emoji || '👤'}</div>
+                    <div className="text-sm font-serif text-parchment-50 truncate">{p.name}</div>
+                    <div className="text-[10px] text-ink-400 mt-1 line-clamp-2 min-h-[2.5em]">{p.role}</div>
+                    {p.culturalWorks && p.culturalWorks.length > 0 && (
+                      <div className="text-[10px] text-bronze-400/80 mt-1 line-clamp-1 italic">
+                        {p.culturalWorks[0]}{p.culturalWorks.length > 1 ? ` 等 ${p.culturalWorks.length} 部` : ''}
+                      </div>
+                    )}
+                  </button>
+                )
+              })}
+            </div>
+          )
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {filtered.map(p => {
-              const visited = visitedFigureIds.includes(p.id)
-              return (
-                <button
-                  key={p.id}
-                  onClick={() => handlePersonClick(p)}
-                  className="text-left p-4 rounded-lg bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-700/60 transition-all relative group"
-                >
-                  {visited && (
-                    <span className="absolute top-2 right-2 text-green-400 text-sm" title="已了解">✓</span>
-                  )}
-                  <div className="text-4xl mb-2">{p.emoji || '👤'}</div>
-                  <div className="text-sm font-serif text-parchment-50 truncate">{p.name}</div>
-                  <div className="text-[10px] text-ink-400 mt-1 line-clamp-2 min-h-[2.5em]">{p.role}</div>
-                  {p.culturalWorks && p.culturalWorks.length > 0 && (
-                    <div className="text-[10px] text-bronze-400/80 mt-1 line-clamp-1 italic">
-                      {p.culturalWorks[0]}{p.culturalWorks.length > 1 ? ` 等 ${p.culturalWorks.length} 部` : ''}
+          // ===== 文化内容 grid =====
+          filteredEvents.length === 0 ? (
+            <div className="text-center text-ink-500 py-12">未找到匹配的文化内容</div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {filteredEvents.map(ev => {
+                const catMeta = CULTURE_CATEGORY_LABELS[ev.category] || { icon: '📜', color: '#9b7eb6' }
+                const yearLabel = ev.year < 0 ? `BC ${-ev.year}` : `${ev.year}`
+                return (
+                  <button
+                    key={ev.id}
+                    onClick={() => setSelectedEvent(ev)}
+                    className="text-left p-4 rounded-lg bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-700/60 transition-all relative"
+                  >
+                    <div className="flex items-start gap-3">
+                      <div
+                        className="text-3xl flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center"
+                        style={{ background: catMeta.color + '25' }}
+                      >
+                        {catMeta.icon}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <span className="text-[10px] text-ink-500 tabular-nums">{yearLabel}</span>
+                          {ev.importance === 3 && <span className="text-amber-400 text-[10px]">⭐ 关键</span>}
+                          <span
+                            className="text-[9px] px-1.5 py-0.5 rounded"
+                            style={{ background: catMeta.color + '20', color: catMeta.color }}
+                          >
+                            {ev.category}
+                          </span>
+                          <span className="text-[9px] text-ink-500">📍 {ev.region}</span>
+                        </div>
+                        <div className="text-sm font-serif text-parchment-50 mb-1">{ev.title}</div>
+                        <div className="text-[11px] text-ink-300 line-clamp-2 leading-relaxed">{ev.description}</div>
+                      </div>
                     </div>
-                  )}
-                </button>
-              )
-            })}
-          </div>
+                  </button>
+                )
+              })}
+            </div>
+          )
         )}
       </div>
 
+      {/* 人物详情弹窗 */}
       {selectedPerson && (
         <PersonDetailDialog
           person={selectedPerson}
@@ -199,6 +325,79 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
           onChat={() => handleChat(selectedPerson)}
         />
       )}
+
+      {/* 文化内容详情弹窗 */}
+      {selectedEvent && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
+          onClick={() => setSelectedEvent(null)}
+        >
+          <div
+            className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-bronze-500/30 px-6 py-4 flex items-start justify-between">
+              <div>
+                <div className="text-[10px] text-ink-500 mb-1 flex items-center gap-2 flex-wrap">
+                  <span className="tabular-nums">{yearLabel(selectedEvent)}</span>
+                  {selectedEvent.importance === 3 && <span className="text-amber-400">⭐ 关键</span>}
+                  <span style={{ color: (CULTURE_CATEGORY_LABELS[selectedEvent.category] || { color: '#fff' }).color }}>
+                    {(CULTURE_CATEGORY_LABELS[selectedEvent.category] || { icon: '📜' }).icon} {selectedEvent.category}
+                  </span>
+                  <span>📍 {selectedEvent.region}</span>
+                </div>
+                <h3 className="text-xl font-serif text-bronze-200">{selectedEvent.title}</h3>
+              </div>
+              <button
+                onClick={() => setSelectedEvent(null)}
+                className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+                title="关闭 (ESC)"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="p-6 space-y-4">
+              <div>
+                <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📜 详细介绍</div>
+                <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
+                  {selectedEvent.description}
+                </div>
+              </div>
+
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📍 位置</div>
+              <div className="text-xs text-ink-300 tabular-nums">
+                经度 {selectedEvent.location[0].toFixed(2)}°, 纬度 {selectedEvent.location[1].toFixed(2)}°
+              </div>
+
+              <div className="flex gap-2 pt-3 border-t border-ink-700">
+                <button
+                  onClick={() => handleEventViewOnMap(selectedEvent)}
+                  className="flex-1 px-4 py-2.5 rounded bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-600/50 text-emerald-200 text-sm transition-colors"
+                >
+                  🗺️ 在地图看位置
+                </button>
+                <button
+                  onClick={() => handleEventChat(selectedEvent)}
+                  className="flex-1 px-4 py-2.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors"
+                >
+                  💬 询问此内容
+                </button>
+                <button
+                  onClick={() => setSelectedEvent(null)}
+                  className="px-4 py-2.5 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm transition-colors"
+                >
+                  关闭
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
+}
+
+function yearLabel(ev: { year: number }) {
+  return ev.year < 0 ? `BC ${-ev.year}` : `${ev.year}`
 }

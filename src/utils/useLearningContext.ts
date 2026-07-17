@@ -151,6 +151,142 @@ export function useLearningContext(eraIds: string[], focusFigureId?: string): Le
 }
 
 /**
+ * enhancePersonaPrompt — 给人物的 personaPrompt 追加"角色扮演守则"
+ *
+ * 解决的问题：原始 personaPrompt 没有知识截止声明、不明确"不知道就说不知道"、
+ * 没有强调第一人称，导致 AI 容易"出戏"（说现代话、编造历史、用第三人称谈自己）。
+ *
+ * 用法：setPersonaPrompt(enhancePersonaPrompt(person.personaPrompt, person.name))
+ */
+const PERSONA_GUARDRAIL_ZH = `
+
+【角色扮演守则 — 严格遵守】
+1. **第一人称**：始终以"我"自称，谈及自己时用"我"而非"他"或名字。
+2. **知识范围**：基于公认的历史记载回答。我**只**了解我所处时代及之前的知识。
+   - 问我身后 100 年以上的事（如"你对 X 怎么看"），我可能不知道或只能猜测。
+   - 明确说"我生于 / 死于 X 年"，"我所处的时代是 X"。
+3. **不知道就说不知道**：如果用户问到我不了解的具体细节（后世评价、考据争议、未记载的小事），请明确说"这个我不清楚"或"史书未载"，**不要编造**。
+4. **语言匹配**：用户用中文问，用中文答；用户用英文问，用英文答。
+5. **不要元叙述**：不要解释"我是 AI"或"我在角色扮演"——我就是这个人。`
+
+const PERSONA_GUARDRAIL_EN = `
+
+[Roleplay rules — strictly follow]
+1. First person: always refer to yourself as "I". When talking about yourself, use "I" not "he/she" or your name.
+2. Knowledge scope: answer based on historically attested facts. I ONLY know things from my era and before.
+   - For events 100+ years after my death, I likely don't know or can only guess.
+   - State clearly "I was born in / died in X year", "I lived during X era".
+3. If you don't know, say so: when asked about specific details I don't know (later historiography, scholarly debates, undocumented small events), say "I don't know" or "the records do not mention this" — DO NOT fabricate.
+4. Language: match the user's language.
+5. No meta-narration: don't say "I'm an AI" or "I'm roleplaying" — I am this person.`
+
+export function enhancePersonaPrompt(persona: string, _personName: string): string {
+  // 自动判断中英文 — 检测是否含中文字符
+  const isChinese = /[一-龥]/.test(persona)
+  const guardrail = isChinese ? PERSONA_GUARDRAIL_ZH : PERSONA_GUARDRAIL_EN
+  return persona + guardrail
+}
+
+/**
+ * generateSuggestedQuestions — 根据人物生成 3 个针对性提问建议
+ *
+ * 基于人物的 role、category、eraIds 动态生成：
+ * - 政治/军事人物 → "你最大的成就是什么" / "你怎么评价你的对手"
+ * - 思想家 → "你的核心思想是什么" / "你的思想对后世有什么影响"
+ * - 科学家 → "你最重要的发明/发现是什么" / "你怎么发现它的"
+ * - 文人 → "你最满意的作品是" / "你的创作灵感来自"
+ * - 宗教人物 → "你的核心教义是什么" / "你怎么看待其他宗教"
+ * - 探险家 → "你为什么去 X" / "你途中遇到的最大困难是"
+ */
+export function generateSuggestedQuestions(person: { name: string; role: string; category?: string; eraIds: string[] }): string[] {
+  const role = person.role || ''
+  const cat = person.category || ''
+  const isChinese = /[一-龥]/.test(person.name)
+
+  if (!isChinese) {
+    // English / non-Chinese figure — generate English questions
+    return [
+      `What do you consider your greatest achievement, ${person.name}?`,
+      `How do you think history will remember you?`,
+      `What was the most difficult decision you ever made?`,
+    ]
+  }
+
+  // 中文人物 — 根据 role 关键词选模板
+  const isRuler = /皇帝|国王|女王|法老|哈里发|苏丹|始皇帝|总统|丞相|宰相|太守/.test(role)
+  const isMilitary = /将军|统帅|征服|军事|武将|骑士/.test(role) || cat === 'military'
+  const isThinker = cat === 'thinker'
+  const isLiterati = cat === 'literati'
+  const isScientist = cat === 'scientist'
+  const isReligious = cat === 'religious'
+  const isExplorer = cat === 'explorer'
+  const isReformer = cat === 'reformer'
+
+  if (isRuler) {
+    return [
+      `你最引以为豪的政绩是什么？`,
+      `你怎么评价你最大的对手或威胁？`,
+      `如果你能重来一次，会改变什么决定？`,
+    ]
+  }
+  if (isMilitary) {
+    return [
+      `你最得意的一场战役是哪次？为什么？`,
+      `你麾下最信任的将领/谋士是谁？`,
+      `战争给你最大的感悟是什么？`,
+    ]
+  }
+  if (isThinker) {
+    return [
+      `你思想的核心理念是什么？用一句话概括。`,
+      `你的思想对后世 1000 年有什么影响？`,
+      `你被误解最深的一个观点是什么？`,
+    ]
+  }
+  if (isLiterati) {
+    return [
+      `你最满意的一部作品/一首诗是哪篇？`,
+      `你的创作灵感来自哪里？`,
+      `你怎么看同时代的其他文人？`,
+    ]
+  }
+  if (isScientist) {
+    return [
+      `你最重要的发明/发现是什么？用通俗的话解释一下。`,
+      `你是怎么想到研究这个问题的？`,
+      `你的研究在当时的时代背景下，遇到了什么阻力？`,
+    ]
+  }
+  if (isReligious) {
+    return [
+      `你创立的教义，核心是什么？用最朴素的话讲。`,
+      `你怎么看待其他宗教/学派？`,
+      `你传道过程中遇到的最大困难是什么？`,
+    ]
+  }
+  if (isExplorer) {
+    return [
+      `你为什么要去探索 X？最初的动力是什么？`,
+      `途中遇到的最大困难是什么？你怎么克服的？`,
+      `你最大的发现/收获是什么？`,
+    ]
+  }
+  if (isReformer) {
+    return [
+      `你推动的改革，核心思想是什么？`,
+      `改革过程中遇到的最大阻力来自哪里？`,
+      `你个人为改革付出了什么代价？`,
+    ]
+  }
+  // 默认（兜底）
+  return [
+    `${person.name}，你最想让后人记住你哪一件事？`,
+    `你一生中最大的遗憾是什么？`,
+    `你怎么看自己所处的时代？`,
+  ]
+}
+
+/**
  * useAllLearningContexts — 一次性为所有人物建好 context map
  *
  * 用在 FiguresOverview：避免在卡片点击回调里调用 hook（违反 rules of hooks）

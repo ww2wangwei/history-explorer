@@ -9,6 +9,7 @@ import type { Era, FigureCategory, HistoricalFigure } from '@/types'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
 import { useAIStore } from '@/store/useAIStore'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
+import { enhancePersonaPrompt } from '@/utils/useLearningContext'
 import PersonDetailDialog from './PersonDetailDialog'
 
 const people = peopleData as HistoricalFigure[]
@@ -121,7 +122,9 @@ export default function FiguresOverview({ isActive, onClose, initialPersonId }: 
     setContext(firstEraId, null, person.id)
     // 拼上该人物相关的学习上下文
     const contextString = allContexts[person.id]?.contextString ?? ''
-    const persona = (person.personaPrompt || `你是${person.name}，${person.role}。${person.description}`) + contextString
+    // 基础 persona + 学习上下文 + 角色扮演守则（统一追加"第一人称/不编造/知识截止"声明）
+    const basePersona = person.personaPrompt || `你是${person.name}，${person.role}。${person.description}`
+    const persona = enhancePersonaPrompt(basePersona + contextString, person.name)
     setPersonaPrompt(persona)
     newThread(`与 ${person.name} 对话`)
     openPanel()

@@ -120,18 +120,44 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
     const focusEntry = nodePositions.find(({ node }) => node === focusNode)
     if (focusEntry && focusEntry.pos) {
       const { node, pos } = focusEntry
-      // 大号金色图钉 + 金色光晕 + 节点名 label
-      // 用更简单的 SVG（避免复杂 opacity/text 嵌套导致部分不渲染）
-      const svg = `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="80" height="56" viewBox="0 0 80 56">
-  <circle cx="40" cy="24" r="22" fill="#ffd47a" fill-opacity="0.3"/>
-  <circle cx="40" cy="24" r="14" fill="#ffd47a" fill-opacity="0.5"/>
-  <circle cx="40" cy="24" r="9" fill="#ffd47a" stroke="#ffffff" stroke-width="2.5"/>
-  <circle cx="40" cy="24" r="3" fill="#ffffff"/>
-  <rect x="0" y="38" width="80" height="18" fill="#0f0e0c" fill-opacity="0.9" rx="3"/>
-  <text x="40" y="50" text-anchor="middle" font-family="serif" font-size="11" font-weight="600" fill="#ffd47a">${node.title.slice(0, 10)}</text>
-</svg>`
-      const iconUrl = 'data:image/svg+xml;utf8,' + encodeURIComponent(svg)
+      // 用 Canvas 生成 PNG base64（比 SVG dataURL 更兼容，避免天地图 img 解析问题）
+      const canvas = document.createElement('canvas')
+      canvas.width = 80
+      canvas.height = 56
+      const ctx = canvas.getContext('2d')!
+      // 外光晕
+      ctx.fillStyle = 'rgba(255, 212, 122, 0.3)'
+      ctx.beginPath()
+      ctx.arc(40, 24, 22, 0, Math.PI * 2)
+      ctx.fill()
+      // 内光晕
+      ctx.fillStyle = 'rgba(255, 212, 122, 0.5)'
+      ctx.beginPath()
+      ctx.arc(40, 24, 14, 0, Math.PI * 2)
+      ctx.fill()
+      // 中心圆点
+      ctx.fillStyle = '#ffd47a'
+      ctx.beginPath()
+      ctx.arc(40, 24, 9, 0, Math.PI * 2)
+      ctx.fill()
+      ctx.strokeStyle = '#ffffff'
+      ctx.lineWidth = 2.5
+      ctx.stroke()
+      // 内部白点
+      ctx.fillStyle = '#ffffff'
+      ctx.beginPath()
+      ctx.arc(40, 24, 3, 0, Math.PI * 2)
+      ctx.fill()
+      // 节点名 label
+      ctx.fillStyle = 'rgba(15, 14, 12, 0.9)'
+      ctx.fillRect(0, 38, 80, 18)
+      // 文字
+      ctx.fillStyle = '#ffd47a'
+      ctx.font = '600 11px serif'
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.fillText(node.title.slice(0, 10), 40, 47)
+      const iconUrl = canvas.toDataURL('image/png')
       const icon = new T.Icon({
         iconUrl,
         iconSize: new T.Point(80, 56),

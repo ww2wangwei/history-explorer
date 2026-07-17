@@ -140,6 +140,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
         iconAnchor: new T.Point(40, 24),
       })
       const marker = new T.Marker(new T.LngLat(pos[0], pos[1]), { icon })
+      marker.setZIndexOffset(1000)  // 强制 marker 在瓦片之上
       map.addOverLay(marker)
       markersRef.current.push(marker)
     }

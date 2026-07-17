@@ -815,20 +815,6 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
           mw={selectedMajorWar}
           onClose={() => setSelectedMajorWar(null)}
           onSelectNode={(node) => setSelectedMajorNode({ mw: selectedMajorWar, node })}
-          onChat={(node) => {
-            const adHocWar: HistoricalEvent = {
-              id: `major-${selectedMajorWar.key}-${node.year}-${node.title.slice(0, 4)}`,
-              year: node.year,
-              title: node.title,
-              category: '军事',
-              region: 'other',
-              description: node.description,
-              importance: node.importance,
-            }
-            setSelectedMajorWar(null)
-            setSelectedMajorNode(null)
-            handleChat(adHocWar)
-          }}
         />
       )}
 
@@ -1034,11 +1020,10 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
  * MajorWarDetailDialog — 大型战争专题详情
  * 显示专题导语 + 子事件时间线列表（每条可点开弹窗）
  */
-function MajorWarDetailDialog({ mw, onClose, onSelectNode, onChat }: {
+function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
   mw: MajorWar
   onClose: () => void
   onSelectNode: (node: MajorWarNode) => void
-  onChat: (node: MajorWarNode) => void
 }) {
   const startYearLabel = mw.startYear < 0 ? `BC ${-mw.startYear}` : `${mw.startYear}`
   const endYearLabel = mw.endYear < 0 ? `BC ${-mw.endYear}` : `${mw.endYear}`
@@ -1113,20 +1098,12 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode, onChat }: {
                         <div className="text-[11px] text-ink-300 leading-relaxed mb-2">
                           {node.description}
                         </div>
-                        <div className="flex gap-1.5">
-                          <button
-                            onClick={() => onSelectNode(node)}
-                            className="flex-1 text-[10px] px-2 py-1 rounded bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-700/50 hover:border-emerald-500/70 text-emerald-200 transition-colors"
-                          >
-                            📖 节点详情
-                          </button>
-                          <button
-                            onClick={() => onChat(node)}
-                            className="text-[10px] px-2 py-1 rounded bg-red-900/30 hover:bg-red-800/60 border border-red-700/40 hover:border-red-500/60 text-red-200 transition-colors"
-                          >
-                            💬 询问 AI
-                          </button>
-                        </div>
+                        <button
+                          onClick={() => onSelectNode(node)}
+                          className="w-full text-[10px] px-2 py-1 rounded bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-700/50 hover:border-emerald-500/70 text-emerald-200 transition-colors"
+                        >
+                          📖 进入节点详情 →
+                        </button>
                       </div>
                     </div>
                   )

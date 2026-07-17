@@ -118,7 +118,12 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
 
     // 清理旧 markers
     markersRef.current.forEach(m => {
-      try { map.removeOverLay(m) } catch { /* ignore */ }
+      // body 直接子元素（HTML div marker）
+      if (m?.el && m.el.parentNode) {
+        m.el.parentNode.removeChild(m.el)
+      }
+      // 旧 TMap marker（防御性）
+      try { map.removeOverLay?.(m) } catch { /* ignore */ }
     })
     markersRef.current = []
 

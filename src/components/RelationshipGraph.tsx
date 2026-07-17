@@ -576,7 +576,7 @@ export default function RelationshipGraph({ onClose }: Props) {
           <span>关系：</span><span className="text-bronze-400 tabular-nums">{links.length}</span>
           <span>活跃：</span>
           <span className="text-bronze-400 tabular-nums">
-            {nodes.filter(n => isActive(n.era)).length}
+            {nodes.filter(n => n.era && isActive(n.era)).length}
           </span>
         </div>
         <div className="mt-2 pt-2 border-t border-ink-700 text-[10px] text-ink-500">

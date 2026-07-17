@@ -3321,26 +3321,6 @@
     "importance": 3
   },
   {
-    "id": "ev-221",
-    "year": 1914,
-    "title": "一战爆发",
-    "category": "军事",
-    "region": "other",
-    "coordinates": [
-      13.4,
-      52.52
-    ],
-    "description": "萨拉热窝事件后，第一次世界大战爆发，欧洲列强混战。",
-    "importance": 3,
-    "country": [
-      "austria",
-      "germany"
-    ],
-    "warBackground": "1914 年 6 月 28 日萨拉热窝事件——奥匈王储斐迪南大公夫妇被塞尔维亚青年普林西普刺杀。这是 19 世纪末以来欧洲列强矛盾的爆发点。",
-    "warResult": "奥匈于 7 月 28 日对塞尔维亚宣战，\"七月危机\"启动盟约连锁反应：8 月 1 日德对俄宣战、3 日德对法宣战、4 日英对德宣战、5 日黑山对奥匈宣战——欧洲主要列强全部卷入。",
-    "warImpact": "人类历史上第一次全球规模战争，7000 万人参战、1000 万死亡、2000 万伤残。催生坦克、化学武器、飞机等新型武器。"
-  },
-  {
     "id": "ev-222",
     "year": 1929,
     "title": "大萧条",
@@ -3925,22 +3905,6 @@
     "importance": 3
   },
   {
-    "id": "ev-hittite-2",
-    "year": -1274,
-    "title": "卡迭石战役",
-    "category": "military",
-    "region": "other",
-    "coordinates": [
-      35.74,
-      36.82
-    ],
-    "description": "赫梯与埃及法老拉美西斯二世签订最早的国际和约",
-    "importance": 3,
-    "relatedEventIds": [
-      "ev-assyria-1"
-    ]
-  },
-  {
     "id": "ev-harappa-1",
     "year": -2600,
     "title": "哈拉帕文明兴起",
@@ -4032,45 +3996,6 @@
     "importance": 3
   },
   {
-    "id": "ev-greece-3",
-    "year": -490,
-    "title": "马拉松战役",
-    "category": "military",
-    "region": "rome",
-    "coordinates": [
-      23.85,
-      38.15
-    ],
-    "description": "雅典击败波斯大军，希波战争首次大捷",
-    "importance": 3
-  },
-  {
-    "id": "ev-greece-4",
-    "year": -480,
-    "title": "温泉关战役",
-    "category": "military",
-    "region": "rome",
-    "coordinates": [
-      22.5,
-      38.78
-    ],
-    "description": "斯巴达 300 勇士对抗波斯王薛西斯",
-    "importance": 3
-  },
-  {
-    "id": "ev-greece-5",
-    "year": -480,
-    "title": "萨拉米斯海战",
-    "category": "military",
-    "region": "rome",
-    "coordinates": [
-      23.57,
-      37.96
-    ],
-    "description": "希腊海军击败波斯舰队，希波战争转折点",
-    "importance": 3
-  },
-  {
     "id": "ev-greece-6",
     "year": -447,
     "title": "帕特农神庙建成",
@@ -4095,19 +4020,6 @@
     ],
     "description": "雅典民主判处哲学家苏格拉底死刑",
     "importance": 3
-  },
-  {
-    "id": "ev-greece-8",
-    "year": -338,
-    "title": "喀罗尼亚战役",
-    "category": "military",
-    "region": "rome",
-    "coordinates": [
-      22.5,
-      38.4
-    ],
-    "description": "马其顿击败希腊城邦联军",
-    "importance": 2
   },
   {
     "id": "ev-greece-9",

@@ -156,7 +156,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
         }
       })
 
-      const marker = new T.Marker(el, { position: new T.LngLat(pos[0], pos[1]) })
+      const marker = new T.Marker(new T.LngLat(pos[0], pos[1]), { icon: el })
       map.addOverLay(marker)
       markersRef.current.push(marker)
     })

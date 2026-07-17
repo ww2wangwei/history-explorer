@@ -196,6 +196,15 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
     aiSetContext(selectedEraId, null)
   }, [selectedEraId, aiSetContext])
 
+  // 启动时检查 sessionStorage 是否有"待发送的问题"（PersonDetailDialog 提问建议桥接）
+  useEffect(() => {
+    const pending = sessionStorage.getItem('history-explorer-pending-question')
+    if (pending) {
+      setInput(pending)
+      sessionStorage.removeItem('history-explorer-pending-question')
+    }
+  }, [panelOpen])
+
   const [input, setInput] = useState('')
   const [showKeyInput, setShowKeyInput] = useState(false)
   const [apiKeyInput, setApiKeyInput] = useState(apiKey ?? '')

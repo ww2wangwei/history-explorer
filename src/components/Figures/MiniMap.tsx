@@ -186,6 +186,11 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
               point = { x: ratio * size.w, y: ratioY * size.h }
             }
           }
+          console.log('[MiniMap] updatePosition', { pos, point, methods: {
+            lngLatToContainerPoint: typeof map.lngLatToContainerPoint,
+            lngLatToPoint: typeof map.lngLatToPoint,
+            project: typeof map.project,
+          }})
           if (point) {
             markerEl.style.left = point.x + 'px'
             markerEl.style.top = point.y + 'px'

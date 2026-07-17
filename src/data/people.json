@@ -137,6 +137,11 @@
         "id": "p-sima-guang",
         "type": "successor"
       }
+    ],
+    "culturalWorks": [
+      "瘦金体书法",
+      "《芙蓉锦鸡图》",
+      "《听琴图》"
     ]
   },
   {
@@ -217,6 +222,11 @@
         "id": "p-shang-yang",
         "type": "rival"
       }
+    ],
+    "culturalWorks": [
+      "《论语》",
+      "《春秋》",
+      "《诗经》"
     ]
   },
   {
@@ -270,6 +280,9 @@
         "id": "p-han-wudi",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《史记》130 卷"
     ]
   },
   {
@@ -298,6 +311,12 @@
         "id": "p-bai-juyi",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《将进酒》",
+      "《蜀道难》",
+      "《静夜思》",
+      "《早发白帝城》"
     ]
   },
   {
@@ -322,6 +341,12 @@
         "id": "p-bai-juyi",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《登高》",
+      "《春望》",
+      "《三吏三别》",
+      "《茅屋为秋风所破歌》"
     ]
   },
   {
@@ -350,6 +375,9 @@
         "id": "p-mencius",
         "type": "rival"
       }
+    ],
+    "culturalWorks": [
+      "《资治通鉴》294 卷"
     ]
   },
   {
@@ -370,6 +398,10 @@
         "id": "p-ming-yongle",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《四书章句集注》",
+      "《朱子语类》"
     ]
   },
   {
@@ -558,6 +590,9 @@
         "id": "p-napoleon",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《沉思录》"
     ]
   },
   {
@@ -638,6 +673,9 @@
         "id": "p-zhuangzi",
         "type": "successor"
       }
+    ],
+    "culturalWorks": [
+      "《道德经》"
     ]
   },
   {
@@ -658,6 +696,9 @@
         "id": "p-laozi",
         "type": "mentor"
       }
+    ],
+    "culturalWorks": [
+      "《庄子》"
     ]
   },
   {
@@ -686,6 +727,9 @@
         "id": "p-shang-yang",
         "type": "rival"
       }
+    ],
+    "culturalWorks": [
+      "《孟子》"
     ]
   },
   {
@@ -718,6 +762,9 @@
         "id": "p-shakespeare",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《孙子兵法》"
     ]
   },
   {
@@ -887,6 +934,11 @@
         "id": "p-da-vinci",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "佛经三藏（经律论）",
+      "《金刚经》",
+      "《法华经》"
     ]
   },
   {
@@ -907,6 +959,9 @@
         "id": "p-victoria",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《古兰经》"
     ]
   },
   {
@@ -931,6 +986,9 @@
         "id": "p-gutenberg",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《新约圣经》"
     ]
   },
   {
@@ -1023,6 +1081,11 @@
         "id": "p-ming-yongle",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《蒙娜丽莎》",
+      "《最后的晚餐》",
+      "《维特鲁威人》"
     ]
   },
   {
@@ -1179,6 +1242,9 @@
         "id": "p-aristotle",
         "type": "successor"
       }
+    ],
+    "culturalWorks": [
+      "（无著作，思想经由柏拉图、色诺芬记录）"
     ]
   },
   {
@@ -1207,6 +1273,11 @@
         "id": "p-alexander",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《理想国》",
+      "《会饮篇》",
+      "《苏格拉底的辩护》"
     ]
   },
   {
@@ -1236,6 +1307,12 @@
         "id": "p-alexander",
         "type": "mentor"
       }
+    ],
+    "culturalWorks": [
+      "《形而上学》",
+      "《尼各马可伦理学》",
+      "《政治学》",
+      "《工具论》"
     ]
   },
   {
@@ -1256,6 +1333,10 @@
         "id": "p-socrates",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《伊利亚特》",
+      "《奥德赛》"
     ]
   },
   {
@@ -1276,6 +1357,13 @@
         "id": "p-victoria",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《哈姆雷特》",
+      "《罗密欧与朱丽叶》",
+      "《李尔王》",
+      "《麦克白》",
+      "十四行诗 154 首"
     ]
   },
   {
@@ -1296,6 +1384,11 @@
         "id": "p-da-vinci",
         "type": "rival"
       }
+    ],
+    "culturalWorks": [
+      "《大卫》",
+      "《圣母怜子》",
+      "西斯廷教堂天顶画《创世纪》"
     ]
   },
   {
@@ -1311,7 +1404,13 @@
     "emoji": "🌻",
     "description": "文森特·梵高，荷兰后印象派画家。代表作《星夜》《向日葵》《吃土豆的人》。生前只卖出 1 幅画，37 岁英年早逝。",
     "personaPrompt": "You are Vincent van Gogh (1853-1890), Dutch Post-Impressionist painter. You painted Starry Night, Sunflowers, and The Potato Eaters. Speak with the passionate intensity of an artist who saw color as language, and ended your own life in Auvers-sur-Oise. Respond in Chinese.",
-    "relatedFigureIds": []
+    "relatedFigureIds": [],
+    "culturalWorks": [
+      "《星夜》",
+      "《向日葵》",
+      "《吃土豆的人》",
+      "《麦田上的乌鸦》"
+    ]
   },
   {
     "id": "p-wang-wei",
@@ -1339,6 +1438,11 @@
         "id": "p-su-song",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《山居秋暝》",
+      "《使至塞上》",
+      "《辋川集》"
     ]
   },
   {
@@ -1359,6 +1463,11 @@
         "id": "p-yue-fei",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《示儿》",
+      "《卜算子·咏梅》",
+      "《书愤》"
     ]
   },
   {
@@ -1383,6 +1492,11 @@
         "id": "p-ouyang-xiu",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《长恨歌》",
+      "《琵琶行》",
+      "《卖炭翁》"
     ]
   },
   {
@@ -1407,6 +1521,11 @@
         "id": "p-confucius",
         "type": "contemporary"
       }
+    ],
+    "culturalWorks": [
+      "《离骚》",
+      "《九歌》",
+      "《天问》"
     ]
   },
   {
@@ -1421,7 +1540,12 @@
     "deathYear": 220,
     "emoji": "🐉",
     "description": "字孟德，东汉末权臣，曹魏政权奠基者。'治世之能臣，乱世之奸雄'。其诗《短歌行》《观沧海》慷慨悲凉。",
-    "personaPrompt": "你是曹操（155-220），东汉末魏武帝。你是政治家、军事家、诗人。请以雄才大略、慷慨悲凉口吻回答，常引用'老骥伏枥，志在千里'、'宁教我负天下人，休教天下人负我'、'对酒当歌人生几何'。"
+    "personaPrompt": "你是曹操（155-220），东汉末魏武帝。你是政治家、军事家、诗人。请以雄才大略、慷慨悲凉口吻回答，常引用'老骥伏枥，志在千里'、'宁教我负天下人，休教天下人负我'、'对酒当歌人生几何'。",
+    "culturalWorks": [
+      "《短歌行》",
+      "《观沧海》",
+      "《蒿里行》"
+    ]
   },
   {
     "id": "p-bao-zheng",
@@ -1499,7 +1623,11 @@
     "deathYear": 1072,
     "emoji": "🖋️",
     "description": "字永叔，号醉翁。北宋文坛领袖，唐宋八大家之一。'醉翁之意不在酒，在乎山水之间也'。",
-    "personaPrompt": "你是欧阳修（1007-1072），北宋文坛领袖，唐宋八大家之一。你倡导古文运动，号醉翁。请以豁达文人长者口吻回答，常引用'醉翁之意不在酒，在乎山水之间也'、'忧劳可以兴国，逸豫可以亡身'。"
+    "personaPrompt": "你是欧阳修（1007-1072），北宋文坛领袖，唐宋八大家之一。你倡导古文运动，号醉翁。请以豁达文人长者口吻回答，常引用'醉翁之意不在酒，在乎山水之间也'、'忧劳可以兴国，逸豫可以亡身'。",
+    "culturalWorks": [
+      "《醉翁亭记》",
+      "《秋声赋》"
+    ]
   },
   {
     "id": "p-zhang-heng",

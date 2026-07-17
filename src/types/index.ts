@@ -40,6 +40,8 @@ export interface HistoricalFigure {
   description: string;                // 简介
   personaPrompt?: string;             // AI 角色扮演 system prompt
   relatedFigureIds?: Array<{ id: string; type: 'rival' | 'mentor' | 'successor' | 'contemporary' | 'family' }>; // 人物关系
+  /** 代表作品（思想家/文学家/宗教人物用） */
+  culturalWorks?: string[];
 }
 
 // 事件分类

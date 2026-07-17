@@ -6,6 +6,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import eventsData from '@/data/events.json'
 import erasData from '@/data/eras.json'
+import { useAIStore } from '@/store/useAIStore'
+import { useAllLearningContexts } from '@/utils/useLearningContext'
+import { enhancePersonaPrompt } from '@/utils/useLearningContext'
 import type { Era, HistoricalEvent } from '@/types'
 
 const events = eventsData as HistoricalEvent[]
@@ -24,6 +27,13 @@ export default function WarsOverview({ isActive, onClose }: Props) {
   const [importance, setImportance] = useState<0 | 1 | 2 | 3>(0)
   const [query, setQuery] = useState('')
   const [selectedWar, setSelectedWar] = useState<HistoricalEvent | null>(null)
+
+  // AI 对话准备
+  const setContext = useAIStore(s => s.setContext)
+  const setPersonaPrompt = useAIStore(s => s.setPersonaPrompt)
+  const newThread = useAIStore(s => s.newThread)
+  const openPanel = useAIStore(s => s.openPanel)
+  const allContexts = useAllLearningContexts()
 
   // ESC 关闭
   useEffect(() => {
@@ -52,8 +62,24 @@ export default function WarsOverview({ isActive, onClose }: Props) {
     }).sort((a, b) => a.year - b.year)
   }, [region, importance, query])
 
-  const handleChat = (_war: HistoricalEvent) => {
-    // 已废弃：战争详情改为纯内容展示，不再走 AI 对话
+  const handleChat = (war: HistoricalEvent) => {
+    // 上下文：所属朝代（让 AI 知道背景时期）
+    setContext(war.relatedEraId ?? null, war.id, null)
+    // 拼上学习上下文（让 AI 知道用户学过什么）
+    const contextString = allContexts[war.relatedEraId ?? '']?.contextString ?? ''
+    // persona prompt 注入战争的 4 段内容（如有）+ 守则
+    const warDetails = [
+      war.warBackground && `【背景】\n${war.warBackground}`,
+      war.description && `【经过】\n${war.description}`,
+      war.warResult && `【结果】\n${war.warResult}`,
+      war.warImpact && `【影响】\n${war.warImpact}`,
+    ].filter(Boolean).join('\n\n')
+    const basePersona = `你是历史军事专家。请基于以下这场战争的背景资料回答用户问题，保持客观中立，引述史料，遇到存疑处说明学界争议。\n\n【战争】${war.title}（${war.year < 0 ? `BC ${-war.year}` : war.year}）\n${war.country ? `地点：${war.country}\n` : ''}${warDetails}`
+    const persona = enhancePersonaPrompt(basePersona + contextString, '历史军事专家')
+    setPersonaPrompt(persona)
+    newThread(`关于 ${war.title}`)
+    openPanel()
+    setSelectedWar(null)
   }
 
   return (
@@ -160,15 +186,16 @@ export default function WarsOverview({ isActive, onClose }: Props) {
 
       {/* 详情弹窗 */}
       {selectedWar && (
-        <WarDetailDialog war={selectedWar} onClose={() => setSelectedWar(null)} />
+        <WarDetailDialog war={selectedWar} onClose={() => setSelectedWar(null)} onChat={() => handleChat(selectedWar)} />
       )}
     </div>
   )
 }
 
-function WarDetailDialog({ war, onClose }: {
+function WarDetailDialog({ war, onClose, onChat }: {
   war: HistoricalEvent
   onClose: () => void
+  onChat: () => void
 }) {
   const yearLabel = war.year < 0 ? `BC ${-war.year}` : `${war.year}`
   const relatedEra = war.relatedEraId ? eras.find(e => e.id === war.relatedEraId) : null
@@ -309,8 +336,14 @@ function WarDetailDialog({ war, onClose }: {
 
           <div className="flex gap-2 pt-3 border-t border-ink-700">
             <button
+              onClick={onChat}
+              className="flex-1 px-4 py-2.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors"
+            >
+              💬 询问这场战争
+            </button>
+            <button
               onClick={onClose}
-              className="flex-1 px-4 py-2.5 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm transition-colors"
+              className="px-4 py-2.5 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm transition-colors"
             >
               关闭
             </button>

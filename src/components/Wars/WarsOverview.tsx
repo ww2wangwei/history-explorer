@@ -50,10 +50,18 @@ interface MajorWarNode {
   year: number
   /** 地点（中文） */
   location: string
-  /** 简短描述（50-150 字） */
+  /** 简短描述（50-150 字，作为时间线预览） */
   description: string
   /** 重要性 1-3 */
   importance: 1 | 2 | 3
+  /** 节点详情：背景（节点前的政治/军事形势） */
+  background?: string
+  /** 节点详情：经过（节点本身的详细进程） */
+  detail?: string
+  /** 节点详情：结果（胜负/影响） */
+  result?: string
+  /** 节点详情：对后世的影响 */
+  impact?: string
 }
 
 interface MajorWar {
@@ -495,6 +503,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
   const [query, setQuery] = useState('')
   const [selectedWar, setSelectedWar] = useState<HistoricalEvent | null>(null)
   const [selectedMajorWar, setSelectedMajorWar] = useState<MajorWar | null>(null)
+  const [selectedMajorNode, setSelectedMajorNode] = useState<{ mw: MajorWar; node: MajorWarNode } | null>(null)
 
   // AI 对话准备
   const setContext = useAIStore(s => s.setContext)
@@ -529,6 +538,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         if (selectedWar) setSelectedWar(null)
+        else if (selectedMajorNode) setSelectedMajorNode(null)
         else if (selectedMajorWar) setSelectedMajorWar(null)
         else onClose()
         e.stopPropagation()
@@ -536,7 +546,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
     }
     window.addEventListener('keydown', handler, true)
     return () => window.removeEventListener('keydown', handler, true)
-  }, [isActive, selectedWar, selectedMajorWar, onClose])
+  }, [isActive, selectedWar, selectedMajorNode, selectedMajorWar, onClose])
 
   if (!isActive) return null
 
@@ -739,21 +749,46 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
       )}
 
       {/* 🔥 大型战争专题详情弹窗 */}
-      {selectedMajorWar && (
+      {selectedMajorWar && !selectedMajorNode && (
         <MajorWarDetailDialog
           mw={selectedMajorWar}
           onClose={() => setSelectedMajorWar(null)}
+          onSelectNode={(node) => setSelectedMajorNode({ mw: selectedMajorWar, node })}
           onChat={(node) => {
-            // 把 node 包装成 ad-hoc HistoricalEvent 给 handleChat
             const adHocWar: HistoricalEvent = {
               id: `major-${selectedMajorWar.key}-${node.year}-${node.title.slice(0, 4)}`,
               year: node.year,
               title: node.title,
               category: '军事',
-              region: node.location.includes('中国') || node.location.includes('北京') || node.location.includes('上海') || node.location.includes('汉') || node.location.includes('秦') ? 'china' : 'other',
+              region: 'other',
               description: node.description,
               importance: node.importance,
             }
+            setSelectedMajorWar(null)
+            setSelectedMajorNode(null)
+            handleChat(adHocWar)
+          }}
+        />
+      )}
+
+      {/* 🔥 大型战争 — 节点详情弹窗（4 段结构化） */}
+      {selectedMajorNode && (
+        <MajorWarNodeDetailDialog
+          mw={selectedMajorNode.mw}
+          node={selectedMajorNode.node}
+          onClose={() => setSelectedMajorNode(null)}
+          onBack={() => setSelectedMajorNode(null)}
+          onChat={() => {
+            const adHocWar: HistoricalEvent = {
+              id: `major-${selectedMajorNode.mw.key}-${selectedMajorNode.node.year}-${selectedMajorNode.node.title.slice(0, 4)}`,
+              year: selectedMajorNode.node.year,
+              title: selectedMajorNode.node.title,
+              category: '军事',
+              region: 'other',
+              description: selectedMajorNode.node.description,
+              importance: selectedMajorNode.node.importance,
+            }
+            setSelectedMajorNode(null)
             setSelectedMajorWar(null)
             handleChat(adHocWar)
           }}
@@ -938,9 +973,10 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
  * MajorWarDetailDialog — 大型战争专题详情
  * 显示专题导语 + 子事件时间线列表（每条可点开弹窗）
  */
-function MajorWarDetailDialog({ mw, onClose, onChat }: {
+function MajorWarDetailDialog({ mw, onClose, onSelectNode, onChat }: {
   mw: MajorWar
   onClose: () => void
+  onSelectNode: (node: MajorWarNode) => void
   onChat: (node: MajorWarNode) => void
 }) {
   const startYearLabel = mw.startYear < 0 ? `BC ${-mw.startYear}` : `${mw.startYear}`
@@ -1004,7 +1040,7 @@ function MajorWarDetailDialog({ mw, onClose, onChat }: {
                         className="absolute -left-3.5 top-1 w-2.5 h-2.5 rounded-full ring-2 ring-ink-800"
                         style={{ background: node.importance === 3 ? '#b85450' : '#8a6a55' }}
                       />
-                      <div className="p-3 rounded border border-ink-600 bg-ink-700/30">
+                      <div className="p-3 rounded border border-ink-600 bg-ink-700/30 hover:border-red-500/60 transition-colors">
                         <div className="flex items-center gap-2 mb-1 flex-wrap">
                           <span className="text-xs text-red-300 tabular-nums font-serif">{yearLabel}</span>
                           {node.importance === 3 && <span className="text-amber-400 text-[10px]">⭐ 关键</span>}
@@ -1013,15 +1049,23 @@ function MajorWarDetailDialog({ mw, onClose, onChat }: {
                           )}
                         </div>
                         <div className="text-sm font-serif text-parchment-50 mb-1.5">{node.title}</div>
-                        <div className="text-[11px] text-ink-300 leading-relaxed">
+                        <div className="text-[11px] text-ink-300 leading-relaxed mb-2">
                           {node.description}
                         </div>
-                        <button
-                          onClick={() => onChat(node)}
-                          className="mt-2 text-[10px] px-2 py-0.5 rounded bg-red-900/30 hover:bg-red-800/60 border border-red-700/40 hover:border-red-500/60 text-red-200 transition-colors"
-                        >
-                          💬 询问此节点
-                        </button>
+                        <div className="flex gap-1.5">
+                          <button
+                            onClick={() => onSelectNode(node)}
+                            className="flex-1 text-[10px] px-2 py-1 rounded bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-700/50 hover:border-emerald-500/70 text-emerald-200 transition-colors"
+                          >
+                            📖 节点详情
+                          </button>
+                          <button
+                            onClick={() => onChat(node)}
+                            className="text-[10px] px-2 py-1 rounded bg-red-900/30 hover:bg-red-800/60 border border-red-700/40 hover:border-red-500/60 text-red-200 transition-colors"
+                          >
+                            💬 询问 AI
+                          </button>
+                        </div>
                       </div>
                     </div>
                   )
@@ -1039,6 +1083,159 @@ function MajorWarDetailDialog({ mw, onClose, onChat }: {
           >
             关闭
           </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/**
+ * MajorWarNodeDetailDialog — 大型战争节点详情（4 段结构化）
+ * 风格与 WarDetailDialog 一致：背景 / 经过 / 结果 / 影响
+ * 没补 4 段详细内容的节点用通用模板回退
+ */
+function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat }: {
+  mw: MajorWar
+  node: MajorWarNode
+  onClose: () => void
+  onBack: () => void
+  onChat: () => void
+}) {
+  const yearLabel = node.year < 0 ? `BC ${-node.year}` : `${node.year}`
+
+  // 计算"之前/之后"节点（用于上下文）
+  const idx = mw.nodes.findIndex(n => n.title === node.title && n.year === node.year)
+  const prevNode = idx > 0 ? mw.nodes[idx - 1] : null
+  const nextNode = idx >= 0 && idx < mw.nodes.length - 1 ? mw.nodes[idx + 1] : null
+
+  // 是否有详细 4 段
+  const hasDetail = node.background || node.detail || node.result || node.impact
+
+  return (
+    <div
+      className="fixed inset-0 z-[68] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-red-700/40 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* 头部 */}
+        <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-red-700/30 px-6 py-4">
+          <div className="flex items-center gap-2 text-[10px] text-ink-500 mb-1">
+            <button
+              onClick={onBack}
+              className="text-red-300 hover:text-red-200 transition-colors"
+              title="返回专题列表"
+            >
+              ← {mw.title}
+            </button>
+            <span>·</span>
+            <span>关键节点</span>
+            {node.importance === 3 && <span className="text-amber-400">⭐ 关键</span>}
+          </div>
+          <div className="flex items-start gap-3">
+            <div className="flex-1 min-w-0">
+              <div className="text-[10px] text-ink-500 mb-1 tabular-nums flex items-center gap-2">
+                <span>{yearLabel}</span>
+                {node.location && <span>📍 {node.location}</span>}
+              </div>
+              <h3 className="text-xl font-serif text-red-200">{node.title}</h3>
+            </div>
+            <button
+              onClick={onClose}
+              className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+              title="关闭 (ESC)"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+
+        <div className="p-6 space-y-4">
+          {/* 概述 — 必有 */}
+          <div>
+            <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📜 节点概述</div>
+            <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
+              {node.description}
+            </div>
+          </div>
+
+          {hasDetail ? (
+            <>
+              {/* 背景 */}
+              {node.background && (
+                <div>
+                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🌐 背景</div>
+                  <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
+                    {node.background}
+                  </div>
+                </div>
+              )}
+
+              {/* 经过 */}
+              {node.detail && (
+                <div>
+                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">⚔️ 详细经过</div>
+                  <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
+                    {node.detail}
+                  </div>
+                </div>
+              )}
+
+              {/* 结果 */}
+              {node.result && (
+                <div>
+                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🏁 结果</div>
+                  <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
+                    {node.result}
+                  </div>
+                </div>
+              )}
+
+              {/* 影响 */}
+              {node.impact && (
+                <div className="p-3 rounded bg-amber-900/15 border border-amber-700/40">
+                  <div className="text-[10px] text-amber-400 uppercase tracking-wider mb-1.5">🎯 历史影响</div>
+                  <div className="text-sm text-parchment-100 leading-relaxed">
+                    {node.impact}
+                  </div>
+                </div>
+              )}
+            </>
+          ) : (
+            // 没补详细内容的节点：通用回退
+            <div className="p-3 rounded bg-amber-900/15 border border-amber-700/40">
+              <div className="text-[10px] text-amber-400 uppercase tracking-wider mb-1.5">💡 上下文</div>
+              <div className="text-sm text-parchment-100 leading-relaxed">
+                {prevNode && (
+                  <>这是 <span className="text-red-300">{prevNode.title}</span>（{prevNode.year < 0 ? `BC ${-prevNode.year}` : prevNode.year}）之后的关键节点。 </>
+                )}
+                {nextNode && (
+                  <>之后是 <span className="text-red-300">{nextNode.title}</span>（{nextNode.year < 0 ? `BC ${-nextNode.year}` : nextNode.year}）。</>
+                )}
+                {!prevNode && !nextNode && (
+                  <span className="text-ink-400 italic">（暂无前后节点信息）</span>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* 底部按钮 */}
+          <div className="flex gap-2 pt-3 border-t border-ink-700">
+            <button
+              onClick={onChat}
+              className="flex-1 px-4 py-2.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors"
+            >
+              💬 询问此节点
+            </button>
+            <button
+              onClick={onBack}
+              className="px-4 py-2.5 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm transition-colors"
+            >
+              返回专题
+            </button>
+          </div>
         </div>
       </div>
     </div>

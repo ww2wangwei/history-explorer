@@ -192,9 +192,12 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
             project: typeof map.project,
           }, pointType: typeof point, pointKeys: point ? Object.keys(point) : null, pointX: (point as any).x, pointGetX: typeof (point as any).getX === 'function' ? (point as any).getX() : null })
           if (point) {
-            // TMap T.Point 字段访问：可能是 .x / .getX() / [0]
-            const x = (point as any).x ?? (point as any).getX?.() ?? (point as any)[0]
-            const y = (point as any).y ?? (point as any).getY?.() ?? (point as any)[1]
+            // TMap T.Point 是类数组 [x, y]
+            // 优先用 [0]/[1]，fallback 到 .x/.y
+            const arr = point as any
+            const x = arr[0] ?? arr.x ?? arr.getX?.()
+            const y = arr[1] ?? arr.y ?? arr.getY?.()
+            console.log('[MiniMap] marker pos:', { x, y, raw0: arr[0], raw1: arr[1], rawX: arr.x, rawY: arr.y })
             markerEl.style.left = x + 'px'
             markerEl.style.top = y + 'px'
             markerEl.style.display = 'block'

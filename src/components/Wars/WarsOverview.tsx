@@ -826,6 +826,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
           node={selectedMajorNode.node}
           onClose={() => setSelectedMajorNode(null)}
           onBack={() => setSelectedMajorNode(null)}
+          onSwitchNode={(n) => setSelectedMajorNode({ mw: selectedMajorNode.mw, node: n })}
           onChat={() => {
             const adHocWar: HistoricalEvent = {
               id: `major-${selectedMajorNode.mw.key}-${selectedMajorNode.node.year}-${selectedMajorNode.node.title.slice(0, 4)}`,
@@ -1133,12 +1134,14 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
  * 风格与 WarDetailDialog 一致：背景 / 经过 / 结果 / 影响
  * 没补 4 段详细内容的节点用通用模板回退
  */
-function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat }: {
+function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchNode }: {
   mw: MajorWar
   node: MajorWarNode
   onClose: () => void
   onBack: () => void
   onChat: () => void
+  /** 切换到其他节点（从缩略图点击其他节点触发） */
+  onSwitchNode: (node: MajorWarNode) => void
 }) {
   const yearLabel = node.year < 0 ? `BC ${-node.year}` : `${node.year}`
 
@@ -1204,10 +1207,7 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat }: {
                 setMapFocus({ center: lngLat, zoom: 5, label })
                 setYear(year)
               }}
-              onSwitchNode={(n) => {
-                // 关闭当前弹窗 + 重新打开对应节点弹窗
-                setSelectedMajorNode({ mw, node: n })
-              }}
+              onSwitchNode={onSwitchNode}
             />
           </div>
 

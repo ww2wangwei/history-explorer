@@ -24,8 +24,10 @@ interface MiniMapProps {
   onSwitchNode?: (node: MapNode) => void
 }
 
+// 天地图 geoEqualEarth 投影下世界 2:1
+// 容器也用 2:1 让地图填满（不左右留白）
 const WIDTH = 480
-const HEIGHT = 300
+const HEIGHT = 240
 
 export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode }: MiniMapProps) {
   const containerRef = useRef<HTMLDivElement>(null)

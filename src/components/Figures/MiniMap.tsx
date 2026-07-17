@@ -6,19 +6,26 @@
 import { useEffect, useRef, useState } from 'react'
 import { loadTianditu } from '@/lib/tdt/loader'
 import { lookupLocation, type LngLat } from '@/utils/locationCoords'
-import type { MajorWarNode } from './WarsOverview'
+
+/** 通用节点类型：战争事件或大型战争节点 */
+export interface MapNode {
+  title: string
+  year: number
+  location: string
+  importance: 1 | 2 | 3
+}
 
 interface MiniMapProps {
-  focusNode: MajorWarNode
-  allNodes: MajorWarNode[]
+  focusNode: MapNode
+  allNodes: MapNode[]
   onJumpToMap: (lngLat: LngLat, year: number, label: string) => void
-  onSwitchNode?: (node: MajorWarNode) => void
+  onSwitchNode?: (node: MapNode) => void
 }
 
 const WIDTH = 480
 const HEIGHT = 300
 
-export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode }: MiniMapProps) {
+export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode: _onSwitchNode }: MiniMapProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<any>(null)
   const markersRef = useRef<any[]>([])

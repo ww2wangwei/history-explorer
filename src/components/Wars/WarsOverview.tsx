@@ -912,6 +912,32 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
             </div>
           )}
 
+          {/* 🗺️ 缩略地图 — 显示战争位置 */}
+          {war.coordinates && (
+            <div>
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
+              <MiniMap
+                focusNode={{
+                  title: war.title,
+                  year: war.year,
+                  location: war.country || (war.coordinates ? `${war.coordinates[0].toFixed(1)}, ${war.coordinates[1].toFixed(1)}` : ''),
+                  importance: war.importance,
+                }}
+                allNodes={[{
+                  title: war.title,
+                  year: war.year,
+                  location: war.country || `${war.coordinates[0].toFixed(1)}, ${war.coordinates[1].toFixed(1)}`,
+                  importance: war.importance,
+                }]}
+                onJumpToMap={(lngLat, year, label) => {
+                  onClose()
+                  setMapFocus({ center: lngLat, zoom: 5, label })
+                  setYear(year)
+                }}
+              />
+            </div>
+          )}
+
           {/* 经过 — 主描述（必显示） */}
           <div>
             <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">⚔️ 战争经过</div>

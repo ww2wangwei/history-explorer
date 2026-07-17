@@ -24,23 +24,24 @@ interface MiniMapProps {
 const WIDTH = 360
 const HEIGHT = 220
 
-/** 把 CONTINENTS 转换成 GeoJSON FeatureCollection（供 react-simple-maps 渲染） */
+/** 把 CONTINENTS (LineString 折线) 转换成 GeoJSON Polygon（自动闭合） */
 const CONTINENTS_GEO: any = {
   type: 'FeatureCollection',
-  features: CONTINENTS.map(c => ({
-    type: 'Feature',
-    properties: { id: c.id, name: c.name, type: c.type },
-    geometry: c.geometry
-      ? {
-          type: c.geometry.length > 0 && Array.isArray(c.geometry[0]) && Array.isArray(c.geometry[0][0])
-            ? 'MultiPolygon'
-            : 'Polygon',
-          coordinates: c.geometry.length > 0 && Array.isArray(c.geometry[0]) && Array.isArray(c.geometry[0][0])
-            ? c.geometry
-            : [c.geometry],
-        }
-      : null,
-  })).filter(f => f.geometry),
+  features: CONTINENTS.map(c => {
+    // CONTINENTS 的 geometry 是 [[lng, lat], [lng, lat], ...] 折线
+    // 转为 Polygon：自动添加首点到末尾形成闭合
+    if (!c.geometry || c.geometry.length < 3) return null
+    // 闭合折线（首尾点相同）
+    const closed: [number, number][] = [...c.geometry, c.geometry[0]] as [number, number][]
+    return {
+      type: 'Feature',
+      properties: { id: c.id, name: c.name, type: c.type },
+      geometry: {
+        type: 'Polygon',
+        coordinates: [closed],
+      },
+    }
+  }).filter(Boolean),
 }
 
 export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode }: MiniMapProps) {

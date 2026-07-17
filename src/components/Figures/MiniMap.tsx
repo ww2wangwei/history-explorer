@@ -39,9 +39,9 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
   // 节点位置：优先用 node.coordinates（精确），否则查 location 字典
   const nodePositions = allNodes
     .map(node => ({ node, pos: node.coordinates || lookupLocation(node.location) }))
-    .filter(x => x.pos) as Array<{ node: MajorWarNode; pos: LngLat }>
+    .filter(x => x.pos) as Array<{ node: MapNode; pos: LngLat }>
 
-  const focusPos = lookupLocation(focusNode.location)
+  const focusPos = focusNode.coordinates || lookupLocation(focusNode.location)
 
   // 保持 onSwitchNode 最新（避免 effect 重跑）
   useEffect(() => { onSwitchNodeRef.current = onSwitchNode }, [onSwitchNode])

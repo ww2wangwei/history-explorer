@@ -11,6 +11,7 @@ import { useHistoryStore } from '@/store/useHistoryStore'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
 import { enhancePersonaPrompt } from '@/utils/useLearningContext'
 import type { Era, HistoricalEvent } from '@/types'
+import MiniMap from '@/components/Figures/MiniMap'
 
 const events = eventsData as HistoricalEvent[]
 const eras = erasData as Era[]
@@ -1191,6 +1192,25 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat }: {
         </div>
 
         <div className="p-6 space-y-4">
+          {/* 🗺️ 缩略地图 — 显示节点位置 + 同大战争其他节点 */}
+          <div>
+            <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
+            <MiniMap
+              focusNode={node}
+              allNodes={mw.nodes}
+              onJumpToMap={(lngLat, year, label) => {
+                onClose()
+                onBack()
+                setMapFocus({ center: lngLat, zoom: 4, label })
+                setYear(year)
+              }}
+              onSwitchNode={(n) => {
+                // 关闭当前弹窗 + 重新打开对应节点弹窗
+                setSelectedMajorNode({ mw, node: n })
+              }}
+            />
+          </div>
+
           {/* 概述 — 必有 */}
           <div>
             <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📜 节点概述</div>

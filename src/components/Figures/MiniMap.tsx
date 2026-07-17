@@ -88,10 +88,10 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
           height={HEIGHT}
           style={{ width: '100%', height: '100%' }}
         >
-          {/* 天地图瓦片层（自动用 VITE_TIANDITU_KEY） */}
-          <TiandituTiles width={WIDTH} height={HEIGHT} />
-
           <ZoomableGroup center={focusPos} zoom={2.5} minZoom={1} maxZoom={6}>
+            {/* 天地图瓦片层（自动用 VITE_TIANDITU_KEY） — 必须在 ZoomableGroup 内部 */}
+            <TiandituTiles width={WIDTH} height={HEIGHT} />
+
             {/* 节点标记 */}
             {nodePositions.map(({ node, pos }) => {
               if (!pos) return null

@@ -179,6 +179,15 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
       markerEl.style.top = screenY + 'px'
 
       console.log('[MiniMap] marker at', { screenX, screenY, containerLeft: containerRect.left, containerTop: containerRect.top })
+      // 下一帧检查 marker 实际位置
+      requestAnimationFrame(() => {
+        if (markerEl.isConnected) {
+          const r = markerEl.getBoundingClientRect()
+          console.log('[MiniMap] marker rect:', { x: r.x, y: r.y, w: r.width, h: r.height, display: getComputedStyle(markerEl).display, visibility: getComputedStyle(markerEl).visibility, opacity: getComputedStyle(markerEl).opacity })
+        } else {
+          console.log('[MiniMap] marker not in DOM')
+        }
+      })
 
       markersRef.current.push({ el: markerEl })
     }

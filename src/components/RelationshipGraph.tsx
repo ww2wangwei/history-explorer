@@ -404,15 +404,25 @@ export default function RelationshipGraph({ onClose }: Props) {
                 >
                   {node.emoji || '👤'}
                 </text>
+                {/* 名字常显（节点小，避免遮挡但要在 hover 时可读） */}
+                <text
+                  textAnchor="middle"
+                  y={hoveredNodeId === node.id ? -18 : 20}
+                  fontSize={hoveredNodeId === node.id ? 10 : 8}
+                  fill={hoveredNodeId === node.id ? '#c89a5b' : '#c0b89a'}
+                  style={{ pointerEvents: 'none', userSelect: 'none', paintOrder: 'stroke', stroke: '#0f0e0c', strokeWidth: 2 }}
+                >
+                  {node.figure?.name}
+                </text>
                 {hoveredNodeId === node.id && (
                   <text
                     textAnchor="middle"
-                    y={-18}
+                    y={-30}
                     fontSize={9}
-                    fill="#c89a5b"
-                    style={{ pointerEvents: 'none', userSelect: 'none', paintOrder: 'stroke', stroke: '#0f0e0c', strokeWidth: 2.5 }}
+                    fill="#a89878"
+                    style={{ pointerEvents: 'none', userSelect: 'none', paintOrder: 'stroke', stroke: '#0f0e0c', strokeWidth: 2 }}
                   >
-                    {node.figure?.name}
+                    {node.figure?.role?.split(' / ')[0]}
                   </text>
                 )}
               </g>

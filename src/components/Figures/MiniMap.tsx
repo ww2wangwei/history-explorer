@@ -190,10 +190,13 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
             lngLatToContainerPoint: typeof map.lngLatToContainerPoint,
             lngLatToPoint: typeof map.lngLatToPoint,
             project: typeof map.project,
-          }})
+          }, pointType: typeof point, pointKeys: point ? Object.keys(point) : null, pointX: (point as any).x, pointGetX: typeof (point as any).getX === 'function' ? (point as any).getX() : null })
           if (point) {
-            markerEl.style.left = point.x + 'px'
-            markerEl.style.top = point.y + 'px'
+            // TMap T.Point 字段访问：可能是 .x / .getX() / [0]
+            const x = (point as any).x ?? (point as any).getX?.() ?? (point as any)[0]
+            const y = (point as any).y ?? (point as any).getY?.() ?? (point as any)[1]
+            markerEl.style.left = x + 'px'
+            markerEl.style.top = y + 'px'
             markerEl.style.display = 'block'
           } else {
             markerEl.style.display = 'none'

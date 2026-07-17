@@ -45,6 +45,9 @@ interface Props {
 const PATHS: { id: PathId; icon: string; title: string; desc: string; color: string }[] = [
   { id: 'timeline', icon: '📜', title: '朝代时间线', desc: '按时间顺序学习每个朝代', color: '#c89a5b' },
   { id: 'allFigures', icon: '👥', title: '全人物', desc: '浏览 26+ 位历史人物并与 AI 对话', color: '#9b7eb6' },
+  { id: 'allWars', icon: '⚔️', title: '全战争', desc: '从武王伐纣到现代的关键战争 75 场', color: '#b85450' },
+  { id: 'allCultures', icon: '📚', title: '全文化', desc: '思想家、文学家、宗教人物的代表作品', color: '#5b9bc8' },
+  { id: 'allGeography', icon: '🗺️', title: '全地理', desc: '自然地理特征 + 疆域变迁', color: '#5bc89a' },
   { id: 'review', icon: '🎯', title: '今日复习', desc: '基于 SM-2 算法的间隔复习', color: '#9bc89a' },
 ]
 
@@ -206,20 +209,17 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
               <button
                 key={p.id}
                 onClick={() => {
-                  // 3 个路径有不同行为 — 都不直接进地图
+                  // 路径进入策略：
+                  // - 朝代时间线：弹朝代选择列表 → 用户选后进 QuickLearnModal
+                  // - 全人物：弹人物选择列表（用户选某人物进 FiguresOverview）
+                  // - 全战争/全文化/全地理：直接进对应全屏浏览页（无需弹窗）
+                  // - 今日复习：直接进 FlashcardsPanel
                   if (p.id === 'timeline') {
-                    // 📜 朝代时间线：先弹朝代选择列表，让用户自己选 → QuickLearnModal（含已关联笔记/卡）
                     setShowEraList(true)
                     if (recommendation) recordVisit('timeline', recommendation.eraId)
                   } else if (p.id === 'allFigures') {
-                    // 👥 全人物：先弹人物选择列表，让用户选一个具体人物 → FiguresOverview 打开该人物详情
                     setShowFigureList(true)
                   } else {
-                    // 🎯 今日复习 — 走通用流程（让 Layout 路由）
-                    if (recommendation) {
-                      selectEra(recommendation.eraId)
-                      recordVisit(p.id as PathId, recommendation.eraId)
-                    }
                     onEnterPath(p.id as PathId)
                   }
                 }}

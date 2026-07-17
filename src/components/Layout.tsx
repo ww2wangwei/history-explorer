@@ -18,6 +18,9 @@ import { countTodayReviews } from '@/utils/cardStats'
 import { formatYear } from '@/utils/time'
 import NotesOverview from '@/components/NotesOverview'
 import FiguresOverview from '@/components/Figures/FiguresOverview'
+import WarsOverview from '@/components/Wars/WarsOverview'
+import CulturesOverview from '@/components/Cultures/CulturesOverview'
+import GeographyOverview from '@/components/Geography/GeographyOverview'
 import FlashcardsTrigger from '@/components/Flashcards/FlashcardsTrigger'
 import FlashcardsPanel from '@/components/Flashcards/FlashcardsPanel'
 import GoalSettings from '@/components/Flashcards/GoalSettings'
@@ -42,6 +45,9 @@ export default function Layout() {
   // 复习模式状态
   const [flashcardsActive, setFlashcardsActive] = useState(false)
   const [figuresActive, setFiguresActive] = useState(false)
+  const [warsActive, setWarsActive] = useState(false)
+  const [culturesActive, setCulturesActive] = useState(false)
+  const [geographyActive, setGeographyActive] = useState(false)
   // 从 Dashboard 进入全人物时携带的"默认打开的人物"（来自 onEnterPath 的 eraId 槽位）
   const [initialFigureId, setInitialFigureId] = useState<string | null>(null)
   const [goalSettingsOpen, setGoalSettingsOpen] = useState(false)
@@ -304,6 +310,12 @@ export default function Layout() {
                   // eraId 在此场景下实际是 personId（Dashboard 全人物弹窗传入）
                   setInitialFigureId(eraId ?? null)
                   setFiguresActive(true)
+                } else if (pathId === 'allWars') {
+                  setWarsActive(true)
+                } else if (pathId === 'allCultures') {
+                  setCulturesActive(true)
+                } else if (pathId === 'allGeography') {
+                  setGeographyActive(true)
                 } else {
                   setViewMode('map')
                 }
@@ -328,6 +340,21 @@ export default function Layout() {
               isActive={figuresActive}
               onClose={() => { setFiguresActive(false); setInitialFigureId(null) }}
               initialPersonId={initialFigureId}
+            />
+          ) : warsActive ? (
+            <WarsOverview
+              isActive={warsActive}
+              onClose={() => setWarsActive(false)}
+            />
+          ) : culturesActive ? (
+            <CulturesOverview
+              isActive={culturesActive}
+              onClose={() => setCulturesActive(false)}
+            />
+          ) : geographyActive ? (
+            <GeographyOverview
+              isActive={geographyActive}
+              onClose={() => setGeographyActive(false)}
             />
           ) : viewMode === 'graph' ? (
             <RelationshipGraph />

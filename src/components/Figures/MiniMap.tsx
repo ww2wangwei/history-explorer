@@ -107,7 +107,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
     })
     markersRef.current = []
 
-    // 只加 focus 节点（简化设计：只显示当前事件的位置）
+    // 只加 focus 节点（静态显示，无点击交互）
     const focusEntry = nodePositions.find(({ node }) => node === focusNode)
     if (focusEntry && focusEntry.pos) {
       const { node, pos } = focusEntry
@@ -131,9 +131,6 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
         iconAnchor: new T.Point(40, 24),
       })
       const marker = new T.Marker(new T.LngLat(pos[0], pos[1]), { icon })
-      marker.addEventListener('click', () => {
-        onJumpToMap(pos, node.year, node.title)
-      })
       map.addOverLay(marker)
       markersRef.current.push(marker)
     }

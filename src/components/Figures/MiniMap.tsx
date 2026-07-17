@@ -25,7 +25,7 @@ interface MiniMapProps {
 const WIDTH = 480
 const HEIGHT = 300
 
-export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode: _onSwitchNode }: MiniMapProps) {
+export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode }: MiniMapProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<any>(null)
   const markersRef = useRef<any[]>([])

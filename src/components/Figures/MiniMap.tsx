@@ -15,8 +15,8 @@ interface MiniMapProps {
   onSwitchNode?: (node: MajorWarNode) => void
 }
 
-const WIDTH = 360
-const HEIGHT = 220
+const WIDTH = 480
+const HEIGHT = 300
 
 export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode }: MiniMapProps) {
   const containerRef = useRef<HTMLDivElement>(null)

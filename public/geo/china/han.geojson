@@ -1,0 +1,41 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "han-west",
+        "name": "西汉",
+        "color": "#8b3a3a",
+        "startYear": -202,
+        "endYear": 8
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [122, 44], [122, 35], [115, 28], [108, 22], [102, 22],
+          [95, 28], [92, 33], [85, 36], [80, 42], [90, 44],
+          [100, 45], [110, 45], [122, 44]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "han-east",
+        "name": "东汉",
+        "color": "#a85950",
+        "startYear": 25,
+        "endYear": 220
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [125, 44], [125, 33], [115, 25], [105, 22], [98, 24],
+          [92, 30], [85, 35], [78, 38], [75, 42], [85, 45],
+          [100, 46], [115, 46], [125, 44]
+        ]]
+      }
+    }
+  ]
+}

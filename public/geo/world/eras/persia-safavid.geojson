@@ -1,0 +1,22 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "persia-safavid",
+        "name": "波斯萨法维帝国",
+        "color": "#8a6a4a"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [44, 40], [48, 40], [52, 39], [56, 38], [60, 36],
+          [62, 34], [60, 31], [58, 29], [56, 27], [54, 25],
+          [52, 27], [50, 30], [48, 32], [46, 35], [44, 37],
+          [44, 40]
+        ]]
+      }
+    }
+  ]
+}

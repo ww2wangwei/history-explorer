@@ -1,0 +1,41 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "song-north",
+        "name": "北宋",
+        "color": "#5b6e8a",
+        "startYear": 960,
+        "endYear": 1127
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [122, 40], [122, 32], [115, 25], [108, 22], [100, 22],
+          [95, 25], [92, 30], [88, 35], [85, 38], [90, 40],
+          [100, 41], [110, 42], [122, 40]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "song-south",
+        "name": "南宋",
+        "color": "#7a8aa3",
+        "startYear": 1127,
+        "endYear": 1279
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [122, 33], [122, 25], [115, 22], [108, 22], [100, 22],
+          [95, 25], [92, 30], [95, 33], [100, 34], [110, 34],
+          [122, 33]
+        ]]
+      }
+    }
+  ]
+}

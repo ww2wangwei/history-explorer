@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "yuan",
+        "name": "元朝",
+        "color": "#2e4a3e",
+        "startYear": 1271,
+        "endYear": 1368
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [125, 50], [125, 35], [118, 28], [108, 22], [98, 22],
+          [88, 23], [80, 28], [72, 32], [68, 36], [70, 42],
+          [75, 48], [85, 52], [100, 54], [115, 54], [125, 50]
+        ]]
+      }
+    }
+  ]
+}

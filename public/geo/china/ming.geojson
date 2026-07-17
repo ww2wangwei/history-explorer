@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "ming",
+        "name": "明朝",
+        "color": "#a84a2c",
+        "startYear": 1368,
+        "endYear": 1644
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [75, 45], [135, 45], [135, 20], [108, 18], [75, 30], [75, 45]
+        ]]
+      }
+    }
+  ]
+}

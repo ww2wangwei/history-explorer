@@ -1,0 +1,23 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "qin",
+        "name": "秦朝",
+        "color": "#3a3a3a",
+        "startYear": -221,
+        "endYear": -206
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [122, 39], [122, 33], [118, 30], [112, 22], [108, 22],
+          [105, 24], [100, 22], [98, 26], [100, 30], [95, 32],
+          [95, 36], [100, 40], [110, 42], [118, 42], [122, 39]
+        ]]
+      }
+    }
+  ]
+}

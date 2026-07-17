@@ -1,0 +1,21 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "rome-republic",
+        "name": "罗马共和国",
+        "color": "#8b3a3a"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-1, 36], [3, 38], [8, 41], [12, 42], [15, 41],
+          [18, 40], [19, 39], [18, 38], [16, 37], [13, 36],
+          [10, 36], [7, 37], [3, 36], [-1, 36]
+        ]]
+      }
+    }
+  ]
+}

@@ -1,0 +1,4293 @@
+[
+  {
+    "id": "ev-001",
+    "year": -3100,
+    "title": "上下埃及统一",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      31.23,
+      30.04
+    ],
+    "description": "传说中的法老美尼斯统一上下埃及，建立第一王朝，开启古埃及文明。",
+    "importance": 3,
+    "country": [
+      "egypt"
+    ],
+    "relatedEventIds": [
+      "ev-002"
+    ]
+  },
+  {
+    "id": "ev-002",
+    "year": -2700,
+    "title": "胡夫金字塔建成",
+    "category": "文化",
+    "region": "other",
+    "coordinates": [
+      31.13,
+      29.98
+    ],
+    "description": "古埃及第四王朝法老胡夫的大金字塔建成，是古代世界七大奇迹中最古老的一个。",
+    "importance": 2,
+    "country": [
+      "egypt"
+    ],
+    "relatedEventIds": [
+      "ev-003"
+    ]
+  },
+  {
+    "id": "ev-003",
+    "year": -2334,
+    "title": "萨尔贡统一两河流域",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      44.36,
+      33.32
+    ],
+    "description": "阿卡德王国的萨尔贡一世征服苏美尔诸城邦，建立人类历史上第一个帝国。",
+    "importance": 3,
+    "country": [
+      "china"
+    ],
+    "relatedEventIds": [
+      "ev-004"
+    ]
+  },
+  {
+    "id": "ev-004",
+    "year": -1764,
+    "title": "汉谟拉比统一巴比伦",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      44.42,
+      32.54
+    ],
+    "description": "古巴比伦国王汉谟拉比颁布《汉谟拉比法典》，是现存最早较完整的成文法典。",
+    "importance": 3,
+    "country": [
+      "babylonian"
+    ],
+    "relatedEventIds": [
+      "ev-005",
+      "ev-006"
+    ]
+  },
+  {
+    "id": "ev-005",
+    "year": -1500,
+    "title": "商朝盘庚迁殷",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      114.3,
+      36.1
+    ],
+    "description": "商朝国王盘庚迁都至殷（今河南安阳），商朝也称殷商，“中国”一词最早所指。",
+    "importance": 2
+  },
+  {
+    "id": "ev-006",
+    "year": -1046,
+    "title": "武王伐纣",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      113.5,
+      35.2
+    ],
+    "description": "周武王姬发率诸侯联军在牧野之战中击败商纣王，灭亡商朝，建立周朝。",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-007"
+    ]
+  },
+  {
+    "id": "ev-007",
+    "year": -770,
+    "title": "平王东迁，春秋开始",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      112.43,
+      34.62
+    ],
+    "description": "周平王东迁洛邑，西周结束，东周开始，春秋战国时期开端。",
+    "importance": 2,
+    "relatedEventIds": [
+      "ev-008"
+    ]
+  },
+  {
+    "id": "ev-008",
+    "year": -753,
+    "title": "罗马建城",
+    "category": "政治",
+    "region": "rome",
+    "coordinates": [
+      12.5,
+      41.9
+    ],
+    "description": "传说罗慕路斯建立罗马城（公元前 753 年 4 月 21 日），罗马文明的开端。",
+    "importance": 2,
+    "relatedEventIds": [
+      "ev-009"
+    ]
+  },
+  {
+    "id": "ev-009",
+    "year": -551,
+    "title": "孔子诞生",
+    "category": "思想",
+    "region": "china",
+    "coordinates": [
+      117,
+      35.6
+    ],
+    "description": "春秋末期伟大的思想家、教育家孔子诞生，儒家学派创始人。",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-010",
+      "ev-011"
+    ]
+  },
+  {
+    "id": "ev-010",
+    "year": -509,
+    "title": "罗马共和国建立",
+    "category": "政治",
+    "region": "rome",
+    "coordinates": [
+      12.5,
+      41.9
+    ],
+    "description": "罗马驱逐最后一位伊特鲁里亚国王，建立罗马共和国，开启共和政体。",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-011"
+    ]
+  },
+  {
+    "id": "ev-011",
+    "year": -490,
+    "title": "马拉松战役",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      23.97,
+      38.15
+    ],
+    "description": "雅典在马拉松战役中击败波斯帝国，奠定希腊城邦的独立地位。",
+    "importance": 2,
+    "country": [
+      "rome"
+    ],
+    "relatedEventIds": [
+      "ev-012",
+      "ev-013"
+    ]
+  },
+  {
+    "id": "ev-012",
+    "year": -356,
+    "title": "商鞅变法",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      107.5,
+      34.5
+    ],
+    "description": "秦国商鞅推行变法，重农抑商、奖励耕战，为秦统一六国奠定基础。",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-013"
+    ]
+  },
+  {
+    "id": "ev-013",
+    "year": -336,
+    "title": "亚历山大即位",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      22.95,
+      40.65
+    ],
+    "description": "亚历山大大帝即位，开始建立横跨欧亚非的希腊化世界。",
+    "importance": 3,
+    "country": [
+      "greece"
+    ],
+    "relatedEventIds": [
+      "ev-014"
+    ]
+  },
+  {
+    "id": "ev-014",
+    "year": -221,
+    "title": "秦统一六国",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "秦王嬴政先后灭韩、赵、魏、楚、燕、齐，建立中国第一个大一统王朝——秦朝。",
+    "importance": 3,
+    "relatedEraId": "qin",
+    "relatedEventIds": [
+      "ev-015"
+    ]
+  },
+  {
+    "id": "ev-015",
+    "year": -213,
+    "title": "焚书坑儒",
+    "category": "文化",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "秦始皇采纳李斯建议焚书，加强思想控制。",
+    "importance": 2,
+    "relatedEraId": "qin",
+    "relatedEventIds": [
+      "ev-016",
+      "ev-017"
+    ]
+  },
+  {
+    "id": "ev-016",
+    "year": -209,
+    "title": "陈胜吴广起义",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      114.8,
+      33.3
+    ],
+    "description": "陈胜吴广在大泽乡起义，“王侯将相宁有种乎”，中国第一次大规模农民起义。",
+    "importance": 3,
+    "relatedEraId": "qin"
+  },
+  {
+    "id": "ev-017",
+    "year": -202,
+    "title": "楚汉之争结束，汉朝建立",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      115.5,
+      33.5
+    ],
+    "description": "刘邦战胜项羽，建立汉朝，开启长达 400 年的汉朝统治。",
+    "importance": 3,
+    "relatedEraId": "han-west",
+    "relatedEventIds": [
+      "ev-018"
+    ]
+  },
+  {
+    "id": "ev-018",
+    "year": -139,
+    "title": "张骞通西域",
+    "category": "外交",
+    "region": "china",
+    "coordinates": [
+      87.62,
+      43.79
+    ],
+    "description": "汉武帝派张骞出使西域，开辟丝绸之路，中国与中亚、西亚首次大规模交流。",
+    "importance": 3,
+    "relatedEraId": "han-west"
+  },
+  {
+    "id": "ev-019",
+    "year": -119,
+    "title": "漠北之战",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      110,
+      44
+    ],
+    "description": "卫青、霍去病率军深入漠北，重创匈奴，“封狼居胥”，汉朝北方威胁基本解除。",
+    "importance": 2,
+    "relatedEraId": "han-west"
+  },
+  {
+    "id": "ev-020",
+    "year": -27,
+    "title": "罗马帝国建立",
+    "category": "政治",
+    "region": "rome",
+    "coordinates": [
+      12.5,
+      41.9
+    ],
+    "description": "屋大维获得“奥古斯都”称号，罗马共和国转变为罗马帝国。",
+    "importance": 3,
+    "relatedEraId": "rome-empire"
+  },
+  {
+    "id": "ev-021",
+    "year": 9,
+    "title": "王莽篡汉",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "王莽篡汉建立新朝，西汉灭亡。",
+    "importance": 2
+  },
+  {
+    "id": "ev-022",
+    "year": 25,
+    "title": "东汉建立",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      112.43,
+      34.62
+    ],
+    "description": "刘秀建立东汉，定都洛阳，开启光武中兴。",
+    "importance": 2,
+    "relatedEraId": "han-east"
+  },
+  {
+    "id": "ev-023",
+    "year": 105,
+    "title": "蔡伦改进造纸术",
+    "category": "科技",
+    "region": "china",
+    "coordinates": [
+      112.43,
+      34.62
+    ],
+    "description": "东汉宦官蔡伦改进造纸术，“蔡侯纸”对世界文明传播产生深远影响。",
+    "importance": 3,
+    "relatedEraId": "han-east"
+  },
+  {
+    "id": "ev-024",
+    "year": 220,
+    "title": "三国鼎立开始",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      114.3,
+      30.6
+    ],
+    "description": "曹丕代汉建魏，东汉灭亡，三国时代开始。",
+    "importance": 2
+  },
+  {
+    "id": "ev-025",
+    "year": 285,
+    "title": "罗马帝国分裂",
+    "category": "政治",
+    "region": "rome",
+    "coordinates": [
+      12.5,
+      41.9
+    ],
+    "description": "戴克里先实行四帝共治，罗马帝国开始东西分裂。",
+    "importance": 2,
+    "relatedEraId": "rome-empire"
+  },
+  {
+    "id": "ev-026",
+    "year": 313,
+    "title": "米兰敕令",
+    "category": "思想",
+    "region": "rome",
+    "coordinates": [
+      9.19,
+      45.46
+    ],
+    "description": "君士坦丁大帝颁布米兰敕令，基督教获得合法地位。",
+    "importance": 3
+  },
+  {
+    "id": "ev-027",
+    "year": 330,
+    "title": "君士坦丁堡奠基",
+    "category": "政治",
+    "region": "rome",
+    "coordinates": [
+      28.98,
+      41.01
+    ],
+    "description": "君士坦丁大帝迁都拜占庭并改名君士坦丁堡，成为东西罗马分界线。",
+    "importance": 3,
+    "relatedEraId": "byzantine"
+  },
+  {
+    "id": "ev-028",
+    "year": 476,
+    "title": "西罗马帝国灭亡",
+    "category": "政治",
+    "region": "rome",
+    "coordinates": [
+      45.41,
+      12.36
+    ],
+    "description": "日耳曼首领奥多亚塞废黜末代西罗马皇帝罗慕路斯，西罗马帝国灭亡，欧洲进入中世纪。",
+    "importance": 3
+  },
+  {
+    "id": "ev-029",
+    "year": 581,
+    "title": "隋朝建立",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "杨坚建立隋朝，统一中国，结束南北朝分裂。",
+    "importance": 2
+  },
+  {
+    "id": "ev-030",
+    "year": 618,
+    "title": "唐朝建立",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "李渊建立唐朝，定都长安，开启中国封建社会的盛世。",
+    "importance": 3,
+    "relatedEraId": "tang"
+  },
+  {
+    "id": "ev-031",
+    "year": 622,
+    "title": "希吉拉（伊斯兰教元年）",
+    "category": "思想",
+    "region": "arab",
+    "coordinates": [
+      39.61,
+      24.47
+    ],
+    "description": "穆罕默德从麦加迁徙到麦地那（希吉拉），伊斯兰教纪年开端。",
+    "importance": 3
+  },
+  {
+    "id": "ev-032",
+    "year": 632,
+    "title": "阿拉伯帝国建立",
+    "category": "政治",
+    "region": "arab",
+    "coordinates": [
+      39.61,
+      24.47
+    ],
+    "description": "穆罕默德去世后，阿拉伯帝国在四大哈里发时期迅速扩张。",
+    "importance": 3,
+    "relatedEraId": "arab-caliphate"
+  },
+  {
+    "id": "ev-033",
+    "year": 645,
+    "title": "玄奘西行归国",
+    "category": "文化",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "玄奘法师从印度取经归来，翻译佛经、著《大唐西域记》。",
+    "importance": 2,
+    "relatedEraId": "tang"
+  },
+  {
+    "id": "ev-034",
+    "year": 690,
+    "title": "武则天称帝",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "武则天改国号“周”，成为中国历史上唯一的女皇帝。",
+    "importance": 3,
+    "relatedEraId": "tang"
+  },
+  {
+    "id": "ev-035",
+    "year": 755,
+    "title": "安史之乱",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      113,
+      36
+    ],
+    "description": "安禄山、史思明起兵叛乱，盛唐由盛转衰的转折点。",
+    "importance": 3,
+    "relatedEraId": "tang"
+  },
+  {
+    "id": "ev-036",
+    "year": 762,
+    "title": "巴格达建城",
+    "category": "文化",
+    "region": "arab",
+    "coordinates": [
+      44.36,
+      33.32
+    ],
+    "description": "阿拔斯王朝哈里发曼苏尔建立巴格达，成为伊斯兰世界文化与学术中心。",
+    "importance": 2,
+    "relatedEraId": "arab-caliphate"
+  },
+  {
+    "id": "ev-037",
+    "year": 800,
+    "title": "查理曼加冕",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      12.4,
+      43.92
+    ],
+    "description": "教皇利奥三世为法兰克国王查理曼加冕为“罗马人的皇帝”，神圣罗马帝国前身。",
+    "importance": 2,
+    "country": [
+      "holy-roman"
+    ]
+  },
+  {
+    "id": "ev-038",
+    "year": 907,
+    "title": "唐朝灭亡，五代十国开始",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      113.3,
+      33.5
+    ],
+    "description": "朱温篡唐，建立后梁，中国再次进入分裂时期。",
+    "importance": 2
+  },
+  {
+    "id": "ev-039",
+    "year": 960,
+    "title": "北宋建立",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      114.3,
+      34.8
+    ],
+    "description": "赵匡胤发动陈桥兵变，建立北宋，定都开封。",
+    "importance": 3,
+    "relatedEraId": "song-north"
+  },
+  {
+    "id": "ev-040",
+    "year": 1024,
+    "title": "北宋发行\"交子\"",
+    "category": "经济",
+    "region": "china",
+    "coordinates": [
+      103.93,
+      30.05
+    ],
+    "description": "北宋四川地区发行“交子”，世界上最早的纸币。",
+    "importance": 2,
+    "relatedEraId": "song-north"
+  },
+  {
+    "id": "ev-041",
+    "year": 1066,
+    "title": "诺曼征服",
+    "category": "军事",
+    "region": "britain",
+    "coordinates": [
+      0.49,
+      50.91
+    ],
+    "description": "诺曼底公爵威廉在黑斯廷斯战役中击败英格兰国王哈罗德，英格兰历史转折。",
+    "importance": 2
+  },
+  {
+    "id": "ev-042",
+    "year": 1088,
+    "title": "北宋设立市舶司",
+    "category": "经济",
+    "region": "china",
+    "coordinates": [
+      121.5,
+      29
+    ],
+    "description": "北宋在主要港口设立市舶司，繁荣海上贸易。",
+    "importance": 1,
+    "relatedEraId": "song-north"
+  },
+  {
+    "id": "ev-043",
+    "year": 1127,
+    "title": "靖康之耻",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      114.3,
+      34.8
+    ],
+    "description": "金朝攻陷北宋都城开封，徽钦二帝被俘，北宋灭亡。",
+    "importance": 3
+  },
+  {
+    "id": "ev-044",
+    "year": 1206,
+    "title": "成吉思汗建立蒙古帝国",
+    "category": "政治",
+    "region": "mongol",
+    "coordinates": [
+      106.92,
+      47.92
+    ],
+    "description": "铁木真在斡难河源召开忽里勒台大会，称成吉思汗，建立大蒙古国。",
+    "importance": 3,
+    "relatedEraId": "mongol-empire"
+  },
+  {
+    "id": "ev-045",
+    "year": 1215,
+    "title": "《大宪章》签署",
+    "category": "政治",
+    "region": "britain",
+    "coordinates": [
+      -0.5,
+      51.4
+    ],
+    "description": "英王约翰被迫签署《大宪章》，确立“王权有限”原则，近代宪政民主的开端。",
+    "importance": 3
+  },
+  {
+    "id": "ev-046",
+    "year": 1235,
+    "title": "蒙古第二次西征",
+    "category": "军事",
+    "region": "mongol",
+    "coordinates": [
+      37.62,
+      55.75
+    ],
+    "description": "拔都率蒙古军西征，攻陷基辅罗斯，深入东欧。",
+    "importance": 2,
+    "relatedEraId": "mongol-empire"
+  },
+  {
+    "id": "ev-047",
+    "year": 1258,
+    "title": "蒙古攻陷巴格达",
+    "category": "军事",
+    "region": "mongol",
+    "coordinates": [
+      44.36,
+      33.32
+    ],
+    "description": "旭烈兀率蒙古军攻陷巴格达，末代阿拔斯哈里发被杀，阿拉伯帝国阿拔斯王朝灭亡。",
+    "importance": 3
+  },
+  {
+    "id": "ev-048",
+    "year": 1271,
+    "title": "元朝建立",
+    "category": "政治",
+    "region": "mongol",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "忽必烈定国号为“大元”，建立元朝，定都大都（今北京）。",
+    "importance": 3,
+    "relatedEraId": "yuan"
+  },
+  {
+    "id": "ev-049",
+    "year": 1279,
+    "title": "崖山海战，南宋灭亡",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      113.3,
+      21.85
+    ],
+    "description": "元军在崖山海战中击败南宋残余，宋朝彻底灭亡。",
+    "importance": 3
+  },
+  {
+    "id": "ev-050",
+    "year": 1294,
+    "title": "蒙古帝国分裂",
+    "category": "政治",
+    "region": "mongol",
+    "coordinates": [
+      106.92,
+      47.92
+    ],
+    "description": "蒙古帝国分裂为元朝及四大汗国（钦察、察合台、窝阔台、伊利汗国）。",
+    "importance": 2,
+    "relatedEraId": "mongol-empire"
+  },
+  {
+    "id": "ev-051",
+    "year": 1368,
+    "title": "明朝建立",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      118.78,
+      32.04
+    ],
+    "description": "朱元璋建立明朝，定都南京。",
+    "importance": 3,
+    "relatedEraId": "ming"
+  },
+  {
+    "id": "ev-052",
+    "year": 1405,
+    "title": "郑和首次下西洋",
+    "category": "外交",
+    "region": "china",
+    "coordinates": [
+      118.78,
+      32.04
+    ],
+    "description": "郑和率领宝船队从南京出发，开始七下西洋的壮举，远达东非。",
+    "importance": 3,
+    "relatedEraId": "ming"
+  },
+  {
+    "id": "ev-053",
+    "year": 1421,
+    "title": "明成祖迁都北京",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "明成祖朱棣正式迁都北京，奠定此后明清两代五百年都城格局。",
+    "importance": 2,
+    "relatedEraId": "ming"
+  },
+  {
+    "id": "ev-054",
+    "year": 1453,
+    "title": "君士坦丁堡陷落",
+    "category": "军事",
+    "region": "arab",
+    "coordinates": [
+      28.98,
+      41.01
+    ],
+    "description": "奥斯曼苏丹穆罕默德二世攻陷君士坦丁堡，千年拜占庭帝国灭亡，地中海进入奥斯曼时代。",
+    "importance": 3
+  },
+  {
+    "id": "ev-055",
+    "year": 1492,
+    "title": "哥伦布发现新大陆",
+    "category": "外交",
+    "region": "britain",
+    "coordinates": [
+      -77.36,
+      23.05
+    ],
+    "description": "哥伦布到达美洲，世界历史进入全球化时代。",
+    "importance": 3
+  },
+  {
+    "id": "ev-056",
+    "year": 1500,
+    "title": "葡萄牙发现巴西",
+    "category": "外交",
+    "region": "other",
+    "coordinates": [
+      -43.2,
+      -22.9
+    ],
+    "description": "葡萄牙人卡布拉尔抵达巴西，南美洲开始被纳入世界史。",
+    "importance": 1
+  },
+  {
+    "id": "ev-057",
+    "year": 1517,
+    "title": "宗教改革开始",
+    "category": "思想",
+    "region": "other",
+    "coordinates": [
+      11.02,
+      49.45
+    ],
+    "description": "马丁·路德发表《九十五条论纲》，新教改革兴起，欧洲宗教格局剧变。",
+    "importance": 3,
+    "country": [
+      "holy-roman"
+    ]
+  },
+  {
+    "id": "ev-058",
+    "year": 1519,
+    "title": "麦哲伦环球航行",
+    "category": "外交",
+    "region": "other",
+    "coordinates": [
+      -58.38,
+      -34.61
+    ],
+    "description": "麦哲伦船队完成人类首次环球航行，证明地球是圆的。",
+    "importance": 3,
+    "country": [
+      "spain",
+      "portugal"
+    ]
+  },
+  {
+    "id": "ev-059",
+    "year": 1543,
+    "title": "哥白尼《天体运行论》",
+    "category": "科技",
+    "region": "other",
+    "coordinates": [
+      19.95,
+      50.05
+    ],
+    "description": "哥白尼发表《天体运行论》，提出日心说，近代科学革命开端。",
+    "importance": 3,
+    "country": [
+      "russia"
+    ]
+  },
+  {
+    "id": "ev-060",
+    "year": 1644,
+    "title": "清军入关",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "清军击败李自成农民军，进入北京，明朝灭亡，清朝开始。",
+    "importance": 3,
+    "relatedEraId": "qing"
+  },
+  {
+    "id": "ev-061",
+    "year": 1687,
+    "title": "牛顿《自然哲学的数学原理》",
+    "category": "科技",
+    "region": "britain",
+    "coordinates": [
+      -0.13,
+      51.51
+    ],
+    "description": "牛顿发表《原理》，奠定经典力学体系，科学革命的巅峰。",
+    "importance": 3
+  },
+  {
+    "id": "ev-062",
+    "year": 1689,
+    "title": "《权利法案》签署",
+    "category": "政治",
+    "region": "britain",
+    "coordinates": [
+      -0.13,
+      51.51
+    ],
+    "description": "英国议会通过《权利法案》，确立君主立宪制，现代民主政治开端。",
+    "importance": 3
+  },
+  {
+    "id": "ev-063",
+    "year": 1769,
+    "title": "瓦特改良蒸汽机",
+    "category": "科技",
+    "region": "britain",
+    "coordinates": [
+      -2.36,
+      51.38
+    ],
+    "description": "詹姆斯·瓦特改良蒸汽机，工业革命的标志性事件。",
+    "importance": 3
+  },
+  {
+    "id": "ev-064",
+    "year": 1776,
+    "title": "美国《独立宣言》",
+    "category": "政治",
+    "region": "britain",
+    "coordinates": [
+      -77.04,
+      38.9
+    ],
+    "description": "美国大陆会议通过《独立宣言》，宣告美利坚合众国独立。",
+    "importance": 3
+  },
+  {
+    "id": "ev-065",
+    "year": 1789,
+    "title": "法国大革命",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      2.35,
+      48.85
+    ],
+    "description": "巴黎民众攻陷巴士底狱，法国大革命爆发，自由平等思想席卷欧洲。",
+    "importance": 3,
+    "country": [
+      "france"
+    ]
+  },
+  {
+    "id": "ev-066",
+    "year": 1792,
+    "title": "马戛尔尼访华",
+    "category": "外交",
+    "region": "china",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "英国马戛尔尼使团访华，要求通商被拒，反映清政府闭关自守。",
+    "importance": 1,
+    "relatedEraId": "qing"
+  },
+  {
+    "id": "ev-067",
+    "year": 1840,
+    "title": "鸦片战争",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      113.2,
+      23.1
+    ],
+    "description": "英国发动鸦片战争，强迫清政府签订《南京条约》，中国进入近代屈辱史。",
+    "importance": 3,
+    "relatedEraId": "qing"
+  },
+  {
+    "id": "ev-068",
+    "year": 1859,
+    "title": "达尔文《物种起源》",
+    "category": "科技",
+    "region": "britain",
+    "coordinates": [
+      -0.13,
+      51.51
+    ],
+    "description": "达尔文发表《物种起源》，进化论震撼世界。",
+    "importance": 3
+  },
+  {
+    "id": "ev-069",
+    "year": 1868,
+    "title": "明治维新",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      139.69,
+      35.69
+    ],
+    "description": "日本明治维新开始，从封建国家转型为现代化国家。",
+    "importance": 3,
+    "country": [
+      "japan"
+    ]
+  },
+  {
+    "id": "ev-070",
+    "year": 1911,
+    "title": "辛亥革命",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      114.3,
+      30.6
+    ],
+    "description": "武昌起义爆发，辛亥革命推翻清朝统治。",
+    "importance": 3,
+    "relatedEraId": "qing"
+  },
+  {
+    "id": "ev-071",
+    "year": 1912,
+    "title": "中华民国成立",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      118.78,
+      32.04
+    ],
+    "description": "中华民国在南京成立，清朝结束，中国两千多年封建帝制终结。",
+    "importance": 3
+  },
+  {
+    "id": "ev-072",
+    "year": 1914,
+    "title": "第一次世界大战",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      14.42,
+      50.09
+    ],
+    "description": "萨拉热窝事件引爆第一次世界大战，欧洲进入战时状态。",
+    "importance": 3,
+    "country": [
+      "france",
+      "britain",
+      "russia",
+      "germany"
+    ]
+  },
+  {
+    "id": "ev-073",
+    "year": 1917,
+    "title": "俄国十月革命",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      30.32,
+      59.93
+    ],
+    "description": "列宁领导的布尔什维克发动十月革命，建立世界上第一个社会主义国家。",
+    "importance": 3,
+    "country": [
+      "russia"
+    ]
+  },
+  {
+    "id": "ev-074",
+    "year": 1922,
+    "title": "奥斯曼帝国灭亡",
+    "category": "政治",
+    "region": "arab",
+    "coordinates": [
+      28.98,
+      41.01
+    ],
+    "description": "末代苏丹被废黜，奥斯曼帝国正式灭亡，土耳其共和国建立。",
+    "importance": 3,
+    "relatedEraId": "ottoman"
+  },
+  {
+    "id": "ev-075",
+    "year": 1939,
+    "title": "第二次世界大战",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      21.02,
+      52.23
+    ],
+    "description": "德国入侵波兰，二战爆发，人类历史上最大规模的战争。",
+    "importance": 3,
+    "country": [
+      "russia",
+      "britain",
+      "us",
+      "germany"
+    ]
+  },
+  {
+    "id": "ev-076",
+    "year": 1949,
+    "title": "中华人民共和国成立",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "中华人民共和国在北京宣告成立，中国进入新纪元。",
+    "importance": 3
+  },
+  {
+    "id": "ev-077",
+    "year": 1969,
+    "title": "人类首次登月",
+    "category": "科技",
+    "region": "britain",
+    "coordinates": [
+      -80.65,
+      28.57
+    ],
+    "description": "阿姆斯特朗成为第一个登上月球的人类。",
+    "importance": 3
+  },
+  {
+    "id": "ev-078",
+    "year": 1991,
+    "title": "苏联解体",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      37.62,
+      55.75
+    ],
+    "description": "苏联解体，冷战结束，世界格局进入一超多强。",
+    "importance": 3,
+    "country": [
+      "russia"
+    ]
+  },
+  {
+    "id": "ev-079",
+    "year": 1997,
+    "title": "香港回归",
+    "category": "外交",
+    "region": "china",
+    "coordinates": [
+      114.17,
+      22.32
+    ],
+    "description": "香港回归祖国，大英帝国殖民体系最终瓦解的标志。",
+    "importance": 3
+  },
+  {
+    "id": "ev-080",
+    "year": 2001,
+    "title": "911 事件",
+    "category": "军事",
+    "region": "britain",
+    "coordinates": [
+      -74.01,
+      40.71
+    ],
+    "description": "恐怖分子袭击美国，世界进入反恐时代。",
+    "importance": 3
+  },
+  {
+    "id": "ev-081",
+    "year": -685,
+    "title": "齐桓公称霸",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      117.2,
+      36.65
+    ],
+    "description": "齐桓公任用管仲改革，\"九合诸侯，一匡天下\"，成为春秋首霸，确立\"尊王攘夷\"旗号。",
+    "importance": 2
+  },
+  {
+    "id": "ev-082",
+    "year": -632,
+    "title": "城濮之战",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      116.13,
+      35.79
+    ],
+    "description": "晋楚争霸的决战。晋文公重耳率军大败楚军于城濮（今山东鄄城），确立晋文公的霸主地位。",
+    "importance": 2
+  },
+  {
+    "id": "ev-083",
+    "year": -536,
+    "title": "老子出关",
+    "category": "思想",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "老子（李耳，约公元前 571 年—前 471 年）骑青牛西出函谷关，应尹喜之请写下《道德经》五千言，道家学派创始人。",
+    "importance": 2
+  },
+  {
+    "id": "ev-084",
+    "year": -453,
+    "title": "墨子著书",
+    "category": "思想",
+    "region": "china",
+    "coordinates": [
+      114.4,
+      35.1
+    ],
+    "description": "墨子（约公元前 476 年—前 390 年）创立墨家学派，主张\"兼爱\"\"非攻\"，与儒家并称\"显学\"。",
+    "importance": 1
+  },
+  {
+    "id": "ev-085",
+    "year": -369,
+    "title": "商鞅变法",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "秦孝公任用商鞅两次变法，废井田、开阡陌、奖励耕战、推行县制，秦国由此崛起，最终统一六国。",
+    "importance": 3
+  },
+  {
+    "id": "ev-086",
+    "year": -342,
+    "title": "孟子周游",
+    "category": "思想",
+    "region": "china",
+    "coordinates": [
+      116.99,
+      35.59
+    ],
+    "description": "孟子（约公元前 372 年—前 289 年）继承孔子学说，提出\"性善论\"\"仁政\"\"民贵君轻\"，游说列国未得行其道。",
+    "importance": 2
+  },
+  {
+    "id": "ev-087",
+    "year": -316,
+    "title": "庄子逍遥",
+    "category": "思想",
+    "region": "china",
+    "coordinates": [
+      116.99,
+      35.59
+    ],
+    "description": "庄子（约公元前 369 年—前 286 年）继承老子思想，主张\"齐物\"\"逍遥\"\"齐物论\"，文章瑰丽诡谲。",
+    "importance": 2
+  },
+  {
+    "id": "ev-088",
+    "year": -260,
+    "title": "长平之战",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      113.05,
+      35.95
+    ],
+    "description": "秦将王翦大败赵军于长平（今山西高平），坑杀赵卒四十万，赵国元气大伤，六国再无力抗秦。",
+    "importance": 3
+  },
+  {
+    "id": "ev-089",
+    "year": -230,
+    "title": "韩非入秦",
+    "category": "思想",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "韩非（约公元前 280 年—前 233 年）入秦献法家思想，被李斯陷害死于狱中。其《韩非子》集法家之大成。",
+    "importance": 1
+  },
+  {
+    "id": "ev-090",
+    "year": -227,
+    "title": "荆轲刺秦",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "燕太子丹派荆轲刺秦王嬴政于易水边，图穷匕见，未中。荆轲被杀，秦加速攻燕。",
+    "importance": 2
+  },
+  {
+    "id": "ev-091",
+    "year": 208,
+    "title": "赤壁之战",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      113.65,
+      29.72
+    ],
+    "description": "孙权刘备联军在赤壁（今湖北赤壁）以火攻大破曹操 20 万大军，奠定三国鼎立基础。",
+    "importance": 3
+  },
+  {
+    "id": "ev-092",
+    "year": 221,
+    "title": "刘备称帝",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      104.07,
+      30.67
+    ],
+    "description": "刘备于成都称帝，建立蜀汉。诸葛亮为丞相。",
+    "importance": 2
+  },
+  {
+    "id": "ev-093",
+    "year": 222,
+    "title": "夷陵之战",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      110.91,
+      30.82
+    ],
+    "description": "刘备伐吴，在夷陵被陆逊火攻击败，蜀汉元气大伤。",
+    "importance": 2
+  },
+  {
+    "id": "ev-094",
+    "year": 227,
+    "title": "诸葛亮北伐",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "诸葛亮上《出师表》开始北伐曹魏，先后五次出祁山，终未成功，病逝五丈原。",
+    "importance": 3
+  },
+  {
+    "id": "ev-095",
+    "year": 263,
+    "title": "蜀汉灭亡",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      104.07,
+      30.67
+    ],
+    "description": "魏将邓艾、钟会伐蜀，刘禅出降，蜀汉亡。",
+    "importance": 2
+  },
+  {
+    "id": "ev-096",
+    "year": 280,
+    "title": "西晋统一",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      118.78,
+      32.04
+    ],
+    "description": "晋将王濬率水军灭东吴，三国归晋。",
+    "importance": 2
+  },
+  {
+    "id": "ev-097",
+    "year": 311,
+    "title": "永嘉之乱",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      112.43,
+      34.62
+    ],
+    "description": "匈奴刘聪军攻陷洛阳，掳晋怀帝，杀王公士民三万余人，西晋名存实亡。",
+    "importance": 2
+  },
+  {
+    "id": "ev-098",
+    "year": 383,
+    "title": "淝水之战",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      116.99,
+      31.86
+    ],
+    "description": "东晋谢安指挥谢玄等北府兵八万，击退前秦苻坚 80 万大军，保住江南半壁。",
+    "importance": 3
+  },
+  {
+    "id": "ev-099",
+    "year": 494,
+    "title": "北魏孝文帝改革",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      112.43,
+      34.62
+    ],
+    "description": "北魏孝文帝拓跋宏迁都洛阳，全面推行汉化：改汉姓、穿汉服、说汉话、与汉族通婚，促进民族大融合。",
+    "importance": 2
+  },
+  {
+    "id": "ev-100",
+    "year": 547,
+    "title": "侯景之乱",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      118.78,
+      32.04
+    ],
+    "description": "东魏降将侯景反梁，攻陷建康（南京），梁武帝饿死台城，南朝遭受重创。",
+    "importance": 1
+  },
+  {
+    "id": "ev-101",
+    "year": 589,
+    "title": "隋灭陈统一",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "隋军渡江灭陈，结束了自西晋末年以来近 280 年的分裂割据局面。",
+    "importance": 3
+  },
+  {
+    "id": "ev-102",
+    "year": 605,
+    "title": "开通大运河",
+    "category": "经济",
+    "region": "china",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "隋炀帝征发百万民工开凿大运河，北抵涿郡南达余杭，全长 2700 余公里，沟通海河、黄河、淮河、长江、钱塘江五大水系。",
+    "importance": 3
+  },
+  {
+    "id": "ev-103",
+    "year": 607,
+    "title": "始建科举",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "隋炀帝设进士科，标志着科举制度正式建立，影响中国 1300 多年的人才选拔。",
+    "importance": 2
+  },
+  {
+    "id": "ev-104",
+    "year": 618,
+    "title": "李渊建唐",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "李渊在长安称帝，建立唐朝。同年宇文化及杀隋炀帝，隋朝灭亡。",
+    "importance": 2
+  },
+  {
+    "id": "ev-105",
+    "year": 907,
+    "title": "朱温灭唐",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      112.43,
+      34.62
+    ],
+    "description": "朱温废唐哀帝，建立后梁，唐朝灭亡。五代十国分裂开始。",
+    "importance": 2
+  },
+  {
+    "id": "ev-106",
+    "year": 960,
+    "title": "陈桥兵变",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      114.3,
+      34.79
+    ],
+    "description": "赵匡胤在陈桥驿被黄袍加身，建立北宋，五代结束。",
+    "importance": 2
+  },
+  {
+    "id": "ev-107",
+    "year": 843,
+    "title": "凡尔登条约",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      2.13,
+      49.2
+    ],
+    "description": "查理曼帝国三分，奠定近代法、德、意雏形。秃头查理领西部法兰克。",
+    "importance": 2,
+    "country": [
+      "france"
+    ]
+  },
+  {
+    "id": "ev-108",
+    "year": 1337,
+    "title": "英法百年战争",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      2.35,
+      48.86
+    ],
+    "description": "英法战争爆发，持续 116 年，是欧洲中世纪最长的战争。",
+    "importance": 2,
+    "country": [
+      "britain"
+    ]
+  },
+  {
+    "id": "ev-109",
+    "year": 1429,
+    "title": "贞德解放奥尔良",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      1.9,
+      47.9
+    ],
+    "description": "17 岁法国少女贞德率军解放被英军围困的奥尔良，扭转百年战争战局。后被英军俘获处以火刑，1920 年封圣。",
+    "importance": 3,
+    "country": [
+      "france"
+    ]
+  },
+  {
+    "id": "ev-110",
+    "year": 1453,
+    "title": "百年战争结束",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      2.35,
+      48.86
+    ],
+    "description": "法军取得卡斯蒂永战役胜利，收复加莱，英法百年战争结束。",
+    "importance": 1
+  },
+  {
+    "id": "ev-111",
+    "year": 1793,
+    "title": "路易十六被处死",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      2.35,
+      48.86
+    ],
+    "description": "法王路易十六被送上断头台，欧洲君主震惊。法国进入雅各宾派专政时期。",
+    "importance": 2,
+    "country": [
+      "france"
+    ]
+  },
+  {
+    "id": "ev-112",
+    "year": 1799,
+    "title": "雾月政变",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      2.35,
+      48.86
+    ],
+    "description": "拿破仑·波拿巴发动政变，建立执政府，自任第一执政。",
+    "importance": 2,
+    "country": [
+      "france"
+    ]
+  },
+  {
+    "id": "ev-113",
+    "year": 1804,
+    "title": "拿破仑称帝",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      2.35,
+      48.86
+    ],
+    "description": "拿破仑加冕称帝，建立法兰西第一帝国。",
+    "importance": 3,
+    "country": [
+      "france"
+    ]
+  },
+  {
+    "id": "ev-114",
+    "year": 1812,
+    "title": "拿破仑远征俄国",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      37.62,
+      55.75
+    ],
+    "description": "拿破仑率 60 万大军远征俄国，俄军坚壁清野，冬天严寒击溃法军。",
+    "importance": 2,
+    "country": [
+      "france",
+      "russia"
+    ]
+  },
+  {
+    "id": "ev-115",
+    "year": 1815,
+    "title": "滑铁卢战役",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      4.4,
+      50.68
+    ],
+    "description": "拿破仑在滑铁卢被威灵顿率领的英荷联军击败，终结拿破仑时代。",
+    "importance": 3,
+    "country": [
+      "britain"
+    ]
+  },
+  {
+    "id": "ev-116",
+    "year": 710,
+    "title": "迁都平城京",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      135.78,
+      34.69
+    ],
+    "description": "元明天皇迁都平城京（奈良），仿中国长安建城，开启奈良时代。",
+    "importance": 2,
+    "country": [
+      "japan"
+    ]
+  },
+  {
+    "id": "ev-117",
+    "year": 794,
+    "title": "迁都平安京",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      135.77,
+      35.01
+    ],
+    "description": "桓武天皇迁都平安京（京都），开启平安时代。",
+    "importance": 2,
+    "country": [
+      "japan"
+    ]
+  },
+  {
+    "id": "ev-118",
+    "year": 1192,
+    "title": "镰仓幕府建立",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      139.55,
+      35.32
+    ],
+    "description": "源赖朝击败平氏，获任征夷大将军，建立镰仓幕府，日本进入武家政治。",
+    "importance": 3,
+    "country": [
+      "japan"
+    ]
+  },
+  {
+    "id": "ev-119",
+    "year": 1336,
+    "title": "建武新政策",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      135.77,
+      35.01
+    ],
+    "description": "后醍醐天皇推翻镰仓幕府，实行建武新政，两年后失败，开启室町时代。",
+    "importance": 1
+  },
+  {
+    "id": "ev-120",
+    "year": 1467,
+    "title": "应仁之乱",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      135.77,
+      35.01
+    ],
+    "description": "应仁之乱爆发，日本进入战国时代（1467—1615），诸侯混战百年。",
+    "importance": 2,
+    "country": [
+      "japan"
+    ]
+  },
+  {
+    "id": "ev-121",
+    "year": 1603,
+    "title": "江户幕府建立",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      139.69,
+      35.69
+    ],
+    "description": "德川家康在江户建立幕府，确立\"幕藩体制\"，日本进入江户时代。",
+    "importance": 3,
+    "country": [
+      "japan"
+    ]
+  },
+  {
+    "id": "ev-122",
+    "year": 1853,
+    "title": "黑船来航",
+    "category": "外交",
+    "region": "other",
+    "coordinates": [
+      139.69,
+      35.69
+    ],
+    "description": "美国海军准将佩里率四艘黑色铁甲舰（\"黑船\"）驶入江户湾，强迫日本开国通商。",
+    "importance": 2,
+    "country": [
+      "japan"
+    ]
+  },
+  {
+    "id": "ev-123",
+    "year": 1526,
+    "title": "第一次帕尼帕特战役",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      76.77,
+      29.39
+    ],
+    "description": "巴布尔率军击败德里苏丹军队，建立莫卧儿帝国。",
+    "importance": 2,
+    "country": [
+      "mughal"
+    ]
+  },
+  {
+    "id": "ev-124",
+    "year": 1556,
+    "title": "阿克巴继位",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      77.23,
+      28.61
+    ],
+    "description": "13 岁的阿克巴继位，统一印度大部，推行宗教宽容政策，缔造莫卧儿黄金时代。",
+    "importance": 2,
+    "country": [
+      "mughal"
+    ]
+  },
+  {
+    "id": "ev-125",
+    "year": 1632,
+    "title": "泰姬陵开工",
+    "category": "文化",
+    "region": "other",
+    "coordinates": [
+      78.04,
+      27.18
+    ],
+    "description": "沙贾汗为爱妃泰姬·玛哈尔建造泰姬陵，世界新七大奇迹之一。",
+    "importance": 3,
+    "country": [
+      "mughal"
+    ]
+  },
+  {
+    "id": "ev-126",
+    "year": 1707,
+    "title": "奥朗则布去世",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      77.23,
+      28.61
+    ],
+    "description": "奥朗则布去世后莫卧儿帝国陷入分裂，各地总督独立。",
+    "importance": 1
+  },
+  {
+    "id": "ev-127",
+    "year": 1857,
+    "title": "印度民族大起义",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      77.23,
+      28.61
+    ],
+    "description": "印度土兵大起义，反抗英国东印度公司。起义失败后莫卧儿末代皇帝被流放，英国直接统治印度。",
+    "importance": 2,
+    "country": [
+      "britain"
+    ]
+  },
+  {
+    "id": "ev-128",
+    "year": -550,
+    "title": "居鲁士建立波斯",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      48,
+      29.5
+    ],
+    "description": "居鲁士大帝推翻米底，建立阿契美尼德王朝。",
+    "importance": 2,
+    "country": [
+      "persia"
+    ]
+  },
+  {
+    "id": "ev-129",
+    "year": -480,
+    "title": "温泉关战役",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      22.5,
+      38.78
+    ],
+    "description": "斯巴达国王列奥尼达率 300 勇士死守温泉关，掩护希腊撤退。",
+    "importance": 3,
+    "country": [
+      "greece"
+    ]
+  },
+  {
+    "id": "ev-130",
+    "year": -480,
+    "title": "萨拉米斯海战",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      23.57,
+      37.96
+    ],
+    "description": "希腊海军以少胜多击败波斯舰队，彻底扭转希波战争。",
+    "importance": 3,
+    "country": [
+      "greece"
+    ]
+  },
+  {
+    "id": "ev-131",
+    "year": -330,
+    "title": "高加米拉战役",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      43.25,
+      36.37
+    ],
+    "description": "亚历山大大帝以 4.7 万人击败波斯大流士三世的 20 万大军，灭亡阿契美尼德王朝。",
+    "importance": 3,
+    "country": [
+      "greece"
+    ]
+  },
+  {
+    "id": "ev-132",
+    "year": 224,
+    "title": "萨珊波斯建立",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      48,
+      29.5
+    ],
+    "description": "阿尔达希尔一世推翻帕提亚，建立萨珊波斯帝国，定都泰西封。",
+    "importance": 2,
+    "country": [
+      "persia"
+    ]
+  },
+  {
+    "id": "ev-133",
+    "year": 628,
+    "title": "卡瓦德改革",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      48,
+      29.5
+    ],
+    "description": "萨珊波斯皇帝卡瓦德进行重要改革。",
+    "importance": 1
+  },
+  {
+    "id": "ev-134",
+    "year": 651,
+    "title": "萨珊波斯灭亡",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      35.78,
+      35.3
+    ],
+    "description": "阿拉伯军队在卡迪西亚战役击败萨珊，末代皇帝伊嗣埃三世被杀，萨珊波斯灭亡。",
+    "importance": 2,
+    "country": [
+      "persia"
+    ]
+  },
+  {
+    "id": "ev-135",
+    "year": -2580,
+    "title": "胡夫金字塔",
+    "category": "文化",
+    "region": "other",
+    "coordinates": [
+      31.13,
+      29.98
+    ],
+    "description": "胡夫（Khufu）建造大金字塔，塔高 146.5 米，是古代世界七大奇迹中最古老也是唯一幸存的。",
+    "importance": 3,
+    "country": [
+      "egypt"
+    ]
+  },
+  {
+    "id": "ev-136",
+    "year": -1353,
+    "title": "图坦卡蒙登基",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      32.55,
+      25.69
+    ],
+    "description": "古埃及第十八王朝法老图坦卡蒙 9 岁登基，其陵墓 1922 年被霍华德·卡特发现，出土黄金面具震惊世界。",
+    "importance": 2,
+    "country": [
+      "egypt"
+    ]
+  },
+  {
+    "id": "ev-137",
+    "year": -1274,
+    "title": "卡迭石战役",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      36.51,
+      34.55
+    ],
+    "description": "埃及法老拉美西斯二世与赫梯帝国争夺叙利亚霸权，会战于卡迭石，双方都宣称胜利，签订人类历史上第一个和平条约。",
+    "importance": 1
+  },
+  {
+    "id": "ev-138",
+    "year": -332,
+    "title": "亚历山大征服埃及",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      31.23,
+      30.04
+    ],
+    "description": "亚历山大大帝征服埃及，在尼罗河口建亚历山大里亚城，作为希腊化世界首都。",
+    "importance": 2,
+    "country": [
+      "greece",
+      "egypt"
+    ]
+  },
+  {
+    "id": "ev-139",
+    "year": -30,
+    "title": "克娄巴特拉之死",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      29.92,
+      31.2
+    ],
+    "description": "克娄巴特拉七世自杀，托勒密王朝覆灭，埃及并入罗马帝国。",
+    "importance": 2,
+    "country": [
+      "rome"
+    ]
+  },
+  {
+    "id": "ev-140",
+    "year": -338,
+    "title": "喀罗尼亚战役",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      22.43,
+      38.66
+    ],
+    "description": "马其顿国王腓力二世击败希腊联军，称霸希腊。",
+    "importance": 2,
+    "country": [
+      "rome"
+    ]
+  },
+  {
+    "id": "ev-141",
+    "year": -334,
+    "title": "亚历山大东征",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      22.4,
+      40.79
+    ],
+    "description": "亚历山大大帝率 3.5 万马其顿方阵军东征，先后征服小亚细亚、埃及、波斯、美索不达米亚，攻入印度，建立横跨亚非欧的帝国。",
+    "importance": 3,
+    "country": [
+      "greece"
+    ]
+  },
+  {
+    "id": "ev-142",
+    "year": -323,
+    "title": "亚历山大病逝巴比伦",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      44.42,
+      32.54
+    ],
+    "description": "亚历山大大帝 33 岁病逝于巴比伦，帝国分裂为继业者王国。",
+    "importance": 2,
+    "country": [
+      "greece",
+      "babylonian"
+    ]
+  },
+  {
+    "id": "ev-143",
+    "year": 1776,
+    "title": "美国独立宣言",
+    "category": "政治",
+    "region": "britain",
+    "coordinates": [
+      -75.15,
+      39.95
+    ],
+    "description": "大陆会议通过《独立宣言》，宣告美国 13 州脱离英国独立。杰斐逊起草：\"人人生而平等\"。",
+    "importance": 3
+  },
+  {
+    "id": "ev-144",
+    "year": 1783,
+    "title": "美国独立战争结束",
+    "category": "军事",
+    "region": "britain",
+    "coordinates": [
+      -75.13,
+      38.63
+    ],
+    "description": "《巴黎条约》签订，英国承认美国独立。",
+    "importance": 2
+  },
+  {
+    "id": "ev-145",
+    "year": 1789,
+    "title": "华盛顿就职",
+    "category": "政治",
+    "region": "britain",
+    "coordinates": [
+      -77.04,
+      38.91
+    ],
+    "description": "乔治·华盛顿就任美国首任总统，开启美国宪政。",
+    "importance": 2
+  },
+  {
+    "id": "ev-146",
+    "year": 1803,
+    "title": "路易斯安那购地",
+    "category": "政治",
+    "region": "britain",
+    "coordinates": [
+      -77.04,
+      38.91
+    ],
+    "description": "杰斐逊总统以 1500 万美元从拿破仑法国购得路易斯安那，美国领土翻倍。",
+    "importance": 2
+  },
+  {
+    "id": "ev-147",
+    "year": 1861,
+    "title": "美国南北战争爆发",
+    "category": "军事",
+    "region": "britain",
+    "coordinates": [
+      -77.04,
+      38.91
+    ],
+    "description": "南方 11 州宣布独立，美国内战爆发。",
+    "importance": 3
+  },
+  {
+    "id": "ev-148",
+    "year": 1863,
+    "title": "葛底斯堡战役",
+    "category": "军事",
+    "region": "britain",
+    "coordinates": [
+      -77.24,
+      39.81
+    ],
+    "description": "北方取得关键胜利，扭转南北战争战局。林肯 4 个月后发表《葛底斯堡演说》。",
+    "importance": 3
+  },
+  {
+    "id": "ev-149",
+    "year": 1865,
+    "title": "南北战争结束",
+    "category": "军事",
+    "region": "britain",
+    "coordinates": [
+      -77.04,
+      38.91
+    ],
+    "description": "南方将军李于阿波马托克斯投降，奴隶制废除，美国完成统一。",
+    "importance": 3
+  },
+  {
+    "id": "ev-150",
+    "year": 1227,
+    "title": "成吉思汗病逝",
+    "category": "政治",
+    "region": "mongol",
+    "coordinates": [
+      106.92,
+      47.92
+    ],
+    "description": "成吉思汗在六盘山南麓清水县（今属甘肃）病逝，临终留下灭金、联宋战略。",
+    "importance": 3
+  },
+  {
+    "id": "ev-151",
+    "year": 1258,
+    "title": "巴格达陷落",
+    "category": "军事",
+    "region": "mongol",
+    "coordinates": [
+      44.36,
+      33.31
+    ],
+    "description": "蒙古旭烈兀攻陷阿拔斯王朝首都巴格达，末代哈里发被裹地毯踩死，伊斯兰世界震动。",
+    "importance": 2
+  },
+  {
+    "id": "ev-152",
+    "year": 1279,
+    "title": "崖山海战",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      113.15,
+      21.85
+    ],
+    "description": "元军在崖山海战击败南宋残余，陆秀夫背幼帝跳海，南宋灭亡。",
+    "importance": 3
+  },
+  {
+    "id": "ev-153",
+    "year": 1325,
+    "title": "特诺奇蒂特兰建立",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      -99.13,
+      19.43
+    ],
+    "description": "阿兹特克人在特斯科科湖建特诺奇蒂特兰城（今墨西哥城），后成阿兹特克帝国首都。",
+    "importance": 2,
+    "country": [
+      "aztec"
+    ]
+  },
+  {
+    "id": "ev-154",
+    "year": 1521,
+    "title": "特诺奇蒂特兰陷落",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      -99.13,
+      19.43
+    ],
+    "description": "西班牙征服者科尔特斯率军联合当地部落，攻陷特诺奇蒂特兰，末代皇帝蒙特祖玛二世被杀，阿兹特克帝国灭亡。",
+    "importance": 2,
+    "country": [
+      "aztec"
+    ]
+  },
+  {
+    "id": "ev-155",
+    "year": 962,
+    "title": "奥托一世加冕",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      11.36,
+      48.2
+    ],
+    "description": "奥托一世（936—973）由教皇约翰十二世加冕为\"神圣罗马帝国\"皇帝，建立中世纪欧洲核心政治体。",
+    "importance": 2,
+    "country": [
+      "holy-roman"
+    ]
+  },
+  {
+    "id": "ev-156",
+    "year": 1077,
+    "title": "卡诺莎之辱",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      10.1,
+      45.04
+    ],
+    "description": "神圣罗马皇帝亨利四世在卡诺莎城堡外赤脚站立三天向教皇格里高利七世求饶，教会权力达到顶峰。",
+    "importance": 2,
+    "country": [
+      "holy-roman"
+    ]
+  },
+  {
+    "id": "ev-157",
+    "year": 1356,
+    "title": "金玺诏书",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      11.1,
+      49.45
+    ],
+    "description": "查理四世颁布《金玺诏书》，确立七大选帝侯选举皇帝制度，皇帝实权进一步削弱。",
+    "importance": 1
+  },
+  {
+    "id": "ev-158",
+    "year": 1517,
+    "title": "马丁·路德宗教改革",
+    "category": "思想",
+    "region": "other",
+    "coordinates": [
+      12.1,
+      51.34
+    ],
+    "description": "马丁·路德在维滕堡教堂门口张贴《九十五条论纲》，反对赎罪券，宗教改革爆发，神圣罗马帝国分裂为天主教和新教。",
+    "importance": 3,
+    "country": [
+      "holy-roman"
+    ]
+  },
+  {
+    "id": "ev-159",
+    "year": 1618,
+    "title": "三十年战争",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      14.42,
+      50.07
+    ],
+    "description": "波西米亚\"布拉格掷出窗外事件\"引发神圣罗马内战，波及欧洲主要国家。1648 年《威斯特伐利亚和约》签订，现代国际关系奠基。",
+    "importance": 2,
+    "country": [
+      "holy-roman"
+    ]
+  },
+  {
+    "id": "ev-160",
+    "year": 1806,
+    "title": "神圣罗马帝国解散",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      13.4,
+      52.52
+    ],
+    "description": "拿破仑在奥斯特里茨战役后勒令神圣罗马皇帝弗朗茨二世退位，存在 844 年的帝国终结。",
+    "importance": 2,
+    "country": [
+      "holy-roman",
+      "italy"
+    ]
+  },
+  {
+    "id": "ev-161",
+    "year": 1740,
+    "title": "腓特烈大帝即位",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      13.4,
+      52.52
+    ],
+    "description": "腓特烈二世（腓特烈大帝）即位，普鲁士进入黄金时代。",
+    "importance": 2,
+    "country": [
+      "prussia"
+    ]
+  },
+  {
+    "id": "ev-162",
+    "year": 1756,
+    "title": "七年战争",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      13.4,
+      52.52
+    ],
+    "description": "普鲁士与英国、奥地利对抗法、俄、奥、撒丁联军，史称\"第一次世界大战\"。腓特烈大帝依靠军事天才险胜。",
+    "importance": 2,
+    "country": [
+      "britain"
+    ]
+  },
+  {
+    "id": "ev-163",
+    "year": 1862,
+    "title": "俾斯麦任首相",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      13.4,
+      52.52
+    ],
+    "description": "奥托·冯·俾斯麦任普鲁士首相，推行\"铁血政策\"，开启德意志统一进程。",
+    "importance": 2,
+    "country": [
+      "prussia"
+    ]
+  },
+  {
+    "id": "ev-164",
+    "year": 1864,
+    "title": "普丹战争",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      10.2,
+      56.16
+    ],
+    "description": "普鲁士、奥地利联军击败丹麦，夺取石勒苏益格-荷尔斯泰因。",
+    "importance": 1
+  },
+  {
+    "id": "ev-165",
+    "year": 1866,
+    "title": "普奥战争",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      9.18,
+      48.78
+    ],
+    "description": "普鲁士在萨多瓦战役击败奥地利，解散德意志邦联，建立北德意志邦联。",
+    "importance": 2,
+    "country": [
+      "prussia"
+    ]
+  },
+  {
+    "id": "ev-166",
+    "year": 1870,
+    "title": "普法战争",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      2.35,
+      48.86
+    ],
+    "description": "拿破仑三世对普鲁士宣战，色当会战中普军大败法军，拿破仑三世被俘。",
+    "importance": 2,
+    "country": [
+      "france"
+    ]
+  },
+  {
+    "id": "ev-167",
+    "year": 1871,
+    "title": "德意志帝国成立",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      13.4,
+      52.52
+    ],
+    "description": "威廉一世在凡尔赛宫加冕为德意志皇帝，俾斯麦任宰相，德国统一。",
+    "importance": 3,
+    "country": [
+      "holy-roman"
+    ]
+  },
+  {
+    "id": "ev-168",
+    "year": 1914,
+    "title": "一战爆发",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      13.4,
+      52.52
+    ],
+    "description": "萨拉热窝事件后，德国、奥匈帝国对塞尔维亚、俄国、法国、英国宣战，第一次世界大战爆发。",
+    "importance": 3,
+    "country": [
+      "austria",
+      "germany"
+    ]
+  },
+  {
+    "id": "ev-169",
+    "year": 1918,
+    "title": "德国十一月革命",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      13.4,
+      52.52
+    ],
+    "description": "德国战败，水兵起义引发革命，皇帝威廉二世退位，霍亨索伦王朝终结，魏玛共和国成立。",
+    "importance": 2,
+    "country": [
+      "germany"
+    ]
+  },
+  {
+    "id": "ev-170",
+    "year": 1860,
+    "title": "千人远征军",
+    "category": "军事",
+    "region": "rome",
+    "coordinates": [
+      14.27,
+      40.85
+    ],
+    "description": "加里波第率 1000 志愿者远征两西西里王国，解放西西里、那不勒斯，归并撒丁王国。",
+    "importance": 2
+  },
+  {
+    "id": "ev-171",
+    "year": 1861,
+    "title": "意大利王国成立",
+    "category": "政治",
+    "region": "rome",
+    "coordinates": [
+      12.5,
+      41.9
+    ],
+    "description": "撒丁王国改称意大利王国，维克多·伊曼纽尔二世为国王，首都都灵（后迁罗马）。",
+    "importance": 2
+  },
+  {
+    "id": "ev-172",
+    "year": 1870,
+    "title": "意大利统一",
+    "category": "政治",
+    "region": "rome",
+    "coordinates": [
+      12.5,
+      41.9
+    ],
+    "description": "普法战争时意大利军攻入罗马，教皇庇护九世退入梵蒂冈，意大利统一。",
+    "importance": 2
+  },
+  {
+    "id": "ev-173",
+    "year": 1922,
+    "title": "墨索里尼法西斯",
+    "category": "政治",
+    "region": "rome",
+    "coordinates": [
+      12.5,
+      41.9
+    ],
+    "description": "墨索里尼发动\"向罗马进军\"，任意大利首相，建立世界第一个法西斯政权。",
+    "importance": 2
+  },
+  {
+    "id": "ev-174",
+    "year": 1940,
+    "title": "意大利参加二战",
+    "category": "军事",
+    "region": "rome",
+    "coordinates": [
+      12.5,
+      41.9
+    ],
+    "description": "墨索里尼追随希特勒，对英法宣战，入侵希腊、埃及。",
+    "importance": 1
+  },
+  {
+    "id": "ev-175",
+    "year": 1946,
+    "title": "意大利共和国成立",
+    "category": "政治",
+    "region": "rome",
+    "coordinates": [
+      12.5,
+      41.9
+    ],
+    "description": "公民投票废除君主制，建立意大利共和国，废除君主制。",
+    "importance": 2
+  },
+  {
+    "id": "ev-176",
+    "year": 1492,
+    "title": "格拉纳达陷落",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      -3.61,
+      37.18
+    ],
+    "description": "卡斯蒂利亚收复格拉纳达，结束 781 年摩尔人在伊比利亚的统治。",
+    "importance": 2,
+    "country": [
+      "spain"
+    ]
+  },
+  {
+    "id": "ev-177",
+    "year": 1492,
+    "title": "哥伦布发现美洲",
+    "category": "外交",
+    "region": "other",
+    "coordinates": [
+      -3.71,
+      40.42
+    ],
+    "description": "哥伦布在卡斯蒂利亚王后伊莎贝拉资助下到达巴哈马，揭开大航海时代序幕。",
+    "importance": 3,
+    "country": [
+      "inca",
+      "spain",
+      "aztec"
+    ]
+  },
+  {
+    "id": "ev-178",
+    "year": 1519,
+    "title": "征服墨西哥",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      -99.13,
+      19.43
+    ],
+    "description": "埃尔南·科尔特斯率 600 人征服阿兹特克帝国，开启西班牙美洲殖民。",
+    "importance": 2,
+    "country": [
+      "spain"
+    ]
+  },
+  {
+    "id": "ev-179",
+    "year": 1532,
+    "title": "征服印加",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      -13.52,
+      -71.97
+    ],
+    "description": "皮萨罗率 168 人俘获印加国王阿塔瓦尔帕，1533 年处死，印加帝国灭亡。",
+    "importance": 2,
+    "country": [
+      "inca"
+    ]
+  },
+  {
+    "id": "ev-180",
+    "year": 1556,
+    "title": "腓力二世继位",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      -3.71,
+      40.42
+    ],
+    "description": "腓力二世继位，西班牙帝国达到鼎盛，统治美洲、菲律宾、荷兰、葡萄牙、米兰、那不勒斯。",
+    "importance": 2,
+    "country": [
+      "spain"
+    ]
+  },
+  {
+    "id": "ev-181",
+    "year": 1588,
+    "title": "无敌舰队覆灭",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      50.16,
+      -1.27
+    ],
+    "description": "西班牙无敌舰队征英遭遇风暴和英国海军击败，西班牙海上霸权开始衰落。",
+    "importance": 2,
+    "country": [
+      "spain"
+    ]
+  },
+  {
+    "id": "ev-182",
+    "year": 1898,
+    "title": "美西战争",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      -3.71,
+      40.42
+    ],
+    "description": "美国击败西班牙，夺取古巴、波多黎各、菲律宾，西班牙殖民帝国崩溃。",
+    "importance": 2,
+    "country": [
+      "spain"
+    ]
+  },
+  {
+    "id": "ev-183",
+    "year": 1936,
+    "title": "西班牙内战",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      -3.71,
+      40.42
+    ],
+    "description": "佛朗哥军事政变引发内战，希特勒、墨索里尼干涉；国际纵队志愿支持共和派。",
+    "importance": 2,
+    "country": [
+      "spain"
+    ]
+  },
+  {
+    "id": "ev-184",
+    "year": 1602,
+    "title": "东印度公司成立",
+    "category": "经济",
+    "region": "other",
+    "coordinates": [
+      4.9,
+      52.37
+    ],
+    "description": "荷兰东印度公司（VOC）成立，发行世界首支股票，建立阿姆斯特丹证券交易所。",
+    "importance": 2,
+    "country": [
+      "netherlands"
+    ]
+  },
+  {
+    "id": "ev-185",
+    "year": 1602,
+    "title": "阿姆斯特丹证交所",
+    "category": "经济",
+    "region": "other",
+    "coordinates": [
+      4.9,
+      52.37
+    ],
+    "description": "世界第一个证券交易所成立，奠定现代金融体系基础。",
+    "importance": 2,
+    "country": [
+      "netherlands"
+    ]
+  },
+  {
+    "id": "ev-186",
+    "year": 1667,
+    "title": "英荷战争",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      4.9,
+      52.37
+    ],
+    "description": "英荷战争持续 200 多年，荷兰最终衰落，让位于英国海上霸权。",
+    "importance": 1
+  },
+  {
+    "id": "ev-187",
+    "year": 1204,
+    "title": "第四次十字军攻陷君士坦丁堡",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      28.98,
+      41.01
+    ],
+    "description": "威尼斯商人资助第四次十字军东征，转而攻陷拜占庭首都君士坦丁堡，威尼斯分得大量希腊艺术品。",
+    "importance": 2,
+    "country": [
+      "ottoman"
+    ]
+  },
+  {
+    "id": "ev-188",
+    "year": 350,
+    "title": "加纳帝国建立",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      -3.97,
+      5.34
+    ],
+    "description": "西非索宁克人建立加纳帝国，垄断跨撒哈拉贸易。",
+    "importance": 1
+  },
+  {
+    "id": "ev-189",
+    "year": 1067,
+    "title": "巴克里访加纳",
+    "category": "文化",
+    "region": "other",
+    "coordinates": [
+      -3.97,
+      5.34
+    ],
+    "description": "阿拉伯旅行家巴克里游历加纳，著《北非与中非见闻录》，记述加纳富强与国王财富。",
+    "importance": 1
+  },
+  {
+    "id": "ev-190",
+    "year": 1235,
+    "title": "松迪亚塔凯塔",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      -8,
+      12.65
+    ],
+    "description": "松迪亚塔·凯塔率曼丁果部落联盟在基里纳战役击败索索人，建立马里帝国。",
+    "importance": 2,
+    "country": [
+      "mongol"
+    ]
+  },
+  {
+    "id": "ev-191",
+    "year": 1324,
+    "title": "曼萨·穆萨朝圣",
+    "category": "外交",
+    "region": "other",
+    "coordinates": [
+      31.24,
+      30.04
+    ],
+    "description": "马里帝国国王曼萨·穆萨经开罗赴麦加朝圣，赠送大量黄金，金价暴跌 12%，马里名扬欧洲和伊斯兰世界。",
+    "importance": 2,
+    "country": [
+      "mali-empire"
+    ]
+  },
+  {
+    "id": "ev-192",
+    "year": 1464,
+    "title": "桑海帝国兴起",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      -0.04,
+      16.04
+    ],
+    "description": "桑尼·阿里建立桑海帝国，攻占廷巴克图，成为西非新霸主。",
+    "importance": 1
+  },
+  {
+    "id": "ev-193",
+    "year": 1493,
+    "title": "阿斯基亚大帝",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      -0.04,
+      16.04
+    ],
+    "description": "阿斯基亚·穆罕默德·图雷夺取桑海王位，扩展帝国至顶峰，建立 500 万人帝国。",
+    "importance": 2,
+    "country": [
+      "spain"
+    ]
+  },
+  {
+    "id": "ev-194",
+    "year": 1591,
+    "title": "桑海帝国灭亡",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      30,
+      19
+    ],
+    "description": "摩洛哥萨迪王朝远征军跨撒哈拉攻入廷巴克图，桑海帝国灭亡。",
+    "importance": 2,
+    "country": [
+      "songhai-empire"
+    ]
+  },
+  {
+    "id": "ev-195",
+    "year": 1896,
+    "title": "阿杜瓦战役",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      37.71,
+      11.18
+    ],
+    "description": "埃塞俄比亚皇帝孟尼利克二世率军在阿杜瓦击败意大利侵略军，保卫独立。",
+    "importance": 2,
+    "country": [
+      "italy"
+    ]
+  },
+  {
+    "id": "ev-196",
+    "year": 4,
+    "title": "埃塞俄比亚接受基督教",
+    "category": "文化",
+    "region": "other",
+    "coordinates": [
+      38.74,
+      9.03
+    ],
+    "description": "阿克苏姆王国国王埃扎纳皈依基督教，埃塞俄比亚成为世界第二个基督教国家（仅次于亚美尼亚）。",
+    "importance": 2,
+    "country": [
+      "ethiopia"
+    ]
+  },
+  {
+    "id": "ev-197",
+    "year": 800,
+    "title": "室利佛逝崛起",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      104.76,
+      -2.99
+    ],
+    "description": "室利佛逝在苏门答腊东南崛起，控制马六甲海峡，垄断东西方海上贸易。",
+    "importance": 1
+  },
+  {
+    "id": "ev-198",
+    "year": 802,
+    "title": "阇耶跋摩二世统一高棉",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      104.3,
+      13.41
+    ],
+    "description": "阇耶跋摩二世统一高棉，定都吴哥，开创高棉帝国。",
+    "importance": 2,
+    "country": [
+      "khmer-empire"
+    ]
+  },
+  {
+    "id": "ev-199",
+    "year": 849,
+    "title": "蒲甘王朝建立",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      94.86,
+      21.17
+    ],
+    "description": "披因比亚建立蒲甘王朝，开启缅甸统一帝国。",
+    "importance": 1
+  },
+  {
+    "id": "ev-200",
+    "year": 1113,
+    "title": "吴哥窟开工",
+    "category": "文化",
+    "region": "other",
+    "coordinates": [
+      103.86,
+      13.41
+    ],
+    "description": "苏利耶跋摩二世在吴哥建造印度教毗湿奴神庙——吴哥窟，世界最大宗教建筑，世界新七大奇迹之一。",
+    "importance": 3,
+    "country": [
+      "khmer-empire"
+    ]
+  },
+  {
+    "id": "ev-201",
+    "year": 1287,
+    "title": "元朝攻陷蒲甘",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      94.86,
+      21.17
+    ],
+    "description": "元朝忽必烈远征军攻陷蒲甘，缅甸蒲甘王朝衰落（缅甸史上\"蒲甘之陷\"）。",
+    "importance": 2,
+    "country": [
+      "mongol"
+    ]
+  },
+  {
+    "id": "ev-202",
+    "year": 1293,
+    "title": "满者伯夷建立",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      112.74,
+      -7.25
+    ],
+    "description": "莱纳尔击退元朝远征军，建立满者伯夷王国，开启爪哇帝国。",
+    "importance": 2,
+    "country": [
+      "japan"
+    ]
+  },
+  {
+    "id": "ev-203",
+    "year": 1350,
+    "title": "满者伯夷鼎盛",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      112.74,
+      -7.25
+    ],
+    "description": "哈奄武禄在位时满者伯夷达到鼎盛，征服马来半岛、婆罗洲、巴厘、苏门答腊、菲律宾。",
+    "importance": 1
+  },
+  {
+    "id": "ev-204",
+    "year": 1438,
+    "title": "印加帝国建立",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      -13.52,
+      -71.97
+    ],
+    "description": "帕查库提建立印加帝国，建造库斯科为首都，建造马丘比丘。",
+    "importance": 2,
+    "country": [
+      "inca"
+    ]
+  },
+  {
+    "id": "ev-205",
+    "year": 1450,
+    "title": "马丘比丘建成",
+    "category": "文化",
+    "region": "other",
+    "coordinates": [
+      -13.16,
+      -72.55
+    ],
+    "description": "印加皇帝帕查库提建造马丘比丘——\"失落的印加城市\"，世界新七大奇迹之一。",
+    "importance": 3,
+    "country": [
+      "italy"
+    ]
+  },
+  {
+    "id": "ev-206",
+    "year": 1492,
+    "title": "哥伦布到达美洲",
+    "category": "外交",
+    "region": "other",
+    "coordinates": [
+      -77.36,
+      12.06
+    ],
+    "description": "哥伦布率 3 艘帆船到达巴哈马群岛圣萨尔瓦多岛，开启\"地理大发现\"和殖民时代。",
+    "importance": 3,
+    "country": [
+      "spain"
+    ]
+  },
+  {
+    "id": "ev-207",
+    "year": 1520,
+    "title": "麦哲伦环球航行",
+    "category": "外交",
+    "region": "other",
+    "coordinates": [
+      -78.85,
+      -2.18
+    ],
+    "description": "麦哲伦率船队首次环球航行，证实地球是圆的。",
+    "importance": 3,
+    "country": [
+      "spain"
+    ]
+  },
+  {
+    "id": "ev-208",
+    "year": 1521,
+    "title": "阿兹特克灭亡",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      -99.13,
+      19.43
+    ],
+    "description": "科尔特斯率西班牙征服者联合阿兹特克仇敌特拉斯卡拉人攻陷特诺奇蒂特兰，末代皇帝蒙特祖玛二世被俘，阿兹特克帝国灭亡。",
+    "importance": 2,
+    "country": [
+      "aztec"
+    ]
+  },
+  {
+    "id": "ev-209",
+    "year": 1533,
+    "title": "印加帝国灭亡",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      -13.52,
+      -71.97
+    ],
+    "description": "皮萨罗率 168 名西班牙人俘获印加国王阿塔瓦尔帕，1533 年处死，印加帝国灭亡。",
+    "importance": 2,
+    "country": [
+      "inca"
+    ]
+  },
+  {
+    "id": "ev-210",
+    "year": -268,
+    "title": "阿育王即位",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      25.42,
+      81.85
+    ],
+    "description": "阿育王继位，通过血战羯陵伽统一印度大部分领土，孔雀王朝达到鼎盛。",
+    "importance": 2,
+    "country": [
+      "rome"
+    ]
+  },
+  {
+    "id": "ev-211",
+    "year": -250,
+    "title": "阿育王皈依佛教",
+    "category": "思想",
+    "region": "other",
+    "coordinates": [
+      25.42,
+      81.85
+    ],
+    "description": "阿育王在血战羯陵伽后皈依佛教，放弃战争征服，推行\"法\"（正法），发布法敕石刻。",
+    "importance": 2,
+    "country": [
+      "rome"
+    ]
+  },
+  {
+    "id": "ev-212",
+    "year": 320,
+    "title": "笈多王朝建立",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      25.42,
+      81.85
+    ],
+    "description": "旃陀罗笈多一世建立笈多王朝，统一北印度，奠定印度古典时代黄金期。",
+    "importance": 1
+  },
+  {
+    "id": "ev-213",
+    "year": 405,
+    "title": "法显西行",
+    "category": "文化",
+    "region": "other",
+    "coordinates": [
+      25.42,
+      81.85
+    ],
+    "description": "中国东晋高僧法显西行求法，旅居印度 10 年，著《佛国记》，记录笈多王朝盛世。",
+    "importance": 1
+  },
+  {
+    "id": "ev-214",
+    "year": 630,
+    "title": "玄奘西行",
+    "category": "文化",
+    "region": "other",
+    "coordinates": [
+      25.42,
+      81.85
+    ],
+    "description": "中国唐朝高僧玄奘赴天竺求法，在那烂陀寺从戒贤学法 5 年，著《大唐西域记》。",
+    "importance": 2,
+    "country": [
+      "rome"
+    ]
+  },
+  {
+    "id": "ev-215",
+    "year": 712,
+    "title": "玄奘归唐",
+    "category": "文化",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      34.27
+    ],
+    "description": "玄奘归唐，携佛经 657 部，主持译经 19 年，与弟子窥基创立唯识宗。",
+    "importance": 1
+  },
+  {
+    "id": "ev-216",
+    "year": 1206,
+    "title": "德里苏丹国建立",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      77.23,
+      28.61
+    ],
+    "description": "古尔王朝将军库特布丁·艾伊拜克建立德里苏丹国，伊斯兰教在印度北部扎根。",
+    "importance": 1
+  },
+  {
+    "id": "ev-217",
+    "year": 1526,
+    "title": "莫卧儿建国",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      76.77,
+      29.39
+    ],
+    "description": "巴布尔在第一次帕尼帕特战役击败德里苏丹伊卜拉欣·洛迪，建立莫卧儿帝国。",
+    "importance": 2,
+    "country": [
+      "mughal"
+    ]
+  },
+  {
+    "id": "ev-218",
+    "year": 1848,
+    "title": "欧洲革命",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      2.35,
+      48.86
+    ],
+    "description": "法国二月革命推翻路易·菲利普，1848 年革命浪潮席卷欧洲（意大利、奥地利、匈牙利、德国）。",
+    "importance": 2,
+    "country": [
+      "france"
+    ]
+  },
+  {
+    "id": "ev-219",
+    "year": 1861,
+    "title": "美国南北战争",
+    "category": "军事",
+    "region": "britain",
+    "coordinates": [
+      -77.04,
+      38.91
+    ],
+    "description": "南方 11 州宣布独立，美国内战爆发，北方工业对南方奴隶制。",
+    "importance": 3
+  },
+  {
+    "id": "ev-220",
+    "year": 1865,
+    "title": "美国废奴",
+    "category": "政治",
+    "region": "britain",
+    "coordinates": [
+      -77.04,
+      38.91
+    ],
+    "description": "南北战争结束，美国宪法第十三修正案废除奴隶制。",
+    "importance": 3
+  },
+  {
+    "id": "ev-221",
+    "year": 1914,
+    "title": "一战爆发",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      13.4,
+      52.52
+    ],
+    "description": "萨拉热窝事件后，第一次世界大战爆发，欧洲列强混战。",
+    "importance": 3,
+    "country": [
+      "austria",
+      "germany"
+    ]
+  },
+  {
+    "id": "ev-222",
+    "year": 1929,
+    "title": "大萧条",
+    "category": "经济",
+    "region": "other",
+    "coordinates": [
+      -74,
+      40.71
+    ],
+    "description": "纽约股市崩盘，引发全球大萧条，资本主义世界经济危机。",
+    "importance": 2,
+    "country": [
+      "us"
+    ]
+  },
+  {
+    "id": "ev-223",
+    "year": 1933,
+    "title": "罗斯福新政",
+    "category": "政治",
+    "region": "britain",
+    "coordinates": [
+      -77.04,
+      38.91
+    ],
+    "description": "富兰克林·罗斯福就任美国第 32 任总统，推行\"新政\"应对大萧条，确立现代国家干预经济模式。",
+    "importance": 2
+  },
+  {
+    "id": "ev-224",
+    "year": 1939,
+    "title": "二战爆发",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      52.4,
+      16.91
+    ],
+    "description": "德国闪击波兰，英法对德宣战，第二次世界大战爆发。",
+    "importance": 3,
+    "country": [
+      "russia",
+      "britain",
+      "germany"
+    ]
+  },
+  {
+    "id": "ev-225",
+    "year": 1941,
+    "title": "珍珠港事件",
+    "category": "军事",
+    "region": "britain",
+    "coordinates": [
+      -157.95,
+      21.35
+    ],
+    "description": "日本偷袭珍珠港，太平洋战争爆发，二战全面升级。",
+    "importance": 3
+  },
+  {
+    "id": "ev-226",
+    "year": 1945,
+    "title": "二战结束",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      34.3,
+      -2.95
+    ],
+    "description": "德国（5 月）、日本（8 月）相继投降，二战结束。",
+    "importance": 3,
+    "country": [
+      "japan",
+      "germany"
+    ]
+  },
+  {
+    "id": "ev-227",
+    "year": 1947,
+    "title": "印度独立",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      77.23,
+      28.61
+    ],
+    "description": "印度独立，巴基斯坦同步分治，南亚次大陆结束英国殖民。",
+    "importance": 2,
+    "country": [
+      "britain"
+    ]
+  },
+  {
+    "id": "ev-228",
+    "year": 1949,
+    "title": "新中国成立",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "中华人民共和国成立，结束半殖民地半封建社会。",
+    "importance": 3
+  },
+  {
+    "id": "ev-229",
+    "year": 1969,
+    "title": "登月",
+    "category": "科技",
+    "region": "britain",
+    "coordinates": [
+      -80.65,
+      28.57
+    ],
+    "description": "美国阿波罗 11 号登月，阿姆斯特朗成为第一个登上月球的人类。",
+    "importance": 2
+  },
+  {
+    "id": "ev-230",
+    "year": 1095,
+    "title": "克勒芒演说",
+    "category": "思想",
+    "region": "other",
+    "coordinates": [
+      3.1,
+      45.78
+    ],
+    "description": "教皇乌尔班二世在克勒芒演说，号召第一次十字军东征，夺回圣地耶路撒冷。",
+    "importance": 2,
+    "country": [
+      "britain"
+    ]
+  },
+  {
+    "id": "ev-231",
+    "year": 1099,
+    "title": "十字军攻陷耶路撒冷",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      35.21,
+      31.78
+    ],
+    "description": "第一次十字军攻陷耶路撒冷，建立耶路撒冷王国和十字军国家。",
+    "importance": 2,
+    "country": [
+      "britain"
+    ]
+  },
+  {
+    "id": "ev-232",
+    "year": 1291,
+    "title": "十字军东征结束",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      35.21,
+      31.78
+    ],
+    "description": "阿卡城陷落，十字军在东方的最后据点消失，200 年东征历史结束。",
+    "importance": 2,
+    "country": [
+      "ottoman"
+    ]
+  },
+  {
+    "id": "ev-233",
+    "year": 1337,
+    "title": "百年战争开始",
+    "category": "军事",
+    "region": "other",
+    "coordinates": [
+      2.35,
+      48.86
+    ],
+    "description": "英王爱德华三世宣称法国王位继承权，百年战争爆发。",
+    "importance": 2,
+    "country": [
+      "france"
+    ]
+  },
+  {
+    "id": "ev-234",
+    "year": 1347,
+    "title": "黑死病爆发",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      12.34,
+      45.43
+    ],
+    "description": "黑死病（鼠疫）从克里米亚经威尼斯传入欧洲，3 年内杀死欧洲 1/3 人口（约 2500 万），动摇封建制度。",
+    "importance": 2,
+    "country": [
+      "italy"
+    ]
+  },
+  {
+    "id": "ev-235",
+    "year": 1492,
+    "title": "收复失地运动完成",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      -3.61,
+      37.18
+    ],
+    "description": "卡斯蒂利亚收复格拉纳达，结束 781 年摩尔人在伊比利亚的统治。",
+    "importance": 2,
+    "country": [
+      "spain"
+    ]
+  },
+  {
+    "id": "ev-236",
+    "year": 1517,
+    "title": "九十五条论纲",
+    "category": "思想",
+    "region": "other",
+    "coordinates": [
+      12.1,
+      51.34
+    ],
+    "description": "马丁·路德发表《九十五条论纲》，反对赎罪券，宗教改革爆发。",
+    "importance": 3,
+    "country": [
+      "holy-roman"
+    ]
+  },
+  {
+    "id": "ev-237",
+    "year": 1648,
+    "title": "威斯特伐利亚和约",
+    "category": "政治",
+    "region": "other",
+    "coordinates": [
+      8.02,
+      52.01
+    ],
+    "description": "三十年战争结束，签订《威斯特伐利亚和约》，建立现代国家主权平等原则，被视为现代国际关系起点。",
+    "importance": 3,
+    "country": [
+      "holy-roman"
+    ]
+  },
+  {
+    "id": "ev-238",
+    "year": 1769,
+    "title": "瓦特蒸汽机",
+    "category": "科技",
+    "region": "other",
+    "coordinates": [
+      -2.59,
+      51.45
+    ],
+    "description": "詹姆斯·瓦特改良蒸汽机，工业革命开始。",
+    "importance": 2,
+    "country": [
+      "britain"
+    ]
+  },
+  {
+    "id": "ev-239",
+    "year": 1566,
+    "title": "戚继光抗倭",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      121.55,
+      29.88
+    ],
+    "description": "戚继光在浙江训练\"戚家军\"，抗倭寇成效显著。",
+    "importance": 2
+  },
+  {
+    "id": "ev-240",
+    "year": 1644,
+    "title": "甲申之变",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "李自成攻入北京，崇祯帝自缢于煤山，明朝灭亡。吴三桂引清军入关。",
+    "importance": 3
+  },
+  {
+    "id": "ev-241",
+    "year": 1689,
+    "title": "尼布楚条约",
+    "category": "外交",
+    "region": "china",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "中俄签订《尼布楚条约》，从法律上肯定黑龙江和乌苏里江流域包括库页岛在内的广大地区属于中国。",
+    "importance": 2
+  },
+  {
+    "id": "ev-242",
+    "year": 1839,
+    "title": "虎门销烟",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      113.65,
+      22.95
+    ],
+    "description": "林则徐在广东虎门海滩公开销毁鸦片 237 万斤，鸦片战争导火索。",
+    "importance": 2
+  },
+  {
+    "id": "ev-243",
+    "year": 1851,
+    "title": "太平天国",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      108.95,
+      23.16
+    ],
+    "description": "洪秀全在广西金田起义，建号太平天国，定都天京（南京）。",
+    "importance": 2
+  },
+  {
+    "id": "ev-244",
+    "year": 1860,
+    "title": "英法联军火烧圆明园",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      116.31,
+      39.99
+    ],
+    "description": "英法联军攻入北京，洗劫并焚毁圆明园，中国文物损失惨重。",
+    "importance": 2
+  },
+  {
+    "id": "ev-245",
+    "year": 1894,
+    "title": "甲午战争",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      123.43,
+      41.81
+    ],
+    "description": "日本发动甲午战争，北洋水师全军覆没，1895 年《马关条约》签订，割台湾、辽东半岛，赔款 2 亿两白银。",
+    "importance": 2
+  },
+  {
+    "id": "ev-246",
+    "year": 1898,
+    "title": "戊戌变法",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "康有为、梁启超推动戊戌变法，103 天后被慈禧太后镇压，谭嗣同等\"六君子\"就义。",
+    "importance": 2
+  },
+  {
+    "id": "ev-247",
+    "year": 1900,
+    "title": "八国联军侵华",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "英、法、德、俄、美、日、意、奥八国联军侵华，1901 年《辛丑条约》签订，赔款 4.5 亿两白银。",
+    "importance": 2
+  },
+  {
+    "id": "ev-248",
+    "year": 1919,
+    "title": "五四运动",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "巴黎和会外交失败引发五四运动，工人阶级走上历史舞台，马克思主义在中国传播。",
+    "importance": 2
+  },
+  {
+    "id": "ev-249",
+    "year": 1937,
+    "title": "七七事变",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      116.31,
+      39.99
+    ],
+    "description": "日军在卢沟桥发动事变，全民族抗战爆发。",
+    "importance": 3
+  },
+  {
+    "id": "ev-250",
+    "year": 1945,
+    "title": "抗日战争胜利",
+    "category": "军事",
+    "region": "china",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "日本宣布无条件投降，抗日战争胜利，第二次世界大战结束。",
+    "importance": 3
+  },
+  {
+    "id": "ev-251",
+    "year": 1978,
+    "title": "改革开放",
+    "category": "政治",
+    "region": "china",
+    "coordinates": [
+      116.4,
+      39.9
+    ],
+    "description": "中共十一届三中全会召开，邓小平主导改革开放，中国经济起飞。",
+    "importance": 3
+  },
+  {
+    "id": "ev-sumer-1",
+    "year": -3500,
+    "title": "苏美尔城邦兴起",
+    "category": "culture",
+    "region": "other",
+    "coordinates": [
+      45.94,
+      31.26
+    ],
+    "description": "苏美尔人在两河流域建立乌尔、乌鲁克等城邦",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-babylon-1"
+    ]
+  },
+  {
+    "id": "ev-sumer-2",
+    "year": -3200,
+    "title": "楔形文字成熟",
+    "category": "culture",
+    "region": "other",
+    "coordinates": [
+      45.94,
+      31.26
+    ],
+    "description": "人类最早的成熟文字系统",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-sumer-1"
+    ]
+  },
+  {
+    "id": "ev-sumer-3",
+    "year": -2700,
+    "title": "吉尔伽美什史诗",
+    "category": "culture",
+    "region": "other",
+    "coordinates": [
+      45.94,
+      31.26
+    ],
+    "description": "世界最早的史诗之一，记载大洪水传说",
+    "importance": 2
+  },
+  {
+    "id": "ev-akkad-1",
+    "year": -2334,
+    "title": "萨尔贡一世建立阿卡德帝国",
+    "category": "politics",
+    "region": "other",
+    "coordinates": [
+      44.36,
+      33.32
+    ],
+    "description": "两河流域第一个统一帝国",
+    "importance": 3
+  },
+  {
+    "id": "ev-babylon-1",
+    "year": -1754,
+    "title": "汉谟拉比法典颁布",
+    "category": "politics",
+    "region": "other",
+    "coordinates": [
+      44.42,
+      32.54
+    ],
+    "description": "现存最早的成文法典，刻在黑色玄武岩石碑上",
+    "importance": 3
+  },
+  {
+    "id": "ev-assyria-1",
+    "year": -745,
+    "title": "提格拉特帕拉沙尔三世改革",
+    "category": "politics",
+    "region": "other",
+    "coordinates": [
+      43.13,
+      35.47
+    ],
+    "description": "建立职业常备军，亚述帝国进入鼎盛期",
+    "importance": 2
+  },
+  {
+    "id": "ev-assyria-2",
+    "year": -668,
+    "title": "亚述攻陷埃及底比斯",
+    "category": "military",
+    "region": "other",
+    "coordinates": [
+      32.65,
+      25.69
+    ],
+    "description": "亚述帝国版图达到最大，跨西亚北非",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-assyria-3"
+    ]
+  },
+  {
+    "id": "ev-assyria-3",
+    "year": -612,
+    "title": "新巴比伦-米底联军灭亚述",
+    "category": "military",
+    "region": "other",
+    "coordinates": [
+      43.13,
+      35.47
+    ],
+    "description": "亚述帝国灭亡，尼尼微陷落",
+    "importance": 3
+  },
+  {
+    "id": "ev-phoenicia-1",
+    "year": -1500,
+    "title": "腓尼基字母发明",
+    "category": "culture",
+    "region": "other",
+    "coordinates": [
+      35.2,
+      33.27
+    ],
+    "description": "腓尼基人创造22个字母，成为希腊字母和拉丁字母的共同源头",
+    "importance": 3
+  },
+  {
+    "id": "ev-phoenicia-2",
+    "year": -1200,
+    "title": "腓尼基航海贸易鼎盛",
+    "category": "economy",
+    "region": "other",
+    "coordinates": [
+      35.2,
+      33.27
+    ],
+    "description": "腓尼基商人建立地中海贸易网络",
+    "importance": 2
+  },
+  {
+    "id": "ev-hittite-1",
+    "year": -1500,
+    "title": "赫梯使用铁器",
+    "category": "military",
+    "region": "other",
+    "coordinates": [
+      34.62,
+      39.65
+    ],
+    "description": "世界最早系统使用铁器的文明",
+    "importance": 3
+  },
+  {
+    "id": "ev-hittite-2",
+    "year": -1274,
+    "title": "卡迭石战役",
+    "category": "military",
+    "region": "other",
+    "coordinates": [
+      35.74,
+      36.82
+    ],
+    "description": "赫梯与埃及法老拉美西斯二世签订最早的国际和约",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-assyria-1"
+    ]
+  },
+  {
+    "id": "ev-harappa-1",
+    "year": -2600,
+    "title": "哈拉帕文明兴起",
+    "category": "politics",
+    "region": "persia",
+    "coordinates": [
+      68.45,
+      25.49
+    ],
+    "description": "印度河流域出现最早的城市文明",
+    "importance": 3
+  },
+  {
+    "id": "ev-harappa-2",
+    "year": -2500,
+    "title": "摩亨佐-达罗建成",
+    "category": "culture",
+    "region": "persia",
+    "coordinates": [
+      68.0,
+      27.3
+    ],
+    "description": "城市规划先进，街道网格、排水系统完善",
+    "importance": 3
+  },
+  {
+    "id": "ev-minoan-1",
+    "year": -2000,
+    "title": "克诺索斯米诺斯王宫",
+    "category": "culture",
+    "region": "rome",
+    "coordinates": [
+      25.16,
+      35.3
+    ],
+    "description": "欧洲最早的大型宫殿建筑，传说中米诺斯王的家",
+    "importance": 3
+  },
+  {
+    "id": "ev-minoan-2",
+    "year": -1450,
+    "title": "迈锡尼文明取代克里特",
+    "category": "politics",
+    "region": "rome",
+    "coordinates": [
+      22.75,
+      37.76
+    ],
+    "description": "迈锡尼人统治爱琴海，发展线形文字B",
+    "importance": 2
+  },
+  {
+    "id": "ev-minoan-3",
+    "year": -1200,
+    "title": "多里安人入侵，迈锡尼灭亡",
+    "category": "military",
+    "region": "rome",
+    "coordinates": [
+      22.75,
+      37.76
+    ],
+    "description": "爱琴文明进入黑暗时代，希腊城邦萌芽",
+    "importance": 2
+  },
+  {
+    "id": "ev-greece-1",
+    "year": -776,
+    "title": "首届古代奥运会",
+    "category": "culture",
+    "region": "rome",
+    "coordinates": [
+      22.55,
+      37.64
+    ],
+    "description": "在奥林匹亚举行，希腊城邦共同的体育盛会",
+    "importance": 2
+  },
+  {
+    "id": "ev-greece-2",
+    "year": -508,
+    "title": "克里斯提尼改革",
+    "category": "politics",
+    "region": "rome",
+    "coordinates": [
+      23.73,
+      37.98
+    ],
+    "description": "雅典民主制度最终确立",
+    "importance": 3
+  },
+  {
+    "id": "ev-greece-3",
+    "year": -490,
+    "title": "马拉松战役",
+    "category": "military",
+    "region": "rome",
+    "coordinates": [
+      23.85,
+      38.15
+    ],
+    "description": "雅典击败波斯大军，希波战争首次大捷",
+    "importance": 3
+  },
+  {
+    "id": "ev-greece-4",
+    "year": -480,
+    "title": "温泉关战役",
+    "category": "military",
+    "region": "rome",
+    "coordinates": [
+      22.5,
+      38.78
+    ],
+    "description": "斯巴达 300 勇士对抗波斯王薛西斯",
+    "importance": 3
+  },
+  {
+    "id": "ev-greece-5",
+    "year": -480,
+    "title": "萨拉米斯海战",
+    "category": "military",
+    "region": "rome",
+    "coordinates": [
+      23.57,
+      37.96
+    ],
+    "description": "希腊海军击败波斯舰队，希波战争转折点",
+    "importance": 3
+  },
+  {
+    "id": "ev-greece-6",
+    "year": -447,
+    "title": "帕特农神庙建成",
+    "category": "culture",
+    "region": "rome",
+    "coordinates": [
+      23.73,
+      37.97
+    ],
+    "description": "雅典卫城最辉煌的多立克式神庙",
+    "importance": 3
+  },
+  {
+    "id": "ev-greece-7",
+    "year": -399,
+    "title": "苏格拉底被处死",
+    "category": "culture",
+    "region": "rome",
+    "coordinates": [
+      23.73,
+      37.98
+    ],
+    "description": "雅典民主判处哲学家苏格拉底死刑",
+    "importance": 3
+  },
+  {
+    "id": "ev-greece-8",
+    "year": -338,
+    "title": "喀罗尼亚战役",
+    "category": "military",
+    "region": "rome",
+    "coordinates": [
+      22.5,
+      38.4
+    ],
+    "description": "马其顿击败希腊城邦联军",
+    "importance": 2
+  },
+  {
+    "id": "ev-greece-9",
+    "year": -323,
+    "title": "亚历山大大帝逝世",
+    "category": "politics",
+    "region": "rome",
+    "coordinates": [
+      22.95,
+      40.65
+    ],
+    "description": "巴比伦，亚历山大帝国随即分裂",
+    "importance": 3
+  },
+  {
+    "id": "ev-carthage-1",
+    "year": -814,
+    "title": "腓尼基人建立迦太基",
+    "category": "politics",
+    "region": "rome",
+    "coordinates": [
+      10.32,
+      36.86
+    ],
+    "description": "推罗移民在北非建立贸易城邦",
+    "importance": 2
+  },
+  {
+    "id": "ev-carthage-2",
+    "year": -264,
+    "title": "第一次布匿战争爆发",
+    "category": "military",
+    "region": "rome",
+    "coordinates": [
+      12.33,
+      37.0
+    ],
+    "description": "罗马与迦太基争夺西西里",
+    "importance": 2
+  },
+  {
+    "id": "ev-carthage-3",
+    "year": -218,
+    "title": "汉尼拔翻越阿尔卑斯山",
+    "category": "military",
+    "region": "rome",
+    "coordinates": [
+      7.0,
+      44.0
+    ],
+    "description": "第二次布匿战争，迦太基进攻意大利",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-carthage-4"
+    ]
+  },
+  {
+    "id": "ev-carthage-4",
+    "year": -216,
+    "title": "坎尼会战",
+    "category": "military",
+    "region": "rome",
+    "coordinates": [
+      16.15,
+      41.3
+    ],
+    "description": "汉尼拔围歼罗马军团，军事史经典战役",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-carthage-5"
+    ]
+  },
+  {
+    "id": "ev-carthage-5",
+    "year": -146,
+    "title": "迦太基灭亡",
+    "category": "military",
+    "region": "rome",
+    "coordinates": [
+      10.32,
+      36.86
+    ],
+    "description": "第三次布匿战争后，罗马彻底摧毁迦太基",
+    "importance": 3
+  },
+  {
+    "id": "ev-olmec-1",
+    "year": -1200,
+    "title": "拉文塔巨石头像",
+    "category": "culture",
+    "region": "other",
+    "coordinates": [
+      -94.69,
+      17.99
+    ],
+    "description": "奥尔梅克雕刻高 2.5 米的玄武岩巨石头像",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-maya-1"
+    ]
+  },
+  {
+    "id": "ev-olmec-2",
+    "year": -900,
+    "title": "奥尔梅克中美洲文明形成",
+    "category": "politics",
+    "region": "other",
+    "coordinates": [
+      -94.69,
+      17.99
+    ],
+    "description": "中美洲文明之母，影响后续玛雅阿兹特克",
+    "importance": 3
+  },
+  {
+    "id": "ev-maya-1",
+    "year": 292,
+    "title": "玛雅历法建立",
+    "category": "science",
+    "region": "other",
+    "coordinates": [
+      -89.62,
+      20.98
+    ],
+    "description": "玛雅长纪年历 365 天，比欧洲历法更精确",
+    "importance": 3
+  },
+  {
+    "id": "ev-maya-2",
+    "year": 683,
+    "title": "帕伦克城邦鼎盛",
+    "category": "culture",
+    "region": "other",
+    "coordinates": [
+      -91.5,
+      17.48
+    ],
+    "description": "玛雅古典期最辉煌城邦之一",
+    "importance": 2
+  },
+  {
+    "id": "ev-maya-3",
+    "year": 800,
+    "title": "玛雅古典期崩溃",
+    "category": "politics",
+    "region": "other",
+    "coordinates": [
+      -89.62,
+      20.98
+    ],
+    "description": "玛雅城邦陆续衰落，原因仍是谜",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-inca-1"
+    ]
+  },
+  {
+    "id": "ev-inca-1",
+    "year": 1471,
+    "title": "印加帝国鼎盛",
+    "category": "politics",
+    "region": "other",
+    "coordinates": [
+      -71.97,
+      -13.52
+    ],
+    "description": "版图跨安第斯山脉 4000 公里",
+    "importance": 3
+  },
+  {
+    "id": "ev-inca-2",
+    "year": 1533,
+    "title": "皮萨罗俘获印加皇帝",
+    "category": "military",
+    "region": "other",
+    "coordinates": [
+      -71.97,
+      -13.52
+    ],
+    "description": "印加帝国灭亡",
+    "importance": 3
+  },
+  {
+    "id": "ev-etruscan-1",
+    "year": -616,
+    "title": "伊特鲁里亚王塔克文",
+    "category": "politics",
+    "region": "rome",
+    "coordinates": [
+      11.32,
+      43.32
+    ],
+    "description": "伊特鲁里亚王统治罗马，开启罗马王国时代",
+    "importance": 2
+  },
+  {
+    "id": "ev-rome-1",
+    "year": -753,
+    "title": "罗马建城（传说）",
+    "category": "culture",
+    "region": "rome",
+    "coordinates": [
+      12.5,
+      41.9
+    ],
+    "description": "罗慕路斯建立罗马城",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-akkad-1"
+    ]
+  },
+  {
+    "id": "ev-rome-2",
+    "year": -510,
+    "title": "罗马共和国建立",
+    "category": "politics",
+    "region": "rome",
+    "coordinates": [
+      12.5,
+      41.9
+    ],
+    "description": "驱逐最后一位伊特鲁里亚王",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-rome-3"
+    ]
+  },
+  {
+    "id": "ev-rome-3",
+    "year": -49,
+    "title": "凯撒跨过卢比孔河",
+    "category": "politics",
+    "region": "rome",
+    "coordinates": [
+      12.4,
+      44.1
+    ],
+    "description": "内战开始，罗马共和国走向终结",
+    "importance": 3,
+    "relatedEventIds": [
+      "ev-greece-9"
+    ]
+  },
+  {
+    "id": "ev-china-1",
+    "year": -1600,
+    "title": "商朝甲骨文成熟",
+    "category": "culture",
+    "region": "china",
+    "coordinates": [
+      114.3,
+      36.1
+    ],
+    "description": "商代晚期甲骨文是中国已知最早的成熟文字",
+    "importance": 3
+  },
+  {
+    "id": "ev-china-2",
+    "year": -1300,
+    "title": "商王盘庚迁殷",
+    "category": "politics",
+    "region": "china",
+    "coordinates": [
+      114.3,
+      36.1
+    ],
+    "description": "迁都至殷（今安阳），商朝稳定",
+    "importance": 2
+  }
+]

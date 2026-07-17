@@ -1,0 +1,20 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "british-empire",
+        "name": "大英帝国",
+        "color": "#a04040"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-8, 50], [-5, 53], [-3, 55], [-1, 58], [1, 58],
+          [1, 54], [-1, 51], [-4, 50], [-8, 50]
+        ]]
+      }
+    }
+  ]
+}

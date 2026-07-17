@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from 'react'
 import eventsData from '@/data/events.json'
 import erasData from '@/data/eras.json'
 import { useAIStore } from '@/store/useAIStore'
+import { useHistoryStore } from '@/store/useHistoryStore'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
 import { enhancePersonaPrompt } from '@/utils/useLearningContext'
 import type { Era, HistoricalEvent } from '@/types'
@@ -18,11 +19,13 @@ const wars = events.filter(e => e.category === '军事' || e.category === 'milit
 interface Props {
   isActive: boolean
   onClose: () => void
+  /** 跳到主地图：父组件关闭本视图 + 切到地图 */
+  onViewOnMap?: () => void
 }
 
 type RegionFilter = 'all' | 'china' | 'world'
 
-export default function WarsOverview({ isActive, onClose }: Props) {
+export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) {
   const [region, setRegion] = useState<RegionFilter>('all')
   const [importance, setImportance] = useState<0 | 1 | 2 | 3>(0)
   const [query, setQuery] = useState('')
@@ -34,6 +37,26 @@ export default function WarsOverview({ isActive, onClose }: Props) {
   const newThread = useAIStore(s => s.newThread)
   const openPanel = useAIStore(s => s.openPanel)
   const allContexts = useAllLearningContexts()
+  // 跳到地图：设置年份 + 聚焦到战争地点
+  const setYear = useHistoryStore(s => s.setYear)
+  const setMapFocus = useHistoryStore(s => s.setMapFocus)
+
+  /** 处理"在地图看位置"：年份 + 坐标定位 + 通知父组件切到地图 */
+  const handleViewOnMap = (war: HistoricalEvent) => {
+    if (war.coordinates) {
+      setYear(war.year)
+      setMapFocus({
+        center: war.coordinates,
+        zoom: 4,
+        label: war.title,
+      })
+    } else {
+      // 没坐标的战争：只切年份
+      setYear(war.year)
+    }
+    setSelectedWar(null)
+    onViewOnMap?.()
+  }
 
   // ESC 关闭
   useEffect(() => {
@@ -186,16 +209,22 @@ export default function WarsOverview({ isActive, onClose }: Props) {
 
       {/* 详情弹窗 */}
       {selectedWar && (
-        <WarDetailDialog war={selectedWar} onClose={() => setSelectedWar(null)} onChat={() => handleChat(selectedWar)} />
+        <WarDetailDialog
+          war={selectedWar}
+          onClose={() => setSelectedWar(null)}
+          onChat={() => handleChat(selectedWar)}
+          onViewOnMap={() => handleViewOnMap(selectedWar)}
+        />
       )}
     </div>
   )
 }
 
-function WarDetailDialog({ war, onClose, onChat }: {
+function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
   war: HistoricalEvent
   onClose: () => void
   onChat: () => void
+  onViewOnMap: () => void
 }) {
   const yearLabel = war.year < 0 ? `BC ${-war.year}` : `${war.year}`
   const relatedEra = war.relatedEraId ? eras.find(e => e.id === war.relatedEraId) : null
@@ -335,6 +364,14 @@ function WarDetailDialog({ war, onClose, onChat }: {
           )}
 
           <div className="flex gap-2 pt-3 border-t border-ink-700">
+            {war.coordinates && (
+              <button
+                onClick={onViewOnMap}
+                className="flex-1 px-4 py-2.5 rounded bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-600/50 text-emerald-200 text-sm transition-colors"
+              >
+                🗺️ 在地图看位置
+              </button>
+            )}
             <button
               onClick={onChat}
               className="flex-1 px-4 py-2.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors"

@@ -345,6 +345,10 @@ export default function Layout() {
             <WarsOverview
               isActive={warsActive}
               onClose={() => setWarsActive(false)}
+              onViewOnMap={() => {
+                setWarsActive(false)
+                setViewMode('map')
+              }}
             />
           ) : culturesActive ? (
             <CulturesOverview

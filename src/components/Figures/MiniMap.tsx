@@ -64,16 +64,24 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
   const screenY = (nodeWorldY - centerWorldY) * scale + containerRect.top + H / 2
 
   function updatePosition() {
-    if (!markerEl.isConnected) return
-    const r = containerRef.current!.getBoundingClientRect()
-    // TMap center 变了, 重新算 screenX/screenY
-    const cx = lngToX(focusPos![0])
-    const cy = latToY(focusPos![1])
-    const nx = lngToX(pos![0])
-    const ny = latToY(pos![1])
-    // 拿当前 zoom 和 center 需要 map.getCenter()/map.getZoom()
-    // 但 TMap v4 API 不可靠, 用最简方案: 监听 zoomend 时整体重渲染
-    // 这里仅是占位 - 实际位置由 moveend 触发重渲染
+    if (!markerEl.isConnected || !mapRef.current) return
+    // TMap v4: 用 map.lngLatToContainerPoint 把经纬度转屏幕像素
+    const T = (window as any).T
+    let pt: { x: number; y: number } | null = null
+    if (typeof mapRef.current.lngLatToContainerPoint === 'function') {
+      const p = mapRef.current.lngLatToContainerPoint(new T.LngLat(pos![0], pos![1]))
+      pt = { x: p.x ?? p[0], y: p.y ?? p[1] }
+    } else if (typeof mapRef.current.lngLatToPoint === 'function') {
+      const p = mapRef.current.lngLatToPoint(new T.LngLat(pos![0], pos![1]))
+      pt = { x: p.x ?? p[0], y: p.y ?? p[1] }
+    }
+    if (pt) {
+      // lngLatToContainerPoint 返回相对 mapContainer 的坐标
+      // 但 marker 用 fixed 定位（相对 viewport），需要加上 container 的 viewport 偏移
+      const r = containerRef.current!.getBoundingClientRect()
+      markerEl.style.left = (r.left + pt.x) + 'px'
+      markerEl.style.top = (r.top + pt.y) + 'px'
+    }
   }
 
   // 保持 onSwitchNode 最新（避免 effect 重跑）

@@ -208,7 +208,12 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
         }
       })
 
-      markersRef.current.push({ el: markerEl })
+      map.addEventListener('zoomend', updatePosition)
+      map.addEventListener('moveend', updatePosition)
+      markersRef.current.push({ el: markerEl, cleanup: () => {
+        map.removeEventListener('zoomend', updatePosition)
+        map.removeEventListener('moveend', updatePosition)
+      }})
     }
   }, [status, focusNode, nodePositions, onJumpToMap])
 
@@ -246,7 +251,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
       {/* 顶部信息条 */}
       <div className="absolute top-2 right-2 z-10 flex items-center gap-1.5 text-[10px] pointer-events-none">
         <div className="bg-ink-900/80 backdrop-blur px-2 py-1 rounded text-parchment-100/90">
-          📍 {focusNode.location}
+          🎯 {focusNode.title}
         </div>
       </div>
 

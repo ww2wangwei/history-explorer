@@ -50,7 +50,8 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
   const TILE_SIZE = 256
   const ZOOM = 5
   const n = Math.pow(2, ZOOM)
-  const containerRect = containerRef.current?.getBoundingClientRect()
+  const r = containerRef.current
+  const containerRect = r ? r.getBoundingClientRect() : { width: WIDTH, height: HEIGHT, left: 0, top: 0 }
   const W = containerRect.width
   const H = containerRect.height
   const scale = W / (TILE_SIZE * n)

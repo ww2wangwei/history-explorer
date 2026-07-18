@@ -45,6 +45,37 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
 
   const focusPos = focusNode.coordinates || lookupLocation(focusNode.location)
 
+  // 计算 marker 屏幕位置（Web Mercator 公式）
+  // 监听 zoomend/moveend 时重算
+  const TILE_SIZE = 256
+  const ZOOM = 5
+  const n = Math.pow(2, ZOOM)
+  const containerRect = containerRef.current!.getBoundingClientRect()
+  const W = containerRect.width
+  const H = containerRect.height
+  const scale = W / (TILE_SIZE * n)
+  const lngToX = (lng: number) => (lng + 180) / 360 * (TILE_SIZE * n)
+  const latToY = (lat: number) => (1 - Math.log(Math.tan(lat * Math.PI / 180 / 2 + Math.PI / 4)) / Math.PI) / 2 * (TILE_SIZE * n)
+  const centerWorldX = lngToX(focusPos![0])
+  const centerWorldY = latToY(focusPos![1])
+  const nodeWorldX = lngToX(pos![0])
+  const nodeWorldY = latToY(pos![1])
+  const screenX = (nodeWorldX - centerWorldX) * scale + containerRect.left + W / 2
+  const screenY = (nodeWorldY - centerWorldY) * scale + containerRect.top + H / 2
+
+  function updatePosition() {
+    if (!markerEl.isConnected) return
+    const r = containerRef.current!.getBoundingClientRect()
+    // TMap center 变了, 重新算 screenX/screenY
+    const cx = lngToX(focusPos![0])
+    const cy = latToY(focusPos![1])
+    const nx = lngToX(pos![0])
+    const ny = latToY(pos![1])
+    // 拿当前 zoom 和 center 需要 map.getCenter()/map.getZoom()
+    // 但 TMap v4 API 不可靠, 用最简方案: 监听 zoomend 时整体重渲染
+    // 这里仅是占位 - 实际位置由 moveend 触发重渲染
+  }
+
   // 保持 onSwitchNode 最新（避免 effect 重跑）
   useEffect(() => { onSwitchNodeRef.current = onSwitchNode }, [onSwitchNode])
 

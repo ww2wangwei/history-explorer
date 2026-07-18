@@ -50,7 +50,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
   const TILE_SIZE = 256
   const ZOOM = 5
   const n = Math.pow(2, ZOOM)
-  const containerRect = containerRef.current!.getBoundingClientRect()
+  const containerRect = containerRef.current?.getBoundingClientRect()
   const W = containerRect.width
   const H = containerRect.height
   const scale = W / (TILE_SIZE * n)
@@ -78,7 +78,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
     if (pt) {
       // lngLatToContainerPoint 返回相对 mapContainer 的坐标
       // 但 marker 用 fixed 定位（相对 viewport），需要加上 container 的 viewport 偏移
-      const r = containerRef.current!.getBoundingClientRect()
+      const r = containerRef.current?.getBoundingClientRect()
       markerEl.style.left = (r.left + pt.x) + 'px'
       markerEl.style.top = (r.top + pt.y) + 'px'
     }

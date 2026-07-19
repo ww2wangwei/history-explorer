@@ -93,6 +93,10 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
         const zoom = focusPos ? 6 : 4
         map.centerAndZoom(new T.LngLat(center[0], center[1]), zoom)
         mapRef.current = map
+        // 禁用拖动/双击缩放/滚轮缩放, 完全静态
+        if (typeof map.disableDragging === 'function') map.disableDragging()
+        if (typeof map.disableDoubleClickZoom === 'function') map.disableDoubleClickZoom()
+        if (typeof map.disableScrollWheelZoom === 'function') map.disableScrollWheelZoom()
         setStatus('ready')
       })
       .catch(err => {

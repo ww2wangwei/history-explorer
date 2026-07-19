@@ -266,7 +266,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
       <div
         ref={containerRef}
         className="rounded border border-ink-600 bg-[#0a1820]"
-        style={{ width: WIDTH, height: HEIGHT }}
+        style={{ width: '100%', aspectRatio: '2 / 1', maxWidth: '640px' }}
       />
 
 

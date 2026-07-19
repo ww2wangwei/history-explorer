@@ -93,6 +93,12 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
         const zoom = focusPos ? 6 : 4
         map.centerAndZoom(new T.LngLat(center[0], center[1]), zoom)
         mapRef.current = map
+        // ResizeObserver 监听容器变化 (e.g. 弹窗 resize, 设备旋转)
+        // 自动重算 marker 位置 (始终在容器中心)
+        if (typeof ResizeObserver !== 'undefined') {
+          const ro = new ResizeObserver(() => { try { updatePosition() } catch {} })
+          ro.observe(containerRef.current)
+        }
         // 禁用拖动/双击缩放/滚轮缩放, 完全静态
         if (typeof map.disableDragging === 'function') map.disableDragging()
         if (typeof map.disableDoubleClickZoom === 'function') map.disableDoubleClickZoom()

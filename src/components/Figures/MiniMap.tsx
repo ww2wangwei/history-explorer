@@ -92,9 +92,6 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
         const center: [number, number] = focusPos ?? [104, 35]
         const zoom = focusPos ? 6 : 4
         map.centerAndZoom(new T.LngLat(center[0], center[1]), zoom)
-        if (typeof map.enableScrollWheelZoom === 'function') {
-          map.enableScrollWheelZoom()
-        }
         mapRef.current = map
         setStatus('ready')
       })

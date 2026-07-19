@@ -64,21 +64,22 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
   const screenX = (nodeWorldX - centerWorldX) * scale + containerRect.left + W / 2
   const screenY = (nodeWorldY - centerWorldY) * scale + containerRect.top + H / 2
 
+  const posNode = pos
   function updatePosition() {
     if (!markerEl.isConnected || !mapRef.current) return
     // TMap v4: 用 map.lngLatToContainerPoint 把经纬度转屏幕像素
     const T = (window as any).T
+    const targetLng = posNode![0]
+    const targetLat = posNode![1]
     let pt: { x: number; y: number } | null = null
     if (typeof mapRef.current.lngLatToContainerPoint === 'function') {
-      const p = mapRef.current.lngLatToContainerPoint(new T.LngLat(pos![0], pos![1]))
+      const p = mapRef.current.lngLatToContainerPoint(new T.LngLat(targetLng, targetLat))
       pt = { x: p.x ?? p[0], y: p.y ?? p[1] }
     } else if (typeof mapRef.current.lngLatToPoint === 'function') {
-      const p = mapRef.current.lngLatToPoint(new T.LngLat(pos![0], pos![1]))
+      const p = mapRef.current.lngLatToPoint(new T.LngLat(targetLng, targetLat))
       pt = { x: p.x ?? p[0], y: p.y ?? p[1] }
     }
     if (pt) {
-      // lngLatToContainerPoint 返回相对 mapContainer 的坐标
-      // 但 marker 用 fixed 定位（相对 viewport），需要加上 container 的 viewport 偏移
       const r = containerRef.current?.getBoundingClientRect()
       markerEl.style.left = (r.left + pt.x) + 'px'
       markerEl.style.top = (r.top + pt.y) + 'px'

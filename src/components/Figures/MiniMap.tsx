@@ -270,16 +270,6 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
       />
 
 
-      {/* 底部按钮组 */}
-      <div className="absolute bottom-2 right-2 z-10 flex gap-1.5">
-        <button
-          onClick={() => onJumpToMap(focusPos, focusNode.year, focusNode.title)}
-          className="px-2.5 py-1 rounded bg-emerald-700/80 hover:bg-emerald-600/90 border border-emerald-500/60 text-emerald-100 text-[10px] transition-colors shadow"
-        >
-          🗺️ 跳到主地图
-        </button>
-      </div>
-
       {/* 提示 */}
       <div className="absolute bottom-2 left-2 text-[9px] text-ink-300/90 bg-ink-900/70 backdrop-blur px-1.5 py-0.5 rounded pointer-events-none z-10">
         {nodePositions.length} 个节点 · 滚轮缩放 · 拖动平移

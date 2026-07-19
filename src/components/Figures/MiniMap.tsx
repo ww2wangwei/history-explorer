@@ -46,6 +46,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
   const focusPos = focusNode.coordinates || lookupLocation(focusNode.location)
   // TMap v4 API 实现 marker 位置实时更新
   function updatePosition() {
+    console.log("[MiniMap] updatePos called", { left: markerEl.style.left, top: markerEl.style.top, t: Date.now() })
     if (!markerEl.isConnected) return
     // focusPos 是 TMap 中心, 节点永远在屏幕中心
     // 用容器中心 (r.left + r.width/2, r.top + r.height/2)

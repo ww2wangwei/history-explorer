@@ -219,12 +219,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
         }
       })
 
-      map.addEventListener('zoomend', updatePosition)
-      map.addEventListener('moveend', updatePosition)
-      markersRef.current.push({ el: markerEl, cleanup: () => {
-        map.removeEventListener('zoomend', updatePosition)
-        map.removeEventListener('moveend', updatePosition)
-      }})
+      markersRef.current.push({ el: markerEl })
     }
   }, [status, focusNode, nodePositions, onJumpToMap])
 

@@ -100,7 +100,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
           projection: 'EPSG:4326',
         })
         const center: [number, number] = focusPos ?? [104, 35]
-        const zoom = focusPos ? 5 : 3
+        const zoom = focusPos ? 6 : 4
         map.centerAndZoom(new T.LngLat(center[0], center[1]), zoom)
         if (typeof map.enableScrollWheelZoom === 'function') {
           map.enableScrollWheelZoom()
@@ -169,7 +169,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
         position: fixed;
         width: 80px;
         height: 56px;
-        margin-left: -40px;
+        margin-left: -65px;
         margin-top: -24px;
         pointer-events: none;
         z-index: 99999;
@@ -177,12 +177,12 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
         will-change: transform;
       `
       markerEl.innerHTML = `
-        <div style="position:absolute;left:18px;top:2px;width:44px;height:44px;border-radius:50%;background:rgba(255,212,122,0.3);"></div>
-        <div style="position:absolute;left:26px;top:10px;width:28px;height:28px;border-radius:50%;background:rgba(255,212,122,0.5);"></div>
-        <div style="position:absolute;left:31px;top:15px;width:18px;height:18px;border-radius:50%;background:#ffd47a;border:2.5px solid #ffffff;"></div>
-        <div style="position:absolute;left:36px;top:20px;width:8px;height:8px;border-radius:50%;background:#ffffff;"></div>
-        <div style="position:absolute;left:0;top:38px;width:80px;height:18px;background:rgba(15,14,12,0.9);border-radius:3px;display:flex;align-items:center;justify-content:center;">
-          <span style="color:#ffd47a;font-size:11px;font-weight:600;text-shadow:0 0 3px #0f0e0c;">${node.title.slice(0, 10)}</span>
+        <div style="position:absolute;left:45px;top:2px;width:44px;height:44px;border-radius:50%;background:rgba(255,212,122,0.3);"></div>
+        <div style="position:absolute;left:53px;top:10px;width:28px;height:28px;border-radius:50%;background:rgba(255,212,122,0.5);"></div>
+        <div style="position:absolute;left:58px;top:15px;width:18px;height:18px;border-radius:50%;background:#ffd47a;border:2.5px solid #ffffff;"></div>
+        <div style="position:absolute;left:63px;top:20px;width:8px;height:8px;border-radius:50%;background:#ffffff;"></div>
+        <div style="position:absolute;left:0;top:38px;width:130px;height:18px;background:rgba(15,14,12,0.9);border-radius:3px;display:flex;align-items:center;justify-content:center;">
+          <span style="color:#ffd47a;font-size:10px;font-weight:600;text-shadow:0 0 3px #0f0e0c;">${node.title.slice(0, 8)}</span>
         </div>
       `
       // 直接放到 body（最顶层，不被 TMap 内部遮挡）

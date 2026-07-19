@@ -1,11 +1,11 @@
 /**
  * GeographyOverview — 全地理全屏浏览页
  * 2 个子 tab：
- *   - 🌍 自然地理：来自 geographic-features.ts（山/河/湖/海/平原/半岛）
+ *   - 🌍 自然地理：来自 geographic-features.ts（11 大类：洲/海/湖/河/山/沙/平原/半岛/海峡/瀑布/区域）
  *   - 🏛️ 疆域变迁：来自 public/geo/world/eras/*.geojson + public/geo/china/*.geojson
  */
 import { useEffect, useMemo, useState } from 'react'
-import { CONTINENTS, SEAS, MOUNTAINS, RIVERS, REGIONS, type GeoFeature, type GeoFeatureType } from '@/data/geographic-features'
+import { ALL_GEO_FEATURES, type GeoFeature, type GeoFeatureType } from '@/data/geographic-features'
 import { OCEAN_LABELS } from '@/data/oceans'
 import erasData from '@/data/eras.json'
 import MiniMap from '@/components/Figures/MiniMap'
@@ -13,6 +13,21 @@ import { useHistoryStore } from '@/store/useHistoryStore'
 import type { Era } from '@/types'
 
 const eras = erasData as Era[]
+
+// 合并 11 类自然地理
+const ALL_FEATURES: GeoFeature[] = [
+  ...ALL_GEO_FEATURES.continents,
+  ...ALL_GEO_FEATURES.seas,
+  ...ALL_GEO_FEATURES.lakes,
+  ...ALL_GEO_FEATURES.rivers,
+  ...ALL_GEO_FEATURES.mountains,
+  ...ALL_GEO_FEATURES.deserts,
+  ...ALL_GEO_FEATURES.plains,
+  ...ALL_GEO_FEATURES.peninsulas,
+  ...ALL_GEO_FEATURES.straits,
+  ...ALL_GEO_FEATURES.waterfalls,
+  ...ALL_GEO_FEATURES.regions,
+]
 
 interface Props {
   isActive: boolean
@@ -29,10 +44,15 @@ const TERRITORY_FILES = [
 
 const FEATURE_LABELS: Record<GeoFeatureType, { icon: string; label: string; color: string }> = {
   continent: { icon: '🌏', label: '大洲', color: '#9bc89a' },
-  sea: { icon: '🌊', label: '海洋/海域', color: '#5b9bc8' },
-  mountain: { icon: '⛰️', label: '山脉', color: '#a89070' },
+  sea: { icon: '🌊', label: '海洋/海湾', color: '#5b9bc8' },
+  lake: { icon: '🪞', label: '湖泊', color: '#6abab6' },
   river: { icon: '🏞️', label: '河流', color: '#5bc8c8' },
+  mountain: { icon: '⛰️', label: '山脉', color: '#a89070' },
   desert: { icon: '🏜️', label: '沙漠', color: '#c8a85b' },
+  plain: { icon: '🌾', label: '平原', color: '#9bc89a' },
+  peninsula: { icon: '🔻', label: '半岛', color: '#b88a6a' },
+  strait: { icon: '↔️', label: '海峡', color: '#8a9aba' },
+  waterfall: { icon: '💦', label: '瀑布', color: '#6abab6' },
   region: { icon: '🗺️', label: '区域', color: '#9b7eb6' },
 }
 
@@ -85,13 +105,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
   if (!isActive) return null
 
   // 合并所有自然地理特征
-  const allFeatures: GeoFeature[] = useMemo(() => [
-    ...CONTINENTS,
-    ...SEAS,
-    ...MOUNTAINS,
-    ...RIVERS,
-    ...REGIONS,
-  ], [])
+  const allFeatures = ALL_FEATURES
 
   const filteredFeatures = useMemo(() => {
     return allFeatures
@@ -265,13 +279,36 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
           onClick={() => setSelectedFeature(null)}
         >
           <div
-            className="relative w-full max-w-lg bg-ink-800 rounded-lg border border-emerald-700/40 shadow-2xl"
+            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-emerald-700/40 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* 图片区（典型照片） */}
+            {selectedFeature.imageUrl ? (
+              <div className="relative w-full bg-ink-900" style={{ aspectRatio: '16/9' }}>
+                <img
+                  src={selectedFeature.imageUrl}
+                  alt={selectedFeature.name}
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                />
+                {selectedFeature.imageCredit && (
+                  <div className="absolute bottom-1 right-2 text-[9px] text-parchment-50/70 bg-ink-900/70 px-1.5 py-0.5 rounded">
+                    📷 {selectedFeature.imageCredit}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="relative w-full bg-gradient-to-br from-emerald-900/40 to-ink-700 flex items-center justify-center text-6xl" style={{ aspectRatio: '16/9' }}>
+                {FEATURE_LABELS[selectedFeature.type].icon}
+              </div>
+            )}
+
             <div className="px-6 py-4 border-b border-emerald-700/30 flex items-center justify-between">
               <div>
                 <div className="text-[10px] text-ink-500 mb-1">
                   {FEATURE_LABELS[selectedFeature.type].icon} {FEATURE_LABELS[selectedFeature.type].label}
+                  {selectedFeature.importance === 3 ? ' · ⭐⭐⭐' : selectedFeature.importance === 2 ? ' · ⭐⭐' : ''}
                 </div>
                 <h3 className="text-xl font-serif text-emerald-300">{selectedFeature.name}</h3>
               </div>
@@ -282,7 +319,17 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                 ×
               </button>
             </div>
-            <div className="p-6 space-y-3 text-sm">
+            <div className="p-6 space-y-4 text-sm">
+              {/* 文字介绍 */}
+              {selectedFeature.description && (
+                <div>
+                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📜 介绍</div>
+                  <div className="text-parchment-100 leading-relaxed">
+                    {selectedFeature.description}
+                  </div>
+                </div>
+              )}
+
               <div>
                 <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
                 <MiniMap
@@ -310,16 +357,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                   经度 {selectedFeature.labelPos[0].toFixed(2)}°, 纬度 {selectedFeature.labelPos[1].toFixed(2)}°
                 </div>
               </div>
-              <div>
-                <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">📐 几何数据点</div>
-                <div className="text-parchment-50">{selectedFeature.geometry.length} 个点</div>
-              </div>
-              <div>
-                <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">⭐ 重要性</div>
-                <div className="text-parchment-50">
-                  {selectedFeature.importance === 3 ? '⭐⭐⭐ 重要' : selectedFeature.importance === 2 ? '⭐⭐ 中等' : '⭐ 一般'}
-                </div>
-              </div>
+
               <div className="text-xs text-ink-500 italic pt-2 border-t border-ink-700">
                 💡 在主地图视图（顶栏"🗺️ 地图"）拖动时间轴可看到该特征
               </div>
@@ -335,12 +373,19 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
           onClick={() => setSelectedTerritory(null)}
         >
           <div
-            className="relative w-full max-w-lg bg-ink-800 rounded-lg border border-emerald-700/40 shadow-2xl"
+            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-emerald-700/40 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* 朝代色带 */}
+            {selectedTerritory.era && (
+              <div className="h-2 rounded-t-lg" style={{ background: selectedTerritory.era.color }} />
+            )}
+
             <div className="px-6 py-4 border-b border-emerald-700/30 flex items-center justify-between">
               <div>
-                <div className="text-[10px] text-ink-500 mb-1">🏛️ 疆域变迁</div>
+                <div className="text-[10px] text-ink-500 mb-1">
+                  🏛️ 疆域变迁 · {selectedTerritory.region === 'china' ? '🇨🇳 中国' : '🌍 世界'}
+                </div>
                 <h3 className="text-xl font-serif text-emerald-300">
                   {selectedTerritory.era?.name ?? selectedTerritory.id}
                 </h3>
@@ -357,11 +402,66 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                 ×
               </button>
             </div>
-            <div className="p-6 space-y-3 text-sm">
+            <div className="p-6 space-y-4 text-sm">
+              {/* 一句话概述 */}
               {selectedTerritory.era?.shortDesc && (
+                <div className="text-parchment-100 leading-relaxed italic border-l-2 border-emerald-500/50 pl-3">
+                  {selectedTerritory.era.shortDesc}
+                </div>
+              )}
+
+              {/* 完整介绍 */}
+              {selectedTerritory.era?.description && (
                 <div>
-                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">📜 概述</div>
-                  <div className="text-parchment-100 leading-relaxed">{selectedTerritory.era.shortDesc}</div>
+                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📜 详细介绍</div>
+                  <div className="text-parchment-100 leading-relaxed whitespace-pre-line">
+                    {selectedTerritory.era.description}
+                  </div>
+                </div>
+              )}
+
+              {/* 核心要点 */}
+              {selectedTerritory.era?.keyPoints && selectedTerritory.era.keyPoints.length > 0 && (
+                <div>
+                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🎯 核心要点</div>
+                  <ul className="space-y-1">
+                    {selectedTerritory.era.keyPoints.map((kp, i) => (
+                      <li key={i} className="flex items-start gap-2 text-parchment-100">
+                        <span className="text-emerald-400 mt-0.5">•</span>
+                        <span>{kp}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* 关键事件 */}
+              {selectedTerritory.era?.quickEvents && selectedTerritory.era.quickEvents.length > 0 && (
+                <div>
+                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">⚡ 关键事件</div>
+                  <div className="space-y-2">
+                    {selectedTerritory.era.quickEvents.map((ev, i) => (
+                      <div key={i} className="flex gap-3 items-start">
+                        <div className="text-xs text-emerald-300 tabular-nums whitespace-nowrap mt-0.5">
+                          {ev.year < 0 ? `BC ${-ev.year}` : ev.year}
+                        </div>
+                        <div>
+                          <div className="text-parchment-50">{ev.title}</div>
+                          <div className="text-[11px] text-ink-300 mt-0.5">{ev.desc}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 历史意义 */}
+              {selectedTerritory.era?.legacy && (
+                <div>
+                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🌟 历史意义</div>
+                  <div className="text-parchment-100 leading-relaxed">
+                    {selectedTerritory.era.legacy}
+                  </div>
                 </div>
               )}
 

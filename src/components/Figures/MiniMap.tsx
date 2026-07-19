@@ -269,12 +269,6 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
         style={{ width: WIDTH, height: HEIGHT }}
       />
 
-      {/* 顶部信息条 */}
-      <div className="absolute top-2 right-2 z-10 flex items-center gap-1.5 text-[10px] pointer-events-none">
-        <div className="bg-ink-900/80 backdrop-blur px-2 py-1 rounded text-parchment-100/90">
-          🎯 {focusNode.title}
-        </div>
-      </div>
 
       {/* 底部按钮组 */}
       <div className="absolute bottom-2 right-2 z-10 flex gap-1.5">

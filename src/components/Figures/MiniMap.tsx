@@ -46,23 +46,13 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
   const focusPos = focusNode.coordinates || lookupLocation(focusNode.location)
   // TMap v4 API 实现 marker 位置实时更新
   function updatePosition() {
-    if (!markerEl.isConnected || !mapRef.current) return
-    // TMap v4: 用 map.lngLatToContainerPoint 把经纬度转屏幕像素
-    const T = (window as any).T
-    const targetLng = posNode![0]
-    const targetLat = posNode![1]
-    let pt: { x: number; y: number } | null = null
-    if (typeof mapRef.current.lngLatToContainerPoint === 'function') {
-      const p = mapRef.current.lngLatToContainerPoint(new T.LngLat(targetLng, targetLat))
-      pt = { x: p.x ?? p[0], y: p.y ?? p[1] }
-    } else if (typeof mapRef.current.lngLatToPoint === 'function') {
-      const p = mapRef.current.lngLatToPoint(new T.LngLat(targetLng, targetLat))
-      pt = { x: p.x ?? p[0], y: p.y ?? p[1] }
-    }
-    if (pt) {
-      const r = containerRef.current?.getBoundingClientRect()
-      markerEl.style.left = (r.left + pt.x) + 'px'
-      markerEl.style.top = (r.top + pt.y) + 'px'
+    if (!markerEl.isConnected) return
+    // focusPos 是 TMap 中心, 节点永远在屏幕中心
+    // 用容器中心 (r.left + r.width/2, r.top + r.height/2)
+    const r = containerRef.current?.getBoundingClientRect()
+    if (r) {
+      markerEl.style.left = (r.left + r.width / 2) + 'px'
+      markerEl.style.top = (r.top + r.height / 2) + 'px'
     }
   }
 

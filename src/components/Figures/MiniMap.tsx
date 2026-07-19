@@ -1,7 +1,9 @@
 /**
  * MiniMap — 节点位置缩略图
  * 用天地图 JavaScript SDK (T.Map) 创建独立地图实例
- * 节点用 T.Marker 标记
+ * 节点用 HTML div 标记
+ *
+ * 设计：marker 永远固定在地图中心（容器中心），不动不监听
  */
 import { useEffect, useRef, useState } from 'react'
 import { loadTianditu } from '@/lib/tdt/loader'
@@ -24,16 +26,10 @@ interface MiniMapProps {
   onSwitchNode?: (node: MapNode) => void
 }
 
-// 天地图 geoEqualEarth 投影下世界 2:1
-// 容器也用 2:1 让地图填满（不左右留白）
-const WIDTH = 480
-const HEIGHT = 240
-
 export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode }: MiniMapProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<any>(null)
-  const markersRef = useRef<any[]>([])
-  const onSwitchNodeRef = useRef(onSwitchNode)
+  const markersRef = useRef<HTMLElement[]>([])
 
   const [status, setStatus] = useState<'init' | 'loading' | 'ready' | 'error'>('init')
   const [error, setError] = useState<string | null>(null)
@@ -44,24 +40,13 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
     .filter(x => x.pos) as Array<{ node: MapNode; pos: LngLat }>
 
   const focusPos = focusNode.coordinates || lookupLocation(focusNode.location)
-  // TMap v4 API 实现 marker 位置实时更新
-  function updatePosition() {
-    console.log("[MiniMap] updatePos called", { left: markerEl.style.left, top: markerEl.style.top, t: Date.now() })
-    if (!markerEl.isConnected) return
-    // focusPos 是 TMap 中心, 节点永远在屏幕中心
-    // 用容器中心 (r.left + r.width/2, r.top + r.height/2)
-    const r = containerRef.current?.getBoundingClientRect()
-    if (r) {
-      markerEl.style.left = (r.left + r.width / 2) + 'px'
-      markerEl.style.top = (r.top + r.height / 2) + 'px'
-    }
-  }
 
   // 保持 onSwitchNode 最新（避免 effect 重跑）
-  useEffect(() => { onSwitchNodeRef.current = onSwitchNode }, [onSwitchNode])
+  useEffect(() => { /* no-op, switchNode 在弹窗父组件里处理 */ }, [onSwitchNode])
 
-  // 初始化地图
+  // 初始化地图（focusNode 切换时重新创建）
   useEffect(() => {
+    if (!focusPos) return
     const tk = import.meta.env.VITE_TIANDITU_KEY as string | undefined
     if (!tk || !containerRef.current) {
       setStatus('error')
@@ -70,6 +55,9 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
     }
 
     setStatus('loading')
+    // 清旧 map
+    try { mapRef.current?.destroy?.() } catch { /* ignore */ }
+    mapRef.current = null
 
     loadTianditu(tk)
       .then(() => {
@@ -86,24 +74,18 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
           containerRef.current.removeChild(containerRef.current.firstChild)
         }
 
-        // 创建地图（中心 = 当前节点位置，zoom 5 城市级）
+        // 创建地图（中心 = 当前节点位置，zoom 6 城市级）
         const map = new T.Map(containerRef.current, {
           projection: 'EPSG:4326',
         })
-        const center: [number, number] = focusPos ?? [104, 35]
-        const zoom = focusPos ? 6 : 4
-        map.centerAndZoom(new T.LngLat(center[0], center[1]), zoom)
+        map.centerAndZoom(new T.LngLat(focusPos[0], focusPos[1]), 6)
         mapRef.current = map
-        // ResizeObserver 监听容器变化 (e.g. 弹窗 resize, 设备旋转)
-        // 自动重算 marker 位置 (始终在容器中心)
-        if (typeof ResizeObserver !== 'undefined') {
-          const ro = new ResizeObserver(() => { try { updatePosition() } catch {} })
-          ro.observe(containerRef.current)
-        }
-        // 禁用拖动/双击缩放/滚轮缩放, 完全静态
+
+        // 禁用所有交互（完全静态）
         if (typeof map.disableDragging === 'function') map.disableDragging()
         if (typeof map.disableDoubleClickZoom === 'function') map.disableDoubleClickZoom()
         if (typeof map.disableScrollWheelZoom === 'function') map.disableScrollWheelZoom()
+
         setStatus('ready')
       })
       .catch(err => {
@@ -112,125 +94,72 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
       })
 
     return () => {
-      // 清理 markers（包括 body 直接子元素 + TMap overlay）
-      markersRef.current.forEach(m => {
-        // body 直接子元素（HTML div marker）
-        if (m?.el && m.el.parentNode) {
-          m.el.parentNode.removeChild(m.el)
-        }
-        // 旧 TMap marker（防御性）
-        try { mapRef.current?.removeOverLay?.(m) } catch { /* ignore */ }
+      // 清理 markers（绝对定位 div）
+      markersRef.current.forEach(el => {
+        if (el.parentNode) el.parentNode.removeChild(el)
       })
       markersRef.current = []
       try { mapRef.current?.destroy?.() } catch { /* ignore */ }
       mapRef.current = null
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [focusNode.location])  // 节点切换时重新初始化
+  }, [focusNode.location, focusPos?.[0], focusPos?.[1]])
 
-  // 当节点位置确定后，加 markers
+  // 当节点位置确定后 + 地图 ready，加 focus 节点 marker（绝对定位在容器中心，永远固定）
   useEffect(() => {
-    console.log('[MiniMap] marker effect triggered', { status, hasMap: !!mapRef.current, focusNode: focusNode?.title, nodeCount: nodePositions.length })
-    if (status !== 'ready' || !mapRef.current) return
-    const T = (window as any).T
-    if (!T) { console.log('[MiniMap] T not available'); return }
-
-    const map = mapRef.current
+    if (status !== 'ready' || !mapRef.current || !focusPos) return
 
     // 清理旧 markers
-    markersRef.current.forEach(m => {
-      // body 直接子元素（HTML div marker）
-      if (m?.el && m.el.parentNode) {
-        m.el.parentNode.removeChild(m.el)
-      }
-      // 旧 TMap marker（防御性）
-      try { map.removeOverLay?.(m) } catch { /* ignore */ }
+    markersRef.current.forEach(el => {
+      if (el.parentNode) el.parentNode.removeChild(el)
     })
     markersRef.current = []
 
-    // 只加 focus 节点（自己用 Web Mercator 算像素位置，不依赖天地图 API）
-    // 注意: focusNode 是 props，每次 render 都是新 MapNode 对象
-    // 不能用 === 比较，按 title + year 比较
-    const focusEntry = nodePositions.find(
-      ({ node }) => node.title === focusNode.title && node.year === focusNode.year
-    )
-    console.log('[MiniMap] focusEntry:', focusEntry ? `${focusEntry.node.title} @ ${focusEntry.pos}` : 'NOT FOUND')
-    if (focusEntry && focusEntry.pos) {
-      const { node, pos } = focusEntry
-      const mapContainer = containerRef.current
-      if (!mapContainer) { console.log('[MiniMap] no mapContainer'); return }
-      console.log('[MiniMap] starting marker creation')
+    const mapContainer = containerRef.current
+    if (!mapContainer) return
 
-      // 创建一个绝对定位的 HTML div 作为 marker
-      const markerEl = document.createElement('div')
-      markerEl.style.cssText = `
-        position: fixed;
-        width: 80px;
-        height: 56px;
-        margin-left: -65px;
-        margin-top: -24px;
-        pointer-events: none;
-        z-index: 99999;
-        font-family: serif;
-        will-change: transform;
-      `
-      markerEl.innerHTML = `
-        <div style="position:absolute;left:45px;top:2px;width:44px;height:44px;border-radius:50%;background:rgba(255,212,122,0.3);"></div>
-        <div style="position:absolute;left:53px;top:10px;width:28px;height:28px;border-radius:50%;background:rgba(255,212,122,0.5);"></div>
-        <div style="position:absolute;left:58px;top:15px;width:18px;height:18px;border-radius:50%;background:#ffd47a;border:2.5px solid #ffffff;"></div>
-        <div style="position:absolute;left:63px;top:20px;width:8px;height:8px;border-radius:50%;background:#ffffff;"></div>
-        <div style="position:absolute;left:0;top:38px;width:130px;height:18px;background:rgba(15,14,12,0.9);border-radius:3px;display:flex;align-items:center;justify-content:center;">
-          <span style="color:#ffd47a;font-size:10px;font-weight:600;text-shadow:0 0 3px #0f0e0c;">${node.title.slice(0, 8)}</span>
-        </div>
-      `
-      // 直接放到 body（最顶层，不被 TMap 内部遮挡）
-      document.body.appendChild(markerEl)
+    const node = focusNode
+    const label = node.title.length > 10 ? node.title.slice(0, 10) + '…' : node.title
 
-      // 自己用 Web Mercator 算 marker 位置（fixed 定位用 viewport 坐标）
-      // 关键: TMap 渲染逻辑 = 整世界 (lngToX/latToY) 缩放到容器
-      // 公式: 屏幕位置 = (世界坐标差 * 缩放比例) + 容器中心
-      // TMap zoom=5: 世界宽 256 * 2^5 = 8192 像素
-      // 缩放比例 = containerWidth / 8192
-      const TILE_SIZE = 256
-      const ZOOM = 5
-      const n = Math.pow(2, ZOOM)
-      const containerRect = mapContainer.getBoundingClientRect()
-      const W = containerRect.width
-      const H = containerRect.height
-      const scale = W / (TILE_SIZE * n)  // 缩放比例
+    // 创建一个绝对定位的 HTML div 作为 marker（始终在容器中心 = 地图中心）
+    const markerEl = document.createElement('div')
+    markerEl.style.cssText = `
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 130px;
+      height: 56px;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 99999;
+      font-family: serif;
+    `
+    markerEl.innerHTML = `
+      <div style="position:absolute;left:45px;top:2px;width:44px;height:44px;border-radius:50%;background:rgba(255,212,122,0.3);animation:minimap-pulse 2s ease-in-out infinite;"></div>
+      <div style="position:absolute;left:53px;top:10px;width:28px;height:28px;border-radius:50%;background:rgba(255,212,122,0.5);"></div>
+      <div style="position:absolute;left:58px;top:15px;width:18px;height:18px;border-radius:50%;background:#ffd47a;border:2.5px solid #ffffff;box-shadow:0 0 8px rgba(255,212,122,0.6);"></div>
+      <div style="position:absolute;left:63px;top:20px;width:8px;height:8px;border-radius:50%;background:#ffffff;"></div>
+      <div style="position:absolute;left:0;top:38px;width:130px;height:18px;background:rgba(15,14,12,0.9);border-radius:3px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,212,122,0.4);">
+        <span style="color:#ffd47a;font-size:10px;font-weight:600;text-shadow:0 0 3px #0f0e0c;">${label}</span>
+      </div>
+    `
+    mapContainer.appendChild(markerEl)
+    markersRef.current.push(markerEl)
+  }, [status, focusNode.title, focusNode.year, focusPos?.[0], focusPos?.[1]])
 
-      // TMap 内部坐标转换（Web Mercator）
-      const lngToX = (lng: number) => (lng + 180) / 360 * (TILE_SIZE * n)
-      const latToY = (lat: number) => (1 - Math.log(Math.tan(lat * Math.PI / 180 / 2 + Math.PI / 4)) / Math.PI) / 2 * (TILE_SIZE * n)
-
-      // TMap center 坐标（= focusPos）
-      const centerWorldX = lngToX(focusPos[0])
-      const centerWorldY = latToY(focusPos[1])
-      // 节点坐标
-      const nodeWorldX = lngToX(pos[0])
-      const nodeWorldY = latToY(pos[1])
-      // 用容器实际尺寸 (不用 WIDTH/HEIGHT 常量)
-      const finalX = (nodeWorldX - centerWorldX) * scale + containerRect.left + containerRect.width / 2
-      const finalY = (nodeWorldY - centerWorldY) * scale + containerRect.top + containerRect.height / 2
-      markerEl.style.left = finalX + 'px'
-      markerEl.style.top = finalY + 'px'
-      const screenX = finalX
-      const screenY = finalY
-
-      console.log('[MiniMap] marker at', { screenX, screenY, containerLeft: containerRect.left, containerTop: containerRect.top })
-      // 下一帧检查 marker 实际位置
-      requestAnimationFrame(() => {
-        if (markerEl.isConnected) {
-          const r = markerEl.getBoundingClientRect()
-          console.log('[MiniMap] marker rect:', { x: r.x, y: r.y, w: r.width, h: r.height, display: getComputedStyle(markerEl).display, visibility: getComputedStyle(markerEl).visibility, opacity: getComputedStyle(markerEl).opacity })
-        } else {
-          console.log('[MiniMap] marker not in DOM')
-        }
-      })
-
-      markersRef.current.push({ el: markerEl })
-    }
-  }, [status, focusNode, nodePositions, onJumpToMap])
+  // 注入 keyframe 动画（一次性）
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    if (document.getElementById('minimap-pulse-style')) return
+    const style = document.createElement('style')
+    style.id = 'minimap-pulse-style'
+    style.textContent = `
+      @keyframes minimap-pulse {
+        0%, 100% { transform: scale(1); opacity: 0.6; }
+        50% { transform: scale(1.3); opacity: 0.2; }
+      }
+    `
+    document.head.appendChild(style)
+  }, [])
 
   if (!focusPos) {
     return (
@@ -259,14 +188,13 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
       {/* 地图容器 */}
       <div
         ref={containerRef}
-        className="rounded border border-ink-600 bg-[#0a1820]"
+        className="rounded border border-ink-600 bg-[#0a1820] overflow-hidden"
         style={{ width: '100%', aspectRatio: '2 / 1', maxWidth: '640px', pointerEvents: 'none' }}
       />
 
-
-      {/* 提示 */}
+      {/* 节点计数提示 */}
       <div className="absolute bottom-2 left-2 text-[9px] text-ink-300/90 bg-ink-900/70 backdrop-blur px-1.5 py-0.5 rounded pointer-events-none z-10">
-        {nodePositions.length} 个节点 · 滚轮缩放 · 拖动平移
+        {nodePositions.length} 个节点 · {focusPos[0].toFixed(1)}°, {focusPos[1].toFixed(1)}°
       </div>
     </div>
   )

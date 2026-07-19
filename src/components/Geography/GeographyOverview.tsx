@@ -8,6 +8,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { CONTINENTS, SEAS, MOUNTAINS, RIVERS, REGIONS, type GeoFeature, type GeoFeatureType } from '@/data/geographic-features'
 import { OCEAN_LABELS } from '@/data/oceans'
 import erasData from '@/data/eras.json'
+import MiniMap from '@/components/Figures/MiniMap'
+import { useHistoryStore } from '@/store/useHistoryStore'
 import type { Era } from '@/types'
 
 const eras = erasData as Era[]
@@ -40,6 +42,28 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
   const [territoryRegion, setTerritoryRegion] = useState<'all' | 'china' | 'world'>('all')
   const [selectedFeature, setSelectedFeature] = useState<GeoFeature | null>(null)
   const [selectedTerritory, setSelectedTerritory] = useState<{ id: string; region: 'china' | 'world'; era?: Era } | null>(null)
+
+  const setMapFocus = useHistoryStore(s => s.setMapFocus)
+  const setYear = useHistoryStore(s => s.setYear)
+
+  // 朝代/文明的近似中心坐标（用于疆域弹窗的缩略图）
+  const ERA_CENTERS: Record<string, [number, number]> = {
+    'qin': [108.94, 34.34],          // 咸阳
+    'han': [108.94, 34.34],          // 长安
+    'tang': [108.94, 34.34],         // 长安
+    'song': [114.3, 30.6],           // 开封/杭州
+    'yuan': [116.4, 39.9],           // 大都（北京）
+    'ming': [116.4, 39.9],           // 北京
+    'qing': [116.4, 39.9],           // 北京
+    'rome-republic': [12.5, 41.9],   // 罗马
+    'rome-empire': [12.5, 41.9],     // 罗马/君士坦丁堡
+    'byzantine': [28.98, 41.01],     // 君士坦丁堡
+    'arab-caliphate': [44.42, 32.54], // 巴格达
+    'ottoman': [28.98, 41.01],       // 伊斯坦布尔
+    'mongol-empire': [106.92, 47.92], // 哈拉和林
+    'persia-safavid': [51.42, 35.69], // 伊斯法罕
+    'british-empire': [-0.13, 51.51], // 伦敦
+  }
 
   useEffect(() => {
     if (!isActive) return
@@ -260,8 +284,29 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
             </div>
             <div className="p-6 space-y-3 text-sm">
               <div>
-                <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">📍 位置</div>
-                <div className="text-parchment-50 tabular-nums">
+                <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
+                <MiniMap
+                  focusNode={{
+                    title: selectedFeature.name,
+                    year: 0,
+                    location: selectedFeature.name,
+                    importance: (selectedFeature.importance ?? 1) as 1 | 2 | 3,
+                    coordinates: selectedFeature.labelPos,
+                  }}
+                  allNodes={[{
+                    title: selectedFeature.name,
+                    year: 0,
+                    location: selectedFeature.name,
+                    importance: (selectedFeature.importance ?? 1) as 1 | 2 | 3,
+                    coordinates: selectedFeature.labelPos,
+                  }]}
+                  onJumpToMap={() => {
+                    setMapFocus({ center: selectedFeature.labelPos, zoom: 4, label: selectedFeature.name })
+                    setYear(0)
+                    setSelectedFeature(null)
+                  }}
+                />
+                <div className="text-xs text-ink-400 tabular-nums mt-2">
                   经度 {selectedFeature.labelPos[0].toFixed(2)}°, 纬度 {selectedFeature.labelPos[1].toFixed(2)}°
                 </div>
               </div>
@@ -319,6 +364,49 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                   <div className="text-parchment-100 leading-relaxed">{selectedTerritory.era.shortDesc}</div>
                 </div>
               )}
+
+              {/* 疆域缩略地图 */}
+              <div>
+                <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 都城/中心位置</div>
+                {(() => {
+                  const center = ERA_CENTERS[selectedTerritory.id] ?? (
+                    selectedTerritory.region === 'china' ? [108.94, 34.34] : [0, 30]
+                  ) as [number, number]
+                  const title = selectedTerritory.era?.name ?? selectedTerritory.id
+                  const year = selectedTerritory.era
+                    ? Math.round((selectedTerritory.era.startYear + selectedTerritory.era.endYear) / 2)
+                    : 0
+                  return (
+                    <>
+                      <MiniMap
+                        focusNode={{
+                          title,
+                          year,
+                          location: title,
+                          importance: 3,
+                          coordinates: center,
+                        }}
+                        allNodes={[{
+                          title,
+                          year,
+                          location: title,
+                          importance: 3,
+                          coordinates: center,
+                        }]}
+                        onJumpToMap={() => {
+                          setMapFocus({ center, zoom: 4, label: title })
+                          setYear(year)
+                          setSelectedTerritory(null)
+                        }}
+                      />
+                      <div className="text-xs text-ink-400 tabular-nums mt-2">
+                        经度 {center[0].toFixed(2)}°, 纬度 {center[1].toFixed(2)}°
+                      </div>
+                    </>
+                  )
+                })()}
+              </div>
+
               <div>
                 <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">🗺️ 数据源</div>
                 <div className="text-xs text-ink-400 font-mono break-all">

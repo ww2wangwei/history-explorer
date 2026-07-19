@@ -50,6 +50,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
   const TILE_SIZE = 256
   const ZOOM = 5
   const n = Math.pow(2, ZOOM)
+  const posNode = pos
   const r = containerRef.current
   const containerRect = r ? r.getBoundingClientRect() : { width: WIDTH, height: HEIGHT, left: 0, top: 0 }
   const W = containerRect.width
@@ -59,12 +60,11 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
   const latToY = (lat: number) => (1 - Math.log(Math.tan(lat * Math.PI / 180 / 2 + Math.PI / 4)) / Math.PI) / 2 * (TILE_SIZE * n)
   const centerWorldX = lngToX(focusPos![0])
   const centerWorldY = latToY(focusPos![1])
-  const nodeWorldX = lngToX(pos![0])
-  const nodeWorldY = latToY(pos![1])
+  const nodeWorldX = lngToX(posNode![0])
+  const nodeWorldY = latToY(posNode![1])
   const screenX = (nodeWorldX - centerWorldX) * scale + containerRect.left + W / 2
   const screenY = (nodeWorldY - centerWorldY) * scale + containerRect.top + H / 2
 
-  const posNode = pos
   function updatePosition() {
     if (!markerEl.isConnected || !mapRef.current) return
     // TMap v4: 用 map.lngLatToContainerPoint 把经纬度转屏幕像素

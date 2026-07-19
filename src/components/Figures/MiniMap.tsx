@@ -212,8 +212,11 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
       const screenX = (nodeWorldX - centerWorldX) * scale + containerRect.left + W / 2
       const screenY = (nodeWorldY - centerWorldY) * scale + containerRect.top + H / 2
 
-      markerEl.style.left = screenX + 'px'
-      markerEl.style.top = screenY + 'px'
+      // 用容器实际宽度, 不用常量 WIDTH
+      const finalX = (nodeWorldX - centerWorldX) * scale + containerRect.left + containerRect.width / 2
+      const finalY = (nodeWorldY - centerWorldY) * scale + containerRect.top + containerRect.height / 2
+      markerEl.style.left = finalX + 'px'
+      markerEl.style.top = finalY + 'px'
 
       console.log('[MiniMap] marker at', { screenX, screenY, containerLeft: containerRect.left, containerTop: containerRect.top })
       // 下一帧检查 marker 实际位置

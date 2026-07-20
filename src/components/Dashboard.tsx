@@ -12,6 +12,7 @@ import { useHistoryStore } from '@/store/useHistoryStore'
 import { useCardsStore } from '@/store/useCardsStore'
 import { useNotesStore } from '@/store/useNotesStore'
 import { countTodayReviews } from '@/utils/cardStats'
+import { bingImage } from '@/utils/geoImage'
 import { useGoalStore } from '@/store/useGoalStore'
 import { useLearningPathStore, type PathId } from '@/store/useLearningPathStore'
 import { isDue } from '@/utils/sm2'
@@ -285,11 +286,12 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
               </button>
             </div>
             <div className="p-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {sortedEras.map((era, idx) => {
                   const visited = progressByPath.timeline.visitedEraIds.includes(era.id)
                   const isRecommended = recommendation?.era?.id === era.id
                   const hasQuick = !!era.keyPoints
+                  const eraImg = bingImage(`${era.name} ${era.region === 'china' ? 'chinese dynasty' : 'civilization'} ${era.startYear}`, 400, 240)
                   return (
                     <button
                       key={era.id}
@@ -298,32 +300,43 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
                         recordVisit('timeline', era.id)
                         setShowEraList(false)
                       }}
-                      className={`text-left p-3 rounded border transition-colors ${
+                      className={`text-left rounded-lg border-2 transition-all overflow-hidden group ${
                         isRecommended
-                          ? 'border-bronze-500 bg-bronze-900/30 hover:bg-bronze-900/50'
+                          ? 'border-bronze-500 hover:border-bronze-400'
                           : visited
-                          ? 'border-green-700/50 bg-green-900/10 hover:bg-green-900/20'
-                          : 'border-ink-600 bg-ink-700/30 hover:bg-ink-700/60'
+                          ? 'border-green-700/50 hover:border-green-500/80'
+                          : 'border-ink-600 hover:border-bronze-500/60'
                       }`}
                     >
-                      <div className="flex items-center gap-2 mb-1">
-                        {isRecommended && <span className="text-bronze-400 text-xs">👉 推荐</span>}
-                        {visited && <span className="text-green-400 text-xs">✓ 已学</span>}
-                        {!hasQuick && <span className="text-ink-500 text-[10px]">详细</span>}
-                        <span
-                          className="text-sm font-serif"
-                          style={{ color: era.color }}
-                        >
-                          {era.name}
-                        </span>
+                      <div className="relative w-full h-28 bg-ink-900">
+                        <img
+                          src={eraImg}
+                          alt={era.name}
+                          loading="lazy"
+                          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-ink-900/95 to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 px-3 py-1.5 flex items-center gap-2">
+                          {isRecommended && <span className="text-bronze-300 text-[10px] bg-bronze-900/70 backdrop-blur px-1.5 py-0.5 rounded">👉 推荐</span>}
+                          {visited && <span className="text-green-300 text-[10px] bg-green-900/70 backdrop-blur px-1.5 py-0.5 rounded">✓ 已学</span>}
+                          {!hasQuick && <span className="text-ink-400 text-[10px] bg-ink-900/70 backdrop-blur px-1.5 py-0.5 rounded">详细</span>}
+                          <span
+                            className="text-base font-serif flex-1 truncate"
+                            style={{ color: era.color }}
+                          >
+                            {era.name}
+                          </span>
+                        </div>
                       </div>
-                      <div className="text-[10px] text-ink-500 tabular-nums">
-                        {era.startYear < 0 ? `BC ${-era.startYear}` : era.startYear} ~ {era.endYear < 0 ? `BC ${-era.endYear}` : era.endYear} ·{' '}
-                        {era.region === 'china' ? '中国' : '世界'}
+                      <div className="px-3 py-2">
+                        <div className="text-[10px] text-ink-400 tabular-nums">
+                          {era.startYear < 0 ? `BC ${-era.startYear}` : era.startYear} ~ {era.endYear < 0 ? `BC ${-era.endYear}` : era.endYear} · {era.region === 'china' ? '🇨🇳 中国' : '🌍 世界'}
+                        </div>
+                        {era.shortDesc && (
+                          <div className="text-xs text-ink-300 mt-0.5 line-clamp-2 leading-relaxed">{era.shortDesc}</div>
+                        )}
                       </div>
-                      {era.shortDesc && (
-                        <div className="text-xs text-ink-400 mt-0.5 line-clamp-2">{era.shortDesc}</div>
-                      )}
                     </button>
                   )
                 })}

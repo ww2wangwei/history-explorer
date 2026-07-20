@@ -122,9 +122,15 @@ export default function EraDetail({ eraId }: Props) {
   }, [era])
 
   // 该朝代下的所有事件
-  const eraEvents = allEvents.filter(
-    e => e.relatedEraId === eraId || (e.region === era.region && e.year >= era.startYear && e.year <= era.endYear)
-  ).sort((a, b) => a.year - b.year)
+  // - 中国朝代 (region='china')：用 region 匹配（中国朝代事件多未标 relatedEraId）
+  // - 其他文明：严格按 relatedEraId（避免不同文明错配）
+  const eraEvents = era.region === 'china'
+    ? allEvents.filter(e =>
+        e.relatedEraId === eraId ||
+        (e.region === era.region && e.year >= era.startYear && e.year <= era.endYear)
+      )
+    : allEvents.filter(e => e.relatedEraId === eraId)
+  eraEvents.sort((a, b) => a.year - b.year)
 
   // 同时期世界大事（region !== 本朝代 region，importance ≥ 2，按时间排序）
   const contemporaryWorldEvents = useMemo(() => {

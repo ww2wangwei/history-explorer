@@ -441,11 +441,11 @@ export default function EraDetail({ eraId }: Props) {
         )
       })()}
 
-      {/* 该朝代下的事件 */}
+      {/* 该朝代下的事件（发展历程） */}
       {eraEvents.length > 0 && (
         <div className="border-t border-ink-600 pt-3">
-          <div className="text-[10px] text-ink-500 mb-1.5">
-            该时期事件（{eraEvents.length}）
+          <div className="text-[10px] text-amber-400 mb-1.5">
+            📜 {era.name} 发展历程（{eraEvents.length}）
           </div>
           <div className="space-y-1">
             {eraEvents.slice(0, 8).map(ev => (

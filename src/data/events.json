@@ -4062,33 +4062,35 @@
     "year": -2000,
     "title": "克诺索斯米诺斯王宫",
     "category": "culture",
-    "region": "rome",
+    "region": "greek",
     "coordinates": [
       25.16,
       35.3
     ],
     "description": "欧洲最早的大型宫殿建筑，传说中米诺斯王的家",
-    "importance": 3
+    "importance": 3,
+    "relatedEraId": "minoan"
   },
   {
     "id": "ev-minoan-2",
     "year": -1450,
     "title": "迈锡尼文明取代克里特",
     "category": "politics",
-    "region": "rome",
+    "region": "greek",
     "coordinates": [
       22.75,
       37.76
     ],
     "description": "迈锡尼人统治爱琴海，发展线形文字B",
-    "importance": 2
+    "importance": 2,
+    "relatedEraId": "minoan"
   },
   {
     "id": "ev-minoan-3",
     "year": -1200,
     "title": "多里安人入侵，迈锡尼灭亡",
     "category": "military",
-    "region": "rome",
+    "region": "greek",
     "coordinates": [
       22.75,
       37.76
@@ -4097,7 +4099,8 @@
     "importance": 2,
     "warBackground": "公元前 1200 年左右，多种原因（人口压力、海上民族入侵、内乱）导致希腊迈锡尼文明崩溃。",
     "warResult": "多里安人从北方侵入希腊，迈锡尼宫殿被毁、线性文字 B 失传、爱琴海贸易网络瓦解。希腊本土进入约 400 年的\"黑暗时代\"（约公元前 1200-800）。",
-    "warImpact": "希腊文明一度倒退，但爱奥尼亚地区的希腊人保持文化并建立殖民地。到公元前 800 年希腊城邦制度兴起，开启古典希腊文明。"
+    "warImpact": "希腊文明一度倒退，但爱奥尼亚地区的希腊人保持文化并建立殖民地。到公元前 800 年希腊城邦制度兴起，开启古典希腊文明。",
+    "relatedEraId": "minoan"
   },
   {
     "id": "ev-greece-1",

@@ -375,17 +375,18 @@ export default function EraDetail({ eraId }: Props) {
                       {events.map(ev => (
                         <button
                           key={ev.id}
-                          className="w-full text-left px-2 py-1 rounded hover:bg-ink-700/60 transition-colors flex items-baseline gap-2"
+                          className="w-full text-left px-2 py-1.5 rounded border border-transparent hover:border-bronze-500/60 hover:bg-bronze-900/20 transition-colors flex items-baseline gap-2 group"
                           onClick={() => {
                             selectEvent(ev.id)
                             setYear(ev.year)
                           }}
+                          title="点击查看事件详情"
                         >
-                          <span className="text-[9px] text-ink-500 font-serif shrink-0 w-10">
+                          <span className="text-[9px] text-ink-500 font-serif shrink-0 w-10 tabular-nums">
                             {ev.year < 0 ? '前' + Math.abs(ev.year) : ev.year}
                           </span>
-                          <span className="text-[11px] text-parchment-100 flex-1 truncate">{ev.title}</span>
-                          <span className="text-[9px] text-ink-500 shrink-0">→</span>
+                          <span className="text-[11px] text-parchment-100 group-hover:text-bronze-200 flex-1 truncate transition-colors">{ev.title}</span>
+                          <span className="text-[9px] text-ink-500 group-hover:text-bronze-400 shrink-0 transition-colors">→</span>
                         </button>
                       ))}
                     </div>
@@ -421,14 +422,15 @@ export default function EraDetail({ eraId }: Props) {
                     {byRegion[region].map(ev => (
                       <button
                         key={ev.id}
-                        className="w-full text-left px-2 py-1 rounded hover:bg-ink-700/60 transition-colors flex items-baseline gap-2"
+                        className="w-full text-left px-2 py-1.5 rounded border border-transparent hover:border-bronze-500/60 hover:bg-bronze-900/20 transition-colors flex items-baseline gap-2 group"
                         onClick={() => { selectEvent(ev.id); setYear(ev.year) }}
+                        title="点击查看事件详情"
                       >
-                        <span className="text-[9px] text-ink-500 font-serif shrink-0 w-10">
+                        <span className="text-[9px] text-ink-500 font-serif shrink-0 w-10 tabular-nums">
                           {ev.year < 0 ? '前' + Math.abs(ev.year) : ev.year}
                         </span>
-                        <span className="text-[11px] text-parchment-100 flex-1 truncate">{ev.title}</span>
-                        <span className="text-[9px] text-ink-500 shrink-0">→</span>
+                        <span className="text-[11px] text-parchment-100 group-hover:text-bronze-200 flex-1 truncate transition-colors">{ev.title}</span>
+                        <span className="text-[9px] text-ink-500 group-hover:text-bronze-400 shrink-0 transition-colors">→</span>
                       </button>
                     ))}
                   </div>
@@ -449,17 +451,18 @@ export default function EraDetail({ eraId }: Props) {
             {eraEvents.slice(0, 8).map(ev => (
               <button
                 key={ev.id}
-                className="w-full text-left px-2 py-1.5 rounded hover:bg-ink-700 transition-colors flex items-baseline gap-2"
+                className="w-full text-left px-2 py-1.5 rounded border border-transparent hover:border-bronze-500/60 hover:bg-bronze-900/20 transition-colors flex items-baseline gap-2 group"
                 onClick={() => {
                   selectEvent(ev.id)
                   setYear(ev.year)
                 }}
+                title="点击查看事件详情"
               >
-                <span className="text-[10px] text-ink-500 font-serif shrink-0 w-12">
+                <span className="text-[10px] text-ink-500 font-serif shrink-0 w-12 tabular-nums">
                   {ev.year < 0 ? '前' + Math.abs(ev.year) : ev.year}
                 </span>
-                <span className="text-xs text-parchment-100 truncate flex-1">{ev.title}</span>
-                <span className="text-[9px] text-ink-500">查看 →</span>
+                <span className="text-xs text-parchment-100 group-hover:text-bronze-200 truncate flex-1 transition-colors">{ev.title}</span>
+                <span className="text-[9px] text-ink-500 group-hover:text-bronze-400 transition-colors">查看 →</span>
               </button>
             ))}
           </div>

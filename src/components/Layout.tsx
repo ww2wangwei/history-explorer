@@ -21,6 +21,8 @@ import FiguresOverview from '@/components/Figures/FiguresOverview'
 import WarsOverview from '@/components/Wars/WarsOverview'
 import CulturesOverview from '@/components/Cultures/CulturesOverview'
 import GeographyOverview from '@/components/Geography/GeographyOverview'
+import TimeTravelLobby from '@/components/TimeTravel/TimeTravelLobby'
+import ScenarioPlayer from '@/components/TimeTravel/ScenarioPlayer'
 import FlashcardsTrigger from '@/components/Flashcards/FlashcardsTrigger'
 import FlashcardsPanel from '@/components/Flashcards/FlashcardsPanel'
 import GoalSettings from '@/components/Flashcards/GoalSettings'
@@ -48,6 +50,8 @@ export default function Layout() {
   const [warsActive, setWarsActive] = useState(false)
   const [culturesActive, setCulturesActive] = useState(false)
   const [geographyActive, setGeographyActive] = useState(false)
+  const [timeTravelActive, setTimeTravelActive] = useState(false)
+  const [currentScenarioId, setCurrentScenarioId] = useState<string | null>(null)
   // 从 Dashboard 进入全人物时携带的"默认打开的人物"（来自 onEnterPath 的 eraId 槽位）
   const [initialFigureId, setInitialFigureId] = useState<string | null>(null)
   const [goalSettingsOpen, setGoalSettingsOpen] = useState(false)
@@ -148,6 +152,7 @@ export default function Layout() {
         if (figuresActive) { setFiguresActive(false); e.preventDefault(); return }
         if (flashcardsActive) { setFlashcardsActive(false); e.preventDefault(); return }
         if (overviewActive) { setOverviewActive(false); e.preventDefault(); return }
+        if (timeTravelActive) { if (currentScenarioId) setCurrentScenarioId(null); else setTimeTravelActive(false); e.preventDefault(); return }
       }
 
       // u: 撤销朝代选择（回退一步）
@@ -316,6 +321,8 @@ export default function Layout() {
                   setCulturesActive(true)
                 } else if (pathId === 'allGeography') {
                   setGeographyActive(true)
+                } else if (pathId === 'timeTravel') {
+                  setTimeTravelActive(true)
                 } else {
                   setViewMode('map')
                 }
@@ -360,6 +367,19 @@ export default function Layout() {
               isActive={geographyActive}
               onClose={() => setGeographyActive(false)}
             />
+          ) : timeTravelActive ? (
+            currentScenarioId ? (
+              <ScenarioPlayer
+                scenarioId={currentScenarioId}
+                onExit={() => setCurrentScenarioId(null)}
+              />
+            ) : (
+              <TimeTravelLobby
+                isActive={timeTravelActive}
+                onClose={() => setTimeTravelActive(false)}
+                onStart={(scenarioId) => setCurrentScenarioId(scenarioId)}
+              />
+            )
           ) : viewMode === 'graph' ? (
             <RelationshipGraph />
           ) : (

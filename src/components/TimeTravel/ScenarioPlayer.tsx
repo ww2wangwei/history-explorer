@@ -1,0 +1,373 @@
+/**
+ * ScenarioPlayer — 剧本播放引擎
+ * 显示场景文字 → 选项 → 跳下一章 → 结局 → 历史复盘
+ */
+import { useState, useEffect } from 'react'
+import scenariosData from '@/data/scenarios.json'
+import { useLearningPathStore } from '@/store/useLearningPathStore'
+import { useAIStore } from '@/store/useAIStore'
+import { bingImage } from '@/utils/geoImage'
+
+interface Scene {
+  id: string
+  title: string
+  text: string
+  npcName?: string
+  npcRole?: string
+  npcContext?: string
+  choices: Array<{
+    id: string
+    text: string
+    next: string
+    outcome?: string
+    historicalNote?: string
+  }>
+  ending?: string
+  isFinal?: boolean
+  isDeadEnd?: boolean
+  npcClosing?: string
+  image?: string
+}
+
+interface Scenario {
+  id: string
+  title: string
+  subtitle: string
+  era: string
+  year: number
+  location: string
+  icon: string
+  color: string
+  background: string
+  scenes: Scene[]
+  endings: Array<{
+    id: string
+    title: string
+    text: string
+    isWin: boolean
+    historicalReality: string
+    lessons: string[]
+  }>
+}
+
+const scenarios = scenariosData as Scenario[]
+
+interface Props {
+  scenarioId: string
+  onExit: () => void
+}
+
+export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
+  const scenario = scenarios.find(s => s.id === scenarioId)
+  const [history, setHistory] = useState<string[]>([])  // 经过的 scene id
+  const [currentSceneId, setCurrentSceneId] = useState<string | null>(null)
+  const [outcomeText, setOutcomeText] = useState<string | null>(null)  // 选择后的过渡文字
+  const [endingId, setEndingId] = useState<string | null>(null)
+  const [showNpc, setShowNpc] = useState<{ name: string; role: string; context: string; closing?: string } | null>(null)
+  const [imageLoaded, setImageLoaded] = useState(false)
+
+  const setContext = useAIStore(s => s.setContext)
+  const setPersonaPrompt = useAIStore(s => s.setPersonaPrompt)
+  const newThread = useAIStore(s => s.newThread)
+  const openPanel = useAIStore(s => s.openPanel)
+
+  // 初始化：从第一个场景开始
+  useEffect(() => {
+    if (scenario && scenario.scenes.length > 0) {
+      setCurrentSceneId(scenario.scenes[0].id)
+    }
+  }, [scenario])
+
+  // ESC 退出
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { e.stopPropagation(); onExit() }
+    }
+    window.addEventListener('keydown', handler, true)
+    return () => window.removeEventListener('keydown', handler, true)
+  }, [onExit])
+
+  if (!scenario) {
+    return <div className="p-8 text-parchment-50">剧本未找到</div>
+  }
+
+  const currentScene = scenario.scenes.find(s => s.id === currentSceneId)
+  const ending = endingId ? scenario.endings.find(e => e.id === endingId) : null
+
+  // 选择分支
+  const handleChoice = (choice: Scene['choices'][0]) => {
+    // 显示 outcome（如果有）
+    if (choice.outcome) {
+      setOutcomeText(choice.outcome)
+      // 1.5 秒后跳到下一章
+      setTimeout(() => {
+        setOutcomeText(null)
+        proceedToNext(choice.next)
+      }, 1500)
+    } else {
+      proceedToNext(choice.next)
+    }
+
+    // 推进历史
+    setHistory(h => [...h, currentSceneId!, choice.id])
+  }
+
+  const proceedToNext = (nextSceneId: string) => {
+    const next = scenario.scenes.find(s => s.id === nextSceneId)
+    if (!next) {
+      // 找不到下一章 → 走完剧本（异常）
+      return
+    }
+    // 检查是否到结局
+    if (next.ending) {
+      // 跳到结局
+      setEndingId(next.ending)
+      setCurrentSceneId(null)
+      // 记录完成
+      const s = useLearningPathStore.getState()
+      const completed = [...(s.progressByPath.timeTravel.completedScenarios ?? []), scenario.id]
+      const unique = Array.from(new Set(completed))
+      const endings = { ...(s.progressByPath.timeTravel.scenarioEndings ?? {}), [scenario.id]: next.ending }
+      useLearningPathStore.setState({
+        progressByPath: {
+          ...s.progressByPath,
+          timeTravel: {
+            ...s.progressByPath.timeTravel,
+            completedScenarios: unique,
+            scenarioEndings: endings,
+            lastVisitedAt: Date.now(),
+          }
+        }
+      })
+    } else {
+      setCurrentSceneId(nextSceneId)
+    }
+  }
+
+  const handleNpcTalk = () => {
+    if (!currentScene?.npcName) return
+    // 用 AI 准备 persona 上下文
+    const npcContext = currentScene.npcContext ?? `你是${currentScene.npcName}，${currentScene.npcRole}。`
+    const fullContext = `场景：${scenario.title} (${scenario.year}年，${scenario.location})\n你是${currentScene.npcName}（${currentScene.npcRole}）。\n\n${npcContext}\n\n玩家正在扮演剧本中的关键人物。你可以：\n1. 回答玩家的问题\n2. 透露一些历史背景\n3. 暗示玩家可能的选择\n4. 表达你的态度（忠臣/对手/谋士等）\n\n请以第一人称回答，简短有特色，1-3 段话。`
+    setContext(null, null, null)
+    setPersonaPrompt(enhanceNpcPersona(fullContext, currentScene.npcName))
+    newThread(`与 ${currentScene.npcName} 交谈`)
+    openPanel()
+  }
+
+  const handleNpcClosing = () => {
+    if (!currentScene?.npcName) return
+    const npcContext = currentScene.npcContext ?? `你是${currentScene.npcName}。`
+    const fullContext = `${npcContext}\n\n场景：${scenario.title} (${scenario.year}年)\n你刚刚亲眼目睹了玩家做出的关键决定。请以第一人称回应玩家的选择，1-2 段话。`
+    setContext(null, null, null)
+    setPersonaPrompt(enhanceNpcPersona(fullContext, currentScene.npcName))
+    newThread(`${currentScene.npcName} 的回应`)
+    openPanel()
+  }
+
+  // 结局页
+  if (ending) {
+    return <EndingView scenario={scenario} ending={ending} onExit={onExit} onReplay={() => {
+      setHistory([])
+      setCurrentSceneId(scenario.scenes[0].id)
+      setOutcomeText(null)
+      setEndingId(null)
+    }} />
+  }
+
+  // 当前场景不存在（异常）
+  if (!currentScene) {
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-ink-900">
+        <div className="text-center">
+          <div className="text-ink-400 mb-4">加载中...</div>
+          <button onClick={onExit} className="px-4 py-2 rounded bg-bronze-700/40 text-bronze-200">返回</button>
+        </div>
+      </div>
+    )
+  }
+
+  // 进度
+  const totalScenes = scenario.scenes.length
+  const currentIdx = scenario.scenes.findIndex(s => s.id === currentSceneId)
+  const progressPct = ((currentIdx + 1) / totalScenes) * 100
+
+  // 场景图片（用 Bing 搜索关键字）
+  const sceneImg = currentScene.image
+    ? bingImage(`${scenario.title} ${currentScene.image}`, 1200, 400)
+    : bingImage(`${scenario.title} ${currentScene.title}`, 1200, 400)
+
+  return (
+    <div className="w-full h-full bg-ink-900 overflow-y-auto">
+      <div className="max-w-3xl mx-auto px-6 py-6">
+        {/* 顶部：进度 + 退出 */}
+        <div className="mb-4 flex items-center justify-between">
+          <div>
+            <div className="text-[10px] text-ink-500 uppercase tracking-wider">{scenario.era} · {scenario.year}年 · {scenario.location}</div>
+            <h1 className="text-lg font-serif" style={{ color: scenario.color }}>{scenario.title}</h1>
+          </div>
+          <button onClick={onExit} className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700">×</button>
+        </div>
+
+        {/* 进度条 */}
+        <div className="mb-6 h-1 bg-ink-700 rounded-full overflow-hidden">
+          <div className="h-full transition-all" style={{ width: `${progressPct}%`, background: scenario.color }} />
+        </div>
+
+        {/* 场景图 */}
+        <div className="mb-4 rounded-lg overflow-hidden border border-ink-700" style={{ aspectRatio: '3/1' }}>
+          <img
+            src={sceneImg}
+            alt={currentScene.title}
+            className="w-full h-full object-cover"
+            onLoad={() => setImageLoaded(true)}
+            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+          />
+        </div>
+
+        {/* 场景标题 */}
+        <div className="mb-3 flex items-center gap-2">
+          <span className="text-2xl">{scenario.icon}</span>
+          <h2 className="text-2xl font-serif text-parchment-50">{currentScene.title}</h2>
+        </div>
+
+        {/* 场景文字 */}
+        <div className="mb-6 p-5 rounded-lg bg-ink-800/80 border border-ink-700 text-base text-parchment-100 leading-relaxed font-serif">
+          {currentScene.text}
+        </div>
+
+        {/* NPC 信息 + 对话按钮 */}
+        {currentScene.npcName && (
+          <div className="mb-6 p-4 rounded-lg bg-purple-900/20 border border-purple-700/40">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-[10px] text-purple-300 uppercase tracking-wider mb-1">场景 NPC</div>
+                <div className="text-base text-parchment-50 font-serif">
+                  👤 <strong>{currentScene.npcName}</strong>
+                  <span className="text-ink-400 text-sm ml-2">{currentScene.npcRole}</span>
+                </div>
+              </div>
+              <button
+                onClick={handleNpcTalk}
+                className="px-3 py-2 rounded bg-purple-700/40 hover:bg-purple-600/60 border border-purple-500/50 text-purple-200 text-sm"
+              >
+                💬 和 {currentScene.npcName} 谈谈
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* outcome 过渡 */}
+        {outcomeText && (
+          <div className="mb-6 p-4 rounded-lg border text-center" style={{
+            background: scenario.color + '20',
+            borderColor: scenario.color + '60',
+          }}>
+            <div className="text-sm" style={{ color: scenario.color }}>{outcomeText}</div>
+          </div>
+        )}
+
+        {/* 选项 */}
+        {!outcomeText && (
+          <div className="space-y-2">
+            <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-2">你的选择</div>
+            {currentScene.choices.map(c => (
+              <button
+                key={c.id}
+                onClick={() => handleChoice(c)}
+                className="w-full text-left p-4 rounded-lg border-2 border-ink-700 bg-ink-800/60 hover:border-bronze-500 hover:bg-ink-700/80 transition-all group"
+              >
+                <div className="text-sm text-parchment-50 group-hover:text-bronze-200 transition-colors">{c.text}</div>
+              </button>
+            ))}
+          </div>
+        )}
+
+        {/* 最终场景：显示 NPC closing + 完成按钮 */}
+        {currentScene.isFinal && currentScene.npcClosing && !outcomeText && (
+          <div className="mt-6 p-5 rounded-lg bg-bronze-900/30 border border-bronze-600/40">
+            <div className="text-[10px] text-bronze-400 uppercase tracking-wider mb-2">📜 {currentScene.npcName} 说</div>
+            <div className="text-sm text-parchment-100 italic leading-relaxed font-serif mb-3">{currentScene.npcClosing}</div>
+            <button
+              onClick={handleNpcClosing}
+              className="px-3 py-1.5 rounded bg-purple-700/40 hover:bg-purple-600/60 border border-purple-500/50 text-purple-200 text-xs"
+            >💬 回应</button>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// 增强 NPC persona prompt
+function enhanceNpcPersona(rawContext: string, npcName: string): string {
+  return `${rawContext}\n\n[角色扮演守则]\n- 第一人称（"我"）\n- 符合历史人物的真实性格\n- 不编造确凿不存在的事件\n- 简洁（1-3 段话）\n- 用中文回答\n- 不要解释你是 AI`
+}
+
+// ============= 结局页 =============
+function EndingView({ scenario, ending, onExit, onReplay }: {
+  scenario: Scenario
+  ending: NonNullable<Scenario['endings'][number]>
+  onExit: () => void
+  onReplay: () => void
+}) {
+  return (
+    <div className="w-full h-full bg-ink-900 overflow-y-auto">
+      <div className="max-w-3xl mx-auto px-6 py-8">
+        {/* 顶部 */}
+        <div className="mb-6 flex items-center justify-between">
+          <div>
+            <div className="text-[10px] text-ink-500 uppercase tracking-wider">剧本结束</div>
+            <h1 className="text-lg font-serif" style={{ color: scenario.color }}>{scenario.title}</h1>
+          </div>
+          <button onClick={onExit} className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700">×</button>
+        </div>
+
+        {/* 结局标题 */}
+        <div className="mb-6 p-6 rounded-lg text-center" style={{ background: ending.isWin ? 'linear-gradient(135deg, #5bc89a30 0%, transparent 100%)' : 'linear-gradient(135deg, #b8545030 0%, transparent 100%)' }}>
+          <div className="text-5xl mb-3">{ending.isWin ? '🏆' : '💀'}</div>
+          <h2 className="text-3xl font-serif text-parchment-50 mb-3">{ending.title}</h2>
+          <p className="text-base text-parchment-100 leading-relaxed font-serif max-w-xl mx-auto">{ending.text}</p>
+        </div>
+
+        {/* 历史真相 */}
+        <div className="mb-6 p-5 rounded-lg bg-amber-900/20 border border-amber-700/40">
+          <div className="text-[10px] text-amber-400 uppercase tracking-wider mb-2">📜 真实历史</div>
+          <p className="text-sm text-parchment-100 leading-relaxed">{ending.historicalReality}</p>
+        </div>
+
+        {/* 启示 */}
+        <div className="mb-6 p-5 rounded-lg bg-purple-900/20 border border-purple-700/40">
+          <div className="text-[10px] text-purple-300 uppercase tracking-wider mb-2">💡 启示</div>
+          <ul className="space-y-1.5">
+            {ending.lessons.map((lesson, i) => (
+              <li key={i} className="text-sm text-parchment-100 flex items-start gap-2">
+                <span className="text-purple-400">▸</span>
+                <span>{lesson}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* 操作 */}
+        <div className="flex gap-3">
+          <button
+            onClick={onReplay}
+            className="flex-1 px-4 py-3 rounded-lg font-serif text-base transition-colors"
+            style={{ background: scenario.color, color: '#0f0e0c' }}
+          >
+            🔁 再玩一次
+          </button>
+          <button
+            onClick={onExit}
+            className="flex-1 px-4 py-3 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-parchment-50 font-serif text-base transition-colors"
+          >
+            📚 返回剧本列表
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// useAIStore 全局（避免每次调用 import）

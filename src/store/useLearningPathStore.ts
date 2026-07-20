@@ -12,7 +12,7 @@ import type { Era } from '@/types'
 
 const eras = erasData as Era[]
 
-export type PathId = 'timeline' | 'crossReference' | 'eraDetail' | 'review' | 'allFigures' | 'allWars' | 'allCultures' | 'allGeography'
+export type PathId = 'timeline' | 'crossReference' | 'eraDetail' | 'review' | 'allFigures' | 'allWars' | 'allCultures' | 'allGeography' | 'timeTravel'
 
 export interface PathProgress {
   visitedEraIds: string[]
@@ -22,6 +22,9 @@ export interface PathProgress {
   visitedFigureIds?: string[]
   /** 仅 allFigures 路径使用：最近查看的人物 */
   lastVisitedFigureId?: string | null
+  /** 仅 timeTravel 路径使用：已通关的剧本 + 达成结局 */
+  completedScenarios?: string[]
+  scenarioEndings?: Record<string, string>  // scenarioId → endingId
 }
 
 interface LearningPathState {
@@ -57,6 +60,7 @@ export const useLearningPathStore = create<LearningPathState>()(
         allWars: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
         allCultures: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
         allGeography: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
+        timeTravel: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, completedScenarios: [], scenarioEndings: {} },
       }
       return {
       progressByPath: defaultProgress,
@@ -149,6 +153,7 @@ export const useLearningPathStore = create<LearningPathState>()(
           allWars: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
           allCultures: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
           allGeography: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
+          timeTravel: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, completedScenarios: [], scenarioEndings: {} },
         }
         if (persistedState.progressByPath) {
           for (const key of Object.keys(mergedProgress) as PathId[]) {

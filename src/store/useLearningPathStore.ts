@@ -22,9 +22,10 @@ export interface PathProgress {
   visitedFigureIds?: string[]
   /** 仅 allFigures 路径使用：最近查看的人物 */
   lastVisitedFigureId?: string | null
-  /** 仅 timeTravel 路径使用：已通关的剧本 + 达成结局 */
+  /** 仅 timeTravel 路径使用：已通关的剧本 + 达成结局（支持多个） */
   completedScenarios?: string[]
-  scenarioEndings?: Record<string, string>  // scenarioId → endingId
+  /** scenarioId → endingId[] （多结局支持） */
+  scenarioEndings?: Record<string, string[]>
 }
 
 interface LearningPathState {

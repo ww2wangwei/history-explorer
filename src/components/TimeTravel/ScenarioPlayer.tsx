@@ -193,7 +193,12 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
       const s = useLearningPathStore.getState()
       const completed = [...(s.progressByPath.timeTravel.completedScenarios ?? []), scenario.id]
       const unique = Array.from(new Set(completed))
-      const endings = { ...(s.progressByPath.timeTravel.scenarioEndings ?? {}), [scenario.id]: next.ending }
+      // 支持多结局：每个剧本可解锁多个 ending
+      const currentEndings = s.progressByPath.timeTravel.scenarioEndings?.[scenario.id] ?? []
+      const newEndings = currentEndings.includes(next.ending)
+        ? currentEndings
+        : [...currentEndings, next.ending]
+      const endings = { ...(s.progressByPath.timeTravel.scenarioEndings ?? {}), [scenario.id]: newEndings }
       useLearningPathStore.setState({
         progressByPath: {
           ...s.progressByPath,

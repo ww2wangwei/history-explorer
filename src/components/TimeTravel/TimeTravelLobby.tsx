@@ -20,7 +20,7 @@ interface Scenario {
   color: string
   background: string
   scenes: Array<{ id: string }>
-  endings: Array<{ id: string; isWin: boolean; title: string }>
+  endings: Array<{ id: string; isWin: boolean; title: string; text: string; historicalReality: string; lessons: string[] }>
 }
 
 const scenarios = scenariosData as Scenario[]
@@ -36,6 +36,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
   const scenarioEndings = useLearningPathStore(s => s.progressByPath.timeTravel.scenarioEndings) ?? {}
   const [region, setRegion] = useState<'all' | 'china' | 'world'>('all')
   const [statusFilter, setStatusFilter] = useState<'all' | 'unplayed' | 'completed'>('all')
+  const [showEndingsAtlas, setShowEndingsAtlas] = useState(false)
 
   useEffect(() => {
     if (!isActive) return
@@ -80,13 +81,22 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
 
         {/* 已完成进度 */}
         {completedScenarios.length > 0 && (
-          <div className="mb-6 p-4 rounded-lg bg-emerald-900/20 border border-emerald-700/40">
+          <div className="mb-6 p-4 rounded-lg bg-emerald-900/20 border border-emerald-700/40 flex items-center justify-between">
             <div className="text-xs text-emerald-300">
               ✓ 已通关 <span className="text-lg font-serif">{completedScenarios.length}</span> / {scenarios.length} 个剧本
               {Object.keys(scenarioEndings).length > 0 && (
-                <span className="ml-3">· 达成 {Object.keys(scenarioEndings).length} 个结局</span>
+                <span className="ml-3">· 达成 {(() => {
+                  const total = Object.values(scenarioEndings).reduce((sum, arr) => sum + (arr?.length ?? 0), 0)
+                  return total
+                })()} 个结局</span>
               )}
             </div>
+            <button
+              onClick={() => setShowEndingsAtlas(true)}
+              className="text-xs px-3 py-1.5 rounded bg-amber-700/40 hover:bg-amber-600/60 border border-amber-600/50 text-amber-200 transition-colors"
+            >
+              🏆 结局总览
+            </button>
           </div>
         )}
 
@@ -126,8 +136,10 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
         <div className="space-y-4">
           {filteredScenarios.map(sc => {
             const completed = completedScenarios.includes(sc.id)
-            const myEndingId = scenarioEndings[sc.id]
-            const myEnding = myEndingId ? sc.endings.find(e => e.id === myEndingId) : null
+            const myEndingIds = scenarioEndings[sc.id] ?? []
+            const unlockedCount = myEndingIds.length
+            const totalEndings = sc.endings.length
+            const myEnding = myEndingIds.length > 0 ? sc.endings.find(e => e.id === myEndingIds[0]) : null
             return (
               <div
                 key={sc.id}
@@ -156,6 +168,26 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
                       <div className="mb-3 p-2 rounded bg-ink-900/60 border border-bronze-700/30 text-xs">
                         <span className="text-ink-500">上次结局：</span>
                         <span className="text-bronze-300 font-serif">{myEnding.title}</span>
+                      </div>
+                    )}
+                    {/* 结局解锁进度 */}
+                    {totalEndings > 0 && (
+                      <div className="mb-3">
+                        <div className="flex items-center justify-between text-xs mb-1">
+                          <span className="text-ink-500">结局解锁</span>
+                          <span className={unlockedCount === totalEndings ? 'text-emerald-400 font-serif' : 'text-bronze-300'}>
+                            {unlockedCount} / {totalEndings}
+                          </span>
+                        </div>
+                        <div className="h-1 bg-ink-700 rounded-full overflow-hidden">
+                          <div
+                            className="h-full transition-all"
+                            style={{
+                              width: `${(unlockedCount / totalEndings) * 100}%`,
+                              background: unlockedCount === totalEndings ? '#5bc89a' : sc.color,
+                            }}
+                          />
+                        </div>
                       </div>
                     )}
                     <div className="flex items-center gap-3">
@@ -205,6 +237,14 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
           </ul>
         </div>
       </div>
+
+      {/* 结局总览图谱 */}
+      {showEndingsAtlas && (
+        <EndingsAtlas
+          scenarioEndings={scenarioEndings}
+          onClose={() => setShowEndingsAtlas(false)}
+        />
+      )}
     </div>
   )
 }
@@ -229,6 +269,87 @@ function LobbyVolumeControl() {
         {muted ? '🔇' : '🔊'}
       </button>
       <input type="range" min="0" max="1" step="0.05" value={vol} onChange={e => onVolChange(parseFloat(e.target.value))} className="w-16 h-1 accent-bronze-500" style={{ filter: muted ? 'grayscale(1)' : 'none' }} />
+    </div>
+  )
+}
+
+// 结局总览图谱
+function EndingsAtlas({ scenarioEndings, onClose }: { scenarioEndings: Record<string, string[]>; onClose: () => void }) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', handler, true)
+    return () => window.removeEventListener('keydown', handler, true)
+  }, [onClose])
+
+  const totalEndings = scenarios.reduce((sum, sc) => sum + sc.endings.length, 0)
+  const unlockedEndings = Object.values(scenarioEndings).reduce((sum, arr) => sum + (arr?.length ?? 0), 0)
+
+  return (
+    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-ink-900/90 backdrop-blur p-4" onClick={onClose}>
+      <div
+        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-amber-700/40 shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-amber-700/30 px-6 py-4 flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-serif text-amber-300 flex items-center gap-2">🏆 结局总览</h2>
+            <p className="text-xs text-ink-400 mt-1">
+              你已解锁 <span className="text-amber-300 font-serif">{unlockedEndings}</span> / {totalEndings} 个结局
+              （{Math.round((unlockedEndings / totalEndings) * 100)}%）
+            </p>
+          </div>
+          <button onClick={onClose} className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700">×</button>
+        </div>
+
+        <div className="p-6 space-y-6">
+          {scenarios.map(sc => {
+            const unlocked = scenarioEndings[sc.id] ?? []
+            return (
+              <div key={sc.id} className="p-4 rounded-lg border" style={{ borderColor: sc.color + '40', background: `${sc.color}08` }}>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-xl">{sc.icon}</span>
+                    <h3 className="text-base font-serif" style={{ color: sc.color }}>{sc.title}</h3>
+                  </div>
+                  <div className="text-xs">
+                    <span className={unlocked.length === sc.endings.length ? 'text-emerald-400 font-serif' : 'text-ink-400'}>
+                      {unlocked.length} / {sc.endings.length}
+                    </span>
+                  </div>
+                </div>
+                {/* 结局网格 */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  {sc.endings.map(ending => {
+                    const isUnlocked = unlocked.includes(ending.id)
+                    return (
+                      <div
+                        key={ending.id}
+                        className={`p-3 rounded border text-xs ${isUnlocked ? '' : 'opacity-40 grayscale'}`}
+                        style={{
+                          borderColor: isUnlocked ? ending.isWin ? '#5bc89a' : '#b85450' : 'rgba(90, 90, 106, 0.4)',
+                          background: isUnlocked ? 'rgba(15,14,12,0.4)' : 'transparent',
+                        }}
+                      >
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-base">{isUnlocked ? (ending.isWin ? '🏆' : '💀') : '❓'}</span>
+                          <span className={`font-serif ${isUnlocked ? 'text-parchment-50' : 'text-ink-500'}`}>
+                            {isUnlocked ? ending.title : '???'}
+                          </span>
+                        </div>
+                        {isUnlocked ? (
+                          <p className="text-ink-300 leading-relaxed line-clamp-3">{ending.text}</p>
+                        ) : (
+                          <p className="text-ink-600 italic">未解锁</p>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
     </div>
   )
 }

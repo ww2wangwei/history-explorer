@@ -207,8 +207,9 @@ export default function EventDetail({ eventId }: Props) {
               {linked.map(ev => (
                 <button
                   key={ev.id}
-                  className="w-full text-left px-2 py-1.5 rounded hover:bg-ink-700/60 transition-colors flex items-baseline gap-2 border border-dashed border-amber-700/40"
+                  className="w-full text-left px-2 py-1.5 rounded hover:bg-ink-700/60 transition-colors flex items-baseline gap-2 border border-dashed border-amber-700/40 hover:border-amber-500/80 group"
                   onClick={() => selectEvent(ev.id)}
+                  title="点击查看事件详情"
                 >
                   <span className="text-amber-400 text-xs shrink-0">→</span>
                   <span
@@ -234,8 +235,9 @@ export default function EventDetail({ eventId }: Props) {
             {relatedEvents.map(ev => (
               <button
                 key={ev.id}
-                className="w-full text-left px-2 py-1.5 rounded hover:bg-ink-700 transition-colors flex items-baseline gap-2"
+                className="w-full text-left px-2 py-1.5 rounded border border-transparent hover:border-bronze-500/60 hover:bg-bronze-900/20 transition-colors flex items-baseline gap-2 group"
                 onClick={() => selectEvent(ev.id)}
+                title="点击查看事件详情"
               >
                 <span
                   className="w-2 h-2 rounded-full shrink-0 translate-y-[-1px]"

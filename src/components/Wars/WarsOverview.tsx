@@ -10,6 +10,7 @@ import { useAIStore } from '@/store/useAIStore'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
 import { enhancePersonaPrompt } from '@/utils/useLearningContext'
+import { bingImage, warSearchKeywords } from '@/utils/geoImage'
 import type { Era, HistoricalEvent } from '@/types'
 import MiniMap from '@/components/Figures/MiniMap'
 
@@ -746,32 +747,48 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
         {filtered.length === 0 ? (
           <div className="text-center text-ink-500 py-12">未找到匹配的战争</div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {filtered.map(war => {
               const yearLabel = war.year < 0 ? `BC ${-war.year}` : `${war.year}`
               const relatedEra = war.relatedEraId ? eras.find(e => e.id === war.relatedEraId) : null
+              const warKw = warSearchKeywords[war.id] ?? `${war.title} battle`
+              const warImg = bingImage(warKw, 400, 240)
               return (
                 <button
                   key={war.id}
                   onClick={() => setSelectedWar(war)}
-                  className="text-left p-3 rounded border border-ink-600 bg-ink-800/60 hover:border-red-500/60 hover:bg-ink-700/60 transition-colors group"
+                  className="text-left rounded border border-ink-600 bg-ink-800/60 hover:border-red-500/60 hover:bg-ink-700/60 transition-colors group overflow-hidden flex"
                 >
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs text-red-400 tabular-nums font-serif">{yearLabel}</span>
-                    {war.importance === 3 && <span className="text-amber-400 text-xs">⭐ 关键</span>}
-                    {war.importance === 2 && <span className="text-amber-400/60 text-xs">⭐ 重要</span>}
-                    {war.region === 'china'
-                      ? <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-900/30 text-amber-300 border border-amber-700/40">中国</span>
-                      : <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-900/30 text-blue-300 border border-blue-700/40">世界</span>
-                    }
-                    <span className="text-sm font-serif text-parchment-50 truncate">{war.title}</span>
+                  {/* 战争图片 */}
+                  <div className="relative w-32 flex-shrink-0 bg-ink-900">
+                    <img
+                      src={warImg}
+                      alt={war.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent to-ink-800/30 pointer-events-none" />
                   </div>
-                  <div className="text-[11px] text-ink-400 line-clamp-2">{war.description}</div>
-                  {relatedEra && (
-                    <div className="text-[10px] text-ink-500 mt-1">
-                      朝代：<span style={{ color: relatedEra.color }}>{relatedEra.name}</span>
+                  {/* 信息 */}
+                  <div className="flex-1 p-3 min-w-0">
+                    <div className="flex items-center gap-2 mb-1 flex-wrap">
+                      <span className="text-xs text-red-400 tabular-nums font-serif">{yearLabel}</span>
+                      {war.importance === 3 && <span className="text-amber-400 text-xs">⭐ 关键</span>}
+                      {war.importance === 2 && <span className="text-amber-400/60 text-xs">⭐ 重要</span>}
+                      {war.region === 'china'
+                        ? <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-900/30 text-amber-300 border border-amber-700/40">中国</span>
+                        : <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-900/30 text-blue-300 border border-blue-700/40">世界</span>
+                      }
                     </div>
-                  )}
+                    <div className="text-sm font-serif text-parchment-50 truncate">{war.title}</div>
+                    <div className="text-[11px] text-ink-400 line-clamp-2 mt-0.5">{war.description}</div>
+                    {relatedEra && (
+                      <div className="text-[10px] text-ink-500 mt-1">
+                        朝代：<span style={{ color: relatedEra.color }}>{relatedEra.name}</span>
+                      </div>
+                    )}
+                  </div>
                 </button>
               )
             })}
@@ -839,6 +856,8 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
 }) {
   const yearLabel = war.year < 0 ? `BC ${-war.year}` : `${war.year}`
   const relatedEra = war.relatedEraId ? eras.find(e => e.id === war.relatedEraId) : null
+  const warKw = warSearchKeywords[war.id] ?? `${war.title} battle`
+  const warImg = bingImage(warKw, 800, 450)
 
   // 根据 importance 决定内容丰富度
   const isKey = war.importance === 3
@@ -850,22 +869,35 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-red-700/40 shadow-2xl"
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-red-700/40 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-red-700/30 px-6 py-4 flex items-center justify-between">
-          <div>
-            <div className="text-[10px] text-ink-500 mb-1 flex items-center gap-2">
+        {/* 战争图片 */}
+        <div className="relative w-full bg-ink-900" style={{ aspectRatio: '16/9' }}>
+          <img
+            src={warImg}
+            alt={war.title}
+            className="w-full h-full object-cover"
+            loading="lazy"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+          />
+          {/* 标题+年份覆盖 */}
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink-900/95 to-transparent px-6 pt-8 pb-3">
+            <div className="text-[10px] text-ink-300 mb-0.5 flex items-center gap-2">
               <span>⚔️ 战争</span>
               <span className="tabular-nums">{yearLabel}</span>
               {isKey && <span className="text-amber-400">⭐ 关键</span>}
               {isMajor && <span className="text-amber-400/60">⭐ 重要</span>}
+              {war.region === 'china'
+                ? <span className="px-1.5 py-0.5 rounded bg-amber-900/30 text-amber-300 border border-amber-700/40">中国</span>
+                : <span className="px-1.5 py-0.5 rounded bg-blue-900/30 text-blue-300 border border-blue-700/40">世界</span>
+              }
             </div>
-            <h3 className="text-xl font-serif text-red-300">{war.title}</h3>
+            <h3 className="text-2xl font-serif text-red-200">{war.title}</h3>
           </div>
           <button
             onClick={onClose}
-            className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+            className="absolute top-3 right-3 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
           >
             ×
           </button>

@@ -16,6 +16,7 @@ import { enhancePersonaPrompt } from '@/utils/useLearningContext'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import PersonDetailDialog from '@/components/Figures/PersonDetailDialog'
 import MiniMap from '@/components/Figures/MiniMap'
+import { bingImage, cultureSearchKeywords } from '@/utils/geoImage'
 import type { Era, HistoricalFigure } from '@/types'
 
 const people = peopleData as HistoricalFigure[]
@@ -281,34 +282,46 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
               {filteredEvents.map(ev => {
                 const catMeta = CULTURE_CATEGORY_LABELS[ev.category] || { icon: '📜', color: '#9b7eb6' }
                 const yearLabel = ev.year < 0 ? `BC ${-ev.year}` : `${ev.year}`
+                const evKw = cultureSearchKeywords[ev.id] ?? `${ev.title} ${ev.category}`
+                const evImg = bingImage(evKw, 400, 240)
                 return (
                   <button
                     key={ev.id}
                     onClick={() => setSelectedEvent(ev)}
-                    className="text-left p-4 rounded-lg bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-700/60 transition-all relative"
+                    className="text-left rounded-lg bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-700/60 transition-all relative overflow-hidden flex"
                   >
-                    <div className="flex items-start gap-3">
-                      <div
-                        className="text-3xl flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center"
-                        style={{ background: catMeta.color + '25' }}
-                      >
-                        {catMeta.icon}
+                    {/* 缩略图 */}
+                    <div className="relative w-32 flex-shrink-0 bg-ink-900">
+                      <img
+                        src={evImg}
+                        alt={ev.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover"
+                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-ink-800/30 pointer-events-none" />
+                    </div>
+                    {/* 内容 */}
+                    <div className="flex-1 p-3 min-w-0">
+                      <div className="flex items-center gap-2 mb-1 flex-wrap">
+                        <span
+                          className="text-lg w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
+                          style={{ background: catMeta.color + '25' }}
+                        >
+                          {catMeta.icon}
+                        </span>
+                        <span className="text-[10px] text-ink-500 tabular-nums">{yearLabel}</span>
+                        {ev.importance === 3 && <span className="text-amber-400 text-[10px]">⭐ 关键</span>}
+                        <span
+                          className="text-[9px] px-1.5 py-0.5 rounded"
+                          style={{ background: catMeta.color + '20', color: catMeta.color }}
+                        >
+                          {ev.category}
+                        </span>
+                        <span className="text-[9px] text-ink-500">📍 {ev.region}</span>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1 flex-wrap">
-                          <span className="text-[10px] text-ink-500 tabular-nums">{yearLabel}</span>
-                          {ev.importance === 3 && <span className="text-amber-400 text-[10px]">⭐ 关键</span>}
-                          <span
-                            className="text-[9px] px-1.5 py-0.5 rounded"
-                            style={{ background: catMeta.color + '20', color: catMeta.color }}
-                          >
-                            {ev.category}
-                          </span>
-                          <span className="text-[9px] text-ink-500">📍 {ev.region}</span>
-                        </div>
-                        <div className="text-sm font-serif text-parchment-50 mb-1">{ev.title}</div>
-                        <div className="text-[11px] text-ink-300 line-clamp-2 leading-relaxed">{ev.description}</div>
-                      </div>
+                      <div className="text-sm font-serif text-parchment-50 mb-1 truncate">{ev.title}</div>
+                      <div className="text-[11px] text-ink-300 line-clamp-2 leading-relaxed">{ev.description}</div>
                     </div>
                   </button>
                 )
@@ -328,18 +341,29 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
       )}
 
       {/* 文化内容详情弹窗 */}
-      {selectedEvent && (
+      {selectedEvent && (() => {
+        const evKw = cultureSearchKeywords[selectedEvent.id] ?? `${selectedEvent.title} ${selectedEvent.category}`
+        const evImg = bingImage(evKw, 800, 450)
+        return (
         <div
           className="fixed inset-0 z-[60] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
           onClick={() => setSelectedEvent(null)}
         >
           <div
-            className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl"
+            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-bronze-500/30 px-6 py-4 flex items-start justify-between">
-              <div>
-                <div className="text-[10px] text-ink-500 mb-1 flex items-center gap-2 flex-wrap">
+            {/* 文化内容图片 */}
+            <div className="relative w-full bg-ink-900" style={{ aspectRatio: '16/9' }}>
+              <img
+                src={evImg}
+                alt={selectedEvent.title}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink-900/95 to-transparent px-6 pt-8 pb-3">
+                <div className="text-[10px] text-ink-300 mb-0.5 flex items-center gap-2 flex-wrap">
                   <span className="tabular-nums">{yearLabel(selectedEvent)}</span>
                   {selectedEvent.importance === 3 && <span className="text-amber-400">⭐ 关键</span>}
                   <span style={{ color: (CULTURE_CATEGORY_LABELS[selectedEvent.category] || { color: '#fff' }).color }}>
@@ -347,11 +371,11 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                   </span>
                   <span>📍 {selectedEvent.region}</span>
                 </div>
-                <h3 className="text-xl font-serif text-bronze-200">{selectedEvent.title}</h3>
+                <h3 className="text-2xl font-serif text-bronze-200">{selectedEvent.title}</h3>
               </div>
               <button
                 onClick={() => setSelectedEvent(null)}
-                className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+                className="absolute top-3 right-3 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
                 title="关闭 (ESC)"
               >
                 ×
@@ -366,26 +390,28 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                 </div>
               </div>
 
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
-              <MiniMap
-                focusNode={{
-                  title: selectedEvent.title,
-                  year: selectedEvent.year,
-                  location: selectedEvent.region,
-                  importance: selectedEvent.importance,
-                  coordinates: selectedEvent.location,
-                }}
-                allNodes={[{
-                  title: selectedEvent.title,
-                  year: selectedEvent.year,
-                  location: selectedEvent.region,
-                  importance: selectedEvent.importance,
-                  coordinates: selectedEvent.location,
-                }]}
-                onJumpToMap={() => handleEventViewOnMap(selectedEvent)}
-              />
-              <div className="text-xs text-ink-400 tabular-nums mt-2">
-                经度 {selectedEvent.location[0].toFixed(2)}°, 纬度 {selectedEvent.location[1].toFixed(2)}° ({selectedEvent.region})
+              <div>
+                <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
+                <MiniMap
+                  focusNode={{
+                    title: selectedEvent.title,
+                    year: selectedEvent.year,
+                    location: selectedEvent.region,
+                    importance: selectedEvent.importance,
+                    coordinates: selectedEvent.location,
+                  }}
+                  allNodes={[{
+                    title: selectedEvent.title,
+                    year: selectedEvent.year,
+                    location: selectedEvent.region,
+                    importance: selectedEvent.importance,
+                    coordinates: selectedEvent.location,
+                  }]}
+                  onJumpToMap={() => handleEventViewOnMap(selectedEvent)}
+                />
+                <div className="text-xs text-ink-400 tabular-nums mt-2">
+                  经度 {selectedEvent.location[0].toFixed(2)}°, 纬度 {selectedEvent.location[1].toFixed(2)}° ({selectedEvent.region})
+                </div>
               </div>
 
               <div className="flex gap-2 pt-3 border-t border-ink-700">
@@ -405,7 +431,8 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
             </div>
           </div>
         </div>
-      )}
+        )
+      })()}
     </div>
   )
 }

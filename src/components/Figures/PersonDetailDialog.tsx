@@ -8,6 +8,7 @@ import { useAIStore } from '@/store/useAIStore'
 import { generateSuggestedQuestions } from '@/utils/useLearningContext'
 import { enhancePersonaPrompt } from '@/utils/useLearningContext'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
+import { bingImage, personSearchKeywords, fallbackKeyword } from '@/utils/geoImage'
 import type { Era, HistoricalFigure } from '@/types'
 import FigureRelationshipGraph from './FigureRelationshipGraph'
 
@@ -36,6 +37,8 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
   const eraList = person.eraIds
     .map(eid => eras.find(e => e.id === eid))
     .filter((e): e is Era => Boolean(e))
+  const personKw = personSearchKeywords[person.id] ?? fallbackKeyword(person.name, person.category)
+  const personImg = bingImage(personKw, 600, 400)
   const lifespan = person.birthYear && person.deathYear
     ? (() => {
         const b = person.birthYear < 0 ? `BC ${-person.birthYear}` : `${person.birthYear}`
@@ -85,25 +88,41 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl"
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* 头部 */}
-        <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-bronze-500/30 px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="text-5xl">{person.emoji || '👤'}</div>
-            <div>
-              <h3 className="text-xl font-serif text-bronze-300">{person.name}</h3>
-              <p className="text-xs text-ink-400 mt-0.5">{person.role}</p>
-            </div>
+        {/* 人物肖像图 */}
+        <div className="relative w-full bg-ink-900" style={{ aspectRatio: '3/2' }}>
+          <img
+            src={personImg}
+            alt={person.name}
+            className="w-full h-full object-cover"
+            loading="lazy"
+            onError={(e) => {
+              const el = e.target as HTMLImageElement
+              el.style.display = 'none'
+              const parent = el.parentElement
+              if (parent) parent.innerHTML = `<div class="w-full h-full flex items-center justify-center text-9xl bg-ink-900">${person.emoji || '👤'}</div>`
+            }}
+          />
+          {/* 名字+角色覆盖在图片底部 */}
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink-900/95 to-transparent px-6 pt-8 pb-3">
+            <div className="text-[10px] text-bronze-300 mb-0.5">{person.role}</div>
+            <h3 className="text-2xl font-serif text-parchment-50">{person.name}</h3>
           </div>
+          {/* 关闭按钮 */}
           <button
             onClick={onClose}
-            className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+            className="absolute top-3 right-3 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
             title="关闭 (ESC)"
           >
             ×
           </button>
+        </div>
+
+        {/* 头部 sticky 标题区 */}
+        <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-bronze-500/30 px-6 py-3 flex items-center justify-between">
+          <div className="text-[10px] text-ink-500 uppercase tracking-wider">👤 人物详情</div>
         </div>
 
         {/* 内容 */}

@@ -10,6 +10,7 @@ import { useLearningPathStore } from '@/store/useLearningPathStore'
 import { useAIStore } from '@/store/useAIStore'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
 import { enhancePersonaPrompt } from '@/utils/useLearningContext'
+import { bingImage, personSearchKeywords, fallbackKeyword } from '@/utils/geoImage'
 import PersonDetailDialog from './PersonDetailDialog'
 
 const people = peopleData as HistoricalFigure[]
@@ -261,39 +262,62 @@ function PersonCard({ person, visited, onClick }: {
     .map(eid => eras.find(e => e.id === eid))
     .filter((e): e is Era => Boolean(e))
   const catMeta = CATEGORY_LABEL[person.category]
+  const kw = personSearchKeywords[person.id] ?? fallbackKeyword(person.name, person.category)
+  const img = bingImage(kw, 300, 300)
 
   return (
     <button
       onClick={onClick}
-      className="text-left p-4 rounded-lg bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-700/60 transition-all relative group"
+      className="text-left rounded-lg bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-700/60 transition-all relative group overflow-hidden"
     >
-      {visited && (
-        <span className="absolute top-2 right-2 text-green-400 text-sm" title="已了解">✓</span>
-      )}
-      {/* 分类小徽章 — 卡片左上角 */}
-      <span
-        className="absolute top-2 left-2 text-[9px] px-1.5 py-0.5 rounded font-serif"
-        style={{ background: catMeta.color + '20', color: catMeta.color }}
-        title={catMeta.label}
-      >
-        {catMeta.icon}
-      </span>
-      <div className="text-4xl mb-2 mt-3">{person.emoji || '👤'}</div>
-      <div className="text-sm font-serif text-parchment-50 truncate">{person.name}</div>
-      <div className="text-[10px] text-ink-400 mt-1 line-clamp-2 min-h-[2.5em]">{person.role}</div>
-      <div className="flex flex-wrap gap-1 mt-2">
-        {eraNames.slice(0, 2).map(e => (
-          <span
-            key={e.id}
-            className="text-[9px] px-1.5 py-0.5 rounded"
-            style={{ background: e.color + '20', color: e.color }}
-          >
-            {e.name}
-          </span>
-        ))}
-        {eraNames.length > 2 && (
-          <span className="text-[9px] text-ink-500">+{eraNames.length - 2}</span>
+      {/* 人物肖像（16:9 横图也好看） */}
+      <div className="relative w-full aspect-square bg-ink-900 overflow-hidden">
+        <img
+          src={img}
+          alt={person.name}
+          loading="lazy"
+          className="w-full h-full object-cover transition-transform group-hover:scale-105"
+          onError={(e) => {
+            const el = e.target as HTMLImageElement
+            el.style.display = 'none'
+            const parent = el.parentElement
+            if (parent) parent.innerHTML = `<div class="w-full h-full flex items-center justify-center text-5xl bg-ink-900">${person.emoji || '👤'}</div>`
+          }}
+        />
+        {/* 分类小徽章 — 左上角 */}
+        <span
+          className="absolute top-1.5 left-1.5 text-[9px] px-1.5 py-0.5 rounded font-serif backdrop-blur"
+          style={{ background: catMeta.color + 'a0', color: '#fff' }}
+          title={catMeta.label}
+        >
+          {catMeta.icon}
+        </span>
+        {/* 已了解对勾 */}
+        {visited && (
+          <span className="absolute top-1.5 right-1.5 text-green-400 text-sm bg-ink-900/70 backdrop-blur w-5 h-5 rounded-full flex items-center justify-center" title="已了解">✓</span>
         )}
+        {/* 名字覆盖在图片底部 */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink-900/95 to-transparent px-2.5 pt-3 pb-2">
+          <div className="text-sm font-serif text-parchment-50 truncate">{person.name}</div>
+        </div>
+      </div>
+      {/* 卡片信息 */}
+      <div className="p-2.5">
+        <div className="text-[10px] text-ink-400 line-clamp-2 min-h-[2.5em]">{person.role}</div>
+        <div className="flex flex-wrap gap-1 mt-2">
+          {eraNames.slice(0, 2).map(e => (
+            <span
+              key={e.id}
+              className="text-[9px] px-1.5 py-0.5 rounded"
+              style={{ background: e.color + '20', color: e.color }}
+            >
+              {e.name}
+            </span>
+          ))}
+          {eraNames.length > 2 && (
+            <span className="text-[9px] text-ink-500">+{eraNames.length - 2}</span>
+          )}
+        </div>
       </div>
     </button>
   )

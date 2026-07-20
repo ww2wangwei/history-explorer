@@ -5,6 +5,7 @@
 import { useEffect, useState } from 'react'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
 import { audioEngine, pickBGMForScenario } from '@/utils/audioEngine'
+import bgmLibrary from '@/data/bgmLibrary.json'
 import CharacterAvatar from './CharacterAvatar'
 import scenariosData from '@/data/scenarios.json'
 
@@ -120,7 +121,10 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
                           // 触发穿越音效 + 切场景 BGM
                           audioEngine.start()
                           audioEngine.playTimeTravel()
-                          audioEngine.playSceneBGM(pickBGMForScenario(sc.era, sc.year))
+                          const bgm = pickBGMForScenario(sc.era, sc.year)
+                          const key = `${bgm.style}_${bgm.mood}` as keyof typeof bgmLibrary
+                          const urls = (bgmLibrary as any)[key] || (bgmLibrary as any).lobby
+                          audioEngine.playRemoteBGM(urls)
                           audioEngine.playClick()
                           // 短延迟让音效先响再切换场景
                           setTimeout(() => onStart(sc.id), 600)

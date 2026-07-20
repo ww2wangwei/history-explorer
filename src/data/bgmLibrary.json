@@ -1,0 +1,57 @@
+{
+  "_comment": "BGM URL 库。每个剧本/场景选一组 URL，audioEngine 按顺序尝试播放第一首能加载的。",
+  "lobby": {
+    "_comment": "Lobby 氛围音乐 — 神秘、穿越感",
+    "urls": [
+      "https://assets.mixkit.co/music/668/668.mp3"
+    ]
+  },
+  "chinese_epic": {
+    "_comment": "中国剧本 epic 场景 — 玄武门/赤壁/安史等",
+    "urls": [
+      "https://assets.mixkit.co/music/668/668.mp3"
+    ]
+  },
+  "chinese_tense": {
+    "_comment": "中国剧本 tense 场景",
+    "urls": [
+      "https://assets.mixkit.co/music/668/668.mp3"
+    ]
+  },
+  "chinese_mysterious": {
+    "_comment": "中国剧本 mysterious 场景",
+    "urls": [
+      "https://assets.mixkit.co/music/668/668.mp3"
+    ]
+  },
+  "chinese_triumphant": {
+    "_comment": "中国剧本 triumphant 场景",
+    "urls": [
+      "https://assets.mixkit.co/music/668/668.mp3"
+    ]
+  },
+  "european_epic": {
+    "_comment": "欧洲剧本 epic 场景 — 拿破仑等",
+    "urls": [
+      "https://assets.mixkit.co/music/668/668.mp3"
+    ]
+  },
+  "european_triumphant": {
+    "_comment": "欧洲剧本 triumphant 场景",
+    "urls": [
+      "https://assets.mixkit.co/music/668/668.mp3"
+    ]
+  },
+  "european_tense": {
+    "_comment": "欧洲剧本 tense 场景",
+    "urls": [
+      "https://assets.mixkit.co/music/668/668.mp3"
+    ]
+  },
+  "european_calm": {
+    "_comment": "欧洲剧本 calm 场景",
+    "urls": [
+      "https://assets.mixkit.co/music/668/668.mp3"
+    ]
+  }
+}

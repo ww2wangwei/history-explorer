@@ -15,7 +15,7 @@ class AudioEngine {
   private masterGain: GainNode | null = null
   private bgmGain: GainNode | null = null
   private sfxGain: GainNode | null = null
-  private bgmNodes: Array<{ stop: () => void; disconnect: () => void }> = []
+  private bgmNodes: AudioNode[] = []
   private bgmTimers: number[] = []
   private muted = false
   private volume = 0.5  // 默认更高音量
@@ -127,79 +127,12 @@ class AudioEngine {
     console.log('[audioEngine] playTimeTravel')
   }
 
-  // ============ 场景 BGM（持续循环）============
-  playSceneBGM(mood: 'tense' | 'calm' | 'epic' | 'mysterious' | 'triumphant' = 'tense') {
-    this.stopBGM()
-    if (!this.ctx) { this.start() }
-    const ctx = this.ensureCtx()
-    if (!ctx || !this.bgmGain) { console.warn('[audioEngine] BGM skipped: no ctx'); return }
-    console.log('[audioEngine] playSceneBGM:', mood, 'ctx state:', ctx.state)
-
-    // 用两个 octave 高一点的频率（人耳更敏感）
-    const baseFreq = mood === 'mysterious' ? 110 : mood === 'epic' ? 130 : mood === 'triumphant' ? 146 : mood === 'calm' ? 100 : 120
-
-    // 1. 持续 drone（低频底鼓）
-    const droneOsc = ctx.createOscillator()
-    droneOsc.type = 'sine'
-    droneOsc.frequency.value = baseFreq
-    const droneGain = ctx.createGain()
-    droneGain.gain.value = mood === 'epic' || mood === 'triumphant' ? 0.18 : 0.14
-    droneOsc.connect(droneGain)
-    droneGain.connect(this.bgmGain)
-    droneOsc.start()
-    this.bgmNodes.push(droneOsc, droneGain)
-
-    // 2. 高频 pad（用五度音让和声更丰富）
-    const padOsc = ctx.createOscillator()
-    padOsc.type = 'triangle'
-    padOsc.frequency.value = baseFreq * 1.5  // 五度
-    const padGain = ctx.createGain()
-    padGain.gain.value = 0.06
-    // 缓慢 LFO 调制音量（呼吸感）
-    const lfo = ctx.createOscillator()
-    lfo.type = 'sine'
-    lfo.frequency.value = 0.2
-    const lfoDepth = ctx.createGain()
-    lfoDepth.gain.value = 0.04
-    lfo.connect(lfoDepth)
-    lfoDepth.connect(padGain.gain)
-    padOsc.connect(padGain)
-    padGain.connect(this.bgmGain)
-    padOsc.start()
-    lfo.start()
-    this.bgmNodes.push(padOsc, padGain, lfo, lfoDepth)
-
-    // 3. 节奏脉冲（仅 epic/tense/triumphant）
-    if (mood === 'epic' || mood === 'tense' || mood === 'triumphant') {
-      const beatInterval = mood === 'triumphant' ? 0.5 : 0.8
-      const beatPitch = mood === 'triumphant' ? 220 : 160
-      const beatVol = mood === 'tense' ? 0.25 : 0.18
-      const timer = window.setInterval(() => {
-        const c = this.ensureCtx()
-        if (!c || !this.bgmGain) return
-        const beatOsc = c.createOscillator()
-        beatOsc.type = 'sine'
-        beatOsc.frequency.value = beatPitch
-        const beatGain = c.createGain()
-        const t = c.currentTime
-        beatGain.gain.setValueAtTime(0, t)
-        beatGain.gain.linearRampToValueAtTime(beatVol, t + 0.02)
-        beatGain.gain.exponentialRampToValueAtTime(0.001, t + 0.4)
-        beatOsc.connect(beatGain)
-        beatGain.connect(this.bgmGain)
-        beatOsc.start(t)
-        beatOsc.stop(t + 0.4)
-      }, beatInterval * 1000)
-      this.bgmTimers.push(timer)
-    }
-  }
-
   stopBGM() {
     this.bgmTimers.forEach(t => clearInterval(t))
     this.bgmTimers = []
     this.bgmNodes.forEach(n => {
-      try { n.stop() } catch { /* noop */ }
-      try { n.disconnect() } catch { /* noop */ }
+      try { (n as any).stop?.() } catch { /* noop */ }
+      try { (n as any).disconnect?.() } catch { /* noop */ }
     })
     this.bgmNodes = []
   }
@@ -248,7 +181,6 @@ class AudioEngine {
     const now = ctx.currentTime
     const sfxGain = this.sfxGain
     if (isWin) {
-      // 上升大三和弦
       const notes = [261.6, 329.6, 392.0, 523.3]
       notes.forEach((freq, i) => {
         const osc = ctx.createOscillator()
@@ -279,20 +211,58 @@ class AudioEngine {
       osc.stop(now + 1.3)
     }
   }
+
+
+  // ============ 场景 BGM（远程 URL 播放）============
+  /**
+   * 播放远程 MP3 背景音乐（fetch + decodeAudioData + loop）
+   * urls: 候选 URL 列表（按顺序尝试，失败切下一首；都失败则静默）
+   */
+  async playRemoteBGM(urls: string[]): Promise<void> {
+    this.stopBGM()
+    if (!this.ctx) { await this.start() }
+    const ctx = this.ensureCtx()
+    if (!ctx || !this.bgmGain) { console.warn('[audioEngine] remote BGM skipped: no ctx'); return }
+    if (urls.length === 0) return
+    console.log('[audioEngine] playRemoteBGM: trying', urls.length, 'urls')
+
+    for (const url of urls) {
+      try {
+        const resp = await fetch(url)
+        if (!resp.ok) { console.warn('[audioEngine] fetch fail', url, resp.status); continue }
+        const arrayBuffer = await resp.arrayBuffer()
+        const audioBuffer = await ctx.decodeAudioData(arrayBuffer)
+        const source = ctx.createBufferSource()
+        source.buffer = audioBuffer
+        source.loop = true
+        const gain = ctx.createGain()
+        gain.gain.value = 0.5
+        source.connect(gain)
+        gain.connect(this.bgmGain)
+        source.start(0)
+        this.bgmNodes.push(source as any, gain)
+        console.log('[audioEngine] BGM playing:', url)
+        return
+      } catch (e) {
+        console.warn('[audioEngine] BGM load error:', url, e)
+      }
+    }
+    console.warn('[audioEngine] all BGM URLs failed')
+  }
+
+  // 保留旧 API（兼容现有调用，调用时传空数组 → 静默）
+  playSceneBGM(_mood: 'tense' | 'calm' | 'epic' | 'mysterious' | 'triumphant' = 'tense', _style: 'chinese' | 'european' = 'chinese') {
+    this.stopBGM()
+  }
+
 }
 
 export const audioEngine = new AudioEngine()
 
-export function pickBGMForScenario(era: string, year: number): 'tense' | 'epic' | 'mysterious' | 'triumphant' {
-  if (['唐', '宋', '元', '明', '清', '三国', '汉', '秦'].includes(era)) return 'epic'
-  if (year > 1500 && year < 1900) return 'triumphant'
-  return 'mysterious'
+// 兼容旧 API（用空数组 → 静默）
+export function pickBGMForScenario(_era: string, _year: number): { mood: 'tense' | 'epic' | 'mysterious' | 'triumphant'; style: 'chinese' | 'european' } {
+  return { mood: 'mysterious', style: 'chinese' }
 }
-
-export function pickBGMForScene(sceneTitle: string): 'tense' | 'calm' | 'epic' | 'mysterious' | 'triumphant' {
-  if (/登基|加冕|大胜|胜利|凯旋|传奇/.test(sceneTitle)) return 'triumphant'
-  if (/犹豫|失败|死|流放|事败|火烧/.test(sceneTitle)) return 'tense'
-  if (/密议|深夜|等待|黎明/.test(sceneTitle)) return 'mysterious'
-  if (/对峙|逼宫|玄武门|赤壁|决战/.test(sceneTitle)) return 'epic'
+export function pickBGMForScene(_title: string, _era?: string): 'tense' | 'calm' | 'epic' | 'mysterious' | 'triumphant' {
   return 'tense'
 }

@@ -6,7 +6,9 @@ import { useState, useEffect } from 'react'
 import scenariosData from '@/data/scenarios.json'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
 import { useAIStore } from '@/store/useAIStore'
+import { audioEngine, pickBGMForScene, pickBGMForScenario } from '@/utils/audioEngine'
 import { bingImage } from '@/utils/geoImage'
+import CharacterAvatar, { PlayerAvatar } from './CharacterAvatar'
 
 interface Scene {
   id: string
@@ -75,8 +77,32 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
   useEffect(() => {
     if (scenario && scenario.scenes.length > 0) {
       setCurrentSceneId(scenario.scenes[0].id)
+      // 启动场景 BGM（lobby 已触发穿越音，这里继续 BGM）
+      audioEngine.start()
+      audioEngine.playSceneBGM(pickBGMForScenario(scenario.era, scenario.year))
     }
+    return () => { audioEngine.stopBGM() }
   }, [scenario])
+
+  // 场景变化时切换 BGM mood
+  useEffect(() => {
+    if (currentSceneId && scenario) {
+      const scene = scenario.scenes.find(s => s.id === currentSceneId)
+      if (scene) {
+        audioEngine.playSceneBGM(pickBGMForScene(scene.title))
+        audioEngine.playPageTurn()
+      }
+    }
+  }, [currentSceneId, scenario])
+
+  // 结局时停 BGM + 播放结局音
+  useEffect(() => {
+    if (endingId && scenario) {
+      audioEngine.stopBGM()
+      const ending = scenario.endings.find(e => e.id === endingId)
+      if (ending) audioEngine.playEnding(ending.isWin)
+    }
+  }, [endingId, scenario])
 
   // ESC 退出
   useEffect(() => {
@@ -91,11 +117,15 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
     return <div className="p-8 text-parchment-50">剧本未找到</div>
   }
 
+  // 玩家名（从 scenario.subtitle 解析 "你是 XXX，..."）
+  const playerName = scenario.subtitle.replace(/你是/, '').split(/[，,]/)[0].trim() || scenario.subtitle
+
   const currentScene = scenario.scenes.find(s => s.id === currentSceneId)
   const ending = endingId ? scenario.endings.find(e => e.id === endingId) : null
 
   // 选择分支
   const handleChoice = (choice: Scene['choices'][0]) => {
+    audioEngine.playClick()
     // 显示 outcome（如果有）
     if (choice.outcome) {
       setOutcomeText(choice.outcome)
@@ -225,6 +255,16 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
           />
         </div>
 
+        {/* 场景标题 + 玩家头像 */}
+        <div className="mb-4 flex items-center gap-3">
+          <PlayerAvatar name={playerName} color={scenario.color} size={56} />
+          <div className="flex-1 min-w-0">
+            <div className="text-[10px] text-ink-500 uppercase tracking-wider">你正扮演</div>
+            <div className="text-sm font-serif" style={{ color: scenario.color }}>{playerName}</div>
+          </div>
+          <VolumeControl />
+        </div>
+
         {/* 场景标题 */}
         <div className="mb-3 flex items-center gap-2">
           <span className="text-2xl">{scenario.icon}</span>
@@ -238,22 +278,21 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
 
         {/* NPC 信息 + 对话按钮 */}
         {currentScene.npcName && (
-          <div className="mb-6 p-4 rounded-lg bg-purple-900/20 border border-purple-700/40">
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-[10px] text-purple-300 uppercase tracking-wider mb-1">场景 NPC</div>
-                <div className="text-base text-parchment-50 font-serif">
-                  👤 <strong>{currentScene.npcName}</strong>
-                  <span className="text-ink-400 text-sm ml-2">{currentScene.npcRole}</span>
-                </div>
+          <div className="mb-6 p-4 rounded-lg bg-purple-900/20 border border-purple-700/40 flex items-center gap-3">
+            <CharacterAvatar name={currentScene.npcName} size={56} />
+            <div className="flex-1 min-w-0">
+              <div className="text-[10px] text-purple-300 uppercase tracking-wider mb-1">场景 NPC</div>
+              <div className="text-base text-parchment-50 font-serif">
+                <strong>{currentScene.npcName}</strong>
+                <span className="text-ink-400 text-sm ml-2">{currentScene.npcRole}</span>
               </div>
-              <button
-                onClick={handleNpcTalk}
-                className="px-3 py-2 rounded bg-purple-700/40 hover:bg-purple-600/60 border border-purple-500/50 text-purple-200 text-sm"
-              >
-                💬 和 {currentScene.npcName} 谈谈
-              </button>
             </div>
+            <button
+              onClick={handleNpcTalk}
+              className="px-3 py-2 rounded bg-purple-700/40 hover:bg-purple-600/60 border border-purple-500/50 text-purple-200 text-sm whitespace-nowrap"
+            >
+              💬 和 {currentScene.npcName} 谈谈
+            </button>
           </div>
         )}
 
@@ -284,14 +323,17 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
         )}
 
         {/* 最终场景：显示 NPC closing + 完成按钮 */}
-        {currentScene.isFinal && currentScene.npcClosing && !outcomeText && (
-          <div className="mt-6 p-5 rounded-lg bg-bronze-900/30 border border-bronze-600/40">
-            <div className="text-[10px] text-bronze-400 uppercase tracking-wider mb-2">📜 {currentScene.npcName} 说</div>
-            <div className="text-sm text-parchment-100 italic leading-relaxed font-serif mb-3">{currentScene.npcClosing}</div>
-            <button
-              onClick={handleNpcClosing}
-              className="px-3 py-1.5 rounded bg-purple-700/40 hover:bg-purple-600/60 border border-purple-500/50 text-purple-200 text-xs"
-            >💬 回应</button>
+        {currentScene.isFinal && currentScene.npcClosing && currentScene.npcName && !outcomeText && (
+          <div className="mt-6 p-5 rounded-lg bg-bronze-900/30 border border-bronze-600/40 flex items-start gap-3">
+            <CharacterAvatar name={currentScene.npcName} size={48} />
+            <div className="flex-1 min-w-0">
+              <div className="text-[10px] text-bronze-400 uppercase tracking-wider mb-2">📜 {currentScene.npcName} 说</div>
+              <div className="text-sm text-parchment-100 italic leading-relaxed font-serif mb-3">{currentScene.npcClosing}</div>
+              <button
+                onClick={handleNpcClosing}
+                className="px-3 py-1.5 rounded bg-purple-700/40 hover:bg-purple-600/60 border border-purple-500/50 text-purple-200 text-xs"
+              >💬 回应</button>
+            </div>
           </div>
         )}
       </div>
@@ -302,6 +344,43 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
 // 增强 NPC persona prompt
 function enhanceNpcPersona(rawContext: string, npcName: string): string {
   return `${rawContext}\n\n[角色扮演守则]\n- 第一人称（"我"）\n- 符合历史人物的真实性格\n- 不编造确凿不存在的事件\n- 简洁（1-3 段话）\n- 用中文回答\n- 不要解释你是 AI`
+}
+
+// 音量控制（极简）
+function VolumeControl() {
+  const [muted, setMuted] = useState(audioEngine.isMuted())
+  const [vol, setVol] = useState(audioEngine.getVolume())
+
+  const toggleMuted = () => {
+    const m = !muted
+    setMuted(m)
+    audioEngine.setMuted(m)
+  }
+  const onVolChange = (v: number) => {
+    setVol(v)
+    audioEngine.setVolume(v)
+    if (muted && v > 0) { setMuted(false); audioEngine.setMuted(false) }
+  }
+
+  return (
+    <div className="flex items-center gap-1.5 bg-ink-800/60 backdrop-blur border border-ink-600 rounded-full px-2 py-1">
+      <button
+        onClick={toggleMuted}
+        className="text-base hover:scale-110 transition-transform"
+        title={muted ? '取消静音' : '静音'}
+      >
+        {muted ? '🔇' : '🔊'}
+      </button>
+      <input
+        type="range"
+        min="0" max="1" step="0.05"
+        value={vol}
+        onChange={e => onVolChange(parseFloat(e.target.value))}
+        className="w-16 h-1 accent-bronze-500"
+        style={{ filter: muted ? 'grayscale(1)' : 'none' }}
+      />
+    </div>
+  )
 }
 
 // ============= 结局页 =============

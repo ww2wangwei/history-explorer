@@ -2,8 +2,10 @@
  * TimeTravelLobby — 剧本选择大厅
  * 列出 3 个剧本，显示完成情况，点击进入
  */
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
+import { audioEngine, pickBGMForScenario } from '@/utils/audioEngine'
+import CharacterAvatar from './CharacterAvatar'
 import scenariosData from '@/data/scenarios.json'
 
 interface Scenario {
@@ -54,11 +56,14 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
               化身历史人物，在关键节点做选择。3 个剧本 · 7 个结局 · 你的决定塑造历史。
             </p>
           </div>
-          <button
-            onClick={onClose}
-            className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
-            title="返回 (ESC)"
-          >×</button>
+          <div className="flex items-center gap-2">
+            <LobbyVolumeControl />
+            <button
+              onClick={onClose}
+              className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+              title="返回 (ESC)"
+            >×</button>
+          </div>
         </div>
 
         {/* 已完成进度 */}
@@ -89,12 +94,12 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
                 }}
               >
                 <div className="flex items-start gap-4">
-                  <div
-                    className="text-6xl flex-shrink-0 w-20 h-20 rounded-full flex items-center justify-center"
-                    style={{ background: sc.color + '30' }}
-                  >
-                    {sc.icon}
-                  </div>
+                  <CharacterAvatar
+                    name={sc.subtitle.replace(/你是|，.*/g, '').trim() || sc.title}
+                    searchKeyword={`${sc.subtitle.split('，')[0].replace('你是', '')} portrait historical`}
+                    size={80}
+                    className="rounded-full ring-2 ring-offset-2 ring-offset-ink-800"
+                  />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
                       <h2 className="text-2xl font-serif text-parchment-50">{sc.title}</h2>
@@ -111,8 +116,16 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
                     )}
                     <div className="flex items-center gap-3">
                       <button
-                        onClick={() => onStart(sc.id)}
-                        className="px-5 py-2 rounded font-serif text-base transition-colors"
+                        onClick={() => {
+                          // 触发穿越音效 + 切场景 BGM
+                          audioEngine.start()
+                          audioEngine.playTimeTravel()
+                          audioEngine.playSceneBGM(pickBGMForScenario(sc.era, sc.year))
+                          audioEngine.playClick()
+                          // 短延迟让音效先响再切换场景
+                          setTimeout(() => onStart(sc.id), 600)
+                        }}
+                        className="px-5 py-2 rounded font-serif text-base transition-colors hover:scale-105 active:scale-95"
                         style={{
                           background: sc.color,
                           color: '#0f0e0c',
@@ -143,6 +156,30 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
           </ul>
         </div>
       </div>
+    </div>
+  )
+}
+
+// Lobby 专用音量控制
+function LobbyVolumeControl() {
+  const [muted, setMuted] = useState(audioEngine.isMuted())
+  const [vol, setVol] = useState(audioEngine.getVolume())
+  const toggleMuted = () => {
+    const m = !muted
+    setMuted(m)
+    audioEngine.setMuted(m)
+  }
+  const onVolChange = (v: number) => {
+    setVol(v)
+    audioEngine.setVolume(v)
+    if (muted && v > 0) { setMuted(false); audioEngine.setMuted(false) }
+  }
+  return (
+    <div className="flex items-center gap-1.5 bg-ink-800/60 backdrop-blur border border-ink-600 rounded-full px-2 py-1">
+      <button onClick={toggleMuted} className="text-base hover:scale-110 transition-transform" title={muted ? '取消静音' : '静音'}>
+        {muted ? '🔇' : '🔊'}
+      </button>
+      <input type="range" min="0" max="1" step="0.05" value={vol} onChange={e => onVolChange(parseFloat(e.target.value))} className="w-16 h-1 accent-bronze-500" style={{ filter: muted ? 'grayscale(1)' : 'none' }} />
     </div>
   )
 }

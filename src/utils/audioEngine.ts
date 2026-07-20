@@ -137,6 +137,60 @@ class AudioEngine {
     this.bgmNodes = []
   }
 
+  /**
+   * 交叉淡入新 BGM：把当前 BGM 音量渐降 + 新 BGM 渐入（重叠 1 秒）
+   * 避免场景切换时音乐突然中断
+   */
+  async crossfadeBGM(newUrls: string[], fadeSec = 1.0) {
+    const ctx = this.ensureCtx()
+    if (!ctx || !this.bgmGain) return
+    // 1. 找当前 BGM 的 gain node（最后一个 AudioNode 是 gain）
+    const currentGains = this.bgmNodes.filter(n => n.constructor.name === 'GainNode') as GainNode[]
+    // 2. 准备新 BGM（异步）
+    let newSource: AudioBufferSourceNode | null = null
+    let newGain: GainNode | null = null
+    for (const url of newUrls) {
+      try {
+        const resp = await fetch(url)
+        if (!resp.ok) continue
+        const ab = await resp.arrayBuffer()
+        const audioBuffer = await ctx.decodeAudioData(ab)
+        newSource = ctx.createBufferSource()
+        newSource.buffer = audioBuffer
+        newSource.loop = true
+        newGain = ctx.createGain()
+        newGain.gain.value = 0  // 起始 0
+        newSource.connect(newGain)
+        newGain.connect(this.bgmGain)
+        newSource.start(0)
+        break
+      } catch { /* try next */ }
+    }
+    if (!newSource || !newGain) {
+      console.warn('[audioEngine] crossfade: no new BGM loaded')
+      return
+    }
+    // 3. 交叉淡化
+    const now = ctx.currentTime
+    for (const g of currentGains) {
+      try { g.gain.linearRampToValueAtTime(0, now + fadeSec) } catch { /* noop */ }
+    }
+    newGain.gain.linearRampToValueAtTime(0.5, now + fadeSec)
+    // 4. 1 秒后清理旧的
+    setTimeout(() => {
+      // 停旧 BGM（但保留新 BGM 在 bgmNodes）
+      this.bgmTimers.forEach(t => clearInterval(t))
+      this.bgmTimers = []
+      const oldNodes = this.bgmNodes
+      this.bgmNodes = [newSource!, newGain!]
+      oldNodes.forEach(n => {
+        try { (n as any).stop?.() } catch { /* noop */ }
+        try { (n as any).disconnect?.() } catch { /* noop */ }
+      })
+    }, fadeSec * 1000 + 50)
+    console.log('[audioEngine] crossfade BGM, new urls:', newUrls.length)
+  }
+
   // ============ UI 音效（短促）============
   playClick() {
     if (!this.ctx) { this.start() }

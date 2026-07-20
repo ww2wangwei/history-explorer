@@ -3,6 +3,29 @@
  * 显示场景文字 → 选项 → 跳下一章 → 结局 → 历史复盘
  */
 import { useState, useEffect } from 'react'
+
+// 全局 CSS 动画 keyframes
+const styleEl = typeof document !== 'undefined' ? (() => {
+  if (document.getElementById('scenario-animations')) return null
+  const s = document.createElement('style')
+  s.id = 'scenario-animations'
+  s.textContent = `
+    @keyframes scene-fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes scene-slide-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scene-image-zoom {
+      from { opacity: 0; transform: scale(1.05); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  `
+  document.head.appendChild(s)
+  return s
+})() : null
 import scenariosData from '@/data/scenarios.json'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
 import { useAIStore } from '@/store/useAIStore'
@@ -90,7 +113,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
     return () => { audioEngine.stopBGM() }
   }, [scenario])
 
-  // 场景变化时切换 BGM mood
+  // 场景变化时交叉淡入 BGM（保持连续不断）
   useEffect(() => {
     if (currentSceneId && scenario) {
       const scene = scenario.scenes.find(s => s.id === currentSceneId)
@@ -99,7 +122,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
         const style = (scenario.era && ['法国', '英国', '德国', '罗马'].includes(scenario.era)) ? 'european' : 'chinese'
         const entry = BGM_BY_KEY[`${style}_${mood}`] || BGM_BY_KEY.lobby
         const urls = entry?.urls || []
-        audioEngine.playRemoteBGM(urls)
+        audioEngine.crossfadeBGM(urls, 1.2)
         audioEngine.playPageTurn()
       }
     }
@@ -132,6 +155,9 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
 
   const currentScene = scenario.scenes.find(s => s.id === currentSceneId)
   const ending = endingId ? scenario.endings.find(e => e.id === endingId) : null
+
+  // 当前场景的 key（用于动画重新触发）
+  const sceneKey = currentSceneId || (ending ? `ending-${endingId}` : 'init')
 
   // 选择分支
   const handleChoice = (choice: Scene['choices'][0]) => {
@@ -238,8 +264,15 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
     : bingImage(`${scenario.title} ${currentScene.title}`, 1200, 400)
 
   return (
-    <div className="w-full h-full bg-ink-900 overflow-y-auto">
-      <div className="max-w-3xl mx-auto px-6 py-6">
+    <div className="w-full h-full bg-ink-900 overflow-y-auto relative">
+      {/* 背景迷雾：暗色 vignette + 微弱粒子（CSS 实现） */}
+      <div className="fixed inset-0 pointer-events-none z-0" style={{
+        background: 'radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.5) 100%)',
+      }} />
+      <div className="fixed inset-0 pointer-events-none z-0 opacity-20" style={{
+        backgroundImage: 'radial-gradient(circle at 20% 30%, rgba(255,212,122,0.05) 0px, transparent 50%), radial-gradient(circle at 80% 70%, rgba(91,156,200,0.05) 0px, transparent 50%)',
+      }} />
+      <div className="max-w-3xl mx-auto px-6 py-6 relative z-10">
         {/* 顶部：进度 + 退出 */}
         <div className="mb-4 flex items-center justify-between">
           <div>
@@ -255,7 +288,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
         </div>
 
         {/* 场景图 */}
-        <div className="mb-4 rounded-lg overflow-hidden border border-ink-700" style={{ aspectRatio: '3/1' }}>
+        <div key={`img-${sceneKey}`} className="mb-4 rounded-lg overflow-hidden border border-ink-700" style={{ aspectRatio: '3/1', animation: 'scene-image-zoom 0.8s ease-out' }}>
           <img
             src={sceneImg}
             alt={currentScene.title}
@@ -265,8 +298,8 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
           />
         </div>
 
-        {/* 场景标题 + 玩家头像 */}
-        <div className="mb-4 flex items-center gap-3">
+        {/* 场景标题 + 玩家头像 — 用 key 触发渐入动画 */}
+        <div key={`player-${sceneKey}`} className="mb-4 flex items-center gap-3" style={{ animation: 'scene-fade-in 0.5s ease-out' }}>
           <PlayerAvatar name={playerName} color={scenario.color} size={56} />
           <div className="flex-1 min-w-0">
             <div className="text-[10px] text-ink-500 uppercase tracking-wider">你正扮演</div>
@@ -276,13 +309,13 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
         </div>
 
         {/* 场景标题 */}
-        <div className="mb-3 flex items-center gap-2">
+        <div key={`title-${sceneKey}`} className="mb-3 flex items-center gap-2" style={{ animation: 'scene-slide-up 0.6s ease-out 0.1s both' }}>
           <span className="text-2xl">{scenario.icon}</span>
           <h2 className="text-2xl font-serif text-parchment-50">{currentScene.title}</h2>
         </div>
 
         {/* 场景文字 */}
-        <div className="mb-6 p-5 rounded-lg bg-ink-800/80 border border-ink-700 text-base text-parchment-100 leading-relaxed font-serif">
+        <div key={`text-${sceneKey}`} className="mb-6 p-5 rounded-lg bg-ink-800/80 border border-ink-700 text-base text-parchment-100 leading-relaxed font-serif" style={{ animation: 'scene-slide-up 0.6s ease-out 0.2s both' }}>
           {currentScene.text}
         </div>
 

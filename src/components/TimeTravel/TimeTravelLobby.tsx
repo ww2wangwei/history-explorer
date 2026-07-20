@@ -34,6 +34,8 @@ interface Props {
 export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
   const completedScenarios = useLearningPathStore(s => s.progressByPath.timeTravel.completedScenarios) ?? []
   const scenarioEndings = useLearningPathStore(s => s.progressByPath.timeTravel.scenarioEndings) ?? {}
+  const [region, setRegion] = useState<'all' | 'china' | 'world'>('all')
+  const [statusFilter, setStatusFilter] = useState<'all' | 'unplayed' | 'completed'>('all')
 
   useEffect(() => {
     if (!isActive) return
@@ -46,6 +48,15 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
 
   if (!isActive) return null
 
+  // 过滤剧本
+  const filteredScenarios = scenarios.filter(sc => {
+    if (region === 'china' && !['唐', '宋', '元', '明', '清', '三国', '汉', '秦', '隋'].includes(sc.era)) return false
+    if (region === 'world' && ['唐', '宋', '元', '明', '清', '三国', '汉', '秦', '隋'].includes(sc.era)) return false
+    if (statusFilter === 'unplayed' && completedScenarios.includes(sc.id)) return false
+    if (statusFilter === 'completed' && !completedScenarios.includes(sc.id)) return false
+    return true
+  })
+
   return (
     <div className="w-full h-full bg-gradient-to-b from-ink-900 via-ink-900 to-ink-800 overflow-y-auto">
       <div className="max-w-5xl mx-auto px-6 py-8">
@@ -54,7 +65,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
           <div>
             <h1 className="text-4xl font-serif text-bronze-300 mb-1">🎭 穿越历史</h1>
             <p className="text-sm text-ink-400">
-              化身历史人物，在关键节点做选择。3 个剧本 · 7 个结局 · 你的决定塑造历史。
+              化身历史人物，在关键节点做选择。{scenarios.length} 个剧本 · 多个结局 · 你的决定塑造历史。
             </p>
           </div>
           <div className="flex items-center gap-2">
@@ -79,9 +90,41 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
           </div>
         )}
 
+        {/* 筛选条 */}
+        <div className="flex flex-wrap items-center gap-2 mb-4">
+          <div className="flex rounded bg-ink-800/60 border border-ink-600 overflow-hidden text-xs">
+            {(['all', 'china', 'world'] as const).map(r => (
+              <button
+                key={r}
+                onClick={() => setRegion(r)}
+                className={`px-3 py-1.5 transition-colors ${region === r ? 'bg-bronze-700/40 text-bronze-200' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-700'}`}
+              >
+                {r === 'all' ? '全部' : r === 'china' ? '🇨🇳 中国' : '🌍 世界'}
+              </button>
+            ))}
+          </div>
+          <div className="flex rounded bg-ink-800/60 border border-ink-600 overflow-hidden text-xs">
+            {(['all', 'unplayed', 'completed'] as const).map(s => (
+              <button
+                key={s}
+                onClick={() => setStatusFilter(s)}
+                className={`px-3 py-1.5 transition-colors ${statusFilter === s ? 'bg-bronze-700/40 text-bronze-200' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-700'}`}
+              >
+                {s === 'all' ? '全部状态' : s === 'unplayed' ? '🆕 未通关' : '✓ 已通关'}
+              </button>
+            ))}
+          </div>
+          <span className="text-xs text-ink-500 ml-auto">
+            {filteredScenarios.length} / {scenarios.length} 个剧本
+          </span>
+        </div>
+
         {/* 剧本列表 */}
+        {filteredScenarios.length === 0 ? (
+          <div className="text-center text-ink-500 py-12">没有匹配的剧本</div>
+        ) : (
         <div className="space-y-4">
-          {scenarios.map(sc => {
+          {filteredScenarios.map(sc => {
             const completed = completedScenarios.includes(sc.id)
             const myEndingId = scenarioEndings[sc.id]
             const myEnding = myEndingId ? sc.endings.find(e => e.id === myEndingId) : null
@@ -148,6 +191,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
             )
           })}
         </div>
+        )}
 
         {/* 提示 */}
         <div className="mt-8 p-4 rounded-lg bg-ink-800/60 border border-ink-700 text-sm text-ink-400 space-y-1">

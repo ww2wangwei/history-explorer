@@ -334,3 +334,36 @@ export function fallbackKeyword(name: string, category?: string): string {
   // 英文
   return name
 }
+
+/**
+ * 大型战争专题（MAJOR_WARS）的 key -> 搜索关键词
+ * 与 WarsOverview.tsx 的 MAJOR_WARS 数组 key 一一对应
+ */
+export const majorWarSearchKeywords: Record<string, string> = {
+  'ww1': 'world war 1 trenches',
+  'ww2': 'world war 2 battlefield',
+  'second-sino-japanese': 'second sino japanese war',
+  'napoleonic': 'napoleonic wars battle painting',
+  'mongol-conquest': 'mongol empire conquest',
+  'thirty-years': 'thirty years war battle',
+  'roman-civil': 'roman civil war ancient',
+  'punic': 'punic war hannibal',
+  'crusades': 'crusades knights jerusalem',
+  'hundred-years': 'hundred years war crecy',
+  'taiping': 'taiping rebellion china',
+  'three-kingdoms': 'three kingdoms china red cliff',
+  'warring-states': 'warring states period china',
+  'chu-han': 'chu han contention china',
+  'seven-kingdoms': 'rebellion of seven states china',
+  'an-shi': 'an shi rebellion tang china',
+  'imjin': 'imjin war korea',
+  'sengoku': 'sengoku period japan samurai',
+  'boxer': 'boxer rebellion china',
+  'opium': 'opium war china',
+  'roman-persian': 'roman persian wars',
+  'islamic-conquest': 'islamic conquest persia',
+  'xinhai': 'xinhai revolution china',
+  'cold-war': 'cold war berlin wall',
+  'korean': 'korean war',
+  'vietnam': 'vietnam war jungle',
+}

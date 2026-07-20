@@ -10,7 +10,7 @@ import { useAIStore } from '@/store/useAIStore'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
 import { enhancePersonaPrompt } from '@/utils/useLearningContext'
-import { bingImage, warSearchKeywords } from '@/utils/geoImage'
+import { bingImage, warSearchKeywords, majorWarSearchKeywords } from '@/utils/geoImage'
 import type { Era, HistoricalEvent } from '@/types'
 import MiniMap from '@/components/Figures/MiniMap'
 
@@ -698,43 +698,56 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
             {MAJOR_WARS.map(mw => {
               const startYearLabel = mw.startYear < 0 ? `BC ${-mw.startYear}` : `${mw.startYear}`
               const endYearLabel = mw.endYear < 0 ? `BC ${-mw.endYear}` : `${mw.endYear}`
+              const mwKw = majorWarSearchKeywords[mw.key] ?? mw.title
+              const mwImg = bingImage(mwKw, 400, 240)
               return (
                 <div
                   key={mw.key}
-                  className="p-4 rounded-lg border border-red-700/40 bg-gradient-to-br from-red-950/30 to-ink-800/80 hover:border-red-500/80 transition-colors"
+                  className="rounded-lg border border-red-700/40 bg-gradient-to-br from-red-950/30 to-ink-800/80 hover:border-red-500/80 transition-colors overflow-hidden"
                 >
-                  <div className="flex items-start gap-2 mb-2">
-                    <span className="text-2xl flex-shrink-0">{mw.icon}</span>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-sm font-serif text-red-200 truncate">{mw.title}</div>
-                      <div className="text-[10px] text-ink-400 tabular-nums">
+                  {/* 顶部图片 */}
+                  <div className="relative w-full bg-ink-900" style={{ aspectRatio: '16/9' }}>
+                    <img
+                      src={mwImg}
+                      alt={mw.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover"
+                      onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-ink-900/60 pointer-events-none" />
+                    {/* 标题覆盖在图片底部 */}
+                    <div className="absolute bottom-0 left-0 right-0 px-3 pt-6 pb-2">
+                      <div className="text-sm font-serif text-red-100 truncate">{mw.title}</div>
+                      <div className="text-[10px] text-ink-200 tabular-nums">
                         {startYearLabel} ~ {endYearLabel} · {mw.nodes.length} 个关键节点
                       </div>
                     </div>
                     {mw.importance === 3 && (
-                      <span className="text-[10px] text-amber-400">⭐ 关键</span>
+                      <span className="absolute top-2 right-2 text-[10px] text-amber-300 bg-ink-900/70 backdrop-blur px-1.5 py-0.5 rounded">⭐ 关键</span>
                     )}
                   </div>
-                  <div className="text-[11px] text-parchment-100 leading-relaxed mb-2 line-clamp-3">
-                    {mw.summary}
+                  <div className="p-3">
+                    <div className="text-[11px] text-parchment-100 leading-relaxed mb-2 line-clamp-3">
+                      {mw.summary}
+                    </div>
+                    {/* 显示前 3 个关键节点标题 */}
+                    <div className="text-[10px] text-ink-500 mb-2">
+                      关键节点预览：
+                      {mw.nodes.slice(0, 3).map((n, i) => (
+                        <span key={i} className="ml-1 text-ink-400">
+                          {n.title}{i < Math.min(2, mw.nodes.length - 1) ? '、' : ''}
+                        </span>
+                      ))}
+                      {mw.nodes.length > 3 && <span className="text-ink-600"> 等</span>}
+                    </div>
+                    {/* 进入专题详情按钮 */}
+                    <button
+                      onClick={() => setSelectedMajorWar(mw)}
+                      className="w-full px-3 py-1.5 rounded bg-red-800/50 hover:bg-red-700/70 border border-red-600/60 text-red-100 text-xs transition-colors"
+                    >
+                      📖 进入专题详情 →
+                    </button>
                   </div>
-                  {/* 显示前 3 个关键节点标题 */}
-                  <div className="text-[10px] text-ink-500 mb-2">
-                    关键节点预览：
-                    {mw.nodes.slice(0, 3).map((n, i) => (
-                      <span key={i} className="ml-1 text-ink-400">
-                        {n.title}{i < Math.min(2, mw.nodes.length - 1) ? '、' : ''}
-                      </span>
-                    ))}
-                    {mw.nodes.length > 3 && <span className="text-ink-600"> 等</span>}
-                  </div>
-                  {/* 进入专题详情按钮 */}
-                  <button
-                    onClick={() => setSelectedMajorWar(mw)}
-                    className="w-full px-3 py-1.5 rounded bg-red-800/50 hover:bg-red-700/70 border border-red-600/60 text-red-100 text-xs transition-colors"
-                  >
-                    📖 进入专题详情 →
-                  </button>
                 </div>
               )
             })}
@@ -1073,6 +1086,8 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
 }) {
   const startYearLabel = mw.startYear < 0 ? `BC ${-mw.startYear}` : `${mw.startYear}`
   const endYearLabel = mw.endYear < 0 ? `BC ${-mw.endYear}` : `${mw.endYear}`
+  const mwKw = majorWarSearchKeywords[mw.key] ?? mw.title
+  const mwImg = bingImage(mwKw, 800, 450)
 
   return (
     <div
@@ -1083,10 +1098,17 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
         className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-red-700/40 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* 头部 */}
-        <div className="sticky top-0 z-10 bg-gradient-to-r from-red-950/80 to-ink-800/95 backdrop-blur border-b border-red-700/40 px-6 py-4 flex items-center justify-between">
-          <div>
-            <div className="text-[10px] text-ink-400 mb-1 flex items-center gap-2">
+        {/* 顶部图片 */}
+        <div className="relative w-full bg-ink-900" style={{ aspectRatio: '16/9' }}>
+          <img
+            src={mwImg}
+            alt={mw.title}
+            className="w-full h-full object-cover"
+            loading="lazy"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+          />
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink-900/95 to-transparent px-6 pt-8 pb-3">
+            <div className="text-[10px] text-ink-300 mb-0.5 flex items-center gap-2">
               <span>🔥 大型战争专题</span>
               {mw.importance === 3 && <span className="text-amber-400">⭐ 关键</span>}
             </div>
@@ -1094,13 +1116,13 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
               <span className="text-3xl">{mw.icon}</span>
               {mw.title}
             </h3>
-            <div className="text-xs text-ink-400 tabular-nums mt-1">
+            <div className="text-xs text-ink-300 tabular-nums mt-0.5">
               {startYearLabel} ~ {endYearLabel} · {mw.nodes.length} 个关键节点
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+            className="absolute top-3 right-3 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
             title="关闭 (ESC)"
           >
             ×

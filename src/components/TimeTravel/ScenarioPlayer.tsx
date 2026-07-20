@@ -11,7 +11,7 @@ import { bingImage } from '@/utils/geoImage'
 import bgmLibrary from '@/data/bgmLibrary.json'
 import CharacterAvatar, { PlayerAvatar } from './CharacterAvatar'
 
-const BGM_BY_KEY = bgmLibrary as unknown as Record<string, string[]>
+const BGM_BY_KEY = bgmLibrary as any
 
 interface Scene {
   id: string
@@ -83,7 +83,8 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
       // 启动场景 BGM（lobby 已触发穿越音，这里继续 BGM）
       audioEngine.start()
       const bgm = pickBGMForScenario(scenario.era, scenario.year)
-      const urls = BGM_BY_KEY[`${bgm.style}_${bgm.mood}`] || BGM_BY_KEY.lobby
+      const entry = BGM_BY_KEY[`${bgm.style}_${bgm.mood}`] || BGM_BY_KEY.lobby
+      const urls = entry?.urls || []
       audioEngine.playRemoteBGM(urls)
     }
     return () => { audioEngine.stopBGM() }
@@ -96,7 +97,8 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
       if (scene) {
         const mood = pickBGMForScene(scene.title)
         const style = (scenario.era && ['法国', '英国', '德国', '罗马'].includes(scenario.era)) ? 'european' : 'chinese'
-        const urls = BGM_BY_KEY[`${style}_${mood}`] || BGM_BY_KEY.lobby
+        const entry = BGM_BY_KEY[`${style}_${mood}`] || BGM_BY_KEY.lobby
+        const urls = entry?.urls || []
         audioEngine.playRemoteBGM(urls)
         audioEngine.playPageTurn()
       }

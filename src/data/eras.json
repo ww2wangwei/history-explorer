@@ -1661,7 +1661,7 @@
   {
     "id": "minoan",
     "name": "克里特-迈锡尼文明",
-    "region": "rome",
+    "region": "greek",
     "startYear": -2700,
     "endYear": -1100,
     "color": "#9ec1cf",

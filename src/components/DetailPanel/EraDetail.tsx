@@ -273,14 +273,6 @@ export default function EraDetail({ eraId }: Props) {
         >
           📅 跳到中心时间
         </button>
-        {era.capital && (
-          <button
-            className="flex-1 px-3 py-2 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-sm transition-colors"
-            onClick={focusOnMap}
-          >
-            🗺️ 聚焦都城
-          </button>
-        )}
         {(() => {
           // 找该朝代关联的人物（people.json 中 eraIds 包含本 era.id）
           const eraPeople = people.filter((p) => p.eraIds.includes(era.id))

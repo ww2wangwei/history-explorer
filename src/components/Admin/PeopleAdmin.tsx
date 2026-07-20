@@ -17,8 +17,11 @@ export default function PeopleAdmin() {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [query, setQuery] = useState('')
   const [onlyEdited, setOnlyEdited] = useState(false)
+  const [showDeleted, setShowDeleted] = useState(false)
   const merged = useMemo(() => getMergedPeople(), [])
   const overrides = useAdminStore(s => s.peopleOverrides)
+  const onlyDeletedCount = useMemo(() => Object.values(overrides).filter(o => o.__deleted).length, [overrides])
+  const deletedIds = useMemo(() => Object.entries(overrides).filter(([_, o]) => o.__deleted).map(([id]) => id), [overrides])
 
   const filtered = useMemo(() => {
     return merged.filter(p => {
@@ -31,34 +34,71 @@ export default function PeopleAdmin() {
     })
   }, [merged, query, onlyEdited, overrides])
 
-  const selected = merged.find(p => p.id === selectedId) ?? null
+  const deletedFeatures = useMemo(() => {
+    return deletedIds.map(id => ({ id, name: id, role: '', category: 'politician', description: '', emoji: '🚫' } as any))
+  }, [deletedIds])
+
+  const selected = showDeleted
+    ? (deletedFeatures.find(p => p.id === selectedId) ?? null)
+    : (merged.find(p => p.id === selectedId) ?? null)
 
   return (
     <div className="flex h-full">
       <div className="w-96 flex-shrink-0 border-r border-ink-700 flex flex-col">
         <div className="p-3 border-b border-ink-700 space-y-2">
-          <input value={query} onChange={e => setQuery(e.target.value)} placeholder="搜索 名字 / id / 描述..." className="w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500" />
+          <div className="flex gap-2">
+            <input value={query} onChange={e => setQuery(e.target.value)} placeholder="搜索 名字 / id / 描述..." className="flex-1 px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500" />
+            <button
+              onClick={() => {
+                const id = `p-new-${Date.now()}`
+                useAdminStore.getState().createPerson({ id, name: '新建人物', role: '', category: 'politician', description: '', birthYear: 0, deathYear: 0, eraIds: [] } as any)
+                setSelectedId(id)
+              }}
+              className="px-3 py-1.5 rounded bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-500/50 text-emerald-200 text-sm whitespace-nowrap"
+            >➕ 新增</button>
+          </div>
           <label className="flex items-center gap-1.5 text-xs text-ink-400 cursor-pointer">
             <input type="checkbox" checked={onlyEdited} onChange={e => setOnlyEdited(e.target.checked)} />
             只看已编辑 ({Object.keys(overrides).length})
           </label>
+          {onlyDeletedCount > 0 && (
+            <label className="flex items-center gap-1.5 text-xs text-red-300 cursor-pointer">
+              <input type="checkbox" checked={showDeleted} onChange={e => setShowDeleted(e.target.checked)} />
+              🚫 显示已删除 ({onlyDeletedCount})
+            </label>
+          )}
         </div>
         <div className="flex-1 overflow-y-auto">
-          {filtered.map(p => {
-            const edited = !!overrides[p.id]
-            return (
-              <button key={p.id} onClick={() => setSelectedId(p.id)}
-                className={`w-full text-left p-2 border-b border-ink-800 hover:bg-ink-800/60 ${selectedId === p.id ? 'bg-bronze-900/20 border-l-2 border-l-bronze-500' : ''}`}>
-                <div className="flex items-center gap-2">
-                  <span className="text-base">{p.emoji || '👤'}</span>
-                  <span className="text-sm text-parchment-50 truncate flex-1">{p.name}</span>
-                  {edited && <span className="text-[9px] text-amber-400 bg-amber-900/30 px-1 rounded">已编辑</span>}
-                </div>
-                <div className="text-[10px] text-ink-500 truncate mt-0.5">{p.role}</div>
-              </button>
-            )
-          })}
-          {filtered.length === 0 && <div className="p-4 text-center text-ink-500 text-sm">无匹配</div>}
+          {showDeleted ? (
+            <>
+              <div className="p-2 text-[10px] text-red-300 bg-red-900/20 border-b border-red-700/30">🚫 已删除人物</div>
+              {deletedFeatures.map(p => (
+                <button key={p.id} onClick={() => setSelectedId(p.id)} className={`w-full text-left p-2 border-b border-ink-800 hover:bg-ink-800/60 ${selectedId === p.id ? 'bg-bronze-900/20 border-l-2 border-l-bronze-500' : ''}`}>
+                  <div className="flex items-center gap-2"><span className="text-base">🚫</span><span className="text-sm text-parchment-50 line-through opacity-60 truncate flex-1">{p.name}</span></div>
+                  <div className="text-[10px] text-ink-500 truncate mt-0.5">{p.id}</div>
+                </button>
+              ))}
+            </>
+          ) : (
+            filtered.map(p => {
+              const ov = overrides[p.id]
+              const edited = !!ov && !ov.__new
+              const isNew = ov?.__new
+              return (
+                <button key={p.id} onClick={() => setSelectedId(p.id)}
+                  className={`w-full text-left p-2 border-b border-ink-800 hover:bg-ink-800/60 ${selectedId === p.id ? 'bg-bronze-900/20 border-l-2 border-l-bronze-500' : ''}`}>
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">{p.emoji || '👤'}</span>
+                    <span className="text-sm text-parchment-50 truncate flex-1">{p.name}</span>
+                    {isNew && <span className="text-[9px] text-emerald-400 bg-emerald-900/30 px-1 rounded">新</span>}
+                    {!isNew && edited && <span className="text-[9px] text-amber-400 bg-amber-900/30 px-1 rounded">已编辑</span>}
+                  </div>
+                  <div className="text-[10px] text-ink-500 truncate mt-0.5">{p.role}</div>
+                </button>
+              )
+            })
+          )}
+          {filtered.length === 0 && !showDeleted && <div className="p-4 text-center text-ink-500 text-sm">无匹配</div>}
         </div>
       </div>
       <div className="flex-1 overflow-y-auto">
@@ -72,7 +112,11 @@ function PersonEditForm({ person }: { person: HistoricalFigure }) {
   const override = useAdminStore(s => s.peopleOverrides[person.id]) ?? {}
   const setOverride = useAdminStore(s => s.setPersonOverride)
   const deleteOverride = useAdminStore(s => s.deletePersonOverride)
-  const isEdited = Object.keys(override).length > 0
+  const markDeleted = useAdminStore(s => s.markPersonDeleted)
+  const undelete = useAdminStore(s => s.undeletePerson)
+  const isEdited = Object.keys(override).filter(k => !k.startsWith('__')).length > 0
+  const isNew = override.__new
+  const isDeleted = override.__deleted
 
   const [name, setName] = useState(override.name ?? person.name)
   const [role, setRole] = useState(override.role ?? person.role)
@@ -113,11 +157,27 @@ function PersonEditForm({ person }: { person: HistoricalFigure }) {
     <div className="p-6 max-w-3xl space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-[10px] text-ink-500 uppercase tracking-wider">编辑人物</div>
+          <div className="text-[10px] text-ink-500 uppercase tracking-wider flex items-center gap-2">
+            <span>编辑人物</span>
+            {isNew && <span className="text-emerald-400 bg-emerald-900/30 px-1.5 rounded">🆕 新建</span>}
+            {isDeleted && <span className="text-red-400 bg-red-900/30 px-1.5 rounded">🚫 已删除</span>}
+          </div>
           <h2 className="text-2xl font-serif text-bronze-300 mt-1">{person.name}</h2>
           <code className="text-xs text-ink-500">id: {person.id}</code>
         </div>
-        {isEdited && <button onClick={() => { if (confirm(`重置 "${person.name}" 的所有编辑？`)) deleteOverride(person.id) }} className="px-3 py-1.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-xs">🗑️ 重置</button>}
+        <div className="flex gap-2">
+          {isDeleted ? (
+            <button onClick={() => undelete(person.id)} className="px-3 py-1.5 rounded bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-600/50 text-emerald-200 text-xs">↩️ 恢复</button>
+          ) : (
+            <button onClick={() => {
+              if (isNew) { if (confirm(`永久删除新建人物 "${person.name}"？`)) deleteOverride(person.id) }
+              else if (confirm(`标记 "${person.name}" 为已删除？（主应用将隐藏）`)) markDeleted(person.id)
+            }} className="px-3 py-1.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-xs">🗑️ 删除</button>
+          )}
+          {isEdited && !isNew && !isDeleted && (
+            <button onClick={() => { if (confirm(`撤销 "${person.name}" 的所有编辑？`)) deleteOverride(person.id) }} className="px-3 py-1.5 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-xs">↺ 撤销编辑</button>
+          )}
+        </div>
       </div>
 
       <Field label="姓名"><input value={name} onChange={e => setName(e.target.value)} className={inputCls} /></Field>

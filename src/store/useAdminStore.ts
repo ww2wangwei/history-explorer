@@ -23,20 +23,39 @@ interface AdminState {
   // 操作
   setGeoOverride: (id: string, patch: Partial<GeoFeatureOverride>) => void
   deleteGeoOverride: (id: string) => void
+  markGeoDeleted: (id: string) => void
+  undeleteGeo: (id: string) => void
+  createGeo: (data: GeoFeatureOverride) => void
+
   setPersonOverride: (id: string, patch: Partial<PersonOverride>) => void
   deletePersonOverride: (id: string) => void
+  markPersonDeleted: (id: string) => void
+  undeletePerson: (id: string) => void
+  createPerson: (data: PersonOverride) => void
+
   setEventOverride: (id: string, patch: Partial<EventOverride>) => void
   deleteEventOverride: (id: string) => void
+  markEventDeleted: (id: string) => void
+  undeleteEvent: (id: string) => void
+  createEvent: (data: EventOverride) => void
+
   setCultureOverride: (id: string, patch: Partial<CultureOverride>) => void
   deleteCultureOverride: (id: string) => void
+  markCultureDeleted: (id: string) => void
+  undeleteCulture: (id: string) => void
+  createCulture: (data: CultureOverride) => void
 
   resetAll: () => void
   exportAll: () => string
   importAll: (json: string) => boolean
 }
 
-// 简化的 override 类型（只存可编辑字段）
+// 简化的 override 类型（只存可编辑字段 + 新增/删除标记）
 export type GeoFeatureOverride = {
+  // 标记
+  __deleted?: boolean
+  __new?: boolean
+  // 可编辑字段
   name?: string
   type?: string
   labelPos?: [number, number]
@@ -48,6 +67,8 @@ export type GeoFeatureOverride = {
 }
 
 export type PersonOverride = {
+  __deleted?: boolean
+  __new?: boolean
   name?: string
   role?: string
   category?: string
@@ -57,18 +78,28 @@ export type PersonOverride = {
   birthYear?: number
   deathYear?: number
   relatedFigureIds?: Array<{ id: string; type: string }>
+  emoji?: string
+  eraIds?: string[]
 }
 
 export type EventOverride = {
+  __deleted?: boolean
+  __new?: boolean
+  id?: string
   title?: string
   year?: number
   category?: string
   description?: string
   imageSearch?: string
   coordinates?: [number, number]
+  region?: string
+  importance?: 1 | 2 | 3
 }
 
 export type CultureOverride = {
+  __deleted?: boolean
+  __new?: boolean
+  id?: string
   title?: string
   year?: number
   category?: string
@@ -76,6 +107,7 @@ export type CultureOverride = {
   imageSearch?: string
   location?: [number, number]
   region?: string
+  importance?: 1 | 2 | 3
 }
 
 export const useAdminStore = create<AdminState>()(
@@ -97,6 +129,26 @@ export const useAdminStore = create<AdminState>()(
         const { [id]: _, ...rest } = s.geoOverrides
         return { geoOverrides: rest, lastModified: new Date().toISOString(), isDirty: true }
       }),
+      markGeoDeleted: (id) => set(s => ({
+        geoOverrides: { ...s.geoOverrides, [id]: { ...s.geoOverrides[id], __deleted: true } },
+        lastModified: new Date().toISOString(),
+        isDirty: true,
+      })),
+      undeleteGeo: (id) => set(s => {
+        const cur = s.geoOverrides[id]
+        if (!cur) return s
+        const { __deleted, ...rest } = cur
+        return {
+          geoOverrides: { ...s.geoOverrides, [id]: rest },
+          lastModified: new Date().toISOString(),
+          isDirty: true,
+        }
+      }),
+      createGeo: (data) => set(s => ({
+        geoOverrides: { ...s.geoOverrides, [(data as any).id]: { ...data, __new: true } },
+        lastModified: new Date().toISOString(),
+        isDirty: true,
+      })),
 
       setPersonOverride: (id, patch) => set(s => ({
         peopleOverrides: { ...s.peopleOverrides, [id]: { ...s.peopleOverrides[id], ...patch } },
@@ -107,6 +159,26 @@ export const useAdminStore = create<AdminState>()(
         const { [id]: _, ...rest } = s.peopleOverrides
         return { peopleOverrides: rest, lastModified: new Date().toISOString(), isDirty: true }
       }),
+      markPersonDeleted: (id) => set(s => ({
+        peopleOverrides: { ...s.peopleOverrides, [id]: { ...s.peopleOverrides[id], __deleted: true } },
+        lastModified: new Date().toISOString(),
+        isDirty: true,
+      })),
+      undeletePerson: (id) => set(s => {
+        const cur = s.peopleOverrides[id]
+        if (!cur) return s
+        const { __deleted, ...rest } = cur
+        return {
+          peopleOverrides: { ...s.peopleOverrides, [id]: rest },
+          lastModified: new Date().toISOString(),
+          isDirty: true,
+        }
+      }),
+      createPerson: (data) => set(s => ({
+        peopleOverrides: { ...s.peopleOverrides, [(data as any).id]: { ...data, __new: true } },
+        lastModified: new Date().toISOString(),
+        isDirty: true,
+      })),
 
       setEventOverride: (id, patch) => set(s => ({
         eventsOverrides: { ...s.eventsOverrides, [id]: { ...s.eventsOverrides[id], ...patch } },
@@ -117,6 +189,26 @@ export const useAdminStore = create<AdminState>()(
         const { [id]: _, ...rest } = s.eventsOverrides
         return { eventsOverrides: rest, lastModified: new Date().toISOString(), isDirty: true }
       }),
+      markEventDeleted: (id) => set(s => ({
+        eventsOverrides: { ...s.eventsOverrides, [id]: { ...s.eventsOverrides[id], __deleted: true } },
+        lastModified: new Date().toISOString(),
+        isDirty: true,
+      })),
+      undeleteEvent: (id) => set(s => {
+        const cur = s.eventsOverrides[id]
+        if (!cur) return s
+        const { __deleted, ...rest } = cur
+        return {
+          eventsOverrides: { ...s.eventsOverrides, [id]: rest },
+          lastModified: new Date().toISOString(),
+          isDirty: true,
+        }
+      }),
+      createEvent: (data) => set(s => ({
+        eventsOverrides: { ...s.eventsOverrides, [(data as any).id]: { ...data, __new: true } },
+        lastModified: new Date().toISOString(),
+        isDirty: true,
+      })),
 
       setCultureOverride: (id, patch) => set(s => ({
         cultureOverrides: { ...s.cultureOverrides, [id]: { ...s.cultureOverrides[id], ...patch } },
@@ -127,6 +219,26 @@ export const useAdminStore = create<AdminState>()(
         const { [id]: _, ...rest } = s.cultureOverrides
         return { cultureOverrides: rest, lastModified: new Date().toISOString(), isDirty: true }
       }),
+      markCultureDeleted: (id) => set(s => ({
+        cultureOverrides: { ...s.cultureOverrides, [id]: { ...s.cultureOverrides[id], __deleted: true } },
+        lastModified: new Date().toISOString(),
+        isDirty: true,
+      })),
+      undeleteCulture: (id) => set(s => {
+        const cur = s.cultureOverrides[id]
+        if (!cur) return s
+        const { __deleted, ...rest } = cur
+        return {
+          cultureOverrides: { ...s.cultureOverrides, [id]: rest },
+          lastModified: new Date().toISOString(),
+          isDirty: true,
+        }
+      }),
+      createCulture: (data) => set(s => ({
+        cultureOverrides: { ...s.cultureOverrides, [(data as any).id]: { ...data, __new: true } },
+        lastModified: new Date().toISOString(),
+        isDirty: true,
+      })),
 
       resetAll: () => set({
         geoOverrides: {},

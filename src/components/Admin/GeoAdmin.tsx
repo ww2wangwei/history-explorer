@@ -6,16 +6,25 @@ import { useState, useMemo, useEffect } from 'react'
 import { useAdminStore, type GeoFeatureOverride } from '@/store/useAdminStore'
 import { ALL_GEO_FEATURES_FLAT, getMergedGeoFeatures, GEO_TYPE_OPTIONS, GEO_TYPE_LABELS } from '@/utils/adminData'
 import { bingImage } from '@/utils/geoImage'
-import type { GeoFeature } from '@/data/geographic-features'
+import type { GeoFeature, GeoFeatureType } from '@/data/geographic-features'
 
 export default function GeoAdmin() {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [query, setQuery] = useState('')
   const [typeFilter, setTypeFilter] = useState<string>('all')
   const [onlyEdited, setOnlyEdited] = useState(false)
+  const [showDeleted, setShowDeleted] = useState(false)
 
   const merged = useMemo(() => getMergedGeoFeatures(), [])
   const overrides = useAdminStore(s => s.geoOverrides)
+  const onlyDeletedCount = useMemo(
+    () => Object.values(overrides).filter(o => o.__deleted).length,
+    [overrides]
+  )
+  const deletedIds = useMemo(
+    () => Object.entries(overrides).filter(([_, o]) => o.__deleted).map(([id]) => id),
+    [overrides]
+  )
 
   const filtered = useMemo(() => {
     return merged.filter(f => {
@@ -29,19 +38,41 @@ export default function GeoAdmin() {
     })
   }, [merged, query, typeFilter, onlyEdited, overrides])
 
-  const selected = merged.find(f => f.id === selectedId) ?? null
+  // 已删除的条目（从 overrides 里单独拿）
+  const deletedFeatures = useMemo(() => {
+    return deletedIds
+      .map(id => ALL_GEO_FEATURES_FLAT.find(f => f.id === id) ?? { id, type: 'region' as GeoFeatureType, name: id, labelPos: [0, 0] as [number, number], geometry: [[0, 0]] as [number, number][] })
+      .map(f => ({ ...f, __deleted: true } as any))
+  }, [deletedIds])
+
+  const selected = showDeleted
+    ? (deletedFeatures.find(f => (f as any).id === selectedId) ?? null)
+    : (merged.find(f => f.id === selectedId) ?? null)
 
   return (
     <div className="flex h-full">
       {/* 左：表格 */}
       <div className="w-96 flex-shrink-0 border-r border-ink-700 flex flex-col">
         <div className="p-3 border-b border-ink-700 space-y-2">
-          <input
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            placeholder="搜索 id / 名称 / 描述..."
-            className="w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
-          />
+          <div className="flex gap-2">
+            <input
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              placeholder="搜索 id / 名称 / 描述..."
+              className="flex-1 px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
+            />
+            <button
+              onClick={() => {
+                const id = `geo-new-${Date.now()}`
+                useAdminStore.getState().createGeo({ id, type: 'region', name: '新建地理条目', labelPos: [0, 0], importance: 1, description: '', geometry: [[0, 0]] } as any)
+                setSelectedId(id)
+              }}
+              className="px-3 py-1.5 rounded bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-500/50 text-emerald-200 text-sm whitespace-nowrap"
+              title="新增条目"
+            >
+              ➕ 新增
+            </button>
+          </div>
           <div className="flex flex-wrap gap-1">
             <button
               onClick={() => setTypeFilter('all')}
@@ -67,31 +98,61 @@ export default function GeoAdmin() {
             <input type="checkbox" checked={onlyEdited} onChange={e => setOnlyEdited(e.target.checked)} />
             只看已编辑 ({Object.keys(overrides).length})
           </label>
+          {onlyDeletedCount > 0 && (
+            <label className="flex items-center gap-1.5 text-xs text-red-300 cursor-pointer">
+              <input type="checkbox" checked={showDeleted} onChange={e => setShowDeleted(e.target.checked)} />
+              🚫 显示已删除 ({onlyDeletedCount})
+            </label>
+          )}
         </div>
         <div className="flex-1 overflow-y-auto">
-          {filtered.map(f => {
-            const edited = !!overrides[f.id]
-            return (
-              <button
-                key={f.id}
-                onClick={() => setSelectedId(f.id)}
-                className={`w-full text-left p-2 border-b border-ink-800 hover:bg-ink-800/60 transition-colors ${
-                  selectedId === f.id ? 'bg-bronze-900/20 border-l-2 border-l-bronze-500' : ''
-                }`}
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-base">{GEO_TYPE_LABELS[f.type]?.split(' ')[0]}</span>
-                  <span className="text-sm text-parchment-50 truncate flex-1">{f.name}</span>
-                  {edited && <span className="text-[9px] text-amber-400 bg-amber-900/30 px-1 rounded">已编辑</span>}
-                </div>
-                <div className="text-[10px] text-ink-500 truncate mt-0.5">
-                  {f.id} · {f.labelPos[0].toFixed(1)}, {f.labelPos[1].toFixed(1)}
-                </div>
-              </button>
-            )
-          })}
-          {filtered.length === 0 && (
-            <div className="p-4 text-center text-ink-500 text-sm">无匹配条目</div>
+          {showDeleted ? (
+            <>
+              <div className="p-2 text-[10px] text-red-300 bg-red-900/20 border-b border-red-700/30">🚫 已删除条目 ({deletedFeatures.length})</div>
+              {deletedFeatures.map(f => (
+                <button
+                  key={(f as any).id}
+                  onClick={() => setSelectedId((f as any).id)}
+                  className={`w-full text-left p-2 border-b border-ink-800 hover:bg-ink-800/60 ${selectedId === (f as any).id ? 'bg-bronze-900/20 border-l-2 border-l-bronze-500' : ''}`}
+                >
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">🚫</span>
+                    <span className="text-sm text-parchment-50 truncate flex-1 line-through opacity-60">{f.name}</span>
+                  </div>
+                  <div className="text-[10px] text-ink-500 truncate mt-0.5">{(f as any).id}</div>
+                </button>
+              ))}
+              {deletedFeatures.length === 0 && <div className="p-4 text-center text-ink-500 text-sm">没有已删除条目</div>}
+            </>
+          ) : (
+            <>
+              {filtered.map(f => {
+                const edited = !!overrides[f.id]
+                const isNew = overrides[f.id]?.__new
+                return (
+                  <button
+                    key={f.id}
+                    onClick={() => setSelectedId(f.id)}
+                    className={`w-full text-left p-2 border-b border-ink-800 hover:bg-ink-800/60 transition-colors ${
+                      selectedId === f.id ? 'bg-bronze-900/20 border-l-2 border-l-bronze-500' : ''
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-base">{GEO_TYPE_LABELS[f.type]?.split(' ')[0]}</span>
+                      <span className="text-sm text-parchment-50 truncate flex-1">{f.name}</span>
+                      {isNew && <span className="text-[9px] text-emerald-400 bg-emerald-900/30 px-1 rounded">新</span>}
+                      {!isNew && edited && <span className="text-[9px] text-amber-400 bg-amber-900/30 px-1 rounded">已编辑</span>}
+                    </div>
+                    <div className="text-[10px] text-ink-500 truncate mt-0.5">
+                      {f.id} · {f.labelPos[0].toFixed(1)}, {f.labelPos[1].toFixed(1)}
+                    </div>
+                  </button>
+                )
+              })}
+              {filtered.length === 0 && (
+                <div className="p-4 text-center text-ink-500 text-sm">无匹配条目</div>
+              )}
+            </>
           )}
         </div>
       </div>
@@ -116,6 +177,10 @@ function GeoEditForm({ feature }: { feature: GeoFeature }) {
   const override = useAdminStore(s => s.geoOverrides[feature.id]) ?? {}
   const setOverride = useAdminStore(s => s.setGeoOverride)
   const deleteOverride = useAdminStore(s => s.deleteGeoOverride)
+  const markDeleted = useAdminStore(s => s.markGeoDeleted)
+  const undelete = useAdminStore(s => s.undeleteGeo)
+  const isNew = override.__new
+  const isDeleted = override.__deleted
 
   const isEdited = Object.keys(override).length > 0
 
@@ -174,22 +239,55 @@ function GeoEditForm({ feature }: { feature: GeoFeature }) {
       deleteOverride(feature.id)
     }
   }
+  const handleDelete = () => {
+    if (isNew) {
+      if (confirm(`永久删除新建条目 "${feature.name}"？`)) {
+        deleteOverride(feature.id)
+      }
+    } else {
+      if (confirm(`标记 "${feature.name}" 为已删除？（主应用将隐藏此条目，可点击"恢复"取消）`)) {
+        markDeleted(feature.id)
+      }
+    }
+  }
+  const handleUndelete = () => {
+    undelete(feature.id)
+  }
 
   return (
     <div className="p-6 max-w-3xl space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-[10px] text-ink-500 uppercase tracking-wider">编辑地理条目</div>
+          <div className="text-[10px] text-ink-500 uppercase tracking-wider flex items-center gap-2">
+            <span>编辑地理条目</span>
+            {isNew && <span className="text-emerald-400 bg-emerald-900/30 px-1.5 rounded">🆕 新建</span>}
+            {isDeleted && <span className="text-red-400 bg-red-900/30 px-1.5 rounded">🚫 已删除</span>}
+          </div>
           <h2 className="text-2xl font-serif text-bronze-300 mt-1">{feature.name}</h2>
           <code className="text-xs text-ink-500">id: {feature.id}</code>
         </div>
         <div className="flex gap-2">
-          {isEdited && (
+          {isDeleted ? (
             <button
-              onClick={handleReset}
+              onClick={handleUndelete}
+              className="px-3 py-1.5 rounded bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-600/50 text-emerald-200 text-xs"
+            >
+              ↩️ 恢复
+            </button>
+          ) : (
+            <button
+              onClick={handleDelete}
               className="px-3 py-1.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-xs"
             >
-              🗑️ 重置
+              🗑️ 删除
+            </button>
+          )}
+          {isEdited && !isNew && !isDeleted && (
+            <button
+              onClick={handleReset}
+              className="px-3 py-1.5 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-xs"
+            >
+              ↺ 撤销编辑
             </button>
           )}
         </div>

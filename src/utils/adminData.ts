@@ -27,11 +27,31 @@ export const ALL_GEO_FEATURES_FLAT: GeoFeature[] = [
 
 export function getMergedGeoFeatures(): GeoFeature[] {
   const overrides = useAdminStore.getState().geoOverrides
-  return ALL_GEO_FEATURES_FLAT.map(f => {
-    const ov = overrides[f.id]
-    if (!ov) return f
-    return { ...f, ...ov, geometry: ov.geometry ?? f.geometry, labelPos: ov.labelPos ?? f.labelPos } as GeoFeature
-  })
+  // 1) 源数据合并 overrides，过滤掉 __deleted
+  const merged: GeoFeature[] = ALL_GEO_FEATURES_FLAT
+    .map(f => {
+      const ov = overrides[f.id]
+      if (!ov) return f
+      if (ov.__deleted) return null
+      return { ...f, ...ov, geometry: ov.geometry ?? f.geometry, labelPos: ov.labelPos ?? f.labelPos } as GeoFeature
+    })
+    .filter((f): f is GeoFeature => f !== null)
+  // 2) 追加 __new 的纯新增条目
+  for (const [id, ov] of Object.entries(overrides)) {
+    if (ov.__new && !ov.__deleted) {
+      merged.push({
+        id,
+        type: (ov.type ?? 'region') as GeoFeatureType,
+        name: ov.name ?? id,
+        labelPos: ov.labelPos ?? [0, 0],
+        importance: (ov.importance ?? 1) as 1 | 2 | 3,
+        description: ov.description,
+        imageUrl: ov.imageUrl,
+        geometry: ov.geometry ?? [[0, 0]],
+      })
+    }
+  }
+  return merged
 }
 
 export function getMergedGeoFeature(id: string): GeoFeature | null {
@@ -49,16 +69,41 @@ export function getEffectiveGeoImage(f: GeoFeature): string {
 export function getMergedPeople(): HistoricalFigure[] {
   const overrides = useAdminStore.getState().peopleOverrides
   const base = peopleData as HistoricalFigure[]
-  return base.map(p => {
-    const ov = overrides[p.id]
-    if (!ov) return p
-    return {
-      ...p,
-      ...ov,
-      relatedFigureIds: ov.relatedFigureIds ?? p.relatedFigureIds,
-      culturalWorks: p.culturalWorks,
-    } as HistoricalFigure
-  })
+  const merged: HistoricalFigure[] = base
+    .map(p => {
+      const ov = overrides[p.id]
+      if (!ov) return p
+      if (ov.__deleted) return null
+      return {
+        ...p,
+        ...ov,
+        relatedFigureIds: ov.relatedFigureIds ?? p.relatedFigureIds,
+        culturalWorks: p.culturalWorks,
+        eraIds: ov.eraIds ?? p.eraIds,
+      } as HistoricalFigure
+    })
+    .filter((p): p is HistoricalFigure => p !== null)
+  // __new
+  for (const [id, ov] of Object.entries(overrides)) {
+    if (ov.__new && !ov.__deleted) {
+      merged.push({
+        id,
+        name: ov.name ?? id,
+        role: ov.role ?? '',
+        category: (ov.category ?? 'politician') as any,
+        description: ov.description ?? '',
+        personaPrompt: ov.personaPrompt ?? '',
+        imageSearch: ov.imageSearch,
+        birthYear: ov.birthYear,
+        deathYear: ov.deathYear,
+        eraIds: ov.eraIds ?? [],
+        relatedFigureIds: ov.relatedFigureIds ?? [],
+        culturalWorks: [],
+        emoji: ov.emoji,
+      } as unknown as HistoricalFigure)
+    }
+  }
+  return merged
 }
 
 export function getMergedPerson(id: string): HistoricalFigure | null {
@@ -75,11 +120,29 @@ export function getEffectivePersonImage(p: HistoricalFigure): string | null {
 export function getMergedEvents(): HistoricalEvent[] {
   const overrides = useAdminStore.getState().eventsOverrides
   const base = eventsData as HistoricalEvent[]
-  return base.map(e => {
-    const ov = overrides[e.id]
-    if (!ov) return e
-    return { ...e, ...ov, coordinates: ov.coordinates ?? e.coordinates } as HistoricalEvent
-  })
+  const merged: HistoricalEvent[] = base
+    .map(e => {
+      const ov = overrides[e.id]
+      if (!ov) return e
+      if (ov.__deleted) return null
+      return { ...e, ...ov, coordinates: ov.coordinates ?? e.coordinates } as HistoricalEvent
+    })
+    .filter((e): e is HistoricalEvent => e !== null)
+  for (const [id, ov] of Object.entries(overrides)) {
+    if (ov.__new && !ov.__deleted) {
+      merged.push({
+        id,
+        title: ov.title ?? id,
+        year: ov.year ?? 0,
+        category: (ov.category ?? '军事') as any,
+        description: ov.description ?? '',
+        region: (ov.region ?? 'world') as any,
+        coordinates: ov.coordinates ?? [0, 0],
+        importance: ov.importance ?? 1,
+      } as unknown as HistoricalEvent)
+    }
+  }
+  return merged
 }
 
 // ============= 文化 =============
@@ -97,11 +160,29 @@ export interface CultureEvent {
 export function getMergedCultures(): CultureEvent[] {
   const overrides = useAdminStore.getState().cultureOverrides
   const base = cultureData as CultureEvent[]
-  return base.map(c => {
-    const ov = overrides[c.id]
-    if (!ov) return c
-    return { ...c, ...ov, location: ov.location ?? c.location } as CultureEvent
-  })
+  const merged: CultureEvent[] = base
+    .map(c => {
+      const ov = overrides[c.id]
+      if (!ov) return c
+      if (ov.__deleted) return null
+      return { ...c, ...ov, location: ov.location ?? c.location } as CultureEvent
+    })
+    .filter((c): c is CultureEvent => c !== null)
+  for (const [id, ov] of Object.entries(overrides)) {
+    if (ov.__new && !ov.__deleted) {
+      merged.push({
+        id,
+        title: ov.title ?? id,
+        year: ov.year ?? 0,
+        category: ov.category ?? '文化',
+        location: ov.location ?? [0, 0],
+        region: ov.region ?? '',
+        importance: (ov.importance ?? 1) as 1 | 2 | 3,
+        description: ov.description ?? '',
+      })
+    }
+  }
+  return merged
 }
 
 export const GEO_TYPE_OPTIONS: GeoFeatureType[] = [

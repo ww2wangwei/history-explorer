@@ -610,16 +610,6 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
                 >
                   ✓ 标记已学
                 </button>
-                <button
-                  className="px-3 py-1.5 rounded text-xs text-parchment-50 bg-bronze-600 hover:bg-bronze-500 border border-bronze-500 transition-colors"
-                  onClick={() => {
-                    selectEra(learnEra.id)
-                    setLearnEraId(null)
-                    onEnterMap()
-                  }}
-                >
-                  🗺 打开地图看位置
-                </button>
               </div>
               <button
                 className="px-3 py-1.5 rounded text-xs text-ink-300 hover:text-bronze-300 border border-ink-600 transition-colors"

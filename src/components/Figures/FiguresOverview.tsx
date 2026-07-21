@@ -286,7 +286,18 @@ function PersonCard({ person, visited, onClick }: {
           alt={person.name}
           loading="lazy"
           className="w-full h-full object-cover"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+          onError={(e) => {
+            // 图片加载失败：保留空间，显示 emoji fallback
+            const el = e.target as HTMLImageElement
+            el.style.display = 'none'
+            const parent = el.parentElement
+            if (parent && !parent.querySelector('.img-fallback')) {
+              const fb = document.createElement('div')
+              fb.className = 'img-fallback w-full h-full flex items-center justify-center text-3xl bg-ink-900'
+              fb.textContent = person.emoji || '👤'
+              parent.appendChild(fb)
+            }
+          }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-transparent to-ink-800/30 pointer-events-none" />
         {/* 已了解对勾 */}

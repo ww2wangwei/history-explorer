@@ -11,6 +11,7 @@ import { useMemo, useState } from 'react'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useCardsStore } from '@/store/useCardsStore'
 import { useNotesStore } from '@/store/useNotesStore'
+import { useAIStore } from '@/store/useAIStore'
 import { countTodayReviews } from '@/utils/cardStats'
 import { bingImage } from '@/utils/geoImage'
 import { useGoalStore } from '@/store/useGoalStore'
@@ -66,6 +67,11 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
 
   // 快速学习 Modal（朝代时间线路径进入时显示）
   const [learnEraId, setLearnEraId] = useState<string | null>(null)
+  // 关键大事详情弹窗
+  const [selectedQuickEvent, setSelectedQuickEvent] = useState<{ year: number; title: string; desc?: string } | null>(null)
+  const aiSetPersona = useAIStore(s => s.setPersonaPrompt)
+  const aiNewThread = useAIStore(s => s.newThread)
+  const aiOpenPanel = useAIStore(s => s.openPanel)
   const [showEraList, setShowEraList] = useState(false)
   // 全人物：人物选择列表弹窗
   const [showFigureList, setShowFigureList] = useState(false)
@@ -527,14 +533,24 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
                   <div className="relative pl-5">
                     <div className="absolute left-1.5 top-1 bottom-1 w-px bg-bronze-600/40" />
                     {learnEra.quickEvents.map((ev, i) => (
-                      <div key={i} className="relative pb-2 last:pb-0">
-                        <div className="absolute -left-3.5 top-1 w-2 h-2 rounded-full bg-bronze-500 ring-2 ring-ink-900" />
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setSelectedQuickEvent({ year: ev.year, title: ev.title, desc: ev.desc })
+                        }}
+                        className="w-full text-left relative pb-3 mb-1 last:pb-0 cursor-pointer rounded border border-transparent hover:border-bronze-500/60 hover:bg-bronze-900/30 transition-colors group p-2 -ml-2"
+                        title="点击查看详情"
+                        style={{ zIndex: 10 }}
+                      >
+                        <div className="absolute -left-3.5 top-2.5 w-2 h-2 rounded-full bg-bronze-500 ring-2 ring-ink-900 group-hover:scale-150 transition-transform pointer-events-none" />
                         <div className="text-[10px] text-bronze-400 tabular-nums">
                           {ev.year < 0 ? `BC ${-ev.year}` : ev.year}
                         </div>
-                        <div className="text-sm font-serif text-parchment-50">{ev.title}</div>
-                        <div className="text-[10px] text-ink-500 mt-0.5">{ev.desc}</div>
-                      </div>
+                        <div className="text-sm font-serif text-parchment-50 group-hover:text-bronze-200 transition-colors mt-0.5">{ev.title}</div>
+                        {ev.desc && <div className="text-[10px] text-ink-500 mt-0.5 line-clamp-2">{ev.desc}</div>}
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -618,6 +634,74 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
                 title={nextLearnEra ? `下一朝代：${nextLearnEra.name}` : '已是最后朝代'}
               >
                 {nextLearnEra?.name ?? '最晚'} →
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 关键大事详情弹窗 */}
+      {selectedQuickEvent && learnEra && (
+        <div
+          className="fixed inset-0 z-[80] flex items-center justify-center bg-ink-900/90 backdrop-blur p-4"
+          onClick={() => setSelectedQuickEvent(null)}
+        >
+          <div
+            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border shadow-2xl"
+            style={{ borderColor: learnEra.color + '60' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-ink-600 px-6 py-4 flex items-center justify-between">
+              <div>
+                <div className="text-[10px] text-ink-500 uppercase tracking-wider">{learnEra.name}</div>
+                <div className="text-[10px] text-bronze-400 tabular-nums mt-0.5">
+                  {selectedQuickEvent.year < 0 ? `BC ${-selectedQuickEvent.year}` : selectedQuickEvent.year}
+                </div>
+              </div>
+              <button
+                onClick={() => setSelectedQuickEvent(null)}
+                className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+                title="关闭 (ESC)"
+              >×</button>
+            </div>
+            <div className="p-6 pb-4 border-b border-ink-600/40">
+              <h2 className="text-2xl font-serif leading-snug" style={{ color: learnEra.color }}>
+                {selectedQuickEvent.title}
+              </h2>
+            </div>
+            <div className="p-6 space-y-4">
+              {selectedQuickEvent.desc && (
+                <div>
+                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📋 一句话简介</div>
+                  <div className="text-base text-parchment-100 leading-relaxed">{selectedQuickEvent.desc}</div>
+                </div>
+              )}
+              <div className="grid grid-cols-2 gap-3">
+                <div className="p-3 rounded bg-ink-700/30 border border-ink-600/40">
+                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">🏛️ 所属文明</div>
+                  <div className="text-sm font-serif" style={{ color: learnEra.color }}>{learnEra.name}</div>
+                </div>
+                <div className="p-3 rounded bg-ink-700/30 border border-ink-600/40">
+                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">📅 时间</div>
+                  <div className="text-sm text-bronze-300 font-serif">
+                    {selectedQuickEvent.year < 0 ? `BC ${-selectedQuickEvent.year}` : selectedQuickEvent.year}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="px-6 pb-6">
+              <button
+                onClick={() => {
+                  const persona = `你是历史学家，专精 ${learnEra.name} 时期的历史。用户询问关键事件「${selectedQuickEvent.title}」(${selectedQuickEvent.year < 0 ? '公元前 ' + -selectedQuickEvent.year : selectedQuickEvent.year}年)：${selectedQuickEvent.desc || ''}。请详细解释：1.背景 2.经过 3.影响 4.关键人物 5.历史评价。2-4 段话。`
+                  aiSetPersona(persona)
+                  aiNewThread(`关于 ${selectedQuickEvent.title}`)
+                  aiOpenPanel()
+                  setSelectedQuickEvent(null)
+                }}
+                className="w-full px-4 py-3 rounded-lg bg-purple-700/40 hover:bg-purple-600/60 border border-purple-500/50 text-purple-200 text-sm font-serif transition-colors flex items-center justify-center gap-2"
+              >
+                <span className="text-base">🤖</span>
+                <span>让 AI 详细讲解这个事件</span>
               </button>
             </div>
           </div>

@@ -489,6 +489,7 @@ export default function EraDetail({ eraId }: Props) {
                 key={i}
                 type="button"
                 onClick={(e) => {
+                  console.log('[EraDetail] key event clicked:', ev.title)
                   e.stopPropagation()
                   setSelectedQuickEvent({ year: ev.year, title: ev.title, desc: ev.desc })
                 }}

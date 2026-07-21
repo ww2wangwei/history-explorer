@@ -487,15 +487,20 @@ export default function EraDetail({ eraId }: Props) {
             {era.quickEvents.map((ev, i) => (
               <button
                 key={i}
-                onClick={() => setSelectedQuickEvent({ year: ev.year, title: ev.title, desc: ev.desc })}
-                className="w-full text-left relative pb-2.5 last:pb-0 hover:bg-ink-600/30 rounded px-1 -ml-1 transition-colors group"
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setSelectedQuickEvent({ year: ev.year, title: ev.title, desc: ev.desc })
+                }}
+                className="w-full text-left relative pb-3 mb-1 last:pb-0 cursor-pointer rounded border border-transparent hover:border-bronze-500/60 hover:bg-bronze-900/30 transition-colors group p-2 -ml-2"
                 title="点击查看详情"
+                style={{ zIndex: 10 }}
               >
-                <div className="absolute -left-3.5 top-1 w-2 h-2 rounded-full bg-bronze-500 ring-2 ring-ink-900 group-hover:scale-150 transition-transform" />
+                <div className="absolute -left-3.5 top-2.5 w-2 h-2 rounded-full bg-bronze-500 ring-2 ring-ink-900 group-hover:scale-150 transition-transform pointer-events-none" />
                 <div className="text-[10px] text-bronze-400 tabular-nums">
                   {ev.year < 0 ? `BC ${-ev.year}` : `${ev.year}`}
                 </div>
-                <div className="text-xs font-serif text-parchment-50 group-hover:text-bronze-200 transition-colors">{ev.title}</div>
+                <div className="text-xs font-serif text-parchment-50 group-hover:text-bronze-200 transition-colors mt-0.5">{ev.title}</div>
                 {ev.desc && <div className="text-[10px] text-ink-500 mt-0.5 line-clamp-1">{ev.desc}</div>}
               </button>
             ))}

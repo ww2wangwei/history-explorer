@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useCardsStore } from '@/store/useCardsStore'
 import { useAIStore } from '@/store/useAIStore'
@@ -83,6 +83,9 @@ export default function EraDetail({ eraId }: Props) {
   const aiNewThread = useAIStore(s => s.newThread)
   const aiOpenPanel = useAIStore(s => s.openPanel)
   const era = eras.find(e => e.id === eraId)
+  // 关键大事详情弹窗
+  const [selectedQuickEvent, setSelectedQuickEvent] = useState<{ year: number; title: string; desc?: string } | null>(null)
+
   const existingCardId = useCardsStore(s => {
     if (!era) return null
     for (const id in s.cards) {
@@ -475,21 +478,26 @@ export default function EraDetail({ eraId }: Props) {
         </div>
       )}
 
-      {/* 📜 5 件关键大事时间线 */}
+      {/* 📜 关键大事时间线 */}
       {era.quickEvents && era.quickEvents.length > 0 && (
         <div className="mt-4 p-3 rounded bg-ink-700/40 border border-ink-600/60">
-          <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-2">📜 5 件关键大事</div>
+          <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-2">📜 关键大事（{era.quickEvents.length}）· 点击查看详情</div>
           <div className="relative pl-5">
             <div className="absolute left-1.5 top-1 bottom-1 w-px bg-bronze-600/40" />
             {era.quickEvents.map((ev, i) => (
-              <div key={i} className="relative pb-2.5 last:pb-0">
-                <div className="absolute -left-3.5 top-1 w-2 h-2 rounded-full bg-bronze-500 ring-2 ring-ink-900" />
+              <button
+                key={i}
+                onClick={() => setSelectedQuickEvent({ year: ev.year, title: ev.title, desc: ev.desc })}
+                className="w-full text-left relative pb-2.5 last:pb-0 hover:bg-ink-600/30 rounded px-1 -ml-1 transition-colors group"
+                title="点击查看详情"
+              >
+                <div className="absolute -left-3.5 top-1 w-2 h-2 rounded-full bg-bronze-500 ring-2 ring-ink-900 group-hover:scale-150 transition-transform" />
                 <div className="text-[10px] text-bronze-400 tabular-nums">
                   {ev.year < 0 ? `BC ${-ev.year}` : `${ev.year}`}
                 </div>
-                <div className="text-xs font-serif text-parchment-50">{ev.title}</div>
-                <div className="text-[10px] text-ink-500 mt-0.5">{ev.desc}</div>
-              </div>
+                <div className="text-xs font-serif text-parchment-50 group-hover:text-bronze-200 transition-colors">{ev.title}</div>
+                {ev.desc && <div className="text-[10px] text-ink-500 mt-0.5 line-clamp-1">{ev.desc}</div>}
+              </button>
             ))}
           </div>
         </div>
@@ -524,6 +532,16 @@ export default function EraDetail({ eraId }: Props) {
       )}
     </div>
   )
+
+  // 关键大事详情弹窗
+  {selectedQuickEvent && era && (
+    <QuickEventDetail
+      event={selectedQuickEvent!}
+      eraName={era!.name}
+      eraColor={era!.color}
+      onClose={() => setSelectedQuickEvent(null)}
+    />
+  )}
 }
 
 /** 把 **加粗** 转成 <strong>（保持其他文本安全） */
@@ -533,4 +551,135 @@ function renderMarkdownBold(text: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/\*\*(.+?)\*\*/g, '<strong class="text-bronze-300">$1</strong>')
+}
+// ============= 关键大事详情弹窗 =============
+function QuickEventDetail({ event, eraName, eraColor, onClose }: {
+  event: { year: number; title: string; desc?: string }
+  eraName: string
+  eraColor: string
+  onClose: () => void
+}) {
+  const aiSetContext = useAIStore(s => s.setContext)
+  const aiSetPersona = useAIStore(s => s.setPersonaPrompt)
+  const aiNewThread = useAIStore(s => s.newThread)
+  const aiOpenPanel = useAIStore(s => s.openPanel)
+
+  const yearLabel = event.year < 0 ? `公元前 ${-event.year} 年` : `${event.year} 年`
+
+  // 智能推断事件类型
+  const eventType = inferEventType(event.title)
+
+  // 让 AI 详细解释这个事件
+  const handleAskAI = () => {
+    const persona = `你是历史学家，专精 ${eraName}（公元前/公元 1 年到现在）时期的历史。
+用户询问的关键事件是「${event.title}」（${yearLabel}）：${event.desc || ''}
+
+请详细解释这个事件：
+1. 事件背景（为什么会发生）
+2. 详细经过（谁参与/在哪里/发生了什么）
+3. 短期影响（直接后果）
+4. 长期影响（对后世/中国/世界）
+5. 关键人物（参与者）
+6. 历史评价/争议
+
+用通俗准确的语言回答，2-4 段话。`
+    aiSetContext(null, null, null)
+    aiSetPersona(persona)
+    aiNewThread(`关于 ${event.title}`)
+    aiOpenPanel()
+    onClose()
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-ink-900/90 backdrop-blur p-4"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border shadow-2xl"
+        style={{ borderColor: eraColor + '60' }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* 头部 */}
+        <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-ink-600 px-6 py-4 flex items-center justify-between">
+          <div>
+            <div className="text-[10px] text-ink-500 uppercase tracking-wider">{eraName} · {eventType}</div>
+            <div className="text-[10px] text-bronze-400 tabular-nums mt-0.5">{yearLabel}</div>
+          </div>
+          <button
+            onClick={onClose}
+            className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+            title="关闭 (ESC)"
+          >×</button>
+        </div>
+
+        {/* 标题 */}
+        <div className="p-6 pb-4 border-b border-ink-600/40">
+          <h2 className="text-2xl font-serif leading-snug" style={{ color: eraColor }}>
+            {event.title}
+          </h2>
+        </div>
+
+        {/* 内容 */}
+        <div className="p-6 space-y-4">
+          {/* 简介 */}
+          {event.desc && (
+            <div>
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📋 一句话简介</div>
+              <div className="text-base text-parchment-100 leading-relaxed">
+                {event.desc}
+              </div>
+            </div>
+          )}
+
+          {/* 上下文：属于哪个朝代 */}
+          <div className="p-3 rounded bg-ink-700/30 border border-ink-600/40">
+            <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🏛️ 所属文明</div>
+            <div className="text-sm text-parchment-50">
+              <span className="font-serif" style={{ color: eraColor }}>{eraName}</span>
+            </div>
+          </div>
+
+          {/* 时间 */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="p-3 rounded bg-ink-700/30 border border-ink-600/40">
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">📅 时间</div>
+              <div className="text-sm text-bronze-300 font-serif">{yearLabel}</div>
+            </div>
+            <div className="p-3 rounded bg-ink-700/30 border border-ink-600/40">
+              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">📂 分类</div>
+              <div className="text-sm text-parchment-50">{eventType}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* 操作按钮 */}
+        <div className="px-6 pb-6">
+          <button
+            onClick={handleAskAI}
+            className="w-full px-4 py-3 rounded-lg bg-purple-700/40 hover:bg-purple-600/60 border border-purple-500/50 text-purple-200 text-sm font-serif transition-colors flex items-center justify-center gap-2"
+          >
+            <span className="text-base">🤖</span>
+            <span>让 AI 详细讲解这个事件</span>
+          </button>
+          <div className="text-[10px] text-ink-500 text-center mt-2">
+            AI 将解释：背景 / 经过 / 影响 / 关键人物 / 历史评价
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// 推断事件类型（基于标题关键词）
+function inferEventType(title: string): string {
+  if (/(建立|建国|创建|立国|开国)/.test(title)) return '建国'
+  if (/(战争|战役|征服|入侵|起义|兵变|平定|伐|攻陷|击败|大捷)/.test(title)) return '战争'
+  if (/(即位|继位|登基|加冕|称帝|称王)/.test(title)) return '即位'
+  if (/(改革|变法|维新|改制)/.test(title)) return '改革'
+  if (/(鼎盛|繁荣|黄金时代|盛世|崛起)/.test(title)) return '鼎盛'
+  if (/(衰|亡|灭|覆灭|终结|陷落|灭亡)/.test(title)) return '衰亡'
+  if (/(迁|迁都|迁都|移民)/.test(title)) return '迁都'
+  if (/(建|修|筑|造|成)/.test(title)) return '建设'
+  return '关键事件'
 }

@@ -280,13 +280,16 @@ function PersonCard({ person, visited, onClick }: {
       className="text-left rounded-lg bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-700/60 transition-all relative group overflow-hidden flex"
     >
       {/* 左：缩略图（统一 128px 宽） */}
-      <div className="relative w-32 flex-shrink-0 bg-ink-900">
+      <div className="relative w-32 flex-shrink-0 bg-ink-900 overflow-hidden">
+        {/* emoji 永远显示在背景 */}
+        <div className="absolute inset-0 flex items-center justify-center text-3xl select-none pointer-events-none">
+          {person.emoji || '👤'}
+        </div>
+        {/* img 加载成功时覆盖在 emoji 上 */}
         <img
           src={img}
           alt={person.name}
-          className="w-full h-full object-cover"
-          style={{ opacity: 0, transition: 'opacity 0.3s' }}
-          onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1' }}
+          className="relative w-full h-full object-cover"
           onError={(e) => {
             // 图片加载失败：保留空间，显示 emoji fallback
             const el = e.target as HTMLImageElement

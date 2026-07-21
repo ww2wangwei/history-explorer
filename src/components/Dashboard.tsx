@@ -676,6 +676,12 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
                   <div className="text-base text-parchment-100 leading-relaxed">{selectedQuickEvent.desc}</div>
                 </div>
               )}
+              {(selectedQuickEvent as any).longDesc && (
+                <div>
+                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📖 详细描述</div>
+                  <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">{(selectedQuickEvent as any).longDesc}</div>
+                </div>
+              )}
               <div className="grid grid-cols-2 gap-3">
                 <div className="p-3 rounded bg-ink-700/30 border border-ink-600/40">
                   <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">🏛️ 所属文明</div>

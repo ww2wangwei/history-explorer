@@ -284,8 +284,9 @@ function PersonCard({ person, visited, onClick }: {
         <img
           src={img}
           alt={person.name}
-          loading="lazy"
           className="w-full h-full object-cover"
+          style={{ opacity: 0, transition: 'opacity 0.3s' }}
+          onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1' }}
           onError={(e) => {
             // 图片加载失败：保留空间，显示 emoji fallback
             const el = e.target as HTMLImageElement

@@ -309,8 +309,8 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
         return { x: dx, y: dy, k: newK }
       })
     }
-    svg.addEventListener('wheel', onWheel, { passive: false })
-    return () => svg.removeEventListener('wheel', onWheel)
+    containerRef.current?.addEventListener('wheel', onWheel, { passive: false })
+    return () => containerRef.current?.removeEventListener('wheel', onWheel)
   }, [])
 
   // 拖动空白平移视图

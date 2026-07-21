@@ -275,6 +275,7 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
 
   // 滚轮缩放
   const handleWheel = useCallback((e: React.WheelEvent) => {
+    console.log('[graph] wheel', e.deltaY)
     e.preventDefault()
     if (!svgRef.current) return
     const rect = svgRef.current.getBoundingClientRect()
@@ -288,6 +289,28 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
       const dy = mouseY - (mouseY - prev.y) * (newK / prev.k)
       return { x: dx, y: dy, k: newK }
     })
+  }, [])
+
+  // 非 passive wheel listener（React 18 onWheel 是 passive，无法 preventDefault）
+  useEffect(() => {
+    if (!svgRef.current) return
+    const svg = svgRef.current
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      const rect = svg.getBoundingClientRect()
+      const mouseX = e.clientX - rect.left
+      const mouseY = e.clientY - rect.top
+      const factor = e.deltaY < 0 ? 1.1 : 0.9
+      setViewTransform(prev => {
+        const newK = Math.max(0.2, Math.min(3, prev.k * factor))
+        // 让缩放围绕鼠标位置
+        const dx = mouseX - (mouseX - prev.x) * (newK / prev.k)
+        const dy = mouseY - (mouseY - prev.y) * (newK / prev.k)
+        return { x: dx, y: dy, k: newK }
+      })
+    }
+    svg.addEventListener('wheel', onWheel, { passive: false })
+    return () => svg.removeEventListener('wheel', onWheel)
   }, [])
 
   // 拖动空白平移视图
@@ -414,8 +437,7 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
           width={width}
           height={height}
           className="absolute inset-0 cursor-grab active:cursor-grabbing"
-          onWheel={handleWheel}
-          onMouseDown={handleBackgroundMouseDown}
+          onWheel={handleWheel} /* may be passive */          onMouseDown={handleBackgroundMouseDown}
         >
           <g transform={`translate(${viewTransform.x},${viewTransform.y}) scale(${viewTransform.k})`}>
             {/* 边 */}

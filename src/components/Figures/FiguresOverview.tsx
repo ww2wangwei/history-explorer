@@ -263,48 +263,54 @@ function PersonCard({ person, visited, onClick }: {
     .filter((e): e is Era => Boolean(e))
   const catMeta = CATEGORY_LABEL[person.category]
   const kw = personSearchKeywords[person.id] ?? fallbackKeyword(person.name, person.category)
-  const img = bingImage(kw, 300, 300)
+  // 横向缩略图（与全战争/全文化/全地理统一：400x240）
+  const img = bingImage(kw, 400, 240)
+  const years = (() => {
+    if (person.birthYear && person.deathYear) {
+      const b = person.birthYear < 0 ? `BC ${-person.birthYear}` : `${person.birthYear}`
+      const d = person.deathYear < 0 ? `BC ${-person.deathYear}` : `${person.deathYear}`
+      return `${b} ~ ${d}`
+    }
+    return null
+  })()
 
   return (
     <button
       onClick={onClick}
-      className="text-left rounded-lg bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-700/60 transition-all relative group overflow-hidden"
+      className="text-left rounded-lg bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-700/60 transition-all relative group overflow-hidden flex"
     >
-      {/* 人物肖像（16:9 横图也好看） */}
-      <div className="relative w-full aspect-square bg-ink-900 overflow-hidden">
+      {/* 左：缩略图（统一 128px 宽） */}
+      <div className="relative w-32 flex-shrink-0 bg-ink-900">
         <img
           src={img}
           alt={person.name}
           loading="lazy"
-          className="w-full h-full object-cover transition-transform group-hover:scale-105"
-          onError={(e) => {
-            const el = e.target as HTMLImageElement
-            el.style.display = 'none'
-            const parent = el.parentElement
-            if (parent) parent.innerHTML = `<div class="w-full h-full flex items-center justify-center text-5xl bg-ink-900">${person.emoji || '👤'}</div>`
-          }}
+          className="w-full h-full object-cover"
+          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
         />
-        {/* 分类小徽章 — 左上角 */}
-        <span
-          className="absolute top-1.5 left-1.5 text-[9px] px-1.5 py-0.5 rounded font-serif backdrop-blur"
-          style={{ background: catMeta.color + 'a0', color: '#fff' }}
-          title={catMeta.label}
-        >
-          {catMeta.icon}
-        </span>
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-ink-800/30 pointer-events-none" />
         {/* 已了解对勾 */}
         {visited && (
           <span className="absolute top-1.5 right-1.5 text-green-400 text-sm bg-ink-900/70 backdrop-blur w-5 h-5 rounded-full flex items-center justify-center" title="已了解">✓</span>
         )}
-        {/* 名字覆盖在图片底部 */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink-900/95 to-transparent px-2.5 pt-3 pb-2">
-          <div className="text-sm font-serif text-parchment-50 truncate">{person.name}</div>
-        </div>
       </div>
-      {/* 卡片信息 */}
-      <div className="p-2.5">
-        <div className="text-[10px] text-ink-400 line-clamp-2 min-h-[2.5em]">{person.role}</div>
-        <div className="flex flex-wrap gap-1 mt-2">
+      {/* 右：信息 */}
+      <div className="flex-1 p-3 min-w-0">
+        <div className="flex items-center gap-2 mb-1 flex-wrap">
+          <span
+            className="text-lg w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
+            style={{ background: catMeta.color + '25' }}
+            title={catMeta.label}
+          >
+            {catMeta.icon}
+          </span>
+          <span className="text-sm font-serif text-parchment-50 truncate flex-1">{person.name}</span>
+        </div>
+        <div className="text-[10px] text-ink-500 mb-1 truncate">
+          {years ? `${years} · ${person.role.slice(0, 24)}${person.role.length > 24 ? '…' : ''}` : person.role.slice(0, 30)}
+        </div>
+        <div className="text-[10px] text-ink-400 line-clamp-2 leading-relaxed mb-1">{person.description?.slice(0, 60)}{person.description && person.description.length > 60 ? '…' : ''}</div>
+        <div className="flex flex-wrap gap-1 mt-1">
           {eraNames.slice(0, 2).map(e => (
             <span
               key={e.id}

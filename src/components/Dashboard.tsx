@@ -665,33 +665,15 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
               >×</button>
             </div>
             <div className="p-6 pb-4 border-b border-ink-600/40">
+              <h2 className="text-2xl font-serif leading-snug" style={{ color: learnEra.color }}>
+                {selectedQuickEvent.title}
+              </h2>
             </div>
-            <div className="relative w-full bg-ink-900" style={{ aspectRatio: '16/9' }}>
-              <img
-                src={"https://tse1.mm.bing.net/th?q=" + encodeURIComponent(selectedQuickEvent.title + ' ' + learnEra.name + ' historical') + "&w=800&h=450&c=7&p=0"}
-                alt={selectedQuickEvent.title}
-                loading="lazy"
-                className="w-full h-full object-cover"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink-800/95 via-ink-800/30 to-transparent pointer-events-none" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h2 className="text-2xl font-serif leading-snug text-parchment-50" style={{ textShadow: '0 0 12px rgba(0,0,0,0.7)' }}>
-                  {selectedQuickEvent.title}
-                </h2>
-              </div>
-            </div>
-              {selectedQuickEvent.desc && (
+            <div className="p-6 space-y-4">
               {selectedQuickEvent.desc && (
                 <div>
                   <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📋 一句话简介</div>
                   <div className="text-base text-parchment-100 leading-relaxed">{selectedQuickEvent.desc}</div>
-                </div>
-              )}
-              {(selectedQuickEvent as any).longDesc && (
-                <div>
-                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📖 详细描述</div>
-                  <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">{(selectedQuickEvent as any).longDesc}</div>
                 </div>
               )}
               <div className="grid grid-cols-2 gap-3">

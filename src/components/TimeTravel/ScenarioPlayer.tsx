@@ -33,6 +33,7 @@ import { audioEngine, pickBGMForScene, pickBGMForScenario } from '@/utils/audioE
 import { bingImage } from '@/utils/geoImage'
 import bgmLibrary from '@/data/bgmLibrary.json'
 import CharacterAvatar, { PlayerAvatar } from './CharacterAvatar'
+import StatBar from './StatBar'
 
 const BGM_BY_KEY = bgmLibrary as any
 
@@ -104,6 +105,11 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
   const [endingId, setEndingId] = useState<string | null>(null)
   const [showNpc, setShowNpc] = useState<{ name: string; role: string; context: string; closing?: string } | null>(null)
   const [imageLoaded, setImageLoaded] = useState(false)
+  // 后果系统:两个状态值(仅当 scenario.stats 存在时启用)
+  const [statA, setStatA] = useState(0)
+  const [statB, setStatB] = useState(0)
+  // 飘字反馈
+  const [floatFx, setFloatFx] = useState<Array<{ key: number; emoji: string; delta: number }>>([])
 
   const setContext = useAIStore(s => s.setContext)
   const setPersonaPrompt = useAIStore(s => s.setPersonaPrompt)
@@ -114,6 +120,10 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
   useEffect(() => {
     if (scenario && scenario.scenes.length > 0) {
       setCurrentSceneId(scenario.scenes[0].id)
+      if (scenario.stats) {
+        setStatA(scenario.stats.a.init)
+        setStatB(scenario.stats.b.init)
+      }
       // 启动场景 BGM（lobby 已触发穿越音，这里继续 BGM）
       audioEngine.start()
       const bgm = pickBGMForScenario(scenario.era, scenario.year)
@@ -302,6 +312,17 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
         <div className="mb-6 h-1 bg-ink-700 rounded-full overflow-hidden">
           <div className="h-full transition-all" style={{ width: `${progressPct}%`, background: scenario.color }} />
         </div>
+
+        {/* 后果系统:双值状态栏 */}
+        {scenario.stats && (
+          <StatBar
+            statA={scenario.stats.a}
+            statB={scenario.stats.b}
+            valueA={statA}
+            valueB={statB}
+            color={scenario.color}
+          />
+        )}
 
         {/* 场景图 */}
         <div key={`img-${sceneKey}`} className="mb-4 rounded-lg overflow-hidden border border-ink-700" style={{ aspectRatio: '3/1', animation: 'scene-image-zoom 0.8s ease-out' }}>

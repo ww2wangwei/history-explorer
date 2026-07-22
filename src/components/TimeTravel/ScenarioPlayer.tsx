@@ -22,6 +22,11 @@ const styleEl = typeof document !== 'undefined' ? (() => {
       from { opacity: 0; transform: scale(1.05); }
       to { opacity: 1; transform: scale(1); }
     }
+    @keyframes stat-float {
+      0% { opacity: 0; transform: translateY(0); }
+      20% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-40px); }
+    }
   `
   document.head.appendChild(s)
   return s
@@ -183,6 +188,26 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
   // 选择分支
   const handleChoice = (choice: Scene['choices'][0]) => {
     audioEngine.playClick()
+    // 应用选项的状态值影响(后果系统)
+    if (scenario.stats && choice.effects) {
+      const fx: Array<{ key: number; emoji: string; delta: number }> = []
+      const aKey = scenario.stats.a.id
+      const bKey = scenario.stats.b.id
+      if (choice.effects[aKey]) {
+        const d = choice.effects[aKey]
+        setStatA(v => Math.max(0, Math.min(scenario.stats!.a.max, v + d)))
+        fx.push({ key: Date.now(), emoji: scenario.stats.a.emoji, delta: d })
+      }
+      if (choice.effects[bKey]) {
+        const d = choice.effects[bKey]
+        setStatB(v => Math.max(0, Math.min(scenario.stats!.b.max, v + d)))
+        fx.push({ key: Date.now() + 1, emoji: scenario.stats.b.emoji, delta: d })
+      }
+      if (fx.length) {
+        setFloatFx(fx)
+        setTimeout(() => setFloatFx([]), 1500)
+      }
+    }
     // 显示 outcome（如果有）
     if (choice.outcome) {
       setOutcomeText(choice.outcome)
@@ -396,7 +421,23 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
                 onClick={() => handleChoice(c)}
                 className="w-full text-left p-4 rounded-lg border-2 border-ink-700 bg-ink-800/60 hover:border-bronze-500 hover:bg-ink-700/80 transition-all group"
               >
-                <div className="text-sm text-parchment-50 group-hover:text-bronze-200 transition-colors">{c.text}</div>
+                <div className="flex items-center justify-between gap-3">
+                  <div className="text-sm text-parchment-50 group-hover:text-bronze-200 transition-colors">{c.text}</div>
+                  {scenario.stats && c.effects && (
+                    <div className="flex items-center gap-2 shrink-0 text-xs">
+                      {c.effects[scenario.stats.a.id] ? (
+                        <span className={c.effects[scenario.stats.a.id] > 0 ? 'text-success' : 'text-danger'}>
+                          {scenario.stats.a.emoji}{c.effects[scenario.stats.a.id] > 0 ? '↑' : '↓'}
+                        </span>
+                      ) : null}
+                      {c.effects[scenario.stats.b.id] ? (
+                        <span className={c.effects[scenario.stats.b.id] > 0 ? 'text-success' : 'text-danger'}>
+                          {scenario.stats.b.emoji}{c.effects[scenario.stats.b.id] > 0 ? '↑' : '↓'}
+                        </span>
+                      ) : null}
+                    </div>
+                  )}
+                </div>
               </button>
             ))}
           </div>
@@ -417,11 +458,24 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
           </div>
         )}
       </div>
+
+      {/* 后果系统:状态值变化飘字 */}
+      {floatFx.length > 0 && (
+        <div className="fixed left-1/2 top-32 -translate-x-1/2 z-30 pointer-events-none flex flex-col items-center gap-1">
+          {floatFx.map(f => (
+            <div
+              key={f.key}
+              className={`text-lg font-serif tabular-nums ${f.delta > 0 ? 'text-success' : 'text-danger'}`}
+              style={{ animation: 'stat-float 1.5s ease-out forwards' }}
+            >
+              {f.emoji} {f.delta > 0 ? '+' : ''}{f.delta}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
-
-// 增强 NPC persona prompt
 function enhanceNpcPersona(rawContext: string, npcName: string): string {
   return `${rawContext}\n\n[角色扮演守则]\n- 第一人称（"我"）\n- 符合历史人物的真实性格\n- 不编造确凿不存在的事件\n- 简洁（1-3 段话）\n- 用中文回答\n- 不要解释你是 AI`
 }

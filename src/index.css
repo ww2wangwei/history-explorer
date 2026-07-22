@@ -2,6 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   全局 UI 效果
+   ============================================ */
+
+/* 🔆 Hover shine（扫光）—— 在任意容器加 .shine-on-hover 即可 */
+.shine-on-hover { position: relative; overflow: hidden; }
+.shine-on-hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.16) 50%, transparent 100%);
+  transform: translateX(-120%);
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+.shine-on-hover:hover::before {
+  transform: translateX(120%);
+}
+
+/* 🌫 Glass 玻璃效果 */
+.glass-card {
+  background-color: rgba(26, 24, 20, 0.7);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+}
+
+/* 🔦 Box shadow depth（深度） */
+.depth-1 { box-shadow: 0 1px 2px rgba(0,0,0,0.25); }
+.depth-2 { box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+.depth-3 { box-shadow: 0 4px 16px rgba(0,0,0,0.35); }
+.depth-4 { box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+
+/* 🖱 按下涟漪（focus 增强） */
+.focus-ring:focus-visible {
+  outline: 2px solid theme('colors.bronze.400');
+  outline-offset: 2px;
+  transition: outline-offset 0.15s ease-out;
+}
+
 @layer base {
   html, body, #root {
     height: 100%;
@@ -32,5 +72,11 @@
   }
   .scrollbar-thin::-webkit-scrollbar-track {
     background: transparent;
+  }
+
+  /* 🧵 羊皮纸微纹理 —— 极淡,若隐若现。加在大背景容器上 */
+  .paper-texture {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    background-repeat: repeat;
   }
 }

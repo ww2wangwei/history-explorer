@@ -232,8 +232,17 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
     }
     // 检查是否到结局
     if (next.ending) {
-      // 跳到结局
-      setEndingId(next.ending)
+      // 后果系统:若剧本启用 stats 且存在象限结局,按当前双值选结局
+      let targetEnding = next.ending
+      if (scenario.stats) {
+        const half = scenario.stats.a.max / 2
+        const aHigh = statA >= half
+        const bHigh = statB >= half
+        const quad = `${aHigh ? 'H' : 'L'}${bHigh ? 'H' : 'L'}` as 'HH' | 'HL' | 'LH' | 'LL'
+        const quadEnding = scenario.endings.find(e => e.quadrant === quad)
+        if (quadEnding) targetEnding = quadEnding.id
+      }
+      setEndingId(targetEnding)
       setCurrentSceneId(null)
       // 记录完成
       const s = useLearningPathStore.getState()
@@ -241,9 +250,9 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
       const unique = Array.from(new Set(completed))
       // 支持多结局：每个剧本可解锁多个 ending
       const currentEndings = s.progressByPath.timeTravel.scenarioEndings?.[scenario.id] ?? []
-      const newEndings = currentEndings.includes(next.ending)
+      const newEndings = currentEndings.includes(targetEnding)
         ? currentEndings
-        : [...currentEndings, next.ending]
+        : [...currentEndings, targetEnding]
       const endings = { ...(s.progressByPath.timeTravel.scenarioEndings ?? {}), [scenario.id]: newEndings }
       useLearningPathStore.setState({
         progressByPath: {

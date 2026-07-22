@@ -67,6 +67,10 @@ export default {
       // 字号梯度（已有 Tailwind 预设，这里加 detail）
       fontSize: {
         'label': ['11px', { lineHeight: '14px', letterSpacing: '0.05em' }],
+        // 标题层级（配 font-serif 使用）：字距疏朗 + 行高收紧显庄重
+        'display': ['30px', { lineHeight: '1.15', letterSpacing: '0.02em', fontWeight: '600' }],
+        'heading': ['22px', { lineHeight: '1.2', letterSpacing: '0.015em', fontWeight: '600' }],
+        'subheading': ['15px', { lineHeight: '1.3', letterSpacing: '0.01em', fontWeight: '500' }],
       },
       // 圆角梯度（统一）
       borderRadius: {

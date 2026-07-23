@@ -39,6 +39,7 @@ import { bingImage } from '@/utils/geoImage'
 import bgmLibrary from '@/data/bgmLibrary.json'
 import CharacterAvatar, { PlayerAvatar } from './CharacterAvatar'
 import StatBar from './StatBar'
+import SceneStage from './SceneStage'
 
 const BGM_BY_KEY = bgmLibrary as any
 
@@ -180,6 +181,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
   const playerName = scenario.subtitle.replace(/你是/, '').split(/[，,]/)[0].trim() || scenario.subtitle
 
   const currentScene = scenario.scenes.find(s => s.id === currentSceneId)
+  const currentSceneIndex = scenario.scenes.findIndex(s => s.id === currentSceneId)
   const ending = endingId ? scenario.endings.find(e => e.id === endingId) : null
 
   // 当前场景的 key（用于动画重新触发）
@@ -365,13 +367,12 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
         )}
 
         {/* 场景图 */}
-        <div key={`img-${sceneKey}`} className="mb-4 rounded-lg overflow-hidden border border-ink-700" style={{ aspectRatio: '3/1', animation: 'scene-image-zoom 0.8s ease-out' }}>
-          <img
-            src={sceneImg}
-            alt={currentScene.title}
-            className="w-full h-full object-cover"
-            onLoad={() => setImageLoaded(true)}
-            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+        <div key={`img-${sceneKey}`} className="mb-4 rounded-lg overflow-hidden border border-ink-700" style={{ aspectRatio: '3/1' }}>
+          <SceneStage
+            imageUrl={sceneImg}
+            sceneIndex={currentSceneIndex}
+            color={scenario.color}
+            sceneKey={sceneKey}
           />
         </div>
 

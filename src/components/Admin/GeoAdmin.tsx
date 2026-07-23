@@ -59,7 +59,7 @@ export default function GeoAdmin() {
               value={query}
               onChange={e => setQuery(e.target.value)}
               placeholder="搜索 id / 名称 / 描述..."
-              className="flex-1 px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
+              className="flex-1 px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
             />
             <button
               onClick={() => {
@@ -67,7 +67,7 @@ export default function GeoAdmin() {
                 useAdminStore.getState().createGeo({ id, type: 'region', name: '新建地理条目', labelPos: [0, 0], importance: 1, description: '', geometry: [[0, 0]] } as any)
                 setSelectedId(id)
               }}
-              className="px-3 py-1.5 rounded bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-500/50 text-emerald-200 text-sm whitespace-nowrap"
+              className="px-3 py-1.5 rounded-lg bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-500/50 text-emerald-200 text-sm whitespace-nowrap"
               title="新增条目"
             >
               ➕ 新增
@@ -76,7 +76,7 @@ export default function GeoAdmin() {
           <div className="flex flex-wrap gap-1">
             <button
               onClick={() => setTypeFilter('all')}
-              className={`text-[10px] px-2 py-0.5 rounded border ${typeFilter === 'all' ? 'bg-bronze-700/40 border-bronze-500 text-bronze-200' : 'bg-ink-800 border-ink-600 text-ink-400'}`}
+              className={`text-xs px-2 py-0.5 rounded-lg border ${typeFilter === 'all' ? 'bg-bronze-700/40 border-bronze-500 text-bronze-200' : 'bg-ink-800 border-ink-600 text-ink-400'}`}
             >
               全部 ({merged.length})
             </button>
@@ -87,7 +87,7 @@ export default function GeoAdmin() {
                 <button
                   key={t}
                   onClick={() => setTypeFilter(t)}
-                  className={`text-[10px] px-2 py-0.5 rounded border ${typeFilter === t ? 'bg-bronze-700/40 border-bronze-500 text-bronze-200' : 'bg-ink-800 border-ink-600 text-ink-400'}`}
+                  className={`text-xs px-2 py-0.5 rounded-lg border ${typeFilter === t ? 'bg-bronze-700/40 border-bronze-500 text-bronze-200' : 'bg-ink-800 border-ink-600 text-ink-400'}`}
                 >
                   {GEO_TYPE_LABELS[t]} ({count})
                 </button>
@@ -108,7 +108,7 @@ export default function GeoAdmin() {
         <div className="flex-1 overflow-y-auto">
           {showDeleted ? (
             <>
-              <div className="p-2 text-[10px] text-red-300 bg-red-900/20 border-b border-red-700/30">🚫 已删除条目 ({deletedFeatures.length})</div>
+              <div className="p-2 text-xs text-red-300 bg-red-900/20 border-b border-red-700/30">🚫 已删除条目 ({deletedFeatures.length})</div>
               {deletedFeatures.map(f => (
                 <button
                   key={(f as any).id}
@@ -119,7 +119,7 @@ export default function GeoAdmin() {
                     <span className="text-base">🚫</span>
                     <span className="text-sm text-parchment-50 truncate flex-1 line-through opacity-60">{f.name}</span>
                   </div>
-                  <div className="text-[10px] text-ink-500 truncate mt-0.5">{(f as any).id}</div>
+                  <div className="text-xs text-ink-500 truncate mt-0.5">{(f as any).id}</div>
                 </button>
               ))}
               {deletedFeatures.length === 0 && <div className="p-4 text-center text-ink-500 text-sm">没有已删除条目</div>}
@@ -140,10 +140,10 @@ export default function GeoAdmin() {
                     <div className="flex items-center gap-2">
                       <span className="text-base">{GEO_TYPE_LABELS[f.type]?.split(' ')[0]}</span>
                       <span className="text-sm text-parchment-50 truncate flex-1">{f.name}</span>
-                      {isNew && <span className="text-[9px] text-emerald-400 bg-emerald-900/30 px-1 rounded">新</span>}
-                      {!isNew && edited && <span className="text-[9px] text-amber-400 bg-amber-900/30 px-1 rounded">已编辑</span>}
+                      {isNew && <span className="text-[9px] text-emerald-400 bg-emerald-900/30 px-1 rounded-lg">新</span>}
+                      {!isNew && edited && <span className="text-[9px] text-amber-400 bg-amber-900/30 px-1 rounded-lg">已编辑</span>}
                     </div>
-                    <div className="text-[10px] text-ink-500 truncate mt-0.5">
+                    <div className="text-xs text-ink-500 truncate mt-0.5">
                       {f.id} · {f.labelPos[0].toFixed(1)}, {f.labelPos[1].toFixed(1)}
                     </div>
                   </button>
@@ -258,10 +258,10 @@ function GeoEditForm({ feature }: { feature: GeoFeature }) {
     <div className="p-6 max-w-3xl space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-[10px] text-ink-500 uppercase tracking-wider flex items-center gap-2">
+          <div className="text-xs text-ink-500 uppercase tracking-wider flex items-center gap-2">
             <span>编辑地理条目</span>
-            {isNew && <span className="text-emerald-400 bg-emerald-900/30 px-1.5 rounded">🆕 新建</span>}
-            {isDeleted && <span className="text-red-400 bg-red-900/30 px-1.5 rounded">🚫 已删除</span>}
+            {isNew && <span className="text-emerald-400 bg-emerald-900/30 px-1.5 rounded-lg">🆕 新建</span>}
+            {isDeleted && <span className="text-red-400 bg-red-900/30 px-1.5 rounded-lg">🚫 已删除</span>}
           </div>
           <h2 className="text-2xl font-serif text-bronze-300 mt-1">{feature.name}</h2>
           <code className="text-xs text-ink-500">id: {feature.id}</code>
@@ -270,14 +270,14 @@ function GeoEditForm({ feature }: { feature: GeoFeature }) {
           {isDeleted ? (
             <button
               onClick={handleUndelete}
-              className="px-3 py-1.5 rounded bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-600/50 text-emerald-200 text-xs"
+              className="px-3 py-1.5 rounded-lg bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-600/50 text-emerald-200 text-xs"
             >
               ↩️ 恢复
             </button>
           ) : (
             <button
               onClick={handleDelete}
-              className="px-3 py-1.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-xs"
+              className="px-3 py-1.5 rounded-lg bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-xs"
             >
               🗑️ 删除
             </button>
@@ -285,7 +285,7 @@ function GeoEditForm({ feature }: { feature: GeoFeature }) {
           {isEdited && !isNew && !isDeleted && (
             <button
               onClick={handleReset}
-              className="px-3 py-1.5 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-xs"
+              className="px-3 py-1.5 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-xs"
             >
               ↺ 撤销编辑
             </button>
@@ -312,7 +312,7 @@ function GeoEditForm({ feature }: { feature: GeoFeature }) {
             <button
               key={n}
               onClick={() => setImportance(n)}
-              className={`px-3 py-1 rounded border text-sm ${
+              className={`px-3 py-1 rounded-lg border text-sm ${
                 importance === n
                   ? 'bg-amber-700/40 border-amber-500 text-amber-200'
                   : 'bg-ink-800 border-ink-600 text-ink-400'
@@ -340,24 +340,24 @@ function GeoEditForm({ feature }: { feature: GeoFeature }) {
           rows={6}
           className={inputCls + ' font-sans leading-relaxed'}
         />
-        <div className="text-[10px] text-ink-500 mt-1">{description.length} 字</div>
+        <div className="text-xs text-ink-500 mt-1">{description.length} 字</div>
       </Field>
 
       {/* 图片 */}
       <Field label="图片">
         <div className="space-y-2">
           <div>
-            <div className="text-[10px] text-ink-500 mb-1">搜索关键词（推荐 · 英文更准）</div>
+            <div className="text-xs text-ink-500 mb-1">搜索关键词（推荐 · 英文更准）</div>
             <input value={imageSearch} onChange={e => setImageSearch(e.target.value)} placeholder="如：nile river egypt" className={inputCls} />
-            <div className="text-[10px] text-ink-500 mt-0.5">留空表示不改图片</div>
+            <div className="text-xs text-ink-500 mt-0.5">留空表示不改图片</div>
           </div>
           <div>
-            <div className="text-[10px] text-ink-500 mb-1">或：直接 URL</div>
+            <div className="text-xs text-ink-500 mb-1">或：直接 URL</div>
             <input value={imageUrl} onChange={e => setImageUrl(e.target.value)} placeholder="https://..." className={inputCls + ' font-mono text-xs'} />
           </div>
           {previewUrl && (
-            <div className="mt-2 rounded border border-ink-600 overflow-hidden">
-              <div className="text-[10px] text-ink-500 bg-ink-800 px-2 py-1">预览</div>
+            <div className="mt-2 rounded-lg border border-ink-600 overflow-hidden">
+              <div className="text-xs text-ink-500 bg-ink-800 px-2 py-1">预览</div>
               <img src={previewUrl} alt={feature.name} className="w-full" />
             </div>
           )}
@@ -368,7 +368,7 @@ function GeoEditForm({ feature }: { feature: GeoFeature }) {
       <div className="pt-3 border-t border-ink-700 flex gap-2">
         <button
           onClick={handleSaveAll}
-          className="px-4 py-2 rounded bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-500/50 text-emerald-200 text-sm"
+          className="px-4 py-2 rounded-lg bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-500/50 text-emerald-200 text-sm"
         >
           💾 保存
         </button>
@@ -380,12 +380,12 @@ function GeoEditForm({ feature }: { feature: GeoFeature }) {
   )
 }
 
-const inputCls = 'w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500'
+const inputCls = 'w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500'
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">{label}</div>
+      <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">{label}</div>
       {children}
     </div>
   )

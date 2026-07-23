@@ -53,7 +53,7 @@ export default function GoalSettings({ isOpen, onClose }: Props) {
   return (
     <div
       onClick={onClose}
-      className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
       role="presentation"
     >
       <div
@@ -69,8 +69,9 @@ export default function GoalSettings({ isOpen, onClose }: Props) {
           </h2>
           <button
             onClick={onClose}
-            className="px-2 py-1 text-ink-500 hover:text-parchment-50 hover:bg-red-900/30 rounded transition-colors text-base"
+            className="px-2 py-1 text-ink-500 hover:text-parchment-50 hover:bg-red-900/30 rounded-lg transition-colors text-base"
             title="关闭 (ESC)"
+            aria-label="关闭"
           >
             ✕
           </button>
@@ -88,7 +89,7 @@ export default function GoalSettings({ isOpen, onClose }: Props) {
                 max="100"
                 value={draft}
                 onChange={e => setDraft(Math.max(0, Math.min(100, parseInt(e.target.value || '0', 10))))}
-                className="w-20 px-3 py-2 bg-ink-700/60 border border-ink-600 rounded text-base text-parchment-50 text-center focus:outline-none focus:border-bronze-500"
+                className="w-20 px-3 py-2 bg-ink-700/60 border border-ink-600 rounded-lg text-base text-parchment-50 text-center focus:outline-none focus:border-bronze-500"
               />
               <span className="text-sm text-ink-300">张 / 天</span>
               <span className="text-xs text-ink-500 ml-2">（0 = 关闭目标）</span>
@@ -101,28 +102,28 @@ export default function GoalSettings({ isOpen, onClose }: Props) {
             <div className="flex gap-2 flex-wrap">
               <button
                 onClick={() => handlePreset(3)}
-                className="px-3 py-1.5 text-xs rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-parchment-100 transition-colors"
+                className="px-3 py-1.5 text-xs rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-parchment-100 transition-colors"
               >
                 🌱 初学者
                 <span className="text-ink-500 ml-1">3</span>
               </button>
               <button
                 onClick={() => handlePreset(5)}
-                className="px-3 py-1.5 text-xs rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-parchment-100 transition-colors"
+                className="px-3 py-1.5 text-xs rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-parchment-100 transition-colors"
               >
                 📚 持续
                 <span className="text-ink-500 ml-1">5</span>
               </button>
               <button
                 onClick={() => handlePreset(10)}
-                className="px-3 py-1.5 text-xs rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-parchment-100 transition-colors"
+                className="px-3 py-1.5 text-xs rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-parchment-100 transition-colors"
               >
                 🔥 冲刺
                 <span className="text-ink-500 ml-1">10</span>
               </button>
               <button
                 onClick={() => handlePreset(0)}
-                className="px-3 py-1.5 text-xs rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-400 transition-colors"
+                className="px-3 py-1.5 text-xs rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-400 transition-colors"
               >
                 ⏸ 关闭
               </button>
@@ -141,13 +142,13 @@ export default function GoalSettings({ isOpen, onClose }: Props) {
         <div className="flex justify-end gap-2 px-5 py-4 border-t border-ink-600">
           <button
             onClick={onClose}
-            className="px-4 py-1.5 text-sm rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 transition-colors"
+            className="px-4 py-1.5 text-sm rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 transition-colors"
           >
             取消
           </button>
           <button
             onClick={handleSave}
-            className="px-4 py-1.5 text-sm rounded bg-bronze-600/40 hover:bg-bronze-600/60 border border-bronze-500/60 text-bronze-400 transition-colors"
+            className="px-4 py-1.5 text-sm rounded-lg bg-bronze-600/40 hover:bg-bronze-600/60 border border-bronze-500/60 text-bronze-400 transition-colors"
           >
             保存
           </button>

@@ -384,23 +384,26 @@ export default function Timeline() {
       {/* 缩放控制按钮（右下角） */}
       <div className="absolute right-2 top-1.5 flex gap-1 z-10">
         <button
-          className="w-6 h-6 rounded bg-ink-700/90 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-sm font-bold leading-none"
+          className="w-6 h-6 rounded-lg bg-ink-700/90 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-sm font-bold leading-none"
           onClick={zoomOut}
           title="缩小时间轴"
+          aria-label="缩小时间轴"
         >
           −
         </button>
         <button
-          className="w-6 h-6 rounded bg-ink-700/90 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-[9px] font-bold leading-none"
+          className="w-6 h-6 rounded-lg bg-ink-700/90 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-[9px] font-bold leading-none"
           onClick={resetZoom}
           title="重置缩放"
+          aria-label="重置时间轴缩放"
         >
           ⟲
         </button>
         <button
-          className="w-6 h-6 rounded bg-ink-700/90 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-sm font-bold leading-none"
+          className="w-6 h-6 rounded-lg bg-ink-700/90 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-sm font-bold leading-none"
           onClick={zoomIn}
           title="放大时间轴"
+          aria-label="放大时间轴"
         >
           +
         </button>

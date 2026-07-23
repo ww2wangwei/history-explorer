@@ -7,6 +7,7 @@
  */
 import type { Note } from '@/types/notes'
 import NotesOverviewItem from './NotesOverviewItem'
+import EmptyState from '@/components/ui/EmptyState'
 
 interface Props {
   notes: Note[]
@@ -41,14 +42,12 @@ export default function NotesOverviewList({
   // 空状态：完全没笔记
   if (totalCount === 0) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center text-center px-6 py-10">
-        <div className="text-3xl mb-3 opacity-60">📒</div>
-        <div className="text-sm text-ink-300 mb-2 font-serif">
-          还没有任何笔记
-        </div>
-        <div className="text-xs text-ink-500 leading-relaxed max-w-[280px]">
-          在朝代详情或事件详情页，点击「📝 笔记」标签页可开始记录你的理解、疑问和感悟。
-        </div>
+      <div className="flex-1 flex flex-col items-center justify-center">
+        <EmptyState
+          emoji="📒"
+          title="还没有任何笔记"
+          hint="在朝代详情或事件详情页，点击「📝 笔记」标签页可开始记录你的理解、疑问和感悟。"
+        />
       </div>
     )
   }
@@ -56,14 +55,12 @@ export default function NotesOverviewList({
   // 空状态：有笔记但被过滤掉了
   if (notes.length === 0 && hasFilter) {
     return (
-      <div className="flex-1 flex flex-col items-center justify-center text-center px-6 py-10">
-        <div className="text-3xl mb-3 opacity-60">🔍</div>
-        <div className="text-sm text-ink-300 mb-2 font-serif">
-          没找到匹配的笔记
-        </div>
-        <div className="text-xs text-ink-500 leading-relaxed max-w-[280px]">
-          尝试调整搜索关键词或筛选条件
-        </div>
+      <div className="flex-1 flex flex-col items-center justify-center">
+        <EmptyState
+          emoji="🔍"
+          title="没找到匹配的笔记"
+          hint="尝试调整搜索关键词或筛选条件"
+        />
       </div>
     )
   }
@@ -77,7 +74,7 @@ export default function NotesOverviewList({
         <button
           onClick={onCreate}
           disabled={!canCreate}
-          className={`px-3 py-1 rounded text-xs transition-colors ${
+          className={`px-3 py-1 rounded-lg text-xs transition-colors ${
             canCreate
               ? 'bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/50 text-bronze-400'
               : 'bg-ink-700/60 border border-ink-600 text-ink-500 cursor-not-allowed'

@@ -13,6 +13,7 @@ import { generateRelationships, RELATIONSHIP_STYLES, type Relationship } from '@
 import peopleData from '@/data/people.json'
 import type { Era, HistoricalFigure } from '@/types'
 import erasData from '@/data/eras.json'
+import NodeDetailPanel from './NodeDetailPanel'
 
 const eras = erasData as Era[]
 const people = peopleData as HistoricalFigure[]
@@ -58,8 +59,24 @@ export default function RelationshipGraph({ onClose }: Props) {
   const [nodePositions, setNodePositions] = useState<Record<string, { x: number; y: number }>>({})
   // 是否显示人物层
   const [showPeople, setShowPeople] = useState(false)
+  // 选中节点：显示右侧详情面板，并高亮关联节点
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null)
 
-  const { currentYear, setYear, selectEra } = useHistoryStore()
+  // 缩放 + 平移状态（默认 1.0，可缩放至 0.15x）
+  const [zoom, setZoom] = useState(1)
+  const [pan, setPan] = useState({ x: 0, y: 0 })
+  const isPanningRef = useRef(false)
+  const lastPanRef = useRef({ x: 0, y: 0 })
+  const panStartRef = useRef({ x: 0, y: 0 })
+  // 是否可能是 pan（mousedown 后等用户移动超过 4 像素才正式 pan）
+  const isPotentialDragRef = useRef(false)
+  // 缩放到适合屏幕
+  const fitToScreen = useCallback(() => {
+    setZoom(0.6)
+    setPan({ x: width / 2 * 0.4, y: height / 2 * 0.4 })
+  }, [width, height])
+
+const { currentYear, setYear, selectEra } = useHistoryStore()
 
   // 节点和边数据
   const { nodes, links } = useMemo(() => {
@@ -105,7 +122,7 @@ export default function RelationshipGraph({ onClose }: Props) {
             graphLinks.push({
               source: p.id,
               target: rel.id,
-              relationship: { source: p.id, target: rel.id, type: rel.type === 'rival' ? 'transformation' : 'contemporary', label: rel.type },
+              relationship: { source: p.id, target: rel.id, type: rel.type === 'rival' ? 'transformation' : 'contemporary', label: rel.type === 'rival' ? '对手' : rel.type === 'mentor' ? '师承' : rel.type === 'successor' ? '传承' : rel.type === 'family' ? '家族' : '同代' },
             })
           })
         }
@@ -163,10 +180,52 @@ export default function RelationshipGraph({ onClose }: Props) {
     setNodePositions(initialPositions)
 
     simulationRef.current = sim
+
     return () => {
       sim.stop()
     }
   }, [nodes, links, width, height])
+
+  // 选中节点的所有关系（给 NodeDetailPanel + 高亮使用）
+  const selectedNodeRelations = useMemo(() => {
+    if (!selectedNodeId) return []
+    const relations: {
+      type: import('@/data/relationships').RelationshipType
+      other: { id: string; name: string; emoji?: string; era?: Era }
+      label?: string
+      direction: 'out' | 'in'
+    }[] = []
+    for (const link of links) {
+      const source = link.source as GraphNode
+      const target = link.target as GraphNode
+      let other: GraphNode | null = null
+      let direction: 'out' | 'in' | null = null
+      if (source.id === selectedNodeId) { other = target; direction = 'out' }
+      else if (target.id === selectedNodeId) { other = source; direction = 'in' }
+      if (other && direction) {
+        relations.push({
+          type: link.relationship.type,
+          other: {
+            id: other.id,
+            name: other.era?.name ?? other.figure?.name ?? other.id,
+            emoji: other.emoji,
+            era: other.era,
+          },
+          label: link.relationship.label,
+          direction,
+        })
+      }
+    }
+    return relations
+  }, [selectedNodeId, links])
+
+  // 选中节点关联的节点 id 集合（用于高亮 / 暗化）
+  const relatedNodeIds = useMemo(() => {
+    if (!selectedNodeId) return new Set<string>()
+    const set = new Set<string>([selectedNodeId])
+    for (const r of selectedNodeRelations) set.add(r.other.id)
+    return set
+  }, [selectedNodeId, selectedNodeRelations])
 
   // 监听容器尺寸
   useEffect(() => {
@@ -207,9 +266,12 @@ export default function RelationshipGraph({ onClose }: Props) {
   const handleMouseUp = useCallback((node: GraphNode, e: React.MouseEvent) => {
     e.stopPropagation()
     if (!dragHasMovedRef.current) {
-      // 是点击，触发选择
-      selectEra(node.era.id)
-      setYear(Math.round((node.era.startYear + node.era.endYear) / 2))
+      // 是点击，触发选择 + 详情面板
+      if (node.era) {
+        selectEra(node.era.id)
+        setYear(Math.round((node.era.startYear + node.era.endYear) / 2))
+      }
+      setSelectedNodeId(node.id)
     }
     // 取消固定，让 simulation 自然冷却
     if (simulationRef.current) {
@@ -229,8 +291,10 @@ export default function RelationshipGraph({ onClose }: Props) {
     const handleMove = (e: MouseEvent) => {
       if (!svgRef.current) return
       const rect = svgRef.current.getBoundingClientRect()
-      const x = e.clientX - rect.left
-      const y = e.clientY - rect.top
+      // 关键：节点渲染在 <g translate(pan) scale(zoom)> 内，
+      // 必须把屏幕坐标逆变换回图坐标系，否则缩放/平移后拖动节点会跳位。
+      const x = (e.clientX - rect.left - pan.x) / zoom
+      const y = (e.clientY - rect.top - pan.y) / zoom
 
       // 检查是否真的移动了（避免误判点击为拖拽）
       const node = nodes.find(n => n.id === draggingNodeId)
@@ -273,7 +337,7 @@ export default function RelationshipGraph({ onClose }: Props) {
       window.removeEventListener('mousemove', handleMove)
       window.removeEventListener('mouseup', handleUp)
     }
-  }, [draggingNodeId, nodes, nodePositions])
+  }, [draggingNodeId, nodes, nodePositions, pan, zoom])
 
   // 检查节点在当前年份是否活跃
   const isActive = (era: Era) => currentYear >= era.startYear && currentYear <= era.endYear
@@ -320,6 +384,54 @@ export default function RelationshipGraph({ onClose }: Props) {
         height={height}
         className="block"
         onClick={() => setHighlightedRelationType(null)}
+        onWheel={(e) => {
+          // wheel 缩放：以光标位置为中心
+          e.preventDefault()
+          const rect = svgRef.current!.getBoundingClientRect()
+          const mx = e.clientX - rect.left
+          const my = e.clientY - rect.top
+          const delta = -e.deltaY * 0.0015
+          const newZoom = Math.max(0.15, Math.min(3, zoom * (1 + delta)))
+          // 调整 pan，让光标处的位置保持不动
+          const scale = newZoom / zoom
+          setPan(prev => ({
+            x: mx - (mx - prev.x) * scale,
+            y: my - (my - prev.y) * scale,
+          }))
+          setZoom(newZoom)
+        }}
+        onMouseDown={(e) => {
+          // 中键 / Alt+左键 / 普通左键（空白处） → 启动平移
+          // 节点上的 mouseDown 会 stopPropagation，不会走到这里
+          if (e.button === 1 || e.button === 0) {
+            e.preventDefault()
+            isPanningRef.current = true
+            lastPanRef.current = { x: e.clientX, y: e.clientY }
+            panStartRef.current = { x: e.clientX, y: e.clientY }
+            isPotentialDragRef.current = true
+          }
+        }}
+        onMouseMove={(e) => {
+          if (isPanningRef.current && isPotentialDragRef.current) {
+            const dx = e.clientX - lastPanRef.current.x
+            const dy = e.clientY - lastPanRef.current.y
+            // 超过 4 像素才进入 pan 状态（避免误判点击为拖拽）
+            const totalDx = e.clientX - panStartRef.current.x
+            const totalDy = e.clientY - panStartRef.current.y
+            if (Math.abs(totalDx) > 4 || Math.abs(totalDy) > 4) {
+              setPan(prev => ({ x: prev.x + dx, y: prev.y + dy }))
+              lastPanRef.current = { x: e.clientX, y: e.clientY }
+            }
+          }
+        }}
+        onMouseUp={() => {
+          isPanningRef.current = false
+          isPotentialDragRef.current = false
+        }}
+        onMouseLeave={() => {
+          isPanningRef.current = false
+          isPotentialDragRef.current = false
+        }}
       >
         {/* 透明背景矩形：捕获 SVG 空白点击事件（先于子元素触发） */}
         <rect
@@ -331,6 +443,8 @@ export default function RelationshipGraph({ onClose }: Props) {
           style={{ pointerEvents: 'all' }}
           onClick={() => setHighlightedRelationType(null)}
         />
+        {/* 缩放 + 平移 group：包住所有边和节点 */}
+        <g transform={`translate(${pan.x}, ${pan.y}) scale(${zoom})`}>
         {/* 边 */}
         {links.map((link, i) => {
           const source = link.source as GraphNode
@@ -358,7 +472,8 @@ export default function RelationshipGraph({ onClose }: Props) {
                 strokeWidth={highlighted ? style.width + 0.5 : style.width}
                 strokeDasharray={style.dashArray}
               />
-              {link.relationship.label && highlighted && (
+              {/* 高亮时显示边标签（中文） */}
+              {highlighted && (
                 <text
                   x={labelX}
                   y={labelY}
@@ -368,7 +483,7 @@ export default function RelationshipGraph({ onClose }: Props) {
                   className="pointer-events-none"
                   style={{ paintOrder: 'stroke', stroke: '#0f0e0c', strokeWidth: 2 }}
                 >
-                  {link.relationship.label}
+                  {link.relationship.label ?? style.label}
                 </text>
               )}
             </g>
@@ -384,17 +499,32 @@ export default function RelationshipGraph({ onClose }: Props) {
               <g
                 key={node.id}
                 transform={`translate(${nodePositions[node.id]?.x ?? node.x ?? 0}, ${nodePositions[node.id]?.y ?? node.y ?? 0})`}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: draggingNodeId === node.id ? 'grabbing' : 'grab' }}
                 onMouseEnter={() => setHoveredNodeId(node.id)}
                 onMouseLeave={() => setHoveredNodeId(null)}
               >
                 <title>{`${node.figure?.name} (${node.figure?.role})`}</title>
+                {/* 透明命中区：绑定拖拽（与朝代节点一致） */}
+                <circle
+                  r={(hoveredNodeId === node.id ? 14 : 11) + 6}
+                  fill="transparent"
+                  style={{ cursor: 'pointer', pointerEvents: 'all' }}
+                  onMouseDown={(e) => {
+                    e.stopPropagation()
+                    handleMouseDown(node, e)
+                  }}
+                  onMouseUp={(e) => {
+                    e.stopPropagation()
+                    handleMouseUp(node, e)
+                  }}
+                />
                 <circle
                   r={hoveredNodeId === node.id ? 14 : 11}
                   fill={node.figure?.eraIds[0] ? '#a08050' : '#888'}
                   stroke="#fdf8f0"
                   strokeWidth={1.5}
                   opacity={0.9}
+                  style={{ pointerEvents: 'none' }}
                 />
                 <text
                   textAnchor="middle"
@@ -429,7 +559,9 @@ export default function RelationshipGraph({ onClose }: Props) {
             )
           }
           // 朝代节点（原有逻辑）
-          const active = isActive(node.era)
+          const era = node.era
+          if (!era) return null
+          const active = isActive(era)
           const hovered = hoveredNodeId === node.id
           const r = active ? 22 : hovered ? 20 : 16
 
@@ -458,8 +590,8 @@ export default function RelationshipGraph({ onClose }: Props) {
                   e.stopPropagation()
                   // 点击节点：触发选择（如果没拖动过）
                   if (!dragHasMovedRef.current) {
-                    selectEra(node.era.id)
-                    setYear(Math.round((node.era.startYear + node.era.endYear) / 2))
+                    selectEra(era.id)
+                    setYear(Math.round((era.startYear + era.endYear) / 2))
                   }
                 }}
               />
@@ -468,7 +600,7 @@ export default function RelationshipGraph({ onClose }: Props) {
               {active && (
                 <circle
                   r={r + 8}
-                  fill={node.era.color}
+                  fill={era.color}
                   opacity={0.15}
                   style={{ pointerEvents: 'none' }}
                 />
@@ -482,9 +614,9 @@ export default function RelationshipGraph({ onClose }: Props) {
                 return (
                   <circle
                     r={r}
-                    fill={node.era.color}
+                    fill={era.color}
                     fillOpacity={finalOpacity}
-                    stroke={active || hovered ? '#fdf8f0' : dimmed ? node.era.color : node.era.color}
+                    stroke={active || hovered ? '#fdf8f0' : dimmed ? era.color : era.color}
                     strokeOpacity={dimmed ? 0.3 : 1}
                     strokeWidth={active ? 2 : hovered ? 1.5 : 1}
                     style={{ pointerEvents: 'none' }}
@@ -505,7 +637,7 @@ export default function RelationshipGraph({ onClose }: Props) {
                     opacity={dimmed ? 0.4 : 1}
                     className="pointer-events-none"
                   >
-                    {node.era.name}
+                    {era.name}
                   </text>
                 )
               })()}
@@ -522,19 +654,70 @@ export default function RelationshipGraph({ onClose }: Props) {
                     opacity={dimmed ? 0.3 : 0.7}
                     className="pointer-events-none"
                   >
-                    {node.era.startYear < 0 ? '前' + Math.abs(node.era.startYear) : node.era.startYear}
+                    {era.startYear < 0 ? '前' + Math.abs(era.startYear) : era.startYear}
                     {' ~ '}
-                    {node.era.endYear < 0 ? '前' + Math.abs(node.era.endYear) : node.era.endYear}
+                    {era.endYear < 0 ? '前' + Math.abs(era.endYear) : era.endYear}
                   </text>
                 )
               })()}
             </g>
           )
         })}
+        </g>{/* 闭合 zoom transform group */}
       </svg>
 
+      {/* 节点详情面板 —— 点击节点后显示右侧 */}
+      {selectedNodeId && (() => {
+        const node = nodes.find(n => n.id === selectedNodeId)
+        if (!node) return null
+        return (
+          <NodeDetailPanel
+            node={{
+              id: node.id,
+              kind: node.kind,
+              era: node.era,
+              figure: node.figure,
+              emoji: node.emoji,
+            }}
+            relations={selectedNodeRelations}
+            onSelectNode={(id) => setSelectedNodeId(id)}
+            onClose={() => setSelectedNodeId(null)}
+          />
+        )
+      })()}
+
+      {/* 缩放控制条 —— 浮动在右上角 */}
+      <div className="absolute top-4 right-4 flex flex-col gap-1 z-10">
+        <div className="bg-ink-800/95 backdrop-blur border border-ink-600 rounded-lg shadow-lg overflow-hidden flex flex-col">
+          <button
+            onClick={() => setZoom(z => Math.min(3, z * 1.25))}
+            className="w-8 h-8 flex items-center justify-center text-ink-300 hover:text-bronze-300 hover:bg-ink-700/60 transition-colors"
+            title="放大"
+            aria-label="图谱放大"
+          >＋</button>
+          <div className="px-1 py-0.5 text-center text-xs text-ink-400 tabular-nums border-y border-ink-700">
+            {Math.round(zoom * 100)}%
+          </div>
+          <button
+            onClick={() => setZoom(z => Math.max(0.15, z / 1.25))}
+            className="w-8 h-8 flex items-center justify-center text-ink-300 hover:text-bronze-300 hover:bg-ink-700/60 transition-colors"
+            title="缩小"
+            aria-label="图谱缩小"
+          >−</button>
+          <button
+            onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }) }}
+            className="w-8 h-8 flex items-center justify-center text-xs text-ink-400 hover:text-bronze-300 hover:bg-ink-700/60 border-t border-ink-700 transition-colors"
+            title="重置"
+            aria-label="重置图谱视图"
+          >⟲</button>
+        </div>
+        <div className="text-xs text-ink-500 text-center mt-1 px-1 bg-ink-900/60 rounded">
+          Alt+拖 = 平移
+        </div>
+      </div>
+
       {/* 显示人物 toggle */}
-      <div className="absolute top-4 left-4 px-3 py-2 rounded bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
+      <div className="absolute top-4 left-4 px-3 py-2 rounded-lg bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
         <label className="flex items-center gap-2 cursor-pointer select-none">
           <input
             type="checkbox"
@@ -548,7 +731,7 @@ export default function RelationshipGraph({ onClose }: Props) {
       </div>
 
       {/* 图例：关系类型 */}
-      <div className="absolute top-16 left-4 px-3 py-2 rounded bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
+      <div className="absolute top-16 left-4 px-3 py-2 rounded-lg bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
         <div className="text-ink-500 mb-1.5">关系类型（点击高亮）</div>
         <div className="space-y-1">
           {Object.entries(RELATIONSHIP_STYLES).map(([type, style]) => {
@@ -557,7 +740,7 @@ export default function RelationshipGraph({ onClose }: Props) {
             return (
               <button
                 key={type}
-                className={`w-full text-left px-2 py-1 rounded flex items-center gap-2 transition-colors ${
+                className={`w-full text-left px-2 py-1 rounded-lg flex items-center gap-2 transition-colors ${
                   active ? 'bg-ink-700' : 'hover:bg-ink-700/50'
                 }`}
                 onClick={() => setHighlightedRelationType(active ? null : type)}
@@ -570,8 +753,8 @@ export default function RelationshipGraph({ onClose }: Props) {
                     strokeDasharray={style.dashArray}
                   />
                 </svg>
-                <span className="flex-1 text-[10px]">{style.label}</span>
-                <span className="text-[10px] text-ink-500">{count}</span>
+                <span className="flex-1 text-xs">{style.label}</span>
+                <span className="text-xs text-ink-500">{count}</span>
               </button>
             )
           })}
@@ -579,7 +762,7 @@ export default function RelationshipGraph({ onClose }: Props) {
       </div>
 
       {/* 统计信息 */}
-      <div className="absolute top-4 right-4 px-3 py-2 rounded bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
+      <div className="absolute top-4 right-4 px-3 py-2 rounded-lg bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
         <div className="text-ink-500 mb-1">图谱统计</div>
         <div className="grid grid-cols-2 gap-x-3 gap-y-0.5">
           <span>节点：</span><span className="text-bronze-400 tabular-nums">{nodes.length}</span>
@@ -589,14 +772,14 @@ export default function RelationshipGraph({ onClose }: Props) {
             {nodes.filter(n => n.era && isActive(n.era)).length}
           </span>
         </div>
-        <div className="mt-2 pt-2 border-t border-ink-700 text-[10px] text-ink-500">
+        <div className="mt-2 pt-2 border-t border-ink-700 text-xs text-ink-500">
           当前：{currentYear < 0 ? '前' + Math.abs(currentYear) : currentYear} 年
         </div>
       </div>
 
       {/* 操作提示 */}
-      <div className="absolute bottom-4 right-4 px-3 py-1.5 rounded bg-ink-800/90 backdrop-blur border border-ink-600 text-[10px] text-ink-500 z-10">
-        拖动节点调整位置 · 点击查看朝代详情 · 拖动空白平移整个图谱
+      <div className="absolute bottom-4 right-4 px-3 py-1.5 rounded-lg bg-ink-800/90 backdrop-blur border border-ink-600 text-xs text-ink-500 z-10">
+        拖动节点调整位置 · 滚轮缩放 · 拖动空白平移图谱 · 点击节点看关联关系
       </div>
     </div>
   )

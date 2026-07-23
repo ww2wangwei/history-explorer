@@ -63,20 +63,26 @@ export function generateRelationships(): Relationship[] {
     }
   })
 
-  // 同时期并存（不同 region 且时间重叠）
+  // 同时期并存（不同 region 且时间重叠达到阈值）
+  // 只有当两个政权的实际重叠年数 >= MIN_OVERLAP_YEARS 时才算"同时期"，
+  // 避免仅仅擦边（如法国 843 起 与唐朝 907 止只重叠数十年）也生成大量无意义连线。
+  const MIN_OVERLAP_YEARS = 80
   const eraList = eras.slice()
   for (let i = 0; i < eraList.length; i++) {
     for (let j = i + 1; j < eraList.length; j++) {
       const a = eraList[i]
       const b = eraList[j]
       if (a.region === b.region) continue
-      // 时间重叠
-      if (!(a.endYear < b.startYear || b.endYear < a.startYear)) {
+      // 重叠区间 = [max(start), min(end)]，重叠年数 = min(end) - max(start)
+      const overlapStart = Math.max(a.startYear, b.startYear)
+      const overlapEnd = Math.min(a.endYear, b.endYear)
+      const overlapYears = overlapEnd - overlapStart
+      if (overlapYears >= MIN_OVERLAP_YEARS) {
         relationships.push({
           source: a.id,
           target: b.id,
           type: 'contemporary',
-          label: `并存于 ${Math.max(a.startYear, b.startYear) < 0 ? '前' + Math.abs(Math.max(a.startYear, b.startYear)) : Math.max(a.startYear, b.startYear)}`,
+          label: `并存于 ${overlapStart < 0 ? '前' + Math.abs(overlapStart) : overlapStart}`,
         })
       }
     }

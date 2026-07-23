@@ -1,6 +1,8 @@
 /**
  * FiguresOverview — 全人物全屏浏览页
  * 与 NotesOverview variant="page" 同模式
+ *
+ * 卡片渲染使用共享 PersonCard（与 Dashboard 选人物弹窗同一个组件）
  */
 import { useEffect, useMemo, useRef, useState } from 'react'
 import peopleData from '@/data/people.json'
@@ -10,8 +12,13 @@ import { useLearningPathStore } from '@/store/useLearningPathStore'
 import { useAIStore } from '@/store/useAIStore'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
 import { enhancePersonaPrompt } from '@/utils/useLearningContext'
-import { bingImage, personSearchKeywords, fallbackKeyword } from '@/utils/geoImage'
+import PersonCard, { PERSON_CATEGORY_LABEL } from './PersonCard'
 import PersonDetailDialog from './PersonDetailDialog'
+import EmptyState from '@/components/ui/EmptyState'
+import OverviewLayout from '@/components/ui/OverviewLayout'
+import RegionFilter from '@/components/ui/RegionFilter'
+import OverviewSearch from '@/components/ui/OverviewSearch'
+import { useStaggerEntrance } from '@/hooks/useStaggerEntrance'
 
 const people = peopleData as HistoricalFigure[]
 const eras = erasData as Era[]
@@ -26,16 +33,7 @@ interface Props {
 type RegionFilter = 'all' | 'china' | 'world'
 type CategoryFilter = 'all' | FigureCategory
 
-const CATEGORY_LABEL: Record<FigureCategory, { icon: string; label: string; color: string }> = {
-  politician: { icon: '👑', label: '政治家', color: '#c89a5b' },
-  military:   { icon: '⚔️', label: '军事家', color: '#b85450' },
-  thinker:    { icon: '📚', label: '思想家', color: '#9b7eb6' },
-  literati:   { icon: '✒️', label: '文人/艺术家', color: '#5b9bc8' },
-  scientist:  { icon: '🔬', label: '科学家', color: '#5bc89a' },
-  reformer:   { icon: '⚖️', label: '改革家', color: '#c8a85b' },
-  explorer:   { icon: '🚢', label: '探险家', color: '#5b8fc8' },
-  religious:  { icon: '☸️', label: '宗教人物', color: '#c89a8a' },
-}
+const CATEGORY_LABEL = PERSON_CATEGORY_LABEL
 
 export default function FiguresOverview({ isActive, onClose, initialPersonId }: Props) {
   const [region, setRegion] = useState<RegionFilter>('all')
@@ -80,8 +78,6 @@ export default function FiguresOverview({ isActive, onClose, initialPersonId }: 
     window.addEventListener('keydown', handler, true)
     return () => window.removeEventListener('keydown', handler, true)
   }, [isActive, selectedPerson, onClose])
-
-  if (!isActive) return null
 
   // 筛选 + 搜索
   const filtered = useMemo(() => {
@@ -135,111 +131,86 @@ export default function FiguresOverview({ isActive, onClose, initialPersonId }: 
   const visitedCount = visitedFigureIds.length
   const total = people.length
 
+  // 人物卡片网格容器 — GSAP stagger 进场
+  const figureCardsRef = useRef<HTMLDivElement | null>(null)
+  useStaggerEntrance(figureCardsRef, '.person-card', [region, category, query, filtered.length])
+
+  if (!isActive) return null
+
   return (
-    <div className="w-full h-full bg-ink-900 overflow-y-auto">
-      {/* 头部 */}
-      <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-bronze-500/40">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <h2 className="text-2xl font-serif text-bronze-300">👥 全人物</h2>
-              <p className="text-xs text-ink-500 mt-1">
-                {visitedCount >= total
-                  ? `🎉 你已了解所有 ${total} 位历史人物！`
-                  : `已了解 ${visitedCount} / ${total} 位历史人物`}
-              </p>
-            </div>
+    <OverviewLayout
+      emoji="👥"
+      title="全人物"
+      subtitle={
+        visitedCount >= total
+          ? `🎉 你已了解所有 ${total} 位历史人物！`
+          : `已了解 ${visitedCount} / ${total} 位历史人物`
+      }
+      onClose={onClose}
+      suppressEsc
+      toolbar={
+        <div className="flex flex-wrap items-center gap-3">
+          {/* 区域 */}
+          <RegionFilter value={region} onChange={setRegion} />
+
+          {/* 分类 — chips 风格（可显示每个分类下的人数） */}
+          <div className="flex flex-wrap items-center gap-1.5">
             <button
-              onClick={onClose}
-              className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
-              title="返回 Dashboard (ESC)"
+              onClick={() => setCategory('all')}
+              className={`text-xs px-2.5 py-1 rounded-lg border transition-colors ${
+                category === 'all'
+                  ? 'bg-bronze-600/40 text-bronze-300 border-bronze-500/60'
+                  : 'bg-ink-700/60 text-ink-400 border-ink-600 hover:text-parchment-50'
+              }`}
             >
-              ×
+              全部 <span className="text-ink-500 ml-1">({people.length})</span>
             </button>
-          </div>
-
-          {/* 筛选条 */}
-          <div className="flex flex-wrap items-center gap-3">
-            {/* 区域 */}
-            <div className="flex rounded bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
-              {(['all', 'china', 'world'] as const).map(r => (
+            {(Object.keys(CATEGORY_LABEL) as FigureCategory[]).map(cat => {
+              const count = people.filter(p => p.category === cat).length
+              if (count === 0) return null
+              const meta = CATEGORY_LABEL[cat]
+              return (
                 <button
-                  key={r}
-                  onClick={() => setRegion(r)}
-                  className={`px-3 py-1.5 transition-colors ${
-                    region === r
-                      ? 'bg-bronze-600/40 text-bronze-300'
-                      : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'
+                  key={cat}
+                  onClick={() => setCategory(cat)}
+                  className={`text-xs px-2.5 py-1 rounded-lg border transition-colors ${
+                    category === cat
+                      ? 'border-bronze-500/60'
+                      : 'bg-ink-700/60 text-ink-400 border-ink-600 hover:text-parchment-50'
                   }`}
+                  style={category === cat ? { background: meta.color + '30', color: meta.color } : undefined}
+                  title={meta.label}
                 >
-                  {r === 'all' ? '全部' : r === 'china' ? '🇨🇳 中国' : '🌍 世界'}
+                  {meta.icon} {meta.label} <span className="text-ink-500 ml-1">({count})</span>
                 </button>
-              ))}
-            </div>
-
-            {/* 分类 — chips 风格（可显示每个分类下的人数） */}
-            <div className="flex flex-wrap items-center gap-1.5">
-              <button
-                onClick={() => setCategory('all')}
-                className={`text-xs px-2.5 py-1 rounded border transition-colors ${
-                  category === 'all'
-                    ? 'bg-bronze-600/40 text-bronze-300 border-bronze-500/60'
-                    : 'bg-ink-700/60 text-ink-400 border-ink-600 hover:text-parchment-50'
-                }`}
-              >
-                全部 <span className="text-ink-500 ml-1">({people.length})</span>
-              </button>
-              {(Object.keys(CATEGORY_LABEL) as FigureCategory[]).map(cat => {
-                const count = people.filter(p => p.category === cat).length
-                if (count === 0) return null
-                const meta = CATEGORY_LABEL[cat]
-                return (
-                  <button
-                    key={cat}
-                    onClick={() => setCategory(cat)}
-                    className={`text-xs px-2.5 py-1 rounded border transition-colors ${
-                      category === cat
-                        ? 'border-bronze-500/60'
-                        : 'bg-ink-700/60 text-ink-400 border-ink-600 hover:text-parchment-50'
-                    }`}
-                    style={category === cat ? { background: meta.color + '30', color: meta.color } : undefined}
-                    title={meta.label}
-                  >
-                    {meta.icon} {meta.label} <span className="text-ink-500 ml-1">({count})</span>
-                  </button>
-                )
-              })}
-            </div>
-
-            {/* 搜索 */}
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="搜索名字/角色/简介..."
-              className="flex-1 min-w-[180px] text-xs px-3 py-1.5 bg-ink-700/60 border border-ink-600 rounded text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
-            />
+              )
+            })}
           </div>
+
+          {/* 搜索 */}
+          <OverviewSearch value={query} onChange={setQuery} placeholder="搜索名字/角色/简介..." minWidth={180} />
         </div>
-      </div>
-
+      }
+    >
       {/* 卡片网格 */}
-      <div className="max-w-6xl mx-auto px-6 py-6">
-        {filtered.length === 0 ? (
-          <div className="text-center text-ink-500 py-12">未找到匹配的人物</div>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {filtered.map(p => (
-              <PersonCard
-                key={p.id}
-                person={p}
-                visited={visitedFigureIds.includes(p.id)}
-                onClick={() => handlePersonClick(p)}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      {filtered.length === 0 ? (
+        <EmptyState
+          emoji="🔍"
+          title="未找到匹配的人物"
+          hint="试试切换分类、地区筛选，或调整搜索关键词"
+        />
+      ) : (
+        <div ref={figureCardsRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
+          {filtered.map(p => (
+            <PersonCard
+              key={p.id}
+              person={p}
+              visited={visitedFigureIds.includes(p.id)}
+              onClick={() => handlePersonClick(p)}
+            />
+          ))}
+        </div>
+      )}
 
       {/* 详情弹窗 */}
       {selectedPerson && (
@@ -249,97 +220,6 @@ export default function FiguresOverview({ isActive, onClose, initialPersonId }: 
           onChat={() => handleChat(selectedPerson)}
         />
       )}
-    </div>
-  )
-}
-
-function PersonCard({ person, visited, onClick }: {
-  person: HistoricalFigure
-  visited: boolean
-  onClick: () => void
-}) {
-  const eraNames = person.eraIds
-    .map(eid => eras.find(e => e.id === eid))
-    .filter((e): e is Era => Boolean(e))
-  const catMeta = CATEGORY_LABEL[person.category]
-  const kw = personSearchKeywords[person.id] ?? fallbackKeyword(person.name, person.category)
-  // 横向缩略图（与全战争/全文化/全地理统一：400x240）
-  const img = bingImage(kw, 400, 240)
-  const years = (() => {
-    if (person.birthYear && person.deathYear) {
-      const b = person.birthYear < 0 ? `BC ${-person.birthYear}` : `${person.birthYear}`
-      const d = person.deathYear < 0 ? `BC ${-person.deathYear}` : `${person.deathYear}`
-      return `${b} ~ ${d}`
-    }
-    return null
-  })()
-
-  return (
-    <button
-      onClick={onClick}
-      className="text-left rounded-lg bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-700/60 transition-all relative group overflow-hidden flex"
-    >
-      {/* 左：缩略图（统一 128px 宽） */}
-      <div className="relative w-32 flex-shrink-0 bg-ink-900 overflow-hidden">
-        {/* emoji 永远显示在背景 */}
-        <div className="absolute inset-0 flex items-center justify-center text-3xl select-none pointer-events-none">
-          {person.emoji || '👤'}
-        </div>
-        {/* img 加载成功时覆盖在 emoji 上 */}
-        <img
-          src={img}
-          alt={person.name}
-          className="relative w-full h-full object-cover"
-          onError={(e) => {
-            // 图片加载失败：保留空间，显示 emoji fallback
-            const el = e.target as HTMLImageElement
-            el.style.display = 'none'
-            const parent = el.parentElement
-            if (parent && !parent.querySelector('.img-fallback')) {
-              const fb = document.createElement('div')
-              fb.className = 'img-fallback w-full h-full flex items-center justify-center text-3xl bg-ink-900'
-              fb.textContent = person.emoji || '👤'
-              parent.appendChild(fb)
-            }
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-ink-800/30 pointer-events-none" />
-        {/* 已了解对勾 */}
-        {visited && (
-          <span className="absolute top-1.5 right-1.5 text-green-400 text-sm bg-ink-900/70 backdrop-blur w-5 h-5 rounded-full flex items-center justify-center" title="已了解">✓</span>
-        )}
-      </div>
-      {/* 右：信息 */}
-      <div className="flex-1 p-3 min-w-0">
-        <div className="flex items-center gap-2 mb-1 flex-wrap">
-          <span
-            className="text-lg w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
-            style={{ background: catMeta.color + '25' }}
-            title={catMeta.label}
-          >
-            {catMeta.icon}
-          </span>
-          <span className="text-sm font-serif text-parchment-50 truncate flex-1">{person.name}</span>
-        </div>
-        <div className="text-[10px] text-ink-500 mb-1 truncate">
-          {years ? `${years} · ${person.role.slice(0, 24)}${person.role.length > 24 ? '…' : ''}` : person.role.slice(0, 30)}
-        </div>
-        <div className="text-[10px] text-ink-400 line-clamp-2 leading-relaxed mb-1">{person.description?.slice(0, 60)}{person.description && person.description.length > 60 ? '…' : ''}</div>
-        <div className="flex flex-wrap gap-1 mt-1">
-          {eraNames.slice(0, 2).map(e => (
-            <span
-              key={e.id}
-              className="text-[9px] px-1.5 py-0.5 rounded"
-              style={{ background: e.color + '20', color: e.color }}
-            >
-              {e.name}
-            </span>
-          ))}
-          {eraNames.length > 2 && (
-            <span className="text-[9px] text-ink-500">+{eraNames.length - 2}</span>
-          )}
-        </div>
-      </div>
-    </button>
+    </OverviewLayout>
   )
 }

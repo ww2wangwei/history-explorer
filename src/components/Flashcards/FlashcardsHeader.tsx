@@ -19,7 +19,7 @@ export default function FlashcardsHeader({ total, current, onClose }: Props) {
           第 <span className="text-parchment-50">{current + 1}</span> / {total} 张
         </span>
         <div className="flex-1 max-w-md mx-4">
-          <div className="h-1.5 bg-ink-700 rounded overflow-hidden">
+          <div className="h-1.5 bg-ink-700 rounded-lg overflow-hidden">
             <div
               className="h-full bg-bronze-500 transition-all duration-300"
               style={{ width: `${percent}%` }}
@@ -29,8 +29,9 @@ export default function FlashcardsHeader({ total, current, onClose }: Props) {
       </div>
       <button
         onClick={onClose}
-        className="px-2 py-1 text-ink-500 hover:text-parchment-50 hover:bg-red-900/30 rounded transition-colors text-base"
+        className="px-2 py-1 text-ink-500 hover:text-parchment-50 hover:bg-red-900/30 rounded-lg transition-colors text-base"
         title="退出复习 (ESC)"
+        aria-label="退出复习"
       >
         ✕
       </button>

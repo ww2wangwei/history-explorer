@@ -55,7 +55,7 @@ export default function FlashcardsComplete({
                 {todayReviewed} / {target}（{progressPct}%）
               </span>
             </div>
-            <div className="h-2 bg-ink-700/60 rounded overflow-hidden">
+            <div className="h-2 bg-ink-700/60 rounded-lg overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-emerald-500 to-bronze-400 transition-all duration-500"
                 style={{ width: `${progressPct}%` }}
@@ -66,14 +66,14 @@ export default function FlashcardsComplete({
 
         {/* 目标进度（未达成，显示进度条） */}
         {goalEnabled && !goalReached && (
-          <div className="mb-6 px-4 py-2 rounded bg-ink-700/30 border border-ink-600 max-w-sm w-full">
+          <div className="mb-6 px-4 py-2 rounded-lg bg-ink-700/30 border border-ink-600 max-w-sm w-full">
             <div className="flex items-center justify-between text-xs text-ink-400 mb-1">
               <span>🎯 今日进度</span>
               <span className="tabular-nums">
                 {todayReviewed} / {target}
               </span>
             </div>
-            <div className="h-1.5 bg-ink-700/60 rounded overflow-hidden">
+            <div className="h-1.5 bg-ink-700/60 rounded-lg overflow-hidden">
               <div
                 className="h-full bg-bronze-500/70 transition-all duration-500"
                 style={{ width: `${progressPct}%` }}
@@ -84,19 +84,19 @@ export default function FlashcardsComplete({
 
         {/* 统计卡片 */}
         <div className="grid grid-cols-2 gap-4 max-w-sm w-full mb-8">
-          <div className="px-4 py-3 rounded bg-ink-700/40 border border-ink-600">
+          <div className="px-4 py-3 rounded-lg bg-ink-700/40 border border-ink-600">
             <div className="text-xs text-ink-500 mb-1">复习数量</div>
             <div className="text-2xl font-serif text-parchment-50">{totalReviewed}</div>
           </div>
-          <div className="px-4 py-3 rounded bg-ink-700/40 border border-ink-600">
+          <div className="px-4 py-3 rounded-lg bg-ink-700/40 border border-ink-600">
             <div className="text-xs text-ink-500 mb-1">掌握率</div>
             <div className="text-2xl font-serif text-bronze-400">{masteredRate}%</div>
           </div>
-          <div className="px-4 py-3 rounded bg-red-900/20 border border-red-700/40">
+          <div className="px-4 py-3 rounded-lg bg-red-900/20 border border-red-700/40">
             <div className="text-xs text-red-400 mb-1">忘了</div>
             <div className="text-2xl font-serif text-red-300">{counts.forgot}</div>
           </div>
-          <div className="px-4 py-3 rounded bg-emerald-900/20 border border-emerald-700/40">
+          <div className="px-4 py-3 rounded-lg bg-emerald-900/20 border border-emerald-700/40">
             <div className="text-xs text-emerald-400 mb-1">轻松</div>
             <div className="text-2xl font-serif text-emerald-300">{counts.easy}</div>
           </div>
@@ -105,13 +105,13 @@ export default function FlashcardsComplete({
         <div className="flex gap-3">
           <button
             onClick={() => setShowStats(true)}
-            className="px-6 py-2 text-sm rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-bronze-400 transition-colors"
+            className="px-6 py-2 text-sm rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-bronze-400 transition-colors"
           >
             📊 查看统计
           </button>
           <button
             onClick={onClose}
-            className="px-6 py-2 text-sm rounded bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/60 text-bronze-400 transition-colors"
+            className="px-6 py-2 text-sm rounded-lg bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/60 text-bronze-400 transition-colors"
           >
             ← 返回地图
           </button>

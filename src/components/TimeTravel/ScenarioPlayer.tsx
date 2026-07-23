@@ -32,12 +32,12 @@ const styleEl = typeof document !== 'undefined' ? (() => {
   return s
 })() : null
 import scenariosData from '@/data/scenarios.json'
-import { useLearningPathStore } from '@/store/useLearningPathStore'
-import { useAIStore } from '@/store/useAIStore'
 import { audioEngine, pickBGMForScene, pickBGMForScenario } from '@/utils/audioEngine'
 import { bingImage } from '@/utils/geoImage'
 import bgmLibrary from '@/data/bgmLibrary.json'
 import CharacterAvatar, { PlayerAvatar } from './CharacterAvatar'
+import { useLearningPathStore } from '@/store/useLearningPathStore'
+import { useAIStore } from '@/store/useAIStore'
 import StatBar from './StatBar'
 import SceneStage from './SceneStage'
 
@@ -140,7 +140,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
     return () => { audioEngine.stopBGM() }
   }, [scenario])
 
-  // 场景变化时交叉淡入 BGM（保持连续不断）
+  // 场景变化时交叉淡入 BGM（保持连续不断）+ 朗读场景文字
   useEffect(() => {
     if (currentSceneId && scenario) {
       const scene = scenario.scenes.find(s => s.id === currentSceneId)
@@ -151,8 +151,11 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
         const urls = entry?.urls || []
         audioEngine.crossfadeBGM(urls, 1.2)
         audioEngine.playPageTurn()
+        // 朗读：拼接 标题 + 正文，浏览器原生中文 TTS
+        speakScene(`${scene.title}。${scene.text}`)
       }
     }
+    return () => { stopSpeak() }
   }, [currentSceneId, scenario])
 
   // 结局时停 BGM + 播放结局音
@@ -405,7 +408,6 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
               <div className="text-xs text-purple-300 uppercase tracking-wider mb-1">场景 NPC</div>
               <div className="text-base text-parchment-50 font-serif">
                 <strong>{currentScene.npcName}</strong>
-                <span className="text-ink-400 text-sm ml-2">{currentScene.npcRole}</span>
               </div>
             </div>
             <button
@@ -496,15 +498,102 @@ function enhanceNpcPersona(rawContext: string, npcName: string): string {
   return `${rawContext}\n\n[角色扮演守则]\n- 第一人称（"我"）\n- 符合历史人物的真实性格\n- 不编造确凿不存在的事件\n- 简洁（1-3 段话）\n- 用中文回答\n- 不要解释你是 AI`
 }
 
+// ============= 朗读（Edge TTS 代理 — localhost:4370）=============
+const TTS_PROXY = 'http://127.0.0.1:4370'
+const MALE_VOICES = [
+  'zh-CN-YunyangNeural',   // 云扬 — 浑厚新闻男声
+  'zh-CN-YunjianNeural',   // 云剑 — 沉稳男声
+  'zh-CN-YunxiNeural',     // 云希 — 青年男声
+  'zh-CN-YunxiaNeural',    // 云夏 — 温和男声
+]
+
+let activeAudio: HTMLAudioElement | null = null
+let ttsAbortController: AbortController | null = null
+
+async function speakScene(text: string) {
+  if (typeof window === 'undefined') return
+  if ((window as any).__ttsEnabled === false) return
+
+  stopSpeak()
+
+  const cleanText = text.replace(/<[^>]+>/g, '').slice(0, 3000)
+  ttsAbortController = new AbortController()
+  const signal = ttsAbortController.signal
+
+  for (const voice of MALE_VOICES) {
+    if (signal.aborted) return
+    try {
+      const params = new URLSearchParams({ text: cleanText, voice, rate: '-5%', pitch: '-5Hz' })
+      const resp = await fetch(`${TTS_PROXY}/speak?${params}`, { signal })
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`)
+
+      const blob = await resp.blob()
+      if (signal.aborted) return
+      if (blob.size === 0) throw new Error('Empty response')
+
+      const url = URL.createObjectURL(blob)
+      activeAudio = new Audio(url)
+      activeAudio.volume = 0.85
+      activeAudio.onended = () => {
+        if (activeAudio?.src === url) URL.revokeObjectURL(url)
+      }
+      await activeAudio.play()
+      if (import.meta.env.DEV) console.log('[TTS] proxy OK:', voice, blob.size, 'bytes')
+      return // 成功
+    } catch (e) {
+      if ((e as Error).name === 'AbortError') return
+      if (import.meta.env.DEV) console.warn(`[TTS] proxy ${voice} 失败:`, (e as Error).message)
+    }
+  }
+
+  // 回退：浏览器 SpeechSynthesis
+  fallbackSpeak(cleanText)
+}
+
+function fallbackSpeak(text: string) {
+  if (!window.speechSynthesis) return
+  window.speechSynthesis.cancel()
+  const u = new SpeechSynthesisUtterance(text)
+  u.lang = 'zh-CN'
+  u.rate = 0.9
+  u.pitch = 0.7
+  u.volume = 0.85
+
+  const voices = window.speechSynthesis.getVoices()
+  const FEMALE_NAMES = [
+    'Xiaoxiao', 'Xiaoyi', 'Xiaobei', 'Xiaohan', 'Xiaomeng', 'Xiaoshuang', 'Xiaochen',
+    'Huihui', 'Yaoyao', 'Hanhan', 'Lili', 'Xixi', 'Lingling', 'Shanshan',
+    'Xinyi', 'Yuhan', 'Yueyue', 'Female', '女',
+  ]
+  const zhCN = voices.filter(v => v.lang.startsWith('zh-CN'))
+  const male = zhCN.find(v => !FEMALE_NAMES.some(f => v.name.includes(f))) ?? null
+  if (male) u.voice = male
+  window.speechSynthesis.speak(u)
+}
+
+function stopSpeak() {
+  if (ttsAbortController) { ttsAbortController.abort(); ttsAbortController = null }
+  if (activeAudio) { activeAudio.pause(); activeAudio.currentTime = 0; activeAudio = null }
+  if (typeof window !== 'undefined' && window.speechSynthesis) {
+    window.speechSynthesis.cancel()
+  }
+}
+
 // 音量控制（极简）
 function VolumeControl() {
   const [muted, setMuted] = useState(audioEngine.isMuted())
   const [vol, setVol] = useState(audioEngine.getVolume())
+  const [speaking, setSpeaking] = useState(true)
 
   const toggleMuted = () => {
     const m = !muted
     setMuted(m)
     audioEngine.setMuted(m)
+  }
+  const toggleSpeaking = () => {
+    const next = !speaking
+    setSpeaking(next)
+    if (!next) stopSpeak()
   }
   const onVolChange = (v: number) => {
     setVol(v)
@@ -512,15 +601,19 @@ function VolumeControl() {
     if (muted && v > 0) { setMuted(false); audioEngine.setMuted(false) }
   }
 
+  // 朗读状态暴露到模块级
+  ;(window as any).__ttsEnabled = speaking ? true : false
+
   return (
     <div className="flex items-center gap-1.5 bg-ink-800/60 backdrop-blur border border-ink-600 rounded-full px-2 py-1">
       <button
-        onClick={toggleMuted}
-        className="text-base hover:scale-110 transition-transform"
-        title={muted ? '取消静音' : '静音'}
+        onClick={toggleSpeaking}
+        className="text-xs hover:scale-105 transition-transform px-1"
+        title={speaking ? '关闭朗读' : '开启朗读'}
       >
-        {muted ? '🔇' : '🔊'}
+        {speaking ? '🔊 朗读' : '🔇 静读'}
       </button>
+      <div className="w-px h-4 bg-ink-600" />
       <input
         type="range"
         min="0" max="1" step="0.05"

@@ -617,12 +617,12 @@ export default function WorldMap() {
 
         {/* 当前朝代信息 */}
       {activeChinaEra && (
-        <div className="absolute top-4 left-4 px-3 py-2 rounded bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
+        <div className="absolute top-4 left-4 px-3 py-2 rounded-lg bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
           <div className="text-ink-500 mb-1">中国朝代</div>
           <div className="text-bronze-400 font-serif text-base">
             {activeChinaEra.name}
           </div>
-          <div className="text-ink-500 text-[10px] mt-1">
+          <div className="text-ink-500 text-xs mt-1">
             {activeChinaEra.startYear < 0 ? '公元前' : ''}{Math.abs(activeChinaEra.startYear)} – {activeChinaEra.endYear < 0 ? '公元前' : ''}{Math.abs(activeChinaEra.endYear)}
           </div>
         </div>
@@ -630,19 +630,19 @@ export default function WorldMap() {
 
       {/* 同时期活跃文明（带透明度调节） — 可收起 */}
       {activeEras.length > 0 && (
-        <div className={`absolute bottom-4 left-4 ${erasPanelOpen ? 'max-w-md' : ''} px-3 py-2 rounded bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg transition-[max-width] duration-200`}>
+        <div className={`absolute bottom-4 left-4 ${erasPanelOpen ? 'max-w-md' : ''} px-3 py-2 rounded-lg bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg transition-[max-width] duration-200`}>
           <div className="flex items-center justify-between mb-1.5">
             <button
               className="flex items-center gap-1.5 text-ink-500 hover:text-parchment-50 transition-colors"
               onClick={() => setErasPanelOpen(o => !o)}
               title={erasPanelOpen ? '收起' : '展开'}
             >
-              <span className="text-[10px] leading-none">{erasPanelOpen ? '▼' : '▶'}</span>
+              <span className="text-xs leading-none">{erasPanelOpen ? '▼' : '▶'}</span>
               <span>同时活跃文明（{activeEras.length}）</span>
             </button>
             {Object.keys(eraOpacities).length > 0 && erasPanelOpen && (
               <button
-                className="text-[10px] text-ink-500 hover:text-parchment-50 underline"
+                className="text-xs text-ink-500 hover:text-parchment-50 underline"
                 onClick={resetEraOpacities}
               >
                 重置透明度
@@ -657,14 +657,14 @@ export default function WorldMap() {
                 return (
                   <div
                     key={era.id}
-                    className="flex items-center gap-1.5 px-2 py-1 rounded"
+                    className="flex items-center gap-1.5 px-2 py-1 rounded-lg"
                     style={{
                       background: `${era.color}30`,
                       border: `1px solid ${era.color}${isCustomized ? 'cc' : '60'}`,
                     }}
                   >
                     <button
-                      className="text-[10px] font-medium"
+                      className="text-xs font-medium"
                       style={{ color: era.color }}
                       onClick={() => selectEra(era.id)}
                     >
@@ -694,22 +694,22 @@ export default function WorldMap() {
       )}
 
       {/* 事件计数 */}
-      <div className="absolute top-4 right-4 px-3 py-2 rounded bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
+      <div className="absolute top-4 right-4 px-3 py-2 rounded-lg bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
         <div className="text-ink-500">±{timeWindow} 年内事件</div>
         <div className="text-bronze-400 text-lg font-serif">{visibleEvents.length}</div>
       </div>
 
       {/* 时间窗口切换 — 可收起 */}
-      <div className="absolute top-24 right-4 px-3 py-2 rounded bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
+      <div className="absolute top-24 right-4 px-3 py-2 rounded-lg bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
         <button
           className="flex items-center gap-1.5 text-ink-500 hover:text-parchment-50 transition-colors"
           onClick={() => setTimeWindowOpen(o => !o)}
           title={timeWindowOpen ? '收起' : '展开'}
         >
-          <span className="text-[10px] leading-none">{timeWindowOpen ? '▼' : '▶'}</span>
+          <span className="text-xs leading-none">{timeWindowOpen ? '▼' : '▶'}</span>
           <span>地图时间窗</span>
           {!timeWindowOpen && (
-            <span className="text-bronze-400 text-[10px] ml-1">
+            <span className="text-bronze-400 text-xs ml-1">
               ±{timeWindow === 0 ? '全部' : timeWindow}
             </span>
           )}
@@ -720,7 +720,7 @@ export default function WorldMap() {
               <button
                 key={n}
                 onClick={() => setTimeWindow(n)}
-                className={`px-2 py-0.5 rounded text-[10px] transition-colors ${
+                className={`px-2 py-0.5 rounded-lg text-xs transition-colors ${
                   timeWindow === n
                     ? 'bg-bronze-600/40 text-bronze-400 border border-bronze-500/60'
                     : 'bg-ink-700/60 text-ink-400 hover:bg-ink-600 border border-ink-600'
@@ -742,7 +742,7 @@ export default function WorldMap() {
       {/* 缩放控制按钮 */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col gap-1 z-10">
         <button
-          className="w-7 h-7 rounded bg-ink-800/90 backdrop-blur border border-ink-600 hover:bg-ink-700 text-bronze-400 text-base font-bold leading-none"
+          className="w-7 h-7 rounded-lg bg-ink-800/90 backdrop-blur border border-ink-600 hover:bg-ink-700 text-bronze-400 text-base font-bold leading-none"
           onClick={() => {
             const svg = document.querySelector('.rsm-svg') as SVGSVGElement | null
             if (!svg) return
@@ -757,11 +757,12 @@ export default function WorldMap() {
             svg.dispatchEvent(evt)
           }}
           title="放大"
+          aria-label="地图放大"
         >
           +
         </button>
         <button
-          className="w-7 h-7 rounded bg-ink-800/90 backdrop-blur border border-ink-600 hover:bg-ink-700 text-bronze-400 text-base font-bold leading-none"
+          className="w-7 h-7 rounded-lg bg-ink-800/90 backdrop-blur border border-ink-600 hover:bg-ink-700 text-bronze-400 text-base font-bold leading-none"
           onClick={() => {
             const svg = document.querySelector('.rsm-svg') as SVGSVGElement | null
             if (!svg) return
@@ -776,13 +777,14 @@ export default function WorldMap() {
             svg.dispatchEvent(evt)
           }}
           title="缩小"
+          aria-label="地图缩小"
         >
           −
         </button>
       </div>
 
       {/* 操作提示 */}
-      <div className="absolute bottom-4 right-4 px-2.5 py-1.5 rounded bg-ink-800/90 backdrop-blur border border-ink-600 text-[10px] text-ink-500 z-10 leading-relaxed">
+      <div className="absolute bottom-4 right-4 px-2.5 py-1.5 rounded-lg bg-ink-800/90 backdrop-blur border border-ink-600 text-xs text-ink-500 z-10 leading-relaxed">
         🖱️ 滚轮缩放 · 拖拽平移 · 点击查看详情
       </div>
     </div>

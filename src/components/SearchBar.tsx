@@ -71,7 +71,7 @@ export default function SearchBar() {
   }
 
   return (
-    <div className="relative w-72">
+    <div className="relative w-40 md:w-52 xl:w-72">
       <div className="relative">
         <input
           type="text"
@@ -83,7 +83,7 @@ export default function SearchBar() {
           }}
           onFocus={() => setIsOpen(true)}
           onBlur={() => setTimeout(() => setIsOpen(false), 200)}
-          className="w-full px-3 py-1.5 pl-8 rounded bg-ink-700 border border-ink-600 text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
+          className="w-full px-3 py-1.5 pl-8 rounded-lg bg-ink-700 border border-ink-600 text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
         />
         <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-ink-500 text-sm">
           🔍
@@ -92,7 +92,7 @@ export default function SearchBar() {
 
       {/* 下拉结果 */}
       {isOpen && results.length > 0 && (
-        <div className="absolute top-full left-0 right-0 mt-1 max-h-96 overflow-y-auto bg-ink-800 border border-ink-600 rounded shadow-2xl z-50 scrollbar-thin">
+        <div className="absolute top-full left-0 right-0 mt-1 max-h-96 overflow-y-auto bg-ink-800 border border-ink-600 rounded-lg shadow-2xl z-50 scrollbar-thin">
           {results.map(result => (
             <button
               key={`${result.type}-${result.id}`}
@@ -102,7 +102,7 @@ export default function SearchBar() {
               <div className="flex items-baseline justify-between gap-2 mb-0.5">
                 <span className="text-sm text-parchment-50 flex items-baseline gap-1.5">
                   <span
-                    className="text-[10px] px-1.5 py-0.5 rounded shrink-0"
+                    className="text-xs px-1.5 py-0.5 rounded-lg shrink-0"
                     style={{
                       background: `${result.color}20`,
                       color: result.color,
@@ -113,7 +113,7 @@ export default function SearchBar() {
                   </span>
                   <span className="truncate">{result.title}</span>
                 </span>
-                <span className="text-[10px] text-ink-500 font-serif shrink-0">
+                <span className="text-xs text-ink-500 font-serif shrink-0">
                   {result.year !== undefined && (
                     <>
                       {result.year < 0 ? `前${Math.abs(result.year)}` : result.year}
@@ -134,7 +134,7 @@ export default function SearchBar() {
 
       {/* 空结果提示 */}
       {isOpen && query.trim() && results.length === 0 && (
-        <div className="absolute top-full left-0 right-0 mt-1 px-3 py-2 bg-ink-800 border border-ink-600 rounded text-xs text-ink-500 z-50">
+        <div className="absolute top-full left-0 right-0 mt-1 px-3 py-2 bg-ink-800 border border-ink-600 rounded-lg text-xs text-ink-500 z-50">
           没有匹配结果
         </div>
       )}

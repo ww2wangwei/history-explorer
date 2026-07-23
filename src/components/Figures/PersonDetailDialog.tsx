@@ -11,6 +11,7 @@ import { useAllLearningContexts } from '@/utils/useLearningContext'
 import { bingImage, personSearchKeywords, fallbackKeyword } from '@/utils/geoImage'
 import type { Era, HistoricalFigure } from '@/types'
 import FigureRelationshipGraph from './FigureRelationshipGraph'
+import ModalShell from '@/components/ui/Modal'
 
 const eras = erasData as Era[]
 
@@ -83,15 +84,8 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
 
   return (
     <>
-    <div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
-      onClick={onClose}
-    >
-      <div
-        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* 人物肖像图 */}
+    <ModalShell isOpen onClose={onClose} innerClassName="border-bronze-500/40">
+      {/* 人物肖像图 */}
         <div className="relative w-full bg-ink-900" style={{ aspectRatio: '3/2' }}>
           <img
             src={personImg}
@@ -107,14 +101,15 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
           />
           {/* 名字+角色覆盖在图片底部 */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink-900/95 to-transparent px-6 pt-8 pb-3">
-            <div className="text-[10px] text-bronze-300 mb-0.5">{person.role}</div>
+            <div className="text-xs text-bronze-300 mb-0.5">{person.role}</div>
             <h3 className="text-2xl font-serif text-parchment-50">{person.name}</h3>
           </div>
           {/* 关闭按钮 */}
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
+            className="absolute top-3 right-3 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
             title="关闭 (ESC)"
+            aria-label="关闭"
           >
             ×
           </button>
@@ -122,7 +117,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
 
         {/* 头部 sticky 标题区 */}
         <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-bronze-500/30 px-6 py-3 flex items-center justify-between">
-          <div className="text-[10px] text-ink-500 uppercase tracking-wider">👤 人物详情</div>
+          <div className="text-xs text-ink-500 uppercase tracking-wider">👤 人物详情</div>
         </div>
 
         {/* 内容 */}
@@ -130,7 +125,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
           {/* 生卒年 */}
           {lifespan && (
             <div>
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">📅 生卒年</div>
+              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">📅 生卒年</div>
               <div className="text-sm text-parchment-50 font-serif">{lifespan}</div>
             </div>
           )}
@@ -138,12 +133,12 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
           {/* 所属朝代 */}
           {eraList.length > 0 && (
             <div>
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">🏛️ 所属朝代</div>
+              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">🏛️ 所属朝代</div>
               <div className="flex flex-wrap gap-1.5">
                 {eraList.map(e => (
                   <span
                     key={e.id}
-                    className="text-xs px-2 py-0.5 rounded border"
+                    className="text-xs px-2 py-0.5 rounded-lg border"
                     style={{ background: e.color + '20', color: e.color, borderColor: e.color + '40' }}
                   >
                     {e.name}（{e.startYear < 0 ? `BC ${-e.startYear}` : e.startYear} ~ {e.endYear < 0 ? `BC ${-e.endYear}` : e.endYear}）
@@ -155,21 +150,21 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
 
           {/* 简介 */}
           <div>
-            <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">📜 简介</div>
+            <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">📜 简介</div>
             <div className="text-sm text-parchment-50 leading-relaxed">{person.description}</div>
           </div>
 
           {/* 代表作品（文化人物用） */}
           {person.culturalWorks && person.culturalWorks.length > 0 && (
             <div>
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">
+              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">
                 📖 代表作品（{person.culturalWorks.length}）
               </div>
               <div className="flex flex-wrap gap-1.5">
                 {person.culturalWorks.map((w, i) => (
                   <span
                     key={i}
-                    className="text-xs px-2 py-0.5 rounded bg-bronze-900/30 text-bronze-200 border border-bronze-700/40"
+                    className="text-xs px-2 py-0.5 rounded-lg bg-bronze-900/30 text-bronze-200 border border-bronze-700/40"
                   >
                     {w}
                   </span>
@@ -182,14 +177,14 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
           <div className="flex gap-2 pt-3 border-t border-ink-700">
             <button
               onClick={() => handleStartChatWith()}
-              className="flex-1 px-4 py-2.5 rounded bg-purple-900/40 hover:bg-purple-800/60 border border-purple-600/50 text-purple-200 text-sm transition-colors"
+              className="flex-1 px-4 py-2.5 rounded-lg bg-purple-900/40 hover:bg-purple-800/60 border border-purple-600/50 text-purple-200 text-sm transition-colors"
             >
               💬 与 {person.name} 对话
             </button>
             {hasRelations && (
               <button
                 onClick={() => setShowGraph(true)}
-                className="px-4 py-2.5 rounded bg-bronze-900/40 hover:bg-bronze-800/60 border border-bronze-600/50 text-bronze-200 text-sm transition-colors"
+                className="px-4 py-2.5 rounded-lg bg-bronze-900/40 hover:bg-bronze-800/60 border border-bronze-600/50 text-bronze-200 text-sm transition-colors"
                 title="查看关系网"
               >
                 🕸️ 关系网
@@ -212,7 +207,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
                   <button
                     key={i}
                     onClick={() => handleStartChatWith(q)}
-                    className="w-full text-left px-3 py-2 rounded bg-purple-950/30 hover:bg-purple-900/50 border border-purple-800/40 hover:border-purple-600/60 text-xs text-parchment-100 transition-colors"
+                    className="w-full text-left px-3 py-2 rounded-lg bg-purple-950/30 hover:bg-purple-900/50 border border-purple-800/40 hover:border-purple-600/60 text-xs text-parchment-100 transition-colors"
                     title="点击直接以这个问题开始对话"
                   >
                     {q}
@@ -226,7 +221,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
           <div className="flex gap-2">
             {existingCard ? (
               <>
-                <div className="flex-1 px-3 py-2 rounded bg-emerald-900/30 border border-emerald-700/50 text-emerald-300 text-xs flex items-center gap-2">
+                <div className="flex-1 px-3 py-2 rounded-lg bg-emerald-900/30 border border-emerald-700/50 text-emerald-300 text-xs flex items-center gap-2">
                   <span>📇</span>
                   <span>已加入闪卡</span>
                   {existingCard.interval > 0 && (
@@ -240,7 +235,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
                 </div>
                 <button
                   onClick={handleRemoveCard}
-                  className="px-3 py-2 rounded bg-ink-700/60 hover:bg-red-900/40 border border-ink-600 hover:border-red-700/60 text-ink-400 hover:text-red-300 text-xs transition-colors"
+                  className="px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-red-900/40 border border-ink-600 hover:border-red-700/60 text-ink-400 hover:text-red-300 text-xs transition-colors"
                   title="移除闪卡"
                 >
                   移除
@@ -249,21 +244,20 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
             ) : (
               <button
                 onClick={handleAddCard}
-                className="flex-1 px-3 py-2 rounded bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-600/50 text-emerald-200 text-xs transition-colors"
+                className="flex-1 px-3 py-2 rounded-lg bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-600/50 text-emerald-200 text-xs transition-colors"
               >
                 📇 加入闪卡（自动 SM-2 复习）
               </button>
             )}
             <button
               onClick={onClose}
-              className="px-3 py-2 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-xs transition-colors"
+              className="px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-xs transition-colors"
             >
               关闭
             </button>
           </div>
         </div>
-      </div>
-    </div>
+    </ModalShell>
 
     {/* 🕸️ 关系网弹层 */}
     {showGraph && (

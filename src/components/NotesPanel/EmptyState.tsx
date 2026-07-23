@@ -35,7 +35,7 @@ export default function EmptyState({ kind, onCreate }: Props) {
       </div>
       <button
         onClick={onCreate}
-        className="px-4 py-1.5 text-xs rounded bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/50 text-bronze-400 transition-colors"
+        className="px-4 py-1.5 text-xs rounded-lg bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/50 text-bronze-400 transition-colors"
       >
         ＋ 新建笔记
       </button>

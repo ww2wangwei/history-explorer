@@ -48,14 +48,28 @@ Thumbs.db
 /[a-z]*.png
 /[a-z]*.jpg
 /[a-z]*.jpeg
+# 根目录下的临时调试文件（任何以 _ 开头的临时文件）
+/_*
+!/_*.d.ts
 
 # scripts/ 下的临时一次性脚本
 scripts/_tmp_*
 scripts/*-tmp.*
 scripts/fix-*.cjs
+scripts/fix-*.mjs
+scripts/fix-*.js
 scripts/add-relations.cjs
+scripts/apply-longdesc.mjs
+scripts/batch*-*.mjs
+scripts/remove-*.mjs
+scripts/debug-*.mjs
+scripts/placeholder-*.json
 
-# 测试输出
+# .bak 备份文件
+*.bak
+*.bak.json
+
+# claude 测试输出
 test-results/
 playwright-report/
 

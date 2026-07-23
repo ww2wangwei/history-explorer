@@ -27,7 +27,7 @@ export default function FlashcardFront({ targetName, targetKind, missing, emoji,
       </div>
 
       {missing && (
-        <div className="mb-4 px-3 py-1 text-xs rounded bg-amber-900/40 text-amber-300 border border-amber-700/50">
+        <div className="mb-4 px-3 py-1 text-xs rounded-lg bg-amber-900/40 text-amber-300 border border-amber-700/50">
           ⚠ 原{KIND_LABEL[targetKind]}已删除，仍可复习
         </div>
       )}
@@ -49,7 +49,7 @@ export default function FlashcardFront({ targetName, targetKind, missing, emoji,
 
       <button
         onClick={onShowAnswer}
-        className="px-6 py-2.5 text-sm rounded bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/60 text-bronze-400 transition-colors"
+        className="px-6 py-2.5 text-sm rounded-lg bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/60 text-bronze-400 transition-colors"
       >
         💡 显示答案
       </button>

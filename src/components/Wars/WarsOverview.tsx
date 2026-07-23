@@ -3,7 +3,7 @@
  * 数据源：events.json 中 category='军事' 的事件
  * 复用模式与 FiguresOverview 相同（区域筛选 + importance 筛选 + 搜索 + 详情弹窗）
  */
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import eventsData from '@/data/events.json'
 import erasData from '@/data/eras.json'
 import { useAIStore } from '@/store/useAIStore'
@@ -13,6 +13,10 @@ import { enhancePersonaPrompt } from '@/utils/useLearningContext'
 import { bingImage, warSearchKeywords, majorWarSearchKeywords } from '@/utils/geoImage'
 import type { Era, HistoricalEvent } from '@/types'
 import MiniMap from '@/components/Figures/MiniMap'
+import EmptyState from '@/components/ui/EmptyState'
+import OverviewLayout from '@/components/ui/OverviewLayout'
+import OverviewSearch from '@/components/ui/OverviewSearch'
+import { useStaggerEntrance } from '@/hooks/useStaggerEntrance'
 
 const events = eventsData as HistoricalEvent[]
 const eras = erasData as Era[]
@@ -547,6 +551,11 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
   const [selectedMajorWar, setSelectedMajorWar] = useState<MajorWar | null>(null)
   const [selectedMajorNode, setSelectedMajorNode] = useState<{ mw: MajorWar; node: MajorWarNode } | null>(null)
 
+  // 战争卡片容器 — GSAP stagger 进场
+  const warCardsRef = useRef<HTMLDivElement | null>(null)
+  // 大型战争专题卡片容器 — 单独 stagger
+  const majorWarCardsRef = useRef<HTMLDivElement | null>(null)
+
   // AI 对话准备
   const setContext = useAIStore(s => s.setContext)
   const setPersonaPrompt = useAIStore(s => s.setPersonaPrompt)
@@ -590,8 +599,6 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
     return () => window.removeEventListener('keydown', handler, true)
   }, [isActive, selectedWar, selectedMajorNode, selectedMajorWar, onClose])
 
-  if (!isActive) return null
-
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
     return wars.filter(w => {
@@ -623,78 +630,67 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
     setSelectedWar(null)
   }
 
-  return (
-    <div className="w-full h-full bg-ink-900 overflow-y-auto">
-      {/* 头部 */}
-      <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-red-700/40">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <h2 className="text-2xl font-serif text-red-300">⚔️ 全战争</h2>
-              <p className="text-xs text-ink-500 mt-1">
-                {filtered.length} / {wars.length} 场战争 · 从公元前 1046 武王伐纣到 20 世纪
-              </p>
-            </div>
-            <button
-              onClick={onClose}
-              className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
-              title="返回 Dashboard (ESC)"
-            >
-              ×
-            </button>
-          </div>
-          {/* 筛选条 */}
-          <div className="flex flex-wrap items-center gap-2">
-            <div className="flex rounded bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
-              {(['all', 'china', 'world'] as const).map(r => (
-                <button
-                  key={r}
-                  onClick={() => setRegion(r)}
-                  className={`px-3 py-1.5 transition-colors ${
-                    region === r
-                      ? 'bg-red-700/40 text-red-300'
-                      : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'
-                  }`}
-                >
-                  {r === 'all' ? '全部' : r === 'china' ? '🇨🇳 中国' : '🌍 世界'}
-                </button>
-              ))}
-            </div>
-            <div className="flex rounded bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
-              {([0, 1, 2, 3] as const).map(i => (
-                <button
-                  key={i}
-                  onClick={() => setImportance(i)}
-                  className={`px-2.5 py-1.5 transition-colors ${
-                    importance === i
-                      ? 'bg-red-700/40 text-red-300'
-                      : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'
-                  }`}
-                  title={i === 0 ? '全部' : `重要性 ${i}（${i === 3 ? '关键' : i === 2 ? '重要' : '一般'}）`}
-                >
-                  {i === 0 ? '全部' : `${'⭐'.repeat(i)}`}
-                </button>
-              ))}
-            </div>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="搜索战争名/描述..."
-              className="flex-1 min-w-[200px] text-xs px-3 py-1.5 bg-ink-700/60 border border-ink-600 rounded text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-red-500"
-            />
-          </div>
-        </div>
-      </div>
+  // GSAP stagger: 战争卡片入场（筛选/搜索时重跑）
+  useStaggerEntrance(warCardsRef, '.war-card', [region, importance, query, filtered.length])
 
+  // GSAP stagger: 大型战争专题卡片入场（每次组件挂载跑一次）
+  useStaggerEntrance(majorWarCardsRef, '.major-war-card', [], { y: 18, scale: 0.95, duration: 0.5, each: 0.06 })
+
+  if (!isActive) return null
+
+  return (
+    <OverviewLayout
+      emoji="⚔️"
+      title="全战争"
+      subtitle={`${filtered.length} / ${wars.length} 场战争 · 从公元前 1046 武王伐纣到 20 世纪`}
+      onClose={onClose}
+      suppressEsc
+      headerBorderClass="border-red-700/40"
+      toolbar={
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex rounded-lg bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
+            {(['all', 'china', 'world'] as const).map(r => (
+              <button
+                key={r}
+                onClick={() => setRegion(r)}
+                className={`px-3 py-1.5 transition-colors ${
+                  region === r
+                    ? 'bg-red-700/40 text-red-300'
+                    : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'
+                }`}
+              >
+                {r === 'all' ? '全部' : r === 'china' ? '🇨🇳 中国' : '🌍 世界'}
+              </button>
+            ))}
+          </div>
+          <div className="flex rounded-lg bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
+            {([0, 1, 2, 3] as const).map(i => (
+              <button
+                key={i}
+                onClick={() => setImportance(i)}
+                className={`px-2.5 py-1.5 transition-colors ${
+                  importance === i
+                    ? 'bg-red-700/40 text-red-300'
+                    : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'
+                }`}
+                title={i === 0 ? '全部' : `重要性 ${i}（${i === 3 ? '关键' : i === 2 ? '重要' : '一般'}）`}
+              >
+                {i === 0 ? '全部' : `${'⭐'.repeat(i)}`}
+              </button>
+            ))}
+          </div>
+          <OverviewSearch value={query} onChange={setQuery} placeholder="搜索战争名/描述..." minWidth={200} />
+        </div>
+      }
+    >
       {/* 🔥 大型/长期战争专题 — 单独的醒目栏目 */}
       {MAJOR_WARS.length > 0 && (
-        <div className="max-w-6xl mx-auto px-6 py-4">
+        <div className="py-4">
           <div className="mb-3 flex items-baseline gap-2">
             <h3 className="text-base font-serif text-red-300">🔥 大型战争专题</h3>
             <span className="text-xs text-ink-500">持续多年、多国卷入的综合博弈</span>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div ref={majorWarCardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
             {MAJOR_WARS.map(mw => {
               const startYearLabel = mw.startYear < 0 ? `BC ${-mw.startYear}` : `${mw.startYear}`
               const endYearLabel = mw.endYear < 0 ? `BC ${-mw.endYear}` : `${mw.endYear}`
@@ -703,7 +699,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
               return (
                 <div
                   key={mw.key}
-                  className="rounded-lg border border-red-700/40 bg-gradient-to-br from-red-950/30 to-ink-800/80 hover:border-red-500/80 transition-colors overflow-hidden"
+                  className="major-war-card rounded-lg border border-red-700/40 bg-gradient-to-br from-red-950/30 to-ink-800/80 hover:border-red-500/80 transition-colors overflow-hidden"
                 >
                   {/* 顶部图片 */}
                   <div className="relative w-full bg-ink-900" style={{ aspectRatio: '16/9' }}>
@@ -718,12 +714,12 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
                     {/* 标题覆盖在图片底部 */}
                     <div className="absolute bottom-0 left-0 right-0 px-3 pt-6 pb-2">
                       <div className="text-sm font-serif text-red-100 truncate">{mw.title}</div>
-                      <div className="text-[10px] text-ink-200 tabular-nums">
+                      <div className="text-xs text-ink-200 tabular-nums">
                         {startYearLabel} ~ {endYearLabel} · {mw.nodes.length} 个关键节点
                       </div>
                     </div>
                     {mw.importance === 3 && (
-                      <span className="absolute top-2 right-2 text-[10px] text-amber-300 bg-ink-900/70 backdrop-blur px-1.5 py-0.5 rounded">⭐ 关键</span>
+                      <span className="absolute top-2 right-2 text-xs text-amber-300 bg-ink-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">⭐ 关键</span>
                     )}
                   </div>
                   <div className="p-3">
@@ -731,7 +727,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
                       {mw.summary}
                     </div>
                     {/* 显示前 3 个关键节点标题 */}
-                    <div className="text-[10px] text-ink-500 mb-2">
+                    <div className="text-xs text-ink-500 mb-2">
                       关键节点预览：
                       {mw.nodes.slice(0, 3).map((n, i) => (
                         <span key={i} className="ml-1 text-ink-400">
@@ -743,7 +739,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
                     {/* 进入专题详情按钮 */}
                     <button
                       onClick={() => setSelectedMajorWar(mw)}
-                      className="w-full px-3 py-1.5 rounded bg-red-800/50 hover:bg-red-700/70 border border-red-600/60 text-red-100 text-xs transition-colors"
+                      className="w-full px-3 py-1.5 rounded-lg bg-red-800/50 hover:bg-red-700/70 border border-red-600/60 text-red-100 text-xs transition-colors"
                     >
                       📖 进入专题详情 →
                     </button>
@@ -756,11 +752,15 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
       )}
 
       {/* 列表 */}
-      <div className="max-w-6xl mx-auto px-6 py-6">
+      <div className="py-6">
         {filtered.length === 0 ? (
-          <div className="text-center text-ink-500 py-12">未找到匹配的战争</div>
+          <EmptyState
+            emoji="🕊"
+            title="未找到匹配的战争"
+            hint="调整筛选条件，或按 ESC 退出取消筛选"
+          />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div ref={warCardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {filtered.map(war => {
               const yearLabel = war.year < 0 ? `BC ${-war.year}` : `${war.year}`
               const relatedEra = war.relatedEraId ? eras.find(e => e.id === war.relatedEraId) : null
@@ -770,7 +770,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
                 <button
                   key={war.id}
                   onClick={() => setSelectedWar(war)}
-                  className="text-left rounded border border-ink-600 bg-ink-800/60 hover:border-red-500/60 hover:bg-ink-700/60 transition-colors group overflow-hidden flex"
+                  className="war-card text-left rounded-lg border border-ink-600 bg-ink-800/60 hover:border-red-500/60 hover:bg-ink-700/60 transition-colors group overflow-hidden flex"
                 >
                   {/* 战争图片 */}
                   <div className="relative w-32 flex-shrink-0 bg-ink-900">
@@ -790,14 +790,14 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
                       {war.importance === 3 && <span className="text-amber-400 text-xs">⭐ 关键</span>}
                       {war.importance === 2 && <span className="text-amber-400/60 text-xs">⭐ 重要</span>}
                       {war.region === 'china'
-                        ? <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-900/30 text-amber-300 border border-amber-700/40">中国</span>
-                        : <span className="text-[10px] px-1.5 py-0.5 rounded bg-blue-900/30 text-blue-300 border border-blue-700/40">世界</span>
+                        ? <span className="text-xs px-1.5 py-0.5 rounded-lg bg-amber-900/30 text-amber-300 border border-amber-700/40">中国</span>
+                        : <span className="text-xs px-1.5 py-0.5 rounded-lg bg-blue-900/30 text-blue-300 border border-blue-700/40">世界</span>
                       }
                     </div>
                     <div className="text-sm font-serif text-parchment-50 truncate">{war.title}</div>
                     <div className="text-[11px] text-ink-400 line-clamp-2 mt-0.5">{war.description}</div>
                     {relatedEra && (
-                      <div className="text-[10px] text-ink-500 mt-1">
+                      <div className="text-xs text-ink-500 mt-1">
                         朝代：<span style={{ color: relatedEra.color }}>{relatedEra.name}</span>
                       </div>
                     )}
@@ -857,7 +857,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
           }}
         />
       )}
-    </div>
+    </OverviewLayout>
   )
 }
 
@@ -878,11 +878,14 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
       onClick={onClose}
     >
       <div
         className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-red-700/40 shadow-2xl"
+        role="dialog"
+        aria-modal="true"
+        aria-label="战争详情"
         onClick={(e) => e.stopPropagation()}
       >
         {/* 战争图片 */}
@@ -896,21 +899,21 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
           />
           {/* 标题+年份覆盖 */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink-900/95 to-transparent px-6 pt-8 pb-3">
-            <div className="text-[10px] text-ink-300 mb-0.5 flex items-center gap-2">
+            <div className="text-xs text-ink-300 mb-0.5 flex items-center gap-2">
               <span>⚔️ 战争</span>
               <span className="tabular-nums">{yearLabel}</span>
               {isKey && <span className="text-amber-400">⭐ 关键</span>}
               {isMajor && <span className="text-amber-400/60">⭐ 重要</span>}
               {war.region === 'china'
-                ? <span className="px-1.5 py-0.5 rounded bg-amber-900/30 text-amber-300 border border-amber-700/40">中国</span>
-                : <span className="px-1.5 py-0.5 rounded bg-blue-900/30 text-blue-300 border border-blue-700/40">世界</span>
+                ? <span className="px-1.5 py-0.5 rounded-lg bg-amber-900/30 text-amber-300 border border-amber-700/40">中国</span>
+                : <span className="px-1.5 py-0.5 rounded-lg bg-blue-900/30 text-blue-300 border border-blue-700/40">世界</span>
               }
             </div>
             <h3 className="text-2xl font-serif text-red-200">{war.title}</h3>
           </div>
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
+            className="absolute top-3 right-3 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
           >
             ×
           </button>
@@ -919,15 +922,15 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
           {/* 朝代 / 时期 */}
           {relatedEra && (
             <div>
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🏛️ 所属朝代</div>
+              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">🏛️ 所属朝代</div>
               <div className="flex flex-wrap items-center gap-2">
                 <span
-                  className="text-xs px-2 py-0.5 rounded border"
+                  className="text-xs px-2 py-0.5 rounded-lg border"
                   style={{ background: relatedEra.color + '20', color: relatedEra.color, borderColor: relatedEra.color + '40' }}
                 >
                   {relatedEra.name}
                 </span>
-                <span className="text-[10px] text-ink-500 tabular-nums">
+                <span className="text-xs text-ink-500 tabular-nums">
                   {relatedEra.startYear < 0 ? `BC ${-relatedEra.startYear}` : relatedEra.startYear} ~ {relatedEra.endYear < 0 ? `BC ${-relatedEra.endYear}` : relatedEra.endYear}
                 </span>
               </div>
@@ -937,10 +940,10 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
           {/* 地理位置 */}
           {war.country && (
             <div>
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📍 地点</div>
+              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">📍 地点</div>
               <div className="text-sm text-parchment-50">{war.country}</div>
               {war.coordinates && (
-                <div className="text-[10px] text-ink-500 tabular-nums mt-0.5">
+                <div className="text-xs text-ink-500 tabular-nums mt-0.5">
                   {war.coordinates[0].toFixed(2)}°E, {war.coordinates[1].toFixed(2)}°N
                 </div>
               )}
@@ -950,7 +953,7 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
           {/* 背景 — 战前形势 */}
           {war.warBackground && (
             <div>
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📜 战争背景</div>
+              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">📜 战争背景</div>
               <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
                 {war.warBackground}
               </div>
@@ -960,7 +963,7 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
           {/* 🗺️ 缩略地图 — 显示战争位置（直接用 war.coordinates 经纬度） */}
           {war.coordinates && (
             <div>
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
+              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
               <MiniMap
                 focusNode={{
                   title: war.title,
@@ -976,10 +979,8 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
                   importance: war.importance,
                   coordinates: war.coordinates,
                 }]}
-                onJumpToMap={(lngLat, year, label) => {
-                  onClose()
-                  setMapFocus({ center: lngLat, zoom: 5, label })
-                  setYear(year)
+                onJumpToMap={() => {
+                  onViewOnMap()
                 }}
               />
             </div>
@@ -987,7 +988,7 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
 
           {/* 经过 — 主描述（必显示） */}
           <div>
-            <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">⚔️ 战争经过</div>
+            <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">⚔️ 战争经过</div>
             <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
               {war.description ?? '（暂无描述）'}
             </div>
@@ -996,7 +997,7 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
           {/* 结果 — 胜负/签约 */}
           {war.warResult && (
             <div>
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🏁 战争结果</div>
+              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">🏁 战争结果</div>
               <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
                 {war.warResult}
               </div>
@@ -1005,8 +1006,8 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
 
           {/* 影响 — 后世格局变化（如果有） */}
           {war.warImpact && (
-            <div className="p-3 rounded bg-amber-900/15 border border-amber-700/40">
-              <div className="text-[10px] text-amber-400 uppercase tracking-wider mb-1.5">🎯 历史影响</div>
+            <div className="p-3 rounded-lg bg-amber-900/15 border border-amber-700/40">
+              <div className="text-xs text-amber-400 uppercase tracking-wider mb-1.5">🎯 历史影响</div>
               <div className="text-sm text-parchment-100 leading-relaxed">
                 {war.warImpact}
               </div>
@@ -1016,7 +1017,7 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
           {/* 关联事件（同一战争的后续/前奏） */}
           {war.relatedEventIds && war.relatedEventIds.length > 0 && (
             <div>
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🔗 关联事件</div>
+              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">🔗 关联事件</div>
               <div className="flex flex-wrap gap-1.5">
                 {war.relatedEventIds.map(eid => {
                   const related = events.find(e => e.id === eid)
@@ -1024,7 +1025,7 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
                   return (
                     <span
                       key={eid}
-                      className="text-xs px-2 py-0.5 rounded bg-ink-700/60 text-ink-300 border border-ink-600"
+                      className="text-xs px-2 py-0.5 rounded-lg bg-ink-700/60 text-ink-300 border border-ink-600"
                       title={`${related.year < 0 ? `BC ${-related.year}` : related.year} · ${related.title}`}
                     >
                       {related.title}
@@ -1037,8 +1038,8 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
 
           {/* 重要度提示（无 warImpact 时 fallback） */}
           {isKey && !war.warImpact && (
-            <div className="p-3 rounded bg-amber-900/20 border border-amber-700/40">
-              <div className="text-[10px] text-amber-400 uppercase tracking-wider mb-1">🎯 历史意义</div>
+            <div className="p-3 rounded-lg bg-amber-900/20 border border-amber-700/40">
+              <div className="text-xs text-amber-400 uppercase tracking-wider mb-1">🎯 历史意义</div>
               <div className="text-xs text-parchment-100 leading-relaxed">
                 这场战争被史学界视为<strong className="text-amber-300">改写历史进程</strong>的关键事件。
                 {relatedEra && <>它直接影响了<strong style={{ color: relatedEra.color }}>{relatedEra.name}</strong>的走向。 </>}
@@ -1051,20 +1052,20 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
             {war.coordinates && (
               <button
                 onClick={onViewOnMap}
-                className="flex-1 px-4 py-2.5 rounded bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-600/50 text-emerald-200 text-sm transition-colors"
+                className="flex-1 px-4 py-2.5 rounded-lg bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-600/50 text-emerald-200 text-sm transition-colors"
               >
                 🗺️ 在地图看位置
               </button>
             )}
             <button
               onClick={onChat}
-              className="flex-1 px-4 py-2.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors"
+              className="flex-1 px-4 py-2.5 rounded-lg bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors"
             >
               💬 询问这场战争
             </button>
             <button
               onClick={onClose}
-              className="px-4 py-2.5 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm transition-colors"
+              className="px-4 py-2.5 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm transition-colors"
             >
               关闭
             </button>
@@ -1091,11 +1092,14 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
 
   return (
     <div
-      className="fixed inset-0 z-[65] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
+      className="fixed inset-0 z-60 flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
       onClick={onClose}
     >
       <div
         className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-red-700/40 shadow-2xl"
+        role="dialog"
+        aria-modal="true"
+        aria-label="战争详情"
         onClick={(e) => e.stopPropagation()}
       >
         {/* 顶部图片 */}
@@ -1108,7 +1112,7 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
           />
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink-900/95 to-transparent px-6 pt-8 pb-3">
-            <div className="text-[10px] text-ink-300 mb-0.5 flex items-center gap-2">
+            <div className="text-xs text-ink-300 mb-0.5 flex items-center gap-2">
               <span>🔥 大型战争专题</span>
               {mw.importance === 3 && <span className="text-amber-400">⭐ 关键</span>}
             </div>
@@ -1122,8 +1126,9 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
           </div>
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
+            className="absolute top-3 right-3 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
             title="关闭 (ESC)"
+            aria-label="关闭"
           >
             ×
           </button>
@@ -1131,13 +1136,13 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
 
         {/* 导语 */}
         <div className="p-6 pb-3">
-          <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-2">📜 战争总览</div>
+          <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">📜 战争总览</div>
           <div className="text-sm text-parchment-100 leading-relaxed">{mw.summary}</div>
         </div>
 
         {/* 节点时间线 */}
         <div className="px-6 pb-6">
-          <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-3">⚔️ 关键节点事件（{mw.nodes.length}）</div>
+          <div className="text-xs text-ink-500 uppercase tracking-wider mb-3">⚔️ 关键节点事件（{mw.nodes.length}）</div>
           {mw.nodes.length === 0 ? (
             <div className="text-xs text-ink-500 italic">（暂无节点）</div>
           ) : (
@@ -1154,12 +1159,12 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
                         className="absolute -left-3.5 top-1 w-2.5 h-2.5 rounded-full ring-2 ring-ink-800"
                         style={{ background: node.importance === 3 ? '#b85450' : '#8a6a55' }}
                       />
-                      <div className="p-3 rounded border border-ink-600 bg-ink-700/30 hover:border-red-500/60 transition-colors">
+                      <div className="p-3 rounded-lg border border-ink-600 bg-ink-700/30 hover:border-red-500/60 transition-colors">
                         <div className="flex items-center gap-2 mb-1 flex-wrap">
                           <span className="text-xs text-red-300 tabular-nums font-serif">{yearLabel}</span>
-                          {node.importance === 3 && <span className="text-amber-400 text-[10px]">⭐ 关键</span>}
+                          {node.importance === 3 && <span className="text-amber-400 text-xs">⭐ 关键</span>}
                           {node.location && (
-                            <span className="text-[10px] text-ink-500">📍 {node.location}</span>
+                            <span className="text-xs text-ink-500">📍 {node.location}</span>
                           )}
                         </div>
                         <div className="text-sm font-serif text-parchment-50 mb-1.5">{node.title}</div>
@@ -1168,7 +1173,7 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
                         </div>
                         <button
                           onClick={() => onSelectNode(node)}
-                          className="w-full text-[10px] px-2 py-1 rounded bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-700/50 hover:border-emerald-500/70 text-emerald-200 transition-colors"
+                          className="w-full text-xs px-2 py-1 rounded-lg bg-emerald-900/40 hover:bg-emerald-800/60 border border-emerald-700/50 hover:border-emerald-500/70 text-emerald-200 transition-colors"
                         >
                           📖 进入节点详情 →
                         </button>
@@ -1185,7 +1190,7 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
         <div className="sticky bottom-0 z-10 bg-ink-800/95 backdrop-blur border-t border-ink-600 px-6 py-3 flex gap-2">
           <button
             onClick={onClose}
-            className="flex-1 px-3 py-2 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-xs transition-colors"
+            className="flex-1 px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-xs transition-colors"
           >
             关闭
           </button>
@@ -1223,20 +1228,24 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
 
   return (
     <div
-      className="fixed inset-0 z-[68] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
+      className="fixed inset-0 z-60 flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
       onClick={onClose}
     >
       <div
         className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-red-700/40 shadow-2xl"
+        role="dialog"
+        aria-modal="true"
+        aria-label="战争详情"
         onClick={(e) => e.stopPropagation()}
       >
         {/* 头部 */}
         <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-red-700/30 px-6 py-4">
-          <div className="flex items-center gap-2 text-[10px] text-ink-500 mb-1">
+          <div className="flex items-center gap-2 text-xs text-ink-500 mb-1">
             <button
               onClick={onBack}
               className="text-red-300 hover:text-red-200 transition-colors"
               title="返回专题列表"
+              aria-label="返回专题列表"
             >
               ← {mw.title}
             </button>
@@ -1246,7 +1255,7 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
           </div>
           <div className="flex items-start gap-3">
             <div className="flex-1 min-w-0">
-              <div className="text-[10px] text-ink-500 mb-1 tabular-nums flex items-center gap-2">
+              <div className="text-xs text-ink-500 mb-1 tabular-nums flex items-center gap-2">
                 <span>{yearLabel}</span>
                 {node.location && <span>📍 {node.location}</span>}
               </div>
@@ -1254,8 +1263,9 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
             </div>
             <button
               onClick={onClose}
-              className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+              className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700"
               title="关闭 (ESC)"
+              aria-label="关闭"
             >
               ×
             </button>
@@ -1265,24 +1275,18 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
         <div className="p-6 space-y-4">
           {/* 🗺️ 缩略地图 — 显示节点位置 + 同大战争其他节点 */}
           <div>
-            <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
+            <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
             <MiniMap
               focusNode={node}
               allNodes={mw.nodes}
-              onJumpToMap={(lngLat, year, label) => {
-                onClose()
-                onBack()
-                setMapFocus({ center: lngLat, zoom: 5, label })
-                setYear(year)
-              }}
-              onSwitchNode={onSwitchNode}
+              onSwitchNode={(n) => onSwitchNode(n as MajorWarNode)}
               onJumpToMap={onJumpToMap}
             />
           </div>
 
           {/* 概述 — 必有 */}
           <div>
-            <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📜 节点概述</div>
+            <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">📜 节点概述</div>
             <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
               {node.description}
             </div>
@@ -1293,7 +1297,7 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
               {/* 背景 */}
               {node.background && (
                 <div>
-                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🌐 背景</div>
+                  <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">🌐 背景</div>
                   <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
                     {node.background}
                   </div>
@@ -1303,7 +1307,7 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
               {/* 经过 */}
               {node.detail && (
                 <div>
-                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">⚔️ 详细经过</div>
+                  <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">⚔️ 详细经过</div>
                   <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
                     {node.detail}
                   </div>
@@ -1313,7 +1317,7 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
               {/* 结果 */}
               {node.result && (
                 <div>
-                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🏁 结果</div>
+                  <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">🏁 结果</div>
                   <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
                     {node.result}
                   </div>
@@ -1322,8 +1326,8 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
 
               {/* 影响 */}
               {node.impact && (
-                <div className="p-3 rounded bg-amber-900/15 border border-amber-700/40">
-                  <div className="text-[10px] text-amber-400 uppercase tracking-wider mb-1.5">🎯 历史影响</div>
+                <div className="p-3 rounded-lg bg-amber-900/15 border border-amber-700/40">
+                  <div className="text-xs text-amber-400 uppercase tracking-wider mb-1.5">🎯 历史影响</div>
                   <div className="text-sm text-parchment-100 leading-relaxed">
                     {node.impact}
                   </div>
@@ -1332,8 +1336,8 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
             </>
           ) : (
             // 没补详细内容的节点：通用回退
-            <div className="p-3 rounded bg-amber-900/15 border border-amber-700/40">
-              <div className="text-[10px] text-amber-400 uppercase tracking-wider mb-1.5">💡 上下文</div>
+            <div className="p-3 rounded-lg bg-amber-900/15 border border-amber-700/40">
+              <div className="text-xs text-amber-400 uppercase tracking-wider mb-1.5">💡 上下文</div>
               <div className="text-sm text-parchment-100 leading-relaxed">
                 {prevNode && (
                   <>这是 <span className="text-red-300">{prevNode.title}</span>（{prevNode.year < 0 ? `BC ${-prevNode.year}` : prevNode.year}）之后的关键节点。 </>
@@ -1352,13 +1356,13 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
           <div className="flex gap-2 pt-3 border-t border-ink-700">
             <button
               onClick={onChat}
-              className="flex-1 px-4 py-2.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors"
+              className="flex-1 px-4 py-2.5 rounded-lg bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors"
             >
               💬 询问此节点
             </button>
             <button
               onClick={onBack}
-              className="px-4 py-2.5 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm transition-colors"
+              className="px-4 py-2.5 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm transition-colors"
             >
               返回专题
             </button>

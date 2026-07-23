@@ -1,20 +1,24 @@
 /**
  * GeographyOverview — 全地理全屏浏览页
  * 2 个子 tab：
- *   - 🌍 自然地理：来自 geographic-features.ts（11 大类：洲/海/湖/河/山/沙/平原/半岛/海峡/瀑布/区域）
+ *   - 🌍 自然地理：来自 geographic-features.ts（11 大类）
  *   - 🏛️ 疆域变迁：来自 public/geo/world/eras/*.geojson + public/geo/china/*.geojson
+ *     + 顶部全史时间轴 + 每张卡 SVG 缩略图
  */
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import gsap from 'gsap'
 import { ALL_GEO_FEATURES, type GeoFeature, type GeoFeatureType } from '@/data/geographic-features'
 import { OCEAN_LABELS } from '@/data/oceans'
 import erasData from '@/data/eras.json'
 import MiniMap from '@/components/Figures/MiniMap'
+import TerritoryMapThumb from './TerritoryMapThumb'
+import OverviewLayout from '@/components/ui/OverviewLayout'
+import { useStaggerEntrance } from '@/hooks/useStaggerEntrance'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import type { Era } from '@/types'
 
 const eras = erasData as Era[]
 
-// 合并 11 类自然地理
 const ALL_FEATURES: GeoFeature[] = [
   ...ALL_GEO_FEATURES.continents,
   ...ALL_GEO_FEATURES.seas,
@@ -36,10 +40,39 @@ interface Props {
 
 type Tab = 'nature' | 'territory'
 
-// 疆域数据（手工枚举 GeoJSON 文件）
-const TERRITORY_FILES = [
-  ...['han', 'ming', 'qin', 'qing', 'song', 'tang', 'yuan'].map(id => ({ id, region: 'china' as const, label: '中国' })),
-  ...['arab-caliphate', 'british-empire', 'byzantine', 'mongol-empire', 'ottoman', 'persia-safavid', 'rome-empire', 'rome-republic'].map(id => ({ id, region: 'world' as const, label: '世界' })),
+interface TerritoryFile {
+  id: string
+  /** GeoJSON 文件名（与 id 不一定一致。例如 id='han-west' 但 GeoJSON 文件叫 'han.geojson'） */
+  geoFile?: string
+  region: 'china' | 'world'
+  label: string
+  /** 鼎盛期（用于卡片标题显示） */
+  peakYear?: number
+  /** 卡片显示的简短描述 */
+  shortDesc?: string
+}
+
+const TERRITORY_FILES: TerritoryFile[] = [
+  // 中国朝代（按时间顺序）
+  { id: 'qin',          region: 'china', label: '中国', peakYear: -210, shortDesc: '首次大一统：统一文字、度量衡、车轨' },
+  // 注意：eras.json 中只有 han-west（西汉）/han-east（东汉），但 GeoJSON 文件叫 han.geojson
+  // 用 id='han-west' 触发中文显示（eras.find 会找到），用 geoFile='han' 找对的 GeoJSON
+  { id: 'han-west',     region: 'china', geoFile: 'han', label: '中国', peakYear: 1, shortDesc: '北击匈奴、通西域，丝绸之路开通' },
+  { id: 'tang',         region: 'china', label: '中国', peakYear: 710,  shortDesc: '东亚文化中心版图达极盛' },
+  // song.geojson（北宋/南宋合并版图）— 同 han 用 song-north id + geoFile='song' 文件映射
+  { id: 'song-north',   region: 'china', geoFile: 'song', label: '中国', peakYear: 1080, shortDesc: '北方收缩，但经济文化达到巅峰' },
+  { id: 'yuan',         region: 'china', label: '中国', peakYear: 1280, shortDesc: '蒙古大帝国下的中国，行省制' },
+  { id: 'ming',         region: 'china', label: '中国', peakYear: 1420, shortDesc: '永乐迁都北京，七下西洋' },
+  { id: 'qing',         region: 'china', label: '中国', peakYear: 1780, shortDesc: '极盛期版图北抵西伯利亚、南括中印半岛' },
+  // 世界帝国
+  { id: 'rome-republic',region: 'world', label: '世界', peakYear: -50,  shortDesc: '罗马共和国击败迦太基，地中海西部霸主' },
+  { id: 'rome-empire',  region: 'world', label: '世界', peakYear: 117,  shortDesc: '图拉真鼎盛期：版图含达契亚、亚美尼亚' },
+  { id: 'byzantine',    region: 'world', label: '世界', peakYear: 555,  shortDesc: '查士丁尼复兴：收复意大利、北非西部' },
+  { id: 'arab-caliphate', region: 'world', label: '世界', peakYear: 850, shortDesc: '阿拔斯王朝：横跨伊比利亚至中亚' },
+  { id: 'persia-safavid', region: 'world', label: '世界', peakYear: 1620, shortDesc: '波斯黄金时代，萨法维中兴' },
+  { id: 'ottoman',      region: 'world', label: '世界', peakYear: 1580, shortDesc: '横跨欧亚非三洲，苏莱曼大帝' },
+  { id: 'mongol-empire',region: 'world', label: '世界', peakYear: 1290, shortDesc: '人类史上最大陆上帝国' },
+  { id: 'british-empire', region: 'world', label: '世界', peakYear: 1900, shortDesc: '号称"日不落"，全球海洋霸主' },
 ]
 
 const FEATURE_LABELS: Record<GeoFeatureType, { icon: string; label: string; color: string }> = {
@@ -56,34 +89,101 @@ const FEATURE_LABELS: Record<GeoFeatureType, { icon: string; label: string; colo
   region: { icon: '🗺️', label: '区域', color: '#9b7eb6' },
 }
 
+const FEATURE_LABELS_BY_ID: Record<GeoFeatureType, { icon: string; label: string; color: string }> = FEATURE_LABELS
+
 export default function GeographyOverview({ isActive, onClose }: Props) {
   const [tab, setTab] = useState<Tab>('nature')
   const [featureType, setFeatureType] = useState<GeoFeatureType | 'all'>('all')
   const [territoryRegion, setTerritoryRegion] = useState<'all' | 'china' | 'world'>('all')
+
+  // 🔍 全局调试日志：组件挂载时打日志（必须在最早期）
+  useEffect(() => {
+    if (import.meta.env.DEV && typeof window !== 'undefined') {
+      console.log(
+        '%c[GSAP] GeographyOverview 挂载 %c tab=' + tab + ' featureType=' + featureType,
+        'color:#5bc8c8;font-weight:bold',
+        'color:inherit'
+      )
+    }
+  }, [])
   const [selectedFeature, setSelectedFeature] = useState<GeoFeature | null>(null)
   const [selectedTerritory, setSelectedTerritory] = useState<{ id: string; region: 'china' | 'world'; era?: Era } | null>(null)
+  // 各朝代加载的 GeoJSON（key = `${id}`，value = FeatureCollection）
+  const [territoryGeojsons, setTerritoryGeojsons] = useState<Record<string, any>>({})
+  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
   const setMapFocus = useHistoryStore(s => s.setMapFocus)
   const setYear = useHistoryStore(s => s.setYear)
 
   // 朝代/文明的近似中心坐标（用于疆域弹窗的缩略图）
   const ERA_CENTERS: Record<string, [number, number]> = {
-    'qin': [108.94, 34.34],          // 咸阳
-    'han': [108.94, 34.34],          // 长安
-    'tang': [108.94, 34.34],         // 长安
-    'song': [114.3, 30.6],           // 开封/杭州
-    'yuan': [116.4, 39.9],           // 大都（北京）
-    'ming': [116.4, 39.9],           // 北京
-    'qing': [116.4, 39.9],           // 北京
-    'rome-republic': [12.5, 41.9],   // 罗马
-    'rome-empire': [12.5, 41.9],     // 罗马/君士坦丁堡
-    'byzantine': [28.98, 41.01],     // 君士坦丁堡
-    'arab-caliphate': [44.42, 32.54], // 巴格达
-    'ottoman': [28.98, 41.01],       // 伊斯坦布尔
-    'mongol-empire': [106.92, 47.92], // 哈拉和林
-    'persia-safavid': [51.42, 35.69], // 伊斯法罕
-    'british-empire': [-0.13, 51.51], // 伦敦
+    'qin': [108.94, 34.34], 'han': [108.94, 34.34], 'tang': [108.94, 34.34],
+    'song': [114.3, 30.6], 'yuan': [116.4, 39.9], 'ming': [116.4, 39.9], 'qing': [116.4, 39.9],
+    'rome-republic': [12.5, 41.9], 'rome-empire': [12.5, 41.9],
+    'byzantine': [28.98, 41.01], 'arab-caliphate': [44.42, 32.54],
+    'ottoman': [28.98, 41.01], 'mongol-empire': [106.92, 47.92],
+    'persia-safavid': [51.42, 35.69], 'british-empire': [-0.13, 51.51],
   }
+
+  // 时间轴色块容器 — 用于 GSAP stagger 进场
+  const timelineBarsRef = useRef<HTMLDivElement | null>(null)
+  const tabsUsedRef = useRef(false)
+  // 自然地理卡片容器 — 用于 GSAP stagger 进场（按 featureType 分组）
+  const natureCardsRef = useRef<HTMLDivElement | null>(null)
+
+  // 切换到疆域变迁 tab 时，时间轴色块 stagger 进场
+  useEffect(() => {
+    if (tab !== 'territory' || !timelineBarsRef.current) return
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (reduce) { tabsUsedRef.current = true; return }
+    const bars = timelineBarsRef.current.querySelectorAll<HTMLElement>('button')
+    if (!bars.length) return
+    // 按 startYear 排序（按朝代时间从早到晚进场）
+    const sortedBars = Array.from(bars).sort((a, b) => {
+      const aLeft = parseFloat((a as HTMLElement).style.left)
+      const bLeft = parseFloat((b as HTMLElement).style.left)
+      return aLeft - bLeft
+    })
+    gsap.from(sortedBars, {
+      opacity: 0, y: 6, scaleY: 0,
+      duration: 0.5, stagger: 0.08, ease: 'power3.out',
+      transformOrigin: '50% 50%',
+    })
+    tabsUsedRef.current = true
+  }, [tab])
+
+  // 切换到疆域变迁 tab 时，批量加载所有 GeoJSON
+  useEffect(() => {
+    if (tab !== 'territory') return
+    const toLoad = TERRITORY_FILES.filter(f => !territoryGeojsons[f.id])
+    if (toLoad.length === 0) return
+    let cancelled = false
+    Promise.all(
+      toLoad.map(async f => {
+        // 用 f.geoFile ?? f.id 兼容 id 与文件名不一致的情况（如 han-west → han.geojson）
+        const fileStem = f.geoFile ?? f.id
+        const path = f.region === 'china'
+          ? `public/geo/china/${fileStem}.geojson`
+          : `public/geo/world/eras/${fileStem}.geojson`
+        try {
+          const res = await fetch(path)
+          if (!res.ok) return { id: f.id, data: null }
+          const data = await res.json()
+          return { id: f.id, data }
+        } catch {
+          return { id: f.id, data: null }
+        }
+      })
+    ).then(results => {
+      if (cancelled) return
+      setTerritoryGeojsons(prev => {
+        const next = { ...prev }
+        for (const r of results) if (r.data) next[r.id] = r.data
+        return next
+      })
+    })
+    return () => { cancelled = true }
+  }, [tab])
 
   useEffect(() => {
     if (!isActive) return
@@ -102,9 +202,6 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
     return () => window.removeEventListener('keydown', handler, true)
   }, [isActive, selectedFeature, selectedTerritory, onClose])
 
-  if (!isActive) return null
-
-  // 合并所有自然地理特征
   const allFeatures = ALL_FEATURES
 
   const filteredFeatures = useMemo(() => {
@@ -113,29 +210,38 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
       .sort((a, b) => (b.importance ?? 1) - (a.importance ?? 1))
   }, [allFeatures, featureType])
 
+  // 自然地理卡片 stagger 进场（tab 切到 nature 或 featureType 筛选变化时重跑）
+  useStaggerEntrance(natureCardsRef, '.geo-card', [tab, featureType, filteredFeatures.length], { y: 16, scale: 0.96, duration: 0.45, each: 0.04 })
+
+  if (!isActive) return null
+
+  /** 全史时间轴范围（BC 1500 — AD 2100，含所有朝代/帝国） */
+  const TIMELINE_MIN = -1500
+  const TIMELINE_MAX = 2100
+  const TIMELINE_RANGE = TIMELINE_MAX - TIMELINE_MIN
+
+  /** 滚动到指定朝代卡片 — 用 'start' 让目标卡片滚到 sticky header 下方，避免被遮挡 */
+  const scrollToTerritory = (id: string) => {
+    const el = cardRefs.current[id]
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
   return (
-    <div className="w-full h-full bg-ink-900 overflow-y-auto">
-      <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-emerald-700/40">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <h2 className="text-2xl font-serif text-emerald-300">🗺️ 全地理</h2>
-              <p className="text-xs text-ink-500 mt-1">
-                {tab === 'nature'
-                  ? `${filteredFeatures.length} 项自然地理特征`
-                  : `${TERRITORY_FILES.length} 个朝代/文明的疆域变迁`}
-              </p>
-            </div>
-            <button
-              onClick={onClose}
-              className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
-              title="返回 Dashboard (ESC)"
-            >
-              ×
-            </button>
-          </div>
+    <OverviewLayout
+      emoji="🗺️"
+      title="全地理"
+      subtitle={
+        tab === 'nature'
+          ? `${filteredFeatures.length} 项自然地理特征`
+          : `${TERRITORY_FILES.length} 个朝代/文明的疆域变迁`
+      }
+      onClose={onClose}
+      suppressEsc
+      headerBorderClass="border-emerald-700/40"
+      toolbar={
+        <>
           {/* Tab 切换 */}
-          <div className="flex rounded bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
+          <div className="flex rounded-lg bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
             <button
               onClick={() => setTab('nature')}
               className={`px-4 py-1.5 transition-colors ${
@@ -153,17 +259,80 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
               🏛️ 疆域变迁
             </button>
           </div>
-        </div>
-      </div>
 
-      <div className="max-w-6xl mx-auto px-6 py-6">
+          {/* 全史时间轴 — 仅在疆域 tab 显示 */}
+          {tab === 'territory' && (
+            <div className="mt-4">
+              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5 flex items-center gap-2">
+                📅 疆域变迁时间轴
+                <span className="text-ink-400">（BC 1500 ~ AD 2100，共 {TERRITORY_FILES.length} 个朝代/帝国）</span>
+                <span className="text-ink-600 ml-auto">点击色块 ⬇ 跳转</span>
+              </div>
+              <div ref={timelineBarsRef} className="relative w-full h-20 bg-ink-900/40 rounded-lg border border-ink-700 overflow-hidden">
+                {/* 刻度线 + 年份标签（BC 1500, BC 1000, BC 500, AD 0, 500, 1000, 1500, 2000） */}
+                <div className="absolute inset-x-2 top-1/2 h-px bg-ink-600" />
+                {[-1500, -1000, -500, 0, 500, 1000, 1500, 2000].map(y => {
+                  const x = ((y - TIMELINE_MIN) / TIMELINE_RANGE) * 100
+                  return (
+                    <div
+                      key={y}
+                      className="absolute top-0 bottom-0 flex flex-col justify-center items-center pointer-events-none"
+                      style={{ left: `${x}%` }}
+                    >
+                      <div className="w-px h-3 bg-ink-500" />
+                      <div className="text-[9px] text-ink-500 tabular-nums mt-1">
+                        {y < 0 ? `${-y} BC` : y}
+                      </div>
+                    </div>
+                  )
+                })}
+                {/* 朝代色块（中国一层 + 世界一层） */}
+                {TERRITORY_FILES.map(f => {
+                  const era = eras.find(e => e.id === f.id)
+                  const startYear = era?.startYear ?? 0
+                  const endYear = era?.endYear ?? 0
+                  const startX = Math.max(0, ((startYear - TIMELINE_MIN) / TIMELINE_RANGE) * 100)
+                  const endX = Math.min(100, ((endYear - TIMELINE_MIN) / TIMELINE_RANGE) * 100)
+                  const isChina = f.region === 'china'
+                  const color = era?.color || '#888'
+                  return (
+                    <button
+                      key={f.id}
+                      onClick={() => scrollToTerritory(f.id)}
+                      title={`${era?.name ?? f.id} (${startYear < 0 ? -startYear + ' BC' : startYear} ~ ${endYear < 0 ? -endYear + ' BC' : endYear})`}
+                      className="absolute h-3 rounded-sm hover:opacity-100 hover:scale-y-150 hover:z-10 transition-all opacity-80 group"
+                      style={{
+                        left: `${startX}%`,
+                        width: `${Math.max(endX - startX, 0.5)}%`,
+                        top: isChina ? '50%' : '62%',
+                        background: color,
+                        borderTop: `1px solid ${color}`,
+                      }}
+                    >
+                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] whitespace-nowrap text-ink-300 opacity-0 group-hover:opacity-100 pointer-events-none">
+                        {era?.name ?? f.id}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+              <div className="text-xs text-ink-500 mt-1 flex gap-3">
+                <span><span className="inline-block w-3 h-2 align-middle bg-emerald-400/80 mr-1" />中国朝代</span>
+                <span><span className="inline-block w-3 h-2 align-middle bg-blue-400/80 mr-1" />世界帝国</span>
+              </div>
+            </div>
+          )}
+        </>
+      }
+    >
+      <>
         {tab === 'nature' ? (
           <>
             {/* 特征类型 chips 筛选 */}
             <div className="flex flex-wrap items-center gap-1.5 mb-4">
               <button
                 onClick={() => setFeatureType('all')}
-                className={`text-xs px-2.5 py-1 rounded border transition-colors ${
+                className={`text-xs px-2.5 py-1 rounded-lg border transition-colors ${
                   featureType === 'all'
                     ? 'bg-emerald-700/40 text-emerald-200 border-emerald-500/60'
                     : 'bg-ink-700/60 text-ink-400 border-ink-600 hover:text-parchment-50'
@@ -179,7 +348,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                   <button
                     key={t}
                     onClick={() => setFeatureType(t)}
-                    className={`text-xs px-2.5 py-1 rounded border transition-colors ${
+                    className={`text-xs px-2.5 py-1 rounded-lg border transition-colors ${
                       featureType === t ? 'border-emerald-500/60' : 'bg-ink-700/60 text-ink-400 border-ink-600 hover:text-parchment-50'
                     }`}
                     style={featureType === t ? { background: meta.color + '30', color: meta.color } : undefined}
@@ -190,35 +359,78 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
               })}
             </div>
             {/* 大洋文字标签 */}
-            <div className="mb-4 p-3 rounded bg-ink-800/40 border border-ink-700">
-              <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-2">五大洋</div>
+            <div className="mb-4 p-3 rounded-lg bg-ink-800/40 border border-ink-700">
+              <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">五大洋</div>
               <div className="flex flex-wrap gap-2">
                 {OCEAN_LABELS.map(o => (
-                  <span key={o.id} className="text-xs px-2 py-0.5 rounded bg-blue-900/30 text-blue-200 border border-blue-700/40">
+                  <span key={o.id} className="text-xs px-2 py-0.5 rounded-lg bg-blue-900/30 text-blue-200 border border-blue-700/40">
                     {o.name}
                   </span>
                 ))}
               </div>
             </div>
-            {/* 特征卡片 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            {/* 特征卡片 — 含 16:9 缩略图（双层兜底）+ 简介摘要 */}
+            <div ref={natureCardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {filteredFeatures.map(f => {
                 const meta = FEATURE_LABELS[f.type]
                 return (
                   <button
                     key={f.id}
                     onClick={() => setSelectedFeature(f)}
-                    className="text-left p-3 rounded border border-ink-600 bg-ink-800/60 hover:border-emerald-500/60 hover:bg-ink-700/60 transition-colors"
+                    className="geo-card text-left rounded-lg overflow-hidden border border-ink-600 bg-ink-800/60 hover:border-emerald-500/60 hover:bg-ink-700/60 transition-all group"
                   >
-                    <div className="flex items-center gap-2 mb-1">
-                      <span style={{ color: meta.color }}>{meta.icon}</span>
-                      <span className="text-sm font-serif text-parchment-50">{f.name}</span>
-                      <span className="text-[10px] text-ink-500 ml-auto">
-                        {meta.label}{f.importance === 3 ? ' · 重要' : ''}
-                      </span>
+                    {/* 16:9 缩略图区 — 双层：渐变+emoji 兜底 + Bing 真实图（成功淡入覆盖） */}
+                    <div
+                      className="relative w-full bg-ink-900 overflow-hidden"
+                      style={{
+                        aspectRatio: '16/9',
+                        background: `linear-gradient(135deg, ${meta.color}55 0%, ${meta.color}22 100%)`,
+                      }}
+                    >
+                      {/* 大字 emoji 兜底（始终渲染） */}
+                      <div className="absolute inset-0 flex items-center justify-center select-none">
+                        <span className="text-6xl opacity-90 group-hover:scale-110 transition-transform duration-300">
+                          {meta.icon}
+                        </span>
+                      </div>
+                      {/* 真实 Bing 图：初始透明，加载成功后淡入；加载失败也保持透明（兜底继续可见） */}
+                      {f.imageUrl && (
+                        <img
+                          src={f.imageUrl}
+                          alt={f.name}
+                          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-10"
+                          style={{ opacity: 0 }}
+                          loading="lazy"
+                          onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1' }}
+                          onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '0' }}
+                        />
+                      )}
+                      {/* 底部渐变（确保标题清晰） */}
+                      <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-ink-900/95 to-transparent z-10 pointer-events-none" />
+                      {/* 类别 chip */}
+                      <div className="absolute top-2 right-2 text-xs px-1.5 py-0.5 rounded-lg z-20"
+                        style={{ background: meta.color + '40', color: '#fff', border: `1px solid ${meta.color}80` }}>
+                        {meta.label}
+                      </div>
+                      {f.importance === 3 && (
+                        <div className="absolute top-2 left-2 text-xs px-1.5 py-0.5 rounded-lg z-20 bg-amber-500/40 text-amber-200 border border-amber-500/60">
+                          ⭐ 重要
+                        </div>
+                      )}
                     </div>
-                    <div className="text-[10px] text-ink-500 tabular-nums">
-                      位置：{f.labelPos[0].toFixed(1)}°, {f.labelPos[1].toFixed(1)}°
+                    {/* 信息区 */}
+                    <div className="p-3">
+                      <div className="flex items-baseline justify-between gap-2 mb-1">
+                        <span className="text-base font-serif text-parchment-50 group-hover:text-emerald-300 transition-colors">{f.name}</span>
+                        <span className="text-xs text-ink-500 tabular-nums shrink-0">
+                          {f.labelPos[0].toFixed(1)}°, {f.labelPos[1].toFixed(1)}°
+                        </span>
+                      </div>
+                      {f.description && (
+                        <div className="text-xs text-ink-300 leading-relaxed line-clamp-2">
+                          {f.description}
+                        </div>
+                      )}
                     </div>
                   </button>
                 )
@@ -227,7 +439,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
           </>
         ) : (
           <>
-            <div className="flex rounded bg-ink-700/60 border border-ink-600 overflow-hidden text-xs mb-4 w-fit">
+            <div className="flex rounded-lg bg-ink-700/60 border border-ink-600 overflow-hidden text-xs mb-4 w-fit">
               {(['all', 'china', 'world'] as const).map(r => (
                 <button
                   key={r}
@@ -242,88 +454,147 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                 </button>
               ))}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3">
               {TERRITORY_FILES.filter(f => territoryRegion === 'all' || f.region === territoryRegion).map(f => {
                 const era = eras.find(e => e.id === f.id)
+                const geojson = territoryGeojsons[f.id]
+                const peakLabel = f.peakYear != null
+                  ? (f.peakYear < 0 ? `BC ${-f.peakYear}` : `${f.peakYear}`)
+                  : null
+                const eraColor = era?.color ?? '#888'
                 return (
-                  <button
+                  <div
                     key={f.id}
+                    ref={(el) => { cardRefs.current[f.id] = el }}
+                    className="text-left rounded-lg overflow-hidden border border-ink-600 bg-ink-800/60 hover:border-emerald-500/60 hover:bg-ink-700/60 transition-all group cursor-pointer"
+                    style={{
+                      borderLeftWidth: '3px',
+                      borderLeftColor: eraColor,
+                      // 给滚动留 sticky header 位置 ~ 280px（标题 + Tab + 时间轴 + 标签）
+                      scrollMarginTop: '280px',
+                    }}
                     onClick={() => setSelectedTerritory({ id: f.id, region: f.region, era })}
-                    className="text-left p-3 rounded border border-ink-600 bg-ink-800/60 hover:border-emerald-500/60 hover:bg-ink-700/60 transition-colors"
                   >
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-sm font-serif" style={{ color: era?.color ?? '#c89a5b' }}>
-                        {era?.name ?? f.id}
-                      </span>
-                      {era && (
-                        <span className="text-[10px] text-ink-500">
-                          {era.startYear < 0 ? `BC ${-era.startYear}` : era.startYear} ~ {era.endYear < 0 ? `BC ${-era.endYear}` : era.endYear}
-                        </span>
+                    {/* 上下两层：上半部 SVG 全盛期地图 + 浮动信息，下半部简要介绍 */}
+                    <div className="relative w-full" style={{ aspectRatio: '16/7', background: '#0a1820' }}>
+                      {/* SVG 全盛期地图（如果有 GeoJSON） */}
+                      {geojson ? (
+                        <TerritoryMapThumb
+                          geojson={geojson}
+                          width={400}
+                          height={175}
+                          fallbackColor={eraColor}
+                          className="w-full h-full"
+                        />
+                      ) : (
+                        /* 占位/loading 状态 */
+                        <div className="absolute inset-0 flex items-center justify-center text-ink-500 text-xs">
+                          <span className="opacity-60">⏳ 地图加载中...</span>
+                        </div>
+                      )}
+                      {/* 顶部渐变（保护标题）+ 顶部朝代色徽章 */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-ink-900/85 via-transparent to-ink-900/40 pointer-events-none" />
+                      <div
+                        className="absolute top-2 right-2 text-xs px-2 py-0.5 rounded-lg z-10 backdrop-blur"
+                        style={{ background: eraColor + '30', color: eraColor, border: `1px solid ${eraColor}80` }}
+                      >
+                        {f.region === 'china' ? '🇨🇳 中国' : '🌍 世界'}
+                      </div>
+                      {/* 鼎盛期标签（左下） */}
+                      {peakLabel && (
+                        <div className="absolute bottom-2 left-2 text-xs px-2 py-0.5 rounded-lg bg-ink-900/80 backdrop-blur z-10">
+                          <span className="text-ink-400">鼎盛期 </span>
+                          <span className="text-amber-200 font-bold tabular-nums">{peakLabel}</span>
+                        </div>
                       )}
                     </div>
-                    <div className="text-[10px] text-ink-500">
-                      {f.region === 'china' ? '🇨🇳 中国朝代' : '🌍 世界文明'} · GeoJSON 已就绪
+                    {/* 文字信息 */}
+                    <div className="p-3">
+                      <div className="flex items-baseline justify-between gap-2 mb-1">
+                        <span className="text-base font-serif group-hover:text-emerald-300 transition-colors" style={{ color: eraColor }}>
+                          {era?.name ?? f.id}
+                        </span>
+                        {era && (
+                          <span className="text-xs text-ink-500 tabular-nums shrink-0">
+                            {era.startYear < 0 ? `BC ${-era.startYear}` : era.startYear} ~ {era.endYear < 0 ? `BC ${-era.endYear}` : era.endYear}
+                          </span>
+                        )}
+                      </div>
+                      {f.shortDesc && (
+                        <div className="text-xs text-ink-300 leading-relaxed line-clamp-2">{f.shortDesc}</div>
+                      )}
                     </div>
-                  </button>
+                  </div>
                 )
               })}
             </div>
           </>
         )}
-      </div>
 
       {/* 自然地理详情弹窗 */}
       {selectedFeature && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
           onClick={() => setSelectedFeature(null)}
         >
           <div
             className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-emerald-700/40 shadow-2xl"
+            role="dialog"
+            aria-modal="true"
+            aria-label="地理详情"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* 图片区（典型照片） */}
-            {selectedFeature.imageUrl ? (
-              <div className="relative w-full bg-ink-900" style={{ aspectRatio: '16/9' }}>
+            {/* 图片区 — 双层兜底：渐变+emoji 始终可见，Bing 真实图加载成功后淡入覆盖 */}
+            <div className="relative w-full bg-ink-900" style={{ aspectRatio: '16/9' }}>
+              {/* 兜底：渐变 + 大字 emoji（即使没图或图加载失败也始终显示） */}
+              <div
+                className="absolute inset-0 flex items-center justify-center select-none"
+                style={{
+                  background: `linear-gradient(135deg, ${FEATURE_LABELS[selectedFeature.type].color}55 0%, ${FEATURE_LABELS[selectedFeature.type].color}22 100%)`,
+                }}
+              >
+                <span className="text-7xl opacity-80">
+                  {FEATURE_LABELS[selectedFeature.type].icon}
+                </span>
+              </div>
+              {/* 真实 Bing 图：透明起，加载成功淡入；加载失败保持透明（兜底继续显示） */}
+              {selectedFeature.imageUrl && (
                 <img
                   src={selectedFeature.imageUrl}
                   alt={selectedFeature.name}
-                  className="w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500 z-10"
+                  style={{ opacity: 0 }}
                   loading="lazy"
-                  onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                  onLoad={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '1' }}
+                  onError={(e) => { (e.currentTarget as HTMLImageElement).style.opacity = '0' }}
                 />
-                {selectedFeature.imageCredit && (
-                  <div className="absolute bottom-1 right-2 text-[9px] text-parchment-50/70 bg-ink-900/70 px-1.5 py-0.5 rounded">
-                    📷 {selectedFeature.imageCredit}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="relative w-full bg-gradient-to-br from-emerald-900/40 to-ink-700 flex items-center justify-center text-6xl" style={{ aspectRatio: '16/9' }}>
-                {FEATURE_LABELS[selectedFeature.type].icon}
-              </div>
-            )}
-
-            <div className="px-6 py-4 border-b border-emerald-700/30 flex items-center justify-between">
-              <div>
-                <div className="text-[10px] text-ink-500 mb-1">
+              )}
+              {/* 标题层覆盖 */}
+              <div className="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-ink-900/95 via-ink-900/40 to-transparent z-20 pointer-events-none">
+                <div className="text-xs text-emerald-300 uppercase tracking-wider mb-1">
                   {FEATURE_LABELS[selectedFeature.type].icon} {FEATURE_LABELS[selectedFeature.type].label}
                   {selectedFeature.importance === 3 ? ' · ⭐⭐⭐' : selectedFeature.importance === 2 ? ' · ⭐⭐' : ''}
                 </div>
-                <h3 className="text-xl font-serif text-emerald-300">{selectedFeature.name}</h3>
+                <h3 className="text-2xl font-serif text-parchment-50">{selectedFeature.name}</h3>
               </div>
+              {selectedFeature.imageCredit && (
+                <div className="absolute top-3 right-3 text-[9px] text-parchment-50/70 bg-ink-900/70 px-1.5 py-0.5 rounded-lg z-20">
+                  📷 {selectedFeature.imageCredit}
+                </div>
+              )}
               <button
                 onClick={() => setSelectedFeature(null)}
-                className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+                className="absolute top-3 left-3 z-20 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
               >
                 ×
               </button>
             </div>
+
             <div className="p-6 space-y-4 text-sm">
               {/* 文字介绍 */}
               {selectedFeature.description && (
                 <div>
-                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📜 介绍</div>
+                  <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">📜 介绍</div>
                   <div className="text-parchment-100 leading-relaxed">
                     {selectedFeature.description}
                   </div>
@@ -331,7 +602,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
               )}
 
               <div>
-                <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
+                <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
                 <MiniMap
                   focusNode={{
                     title: selectedFeature.name,
@@ -369,11 +640,14 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
       {/* 疆域详情弹窗 */}
       {selectedTerritory && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
           onClick={() => setSelectedTerritory(null)}
         >
           <div
             className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-emerald-700/40 shadow-2xl"
+            role="dialog"
+            aria-modal="true"
+            aria-label="地理详情"
             onClick={(e) => e.stopPropagation()}
           >
             {/* 朝代色带 */}
@@ -383,7 +657,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
 
             <div className="px-6 py-4 border-b border-emerald-700/30 flex items-center justify-between">
               <div>
-                <div className="text-[10px] text-ink-500 mb-1">
+                <div className="text-xs text-ink-500 mb-1">
                   🏛️ 疆域变迁 · {selectedTerritory.region === 'china' ? '🇨🇳 中国' : '🌍 世界'}
                 </div>
                 <h3 className="text-xl font-serif text-emerald-300">
@@ -397,7 +671,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
               </div>
               <button
                 onClick={() => setSelectedTerritory(null)}
-                className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+                className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700"
               >
                 ×
               </button>
@@ -413,7 +687,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
               {/* 完整介绍 */}
               {selectedTerritory.era?.description && (
                 <div>
-                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📜 详细介绍</div>
+                  <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">📜 详细介绍</div>
                   <div className="text-parchment-100 leading-relaxed whitespace-pre-line">
                     {selectedTerritory.era.description}
                   </div>
@@ -423,7 +697,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
               {/* 核心要点 */}
               {selectedTerritory.era?.keyPoints && selectedTerritory.era.keyPoints.length > 0 && (
                 <div>
-                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🎯 核心要点</div>
+                  <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">🎯 核心要点</div>
                   <ul className="space-y-1">
                     {selectedTerritory.era.keyPoints.map((kp, i) => (
                       <li key={i} className="flex items-start gap-2 text-parchment-100">
@@ -438,7 +712,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
               {/* 关键事件 */}
               {selectedTerritory.era?.quickEvents && selectedTerritory.era.quickEvents.length > 0 && (
                 <div>
-                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">⚡ 关键事件</div>
+                  <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">⚡ 关键事件</div>
                   <div className="space-y-2">
                     {selectedTerritory.era.quickEvents.map((ev, i) => (
                       <div key={i} className="flex gap-3 items-start">
@@ -458,7 +732,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
               {/* 历史意义 */}
               {selectedTerritory.era?.legacy && (
                 <div>
-                  <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🌟 历史意义</div>
+                  <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">🌟 历史意义</div>
                   <div className="text-parchment-100 leading-relaxed">
                     {selectedTerritory.era.legacy}
                   </div>
@@ -467,7 +741,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
 
               {/* 疆域缩略地图 */}
               <div>
-                <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 都城/中心位置</div>
+                <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 都城/中心位置</div>
                 {(() => {
                   const center = ERA_CENTERS[selectedTerritory.id] ?? (
                     selectedTerritory.region === 'china' ? [108.94, 34.34] : [0, 30]
@@ -508,7 +782,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
               </div>
 
               <div>
-                <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1">🗺️ 数据源</div>
+                <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">🗺️ 数据源</div>
                 <div className="text-xs text-ink-400 font-mono break-all">
                   public/geo/{selectedTerritory.region === 'china' ? 'china' : 'world/eras'}/{selectedTerritory.id}.geojson
                 </div>
@@ -520,6 +794,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
           </div>
         </div>
       )}
-    </div>
+      </>
+    </OverviewLayout>
   )
 }

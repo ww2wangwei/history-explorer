@@ -23,7 +23,7 @@ export default function NoteCard({ note, onEdit, onDelete }: Props) {
 
   return (
     <div
-      className="group rounded border border-ink-600 bg-ink-700/40 hover:bg-ink-700/70 hover:border-bronze-500/50 transition-colors cursor-pointer"
+      className="group rounded-lg border border-ink-600 bg-ink-700/40 hover:bg-ink-700/70 hover:border-bronze-500/50 transition-colors cursor-pointer"
       onClick={() => onEdit(note.id)}
     >
       <div className="flex items-start justify-between gap-2 px-3 py-2.5">
@@ -34,7 +34,7 @@ export default function NoteCard({ note, onEdit, onDelete }: Props) {
           <div className="text-xs text-ink-500 mt-1 line-clamp-2 leading-relaxed">
             {excerpt}
           </div>
-          <div className="text-[10px] text-ink-600 mt-1.5">
+          <div className="text-xs text-ink-600 mt-1.5">
             {formatRelativeTime(note.updatedAt)}
           </div>
         </div>
@@ -45,7 +45,7 @@ export default function NoteCard({ note, onEdit, onDelete }: Props) {
               onDelete(note.id)
             }
           }}
-          className="opacity-0 group-hover:opacity-100 px-2 py-1 text-ink-500 hover:text-red-400 hover:bg-red-900/30 rounded text-xs transition-all"
+          className="opacity-0 group-hover:opacity-100 px-2 py-1 text-ink-500 hover:text-red-400 hover:bg-red-900/30 rounded-lg text-xs transition-all"
           aria-label="删除笔记"
           title="删除"
         >

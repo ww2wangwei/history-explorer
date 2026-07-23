@@ -58,7 +58,7 @@ export default function TimeMachine() {
   return (
     <div className="relative" ref={containerRef}>
       <button
-        className="px-3 py-1.5 rounded bg-ink-700/80 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-xs flex items-center gap-1.5 transition-colors"
+        className="px-3 py-1.5 rounded-lg bg-ink-700/80 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-xs flex items-center gap-1.5 transition-colors"
         onClick={() => setIsOpen(!isOpen)}
         title="时间机器：跳转到特定朝代"
       >
@@ -68,7 +68,7 @@ export default function TimeMachine() {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 mt-1 w-80 max-h-96 bg-ink-800 border border-ink-600 rounded shadow-2xl z-50 overflow-hidden flex flex-col">
+        <div className="absolute top-full left-0 mt-1 w-80 max-h-96 bg-ink-800 border border-ink-600 rounded-lg shadow-2xl z-50 overflow-hidden flex flex-col">
           {/* 搜索框 */}
           <div className="p-2 border-b border-ink-700">
             <input
@@ -77,7 +77,7 @@ export default function TimeMachine() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               autoFocus
-              className="w-full px-2 py-1.5 rounded bg-ink-700 border border-ink-600 text-xs text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
+              className="w-full px-2 py-1.5 rounded-lg bg-ink-700 border border-ink-600 text-xs text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
             />
           </div>
 
@@ -103,14 +103,14 @@ export default function TimeMachine() {
                         {era.region === 'china' ? '中国' : era.region}
                       </span>
                     </span>
-                    <span className="text-[10px] text-ink-500 font-serif shrink-0">
+                    <span className="text-xs text-ink-500 font-serif shrink-0">
                       {era.startYear < 0 ? '前' + Math.abs(era.startYear) : era.startYear}
                       {' ~ '}
                       {era.endYear < 0 ? '前' + Math.abs(era.endYear) : era.endYear}
                     </span>
                   </div>
                   {era.shortDesc && (
-                    <div className="text-[10px] text-ink-500 ml-4 truncate">{era.shortDesc}</div>
+                    <div className="text-xs text-ink-500 ml-4 truncate">{era.shortDesc}</div>
                   )}
                 </button>
               ))
@@ -118,7 +118,7 @@ export default function TimeMachine() {
           </div>
 
           {/* 提示 */}
-          <div className="px-3 py-1.5 border-t border-ink-700 text-[10px] text-ink-500 bg-ink-900/50">
+          <div className="px-3 py-1.5 border-t border-ink-700 text-xs text-ink-500 bg-ink-900/50">
             💡 点击朝代跳转到该朝代鼎盛时期
           </div>
         </div>

@@ -195,7 +195,7 @@ export default function NotesOverview({ variant, isOpen, isActive, onClose }: Pr
       <div className="flex items-center gap-2">
         <button
           onClick={() => setSearchOpen(o => !o)}
-          className="text-[10px] text-ink-500 hover:text-bronze-300 px-1"
+          className="text-xs text-ink-500 hover:text-bronze-300 px-1"
           title={searchOpen ? '收起搜索区' : '展开搜索区'}
         >
           {searchOpen ? '▼' : '▶'} {searchOpen ? '收起搜索' : (query.trim() ? `搜索词: ${query}` : '展开搜索')}
@@ -291,7 +291,7 @@ export default function NotesOverview({ variant, isOpen, isActive, onClose }: Pr
       aria-label="笔记总览页"
     >
       <NotesOverviewHeader onClose={onClose} />
-      <NotesOverviewStats notes={allNotes} query={query} kind={kind} targetId={targetId} onExport={handleExport} onImport={handleImport} />
+      <NotesOverviewStats notes={allNotes} onExport={handleExport} onImport={handleImport} />
       {mode === 'list' ? listContent : editContent}
     </div>
   )

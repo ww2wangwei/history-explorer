@@ -206,11 +206,11 @@ export default function TMapTest() {
         ref={containerRef}
         style={{ position: 'absolute', inset: 0, zIndex: 0 }}
       />
-      <div className="absolute top-2 left-2 z-10 text-xs bg-ink-800/95 px-3 py-1.5 rounded border border-bronze-500/40 shadow-lg">
+      <div className="absolute top-2 left-2 z-10 text-xs bg-ink-800/95 px-3 py-1.5 rounded-lg border border-bronze-500/40 shadow-lg">
         <span className="text-bronze-400 font-serif">天地图 T.Map</span>
         <span className="ml-2 text-parchment-100">Status: {status}</span>
         {error && <span className="text-red-400 ml-2">ERROR: {error}</span>}
-        <div className="text-[10px] text-ink-500 mt-1">
+        <div className="text-xs text-ink-500 mt-1">
           当前年: {currentYear} · 朝代: {getChinaEraAtYear(currentYear)?.name ?? '无'}
         </div>
       </div>

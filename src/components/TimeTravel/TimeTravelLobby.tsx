@@ -73,8 +73,9 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
             <LobbyVolumeControl />
             <button
               onClick={onClose}
-              className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+              className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700"
               title="返回 (ESC)"
+              aria-label="返回"
             >×</button>
           </div>
         </div>
@@ -93,7 +94,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
             </div>
             <button
               onClick={() => setShowEndingsAtlas(true)}
-              className="text-xs px-3 py-1.5 rounded bg-amber-700/40 hover:bg-amber-600/60 border border-amber-600/50 text-amber-200 transition-colors"
+              className="text-xs px-3 py-1.5 rounded-lg bg-amber-700/40 hover:bg-amber-600/60 border border-amber-600/50 text-amber-200 transition-colors"
             >
               🏆 结局总览
             </button>
@@ -102,7 +103,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
 
         {/* 筛选条 */}
         <div className="flex flex-wrap items-center gap-2 mb-4">
-          <div className="flex rounded bg-ink-800/60 border border-ink-600 overflow-hidden text-xs">
+          <div className="flex rounded-lg bg-ink-800/60 border border-ink-600 overflow-hidden text-xs">
             {(['all', 'china', 'world'] as const).map(r => (
               <button
                 key={r}
@@ -113,7 +114,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
               </button>
             ))}
           </div>
-          <div className="flex rounded bg-ink-800/60 border border-ink-600 overflow-hidden text-xs">
+          <div className="flex rounded-lg bg-ink-800/60 border border-ink-600 overflow-hidden text-xs">
             {(['all', 'unplayed', 'completed'] as const).map(s => (
               <button
                 key={s}
@@ -151,21 +152,21 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
               >
                 <div className="flex items-start gap-4">
                   <CharacterAvatar
-                    name={sc.subtitle.replace(/你是|，.*/g, '').trim() || sc.title}
-                    searchKeyword={`${sc.subtitle.split('，')[0].replace('你是', '')} portrait historical`}
+                    name={sc.title}
+                    searchKeyword={`${sc.title} ${sc.era} historical scene`}
                     size={80}
                     className="rounded-full ring-2 ring-offset-2 ring-offset-ink-800"
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
                       <h2 className="text-2xl font-serif text-parchment-50">{sc.title}</h2>
-                      {completed && <span className="text-xs px-2 py-0.5 rounded bg-emerald-700/40 text-emerald-300 border border-emerald-600/50">✓ 已通关</span>}
+                      {completed && <span className="text-xs px-2 py-0.5 rounded-lg bg-emerald-700/40 text-emerald-300 border border-emerald-600/50">✓ 已通关</span>}
                       <span className="text-xs text-ink-500">· {sc.era} · {sc.year} 年 · {sc.location}</span>
                     </div>
                     <div className="text-sm text-bronze-300 mb-2">{sc.subtitle}</div>
                     <p className="text-sm text-ink-300 leading-relaxed mb-3">{sc.background}</p>
                     {myEnding && (
-                      <div className="mb-3 p-2 rounded bg-ink-900/60 border border-bronze-700/30 text-xs">
+                      <div className="mb-3 p-2 rounded-lg bg-ink-900/60 border border-bronze-700/30 text-xs">
                         <span className="text-ink-500">上次结局：</span>
                         <span className="text-bronze-300 font-serif">{myEnding.title}</span>
                       </div>
@@ -205,7 +206,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
                           // 短延迟让音效先响再切换场景
                           setTimeout(() => onStart(sc.id), 600)
                         }}
-                        className="px-5 py-2 rounded font-serif text-base transition-colors hover:scale-105 active:scale-95"
+                        className="px-5 py-2 rounded-lg font-serif text-base transition-colors hover:scale-105 active:scale-95"
                         style={{
                           background: sc.color,
                           color: '#0f0e0c',
@@ -298,7 +299,7 @@ function EndingsAtlas({ scenarioEndings, onClose }: { scenarioEndings: Record<st
               （{Math.round((unlockedEndings / totalEndings) * 100)}%）
             </p>
           </div>
-          <button onClick={onClose} className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700">×</button>
+          <button onClick={onClose} className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700">×</button>
         </div>
 
         <div className="p-6 space-y-6">
@@ -324,7 +325,7 @@ function EndingsAtlas({ scenarioEndings, onClose }: { scenarioEndings: Record<st
                     return (
                       <div
                         key={ending.id}
-                        className={`p-3 rounded border text-xs ${isUnlocked ? '' : 'opacity-40 grayscale'}`}
+                        className={`p-3 rounded-lg border text-xs ${isUnlocked ? '' : 'opacity-40 grayscale'}`}
                         style={{
                           borderColor: isUnlocked ? ending.isWin ? '#5bc89a' : '#b85450' : 'rgba(90, 90, 106, 0.4)',
                           background: isUnlocked ? 'rgba(15,14,12,0.4)' : 'transparent',

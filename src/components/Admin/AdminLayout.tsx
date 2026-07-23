@@ -66,7 +66,7 @@ export default function AdminLayout({ tab, onTabChange, children }: Props) {
           <div className="text-lg font-serif text-bronze-300 flex items-center gap-2">
             ⚙️ 后台管理
           </div>
-          <div className="text-[10px] text-ink-500 mt-1">
+          <div className="text-xs text-ink-500 mt-1">
             {overridesCount} 项编辑 · {isDirty ? '🟡 有未保存改动' : '🟢 已同步'}
           </div>
           {lastModified && (
@@ -80,7 +80,7 @@ export default function AdminLayout({ tab, onTabChange, children }: Props) {
             <button
               key={t.id}
               onClick={() => onTabChange(t.id)}
-              className={`w-full text-left px-3 py-2 rounded text-sm transition-colors ${
+              className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                 tab === t.id
                   ? 'bg-bronze-700/30 text-bronze-200 border border-bronze-600/50'
                   : 'text-ink-300 hover:bg-ink-700/60 hover:text-parchment-50 border border-transparent'
@@ -93,25 +93,25 @@ export default function AdminLayout({ tab, onTabChange, children }: Props) {
         <div className="p-2 border-t border-ink-700 space-y-1">
           <button
             onClick={handleExport}
-            className="w-full text-left px-3 py-1.5 rounded text-xs text-emerald-300 hover:bg-emerald-900/30 border border-emerald-700/30"
+            className="w-full text-left px-3 py-1.5 rounded-lg text-xs text-emerald-300 hover:bg-emerald-900/30 border border-emerald-700/30"
           >
             ⬇️ 导出 JSON
           </button>
           <button
             onClick={handleImport}
-            className="w-full text-left px-3 py-1.5 rounded text-xs text-blue-300 hover:bg-blue-900/30 border border-blue-700/30"
+            className="w-full text-left px-3 py-1.5 rounded-lg text-xs text-blue-300 hover:bg-blue-900/30 border border-blue-700/30"
           >
             ⬆️ 导入 JSON
           </button>
           <button
             onClick={() => { if (confirm('确定要重置所有编辑吗？此操作不可撤销。')) resetAll() }}
-            className="w-full text-left px-3 py-1.5 rounded text-xs text-red-300 hover:bg-red-900/30 border border-red-700/30"
+            className="w-full text-left px-3 py-1.5 rounded-lg text-xs text-red-300 hover:bg-red-900/30 border border-red-700/30"
           >
             🗑️ 重置全部
           </button>
           <a
             href="/"
-            className="block w-full text-left px-3 py-1.5 rounded text-xs text-ink-400 hover:bg-ink-700/60 border border-ink-700/30"
+            className="block w-full text-left px-3 py-1.5 rounded-lg text-xs text-ink-400 hover:bg-ink-700/60 border border-ink-700/30"
           >
             ← 返回主应用
           </a>

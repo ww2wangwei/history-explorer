@@ -16,6 +16,9 @@ import { enhancePersonaPrompt } from '@/utils/useLearningContext'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import PersonDetailDialog from '@/components/Figures/PersonDetailDialog'
 import MiniMap from '@/components/Figures/MiniMap'
+import OverviewLayout from '@/components/ui/OverviewLayout'
+import EmptyState from '@/components/ui/EmptyState'
+import OverviewSearch from '@/components/ui/OverviewSearch'
 import { bingImage, cultureSearchKeywords } from '@/utils/geoImage'
 import type { Era, HistoricalFigure } from '@/types'
 
@@ -87,8 +90,6 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
     return () => window.removeEventListener('keydown', handler, true)
   }, [isActive, selectedEvent, selectedPerson, onClose])
 
-  if (!isActive) return null
-
   // ===== 人物过滤 =====
   const filteredPeople = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -126,6 +127,8 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
       return true
     }).sort((a, b) => a.year - b.year)
   }, [region, category, query])
+
+  if (!isActive) return null
 
   // ===== 类别 chips（根据 tab 切换）=====
   const categoryOptions = tab === 'people'
@@ -171,29 +174,20 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
   }
 
   return (
-    <div className="w-full h-full bg-ink-900 overflow-y-auto">
-      <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-bronze-500/40">
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between mb-3">
-            <div>
-              <h2 className="text-2xl font-serif text-bronze-300">📚 全文化</h2>
-              <p className="text-xs text-ink-500 mt-1">
-                {tab === 'people'
-                  ? `${filteredPeople.length} / ${culturePeople.length} 位思想者、文学家、宗教人物`
-                  : `${filteredEvents.length} / ${cultureEvents.length} 个文化内容（事件/作品/思想/科技）`}
-              </p>
-            </div>
-            <button
-              onClick={onClose}
-              className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
-              title="返回 Dashboard (ESC)"
-            >
-              ×
-            </button>
-          </div>
-
+    <OverviewLayout
+      emoji="📚"
+      title="全文化"
+      subtitle={
+        tab === 'people'
+          ? `${filteredPeople.length} / ${culturePeople.length} 位思想者、文学家、宗教人物`
+          : `${filteredEvents.length} / ${cultureEvents.length} 个文化内容（事件/作品/思想/科技）`
+      }
+      onClose={onClose}
+      suppressEsc
+      toolbar={
+        <>
           {/* Tab 切换 */}
-          <div className="flex rounded bg-ink-700/60 border border-ink-600 overflow-hidden text-xs mb-3 w-fit">
+          <div className="flex rounded-lg bg-ink-700/60 border border-ink-600 overflow-hidden text-xs mb-3 w-fit">
             <button
               onClick={() => { setTab('events'); setCategory('all') }}
               className={`px-4 py-1.5 transition-colors ${tab === 'events' ? 'bg-bronze-600/40 text-bronze-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'}`}
@@ -209,7 +203,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <div className="flex rounded bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
+            <div className="flex rounded-lg bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
               {(['all', 'china', 'world'] as const).map(r => (
                 <button
                   key={r}
@@ -220,7 +214,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                 </button>
               ))}
             </div>
-            <div className="flex flex-wrap rounded bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
+            <div className="flex flex-wrap rounded-lg bg-ink-700/60 border border-ink-600 overflow-hidden text-xs">
               {categoryOptions.map(([k, label]) => (
                 <button
                   key={k}
@@ -231,22 +225,21 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                 </button>
               ))}
             </div>
-            <input
-              type="text"
+            <OverviewSearch
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={setQuery}
               placeholder={tab === 'people' ? '搜索名字/角色/作品...' : '搜索文化内容...'}
-              className="flex-1 min-w-[200px] text-xs px-3 py-1.5 bg-ink-700/60 border border-ink-600 rounded text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
+              minWidth={200}
             />
           </div>
-        </div>
-      </div>
-
-      <div className="max-w-6xl mx-auto px-6 py-6">
+        </>
+      }
+    >
+      <>
         {tab === 'people' ? (
           // ===== 人物 grid =====
           filteredPeople.length === 0 ? (
-            <div className="text-center text-ink-500 py-12">未找到匹配的人物</div>
+            <EmptyState emoji="🔍" title="未找到匹配的人物" hint="试试切换筛选条件或清空搜索" />
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
               {filteredPeople.map(p => {
@@ -262,9 +255,9 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                     )}
                     <div className="text-4xl mb-2">{p.emoji || '👤'}</div>
                     <div className="text-sm font-serif text-parchment-50 truncate">{p.name}</div>
-                    <div className="text-[10px] text-ink-400 mt-1 line-clamp-2 min-h-[2.5em]">{p.role}</div>
+                    <div className="text-xs text-ink-400 mt-1 line-clamp-2 min-h-[2.5em]">{p.role}</div>
                     {p.culturalWorks && p.culturalWorks.length > 0 && (
-                      <div className="text-[10px] text-bronze-400/80 mt-1 line-clamp-1 italic">
+                      <div className="text-xs text-bronze-400/80 mt-1 line-clamp-1 italic">
                         {p.culturalWorks[0]}{p.culturalWorks.length > 1 ? ` 等 ${p.culturalWorks.length} 部` : ''}
                       </div>
                     )}
@@ -276,7 +269,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
         ) : (
           // ===== 文化内容 grid =====
           filteredEvents.length === 0 ? (
-            <div className="text-center text-ink-500 py-12">未找到匹配的文化内容</div>
+            <EmptyState emoji="🔍" title="未找到匹配的文化内容" hint="试试切换筛选条件或清空搜索" />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {filteredEvents.map(ev => {
@@ -310,10 +303,10 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                         >
                           {catMeta.icon}
                         </span>
-                        <span className="text-[10px] text-ink-500 tabular-nums">{yearLabel}</span>
-                        {ev.importance === 3 && <span className="text-amber-400 text-[10px]">⭐ 关键</span>}
+                        <span className="text-xs text-ink-500 tabular-nums">{yearLabel}</span>
+                        {ev.importance === 3 && <span className="text-amber-400 text-xs">⭐ 关键</span>}
                         <span
-                          className="text-[9px] px-1.5 py-0.5 rounded"
+                          className="text-[9px] px-1.5 py-0.5 rounded-lg"
                           style={{ background: catMeta.color + '20', color: catMeta.color }}
                         >
                           {ev.category}
@@ -329,7 +322,6 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
             </div>
           )
         )}
-      </div>
 
       {/* 人物详情弹窗 */}
       {selectedPerson && (
@@ -346,11 +338,14 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
         const evImg = bingImage(evKw, 800, 450)
         return (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
           onClick={() => setSelectedEvent(null)}
         >
           <div
             className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl"
+            role="dialog"
+            aria-modal="true"
+            aria-label="文化内容详情"
             onClick={(e) => e.stopPropagation()}
           >
             {/* 文化内容图片 */}
@@ -363,7 +358,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                 onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink-900/95 to-transparent px-6 pt-8 pb-3">
-                <div className="text-[10px] text-ink-300 mb-0.5 flex items-center gap-2 flex-wrap">
+                <div className="text-xs text-ink-300 mb-0.5 flex items-center gap-2 flex-wrap">
                   <span className="tabular-nums">{yearLabel(selectedEvent)}</span>
                   {selectedEvent.importance === 3 && <span className="text-amber-400">⭐ 关键</span>}
                   <span style={{ color: (CULTURE_CATEGORY_LABELS[selectedEvent.category] || { color: '#fff' }).color }}>
@@ -375,8 +370,9 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
               </div>
               <button
                 onClick={() => setSelectedEvent(null)}
-                className="absolute top-3 right-3 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
+                className="absolute top-3 right-3 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
                 title="关闭 (ESC)"
+                aria-label="关闭"
               >
                 ×
               </button>
@@ -384,14 +380,14 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
 
             <div className="p-6 space-y-4">
               <div>
-                <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">📜 详细介绍</div>
+                <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">📜 详细介绍</div>
                 <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
                   {selectedEvent.description}
                 </div>
               </div>
 
               <div>
-                <div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
+                <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
                 <MiniMap
                   focusNode={{
                     title: selectedEvent.title,
@@ -417,13 +413,13 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
               <div className="flex gap-2 pt-3 border-t border-ink-700">
                 <button
                   onClick={() => handleEventChat(selectedEvent)}
-                  className="flex-1 px-4 py-2.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors"
+                  className="flex-1 px-4 py-2.5 rounded-lg bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors"
                 >
                   💬 询问此内容
                 </button>
                 <button
                   onClick={() => setSelectedEvent(null)}
-                  className="px-4 py-2.5 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm transition-colors"
+                  className="px-4 py-2.5 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm transition-colors"
                 >
                   关闭
                 </button>
@@ -433,7 +429,8 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
         </div>
         )
       })()}
-    </div>
+      </>
+    </OverviewLayout>
   )
 }
 

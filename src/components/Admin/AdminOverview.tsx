@@ -43,7 +43,7 @@ export default function AdminOverview({ onTabChange }: Props) {
               状态：{isDirty ? '🟡 有未保存改动（已自动存到 localStorage）' : '🟢 已同步'}
             </div>
             {lastModified && (
-              <div className="text-[10px] text-ink-600 mt-1">
+              <div className="text-xs text-ink-600 mt-1">
                 最近修改：{new Date(lastModified).toLocaleString('zh-CN')}
               </div>
             )}
@@ -51,7 +51,7 @@ export default function AdminOverview({ onTabChange }: Props) {
           <button
             onClick={() => { if (confirm('确定要重置所有编辑吗？')) resetAll() }}
             disabled={total === 0}
-            className="px-3 py-2 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="px-3 py-2 rounded-lg bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
             🗑️ 重置全部
           </button>
@@ -85,7 +85,7 @@ function StatCard({ icon, label, count, color, onClick }: { icon: string; label:
         <span className="text-xs text-ink-400">{label}</span>
       </div>
       <div className="text-2xl font-serif" style={{ color }}>{count}</div>
-      <div className="text-[10px] text-ink-500 mt-1">点击编辑 →</div>
+      <div className="text-xs text-ink-500 mt-1">点击编辑 →</div>
     </button>
   )
 }

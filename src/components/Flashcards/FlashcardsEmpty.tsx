@@ -21,7 +21,7 @@ export default function FlashcardsEmpty({ onClose }: Props) {
       </div>
       <button
         onClick={onClose}
-        className="px-4 py-1.5 text-sm rounded bg-ink-700 hover:bg-ink-600 border border-ink-600 text-bronze-400 transition-colors"
+        className="px-4 py-1.5 text-sm rounded-lg bg-ink-700 hover:bg-ink-600 border border-ink-600 text-bronze-400 transition-colors"
       >
         ← 返回地图
       </button>

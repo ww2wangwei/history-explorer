@@ -41,7 +41,7 @@ export default function NotesOverviewFilters({
           <button
             key={opt.value}
             onClick={() => onKindChange(opt.value)}
-            className={`flex-1 px-3 py-1 text-xs rounded transition-colors ${
+            className={`flex-1 px-3 py-1 text-xs rounded-lg transition-colors ${
               kind === opt.value
                 ? 'bg-bronze-600/40 text-bronze-400 border border-bronze-500/60'
                 : 'bg-ink-700/60 text-ink-500 hover:bg-ink-700 hover:text-parchment-50 border border-ink-600'
@@ -61,7 +61,7 @@ export default function NotesOverviewFilters({
           <select
             value={targetId}
             onChange={e => onTargetChange(e.target.value)}
-            className="flex-1 px-2 py-1 text-xs bg-ink-700/60 border border-ink-600 rounded text-parchment-50 focus:outline-none focus:border-bronze-500"
+            className="flex-1 px-2 py-1 text-xs bg-ink-700/60 border border-ink-600 rounded-lg text-parchment-50 focus:outline-none focus:border-bronze-500"
           >
             <option value="all">全部{kind === 'era' ? '朝代' : '事件'}</option>
             {targetOptions.map(opt => (

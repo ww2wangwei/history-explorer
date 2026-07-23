@@ -27,13 +27,14 @@ export default function NotesOverviewSearch({ value, onChange }: Props) {
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder="搜索笔记标题或内容…"
-        className="w-full pl-9 pr-9 py-2 bg-ink-700/60 border border-ink-600 rounded text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
+        className="w-full pl-9 pr-9 py-2 bg-ink-700/60 border border-ink-600 rounded-lg text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
       />
       {value && (
         <button
           onClick={() => onChange('')}
-          className="absolute right-2 top-1/2 -translate-y-1/2 text-ink-500 hover:text-parchment-50 w-6 h-6 flex items-center justify-center rounded transition-colors"
+          className="absolute right-2 top-1/2 -translate-y-1/2 text-ink-500 hover:text-parchment-50 w-6 h-6 flex items-center justify-center rounded-lg transition-colors"
           title="清空搜索"
+          aria-label="清空搜索"
         >
           ✕
         </button>

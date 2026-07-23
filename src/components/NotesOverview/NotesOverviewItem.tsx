@@ -62,7 +62,7 @@ export default function NotesOverviewItem({
   return (
     <div
       onClick={() => onEdit(note.id)}
-      className={`group rounded border px-4 py-3 transition-colors cursor-pointer ${
+      className={`group rounded-lg border px-4 py-3 transition-colors cursor-pointer ${
         compact ? 'py-2' : 'py-3'
       } ${
         active
@@ -78,7 +78,7 @@ export default function NotesOverviewItem({
         <button
           onClick={handleJumpClick}
           disabled={missing}
-          className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-medium border transition-opacity ${
+          className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-xs font-medium border transition-opacity ${
             missing
               ? 'cursor-not-allowed'
               : 'hover:opacity-80 cursor-pointer'
@@ -95,12 +95,12 @@ export default function NotesOverviewItem({
           <span className="opacity-60">· {kindLabel}</span>
         </button>
         <div className="flex items-center gap-1">
-          <span className="text-[10px] text-ink-500">
+          <span className="text-xs text-ink-500">
             {formatRelativeTime(note.updatedAt)}
           </span>
           <button
             onClick={handleDelete}
-            className="opacity-0 group-hover:opacity-100 px-1.5 py-0.5 text-ink-500 hover:text-red-400 hover:bg-red-900/30 rounded text-xs transition-all"
+            className="opacity-0 group-hover:opacity-100 px-1.5 py-0.5 text-ink-500 hover:text-red-400 hover:bg-red-900/30 rounded-lg text-xs transition-all"
             aria-label="删除笔记"
             title="删除笔记"
           >

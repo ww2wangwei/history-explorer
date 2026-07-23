@@ -40,7 +40,7 @@ interface HistoryStore {
   eraOpacities: Record<string, number>
 
   // 视图模式：地图 vs 关系图谱
-  viewMode: 'map' | 'graph' | 'tmap'
+  viewMode: 'map' | 'graph'
 
   // 详情面板当前 tab：事件 / 朝代 / 笔记
   detailView: 'event' | 'era' | 'notes'
@@ -97,13 +97,13 @@ function clampCenter(center: number, zoom: number): number {
 
 // 从 URL 参数读取初始年份和缩放（用于测试和分享）
 function getInitialParams(): {
-  year: number; zoom: number; viewMode: 'map' | 'graph' | 'tmap'; selectedEraId: string | null;
+  year: number; zoom: number; viewMode: 'map' | 'graph'; selectedEraId: string | null;
   center: [number, number];
 } {
   const defaults = {
     year: TIME_RANGE.DEFAULT_YEAR,
     zoom: 1,
-    viewMode: 'map' as 'map' | 'graph' | 'tmap',
+    viewMode: 'map' as 'map' | 'graph',
     selectedEraId: null as string | null,
     center: [0, 20] as [number, number],
   }
@@ -114,7 +114,7 @@ function getInitialParams(): {
     const zoomParam = params.get('zoom')
     const viewParam = params.get('view')
     const eraParam = params.get('era')
-    const result: { year: number; zoom: number; viewMode: 'map' | 'graph'; selectedEraId: string | null } = { ...defaults }
+    const result: { year: number; zoom: number; viewMode: 'map' | 'graph'; selectedEraId: string | null; center: [number, number] } = { ...defaults }
     if (yearParam) {
       const y = parseInt(yearParam, 10)
       if (!isNaN(y)) {

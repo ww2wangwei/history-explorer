@@ -67,7 +67,7 @@ export default function EventDetail({ eventId }: Props) {
       <div className="flex items-start justify-between mb-3">
         <div>
           <div
-            className="inline-block px-2 py-0.5 rounded text-[10px] mb-2"
+            className="inline-block px-2 py-0.5 rounded-lg text-xs mb-2"
             style={{
               background: `${CATEGORY_COLORS[event.category]}20`,
               color: CATEGORY_COLORS[event.category],
@@ -88,6 +88,7 @@ export default function EventDetail({ eventId }: Props) {
           className="text-ink-500 hover:text-parchment-50 text-lg"
           onClick={() => selectEvent(null)}
           title="关闭 (ESC)"
+          aria-label="关闭"
         >
           ×
         </button>
@@ -98,11 +99,11 @@ export default function EventDetail({ eventId }: Props) {
       </div>
 
       <div className="flex gap-2 flex-wrap text-xs mb-4">
-        <span className="px-2 py-1 rounded bg-ink-700 text-ink-500">
+        <span className="px-2 py-1 rounded-lg bg-ink-700 text-ink-500">
           ⭐ 重要度 {event.importance}/3
         </span>
         {event.coordinates && (
-          <span className="px-2 py-1 rounded bg-ink-700 text-ink-500">
+          <span className="px-2 py-1 rounded-lg bg-ink-700 text-ink-500">
             📍 {event.coordinates[1].toFixed(2)}°, {event.coordinates[0].toFixed(2)}°
           </span>
         )}
@@ -111,14 +112,14 @@ export default function EventDetail({ eventId }: Props) {
       {/* 操作按钮组 */}
       <div className="flex gap-2 mb-4">
         <button
-          className="flex-1 px-3 py-2 rounded bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/50 text-bronze-400 text-sm transition-colors"
+          className="flex-1 px-3 py-2 rounded-lg bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/50 text-bronze-400 text-sm transition-colors"
           onClick={() => setYear(event.year)}
         >
           📅 定位时间轴
         </button>
         {event.coordinates && (
           <button
-            className="flex-1 px-3 py-2 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-sm transition-colors"
+            className="flex-1 px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-sm transition-colors"
             onClick={focusOnMap}
           >
             🗺️ 聚焦地图
@@ -126,7 +127,7 @@ export default function EventDetail({ eventId }: Props) {
         )}
         {existingCardId ? (
           <button
-            className="flex-1 px-3 py-2 rounded bg-emerald-900/30 border border-emerald-700/50 text-emerald-400 text-sm cursor-not-allowed"
+            className="flex-1 px-3 py-2 rounded-lg bg-emerald-900/30 border border-emerald-700/50 text-emerald-400 text-sm cursor-not-allowed"
             disabled
             title="已在复习列表中"
           >
@@ -134,7 +135,7 @@ export default function EventDetail({ eventId }: Props) {
           </button>
         ) : (
           <button
-            className="flex-1 px-3 py-2 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-sm transition-colors"
+            className="flex-1 px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-sm transition-colors"
             onClick={() => addCard({ kind: 'event', id: eventId })}
             title="加入间隔重复复习"
           >
@@ -146,9 +147,9 @@ export default function EventDetail({ eventId }: Props) {
       {/* 关联朝代 */}
       {relatedEra && (
         <div className="mb-4 border-t border-ink-600 pt-3">
-          <div className="text-[10px] text-ink-500 mb-1.5">所属朝代</div>
+          <div className="text-xs text-ink-500 mb-1.5">所属朝代</div>
           <button
-            className="w-full text-left px-3 py-2 rounded hover:bg-ink-700 transition-colors flex items-center gap-2"
+            className="w-full text-left px-3 py-2 rounded-lg hover:bg-ink-700 transition-colors flex items-center gap-2"
             onClick={() => selectEra(relatedEra.id)}
           >
             <span
@@ -158,7 +159,7 @@ export default function EventDetail({ eventId }: Props) {
             <span className="flex-1 text-sm" style={{ color: relatedEra.color }}>
               {relatedEra.name}
             </span>
-            <span className="text-[10px] text-ink-500">
+            <span className="text-xs text-ink-500">
               {relatedEra.startYear < 0 ? '前' + Math.abs(relatedEra.startYear) : relatedEra.startYear}
               {' ~ '}
               {relatedEra.endYear < 0 ? '前' + Math.abs(relatedEra.endYear) : relatedEra.endYear}
@@ -170,12 +171,12 @@ export default function EventDetail({ eventId }: Props) {
       {/* 同时期其他文明 */}
       {contemporaryEras.length > 0 && (
         <div className="mb-4 border-t border-ink-600 pt-3">
-          <div className="text-[10px] text-ink-500 mb-1.5">同时期其他文明</div>
+          <div className="text-xs text-ink-500 mb-1.5">同时期其他文明</div>
           <div className="space-y-1">
             {contemporaryEras.map(era => (
               <button
                 key={era.id}
-                className="w-full text-left px-3 py-1.5 rounded hover:bg-ink-700 transition-colors flex items-center gap-2"
+                className="w-full text-left px-3 py-1.5 rounded-lg hover:bg-ink-700 transition-colors flex items-center gap-2"
                 onClick={() => selectEra(era.id)}
               >
                 <span
@@ -185,7 +186,7 @@ export default function EventDetail({ eventId }: Props) {
                 <span className="flex-1 text-xs" style={{ color: era.color }}>
                   {era.name}
                 </span>
-                <span className="text-[10px] text-ink-500">
+                <span className="text-xs text-ink-500">
                   跳到 →
                 </span>
               </button>
@@ -202,12 +203,12 @@ export default function EventDetail({ eventId }: Props) {
         if (linked.length === 0) return null
         return (
           <div className="border-t border-ink-600 pt-3">
-            <div className="text-[10px] text-amber-400 mb-1.5">🔗 因果关联（{linked.length}）</div>
+            <div className="text-xs text-amber-400 mb-1.5">🔗 因果关联（{linked.length}）</div>
             <div className="space-y-1">
               {linked.map(ev => (
                 <button
                   key={ev.id}
-                  className="w-full text-left px-2 py-1.5 rounded hover:bg-ink-700/60 transition-colors flex items-baseline gap-2 border border-dashed border-amber-700/40 hover:border-amber-500/80 group"
+                  className="w-full text-left px-2 py-1.5 rounded-lg hover:bg-ink-700/60 transition-colors flex items-baseline gap-2 border border-dashed border-amber-700/40 hover:border-amber-500/80 group"
                   onClick={() => selectEvent(ev.id)}
                   title="点击查看事件详情"
                 >
@@ -216,7 +217,7 @@ export default function EventDetail({ eventId }: Props) {
                     className="w-2 h-2 rounded-full shrink-0 translate-y-[-1px]"
                     style={{ background: CATEGORY_COLORS[ev.category] }}
                   />
-                  <span className="text-[10px] text-ink-500 font-serif shrink-0 w-12">
+                  <span className="text-xs text-ink-500 font-serif shrink-0 w-12">
                     {ev.year < 0 ? '前' + Math.abs(ev.year) : ev.year}
                   </span>
                   <span className="text-xs text-parchment-100 truncate flex-1">{ev.title}</span>
@@ -230,12 +231,12 @@ export default function EventDetail({ eventId }: Props) {
       {/* 相关事件（同地区同时期） */}
       {relatedEvents.length > 0 && (
         <div className="border-t border-ink-600 pt-3">
-          <div className="text-[10px] text-ink-500 mb-1.5">相关事件（附近 ±30 年）</div>
+          <div className="text-xs text-ink-500 mb-1.5">相关事件（附近 ±30 年）</div>
           <div className="space-y-1">
             {relatedEvents.map(ev => (
               <button
                 key={ev.id}
-                className="w-full text-left px-2 py-1.5 rounded border border-transparent hover:border-bronze-500/60 hover:bg-bronze-900/20 transition-colors flex items-baseline gap-2 group"
+                className="w-full text-left px-2 py-1.5 rounded-lg border border-transparent hover:border-bronze-500/60 hover:bg-bronze-900/20 transition-colors flex items-baseline gap-2 group"
                 onClick={() => selectEvent(ev.id)}
                 title="点击查看事件详情"
               >
@@ -243,7 +244,7 @@ export default function EventDetail({ eventId }: Props) {
                   className="w-2 h-2 rounded-full shrink-0 translate-y-[-1px]"
                   style={{ background: CATEGORY_COLORS[ev.category] }}
                 />
-                <span className="text-[10px] text-ink-500 font-serif shrink-0 w-12">
+                <span className="text-xs text-ink-500 font-serif shrink-0 w-12">
                   {ev.year < 0 ? '前' + Math.abs(ev.year) : ev.year}
                 </span>
                 <span className="text-xs text-parchment-100 truncate flex-1">{ev.title}</span>

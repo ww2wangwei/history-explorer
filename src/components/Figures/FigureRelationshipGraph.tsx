@@ -25,10 +25,11 @@ import {
 } from 'd3-force'
 import peopleData from '@/data/people.json'
 import type { HistoricalFigure } from '@/types'
+import FigureNodeDetailPanel from './FigureNodeDetailPanel'
 
 const people = peopleData as HistoricalFigure[]
 
-type RelationType = 'rival' | 'mentor' | 'successor' | 'contemporary' | 'family'
+export type RelationType = 'rival' | 'mentor' | 'successor' | 'contemporary' | 'family'
 
 // 关系样式：颜色、图例、强度（决定距离）
 const RELATION_STYLE: Record<RelationType, { color: string; label: string; dash: string; distance: number; strength: number }> = {
@@ -77,12 +78,51 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
   // 节点拖拽
   const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null)
   const dragHasMovedRef = useRef(false)
+  // 选中节点（人物 ID），显示详情面板
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null)
 
   // 焦点人物
   const focusFigure = useMemo(
     () => people.find(p => p.id === focusFigureId) ?? null,
     [focusFigureId]
   )
+
+  // 焦点切换时默认选中焦点
+  useEffect(() => {
+    setSelectedNodeId(focusFigureId)
+  }, [focusFigureId])
+
+  // 选中人物的所有关系（给 FigureNodeDetailPanel 用）
+  const selectedNodeRelations = useMemo(() => {
+    if (!selectedNodeId) return []
+    const byId = new Map(people.map(p => [p.id, p]))
+    const selected = byId.get(selectedNodeId)
+    if (!selected) return []
+    const result: {
+      type: RelationType
+      label: string
+      other: { id: string; name: string; role?: string; emoji?: string; eraNames?: string }
+    }[] = []
+    for (const rel of selected.relatedFigureIds ?? []) {
+      const other = byId.get(rel.id)
+      if (!other) continue
+      result.push({
+        type: rel.type,
+        label: RELATION_STYLE[rel.type].label,
+        other: {
+          id: other.id,
+          name: other.name,
+          role: other.role,
+          emoji: other.emoji,
+          eraNames: other.eraIds
+            .map(eid => peopleData.find(p => p.id === eid)?.name)
+            .filter(Boolean)
+            .join(' · '),
+        },
+      })
+    }
+    return result
+  }, [selectedNodeId])
 
   // 构建图：1 度 + 2 度
   const { nodes, links } = useMemo(() => {
@@ -157,8 +197,13 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
       .on('tick', () => {
         const positions: Record<string, { x: number; y: number }> = {}
         nodes.forEach(n => {
-          if (n.x !== undefined && n.y !== undefined) {
-            positions[n.id] = { x: n.x, y: n.y }
+          // 关键：d3-force 在 tick 时会把所有节点的 x/y 重算。
+          // 如果节点设了 fx/fy，d3 通常会保留它，但仍可能被 link/charge force 拉一下。
+          // 这里用 fx/fy 优先，保证拖动节点位置不被覆盖。
+          const x = n.fx ?? n.x
+          const y = n.fy ?? n.y
+          if (x !== undefined && y !== undefined) {
+            positions[n.id] = { x, y }
           }
         })
         setNodePositions(positions)
@@ -229,14 +274,17 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
       if (!node.isFocus && onSwitchFocus) {
         onSwitchFocus(node.id)
       }
+    } else {
+      // 是拖动完成 —— 保留 fx/fy（节点保持在拖动位置）
+      if (node.isFocus) {
+        // 焦点节点始终固定在中心
+        node.fx = node.x
+        node.fy = node.y
+      }
+      // 非焦点节点：fx/fy 已经在 useEffect 中设置过了，保留即可
     }
     if (simulationRef.current) {
-      // 释放非焦点节点的固定
-      if (!node.isFocus) {
-        node.fx = null
-        node.fy = null
-      }
-      simulationRef.current.alphaTarget(0)
+      simulationRef.current.alphaTarget(0)  // 让 simulation 冷却
     }
     setDraggingNodeId(null)
   }, [onSwitchFocus])
@@ -259,8 +307,16 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
         }
         // 焦点节点 fx/fy 已被固定在中心，不通过拖动改变
         if (!node.isFocus) {
+          // 关键：d3 simulation 一旦 cooling 到 alpha=0，tick 就不再跑，
+          // node.fx/fy 改了但 React state 里 nodePositions 不会自动更新，
+          // 所以必须手动 setNodePositions 立即同步位置。
           node.fx = x
           node.fy = y
+          setNodePositions(prev => ({ ...prev, [draggingNodeId]: { x, y } }))
+        }
+        // 保持 simulation 活跃（防止 cooling）
+        if (simulationRef.current) {
+          simulationRef.current.alpha(0.3).restart()
         }
       }
     }
@@ -271,11 +327,10 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
       window.removeEventListener('mousemove', handleMove)
       window.removeEventListener('mouseup', handleUp)
     }
-  }, [draggingNodeId, nodes, nodePositions, viewTransform])
+  }, [draggingNodeId, nodes, viewTransform])  // 故意省 nodePositions: 避免 mousemove 中 state 更新触发 useEffect 重绑定 listener
 
   // 滚轮缩放
   const handleWheel = useCallback((e: React.WheelEvent) => {
-    console.log('[graph] wheel', e.deltaY)
     e.preventDefault()
     if (!svgRef.current) return
     const rect = svgRef.current.getBoundingClientRect()
@@ -352,7 +407,7 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
 
   if (!focusFigure) {
     return (
-      <div className="fixed inset-0 z-[70] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4">
+      <div className="fixed inset-0 z-60 flex items-center justify-center bg-ink-900/85 backdrop-blur p-4">
         <div className="text-parchment-50">未找到该人物</div>
       </div>
     )
@@ -366,7 +421,7 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
 
   return (
     <div
-      className="fixed inset-0 z-[70] flex items-center justify-center bg-ink-900/90 backdrop-blur p-4"
+      className="fixed inset-0 z-60 flex items-center justify-center bg-ink-900/90 backdrop-blur p-4"
       onClick={onClose}
     >
       <div
@@ -381,22 +436,23 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
               🕸️ 人物关系网
               <span className="text-sm text-parchment-50 font-serif">· {focusFigure.name}</span>
             </h2>
-            <div className="text-[10px] text-ink-500 mt-0.5">
+            <div className="text-xs text-ink-500 mt-0.5">
               中心人物 + {nodes.length - 1} 位相关人物 · {links.length} 条关系 ·
               拖动节点 / 滚轮缩放 / 点击空白平移 / 点击其他人物切换焦点
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded hover:bg-ink-700"
+            className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700"
             title="关闭 (ESC)"
+            aria-label="关闭"
           >
             ×
           </button>
         </div>
 
         {/* 图例（左下） */}
-        <div className="absolute bottom-3 left-3 z-20 bg-ink-800/90 backdrop-blur border border-ink-600 rounded px-3 py-2 text-[10px] space-y-1">
+        <div className="absolute bottom-3 left-3 z-20 bg-ink-800/90 backdrop-blur border border-ink-600 rounded-lg px-3 py-2 text-xs space-y-1">
           <div className="text-ink-500 uppercase tracking-wider mb-1">关系类型</div>
           {(Object.keys(RELATION_STYLE) as RelationType[]).map(t => (
             <div key={t} className="flex items-center gap-2 text-parchment-50">
@@ -412,22 +468,25 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
           ))}
         </div>
 
-        {/* 缩放控制（右下） */}
-        <div className="absolute bottom-3 right-3 z-20 flex flex-col gap-1 bg-ink-800/90 backdrop-blur border border-ink-600 rounded">
+        {/* SVG 图 */}
+        <div className="absolute bottom-3 right-3 z-20 flex flex-col gap-1 bg-ink-800/90 backdrop-blur border border-ink-600 rounded-lg">
           <button
             onClick={() => setViewTransform(t => ({ ...t, k: Math.min(2.5, t.k * 1.2) }))}
             className="w-8 h-8 text-parchment-50 hover:bg-ink-700 rounded-t"
             title="放大"
+            aria-label="放大"
           >+</button>
           <button
             onClick={() => setViewTransform(t => ({ ...t, k: Math.max(0.3, t.k * 0.8) }))}
             className="w-8 h-8 text-parchment-50 hover:bg-ink-700"
             title="缩小"
+            aria-label="缩小"
           >−</button>
           <button
             onClick={() => setViewTransform({ x: 0, y: 0, k: 1 })}
             className="w-8 h-8 text-xs text-ink-400 hover:text-parchment-50 hover:bg-ink-700 rounded-b"
             title="重置视图"
+            aria-label="重置视图"
           >⛶</button>
         </div>
 
@@ -437,7 +496,8 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
           width={width}
           height={height}
           className="absolute inset-0 cursor-grab active:cursor-grabbing"
-          onWheel={handleWheel} /* may be passive */          onMouseDown={handleBackgroundMouseDown}
+          onWheel={handleWheel} /* may be passive */
+          onMouseDown={handleBackgroundMouseDown}
         >
           <g transform={`translate(${viewTransform.x},${viewTransform.y}) scale(${viewTransform.k})`}>
             {/* 边 */}
@@ -450,14 +510,27 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
               const style = RELATION_STYLE[link.type]
               const isHighlighted = hoveredNodeId === sId || hoveredNodeId === tId
               return (
-                <line
-                  key={i}
-                  x1={s.x} y1={s.y} x2={t.x} y2={t.y}
-                  stroke={style.color}
-                  strokeWidth={isHighlighted ? 2.5 : 1.5}
-                  strokeOpacity={isHighlighted ? 0.9 : 0.55}
-                  strokeDasharray={style.dash}
-                />
+                <g key={i}>
+                  <line
+                    x1={s.x} y1={s.y} x2={t.x} y2={t.y}
+                    stroke={style.color}
+                    strokeWidth={isHighlighted ? 2.5 : 1.5}
+                    strokeOpacity={isHighlighted ? 0.9 : 0.55}
+                    strokeDasharray={style.dash}
+                  />
+                  {/* 总是显示中文关系类型标签（hover 时更亮） */}
+                  <text
+                    x={(s.x + t.x) / 2}
+                    y={(s.y + t.y) / 2 - 6}
+                    textAnchor="middle"
+                    fontSize="9"
+                    fill={style.color}
+                    opacity={isHighlighted ? 1 : 0.7}
+                    style={{ pointerEvents: 'none', userSelect: 'none', paintOrder: 'stroke', stroke: '#0f0e0c', strokeWidth: 2.5 }}
+                  >
+                    {style.label}
+                  </text>
+                </g>
               )
             })}
 
@@ -545,11 +618,28 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
                 <span className="text-2xl">{fig.emoji || '👤'}</span>
                 <div>
                   <div className="text-sm font-serif text-purple-300">{fig.name}</div>
-                  <div className="text-[10px] text-ink-400">{fig.role}</div>
+                  <div className="text-xs text-ink-400">{fig.role}</div>
                 </div>
               </div>
-              <div className="text-[10px] text-ink-500 italic">点击切换为焦点</div>
+              <div className="text-xs text-ink-500 italic">点击切换为焦点</div>
             </div>
+          )
+        })()}
+
+        {/* 选中节点详情面板 —— svg 之后渲染，避免被 svg 遮挡 */}
+        {selectedNodeId && (() => {
+          const fig = people.find(p => p.id === selectedNodeId)
+          if (!fig) return null
+          return (
+            <FigureNodeDetailPanel
+              node={{ figure: fig }}
+              relations={selectedNodeRelations}
+              onSelectNode={(id) => {
+                setSelectedNodeId(id)
+                onSwitchFocus?.(id)
+              }}
+              onClose={() => setSelectedNodeId(null)}
+            />
           )
         })()}
       </div>

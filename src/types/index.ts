@@ -21,6 +21,8 @@ export interface HistoricalEvent {
   warResult?: string;
   /** 战争专用：对后世的影响（格局变化/文明转折/制度演进） */
   warImpact?: string;
+  /** 战争专用：发生地点/国家 */
+  country?: string;
 }
 
 // 历史人物
@@ -58,7 +60,8 @@ export type EventCategory =
   | '军事'   // 军事事件
   | '科技'   // 科技事件
   | '思想'   // 思想/宗教
-  | '外交';  // 外交事件
+  | '外交'   // 外交事件
+  | 'military';  // 兼容历史数据中的英文军事分类
 
 // 朝代/文明
 export interface Era {
@@ -75,7 +78,7 @@ export interface Era {
   /** 快速学习：3-5 个核心要点（每个一句话，覆盖政治/经济/文化/对外） */
   keyPoints?: string[]
   /** 快速学习：5 件关键事件（按时间顺序），每件 = { year, title, desc } */
-  quickEvents?: { year: number; title: string; desc: string }[]
+  quickEvents?: { year: number; title: string; desc: string; longDesc?: string }[]
   /** 快速学习：历史意义/对后世的影响（一段话） */
   legacy?: string
   /** 与前后朝代的连接（被...推翻 / 起源于... / 转型为...） */
@@ -104,4 +107,5 @@ export const CATEGORY_COLORS: Record<EventCategory, string> = {
   '科技': '#5b8aa6',
   '思想': '#9b7eb6',
   '外交': '#a87a3e',
+  'military': '#8b3a3a',
 };

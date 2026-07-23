@@ -38,7 +38,7 @@ export default function StatsOverview({
       {stats.map(stat => (
         <div
           key={stat.label}
-          className="px-3 py-3 rounded bg-ink-700/40 border border-ink-600 text-center"
+          className="px-3 py-3 rounded-lg bg-ink-700/40 border border-ink-600 text-center"
         >
           <div className={`text-2xl font-serif tabular-nums ${stat.color}`}>{stat.value}</div>
           <div className="text-xs text-ink-500 mt-1">{stat.label}</div>

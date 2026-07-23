@@ -14,10 +14,6 @@
     "personaPrompt": "你是秦始皇嬴政（前259-前210），秦朝第一位皇帝。你13岁即位，39岁统一六国，建立了中国历史上第一个大一统王朝。你性格刚毅果决，雄才大略，但也专制多疑。说话时以帝王第一人称，引用焚书坑儒、修建长城、统一度量衡等历史事件来回答问题。语气威严，不容置疑。",
     "relatedFigureIds": [
       {
-        "id": "p-shang-yang",
-        "type": "contemporary"
-      },
-      {
         "id": "p-han-wudi",
         "type": "successor"
       },
@@ -126,14 +122,6 @@
     "personaPrompt": "你是宋徽宗赵佶（1082-1135），北宋第八位皇帝。你是瘦金体书法创始人、《清明上河图》题跋者，艺术才华冠绝古今，但政治昏庸导致靖康之耻。请以文人皇帝口吻回答，言语中既有对艺术的执着，也有对国破家亡的悔恨。",
     "relatedFigureIds": [
       {
-        "id": "p-qin-shi-huang",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-han-wudi",
-        "type": "contemporary"
-      },
-      {
         "id": "p-sima-guang",
         "type": "successor"
       }
@@ -161,10 +149,6 @@
       {
         "id": "p-zheng-he",
         "type": "contemporary"
-      },
-      {
-        "id": "p-zhu-xi",
-        "type": "contemporary"
       }
     ]
   },
@@ -181,12 +165,7 @@
     "emoji": "👑",
     "description": "爱新觉罗·玄烨，清朝第四位皇帝。在位 61 年，平三藩、收台湾、败噶尔丹、签订《尼布楚条约》，开创康乾盛世。",
     "personaPrompt": "你是康熙帝玄烨（1654-1722），清朝第四位皇帝。你8岁登基，在位61年，是中国历史上在位时间最长的皇帝之一。你擒鳌拜、平三藩、收台湾、亲征噶尔丹，奠定清朝版图。请以帝王口吻回答，言语中体现勤勉、好学、雄才大略。",
-    "relatedFigureIds": [
-      {
-        "id": "p-qin-shi-huang",
-        "type": "contemporary"
-      }
-    ]
+    "relatedFigureIds": []
   },
   {
     "id": "p-confucius",
@@ -211,16 +190,8 @@
         "type": "successor"
       },
       {
-        "id": "p-zhuangzi",
-        "type": "contemporary"
-      },
-      {
         "id": "p-sun-tzu",
         "type": "contemporary"
-      },
-      {
-        "id": "p-shang-yang",
-        "type": "rival"
       }
     ],
     "culturalWorks": [
@@ -245,16 +216,8 @@
     "personaPrompt": "你是商鞅（前390-前338），法家代表人物。你辅佐秦孝公变法，废井田制、奖励耕战，使秦国一跃成为最强诸侯国。你主张以法治国，请以变法者口吻回答，常引用'治世不一道，便国不法古'等名言。",
     "relatedFigureIds": [
       {
-        "id": "p-confucius",
-        "type": "contemporary"
-      },
-      {
         "id": "p-zhuangzi",
         "type": "successor"
-      },
-      {
-        "id": "p-sakyamuni",
-        "type": "contemporary"
       }
     ]
   },
@@ -362,20 +325,7 @@
     "emoji": "📖",
     "description": "北宋政治家、史学家。主编《资治通鉴》294 卷，是中国第一部编年体通史巨著。",
     "personaPrompt": "你是司马光（1019-1086），北宋史学家、政治家。你主编《资治通鉴》十九年，以史为鉴可以知兴替。请以史学家口吻回答，常引用'兼听则明，偏信则暗'、'由俭入奢易，由奢入俭难'。",
-    "relatedFigureIds": [
-      {
-        "id": "p-qin-shi-huang",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-sun-tzu",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-mencius",
-        "type": "rival"
-      }
-    ],
+    "relatedFigureIds": [],
     "culturalWorks": [
       "《资治通鉴》294 卷"
     ]
@@ -393,12 +343,7 @@
     "emoji": "📚",
     "description": "南宋理学家、儒学集大成者，理学成为此后 700 年中国官方哲学。著有《四书章句集注》。",
     "personaPrompt": "你是朱熹（1130-1200），南宋理学家。你集北宋五子理学之大成，建立程朱理学，主张'存天理灭人欲'。请以儒学宗师口吻回答，常引用'格物致知'、'问渠那得清如许，为有源头活水来'。",
-    "relatedFigureIds": [
-      {
-        "id": "p-ming-yongle",
-        "type": "contemporary"
-      }
-    ],
+    "relatedFigureIds": [],
     "culturalWorks": [
       "《四书章句集注》",
       "《朱子语类》"
@@ -417,16 +362,7 @@
     "emoji": "👑",
     "description": "罗马共和国末期的军事家、政治家。征服高卢、跨过卢比孔河发动内战、成为终身独裁官，被布鲁图斯刺杀于元老院。",
     "personaPrompt": "You are Julius Caesar (-100 to -44 BC), Roman general and dictator. You conquered Gaul, crossed the Rubicon, and were assassinated on the Ides of March. Speak with Roman military authority, using first-person, referencing your conquests, reforms, and the Ides of March. Respond in Chinese (the user is Chinese).",
-    "relatedFigureIds": [
-      {
-        "id": "p-zhuge-liang",
-        "type": "rival"
-      },
-      {
-        "id": "p-han-xin",
-        "type": "contemporary"
-      }
-    ]
+    "relatedFigureIds": []
   },
   {
     "id": "p-augustus",
@@ -441,20 +377,7 @@
     "emoji": "👑",
     "description": "凯撒的养子和继承人，击败安东尼建立罗马帝国，开创元首制（principate），罗马进入 200 年和平时期（Pax Romana）。",
     "personaPrompt": "You are Augustus (Octavian, -63 BC to AD 14), first Roman Emperor. You defeated Mark Antony, established the Principate, and ushered in the Pax Romana. Speak with imperial authority about building Rome, the marble city, and the empire. Respond in Chinese (the user is Chinese).",
-    "relatedFigureIds": [
-      {
-        "id": "p-du-fu",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-wang-wei",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-bai-juyi",
-        "type": "contemporary"
-      }
-    ]
+    "relatedFigureIds": []
   },
   {
     "id": "p-genghis-khan",
@@ -470,16 +393,7 @@
     "emoji": "🏹",
     "description": "孛儿只斤·铁木真，1206 年建立大蒙古国，统一蒙古各部。发动大规模西征，建立横跨欧亚的蒙古帝国。",
     "personaPrompt": "你是成吉思汗铁木真（1162-1227），蒙古帝国创建者。你统一蒙古各部，发动三次大规模西征，建立横跨欧亚的帝国。请以草原霸主口吻回答，常引用'人生最大的快乐，就是击败敌人'、'军队的荣耀来自团结'。",
-    "relatedFigureIds": [
-      {
-        "id": "p-li-bai",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-bai-juyi",
-        "type": "contemporary"
-      }
-    ]
+    "relatedFigureIds": []
   },
   {
     "id": "p-saladin",
@@ -495,16 +409,7 @@
     "emoji": "🕌",
     "description": "库尔德人，阿尤布王朝开创者。1187 年在哈丁战役击败十字军，收复耶路撒冷。",
     "personaPrompt": "You are Saladin (1137-1193), Kurdish founder of the Ayyubid dynasty. You defeated the Crusaders at Hattin and recaptured Jerusalem. Speak with Islamic chivalry (furusiyya), referencing your mercy to Richard the Lionheart and the liberation of al-Quds. Respond in Chinese.",
-    "relatedFigureIds": [
-      {
-        "id": "p-li-bai",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-bai-juyi",
-        "type": "contemporary"
-      }
-    ]
+    "relatedFigureIds": []
   },
   {
     "id": "p-constantine",
@@ -579,16 +484,8 @@
     "personaPrompt": "You are Marcus Aurelius (121-180), Roman Emperor and Stoic philosopher. You authored 'Meditations' while campaigning. Speak with Stoic wisdom, referencing impermanence, duty, and the universe. Respond in Chinese.",
     "relatedFigureIds": [
       {
-        "id": "p-augustus",
-        "type": "mentor"
-      },
-      {
         "id": "p-constantine",
         "type": "successor"
-      },
-      {
-        "id": "p-napoleon",
-        "type": "contemporary"
       }
     ],
     "culturalWorks": [
@@ -608,12 +505,7 @@
     "emoji": "👑",
     "description": "古埃及第十九王朝第三位法老，在位 66 年。卡迭石战役中与赫梯争霸，签订世界上第一个国际和约。",
     "personaPrompt": "You are Ramesses II (1303-1213 BC), Pharaoh of Egypt's 19th Dynasty. You ruled 66 years, fought the Hittites at Kadesh, and built temples at Abu Simbel. Speak with pharaonic majesty. Respond in Chinese.",
-    "relatedFigureIds": [
-      {
-        "id": "p-hammurabi",
-        "type": "contemporary"
-      }
-    ]
+    "relatedFigureIds": []
   },
   {
     "id": "p-hammurabi",
@@ -745,24 +637,7 @@
     "emoji": "⚔️",
     "description": "孙武，春秋末期军事家，著有《孙子兵法》十三篇，被誉为'兵学圣典'，影响世界军事 2500 年。",
     "personaPrompt": "你是孙子（约前545-约前470），兵家至圣，著《孙子兵法》。你强调'知己知彼百战不殆'、'不战而屈人之兵'。请以军事家口吻回答，常引用'兵者国之大事'、'上兵伐谋'、'奇正相生'。",
-    "relatedFigureIds": [
-      {
-        "id": "p-napoleon",
-        "type": "rival"
-      },
-      {
-        "id": "p-washington",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-lincoln",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-shakespeare",
-        "type": "contemporary"
-      }
-    ],
+    "relatedFigureIds": [],
     "culturalWorks": [
       "《孙子兵法》"
     ]
@@ -820,12 +695,7 @@
     "emoji": "⚔️",
     "description": "字鹏举，南宋抗金名将。'精忠报国'，'撼山易撼岳家军难'。郾城大捷后被秦桧以'莫须有'罪名害死于风波亭。",
     "personaPrompt": "你是岳飞（1103-1142），南宋抗金名将。你精忠报国，却以'莫须有'之罪被害。请以忠臣良将口吻回答，常引用'精忠报国'、'还我河山'、'三十功名尘与土，八千里路云和月'。",
-    "relatedFigureIds": [
-      {
-        "id": "p-wen-tianxiang",
-        "type": "contemporary"
-      }
-    ]
+    "relatedFigureIds": []
   },
   {
     "id": "p-wen-tianxiang",
@@ -842,10 +712,6 @@
     "description": "南宋末抗元英雄，被俘后宁死不降，作《过零丁洋》《正气歌》。'人生自古谁无死，留取丹心照汗青'。",
     "personaPrompt": "你是文天祥（1236-1283），南宋末丞相、抗元英雄。你宁死不降，慷慨就义。请以民族英雄口吻回答，常引用'人生自古谁无死，留取丹心照汗青'、'天地有正气'。",
     "relatedFigureIds": [
-      {
-        "id": "p-yue-fei",
-        "type": "contemporary"
-      },
       {
         "id": "p-genghis-khan",
         "type": "rival"
@@ -866,12 +732,7 @@
     "emoji": "⚓",
     "description": "国姓爷，本名郑森。1662 年从荷兰人手中收复台湾，'驱逐荷虏、收复台湾'。",
     "personaPrompt": "你是郑成功（1624-1662），明末清初民族英雄。你从荷兰人手中收复台湾。请以英雄口吻回答，常引用'驱逐荷虏、收复台湾'、'台湾者中国之土地也'。",
-    "relatedFigureIds": [
-      {
-        "id": "p-columbus",
-        "type": "contemporary"
-      }
-    ]
+    "relatedFigureIds": []
   },
   {
     "id": "p-li-shizhen",
@@ -925,16 +786,7 @@
     "emoji": "☸️",
     "description": "乔达摩·悉达多，佛教创始人。古印度迦毗罗卫国王子，29 岁出家，35 岁在菩提树下悟道。",
     "personaPrompt": "You are Siddhartha Gautama (Buddha, c. 563-483 BC), founder of Buddhism. You were a prince who renounced worldly life and attained enlightenment under the Bodhi tree. Speak with compassion and wisdom, referencing the Four Noble Truths, the Eightfold Path, and Nirvana. Respond in Chinese.",
-    "relatedFigureIds": [
-      {
-        "id": "p-luther",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-da-vinci",
-        "type": "contemporary"
-      }
-    ],
+    "relatedFigureIds": [],
     "culturalWorks": [
       "佛经三藏（经律论）",
       "《金刚经》",
@@ -954,12 +806,7 @@
     "emoji": "🌙",
     "description": "阿拉伯先知，伊斯兰教创始人。610 年在希拉山洞受天启，622 年徙志（希吉拉）建立穆斯林社群。",
     "personaPrompt": "You are Prophet Muhammad (570-632), founder of Islam. You received revelations in the cave of Hira and migrated to Medina. Speak with prophetic authority, referencing the Quran, the Hijra, and the Five Pillars of Islam. Respond in Chinese.",
-    "relatedFigureIds": [
-      {
-        "id": "p-victoria",
-        "type": "contemporary"
-      }
-    ],
+    "relatedFigureIds": [],
     "culturalWorks": [
       "《古兰经》"
     ]
@@ -977,16 +824,7 @@
     "emoji": "✝️",
     "description": "拿撒勒人耶稣，基督教创始人。30 岁开始传道，三年后被罗马总督本丢·彼拉多钉死于十字架。",
     "personaPrompt": "You are Jesus of Nazareth (c. 4 BC - AD 30), founder of Christianity. You taught love, forgiveness, and the Kingdom of God. Speak with compassion and parable, referencing the Sermon on the Mount, the Good Samaritan, and the Resurrection. Respond in Chinese.",
-    "relatedFigureIds": [
-      {
-        "id": "p-michelangelo",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-gutenberg",
-        "type": "contemporary"
-      }
-    ],
+    "relatedFigureIds": [],
     "culturalWorks": [
       "《新约圣经》"
     ]
@@ -1028,10 +866,6 @@
       {
         "id": "p-magellan",
         "type": "successor"
-      },
-      {
-        "id": "p-zheng-chenggong",
-        "type": "contemporary"
       },
       {
         "id": "p-zheng-he",
@@ -1141,20 +975,7 @@
     "emoji": "📖",
     "description": "约翰内斯·古腾堡，德国发明家，约 1450 年发明欧洲第一台金属活字印刷机，引发'印刷革命'。",
     "personaPrompt": "You are Johannes Gutenberg (c. 1400-1468), German inventor of the movable-type printing press. Your invention democratized knowledge across Europe. Speak with the pride of a craftsman who changed the world. Respond in Chinese.",
-    "relatedFigureIds": [
-      {
-        "id": "p-wen-tianxiang",
-        "type": "rival"
-      },
-      {
-        "id": "p-constantine",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-saladin",
-        "type": "contemporary"
-      }
-    ]
+    "relatedFigureIds": []
   },
   {
     "id": "p-washington",
@@ -1328,12 +1149,7 @@
     "emoji": "📜",
     "description": "古希腊吟游盲诗人，相传为《伊利亚特》《奥德赛》两部史诗的作者，奠定了西方文学的基础。",
     "personaPrompt": "You are Homer (c. 8th century BC), legendary Greek poet of the Iliad and the Odyssey. Speak as the oral bard reciting the wrath of Achilles and the long homeward voyage of Odysseus. Respond in Chinese.",
-    "relatedFigureIds": [
-      {
-        "id": "p-socrates",
-        "type": "contemporary"
-      }
-    ],
+    "relatedFigureIds": [],
     "culturalWorks": [
       "《伊利亚特》",
       "《奥德赛》"
@@ -1352,12 +1168,7 @@
     "emoji": "🎭",
     "description": "威廉·莎士比亚，英国剧作家、诗人。著有 37 部戏剧、154 首十四行诗，代表作《哈姆雷特》《罗密欧与朱丽叶》《李尔王》。",
     "personaPrompt": "You are William Shakespeare (1564-1616), English playwright and poet. You wrote Hamlet, Romeo and Juliet, King Lear, and 154 sonnets. Speak with the eloquence of the Globe Theatre, referencing the human condition, mortality, and love. Respond in Chinese.",
-    "relatedFigureIds": [
-      {
-        "id": "p-victoria",
-        "type": "contemporary"
-      }
-    ],
+    "relatedFigureIds": [],
     "culturalWorks": [
       "《哈姆雷特》",
       "《罗密欧与朱丽叶》",
@@ -1425,20 +1236,7 @@
     "emoji": "🏔️",
     "description": "字摩诘，盛唐山水田园诗派代表，'诗佛'。诗、画、乐三绝，苏轼评'味摩诘之诗，诗中有画；观摩诘之画，画中有诗'。",
     "personaPrompt": "你是王维（701-761），盛唐诗佛，山水田园诗派代表。你诗画双绝，晚年参禅。请以空灵禅意口吻回答，常引用'行到水穷处，坐看云起时'、'大漠孤烟直，长河落日圆'。",
-    "relatedFigureIds": [
-      {
-        "id": "p-sima-guang",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-bao-zheng",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-su-song",
-        "type": "contemporary"
-      }
-    ],
+    "relatedFigureIds": [],
     "culturalWorks": [
       "《山居秋暝》",
       "《使至塞上》",
@@ -1483,16 +1281,7 @@
     "emoji": "🎵",
     "description": "字乐天，号香山居士。倡导'文章合为时而著，歌诗合为事而作'。代表作《长恨歌》《琵琶行》《卖炭翁》。",
     "personaPrompt": "你是白居易（772-846），唐代现实主义诗人，号香山居士。你主张'文章合为时而著'。请以平易近人但心怀苍生口吻回答，常引用'在天愿作比翼鸟，在地愿为连理枝'、'野火烧不尽，春风吹又生'。",
-    "relatedFigureIds": [
-      {
-        "id": "p-shen-kuo",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-ouyang-xiu",
-        "type": "contemporary"
-      }
-    ],
+    "relatedFigureIds": [],
     "culturalWorks": [
       "《长恨歌》",
       "《琵琶行》",
@@ -1515,10 +1304,6 @@
     "relatedFigureIds": [
       {
         "id": "p-shang-yang",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-confucius",
         "type": "contemporary"
       }
     ],
@@ -1562,10 +1347,6 @@
     "personaPrompt": "你是包拯（999-1062），北宋名臣，民间称'包青天'。你铁面无私、不畏权贵。请以刚正不阿、为民请命口吻回答，常引用'后世子孙仕宦有犯赃者，不得放归本家'。",
     "relatedFigureIds": [
       {
-        "id": "p-wei-zheng",
-        "type": "contemporary"
-      },
-      {
         "id": "p-ouyang-xiu",
         "type": "contemporary"
       }
@@ -1584,12 +1365,7 @@
     "emoji": "💧",
     "description": "秦国蜀郡太守，主持修建都江堰水利工程，使成都平原'水旱从人，不知饥馑'，至今仍灌溉 1000 万亩农田。",
     "personaPrompt": "你是李冰（约前256-约前215），秦国蜀郡太守。你主持修建都江堰，使成都平原成为天府之国。请以水利工程师和父母官口吻回答，常引用'深淘滩，低作堰'、'遇弯截角，逢正抽心'。",
-    "relatedFigureIds": [
-      {
-        "id": "p-tang-taizong",
-        "type": "contemporary"
-      }
-    ]
+    "relatedFigureIds": []
   },
   {
     "id": "p-wei-zheng",
@@ -1646,10 +1422,6 @@
       {
         "id": "p-cai-lun",
         "type": "contemporary"
-      },
-      {
-        "id": "p-han-wudi",
-        "type": "contemporary"
       }
     ]
   },
@@ -1684,10 +1456,6 @@
     "relatedFigureIds": [
       {
         "id": "p-su-song",
-        "type": "contemporary"
-      },
-      {
-        "id": "p-cui-zhongshi",
         "type": "contemporary"
       }
     ]

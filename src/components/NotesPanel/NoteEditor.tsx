@@ -146,7 +146,7 @@ export default function NoteEditor({ note, onClose, onDelete }: Props) {
         <div className="flex items-center gap-1">
           <button
             onClick={() => setMode('write')}
-            className={`px-2.5 py-1 rounded transition-colors ${
+            className={`px-2.5 py-1 rounded-lg transition-colors ${
               mode === 'write'
                 ? 'bg-bronze-600/40 text-bronze-400'
                 : 'text-ink-500 hover:bg-ink-700 hover:text-parchment-50'
@@ -156,7 +156,7 @@ export default function NoteEditor({ note, onClose, onDelete }: Props) {
           </button>
           <button
             onClick={() => setMode('preview')}
-            className={`px-2.5 py-1 rounded transition-colors ${
+            className={`px-2.5 py-1 rounded-lg transition-colors ${
               mode === 'preview'
                 ? 'bg-bronze-600/40 text-bronze-400'
                 : 'text-ink-500 hover:bg-ink-700 hover:text-parchment-50'
@@ -167,7 +167,7 @@ export default function NoteEditor({ note, onClose, onDelete }: Props) {
           {mode === 'preview' && (
             <button
               onClick={() => setFullscreenPreview(f => !f)}
-              className="text-[10px] px-2 py-0.5 rounded text-ink-400 hover:text-bronze-300 hover:bg-ink-700"
+              className="text-xs px-2 py-0.5 rounded-lg text-ink-400 hover:text-bronze-300 hover:bg-ink-700"
               title={fullscreenPreview ? '退出全屏 (Esc)' : '全屏专注阅读'}
             >
               {fullscreenPreview ? '⊗ 退出' : '↗ 全屏'}
@@ -176,22 +176,23 @@ export default function NoteEditor({ note, onClose, onDelete }: Props) {
         </div>
         <div className="flex items-center gap-2">
           {savedAt && (
-            <span className="text-[10px] text-ink-500">
+            <span className="text-xs text-ink-500">
               ✓ 已保存 · {formatRelativeTime(savedAt)}
             </span>
           )}
           {noteId && (
             <button
               onClick={handleDelete}
-              className="px-2 py-1 text-ink-500 hover:text-red-400 hover:bg-red-900/30 rounded transition-colors"
+              className="px-2 py-1 text-ink-500 hover:text-red-400 hover:bg-red-900/30 rounded-lg transition-colors"
               title="删除笔记"
+              aria-label="删除笔记"
             >
               🗑
             </button>
           )}
           <button
             onClick={handleSaveAndClose}
-            className="px-2.5 py-1 rounded bg-ink-700 hover:bg-ink-600 text-bronze-400 border border-ink-600"
+            className="px-2.5 py-1 rounded-lg bg-ink-700 hover:bg-ink-600 text-bronze-400 border border-ink-600"
           >
             ← 返回列表
           </button>
@@ -205,7 +206,7 @@ export default function NoteEditor({ note, onClose, onDelete }: Props) {
           value={draft.title}
           onChange={e => setDraft(d => ({ ...d, title: e.target.value }))}
           placeholder="笔记标题（可空）"
-          className="mx-3 mt-3 px-3 py-2 bg-ink-700/60 border border-ink-600 rounded text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
+          className="mx-3 mt-3 px-3 py-2 bg-ink-700/60 border border-ink-600 rounded-lg text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
         />
       )}
 
@@ -229,15 +230,16 @@ export default function NoteEditor({ note, onClose, onDelete }: Props) {
 | 列1 | 列2 |
 | --- | --- |
 | a   | b   |`}
-            className="w-full h-full min-h-[260px] max-h-[480px] px-3 py-2 bg-ink-700/60 border border-ink-600 rounded text-sm text-parchment-50 placeholder-ink-500 font-mono leading-relaxed resize-none focus:outline-none focus:border-bronze-500"
+            className="w-full h-full min-h-[260px] max-h-[480px] px-3 py-2 bg-ink-700/60 border border-ink-600 rounded-lg text-sm text-parchment-50 placeholder-ink-500 font-mono leading-relaxed resize-none focus:outline-none focus:border-bronze-500"
           />
         ) : (
-          <div className={`h-full min-h-[260px] max-h-[480px] overflow-y-auto scrollbar-thin px-3 py-2 bg-ink-700/40 border border-ink-600 rounded ${fullscreenPreview ? 'fixed inset-0 z-[70] max-h-none min-h-0 px-12 py-12 border-0 rounded-none bg-ink-900' : ''}`}>
+          <div className={`h-full min-h-[260px] max-h-[480px] overflow-y-auto scrollbar-thin px-3 py-2 bg-ink-700/40 border border-ink-600 rounded-lg ${fullscreenPreview ? 'fixed inset-0 z-60 max-h-none min-h-0 px-12 py-12 border-0 rounded-none bg-ink-900' : ''}`}>
             {fullscreenPreview && (
               <button
                 onClick={() => setFullscreenPreview(false)}
-                className="fixed top-4 right-4 z-[80] px-3 py-1.5 rounded bg-ink-800/90 hover:bg-ink-700 border border-bronze-500/60 text-bronze-300 text-sm flex items-center gap-1.5 shadow-lg"
+                className="fixed top-4 right-4 z-[80] px-3 py-1.5 rounded-lg bg-ink-800/90 hover:bg-ink-700 border border-bronze-500/60 text-bronze-300 text-sm flex items-center gap-1.5 shadow-lg"
                 title="退出全屏 (Esc)"
+                aria-label="退出全屏"
               >
                 <span>⊗</span> 退出全屏
               </button>
@@ -248,7 +250,7 @@ export default function NoteEditor({ note, onClose, onDelete }: Props) {
       </div>
 
       {/* 底部状态栏 */}
-      <div className="px-3 py-1.5 border-t border-ink-600 text-[10px] text-ink-500 flex justify-between">
+      <div className="px-3 py-1.5 border-t border-ink-600 text-xs text-ink-500 flex justify-between">
         <span>{draft.content.length} 字</span>
         <span>Markdown · GFM</span>
       </div>

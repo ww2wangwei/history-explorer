@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useReducedMotionGlobal } from '@/hooks/useReducedMotion'
 import WorldMap from '@/components/Map/WorldMap'
 import Timeline from '@/components/Timeline/Timeline'
 import EventDetail from '@/components/DetailPanel/EventDetail'
@@ -9,6 +10,8 @@ import TimeMachine from '@/components/TimeMachine'
 import FilterPanel from '@/components/FilterPanel'
 import RelationshipGraph from '@/components/RelationshipGraph'
 import QuizLauncher from '@/components/Quiz/QuizLauncher'
+import ToastHost from '@/components/ToastHost'
+import AmbientBackground from '@/components/AmbientBackground'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useNotesStore } from '@/store/useNotesStore'
 import { useCardsStore } from '@/store/useCardsStore'
@@ -32,6 +35,11 @@ import Dashboard from '@/components/Dashboard'
 import { useLearningPathStore, type PathId } from '@/store/useLearningPathStore'
 
 export default function Layout() {
+  // 响应 prefers-reduced-motion —— 全局禁用 GSAP 动画
+  // 改用全局 timeScale 压缩（比逐个 useEffect 检查更可靠）
+  // 注：导入在 build 时按需打包
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  useReducedMotionGlobal()
   const {
     currentYear, selectedEventId, selectedEraId,
     selectEvent, selectEra,
@@ -43,6 +51,20 @@ export default function Layout() {
 
   // 笔记总数（用于 Header 圆点徽章）
   const notesCount = useNotesStore(s => Object.keys(s.notes).length)
+
+  // Header "更多" 下拉菜单
+  const [moreMenuOpen, setMoreMenuOpen] = useState(false)
+  const moreMenuRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!moreMenuOpen) return
+    const onDown = (e: MouseEvent) => {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(e.target as Node)) {
+        setMoreMenuOpen(false)
+      }
+    }
+    window.addEventListener('mousedown', onDown)
+    return () => window.removeEventListener('mousedown', onDown)
+  }, [moreMenuOpen])
 
   // 复习模式状态
   const [flashcardsActive, setFlashcardsActive] = useState(false)
@@ -209,20 +231,30 @@ export default function Layout() {
         <div className="flex items-center gap-3 flex-1 min-w-0">
           <div className="flex items-baseline gap-3 shrink-0">
             <h1 className="text-lg font-serif text-bronze-400">📜 历史探索者</h1>
-            <span className="text-[10px] text-ink-500 hidden lg:inline">History Explorer</span>
+            <span className="text-xs text-ink-500 hidden lg:inline">History Explorer</span>
           </div>
           <SearchBar />
           <TimeMachine />
           <FilterPanel />
           {/* 视图切换按钮组 */}
-          <div className="flex rounded bg-ink-700/80 border border-ink-600 overflow-hidden">
+          <div className="flex rounded-lg bg-ink-700/80 border border-ink-600 overflow-hidden shrink-0">
             <button
               className={`px-2.5 py-1.5 text-xs shrink-0 whitespace-nowrap transition-colors ${
                 viewMode === 'map'
                   ? 'bg-bronze-600/40 text-bronze-400'
                   : 'text-ink-500 hover:text-parchment-50 hover:bg-ink-600'
               }`}
-              onClick={() => { setDashboardActive(false); setViewMode('map') }}
+              onClick={() => {
+                setDashboardActive(false)
+                setFiguresActive(false)
+                setWarsActive(false)
+                setCulturesActive(false)
+                setGeographyActive(false)
+                setTimeTravelActive(false)
+                setOverviewActive(false)
+                setFlashcardsActive(false)
+                setViewMode('map')
+              }}
               title="地图视图"
             >
               🗺️ 地图
@@ -233,56 +265,34 @@ export default function Layout() {
                   ? 'bg-bronze-600/40 text-bronze-400'
                   : 'text-ink-500 hover:text-parchment-50 hover:bg-ink-600'
               }`}
-              onClick={() => { setDashboardActive(false); setViewMode('graph') }}
+              onClick={() => {
+                setDashboardActive(false)
+                setFiguresActive(false)
+                setWarsActive(false)
+                setCulturesActive(false)
+                setGeographyActive(false)
+                setTimeTravelActive(false)
+                setOverviewActive(false)
+                setFlashcardsActive(false)
+                setViewMode('graph')
+              }}
               title="关系图谱"
             >
               🕸️ 图谱
             </button>
           </div>
-          {/* 我的笔记按钮（带圆点徽章） */}
+          {/* 学习引导（核心返回入口，常驻） */}
           <button
-            className={`px-2.5 py-1.5 rounded shrink-0 whitespace-nowrap text-xs flex items-center gap-1.5 relative transition-colors ${
-              overviewActive
-                ? 'bg-bronze-600/40 text-bronze-400 border border-bronze-500/60'
-                : 'bg-ink-700/80 hover:bg-ink-600 border border-ink-600 text-bronze-400'
+            className={`px-2.5 py-1.5 rounded-lg shrink-0 whitespace-nowrap text-xs flex items-center gap-1.5 transition-colors border ${
+              dashboardActive
+                ? 'bg-bronze-600/40 text-bronze-400 border-bronze-500/60'
+                : 'bg-ink-700/80 hover:bg-bronze-600/40 border-ink-600 text-bronze-400'
             }`}
-            onClick={() => { setDashboardActive(false); setOverviewActive(true) }}
-            title="查看所有笔记"
-          >
-            📒 我的笔记
-            {notesCount > 0 && (
-              <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-bronze-500 ring-2 ring-ink-800" />
-            )}
-          </button>
-          {/* 目标按钮 */}
-          <button
-            className="px-2.5 py-1.5 rounded shrink-0 whitespace-nowrap text-xs flex items-center gap-1.5 transition-colors bg-ink-700/80 hover:bg-ink-600 border border-ink-600 text-bronze-400"
-            onClick={() => setGoalSettingsOpen(true)}
-            title="设置每日复习目标"
-          >
-            🎯 {goalTarget}
-          </button>
-          {/* 返回 Dashboard */}
-          <button
-            className="px-2.5 py-1.5 rounded shrink-0 whitespace-nowrap text-xs flex items-center gap-1.5 transition-colors bg-ink-700/80 hover:bg-bronze-600/40 border border-ink-600 text-bronze-400"
             onClick={() => setDashboardActive(true)}
             title="返回学习引导主页"
           >
             🏠 学习引导
           </button>
-          {/* 重置地图 — 清除图钉 + 回到世界视图 */}
-          {mapFocusTarget && (
-            <button
-              className="px-2.5 py-1.5 rounded shrink-0 whitespace-nowrap text-xs flex items-center gap-1.5 transition-colors bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/60 text-bronze-300"
-              onClick={() => {
-                setMapFocus(null)
-                setMapPosition({ center: [0, 20], zoom: 1 })
-              }}
-              title="清除聚焦并回到世界视图"
-            >
-              🔄 重置视图
-            </button>
-          )}
           {/* 复习按钮（带数字徽章） */}
           <FlashcardsTrigger
             dueCount={dueCount}
@@ -291,11 +301,69 @@ export default function Layout() {
             active={flashcardsActive}
             onClick={() => { setDashboardActive(false); setFlashcardsActive(true) }}
           />
+          {/* 更多菜单：收纳低频/次要动作 */}
+          <div className="relative shrink-0" ref={moreMenuRef}>
+            <button
+              className={`px-2 py-1.5 rounded-lg whitespace-nowrap text-xs flex items-center gap-1 transition-colors border relative ${
+                moreMenuOpen || overviewActive
+                  ? 'bg-bronze-600/40 text-bronze-400 border-bronze-500/60'
+                  : 'bg-ink-700/80 hover:bg-ink-600 border-ink-600 text-bronze-400'
+              }`}
+              onClick={() => setMoreMenuOpen(o => !o)}
+              title="更多"
+              aria-haspopup="menu"
+              aria-expanded={moreMenuOpen}
+            >
+              ⋯ 更多
+              {notesCount > 0 && (
+                <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-bronze-500 ring-2 ring-ink-800" />
+              )}
+            </button>
+            {moreMenuOpen && (
+              <div
+                className="absolute top-full right-0 mt-1 w-44 py-1 rounded-lg bg-ink-800 border border-ink-600 shadow-2xl z-50"
+                role="menu"
+              >
+                <button
+                  className="w-full text-left px-3 py-2 text-xs text-parchment-50 hover:bg-ink-700 flex items-center justify-between gap-2 transition-colors"
+                  onClick={() => { setMoreMenuOpen(false); setDashboardActive(false); setOverviewActive(true) }}
+                  role="menuitem"
+                >
+                  <span>📒 我的笔记</span>
+                  {notesCount > 0 && <span className="text-ink-500">{notesCount}</span>}
+                </button>
+                <button
+                  className="w-full text-left px-3 py-2 text-xs text-parchment-50 hover:bg-ink-700 flex items-center justify-between gap-2 transition-colors"
+                  onClick={() => { setMoreMenuOpen(false); setGoalSettingsOpen(true) }}
+                  role="menuitem"
+                >
+                  <span>🎯 每日目标</span>
+                  <span className="text-ink-500">{goalTarget}</span>
+                </button>
+                {mapFocusTarget && (
+                  <button
+                    className="w-full text-left px-3 py-2 text-xs text-bronze-300 hover:bg-ink-700 flex items-center gap-2 transition-colors border-t border-ink-700 mt-1 pt-2"
+                    onClick={() => {
+                      setMoreMenuOpen(false)
+                      setMapFocus(null)
+                      setMapPosition({ center: [0, 20], zoom: 1 })
+                    }}
+                    role="menuitem"
+                  >
+                    🔄 重置地图视图
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
-        <div className="text-sm font-serif text-ink-500">
+        <div className="text-sm font-serif text-ink-500 shrink-0 ml-3">
           当前：<span className="text-bronze-400 text-base ml-1.5">{formatYear(currentYear)}</span>
         </div>
       </header>
+
+      {/* AmbientBackground 动态背景 — 进入任一页面都能看到的色彩漂移 */}
+      <AmbientBackground />
 
       {/* 中间：地图/图谱 或 笔记总览页 + 详情面板 */}
       <main className="flex-1 min-h-0 flex relative overflow-hidden">
@@ -329,8 +397,6 @@ export default function Layout() {
                 if (eraId && pathId !== 'allFigures') useLearningPathStore.getState().recordVisit(pathId, eraId)
               }}
             />
-          ) : viewMode === 'tmap' ? (
-            <TMapTest />
           ) : flashcardsActive ? (
             <FlashcardsPanel
               isActive={flashcardsActive}
@@ -345,13 +411,13 @@ export default function Layout() {
           ) : figuresActive ? (
             <FiguresOverview
               isActive={figuresActive}
-              onClose={() => { setFiguresActive(false); setInitialFigureId(null) }}
+              onClose={() => { setFiguresActive(false); setInitialFigureId(null); setDashboardActive(true) }}
               initialPersonId={initialFigureId}
             />
           ) : warsActive ? (
             <WarsOverview
               isActive={warsActive}
-              onClose={() => setWarsActive(false)}
+              onClose={() => { setWarsActive(false); setDashboardActive(true) }}
               onViewOnMap={() => {
                 setWarsActive(false)
                 setViewMode('map')
@@ -360,23 +426,23 @@ export default function Layout() {
           ) : culturesActive ? (
             <CulturesOverview
               isActive={culturesActive}
-              onClose={() => setCulturesActive(false)}
+              onClose={() => { setCulturesActive(false); setDashboardActive(true) }}
             />
           ) : geographyActive ? (
             <GeographyOverview
               isActive={geographyActive}
-              onClose={() => setGeographyActive(false)}
+              onClose={() => { setGeographyActive(false); setDashboardActive(true) }}
             />
           ) : timeTravelActive ? (
             currentScenarioId ? (
               <ScenarioPlayer
                 scenarioId={currentScenarioId}
-                onExit={() => setCurrentScenarioId(null)}
+                onExit={() => { setCurrentScenarioId(null); setDashboardActive(true) }}
               />
             ) : (
               <TimeTravelLobby
                 isActive={timeTravelActive}
-                onClose={() => setTimeTravelActive(false)}
+                onClose={() => { setTimeTravelActive(false); setDashboardActive(true) }}
                 onStart={(scenarioId) => setCurrentScenarioId(scenarioId)}
               />
             )
@@ -461,6 +527,7 @@ export default function Layout() {
                   selectEra(null)
                 }}
                 title="关闭 (ESC)"
+                aria-label="关闭"
               >
                 ✕
               </button>
@@ -478,14 +545,16 @@ export default function Layout() {
         )}
       </main>
 
-      {/* 底部：时间轴 */}
-      <footer className="relative z-10">
-        <Timeline />
-      </footer>
+      {/* 底部：时间轴 — 只在地图视图显示 */}
+      {!dashboardActive && !figuresActive && !warsActive && !culturesActive && !geographyActive && !timeTravelActive && !overviewActive && !flashcardsActive && viewMode !== 'graph' && (
+        <footer className="relative z-10">
+          <Timeline />
+        </footer>
+      )}
 
       {/* 键盘快捷键提示 */}
-      <div className="fixed bottom-1 right-2 z-50 px-2 py-1 rounded bg-ink-800/90 border border-ink-600 text-[10px] text-ink-500 leading-relaxed pointer-events-none opacity-70 hover:opacity-100 transition-opacity">
-        <kbd className="px-1 bg-ink-700 rounded">←</kbd>/<kbd className="px-1 bg-ink-700 rounded">→</kbd> 年份 · <kbd className="px-1 bg-ink-700 rounded">Esc</kbd> 关闭/回退 · <kbd className="px-1 bg-ink-700 rounded">u</kbd> 回退朝代 · <kbd className="px-1 bg-ink-700 rounded">g</kbd> 地图 · <kbd className="px-1 bg-ink-700 rounded">r</kbd> 图谱 · <kbd className="px-1 bg-ink-700 rounded">f</kbd> 复习 · <kbd className="px-1 bg-ink-700 rounded">Cmd+K</kbd>/<kbd className="px-1 bg-ink-700 rounded">?</kbd> AI 问
+      <div className="fixed bottom-1 right-2 z-50 px-2 py-1 rounded-lg bg-ink-800/90 border border-ink-600 text-xs text-ink-500 leading-relaxed pointer-events-none opacity-70 hover:opacity-100 transition-opacity">
+        <kbd className="px-1 bg-ink-700 rounded-lg">←</kbd>/<kbd className="px-1 bg-ink-700 rounded-lg">→</kbd> 年份 · <kbd className="px-1 bg-ink-700 rounded-lg">Esc</kbd> 关闭/回退 · <kbd className="px-1 bg-ink-700 rounded-lg">u</kbd> 回退朝代 · <kbd className="px-1 bg-ink-700 rounded-lg">g</kbd> 地图 · <kbd className="px-1 bg-ink-700 rounded-lg">r</kbd> 图谱 · <kbd className="px-1 bg-ink-700 rounded-lg">f</kbd> 复习 · <kbd className="px-1 bg-ink-700 rounded-lg">Cmd+K</kbd>/<kbd className="px-1 bg-ink-700 rounded-lg">?</kbd> AI 问
       </div>
 
       {/* 学习目标设置浮层 */}
@@ -495,6 +564,7 @@ export default function Layout() {
       />
       <AIChatPanel />
       <QuizLauncher />
+      <ToastHost />
     </div>
   )
 }

@@ -254,7 +254,7 @@ export default function GraphAdmin() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="搜索人物设置焦点..."
-            className="w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
+            className="w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
           />
         </div>
         <div className="flex-1 overflow-y-auto">
@@ -295,7 +295,7 @@ export default function GraphAdmin() {
           <>
             <div className="p-3 border-b border-ink-700 flex items-center justify-between">
               <div>
-                <div className="text-[10px] text-ink-500 uppercase tracking-wider">焦点人物</div>
+                <div className="text-xs text-ink-500 uppercase tracking-wider">焦点人物</div>
                 <h2 className="text-lg font-serif text-purple-300 flex items-center gap-2">
                   <span>{focusFigure.emoji || '👤'}</span>
                   {focusFigure.name}
@@ -400,7 +400,7 @@ export default function GraphAdmin() {
               </svg>
 
               {/* 帮助提示 */}
-              <div className="absolute top-3 left-3 bg-ink-800/80 backdrop-blur border border-ink-600 rounded px-3 py-1.5 text-[10px] text-ink-400">
+              <div className="absolute top-3 left-3 bg-ink-800/80 backdrop-blur border border-ink-600 rounded-lg px-3 py-1.5 text-xs text-ink-400">
                 💡 拖节点到另一节点 → 创建关系 · 点击边标签 → 编辑/删除
               </div>
 
@@ -410,7 +410,7 @@ export default function GraphAdmin() {
                 if (!p) return null
                 return (
                   <div
-                    className="absolute pointer-events-none bg-amber-900/80 text-amber-100 text-xs px-2 py-1 rounded"
+                    className="absolute pointer-events-none bg-amber-900/80 text-amber-100 text-xs px-2 py-1 rounded-lg"
                     style={{
                       left: `${(p.x / WIDTH) * 100}%`,
                       top: `${(p.y / HEIGHT) * 100}%`,
@@ -433,7 +433,7 @@ export default function GraphAdmin() {
       {/* 右：关系列表 */}
       <div className="w-80 flex-shrink-0 border-l border-ink-700 flex flex-col">
         <div className="p-3 border-b border-ink-700">
-          <div className="text-[10px] text-ink-500 uppercase tracking-wider">直接关系</div>
+          <div className="text-xs text-ink-500 uppercase tracking-wider">直接关系</div>
           <div className="text-xs text-ink-400 mt-0.5">{focusFigure?.name} → {directRelations.length} 人</div>
         </div>
         <div className="flex-1 overflow-y-auto">
@@ -452,12 +452,13 @@ export default function GraphAdmin() {
                     <span className="text-base">{r.target.emoji || '👤'}</span>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm text-parchment-50 truncate">{r.target.name}</div>
-                      <div className="text-[10px] text-ink-500" style={{ color: style.color }}>{style.icon} {style.label}</div>
+                      <div className="text-xs text-ink-500" style={{ color: style.color }}>{style.icon} {style.label}</div>
                     </div>
                     <button
                       onClick={() => setDelRel({ source: focusFigure!.id, target: r.targetId, name: focusFigure!.name + ' — ' + r.target!.name })}
                       className="opacity-0 group-hover:opacity-100 text-red-400 hover:text-red-200 text-xs px-1"
                       title="删除"
+                      aria-label="删除"
                     >🗑️</button>
                   </div>
                 </div>
@@ -481,7 +482,7 @@ export default function GraphAdmin() {
                   <span>{s.emoji || '👤'}</span>
                   <span className="text-parchment-50">{s.name}</span>
                 </div>
-                <div className="text-[10px] text-ink-500 mb-1.5">↓ 类型 ↓</div>
+                <div className="text-xs text-ink-500 mb-1.5">↓ 类型 ↓</div>
                 <div className="flex items-center gap-2">
                   <span>{t.emoji || '👤'}</span>
                   <span className="text-parchment-50">{t.name}</span>
@@ -492,20 +493,20 @@ export default function GraphAdmin() {
                   <button
                     key={t}
                     onClick={() => setNewRel({ ...newRel, type: t })}
-                    className={`p-2 rounded text-xs border ${newRel.type === t ? 'border-amber-500' : 'border-ink-600'}`}
+                    className={`p-2 rounded-lg text-xs border ${newRel.type === t ? 'border-amber-500' : 'border-ink-600'}`}
                     style={{ background: newRel.type === t ? RELATION_STYLE[t].color + '40' : 'transparent' }}
                   >
                     <div className="text-base">{RELATION_STYLE[t].icon}</div>
-                    <div className="text-[10px] mt-1" style={{ color: RELATION_STYLE[t].color }}>{RELATION_STYLE[t].label}</div>
+                    <div className="text-xs mt-1" style={{ color: RELATION_STYLE[t].color }}>{RELATION_STYLE[t].label}</div>
                   </button>
                 ))}
               </div>
               <div className="flex gap-2">
                 <button
                   onClick={() => handleCreateRel(newRel.type)}
-                  className="flex-1 px-3 py-2 rounded bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-500/50 text-emerald-200 text-sm"
+                  className="flex-1 px-3 py-2 rounded-lg bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-500/50 text-emerald-200 text-sm"
                 >💾 创建</button>
-                <button onClick={() => setNewRel(null)} className="px-3 py-2 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm">取消</button>
+                <button onClick={() => setNewRel(null)} className="px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm">取消</button>
               </div>
             </div>
           </div>
@@ -524,9 +525,9 @@ export default function GraphAdmin() {
             <div className="flex gap-2">
               <button
                 onClick={handleDeleteRel}
-                className="flex-1 px-3 py-2 rounded bg-red-700/40 hover:bg-red-600/60 border border-red-500/50 text-red-200 text-sm"
+                className="flex-1 px-3 py-2 rounded-lg bg-red-700/40 hover:bg-red-600/60 border border-red-500/50 text-red-200 text-sm"
               >🗑️ 删除</button>
-              <button onClick={() => setDelRel(null)} className="px-3 py-2 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm">取消</button>
+              <button onClick={() => setDelRel(null)} className="px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm">取消</button>
             </div>
           </div>
         </div>
@@ -542,15 +543,15 @@ export default function GraphAdmin() {
                 <button
                   key={t}
                   onClick={() => handleEditRel(t)}
-                  className={`p-2 rounded text-xs border ${editRel.type === t ? 'border-amber-500' : 'border-ink-600'}`}
+                  className={`p-2 rounded-lg text-xs border ${editRel.type === t ? 'border-amber-500' : 'border-ink-600'}`}
                   style={{ background: editRel.type === t ? RELATION_STYLE[t].color + '40' : 'transparent' }}
                 >
                   <div className="text-base">{RELATION_STYLE[t].icon}</div>
-                  <div className="text-[10px] mt-1" style={{ color: RELATION_STYLE[t].color }}>{RELATION_STYLE[t].label}</div>
+                  <div className="text-xs mt-1" style={{ color: RELATION_STYLE[t].color }}>{RELATION_STYLE[t].label}</div>
                 </button>
               ))}
             </div>
-            <button onClick={() => setEditRel(null)} className="w-full px-3 py-2 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm">取消</button>
+            <button onClick={() => setEditRel(null)} className="w-full px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-sm">取消</button>
           </div>
         </div>
       )}

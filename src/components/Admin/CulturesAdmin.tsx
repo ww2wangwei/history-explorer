@@ -37,12 +37,12 @@ export default function CulturesAdmin() {
       <div className="w-96 flex-shrink-0 border-r border-ink-700 flex flex-col">
         <div className="p-3 border-b border-ink-700 space-y-2">
           <div className="flex gap-2">
-            <input value={query} onChange={e => setQuery(e.target.value)} placeholder="搜索 标题 / id..." className="flex-1 px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500" />
+            <input value={query} onChange={e => setQuery(e.target.value)} placeholder="搜索 标题 / id..." className="flex-1 px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500" />
             <button onClick={() => {
               const id = `ce-new-${Date.now()}`
               useAdminStore.getState().createCulture({ id, title: '新建文化内容', year: 0, category: '文化', region: '', location: [0, 0], importance: 1, description: '' })
               setSelectedId(id)
-            }} className="px-3 py-1.5 rounded bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-500/50 text-emerald-200 text-sm whitespace-nowrap">➕ 新增</button>
+            }} className="px-3 py-1.5 rounded-lg bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-500/50 text-emerald-200 text-sm whitespace-nowrap">➕ 新增</button>
           </div>
           <label className="flex items-center gap-1.5 text-xs text-ink-400 cursor-pointer">
             <input type="checkbox" checked={onlyEdited} onChange={e => setOnlyEdited(e.target.checked)} />
@@ -58,7 +58,7 @@ export default function CulturesAdmin() {
         <div className="flex-1 overflow-y-auto">
           {showDeleted ? (
             <>
-              <div className="p-2 text-[10px] text-red-300 bg-red-900/20 border-b border-red-700/30">🚫 已删除</div>
+              <div className="p-2 text-xs text-red-300 bg-red-900/20 border-b border-red-700/30">🚫 已删除</div>
               {deletedFeatures.map(c => (
                 <button key={c.id} onClick={() => setSelectedId(c.id)} className={`w-full text-left p-2 border-b border-ink-800 hover:bg-ink-800/60 ${selectedId === c.id ? 'bg-bronze-900/20 border-l-2 border-l-bronze-500' : ''}`}>
                   <div className="flex items-center gap-2"><span>🚫</span><span className="text-sm text-parchment-50 line-through opacity-60 truncate flex-1">{c.title}</span></div>
@@ -74,12 +74,12 @@ export default function CulturesAdmin() {
                 <button key={c.id} onClick={() => setSelectedId(c.id)}
                   className={`w-full text-left p-2 border-b border-ink-800 hover:bg-ink-800/60 ${selectedId === c.id ? 'bg-bronze-900/20 border-l-2 border-l-bronze-500' : ''}`}>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-ink-500 tabular-nums">{c.year < 0 ? `BC ${-c.year}` : c.year}</span>
+                    <span className="text-xs text-ink-500 tabular-nums">{c.year < 0 ? `BC ${-c.year}` : c.year}</span>
                     <span className="text-sm text-parchment-50 truncate flex-1">{c.title}</span>
-                    {isNew && <span className="text-[9px] text-emerald-400 bg-emerald-900/30 px-1 rounded">新</span>}
-                    {!isNew && edited && <span className="text-[9px] text-amber-400 bg-amber-900/30 px-1 rounded">已编辑</span>}
+                    {isNew && <span className="text-[9px] text-emerald-400 bg-emerald-900/30 px-1 rounded-lg">新</span>}
+                    {!isNew && edited && <span className="text-[9px] text-amber-400 bg-amber-900/30 px-1 rounded-lg">已编辑</span>}
                   </div>
-                  <div className="text-[10px] text-ink-500 truncate">{c.category} · {c.region}</div>
+                  <div className="text-xs text-ink-500 truncate">{c.category} · {c.region}</div>
                 </button>
               )
             })
@@ -124,7 +124,7 @@ function CultureEditForm({ culture }: { culture: CultureEvent }) {
     setLat(override.location?.[1] ?? culture.location[1])
   }, [culture.id])
 
-  const inputCls = 'w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500'
+  const inputCls = 'w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500'
   const previewUrl = imageSearch ? bingImage(imageSearch, 800, 450) : ''
 
   const handleSave = () => {
@@ -145,25 +145,25 @@ function CultureEditForm({ culture }: { culture: CultureEvent }) {
     <div className="p-6 max-w-3xl space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-[10px] text-ink-500 uppercase tracking-wider flex items-center gap-2">
+          <div className="text-xs text-ink-500 uppercase tracking-wider flex items-center gap-2">
             <span>编辑文化内容</span>
-            {isNew && <span className="text-emerald-400 bg-emerald-900/30 px-1.5 rounded">🆕 新建</span>}
-            {isDeleted && <span className="text-red-400 bg-red-900/30 px-1.5 rounded">🚫 已删除</span>}
+            {isNew && <span className="text-emerald-400 bg-emerald-900/30 px-1.5 rounded-lg">🆕 新建</span>}
+            {isDeleted && <span className="text-red-400 bg-red-900/30 px-1.5 rounded-lg">🚫 已删除</span>}
           </div>
           <h2 className="text-2xl font-serif text-bronze-300 mt-1">{culture.title}</h2>
           <code className="text-xs text-ink-500">id: {culture.id}</code>
         </div>
         <div className="flex gap-2">
           {isDeleted ? (
-            <button onClick={() => undelete(culture.id)} className="px-3 py-1.5 rounded bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-600/50 text-emerald-200 text-xs">↩️ 恢复</button>
+            <button onClick={() => undelete(culture.id)} className="px-3 py-1.5 rounded-lg bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-600/50 text-emerald-200 text-xs">↩️ 恢复</button>
           ) : (
             <button onClick={() => {
               if (isNew) { if (confirm(`永久删除新建文化内容 "${culture.title}"？`)) deleteOverride(culture.id) }
               else if (confirm(`标记 "${culture.title}" 为已删除？（主应用将隐藏）`)) markDeleted(culture.id)
-            }} className="px-3 py-1.5 rounded bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-xs">🗑️ 删除</button>
+            }} className="px-3 py-1.5 rounded-lg bg-red-900/40 hover:bg-red-800/60 border border-red-600/50 text-red-200 text-xs">🗑️ 删除</button>
           )}
           {isEdited && !isNew && !isDeleted && (
-            <button onClick={() => { if (confirm(`撤销 "${culture.title}" 的所有编辑？`)) deleteOverride(culture.id) }} className="px-3 py-1.5 rounded bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-xs">↺ 撤销编辑</button>
+            <button onClick={() => { if (confirm(`撤销 "${culture.title}" 的所有编辑？`)) deleteOverride(culture.id) }} className="px-3 py-1.5 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-ink-300 text-xs">↺ 撤销编辑</button>
           )}
         </div>
       </div>
@@ -177,11 +177,11 @@ function CultureEditForm({ culture }: { culture: CultureEvent }) {
       </Field>
       <Field label="地区"><input value={region} onChange={e => setRegion(e.target.value)} className={inputCls} /></Field>
       <Field label="经纬度"><div className="flex gap-2"><input type="number" step="0.01" value={lng} onChange={e => setLng(parseFloat(e.target.value))} placeholder="经度" className={inputCls + ' flex-1'} /><input type="number" step="0.01" value={lat} onChange={e => setLat(parseFloat(e.target.value))} placeholder="纬度" className={inputCls + ' flex-1'} /></div></Field>
-      <Field label="介绍描述"><textarea value={description} onChange={e => setDescription(e.target.value)} rows={8} className={inputCls + ' font-sans leading-relaxed'} /><div className="text-[10px] text-ink-500 mt-1">{description.length} 字</div></Field>
-      <Field label="图片"><div className="space-y-2"><input value={imageSearch} onChange={e => setImageSearch(e.target.value)} placeholder="英文搜索词" className={inputCls} />{previewUrl && <div className="rounded border border-ink-600 overflow-hidden"><img src={previewUrl} alt={culture.title} className="w-full" /></div>}</div></Field>
+      <Field label="介绍描述"><textarea value={description} onChange={e => setDescription(e.target.value)} rows={8} className={inputCls + ' font-sans leading-relaxed'} /><div className="text-xs text-ink-500 mt-1">{description.length} 字</div></Field>
+      <Field label="图片"><div className="space-y-2"><input value={imageSearch} onChange={e => setImageSearch(e.target.value)} placeholder="英文搜索词" className={inputCls} />{previewUrl && <div className="rounded-lg border border-ink-600 overflow-hidden"><img src={previewUrl} alt={culture.title} className="w-full" /></div>}</div></Field>
 
       <div className="pt-3 border-t border-ink-700 flex gap-2">
-        <button onClick={handleSave} className="px-4 py-2 rounded bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-500/50 text-emerald-200 text-sm">💾 保存</button>
+        <button onClick={handleSave} className="px-4 py-2 rounded-lg bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-500/50 text-emerald-200 text-sm">💾 保存</button>
         {isEdited && <span className="text-xs text-amber-400 self-center">已编辑（{Object.keys(override).length} 字段）</span>}
       </div>
     </div>
@@ -189,5 +189,5 @@ function CultureEditForm({ culture }: { culture: CultureEvent }) {
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div><div className="text-[10px] text-ink-500 uppercase tracking-wider mb-1.5">{label}</div>{children}</div>
+  return <div><div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">{label}</div>{children}</div>
 }

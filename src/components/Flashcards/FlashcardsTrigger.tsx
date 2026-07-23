@@ -33,7 +33,7 @@ export default function FlashcardsTrigger({
 
   return (
     <button
-      className={`px-3 py-1.5 rounded text-xs flex items-center gap-1.5 relative transition-colors ${
+      className={`px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 relative transition-colors ${
         active
           ? 'bg-bronze-600/40 text-bronze-400 border border-bronze-500/60'
           : goalReached
@@ -62,7 +62,7 @@ export default function FlashcardsTrigger({
           {todayCount}/{target}
         </span>
       ) : dueCount > 0 ? (
-        <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-red-600 text-white text-[10px] font-medium flex items-center justify-center ring-2 ring-ink-800 tabular-nums">
+        <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-red-600 text-white text-xs font-medium flex items-center justify-center ring-2 ring-ink-800 tabular-nums">
           {dueCount > 99 ? '99+' : dueCount}
         </span>
       ) : null}

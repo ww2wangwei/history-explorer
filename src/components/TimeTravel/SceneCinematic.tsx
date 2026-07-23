@@ -27,19 +27,19 @@ export const SceneCinematic: React.FC<SceneCinematicProps> = ({ imageUrl, motion
     easing: EASE,
   })
 
-  // 按预设算 scale / translate
+  // 按预设算 scale / translate（幅度加大，肉眼可见的镜头运动）
   let scale = 1, tx = 0, ty = 0
-  if (motion === 'zoom-in') scale = 1.0 + 0.12 * p
-  else if (motion === 'zoom-out') scale = 1.12 - 0.12 * p
-  else if (motion === 'pan-right') { scale = 1.08; tx = -4 + 8 * p }
-  else if (motion === 'pan-left') { scale = 1.08; tx = 4 - 8 * p }
-  else if (motion === 'diagonal') { scale = 1.0 + 0.1 * p; tx = -2 + 4 * p; ty = -2 + 4 * p }
+  if (motion === 'zoom-in') scale = 1.0 + 0.25 * p
+  else if (motion === 'zoom-out') scale = 1.25 - 0.25 * p
+  else if (motion === 'pan-right') { scale = 1.15; tx = -8 + 16 * p }
+  else if (motion === 'pan-left') { scale = 1.15; tx = 8 - 16 * p }
+  else if (motion === 'diagonal') { scale = 1.0 + 0.2 * p; tx = -4 + 8 * p; ty = -4 + 8 * p }
 
-  // 光影扫过:周期 450 帧,translateX -120%→120%,opacity 三角波峰值 0.06
-  const sweepPeriod = 450
+  // 光影扫过:周期 240 帧,translateX -120%→120%,opacity 三角波峰值 0.15
+  const sweepPeriod = 240
   const sweepFrame = frame % sweepPeriod
   const sweepX = interpolate(sweepFrame, [0, sweepPeriod], [-120, 120], { extrapolateRight: 'clamp' })
-  const sweepOpacity = interpolate(sweepFrame, [0, sweepPeriod / 2, sweepPeriod], [0, 0.06, 0], { extrapolateRight: 'clamp' })
+  const sweepOpacity = interpolate(sweepFrame, [0, sweepPeriod / 2, sweepPeriod], [0, 0.15, 0], { extrapolateRight: 'clamp' })
 
   return (
     <AbsoluteFill style={{ backgroundColor: '#0f0e0c', overflow: 'hidden' }}>

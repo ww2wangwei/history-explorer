@@ -163,7 +163,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
 
   if (!focusPos) {
     return (
-      <div className="text-xs text-ink-500 italic p-3 bg-ink-700/30 rounded">
+      <div className="text-xs text-ink-500 italic p-3 bg-ink-700/30 rounded-lg">
         （该节点无位置信息：{focusNode.location}）
       </div>
     )
@@ -173,14 +173,14 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
     <div className="relative w-full">
       {/* 错误提示 */}
       {status === 'error' && (
-        <div className="absolute top-2 left-2 right-2 z-20 px-3 py-2 rounded bg-amber-900/80 border border-amber-600/60 text-amber-100 text-xs">
+        <div className="absolute top-2 left-2 right-2 z-20 px-3 py-2 rounded-lg bg-amber-900/80 border border-amber-600/60 text-amber-100 text-xs">
           ⚠️ 天地图加载失败：{error}
         </div>
       )}
 
       {/* 状态提示（仅在加载中显示） */}
       {status === 'loading' && (
-        <div className="absolute top-2 left-2 z-20 px-2 py-1 rounded bg-ink-900/80 text-ink-300 text-[10px]">
+        <div className="absolute top-2 left-2 z-20 px-2 py-1 rounded-lg bg-ink-900/80 text-ink-300 text-xs">
           ⏳ 加载天地图...
         </div>
       )}
@@ -188,12 +188,12 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
       {/* 地图容器 */}
       <div
         ref={containerRef}
-        className="rounded border border-ink-600 bg-[#0a1820] overflow-hidden"
+        className="rounded-lg border border-ink-600 bg-[#0a1820] overflow-hidden"
         style={{ width: '100%', aspectRatio: '2 / 1', maxWidth: '640px', pointerEvents: 'none' }}
       />
 
       {/* 节点计数提示 */}
-      <div className="absolute bottom-2 left-2 text-[9px] text-ink-300/90 bg-ink-900/70 backdrop-blur px-1.5 py-0.5 rounded pointer-events-none z-10">
+      <div className="absolute bottom-2 left-2 text-[9px] text-ink-300/90 bg-ink-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg pointer-events-none z-10">
         {nodePositions.length} 个节点 · {focusPos[0].toFixed(1)}°, {focusPos[1].toFixed(1)}°
       </div>
     </div>

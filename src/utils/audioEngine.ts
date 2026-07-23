@@ -10,6 +10,11 @@
  * - 加 console 日志方便调试
  */
 
+/** 仅开发环境输出的诊断日志（生产静默） */
+const dlog = (...args: unknown[]) => {
+  if (import.meta.env.DEV) console.log(...args)
+}
+
 class AudioEngine {
   private ctx: AudioContext | null = null
   private masterGain: GainNode | null = null
@@ -41,7 +46,7 @@ class AudioEngine {
         this.sfxGain = this.ctx.createGain()
         this.sfxGain.gain.value = 0.7
         this.sfxGain.connect(this.masterGain)
-        console.log('[audioEngine] AudioContext created, state:', this.ctx.state)
+        dlog('[audioEngine] AudioContext created, state:', this.ctx.state)
       } catch (e) {
         console.error('[audioEngine] init failed:', e)
         return
@@ -51,7 +56,7 @@ class AudioEngine {
     if (this.ctx.state === 'suspended') {
       try {
         await this.ctx.resume()
-        console.log('[audioEngine] ctx resumed')
+        dlog('[audioEngine] ctx resumed')
       } catch (e) {
         console.warn('[audioEngine] resume failed:', e)
       }
@@ -124,7 +129,7 @@ class AudioEngine {
     noiseGain.connect(this.sfxGain)
     noise.start(now)
     noise.stop(now + duration)
-    console.log('[audioEngine] playTimeTravel')
+    dlog('[audioEngine] playTimeTravel')
   }
 
   stopBGM() {
@@ -188,7 +193,7 @@ class AudioEngine {
         try { (n as any).disconnect?.() } catch { /* noop */ }
       })
     }, fadeSec * 1000 + 50)
-    console.log('[audioEngine] crossfade BGM, new urls:', newUrls.length)
+    dlog('[audioEngine] crossfade BGM, new urls:', newUrls.length)
   }
 
   // ============ UI 音效（短促）============
@@ -278,7 +283,7 @@ class AudioEngine {
     const ctx = this.ensureCtx()
     if (!ctx || !this.bgmGain) { console.warn('[audioEngine] remote BGM skipped: no ctx'); return }
     if (urls.length === 0) return
-    console.log('[audioEngine] playRemoteBGM: trying', urls.length, 'urls')
+    dlog('[audioEngine] playRemoteBGM: trying', urls.length, 'urls')
 
     for (const url of urls) {
       try {
@@ -295,7 +300,7 @@ class AudioEngine {
         gain.connect(this.bgmGain)
         source.start(0)
         this.bgmNodes.push(source as any, gain)
-        console.log('[audioEngine] BGM playing:', url)
+        dlog('[audioEngine] BGM playing:', url)
         return
       } catch (e) {
         console.warn('[audioEngine] BGM load error:', url, e)

@@ -56,6 +56,7 @@ declare module 'react-simple-maps' {
     center?: [number, number]
     minZoom?: number
     maxZoom?: number
+    onMove?: (pos: { zoom: number; center: [number, number]; x?: number; y?: number; k?: number }) => void
     onMoveEnd?: (pos: { zoom: number; center: [number, number] }) => void
     style?: React.CSSProperties
   }

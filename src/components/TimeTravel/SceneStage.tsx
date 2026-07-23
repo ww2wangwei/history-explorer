@@ -55,7 +55,7 @@ export default function SceneStage({ imageUrl, sceneIndex, motion, color, sceneK
     <div className="relative w-full h-full bg-ink-900 overflow-hidden">
       <Player
         key={sceneKey}
-        component={SceneCinematic}
+        component={SceneCinematic as any}
         inputProps={inputProps}
         durationInFrames={DURATION}
         fps={FPS}

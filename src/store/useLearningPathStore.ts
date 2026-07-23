@@ -142,6 +142,8 @@ export const useLearningPathStore = create<LearningPathState>()(
     }
     },
     {
+      name: 'history-explorer-path:v1',
+      storage: createJSONStorage(() => localStorage),
       // 合并策略：旧 persisted state 缺键时用默认值补齐（避免老用户的 localStorage 缺少新增的 allFigures 等键）
       merge: (persisted, current) => {
         const persistedState = (persisted ?? {}) as Partial<LearningPathState>

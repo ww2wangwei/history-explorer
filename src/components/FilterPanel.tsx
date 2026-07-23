@@ -48,7 +48,7 @@ export default function FilterPanel() {
   return (
     <div className="relative" ref={containerRef}>
       <button
-        className={`px-3 py-1.5 rounded border text-xs flex items-center gap-1.5 transition-colors ${
+        className={`px-3 py-1.5 rounded-lg border text-xs flex items-center gap-1.5 transition-colors ${
           hasActiveFilters
             ? 'bg-bronze-600/30 border-bronze-500/60 text-bronze-400'
             : 'bg-ink-700/80 hover:bg-ink-600 border-ink-600 text-bronze-400'
@@ -66,7 +66,7 @@ export default function FilterPanel() {
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 mt-1 w-72 bg-ink-800 border border-ink-600 rounded shadow-2xl z-50 overflow-hidden">
+        <div className="absolute top-full left-0 mt-1 w-72 bg-ink-800 border border-ink-600 rounded-lg shadow-2xl z-50 overflow-hidden">
           {/* 顶部：状态条 */}
           <div className="px-3 py-2 border-b border-ink-700 flex items-center justify-between">
             <div className="text-xs text-ink-500">
@@ -75,7 +75,7 @@ export default function FilterPanel() {
             </div>
             {hasActiveFilters && (
               <button
-                className="text-[10px] text-ink-500 hover:text-parchment-50 underline"
+                className="text-xs text-ink-500 hover:text-parchment-50 underline"
                 onClick={resetFilters}
               >
                 重置
@@ -85,14 +85,14 @@ export default function FilterPanel() {
 
           {/* 分类筛选 */}
           <div className="p-3 border-b border-ink-700">
-            <div className="text-[10px] text-ink-500 mb-2">分类</div>
+            <div className="text-xs text-ink-500 mb-2">分类</div>
             <div className="flex flex-wrap gap-1">
               {ALL_CATEGORIES.map(cat => {
                 const active = filters.categories.includes(cat)
                 return (
                   <button
                     key={cat}
-                    className={`px-2 py-0.5 rounded text-[10px] border transition-all ${
+                    className={`px-2 py-0.5 rounded-lg text-xs border transition-all ${
                       active
                         ? 'border-current'
                         : 'border-ink-600 text-ink-500 hover:border-ink-500'
@@ -115,7 +115,7 @@ export default function FilterPanel() {
 
           {/* 地区筛选 */}
           <div className="p-3 border-b border-ink-700">
-            <div className="text-[10px] text-ink-500 mb-2">地区</div>
+            <div className="text-xs text-ink-500 mb-2">地区</div>
             <div className="flex flex-wrap gap-1">
               {ALL_REGIONS.map(region => {
                 const active = filters.regions.includes(region)
@@ -131,7 +131,7 @@ export default function FilterPanel() {
                 return (
                   <button
                     key={region}
-                    className={`px-2 py-0.5 rounded text-[10px] border transition-all ${
+                    className={`px-2 py-0.5 rounded-lg text-xs border transition-all ${
                       active
                         ? 'bg-bronze-600/30 border-bronze-500/60 text-bronze-400'
                         : 'border-ink-600 text-ink-500 hover:border-ink-500'
@@ -147,12 +147,12 @@ export default function FilterPanel() {
 
           {/* 重要度筛选 */}
           <div className="p-3">
-            <div className="text-[10px] text-ink-500 mb-2">重要度</div>
+            <div className="text-xs text-ink-500 mb-2">重要度</div>
             <div className="flex gap-1">
               {[1, 2, 3].map(level => (
                 <button
                   key={level}
-                  className={`flex-1 px-2 py-1 rounded text-[10px] border transition-all ${
+                  className={`flex-1 px-2 py-1 rounded-lg text-xs border transition-all ${
                     filters.minImportance === level
                       ? 'bg-bronze-600/30 border-bronze-500/60 text-bronze-400'
                       : 'border-ink-600 text-ink-500 hover:border-ink-500'

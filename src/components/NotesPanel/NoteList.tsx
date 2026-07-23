@@ -23,7 +23,7 @@ export default function NoteList({ notes, onCreate, onEdit, onDelete }: Props) {
         </span>
         <button
           onClick={onCreate}
-          className="px-3 py-1 rounded bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/50 text-bronze-400 transition-colors"
+          className="px-3 py-1 rounded-lg bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/50 text-bronze-400 transition-colors"
         >
           ＋ 新建笔记
         </button>

@@ -10,6 +10,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import { useAIStore, MAX_TOKENS, type AIMessage } from '@/store/useAIStore'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useNotesStore } from '@/store/useNotesStore'
+import type { NoteTargetKind } from '@/types/notes'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
 import erasData from '@/data/eras.json'
 import peopleData from '@/data/people.json'
@@ -145,6 +146,100 @@ async function streamChat(
       }
     }
   }
+}
+
+/** 测试按钮：发送简单请求验证大模型配置 */
+function TestButton({ protocol, baseUrl, model, apiKey }: {
+  protocol: 'anthropic' | 'openai'
+  baseUrl: string
+  model: string
+  apiKey: string
+}) {
+  const [state, setState] = useState<'idle' | 'testing' | 'ok' | 'fail'>('idle')
+  const [msg, setMsg] = useState('')
+
+  const handleTest = async () => {
+    if (!apiKey) { setState('fail'); setMsg('请先输入 API key'); return }
+    if (!baseUrl) { setState('fail'); setMsg('请填写 Base URL'); return }
+    setState('testing')
+    setMsg('')
+
+    try {
+      const stripSlash = (s: string) => s.replace(/\/$/, '')
+      const stripV1 = (s: string) => s.replace(/\/v1$/, '')
+      const base = stripV1(stripSlash(baseUrl))
+
+      if (protocol === 'anthropic') {
+        const resp = await fetch(`${base}/v1/messages`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': apiKey,
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerous-direct-browser-access': 'true',
+          },
+          body: JSON.stringify({
+            model: model || 'claude-haiku-4-5-20251001',
+            max_tokens: 50,
+            messages: [{ role: 'user', content: '回复"OK"' }],
+          }),
+          signal: AbortSignal.timeout(15000),
+        })
+        if (!resp.ok) {
+          const err = await resp.text().catch(() => '')
+          throw new Error(`HTTP ${resp.status}: ${err.substring(0, 200)}`)
+        }
+        const data = await resp.json()
+        setState('ok')
+        setMsg(`${data.model || model} ✓ (${data.usage?.input_tokens ?? '?'} tokens)`)
+      } else {
+        const resp = await fetch(`${base}/v1/chat/completions`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`,
+          },
+          body: JSON.stringify({
+            model: model || 'gpt-3.5-turbo',
+            max_tokens: 50,
+            messages: [{ role: 'user', content: '回复"OK"' }],
+          }),
+          signal: AbortSignal.timeout(15000),
+        })
+        if (!resp.ok) {
+          const err = await resp.text().catch(() => '')
+          throw new Error(`HTTP ${resp.status}: ${err.substring(0, 200)}`)
+        }
+        const data = await resp.json()
+        const usedModel = data.model || model
+        setState('ok')
+        setMsg(`${usedModel} ✓ (${data.usage?.total_tokens ?? '?'} tokens)`)
+      }
+    } catch (e) {
+      setState('fail')
+      setMsg((e as Error).message.substring(0, 200))
+    }
+  }
+
+  return (
+    <button
+      onClick={handleTest}
+      disabled={state === 'testing'}
+      className={`px-3 py-1 text-xs rounded-lg transition-colors flex items-center gap-1 ${
+        state === 'testing' ? 'bg-ink-600 text-ink-400 cursor-wait' :
+        state === 'ok' ? 'bg-green-700/50 text-green-300 border border-green-500/40' :
+        state === 'fail' ? 'bg-red-800/50 text-red-300 border border-red-500/40' :
+        'bg-ink-700/60 hover:bg-ink-600 text-ink-300 border border-ink-500'
+      }`}
+      title={msg || '测试连接'}
+    >
+      {state === 'testing' ? '⏳ 测试中...' :
+       state === 'ok' ? '✅ 连接成功' :
+       state === 'fail' ? '❌ 失败' :
+       '🔍 测试'}
+      {msg && <span className="text-[10px] opacity-70">{msg}</span>}
+    </button>
+  )
 }
 
 const QUICK_PROMPTS = [
@@ -350,7 +445,6 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
               content: m.content + delta,
               loading: true,
             }))
-            console.log('[AI] delta', delta.length, JSON.stringify(delta).substring(0, 50))
           },
           ctrl.signal,
         )
@@ -386,9 +480,10 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
     if (m.role !== "assistant") return
     const notes = useNotesStore.getState()
     const eraId = m.contextEras && m.contextEras[0]
-    const target = eraId
-      ? { kind: "era" as const, id: eraId }
-      : { kind: "free" as const, id: "ai-chat" }
+    // 无朝代关联的自由问答：仍存为 era 类型的占位笔记（id 标记为 ai-chat）
+    const target: { kind: NoteTargetKind; id: string } = eraId
+      ? { kind: "era", id: eraId }
+      : { kind: "era", id: "ai-chat" }
     const firstLine = m.content.split('\n').find(l => l.trim()) || m.content
     const title = firstLine.replace(/[*#`]/g, '').trim().slice(0, 40) || 'AI 回答'
     const source = eraId ? '\n\n[AI 助手·来自朝代：' + eraId + ']' : '\n\n[AI 助手·历史问答]'
@@ -429,11 +524,11 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
       {showFab && (
         <button
           onClick={togglePanel}
-          className={`fixed ${fabClass} z-[60] group flex items-center gap-2 transition-all`}
+          className={`fixed ${fabClass} z-[70] group flex items-center gap-2 transition-all`}
           title={panelOpen ? '关闭 AI 对话 (Cmd+K / ?)' : '打开 AI 对话 (Cmd+K / ?)'}
         >
-          <span className="hidden group-hover:inline-block text-xs px-2 py-1 rounded bg-ink-800/95 border border-bronze-500/40 text-bronze-300 shadow-lg whitespace-nowrap">
-            🤖 AI 问 · <kbd className="px-1 bg-ink-700 rounded text-[10px]">?</kbd>
+          <span className="hidden group-hover:inline-block text-xs px-2 py-1 rounded-lg bg-ink-800/95 border border-bronze-500/40 text-bronze-300 shadow-lg whitespace-nowrap">
+            🤖 AI 问 · <kbd className="px-1 bg-ink-700 rounded-lg text-xs">?</kbd>
           </span>
           <span className="w-14 h-14 rounded-full bg-gradient-to-br from-bronze-500 to-bronze-700 shadow-2xl flex items-center justify-center border border-bronze-300/50">
             {panelOpen ? (
@@ -475,7 +570,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   <div className="text-sm font-serif text-purple-200 truncate">
                     正在与 <span className="text-bronze-300">{person.name}</span> 对话
                   </div>
-                  <div className="text-[10px] text-purple-300/70 truncate">{person.role}</div>
+                  <div className="text-xs text-purple-300/70 truncate">{person.role}</div>
                 </div>
                 <button
                   onClick={() => {
@@ -484,13 +579,14 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   }}
                   className="text-ink-500 hover:text-parchment-50 text-base shrink-0"
                   title="退出角色扮演"
+                  aria-label="退出角色扮演"
                 >
                   ×
                 </button>
               </div>
               {/* 🧠 AI 知道你的学习上下文指示器 */}
               {currentContext && currentContext.summary !== '上下文已加载' && (
-                <div className="px-4 py-1.5 border-b border-purple-900/30 bg-purple-950/30 text-[10px] text-purple-300/80 flex items-center gap-1.5">
+                <div className="px-4 py-1.5 border-b border-purple-900/30 bg-purple-950/30 text-xs text-purple-300/80 flex items-center gap-1.5">
                   <span>🧠</span>
                   <span className="truncate">AI 知道：{currentContext.summary}</span>
                 </div>
@@ -509,7 +605,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
               <span className="text-xl">🤖</span>
               <div>
                 <div className="text-sm font-serif text-bronze-300">历史问答助手</div>
-                <div className="text-[10px] text-ink-500">
+                <div className="text-xs text-ink-500">
                   {apiKey ? '✓ API key 已配置' : '⚠ 需要 API key'}
                 </div>
               </div>
@@ -520,8 +616,9 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   setShowKeyInput((s) => !s)
                   setApiKeyInput(apiKey ?? '')
                 }}
-                className="text-xs text-ink-400 hover:text-bronze-300 px-2 py-1 rounded hover:bg-ink-700/60"
+                className="text-xs text-ink-400 hover:text-bronze-300 px-2 py-1 rounded-lg hover:bg-ink-700/60"
                 title="设置 Anthropic API key"
+                aria-label="设置 Anthropic API key"
               >
                 ⚙ 设置
               </button>
@@ -529,6 +626,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                 onClick={closePanel}
                 className="text-ink-500 hover:text-parchment-50 text-xl leading-none"
                 title="关闭"
+                aria-label="关闭"
               >
                 ×
               </button>
@@ -538,10 +636,10 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
           {/* API key 设置面板 */}
           {showKeyInput && (
             <div className="p-3 border-b border-ink-600 bg-ink-900/40 space-y-2">
-              <div className="text-[10px] text-ink-400">
+              <div className="text-xs text-ink-400">
                 1. 选 API 协议：
               </div>
-              <div className="flex gap-2 text-[10px]">
+              <div className="flex gap-2 text-xs">
                 {(['anthropic', 'openai'] as const).map(p => (
                   <button
                     key={p}
@@ -549,7 +647,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                       // 只切 protocol，不动 baseUrl / model（用户已填的不覆盖）
                       setApiProtocol(p)
                     }}
-                    className={`px-2 py-1 rounded border ${
+                    className={`px-2 py-1 rounded-lg border ${
                       apiProtocol === p
                         ? 'border-bronze-500 bg-bronze-600/30 text-bronze-300'
                         : 'border-ink-600 text-ink-400'
@@ -560,27 +658,27 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                 ))}
               </div>
 
-              <div className="text-[10px] text-ink-400">
+              <div className="text-xs text-ink-400">
                 2. Base URL（不含 /v1/messages 或 /chat/completions）：
               </div>
               <input
                 value={apiBaseUrl}
                 onChange={(e) => setApiBaseUrl(e.target.value)}
                 placeholder={apiProtocol === 'anthropic' ? 'https://api.anthropic.com' : 'https://api.minimax.chat'}
-                className="w-full text-xs px-2 py-1 bg-ink-900 border border-ink-600 rounded text-parchment-50"
+                className="w-full text-xs px-2 py-1 bg-ink-900 border border-ink-600 rounded-lg text-parchment-50"
               />
 
-              <div className="text-[10px] text-ink-400">
+              <div className="text-xs text-ink-400">
                 3. Model 名：
               </div>
               <input
                 value={apiModel}
                 onChange={(e) => setApiModel(e.target.value)}
                 placeholder="claude-haiku-4-5-20251001"
-                className="w-full text-xs px-2 py-1 bg-ink-900 border border-ink-600 rounded text-parchment-50"
+                className="w-full text-xs px-2 py-1 bg-ink-900 border border-ink-600 rounded-lg text-parchment-50"
               />
 
-              <div className="text-[10px] text-ink-400">
+              <div className="text-xs text-ink-400">
                 4. API key（保存到 localStorage）：
               </div>
               <div className="flex gap-2">
@@ -589,7 +687,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   value={apiKeyInput}
                   onChange={(e) => setApiKeyInput(e.target.value)}
                   placeholder={apiProtocol === 'anthropic' ? 'sk-ant-...' : 'sk-...'}
-                  className="flex-1 text-xs px-2 py-1 bg-ink-900 border border-ink-600 rounded text-parchment-50"
+                  className="flex-1 text-xs px-2 py-1 bg-ink-900 border border-ink-600 rounded-lg text-parchment-50"
                 />
                 <button
                   onClick={() => {
@@ -601,10 +699,16 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                     })
                     setShowKeyInput(false)
                   }}
-                  className="px-3 py-1 text-xs bg-bronze-600 hover:bg-bronze-500 text-parchment-50 rounded"
+                  className="px-3 py-1 text-xs bg-bronze-600 hover:bg-bronze-500 text-parchment-50 rounded-lg"
                 >
                   保存
                 </button>
+                <TestButton
+                  protocol={apiProtocol}
+                  baseUrl={apiBaseUrl.trim()}
+                  model={apiModel.trim()}
+                  apiKey={apiKeyInput}
+                />
               </div>
             </div>
           )}
@@ -614,7 +718,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
             {threads.slice(-5).map((t) => (
               <div
                 key={t.id}
-                className={`flex items-center gap-0.5 rounded whitespace-nowrap ${
+                className={`flex items-center gap-0.5 rounded-lg whitespace-nowrap ${
                   t.id === activeThreadId
                     ? 'bg-bronze-600/40 text-bronze-300'
                     : 'text-ink-400 hover:bg-ink-700/40'
@@ -622,7 +726,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
               >
                 <button
                   onClick={() => setActiveThread(t.id)}
-                  className="text-[10px] px-2 py-1"
+                  className="text-xs px-2 py-1"
                 >
                   {t.title}
                 </button>
@@ -630,8 +734,9 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   onClick={() => {
                     if (confirm(`删除对话"${t.title}"?`)) deleteThread(t.id)
                   }}
-                  className="text-[10px] px-1.5 py-1 text-ink-500 hover:text-red-400"
+                  className="text-xs px-1.5 py-1 text-ink-500 hover:text-red-400"
                   title="删除此对话"
+                  aria-label="删除此对话"
                 >
                   ×
                 </button>
@@ -639,7 +744,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
             ))}
             <button
               onClick={() => newThread('新对话')}
-              className="text-[10px] px-2 py-1 rounded text-ink-400 hover:text-parchment-50 hover:bg-ink-700/40"
+              className="text-xs px-2 py-1 rounded-lg text-ink-400 hover:text-parchment-50 hover:bg-ink-700/40"
             >
               + 新对话
             </button>
@@ -650,8 +755,9 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                     threads.forEach(t => deleteThread(t.id))
                   }
                 }}
-                className="ml-auto text-[10px] px-2 py-1 rounded text-red-400 hover:text-red-300 hover:bg-red-900/30"
+                className="ml-auto text-xs px-2 py-1 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-900/30"
                 title="删除所有对话历史"
+                aria-label="删除所有对话历史"
               >
                 🗑 清空
               </button>
@@ -673,12 +779,12 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
 
             {activeThread && activeThread.messages.length === 0 && contextEraId && (
               <div className="space-y-1.5">
-                <div className="text-[10px] text-bronze-400 mb-2">💡 快速提问（已选朝代自动带入上下文）：</div>
+                <div className="text-xs text-bronze-400 mb-2">💡 快速提问（已选朝代自动带入上下文）：</div>
                 {QUICK_PROMPTS.map((p, i) => (
                   <button
                     key={i}
                     onClick={() => sendMessage(p)}
-                    className="block w-full text-left text-xs px-3 py-2 rounded bg-ink-700/40 hover:bg-ink-700/80 text-parchment-50 border border-ink-600/40"
+                    className="block w-full text-left text-xs px-3 py-2 rounded-lg bg-ink-700/40 hover:bg-ink-700/80 text-parchment-50 border border-ink-600/40"
                   >
                     {p}
                   </button>
@@ -700,7 +806,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                     : 'bg-ink-700/40 mr-8'
                 }`}
               >
-                <div className="text-[10px] text-ink-500 mb-1 flex items-center gap-1">
+                <div className="text-xs text-ink-500 mb-1 flex items-center gap-1">
                   {personForMsg && (
                     <span className="text-base" title={`正在与 ${personForMsg.name} 对话`}>
                       {personForMsg.emoji || '👤'}
@@ -712,7 +818,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   {m.contextEras?.map(eid => {
                     const era = eras.find((e) => e.id === eid)
                     return era ? (
-                      <span key={eid} className="px-1.5 py-0.5 rounded bg-ink-800/60" style={{ color: era.color }}>
+                      <span key={eid} className="px-1.5 py-0.5 rounded-lg bg-ink-800/60" style={{ color: era.color }}>
                         {era.name}
                       </span>
                     ) : null
@@ -727,8 +833,9 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   <div className="flex items-center gap-2 mt-2 pt-1.5 border-t border-ink-700/40">
                     <button
                       onClick={() => saveAsNote(m)}
-                      className="text-[10px] px-2 py-0.5 rounded text-bronze-400 hover:text-bronze-300 hover:bg-bronze-900/30 border border-bronze-700/30"
+                      className="text-xs px-2 py-0.5 rounded-lg text-bronze-400 hover:text-bronze-300 hover:bg-bronze-900/30 border border-bronze-700/30"
                       title="把这条 AI 回答加入笔记"
+                    aria-label="把这条 AI 回答加入笔记"
                     >
                       📥 加入笔记
                     </button>
@@ -736,28 +843,29 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                       onClick={() => {
                         navigator.clipboard?.writeText(m.content)
                       }}
-                      className="text-[10px] px-2 py-0.5 rounded text-ink-400 hover:text-parchment-50 hover:bg-ink-700/40"
+                      className="text-xs px-2 py-0.5 rounded-lg text-ink-400 hover:text-parchment-50 hover:bg-ink-700/40"
                       title="复制全文"
+                    aria-label="复制全文"
                     >
                       📋 复制
                     </button>
                     {noteSavedFor === m.id && (
-                      <span className="text-[10px] text-green-400">✓ 已加入笔记</span>
+                      <span className="text-xs text-green-400">✓ 已加入笔记</span>
                     )}
                   </div>
                 )}
                 {m.loading && (
-                  <div className="text-[10px] text-ink-500 mt-1 animate-pulse">▍ 正在输入...</div>
+                  <div className="text-xs text-ink-500 mt-1 animate-pulse">▍ 正在输入...</div>
                 )}
                 {m.error && (
-                  <div className="text-[10px] text-red-400 mt-1">⚠ {m.error}</div>
+                  <div className="text-xs text-red-400 mt-1">⚠ {m.error}</div>
                 )}
               </div>
               )
             })}
 
             {error && (
-              <div className="rounded bg-red-900/30 border border-red-700/40 p-2 text-[11px] text-red-300">
+              <div className="rounded-lg bg-red-900/30 border border-red-700/40 p-2 text-[11px] text-red-300">
                 ⚠ {error}
               </div>
             )}
@@ -770,7 +878,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
             {activeThread?.messages.some((m) => m.loading) ? (
               <button
                 onClick={stopStreaming}
-                className="w-full px-3 py-2 text-xs bg-red-900/40 hover:bg-red-900/60 text-red-300 rounded"
+                className="w-full px-3 py-2 text-xs bg-red-900/40 hover:bg-red-900/60 text-red-300 rounded-lg"
               >
                 ■ 停止生成
               </button>
@@ -786,18 +894,18 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                       : '问任何历史问题...'
                   }
                   rows={2}
-                  className="flex-1 text-xs px-2 py-1.5 bg-ink-900 border border-ink-600 rounded text-parchment-50 resize-none"
+                  className="flex-1 text-xs px-2 py-1.5 bg-ink-900 border border-ink-600 rounded-lg text-parchment-50 resize-none"
                 />
                 <button
                   onClick={() => sendMessage(input)}
                   disabled={!input.trim() || !apiKey}
-                  className="px-3 py-1.5 text-xs bg-bronze-600 hover:bg-bronze-500 disabled:opacity-50 disabled:cursor-not-allowed text-parchment-50 rounded self-end"
+                  className="px-3 py-1.5 text-xs bg-bronze-600 hover:bg-bronze-500 disabled:opacity-50 disabled:cursor-not-allowed text-parchment-50 rounded-lg self-end"
                 >
                   发送
                 </button>
               </div>
             )}
-            <div className="text-[10px] text-ink-500 mt-1">
+            <div className="text-xs text-ink-500 mt-1">
               Enter 发送，Shift+Enter 换行
             </div>
           </div>

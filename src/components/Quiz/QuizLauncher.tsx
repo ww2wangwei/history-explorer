@@ -24,7 +24,7 @@ export default function QuizLauncher() {
       {/* 浮动按钮 */}
       <button
         onClick={togglePanel}
-        className="fixed bottom-20 right-4 z-[60] w-14 h-14 rounded-full bg-bronze-600 hover:bg-bronze-500 shadow-2xl flex items-center justify-center text-2xl transition-all"
+        className="fixed bottom-20 right-4 z-50 w-14 h-14 rounded-full bg-bronze-600 hover:bg-bronze-500 shadow-2xl flex items-center justify-center text-2xl transition-all"
         title="历史测试 (📝)"
       >
         {panelOpen ? '×' : '📝'}

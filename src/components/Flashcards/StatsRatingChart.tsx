@@ -42,9 +42,9 @@ export default function StatsRatingChart({ counts }: Props) {
             {/* 标签 */}
             <div className="w-10 text-right text-ink-300">{row.label}</div>
             {/* 横条 */}
-            <div className="flex-1 h-5 bg-ink-700/40 rounded overflow-hidden">
+            <div className="flex-1 h-5 bg-ink-700/40 rounded-lg overflow-hidden">
               <div
-                className="h-full rounded transition-all duration-300"
+                className="h-full rounded-lg transition-all duration-300"
                 style={{
                   width: `${widthPct}%`,
                   backgroundColor: row.color,

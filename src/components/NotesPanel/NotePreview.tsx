@@ -102,13 +102,13 @@ export default function NotePreview({ content }: Props) {
           code: ({ node: _node, ...props }) => (
             <code
               {...props}
-              className="bg-ink-700 px-1 py-0.5 rounded text-bronze-400 text-xs font-mono"
+              className="bg-ink-700 px-1 py-0.5 rounded-lg text-bronze-400 text-xs font-mono"
             />
           ),
           pre: ({ node: _node, ...props }) => (
             <pre
               {...props}
-              className="bg-ink-800 border border-ink-600 rounded p-2 my-2 overflow-x-auto text-xs"
+              className="bg-ink-800 border border-ink-600 rounded-lg p-2 my-2 overflow-x-auto text-xs"
             />
           ),
           table: ({ node: _node, ...props }) => (

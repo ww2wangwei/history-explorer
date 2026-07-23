@@ -64,7 +64,7 @@ export default function FlashcardBack({
           <div className="text-xs text-ink-400 mt-1">{subtitle}</div>
         )}
         {meta && (
-          <div className="text-[10px] text-ink-500 mt-0.5">{meta}</div>
+          <div className="text-xs text-ink-500 mt-0.5">{meta}</div>
         )}
       </div>
 
@@ -85,11 +85,11 @@ export default function FlashcardBack({
               <button
                 key={cfg.key}
                 onClick={() => onRate(cfg.key)}
-                className={`px-3 py-2 rounded border ${cfg.bg} ${cfg.border} ${cfg.text} transition-colors flex flex-col items-center gap-1`}
+                className={`px-3 py-2 rounded-lg border ${cfg.bg} ${cfg.border} ${cfg.text} transition-colors flex flex-col items-center gap-1`}
               >
                 <span className="text-sm font-medium">{RATING_LABELS[cfg.key]}</span>
-                <span className="text-[10px] opacity-70">{cfg.desc}</span>
-                <span className="text-[10px] text-ink-400">
+                <span className="text-xs opacity-70">{cfg.desc}</span>
+                <span className="text-xs text-ink-400">
                   {nextDays === 1 ? '明天' : `${nextDays} 天后`}
                 </span>
               </button>

@@ -226,14 +226,19 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
 
   const proceedToNext = (nextSceneId: string) => {
     const next = scenario.scenes.find(s => s.id === nextSceneId)
-    if (!next) {
-      // 找不到下一章 → 走完剧本（异常）
-      return
+    // 判定本步是否进入结局:
+    //   1) next 是带 ending 字段的场景(如即时失败场景),取 next.ending
+    //   2) next 不是任何场景,但本身就是一个结局 id(如拿破仑 s3 选项直连 ending_xxx)
+    let baseEnding: string | null = null
+    if (next?.ending) {
+      baseEnding = next.ending
+    } else if (!next && scenario.endings.some(e => e.id === nextSceneId)) {
+      baseEnding = nextSceneId
     }
-    // 检查是否到结局
-    if (next.ending) {
+
+    if (baseEnding) {
       // 后果系统:若剧本启用 stats 且存在象限结局,按当前双值选结局
-      let targetEnding = next.ending
+      let targetEnding = baseEnding
       if (scenario.stats) {
         const half = scenario.stats.a.max / 2
         const aHigh = statA >= half
@@ -265,9 +270,10 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
           }
         }
       })
-    } else {
+    } else if (next) {
       setCurrentSceneId(nextSceneId)
     }
+    // 既非结局又非有效场景 → 静默忽略(异常防御)
   }
 
   const handleNpcTalk = () => {

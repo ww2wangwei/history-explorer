@@ -316,7 +316,11 @@
             "text": "立即挥师东进，趁胜追击刘备。",
             "next": "s2",
             "outcome": "你选择先消灭刘备",
-            "historicalNote": "历史上曹操先打刘备再战孙权，结果让孙刘有联合时间——这是赤壁之战的第一个关键失误。"
+            "historicalNote": "历史上曹操先打刘备再战孙权，结果让孙刘有联合时间——这是赤壁之战的第一个关键失误。",
+            "effects": {
+              "might": 3,
+              "wit": -2
+            }
           },
           {
             "id": "c1b",
@@ -348,14 +352,22 @@
             "text": "加大施压：朕有雄兵百万，大江之险何足道哉。",
             "next": "s2",
             "outcome": "你继续施压",
-            "historicalNote": "历史事实：曹操的施压适得其反——孙权被激起了战意。"
+            "historicalNote": "历史事实：曹操的施压适得其反——孙权被激起了战意。",
+            "effects": {
+              "might": 2,
+              "wit": -1
+            }
           },
           {
             "id": "c1bb",
             "text": "等待回复：先看看江东反应。",
             "next": "s1b_wait",
             "outcome": "你等待回复",
-            "historicalNote": "历史假设：如果曹操等孙权主动回应，可能争取到时间观察。"
+            "historicalNote": "历史假设：如果曹操等孙权主动回应，可能争取到时间观察。",
+            "effects": {
+              "might": -1,
+              "wit": 3
+            }
           }
         ]
       },
@@ -380,21 +392,33 @@
             "text": "采纳连环计，连船以稳士兵。",
             "next": "s3_fire",
             "outcome": "你中计！战船相连",
-            "historicalNote": "历史事实：连环计是赤壁之战的转折点，黄盖诈降火攻就是利用了这一点。"
+            "historicalNote": "历史事实：连环计是赤壁之战的转折点，黄盖诈降火攻就是利用了这一点。",
+            "effects": {
+              "might": 1,
+              "wit": -3
+            }
           },
           {
             "id": "c2b",
             "text": "怀疑此计，拒不接受。",
             "next": "s3_hard",
             "outcome": "你不中计",
-            "historicalNote": "历史假设：如果曹操没有中连环计，赤壁之战将完全不同。"
+            "historicalNote": "历史假设：如果曹操没有中连环计，赤壁之战将完全不同。",
+            "effects": {
+              "might": 1,
+              "wit": 3
+            }
           },
           {
             "id": "c2c",
             "text": "大宴长江，麻痹敌军。",
             "next": "s3_fire",
             "outcome": "你放松警惕",
-            "historicalNote": "历史事实：曹操横槊赋诗对酒当歌，正是在赤壁——文人风度反致军心松懈。"
+            "historicalNote": "历史事实：曹操横槊赋诗对酒当歌，正是在赤壁——文人风度反致军心松懈。",
+            "effects": {
+              "might": 2,
+              "wit": -2
+            }
           }
         ]
       },
@@ -436,7 +460,8 @@
           "警惕诈降",
           "不可轻信内应",
           "在错误的地点打错误的战争"
-        ]
+        ],
+        "quadrant": "HL"
       },
       {
         "id": "ending_hard_loss",
@@ -448,7 +473,8 @@
           "战争不仅是战场上的较量",
           "后勤和疫病常常决定胜负",
           "在错误的地点打错误的战争"
-        ]
+        ],
+        "quadrant": "LL"
       },
       {
         "id": "ending_delay_lost",
@@ -460,8 +486,48 @@
           "战机稍纵即逝",
           "水土不服是真实威胁"
         ]
+      },
+      {
+        "id": "ending_chibi_retreat",
+        "quadrant": "LH",
+        "isWin": false,
+        "title": "🧠 谋定止损",
+        "text": "你识破火攻之险,及时收缩战线,主动退回江北。赤壁虽未能一统,却保全了大军主力,为日后卷土重来留下根基。",
+        "historicalReality": "真实的赤壁之战,曹操因轻敌与疫病惨败,精锐尽丧,从此无力短期内南下,奠定了三国鼎立的格局。",
+        "lessons": [
+          "承认局势不利、及时止损,有时比硬拼更需要勇气",
+          "保存实力,方有来日"
+        ]
+      },
+      {
+        "id": "ending_chibi_wise_loss",
+        "quadrant": "HH",
+        "isWin": false,
+        "title": "⚔️ 虽败犹存",
+        "text": "你既保持了兵威,又不失警觉。纵然火起连营,你早有戒备,撤退有序,主力得以保全。天下三分,已成定局,但曹魏根基未损。",
+        "historicalReality": "曹操赤壁之败是其一生最大挫折。史载他败退后曾感叹若郭嘉在世不至于此——决策层的判断力,往往决定成败。",
+        "lessons": [
+          "实力与智谋兼备,即便失败也能把损失降到最低",
+          "真正的强者,输得起"
+        ]
       }
-    ]
+    ],
+    "stats": {
+      "a": {
+        "id": "might",
+        "name": "兵势",
+        "emoji": "🔥",
+        "init": 5,
+        "max": 10
+      },
+      "b": {
+        "id": "wit",
+        "name": "谋略",
+        "emoji": "🧠",
+        "init": 4,
+        "max": 10
+      }
+    }
   },
   {
     "id": "napoleon-coronation",
@@ -488,21 +554,33 @@
             "text": "按传统：跪在教皇面前接受加冕。",
             "next": "s2",
             "outcome": "你尊重教皇权威",
-            "historicalNote": "历史事实：拿破仑最终没跪——他从教皇手中夺过皇冠自己戴上。"
+            "historicalNote": "历史事实：拿破仑最终没跪——他从教皇手中夺过皇冠自己戴上。",
+            "effects": {
+              "authority": -1,
+              "popularity": 2
+            }
           },
           {
             "id": "c1b",
             "text": "向约瑟芬低声：今日之后，我们将是皇帝与皇后。",
             "next": "s2",
             "outcome": "你向她表忠心",
-            "historicalNote": "历史事实：约瑟芬 1809 年因不育被离婚。"
+            "historicalNote": "历史事实：约瑟芬 1809 年因不育被离婚。",
+            "effects": {
+              "authority": 1,
+              "popularity": 1
+            }
           },
           {
             "id": "c1c",
             "text": "大步上前，仪式由我来定义。",
             "next": "s2",
             "outcome": "你展现强势",
-            "historicalNote": "历史事实：拿破仑从教皇手中夺皇冠自行加冕。"
+            "historicalNote": "历史事实：拿破仑从教皇手中夺皇冠自行加冕。",
+            "effects": {
+              "authority": 3,
+              "popularity": -1
+            }
           }
         ]
       },
@@ -520,21 +598,33 @@
             "text": "从教皇手中接过皇冠，自己戴在头上。",
             "next": "s3",
             "outcome": "你自戴皇冠",
-            "historicalNote": "历史事实：拿破仑在加冕时从教皇手中夺过皇冠自行戴上——这是法国大革命的延续——王冠不属于教皇。"
+            "historicalNote": "历史事实：拿破仑在加冕时从教皇手中夺过皇冠自行戴上——这是法国大革命的延续——王冠不属于教皇。",
+            "effects": {
+              "authority": 3,
+              "popularity": -1
+            }
           },
           {
             "id": "c2b",
             "text": "按仪式跪下接受加冕，向教皇致意。",
             "next": "s3",
             "outcome": "你选择传统",
-            "historicalNote": "历史假设：若拿破仑接受加冕，可能与教会关系更融洽。"
+            "historicalNote": "历史假设：若拿破仑接受加冕，可能与教会关系更融洽。",
+            "effects": {
+              "authority": -1,
+              "popularity": 2
+            }
           },
           {
             "id": "c2c",
             "text": "先为约瑟芬加冕，再为自己。",
             "next": "s3",
             "outcome": "你把约瑟芬放在前面",
-            "historicalNote": "历史事实：拿破仑确实先为约瑟芬加冕。"
+            "historicalNote": "历史事实：拿破仑确实先为约瑟芬加冕。",
+            "effects": {
+              "authority": 1,
+              "popularity": 2
+            }
           }
         ]
       },
@@ -552,21 +642,33 @@
             "text": "承诺：朕将继承革命精神，建立自由平等。",
             "next": "ending_liberal",
             "outcome": "你强调革命精神",
-            "historicalNote": "历史事实：拿破仑称帝后颁布《拿破仑法典》，是革命精神的延续。"
+            "historicalNote": "历史事实：拿破仑称帝后颁布《拿破仑法典》，是革命精神的延续。",
+            "effects": {
+              "authority": -1,
+              "popularity": 3
+            }
           },
           {
             "id": "c3b",
             "text": "承诺：朕将让法兰西的荣耀照耀欧洲。",
             "next": "ending_glory",
             "outcome": "你强调帝国荣耀",
-            "historicalNote": "历史事实：拿破仑确实在 1805-1807 年让法兰西帝国达到顶峰。"
+            "historicalNote": "历史事实：拿破仑确实在 1805-1807 年让法兰西帝国达到顶峰。",
+            "effects": {
+              "authority": 3,
+              "popularity": -1
+            }
           },
           {
             "id": "c3c",
             "text": "保持沉默，让你的将军们欢呼。",
             "next": "ending_silent",
             "outcome": "你保持神秘感",
-            "historicalNote": "历史事实：拿破仑的政治魅力很大程度来自他的神秘感。"
+            "historicalNote": "历史事实：拿破仑的政治魅力很大程度来自他的神秘感。",
+            "effects": {
+              "authority": 2,
+              "popularity": -1
+            }
           }
         ]
       }
@@ -582,7 +684,8 @@
           "革命的精神在制度中永生",
           "法典比战争更持久",
           "权力要为理念服务"
-        ]
+        ],
+        "quadrant": "LH"
       },
       {
         "id": "ending_glory",
@@ -594,7 +697,8 @@
           "军事天才弥补不了战略短视",
           "俄国是帝国的终结者",
           "传奇的失败也是传奇"
-        ]
+        ],
+        "quadrant": "HL"
       },
       {
         "id": "ending_silent",
@@ -605,9 +709,38 @@
         "lessons": [
           "权力有时不需要言语",
           "神秘感是统治工具"
+        ],
+        "quadrant": "HH"
+      },
+      {
+        "id": "ending_napoleon_hollow",
+        "quadrant": "LL",
+        "isWin": false,
+        "title": "👤 空洞的加冕",
+        "text": "你既未树立起绝对的权威,也未赢得民心。皇冠戴上了,却像戏服一般轻飘。缺乏根基的帝位,终究难以长久。",
+        "historicalReality": "拿破仑的帝国最终因连年战争与失去民心而崩溃。1814年退位、1815年滑铁卢——权威与民望,任何一个基石的崩塌,都足以倾覆帝国。",
+        "lessons": [
+          "权力需要权威与民心的双重支撑",
+          "仪式赋予的头衔,填不满统治的根基"
         ]
       }
-    ]
+    ],
+    "stats": {
+      "a": {
+        "id": "authority",
+        "name": "权威",
+        "emoji": "👑",
+        "init": 4,
+        "max": 10
+      },
+      "b": {
+        "id": "popularity",
+        "name": "民望",
+        "emoji": "🗽",
+        "init": 4,
+        "max": 10
+      }
+    }
   },
   {
     "id": "an-shi",
@@ -634,14 +767,22 @@
             "text": "亲征：朕要御驾亲征，誓灭逆贼。",
             "next": "s2",
             "outcome": "你选择亲征以振军心",
-            "historicalNote": "历史事实：玄宗未真正亲征，由哥舒翰等将镇守潼关。"
+            "historicalNote": "历史事实：玄宗未真正亲征，由哥舒翰等将镇守潼关。",
+            "effects": {
+              "order": 2,
+              "sentiment": -1
+            }
           },
           {
             "id": "c1b",
             "text": "坚守：令哥舒翰守潼关，绝不浪战。",
             "next": "s2",
             "outcome": "你听取正确建议",
-            "historicalNote": "历史事实：正确的策略——哥舒翰守潼关本可消耗叛军。"
+            "historicalNote": "历史事实：正确的策略——哥舒翰守潼关本可消耗叛军。",
+            "effects": {
+              "order": 3,
+              "sentiment": -1
+            }
           },
           {
             "id": "c1c",
@@ -673,7 +814,11 @@
             "text": "坚守不出，等待战机。",
             "next": "s3",
             "outcome": "你坚持正确判断",
-            "historicalNote": "历史事实：哥舒翰坚持坚守，但被宦官边令诚所逼。"
+            "historicalNote": "历史事实：哥舒翰坚持坚守，但被宦官边令诚所逼。",
+            "effects": {
+              "order": 2,
+              "sentiment": 0
+            }
           },
           {
             "id": "c2b",
@@ -687,7 +832,11 @@
             "text": "率亲军突围，撤往蜀地。",
             "next": "s3_flee",
             "outcome": "你提前撤往蜀地",
-            "historicalNote": "历史事实：玄宗最终确实逃往蜀地。"
+            "historicalNote": "历史事实：玄宗最终确实逃往蜀地。",
+            "effects": {
+              "order": -1,
+              "sentiment": 1
+            }
           }
         ]
       },
@@ -712,7 +861,11 @@
             "text": "赐死贵妃：玉环，朕对不起你。",
             "next": "s4_abdicate",
             "outcome": "你牺牲爱人",
-            "historicalNote": "历史事实：高力士奉命缢死杨贵妃于佛堂前梨树下。"
+            "historicalNote": "历史事实：高力士奉命缢死杨贵妃于佛堂前梨树下。",
+            "effects": {
+              "order": 2,
+              "sentiment": -3
+            }
           },
           {
             "id": "c3b",
@@ -726,7 +879,11 @@
             "text": "禅位太子：传位于亨，由他收拾残局。",
             "next": "s4_abdicate",
             "outcome": "你让位给太子",
-            "historicalNote": "历史事实：太子李亨在灵武自行即位，是为唐肃宗。"
+            "historicalNote": "历史事实：太子李亨在灵武自行即位，是为唐肃宗。",
+            "effects": {
+              "order": 1,
+              "sentiment": -1
+            }
           }
         ]
       },
@@ -772,7 +929,8 @@
           "盛世难守，衰世易至",
           "亲贤臣远小人是永恒的教训",
           "任何帝王都无法逃避历史责任"
-        ]
+        ],
+        "quadrant": "HL"
       },
       {
         "id": "ending_flee",
@@ -783,7 +941,8 @@
         "lessons": [
           "退位是体面收场",
           "有时候主动退让比硬撑更明智"
-        ]
+        ],
+        "quadrant": "LL"
       },
       {
         "id": "ending_weak",
@@ -817,8 +976,48 @@
           "有些牺牲是必要的",
           "领导者的个人感情会害死自己"
         ]
+      },
+      {
+        "id": "ending_anshi_restore",
+        "quadrant": "HH",
+        "isWin": false,
+        "title": "🛡️ 忍痛中兴",
+        "text": "你以坚守稳住了朝纲,又在马嵬坡忍痛割舍私情。虽失长安、痛失爱妃,但你保全了社稷的根基,为肃宗收复两京、重整山河留下了转机。",
+        "historicalReality": "安史之乱是唐朝由盛转衰的转折点。玄宗晚年沉溺享乐、宠信奸佞,终酿大祸。若能早断,或不至于此。",
+        "lessons": [
+          "身居高位者的私情,往往要用天下来买单",
+          "及时止损、顾全大局,是领袖最艰难的必修课"
+        ]
+      },
+      {
+        "id": "ending_anshi_ruin",
+        "quadrant": "LH",
+        "isWin": false,
+        "title": "💔 情深社稷倾",
+        "text": "你放不下儿女私情,也守不住朝纲法度。爱妃或许仍在身侧,但江山已然破碎。深宫中的一段深情,终究抵不过烽火连天的代价。",
+        "historicalReality": "史载玄宗对杨贵妃情深,马嵬之变中被迫赐死贵妃后郁郁寡欢。个人情感与帝王责任的冲突,是这段历史最令人唏嘘之处。",
+        "lessons": [
+          "最高的位置,容不下最私人的执念",
+          "责任与深情的两难,是权力的重量"
+        ]
       }
-    ]
+    ],
+    "stats": {
+      "a": {
+        "id": "order",
+        "name": "朝纲",
+        "emoji": "🛡️",
+        "init": 4,
+        "max": 10
+      },
+      "b": {
+        "id": "sentiment",
+        "name": "私情",
+        "emoji": "🎭",
+        "init": 5,
+        "max": 10
+      }
+    }
   },
   {
     "id": "french-revolution",
@@ -845,7 +1044,11 @@
             "text": "武力镇压：调瑞士卫队进巴黎。",
             "next": "s2",
             "outcome": "你选择武装镇压",
-            "historicalNote": "历史事实：路易十六犹豫，6 周后才调军队，错过时机。"
+            "historicalNote": "历史事实：路易十六犹豫，6 周后才调军队，错过时机。",
+            "effects": {
+              "crown": 2,
+              "public": -3
+            }
           },
           {
             "id": "c1b",
@@ -859,7 +1062,11 @@
             "text": "亲民：朕去巴黎，向人民讲话。",
             "next": "s2",
             "outcome": "你选择以身作则",
-            "historicalNote": "历史假设：路易十六主动亲民是否能改变局面。"
+            "historicalNote": "历史假设：路易十六主动亲民是否能改变局面。",
+            "effects": {
+              "crown": -1,
+              "public": 3
+            }
           }
         ]
       },
@@ -884,14 +1091,22 @@
             "text": "撤离巴黎：先去兰斯，待机复位。",
             "next": "s3_flight",
             "outcome": "你选择战略转移",
-            "historicalNote": "历史事实：路易十六 1791 年确实尝试过瓦雷讷逃亡，失败。"
+            "historicalNote": "历史事实：路易十六 1791 年确实尝试过瓦雷讷逃亡，失败。",
+            "effects": {
+              "crown": 1,
+              "public": -2
+            }
           },
           {
             "id": "c2b",
             "text": "留在巴黎：朕与人民同在。",
             "next": "s3_stay",
             "outcome": "你选择留在巴黎",
-            "historicalNote": "历史事实：路易十六确实被护送回巴黎，此后被软禁。"
+            "historicalNote": "历史事实：路易十六确实被护送回巴黎，此后被软禁。",
+            "effects": {
+              "crown": -1,
+              "public": 3
+            }
           },
           {
             "id": "c2c",
@@ -945,7 +1160,8 @@
           "革命一旦开始就不回头",
           "失去民心的君主无法统治",
           "个人品德救不了制度危机"
-        ]
+        ],
+        "quadrant": "LH"
       },
       {
         "id": "ending_escape",
@@ -956,7 +1172,8 @@
         "lessons": [
           "逃亡失败会加速自己的灭亡",
           "该妥协时不妥协，必遭反噬"
-        ]
+        ],
+        "quadrant": "HL"
       },
       {
         "id": "ending_weak",
@@ -979,8 +1196,48 @@
           "任何时候不要勾结外敌",
           "主权问题是底线"
         ]
+      },
+      {
+        "id": "ending_fr_constitutional",
+        "quadrant": "HH",
+        "isWin": true,
+        "title": "📜 立宪之王",
+        "text": "你既保住了王室的尊严,又顺应了民意的洪流。以退为进,接受宪政,成为法兰西人的国王而非绝对君主。血腥的断头台或许可以避免,一个君主立宪的法国就此诞生。",
+        "historicalReality": "历史上路易十六优柔寡断,既想镇压又想妥协,还试图外逃求援,最终尽失民心,于1793年被送上断头台。君主立宪本是可能的出路。",
+        "lessons": [
+          "顺势而为者生,逆流而动者亡",
+          "放下部分权力,有时是保全全局的智慧"
+        ]
+      },
+      {
+        "id": "ending_fr_powerless",
+        "quadrant": "LL",
+        "isWin": false,
+        "title": "💀 众叛亲离",
+        "text": "你既失去了王权的实质,也从未真正赢得民心。在猜忌与动荡中,你成了一个谁都不再信任的孤家寡人,被历史的车轮无情碾过。",
+        "historicalReality": "路易十六最终众叛亲离,王权尽失、民心尽丧,成为法国第一位被公开处决的国王,标志着旧制度的彻底终结。",
+        "lessons": [
+          "首鼠两端者,终将两头落空",
+          "失去所有人的信任,是统治者最大的失败"
+        ]
       }
-    ]
+    ],
+    "stats": {
+      "a": {
+        "id": "crown",
+        "name": "王权",
+        "emoji": "👑",
+        "init": 5,
+        "max": 10
+      },
+      "b": {
+        "id": "public",
+        "name": "民意",
+        "emoji": "🔥",
+        "init": 3,
+        "max": 10
+      }
+    }
   },
   {
     "id": "crusades",
@@ -1007,14 +1264,22 @@
             "text": "主动出击：趁萨拉丁立足未稳突袭。",
             "next": "s2",
             "outcome": "你选择先发制人",
-            "historicalNote": "历史假设：耶路撒冷王国主动出击会改变局势。"
+            "historicalNote": "历史假设：耶路撒冷王国主动出击会改变局势。",
+            "effects": {
+              "valor": 3,
+              "harmony": -2
+            }
           },
           {
             "id": "c1b",
             "text": "坚守不出：避免野战固守城池。",
             "next": "s2",
             "outcome": "你选择稳妥",
-            "historicalNote": "历史事实：耶路撒冷王国兵力不足，野战风险极大。"
+            "historicalNote": "历史事实：耶路撒冷王国兵力不足，野战风险极大。",
+            "effects": {
+              "valor": -1,
+              "harmony": 2
+            }
           },
           {
             "id": "c1c",
@@ -1046,14 +1311,22 @@
             "text": "突围：朕率亲卫突围重整旗鼓。",
             "next": "s2a_fail",
             "outcome": "你尝试突围",
-            "historicalNote": "历史事实：鲍德温四世因病无法突围，被抬回耶路撒冷。"
+            "historicalNote": "历史事实：鲍德温四世因病无法突围，被抬回耶路撒冷。",
+            "effects": {
+              "valor": 2,
+              "harmony": -1
+            }
           },
           {
             "id": "c2b",
             "text": "决战：全军与敌决一死战。",
             "next": "s2b_fail",
             "outcome": "你选择正面对决",
-            "historicalNote": "历史事实：哈廷会战十字军全军覆没，真十字架被俘。"
+            "historicalNote": "历史事实：哈廷会战十字军全军覆没，真十字架被俘。",
+            "effects": {
+              "valor": 3,
+              "harmony": -3
+            }
           },
           {
             "id": "c2c",
@@ -1105,7 +1378,8 @@
           "不畏逆境是真正的勇气",
           "失败也可能是伟大的",
           "尊重对手也是美德"
-        ]
+        ],
+        "quadrant": "HL"
       },
       {
         "id": "ending_reliquary",
@@ -1116,7 +1390,8 @@
         "lessons": [
           "有时死亡比投降更光荣",
           "信仰有时压倒理性"
-        ]
+        ],
+        "quadrant": "LL"
       },
       {
         "id": "ending_diplomacy",
@@ -1137,8 +1412,48 @@
         "lessons": [
           "背叛信仰会失去所有人"
         ]
+      },
+      {
+        "id": "ending_cru_truce",
+        "quadrant": "HH",
+        "isWin": false,
+        "title": "🕊️ 体面的休战",
+        "text": "你以武勇赢得敌人敬重,又以克制守住了议和的余地。萨拉丁欣赏这位缠绵病榻却毫不退缩的麻风王,双方达成停战。耶路撒冷暂时守住了,但你知道,这只是风暴前的宁静。",
+        "historicalReality": "鲍德温四世身患麻风仍坚持抗击萨拉丁,是十字军史上悲壮的一页。他死后不久,继任者贸然出击,在哈廷会战惨败,耶路撒冷随即陷落。",
+        "lessons": [
+          "勇气与克制并存,才能赢得对手的尊重",
+          "真正的强者,懂得在恰当的时候停手"
+        ]
+      },
+      {
+        "id": "ending_cru_wither",
+        "quadrant": "LH",
+        "isWin": false,
+        "title": "🛡️ 隐忍待时",
+        "text": "你选择隐忍固守,虽保住了城池与和睦,却也错失了主动。麻风侵蚀着你的身体,王国的命运如风中残烛。你为耶路撒冷续了一口气,却无力改变最终的结局。",
+        "historicalReality": "鲍德温四世的隐忍为耶路撒冷王国延缓了危机,但其病逝后王国迅速陷入内斗,终致哈廷惨败、圣城陷落。",
+        "lessons": [
+          "隐忍能延缓危机,却未必能扭转大势",
+          "个人的坚持,有时敌不过时代的洪流"
+        ]
       }
-    ]
+    ],
+    "stats": {
+      "a": {
+        "id": "valor",
+        "name": "武勇",
+        "emoji": "⚔️",
+        "init": 4,
+        "max": 10
+      },
+      "b": {
+        "id": "harmony",
+        "name": "和睦",
+        "emoji": "☮️",
+        "init": 4,
+        "max": 10
+      }
+    }
   },
   {
     "id": "zheng-he",
@@ -1165,14 +1480,22 @@
             "text": "经占城、爪哇、暹罗：先去东南亚立威。",
             "next": "s2",
             "outcome": "你选择先巩固东南亚",
-            "historicalNote": "历史事实：第一次下西洋确实先到占城、爪哇、苏门答腊。"
+            "historicalNote": "历史事实：第一次下西洋确实先到占城、爪哇、苏门答腊。",
+            "effects": {
+              "prestige": 2,
+              "treasury": -1
+            }
           },
           {
             "id": "c1b",
             "text": "直接往锡兰：先取印度洋战略要地。",
             "next": "s2",
             "outcome": "你选择直奔目标",
-            "historicalNote": "历史假设：跳过东南亚可缩短航程但可能错失朝贡体系建立。"
+            "historicalNote": "历史假设：跳过东南亚可缩短航程但可能错失朝贡体系建立。",
+            "effects": {
+              "prestige": 1,
+              "treasury": 1
+            }
           },
           {
             "id": "c1c",
@@ -1211,14 +1534,22 @@
             "text": "用计：设伏诱敌，一网打尽。",
             "next": "s3",
             "outcome": "你用计擒敌",
-            "historicalNote": "历史事实：郑和设计引诱陈祖义，活捉 5000 余人。"
+            "historicalNote": "历史事实：郑和设计引诱陈祖义，活捉 5000 余人。",
+            "effects": {
+              "prestige": 2,
+              "treasury": 1
+            }
           },
           {
             "id": "c2c",
             "text": "宣战：发兵剿灭，不留后患。",
             "next": "s3",
             "outcome": "你直接进攻",
-            "historicalNote": "历史事实：郑和选择以智取胜，避免大规模流血。"
+            "historicalNote": "历史事实：郑和选择以智取胜，避免大规模流血。",
+            "effects": {
+              "prestige": 1,
+              "treasury": -2
+            }
           }
         ]
       },
@@ -1243,14 +1574,22 @@
             "text": "布施佛寺：代表永乐帝向佛祖致敬。",
             "next": "s4",
             "outcome": "你布施佛寺",
-            "historicalNote": "历史事实：郑和确实在锡兰立碑布施，巩固了两国关系。"
+            "historicalNote": "历史事实：郑和确实在锡兰立碑布施，巩固了两国关系。",
+            "effects": {
+              "prestige": 2,
+              "treasury": -2
+            }
           },
           {
             "id": "c3b",
             "text": "册封国王：奉永乐帝册封你为王。",
             "next": "s4",
             "outcome": "你册封国王",
-            "historicalNote": "历史事实：郑和代表明朝册封当地首领，是朝贡体系的核心。"
+            "historicalNote": "历史事实：郑和代表明朝册封当地首领，是朝贡体系的核心。",
+            "effects": {
+              "prestige": 3,
+              "treasury": -1
+            }
           },
           {
             "id": "c3c",
@@ -1292,7 +1631,8 @@
           "领先时代的人往往孤独",
           "帝国的兴衰决定个人命运",
           "和平外交胜过武力"
-        ]
+        ],
+        "quadrant": "HH"
       },
       {
         "id": "ending_misdirected",
@@ -1323,7 +1663,59 @@
         "lessons": [
           "外交形象比短期利益重要"
         ]
+      },
+      {
+        "id": "ending_zh_prestige_costly",
+        "quadrant": "HL",
+        "isWin": false,
+        "title": "⚓ 威震四海,国库空虚",
+        "text": "你的宝船队威名远播,万国来朝,四海宾服。然而连年远航耗资巨大,国库日渐空虚。朝中开始有人上书:如此靡费,究竟值不值得?",
+        "historicalReality": "郑和七下西洋成就辉煌,但耗费极大。明宣宗之后,在保守派主张下航海终止,宝船图纸甚至被销毁,中国从此错失大航海时代。",
+        "lessons": [
+          "辉煌的功业需要与国力相匹配",
+          "短期的威望与长期的可持续,需要权衡"
+        ]
+      },
+      {
+        "id": "ending_zh_frugal",
+        "quadrant": "LH",
+        "isWin": false,
+        "title": "💰 精打细算的航程",
+        "text": "你处处节省国用,航程务实而低调。国库未受重创,但宣扬国威的声势也大打折扣。归国后,你的功绩平平,未能在史册上留下浓墨重彩的一笔。",
+        "historicalReality": "郑和下西洋的核心目的之一是宣扬明朝国威、构建朝贡体系。若只算经济账,便失去了其最重要的政治与外交意义。",
+        "lessons": [
+          "并非所有价值都能用金钱衡量",
+          "过度保守,可能错失历史性的机遇"
+        ]
+      },
+      {
+        "id": "ending_zh_failure",
+        "quadrant": "LL",
+        "isWin": false,
+        "title": "💀 无功而返",
+        "text": "你既未能扬威四海,又虚耗了国用。船队归来时,既无万国来朝的盛景,也无实利可陈。这趟远航,成了一段被人淡忘的航程。",
+        "historicalReality": "郑和的成功建立在周密的准备、外交智慧与强大国力之上。任何一环的缺失,都可能让这一壮举沦为劳民伤财的败笔。",
+        "lessons": [
+          "宏大的事业容不得两头落空",
+          "威望与实利,理想状态下应当兼得"
+        ]
       }
-    ]
+    ],
+    "stats": {
+      "a": {
+        "id": "prestige",
+        "name": "威望",
+        "emoji": "⚓",
+        "init": 4,
+        "max": 10
+      },
+      "b": {
+        "id": "treasury",
+        "name": "国用",
+        "emoji": "💰",
+        "init": 5,
+        "max": 10
+      }
+    }
   }
 ]

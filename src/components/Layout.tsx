@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, lazy, Suspense } from 'react'
 import { useReducedMotionGlobal } from '@/hooks/useReducedMotion'
 import WorldMap from '@/components/Map/WorldMap'
 import Timeline from '@/components/Timeline/Timeline'
@@ -8,7 +8,6 @@ import NotesPanel from '@/components/NotesPanel/NotesPanel'
 import SearchBar from '@/components/SearchBar'
 import TimeMachine from '@/components/TimeMachine'
 import FilterPanel from '@/components/FilterPanel'
-import RelationshipGraph from '@/components/RelationshipGraph'
 import QuizLauncher from '@/components/Quiz/QuizLauncher'
 import ToastHost from '@/components/ToastHost'
 import AmbientBackground from '@/components/AmbientBackground'
@@ -20,19 +19,30 @@ import { isDue } from '@/utils/sm2'
 import { countTodayReviews } from '@/utils/cardStats'
 import { formatYear } from '@/utils/time'
 import NotesOverview from '@/components/NotesOverview'
-import FiguresOverview from '@/components/Figures/FiguresOverview'
-import WarsOverview from '@/components/Wars/WarsOverview'
-import CulturesOverview from '@/components/Cultures/CulturesOverview'
-import GeographyOverview from '@/components/Geography/GeographyOverview'
-import TimeTravelLobby from '@/components/TimeTravel/TimeTravelLobby'
-import ScenarioPlayer from '@/components/TimeTravel/ScenarioPlayer'
-import FlashcardsTrigger from '@/components/Flashcards/FlashcardsTrigger'
-import FlashcardsPanel from '@/components/Flashcards/FlashcardsPanel'
-import GoalSettings from '@/components/Flashcards/GoalSettings'
-import AIChatPanel from '@/components/AIChatPanel'
 import TMapTest from '@/components/TMapTest'
 import Dashboard from '@/components/Dashboard'
+import AIChatPanel from '@/components/AIChatPanel'
+import ScenarioPlayer from '@/components/TimeTravel/ScenarioPlayer'
+import FlashcardsTrigger from '@/components/Flashcards/FlashcardsTrigger'
 import { useLearningPathStore, type PathId } from '@/store/useLearningPathStore'
+
+// 次要页 lazy 化：d3-force / react-markdown 等大依赖按需加载，缩小首屏主 bundle
+const RelationshipGraph = lazy(() => import('@/components/RelationshipGraph'))
+const FiguresOverview = lazy(() => import('@/components/Figures/FiguresOverview'))
+const WarsOverview = lazy(() => import('@/components/Wars/WarsOverview'))
+const CulturesOverview = lazy(() => import('@/components/Cultures/CulturesOverview'))
+const GeographyOverview = lazy(() => import('@/components/Geography/GeographyOverview'))
+const TimeTravelLobby = lazy(() => import('@/components/TimeTravel/TimeTravelLobby'))
+const FlashcardsPanel = lazy(() => import('@/components/Flashcards/FlashcardsPanel'))
+const GoalSettings = lazy(() => import('@/components/Flashcards/GoalSettings'))
+
+function PageFallback() {
+  return (
+    <div className="flex items-center justify-center h-full text-ink-400">
+      <div className="animate-pulse text-sm">载入中…</div>
+    </div>
+  )
+}
 
 export default function Layout() {
   // 响应 prefers-reduced-motion —— 全局禁用 GSAP 动画
@@ -398,10 +408,12 @@ export default function Layout() {
               }}
             />
           ) : flashcardsActive ? (
-            <FlashcardsPanel
-              isActive={flashcardsActive}
-              onClose={() => setFlashcardsActive(false)}
-            />
+            <Suspense fallback={<PageFallback />}>
+              <FlashcardsPanel
+                isActive={flashcardsActive}
+                onClose={() => setFlashcardsActive(false)}
+              />
+            </Suspense>
           ) : overviewActive ? (
             <NotesOverview
               variant="page"
@@ -409,30 +421,38 @@ export default function Layout() {
               onClose={() => setOverviewActive(false)}
             />
           ) : figuresActive ? (
-            <FiguresOverview
-              isActive={figuresActive}
-              onClose={() => { setFiguresActive(false); setInitialFigureId(null); setDashboardActive(true) }}
-              initialPersonId={initialFigureId}
-            />
+            <Suspense fallback={<PageFallback />}>
+              <FiguresOverview
+                isActive={figuresActive}
+                onClose={() => { setFiguresActive(false); setInitialFigureId(null); setDashboardActive(true) }}
+                initialPersonId={initialFigureId}
+              />
+            </Suspense>
           ) : warsActive ? (
-            <WarsOverview
-              isActive={warsActive}
-              onClose={() => { setWarsActive(false); setDashboardActive(true) }}
-              onViewOnMap={() => {
-                setWarsActive(false)
-                setViewMode('map')
-              }}
-            />
+            <Suspense fallback={<PageFallback />}>
+              <WarsOverview
+                isActive={warsActive}
+                onClose={() => { setWarsActive(false); setDashboardActive(true) }}
+                onViewOnMap={() => {
+                  setWarsActive(false)
+                  setViewMode('map')
+                }}
+              />
+            </Suspense>
           ) : culturesActive ? (
-            <CulturesOverview
-              isActive={culturesActive}
-              onClose={() => { setCulturesActive(false); setDashboardActive(true) }}
-            />
+            <Suspense fallback={<PageFallback />}>
+              <CulturesOverview
+                isActive={culturesActive}
+                onClose={() => { setCulturesActive(false); setDashboardActive(true) }}
+              />
+            </Suspense>
           ) : geographyActive ? (
-            <GeographyOverview
-              isActive={geographyActive}
-              onClose={() => { setGeographyActive(false); setDashboardActive(true) }}
-            />
+            <Suspense fallback={<PageFallback />}>
+              <GeographyOverview
+                isActive={geographyActive}
+                onClose={() => { setGeographyActive(false); setDashboardActive(true) }}
+              />
+            </Suspense>
           ) : timeTravelActive ? (
             currentScenarioId ? (
               <ScenarioPlayer
@@ -440,14 +460,18 @@ export default function Layout() {
                 onExit={() => { setCurrentScenarioId(null); setDashboardActive(true) }}
               />
             ) : (
-              <TimeTravelLobby
-                isActive={timeTravelActive}
-                onClose={() => { setTimeTravelActive(false); setDashboardActive(true) }}
-                onStart={(scenarioId) => setCurrentScenarioId(scenarioId)}
-              />
+              <Suspense fallback={<PageFallback />}>
+                <TimeTravelLobby
+                  isActive={timeTravelActive}
+                  onClose={() => { setTimeTravelActive(false); setDashboardActive(true) }}
+                  onStart={(scenarioId) => setCurrentScenarioId(scenarioId)}
+                />
+              </Suspense>
             )
           ) : viewMode === 'graph' ? (
-            <RelationshipGraph />
+            <Suspense fallback={<PageFallback />}>
+              <RelationshipGraph />
+            </Suspense>
           ) : (
             <TMapTest />
           )}
@@ -558,10 +582,12 @@ export default function Layout() {
       </div>
 
       {/* 学习目标设置浮层 */}
-      <GoalSettings
-        isOpen={goalSettingsOpen}
-        onClose={() => setGoalSettingsOpen(false)}
-      />
+      <Suspense fallback={null}>
+        <GoalSettings
+          isOpen={goalSettingsOpen}
+          onClose={() => setGoalSettingsOpen(false)}
+        />
+      </Suspense>
       <AIChatPanel />
       <QuizLauncher />
       <ToastHost />

@@ -4,6 +4,7 @@ import { useShallow } from 'zustand/react/shallow'
 import { useCardsStore } from '@/store/useCardsStore'
 import { useAIStore } from '@/store/useAIStore'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
+import { useJumpToMap } from '@/hooks/useJumpToMap'
 import { formatYear, durationYears } from '@/utils/time'
 import { bingImage } from '@/utils/geoImage'
 import { type Era, type HistoricalEvent, type HistoricalFigure } from '@/types'
@@ -127,6 +128,7 @@ function EraDetailInner({ eraId }: Props) {
   const aiSetPersona = useAIStore(s => s.setPersonaPrompt)
   const aiNewThread = useAIStore(s => s.newThread)
   const aiOpenPanel = useAIStore(s => s.openPanel)
+  const jumpToMap = useJumpToMap()
   const era = eras.find(e => e.id === eraId)
   // 关键大事详情弹窗
   const [selectedQuickEvent, setSelectedQuickEvent] = useState<{ year: number; title: string; desc?: string; longDesc?: string; category?: string; importance?: number } | null>(null)
@@ -309,12 +311,20 @@ function EraDetailInner({ eraId }: Props) {
           <div className="text-bronze-400 font-serif">{duration} 年</div>
         </div>
         {era.capital && (
-          <div className="bg-ink-700 px-3 py-2 rounded-lg col-span-2">
-            <div className="text-ink-500 mb-1">都城</div>
+          <button
+            type="button"
+            onClick={() => jumpToMap(era.capital!, `${era.name} 都城`, 4)}
+            className="bg-ink-700 px-3 py-2 rounded-lg col-span-2 text-left transition-colors hover:bg-ink-600 hover:ring-1 hover:ring-bronze-500/40 group"
+            title="在地图上定位都城"
+          >
+            <div className="text-ink-500 mb-1 flex items-center justify-between">
+              <span>都城</span>
+              <span className="text-bronze-400 opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+            </div>
             <div className="text-parchment-100 text-xs">
               📍 {era.capital[1].toFixed(2)}°N, {era.capital[0].toFixed(2)}°E
             </div>
-          </div>
+          </button>
         )}
       </div>
 

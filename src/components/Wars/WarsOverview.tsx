@@ -17,6 +17,7 @@ import EmptyState from '@/components/ui/EmptyState'
 import OverviewLayout from '@/components/ui/OverviewLayout'
 import OverviewSearch from '@/components/ui/OverviewSearch'
 import { useStaggerEntrance } from '@/hooks/useStaggerEntrance'
+import { useJumpToMap } from '@/hooks/useJumpToMap'
 
 const events = eventsData as HistoricalEvent[]
 const eras = erasData as Era[]
@@ -565,6 +566,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
   // 跳到地图：设置年份 + 聚焦到战争地点
   const setYear = useHistoryStore(s => s.setYear)
   const setMapFocus = useHistoryStore(s => s.setMapFocus)
+  const jumpToMap = useJumpToMap()
 
   /** 处理"在地图看位置"：年份 + 坐标定位 + 通知父组件切到地图 */
   const handleViewOnMap = (war: HistoricalEvent) => {
@@ -871,6 +873,7 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
   const relatedEra = war.relatedEraId ? eras.find(e => e.id === war.relatedEraId) : null
   const warKw = warSearchKeywords[war.id] ?? `${war.title} battle`
   const warImg = bingImage(warKw, 800, 450)
+  const jumpToMap = useJumpToMap()
 
   // 根据 importance 决定内容丰富度
   const isKey = war.importance === 3
@@ -943,9 +946,15 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
               <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">📍 地点</div>
               <div className="text-sm text-parchment-50">{war.country}</div>
               {war.coordinates && (
-                <div className="text-xs text-ink-500 tabular-nums mt-0.5">
+                <button
+                  type="button"
+                  onClick={() => jumpToMap(war.coordinates!, war.title, 4)}
+                  className="text-xs text-ink-500 tabular-nums mt-0.5 hover:text-bronze-400 transition-colors group inline-flex items-center gap-1"
+                  title="在地图上定位"
+                >
                   {war.coordinates[0].toFixed(2)}°E, {war.coordinates[1].toFixed(2)}°N
-                </div>
+                  <span className="text-bronze-400 opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+                </button>
               )}
             </div>
           )}

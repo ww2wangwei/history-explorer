@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useCardsStore } from '@/store/useCardsStore'
+import { useJumpToMap } from '@/hooks/useJumpToMap'
 import { formatYear } from '@/utils/time'
 import { CATEGORY_COLORS, type HistoricalEvent, type Era } from '@/types'
 import eventsData from '@/data/events.json'
@@ -14,7 +15,10 @@ interface Props {
 }
 
 export default function EventDetail({ eventId }: Props) {
-  const { selectEvent, selectEra, setYear, setMapFocus } = useHistoryStore()
+  const selectEvent = useHistoryStore(s => s.selectEvent)
+  const selectEra = useHistoryStore(s => s.selectEra)
+  const setYear = useHistoryStore(s => s.setYear)
+  const jumpToMap = useJumpToMap()
   const addCard = useCardsStore(s => s.addCard)
   const event = events.find(e => e.id === eventId)
   const existingCardId = useCardsStore(s => {
@@ -55,11 +59,7 @@ export default function EventDetail({ eventId }: Props) {
   // 聚焦到事件地点
   const focusOnMap = () => {
     if (!event.coordinates) return
-    setMapFocus({
-      center: event.coordinates,
-      zoom: 2,
-      label: event.title,
-    })
+    jumpToMap(event.coordinates, event.title, 4)
   }
 
   return (
@@ -103,9 +103,15 @@ export default function EventDetail({ eventId }: Props) {
           ⭐ 重要度 {event.importance}/3
         </span>
         {event.coordinates && (
-          <span className="px-2 py-1 rounded-lg bg-ink-700 text-ink-500">
+          <button
+            type="button"
+            onClick={focusOnMap}
+            className="px-2 py-1 rounded-lg bg-ink-700 text-ink-500 hover:bg-ink-600 hover:text-bronze-400 transition-colors group inline-flex items-center gap-1"
+            title="在地图上定位"
+          >
             📍 {event.coordinates[1].toFixed(2)}°, {event.coordinates[0].toFixed(2)}°
-          </span>
+            <span className="text-bronze-400 opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+          </button>
         )}
       </div>
 

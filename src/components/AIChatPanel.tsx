@@ -12,6 +12,7 @@ import { useHistoryStore } from '@/store/useHistoryStore'
 import { useNotesStore } from '@/store/useNotesStore'
 import type { NoteTargetKind } from '@/types/notes'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
+import { streamAI, requestAI, type AIRequestHandle } from '@/utils/aiStream'
 import erasData from '@/data/eras.json'
 import peopleData from '@/data/people.json'
 import type { Era, HistoricalEvent } from '@/types'
@@ -49,105 +50,6 @@ interface Props {
   fabPosition?: 'bottom-right' | 'bottom-left'
 }
 
-/** 完整的流式调用 + 消息更新 */
-async function streamChat(
-  apiKey: string,
-  apiConfig: { protocol: 'anthropic' | 'openai'; baseUrl: string; model: string },
-  systemPrompt: string,
-  messages: { role: 'user' | 'assistant' | 'system'; content: string }[],
-  onDelta: (text: string) => void,
-  signal?: AbortSignal,
-) {
-  // 构造 endpoint + body + headers（按协议区分）
-  let url: string
-  let headers: Headers
-  let body: any
-
-  // 智能拼接 endpoint：用户可能填 "https://api.x.com" 或 "https://api.x.com/v1" 都应正常工作
-  const stripSlash = (s: string) => s.replace(/\/$/, '')
-  const stripV1 = (s: string) => s.replace(/\/v1$/, '')
-  const baseClean = stripV1(stripSlash(apiConfig.baseUrl))
-
-  if (apiConfig.protocol === 'anthropic') {
-    // Anthropic Messages API
-    url = `${baseClean}/v1/messages`
-    headers = new Headers({
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true',
-    })
-    body = {
-      model: apiConfig.model,
-      max_tokens: MAX_TOKENS,
-      system: systemPrompt,
-      messages,
-      stream: true,
-    }
-  } else {
-    // OpenAI Chat Completions API（兼容 Minimax / DeepSeek / 自建等）
-    url = `${baseClean}/v1/chat/completions`
-    headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    })
-    // OpenAI 协议：system 消息独立字段
-    const oaMessages = [{ role: 'system', content: systemPrompt }, ...messages]
-    body = {
-      model: apiConfig.model,
-      max_tokens: MAX_TOKENS,
-      messages: oaMessages,
-      stream: true,
-    }
-  }
-
-  const response = await fetch(url, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(body),
-    signal,
-  })
-  if (!response.ok) {
-    const errText = await response.text().catch(() => '')
-    throw new Error(`API ${response.status}: ${errText || response.statusText}`)
-  }
-  if (!response.body) throw new Error('无响应内容')
-
-  const reader = response.body.getReader()
-  const decoder = new TextDecoder()
-  let buffer = ''
-
-  while (true) {
-    const { done, value } = await reader.read()
-    if (done) break
-    buffer += decoder.decode(value, { stream: true })
-    const lines = buffer.split('\n')
-    buffer = lines.pop() ?? ''
-    for (const line of lines) {
-      // OpenAI: "data: {...}\n\n"
-      if (!line.startsWith('data: ')) continue
-      const data = line.slice(6).trim()
-      if (data === '[DONE]') return
-      try {
-        const json = JSON.parse(data)
-        if (apiConfig.protocol === 'anthropic') {
-          if (json.type === 'content_block_delta' && json.delta?.type === 'text_delta') {
-            onDelta(json.delta.text)
-          }
-        } else {
-          // OpenAI: choices[0].delta.content
-          const delta = json.choices?.[0]?.delta?.content
-          if (typeof delta === 'string' && delta.length > 0) {
-            onDelta(delta)
-          }
-        }
-      } catch {
-        // 忽略解析错误
-      }
-    }
-  }
-}
-
 /** 测试按钮：发送简单请求验证大模型配置 */
 function TestButton({ protocol, baseUrl, model, apiKey }: {
   protocol: 'anthropic' | 'openai'
@@ -165,56 +67,18 @@ function TestButton({ protocol, baseUrl, model, apiKey }: {
     setMsg('')
 
     try {
-      const stripSlash = (s: string) => s.replace(/\/$/, '')
-      const stripV1 = (s: string) => s.replace(/\/v1$/, '')
-      const base = stripV1(stripSlash(baseUrl))
-
-      if (protocol === 'anthropic') {
-        const resp = await fetch(`${base}/v1/messages`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-api-key': apiKey,
-            'anthropic-version': '2023-06-01',
-            'anthropic-dangerous-direct-browser-access': 'true',
-          },
-          body: JSON.stringify({
-            model: model || 'claude-haiku-4-5-20251001',
-            max_tokens: 50,
-            messages: [{ role: 'user', content: '回复"OK"' }],
-          }),
-          signal: AbortSignal.timeout(15000),
-        })
-        if (!resp.ok) {
-          const err = await resp.text().catch(() => '')
-          throw new Error(`HTTP ${resp.status}: ${err.substring(0, 200)}`)
-        }
-        const data = await resp.json()
-        setState('ok')
-        setMsg(`${data.model || model} ✓ (${data.usage?.input_tokens ?? '?'} tokens)`)
-      } else {
-        const resp = await fetch(`${base}/v1/chat/completions`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiKey}`,
-          },
-          body: JSON.stringify({
-            model: model || 'gpt-3.5-turbo',
-            max_tokens: 50,
-            messages: [{ role: 'user', content: '回复"OK"' }],
-          }),
-          signal: AbortSignal.timeout(15000),
-        })
-        if (!resp.ok) {
-          const err = await resp.text().catch(() => '')
-          throw new Error(`HTTP ${resp.status}: ${err.substring(0, 200)}`)
-        }
-        const data = await resp.json()
-        const usedModel = data.model || model
-        setState('ok')
-        setMsg(`${usedModel} ✓ (${data.usage?.total_tokens ?? '?'} tokens)`)
-      }
+      const fallbackModel = protocol === 'anthropic' ? 'claude-haiku-4-5-20251001' : 'gpt-3.5-turbo'
+      await requestAI({
+        protocol,
+        apiKey,
+        baseUrl,
+        model: model || fallbackModel,
+        messages: [{ role: 'user', content: '回复"OK"' }],
+        maxTokens: 50,
+        timeoutMs: 15_000,
+      }).promise
+      setState('ok')
+      setMsg(`${model || fallbackModel} ✓`)
     } catch (e) {
       setState('fail')
       setMsg((e as Error).message.substring(0, 200))
@@ -309,7 +173,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
   const [error, setError] = useState<string | null>(null)
   // 最近保存的 AI 消息 id（用于显示"✓ 已加入笔记"反馈）
   const [noteSavedFor, setNoteSavedFor] = useState<string | null>(null)
-  const abortRef = useRef<AbortController | null>(null)
+  const abortHandleRef = useRef<AIRequestHandle<string> | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const isStreamingRef = useRef(false)
 
@@ -414,8 +278,6 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
       addMessage(threadId, assistantMsg)
 
       isStreamingRef.current = true
-      const ctrl = new AbortController()
-      abortRef.current = ctrl
 
       // 4. 构造 messages 数组给 API
       const contextPrefix = buildContextPrefix()
@@ -434,38 +296,43 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
       // 5. 决定 system prompt：有 persona 角色用 persona，否则默认
       const activeSystemPrompt = personaSystemPrompt || SYSTEM_PROMPT
 
+      const ctrl = new AbortController()
+      const handle: AIRequestHandle<string> = streamAI({
+        protocol: apiConfig.protocol,
+        apiKey,
+        baseUrl: apiConfig.baseUrl,
+        model: apiConfig.model,
+        messages: [{ role: 'system', content: activeSystemPrompt }, ...apiMessages],
+        maxTokens: MAX_TOKENS,
+        signal: ctrl.signal,
+        onDelta: (delta) => {
+          updateMessage(threadId, assistantId, (m) => ({
+            content: m.content + delta,
+            loading: true,
+          }))
+        },
+      })
+      abortHandleRef.current = handle
       try {
-        await streamChat(
-          apiKey,
-          apiConfig,
-          activeSystemPrompt,
-          apiMessages,
-          (delta) => {
-            updateMessage(threadId, assistantId, (m) => ({
-              content: m.content + delta,
-              loading: true,
-            }))
-          },
-          ctrl.signal,
-        )
+        await handle.promise
         // 完成
         updateMessage(threadId, assistantId, { loading: false })
       } catch (e: any) {
         console.error('[AI] sendMessage catch', e.name, e.message)
-        if (e.name !== 'AbortError') {
+        if (e.name !== 'AbortError' && e.name !== 'TimeoutError') {
           setError(e.message || '请求失败')
           updateMessage(threadId, assistantId, { loading: false, error: e.message })
         }
       } finally {
         isStreamingRef.current = false
-        abortRef.current = null
+        abortHandleRef.current = null
       }
     },
     [apiKey, activeThreadId, contextEraId, currentYear, threads, personaSystemPrompt],
   )
 
   const stopStreaming = () => {
-    abortRef.current?.abort()
+    abortHandleRef.current?.abort()
   }
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {

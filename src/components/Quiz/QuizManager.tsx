@@ -6,12 +6,12 @@
  * - 审批 pending：每题独立批准/拒绝/编辑
  * - 已审批题目列表 + 删除
  */
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useQuizStore } from '@/store/useQuizStore'
 import { useAIStore, type AIMessage } from '@/store/useAIStore'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import erasData from '@/data/eras.json'
-import { callAIStream, buildQuizGenPrompt } from './quizAI'
+import { callAIStreamWithSignal, buildQuizGenPrompt } from './quizAI'
 import type { QuizQuestion, Difficulty } from '@/types/quiz'
 
 type Era = (typeof erasData)[number]
@@ -51,6 +51,18 @@ export default function QuizManager({ open, onClose }: Props) {
   })
   const [aiBusy, setAiBusy] = useState(false)
   const [aiError, setAiError] = useState<string | null>(null)
+  const aiAbortRef = useRef<AbortController | null>(null)
+
+  // 卸载/关闭时取消进行中的 AI 请求
+  useEffect(() => {
+    return () => { aiAbortRef.current?.abort() }
+  }, [])
+
+  // 切回 list 模式时取消进行中的 AI 请求（避免后台请求状态泄漏）
+  const switchMode = (m: 'list' | 'add' | 'ai') => {
+    if (m === 'list' && aiBusy) aiAbortRef.current?.abort()
+    setMode(m)
+  }
 
   if (!open) return null
 
@@ -67,13 +79,17 @@ export default function QuizManager({ open, onClose }: Props) {
       source: 'manual',
     })
     setForm({ prompt: '', options: ['', '', '', ''], answer: 0, explanation: '', difficulty: 1, eraId: '' })
-    setMode('list')
+    switchMode('list')
   }
 
   const handleAIGenerate = async () => {
     if (!apiKey) { setAiError('请先在 AI 面板中配置 API key'); return }
+    // 重新点击时,取消上一次进行中的请求再开新一次
+    if (aiBusy) aiAbortRef.current?.abort()
     setAiError(null)
     setAiBusy(true)
+    const ctrl = new AbortController()
+    aiAbortRef.current = ctrl
     try {
       const era = eras.find(e => e.id === aiForm.eraId)
       if (!era) { setAiError('朝代不存在'); setAiBusy(false); return }
@@ -82,9 +98,9 @@ export default function QuizManager({ open, onClose }: Props) {
         { role: 'user', content: prompt },
       ]
       const collected: string[] = []
-      await callAIStream(apiKey, apiConfig, messages, (delta) => {
+      await callAIStreamWithSignal(apiKey, apiConfig, messages, (delta) => {
         collected.push(delta)
-      })
+      }, ctrl.signal)
       // 解析 JSON
       const text = collected.join('')
       const match = text.match(/\[[\s\S]*\]/)
@@ -100,11 +116,13 @@ export default function QuizManager({ open, onClose }: Props) {
         category: q.category || 'analysis',
       }))
       addPending(qs)
-      setMode('list')
+      switchMode('list')
     } catch (e: any) {
+      if (e.name === 'AbortError' || e.name === 'TimeoutError') return
       setAiError(e.message || 'AI 出题失败')
     } finally {
       setAiBusy(false)
+      aiAbortRef.current = null
     }
   }
 
@@ -119,7 +137,7 @@ export default function QuizManager({ open, onClose }: Props) {
           </div>
           <div className="flex items-center gap-2">
             {mode !== 'list' && (
-              <button onClick={() => setMode('list')} className="text-xs text-ink-300 px-2 py-1 rounded-lg hover:bg-ink-700">← 返回</button>
+              <button onClick={() => switchMode('list')} className="text-xs text-ink-300 px-2 py-1 rounded-lg hover:bg-ink-700">← 返回</button>
             )}
             <button onClick={onClose} className="text-ink-500 hover:text-parchment-50 text-xl leading-none">×</button>
           </div>
@@ -129,11 +147,11 @@ export default function QuizManager({ open, onClose }: Props) {
           {mode === 'list' && (
             <>
               <div className="flex gap-2">
-                <button onClick={() => setMode('add')} className="flex-1 px-4 py-3 rounded-lg bg-bronze-600 hover:bg-bronze-500 text-parchment-50 text-sm">
+                <button onClick={() => switchMode('add')} className="flex-1 px-4 py-3 rounded-lg bg-bronze-600 hover:bg-bronze-500 text-parchment-50 text-sm">
                   + 手动添加题目
                 </button>
                 <button
-                  onClick={() => setMode('ai')}
+                  onClick={() => switchMode('ai')}
                   disabled={!apiKey}
                   className="flex-1 px-4 py-3 rounded-lg bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-parchment-50 text-sm"
                 >

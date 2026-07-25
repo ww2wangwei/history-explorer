@@ -2,9 +2,10 @@
  * Quiz AI 出题工具
  *
  * 复用 useAIStore 的 apiKey + apiConfig（Anthropic / OpenAI 兼容如 Minimax）
- * 不需要重新写 streaming fetch
+ * 通过 utils/aiStream 统一处理协议与流式解析。
  */
 import type { AIApiConfig } from '@/store/useAIStore'
+import { streamAI } from '@/utils/aiStream'
 import erasData from '@/data/eras.json'
 import type { Difficulty } from '@/types/quiz'
 
@@ -49,81 +50,45 @@ export function buildQuizGenPrompt(era: Era, difficulty: Difficulty, count: numb
 ]`
 }
 
-/** 调用 LLM 流式，拼接完整字符串 */
-export async function callAIStream(
+export const QUIZ_AI_MAX_TOKENS = 4096
+
+/** 调用 LLM 流式，拼接完整字符串（向后兼容：不支持 signal） */
+export function callAIStream(
   apiKey: string,
   apiConfig: AIApiConfig,
   messages: { role: 'user' | 'assistant' | 'system'; content: string }[],
   onDelta: (text: string) => void,
 ): Promise<void> {
-  const stripSlash = (s: string) => s.replace(/\/$/, '')
-  const stripV1 = (s: string) => s.replace(/\/v1$/, '')
-  const baseClean = stripV1(stripSlash(apiConfig.baseUrl))
-  const MAX_TOKENS = 4096
+  return streamAI({
+    protocol: apiConfig.protocol,
+    apiKey,
+    baseUrl: apiConfig.baseUrl,
+    model: apiConfig.model,
+    messages,
+    maxTokens: QUIZ_AI_MAX_TOKENS,
+    onDelta,
+  }).promise.then(() => undefined)
+}
 
-  let url: string, headers: Headers, body: any
-  if (apiConfig.protocol === 'anthropic') {
-    url = `${baseClean}/v1/messages`
-    headers = new Headers({
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true',
-    })
-    const sysMsg = messages.find(m => m.role === 'system')
-    const userMsgs = messages.filter(m => m.role !== 'system')
-    body = {
-      model: apiConfig.model,
-      max_tokens: MAX_TOKENS,
-      system: sysMsg?.content ?? '你是一个历史出题专家。',
-      messages: userMsgs,
-      stream: true,
-    }
-  } else {
-    url = `${baseClean}/v1/chat/completions`
-    headers = new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    })
-    body = {
-      model: apiConfig.model,
-      max_tokens: MAX_TOKENS,
-      messages,
-      stream: true,
-    }
-  }
-
-  const response = await fetch(url, { method: 'POST', headers, body: JSON.stringify(body) })
-  if (!response.ok) {
-    const errText = await response.text().catch(() => '')
-    throw new Error(`API ${response.status}: ${errText || response.statusText}`)
-  }
-  if (!response.body) throw new Error('无响应内容')
-
-  const reader = response.body.getReader()
-  const decoder = new TextDecoder()
-  let buffer = ''
-  while (true) {
-    const { done, value } = await reader.read()
-    if (done) break
-    buffer += decoder.decode(value, { stream: true })
-    const lines = buffer.split('\n')
-    buffer = lines.pop() ?? ''
-    for (const line of lines) {
-      if (!line.startsWith('data: ')) continue
-      const data = line.slice(6).trim()
-      if (data === '[DONE]') return
-      try {
-        const json = JSON.parse(data)
-        if (apiConfig.protocol === 'anthropic') {
-          if (json.type === 'content_block_delta' && json.delta?.type === 'text_delta') {
-            onDelta(json.delta.text)
-          }
-        } else {
-          const delta = json.choices?.[0]?.delta?.content
-          if (typeof delta === 'string' && delta.length > 0) onDelta(delta)
-        }
-      } catch { /* 忽略解析错误 */ }
-    }
-  }
+/**
+ * 调用 LLM 流式,支持外部 AbortSignal(组件卸载/切页/重新点击前中止)。
+ * 取消时不调用方区分 AbortError(由调用方处理,不显示红色失败提示)。
+ */
+export function callAIStreamWithSignal(
+  apiKey: string,
+  apiConfig: AIApiConfig,
+  messages: { role: 'user' | 'assistant' | 'system'; content: string }[],
+  onDelta: (text: string) => void,
+  signal?: AbortSignal,
+): Promise<void> {
+  return streamAI({
+    protocol: apiConfig.protocol,
+    apiKey,
+    baseUrl: apiConfig.baseUrl,
+    model: apiConfig.model,
+    messages,
+    maxTokens: QUIZ_AI_MAX_TOKENS,
+    signal,
+    onDelta,
+  }).promise.then(() => undefined)
 }

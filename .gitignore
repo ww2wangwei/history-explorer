@@ -75,3 +75,7 @@ playwright-report/
 
 # TypeScript incremental build cache
 *.tsbuildinfo
+
+# 大体积二进制资源(场景视频 / 上传缓存)
+public/scenes/*.mp4
+.codepilot-uploads/

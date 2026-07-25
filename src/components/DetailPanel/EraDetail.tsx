@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, Profiler, type ProfilerOnRenderCallback } from 'react'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useShallow } from 'zustand/react/shallow'
 import { useCardsStore } from '@/store/useCardsStore'
@@ -78,7 +78,42 @@ interface Props {
   eraId: string
 }
 
+// Profiler:验证 PR1 (selector 拆分) 收益。打印每次 render 的耗时 + store 关键字段指纹。
+//   DevTools console 看 fingerprint 即可判断该次 render 是由哪个字段变化触发的。
+//   - 切朝代 (selectEra) → eraId / selectedEraId 变化 → 应当渲染
+//   - 改年份 (setYear)   → currentYear 变化 → 若 history 数组未变，则 *不应当* 渲染 (PR1 收益)
+//   - 点地图标记 (setMapFocus) → mapFocusTarget 变化 → 若其他字段未变，则 *不应当* 渲染 (PR1 收益)
+//   - 撤销选择 (undoEraSelect) → eraSelectionHistory 元素变化 → 应当渲染
+//   启用方式：DevTools 控制台 `window.__eraDetailProfile = true`，然后操作 EraDetail 即可看到指纹日志。
+const onEraDetailRender: ProfilerOnRenderCallback = (
+  id, phase, actualDuration, baseDuration, _startTime, _commitTime,
+) => {
+  if (typeof window === 'undefined') return
+  const w = window as unknown as { __eraDetailProfile?: boolean }
+  if (!w.__eraDetailProfile) return
+  const s = useHistoryStore.getState()
+  const fp = {
+    currentYear: s.currentYear,
+    selectedEraId: s.selectedEraId,
+    selectedEventId: s.selectedEventId,
+    mapFocus: s.mapFocusTarget ? 'set' : 'null',
+    historyLen: s.eraSelectionHistory.length,
+  }
+  console.debug(
+    `[EraDetail ${phase}] ${actualDuration.toFixed(1)}ms (base ${baseDuration.toFixed(1)}ms)`,
+    fp,
+  )
+}
+
 export default function EraDetail({ eraId }: Props) {
+  return (
+    <Profiler id="EraDetail" onRender={onEraDetailRender}>
+      <EraDetailInner eraId={eraId} />
+    </Profiler>
+  )
+}
+
+function EraDetailInner({ eraId }: Props) {
   // 单项 selector：避免无关 history 字段（selectedEventId / mapFocus / year 等）变化时整页重渲染
   // action 引用稳定，eraSelectionHistory 是数组用 useShallow 做浅比较
   const selectEra = useHistoryStore(s => s.selectEra)

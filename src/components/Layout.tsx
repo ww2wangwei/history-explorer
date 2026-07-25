@@ -87,6 +87,22 @@ export default function Layout() {
   // 从 Dashboard 进入全人物时携带的"默认打开的人物"（来自 onEnterPath 的 eraId 槽位）
   const [initialFigureId, setInitialFigureId] = useState<string | null>(null)
   const [goalSettingsOpen, setGoalSettingsOpen] = useState(false)
+
+  // 程序触发聚焦（如 EraDetail/WarsOverview 跳到地图）→ 关掉所有 active 视图,
+  // 否则 Layout 仍渲染 Dashboard/Travel 等,WorldMap 不挂载,地图不响应。
+  // 注意:此 effect 只在 mapFocusTarget 从 null 变为非 null 时触发(setMapFocus(null) 不触发)。
+  useEffect(() => {
+    if (!mapFocusTarget) return
+    setDashboardActive(false)
+    setFlashcardsActive(false)
+    setFiguresActive(false)
+    setWarsActive(false)
+    setCulturesActive(false)
+    setGeographyActive(false)
+    setTimeTravelActive(false)
+    setCurrentScenarioId(null)
+    setViewMode('map')
+  }, [mapFocusTarget])
   // 待复习卡片数（订阅 store 让徽章实时更新）
   const cardsCount = useCardsStore(s => Object.keys(s.cards).length)
   const dueCount = useCardsStore(s => {

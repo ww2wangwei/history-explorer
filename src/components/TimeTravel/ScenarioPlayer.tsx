@@ -2,7 +2,7 @@
  * ScenarioPlayer — 剧本播放引擎
  * 显示场景文字 → 选项 → 跳下一章 → 结局 → 历史复盘
  */
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 // 全局 CSS 动画 keyframes
 const styleEl = typeof document !== 'undefined' ? (() => {
@@ -39,7 +39,6 @@ import CharacterAvatar, { PlayerAvatar } from './CharacterAvatar'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
 import { useAIStore } from '@/store/useAIStore'
 import StatBar from './StatBar'
-import SceneStage from './SceneStage'
 
 const BGM_BY_KEY = bgmLibrary as any
 
@@ -63,6 +62,8 @@ interface Scene {
   isDeadEnd?: boolean
   npcClosing?: string
   image?: string
+  /** 场景视频（优先于 image 播放） */
+  video?: string
 }
 
 interface StatDef {
@@ -116,6 +117,16 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
   const [statB, setStatB] = useState(0)
   // 飘字反馈
   const [floatFx, setFloatFx] = useState<Array<{ key: number; emoji: string; delta: number }>>([])
+  // 视频重新播放按钮
+  const [videoEl, setVideoEl] = useState<HTMLVideoElement | null>(null)
+  const [videoEnded, setVideoEnded] = useState(false)
+  const [videoLoadFailed, setVideoLoadFailed] = useState(false)
+
+  // 选择提交期间防双击
+  const isChoosingRef = useRef(false)
+  // 计时器追踪器：unmount / 场景切换时清理 setTimeout
+  const outcomeTimersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set())
+  const floatFxTimersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set())
 
   const setContext = useAIStore(s => s.setContext)
   const setPersonaPrompt = useAIStore(s => s.setPersonaPrompt)
@@ -170,7 +181,13 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
   // ESC 退出
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') { e.stopPropagation(); onExit() }
+      if (e.key !== 'Escape') return
+      const active = document.activeElement as HTMLElement | null
+      if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable)) {
+        return
+      }
+      e.stopPropagation()
+      onExit()
     }
     window.addEventListener('keydown', handler, true)
     return () => window.removeEventListener('keydown', handler, true)
@@ -190,10 +207,40 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
   // 当前场景的 key（用于动画重新触发）
   const sceneKey = currentSceneId || (ending ? `ending-${endingId}` : 'init')
 
+  // 切换场景时重置视频结束状态 + isChoosing
+  useEffect(() => {
+    setVideoEnded(false)
+    setVideoLoadFailed(false)
+    isChoosingRef.current = false
+  }, [sceneKey])
+
+  // 组件卸载或剧本切换时清理所有未触发的计时器
+  useEffect(() => {
+    return () => {
+      outcomeTimersRef.current.forEach(t => clearTimeout(t))
+      outcomeTimersRef.current.clear()
+      floatFxTimersRef.current.forEach(t => clearTimeout(t))
+      floatFxTimersRef.current.clear()
+    }
+  }, [scenario])
+
   // 选择分支
   const handleChoice = (choice: Scene['choices'][0]) => {
+    if (isChoosingRef.current) return  // 双击防御
+    isChoosingRef.current = true
     audioEngine.playClick()
-    // 应用选项的状态值影响(后果系统)
+
+    // 同步计算本次选择的最终双值（避免 setState 异步导致象限误判）
+    let projectedA = statA
+    let projectedB = statB
+    if (scenario.stats && choice.effects) {
+      const aKey = scenario.stats.a.id
+      const bKey = scenario.stats.b.id
+      projectedA = Math.max(0, Math.min(scenario.stats.a.max, statA + (choice.effects[aKey] ?? 0)))
+      projectedB = Math.max(0, Math.min(scenario.stats.b.max, statB + (choice.effects[bKey] ?? 0)))
+    }
+
+    // 飘字反馈
     if (scenario.stats && choice.effects) {
       const fx: Array<{ key: number; emoji: string; delta: number }> = []
       const aKey = scenario.stats.a.id
@@ -210,26 +257,28 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
       }
       if (fx.length) {
         setFloatFx(fx)
-        setTimeout(() => setFloatFx([]), 1500)
+        const t = window.setTimeout(() => setFloatFx([]), 1500)
+        floatFxTimersRef.current.add(t)
       }
     }
+
     // 显示 outcome（如果有）
     if (choice.outcome) {
       setOutcomeText(choice.outcome)
-      // 1.5 秒后跳到下一章
-      setTimeout(() => {
+      const t = window.setTimeout(() => {
         setOutcomeText(null)
-        proceedToNext(choice.next)
+        proceedToNext(choice.next, projectedA, projectedB)
       }, 1500)
+      outcomeTimersRef.current.add(t)
     } else {
-      proceedToNext(choice.next)
+      proceedToNext(choice.next, projectedA, projectedB)
     }
 
     // 推进历史
     setHistory(h => [...h, currentSceneId!, choice.id])
   }
 
-  const proceedToNext = (nextSceneId: string) => {
+  const proceedToNext = (nextSceneId: string, projectedA?: number, projectedB?: number) => {
     const next = scenario.scenes.find(s => s.id === nextSceneId)
     // 判定本步是否进入结局:
     //   1) next 是带 ending 字段的场景(如即时失败场景),取 next.ending
@@ -242,12 +291,14 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
     }
 
     if (baseEnding) {
-      // 后果系统:若剧本启用 stats 且存在象限结局,按当前双值选结局
+      // 后果系统:若剧本启用 stats 且存在象限结局,按投影值(或当前 state)选结局
       let targetEnding = baseEnding
       if (scenario.stats) {
+        const aVal = projectedA ?? statA
+        const bVal = projectedB ?? statB
         const half = scenario.stats.a.max / 2
-        const aHigh = statA >= half
-        const bHigh = statB >= half
+        const aHigh = aVal >= half
+        const bHigh = bVal >= half
         const quad = `${aHigh ? 'H' : 'L'}${bHigh ? 'H' : 'L'}` as 'HH' | 'HL' | 'LH' | 'LL'
         const quadEnding = scenario.endings.find(e => e.quadrant === quad)
         if (quadEnding) targetEnding = quadEnding.id
@@ -305,6 +356,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
   // 结局页
   if (ending) {
     return <EndingView scenario={scenario} ending={ending} onExit={onExit} onReplay={() => {
+      isChoosingRef.current = false
       setHistory([])
       setCurrentSceneId(scenario.scenes[0].id)
       setOutcomeText(null)
@@ -369,14 +421,48 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
           />
         )}
 
-        {/* 场景图 */}
-        <div key={`img-${sceneKey}`} className="mb-4 rounded-lg overflow-hidden border border-ink-700" style={{ aspectRatio: '3/1' }}>
-          <SceneStage
-            imageUrl={sceneImg}
-            sceneIndex={currentSceneIndex}
-            color={scenario.color}
-            sceneKey={sceneKey}
-          />
+        {/* 场景图：优先播放视频，否则用 SceneStage */}
+        <div key={`img-${sceneKey}`} className="mb-4 rounded-lg overflow-hidden border border-ink-700 relative" style={{ aspectRatio: '3/1' }}>
+          {currentScene.video && !videoLoadFailed ? (
+            <>
+              <video
+                key={`vid-${sceneKey}`}
+                ref={setVideoEl}
+                src={currentScene.video}
+                autoPlay
+                muted
+                playsInline
+                preload="metadata"
+                className="w-full h-full object-cover"
+                onEnded={() => setVideoEnded(true)}
+                onPlay={() => setVideoEnded(false)}
+                onError={() => setVideoLoadFailed(true)}
+              />
+              {videoEnded && (
+                <button
+                  onClick={() => {
+                    if (videoEl) {
+                      videoEl.currentTime = 0
+                      videoEl.play()
+                    }
+                  }}
+                  className="absolute inset-0 flex items-center justify-center bg-ink-900/70 hover:bg-ink-900/85 transition-colors"
+                >
+                  <div className="px-6 py-3 rounded-full bg-bronze-600 hover:bg-bronze-500 text-parchment-50 font-serif text-lg flex items-center gap-2 shadow-2xl">
+                    <span className="text-2xl">▶</span>
+                    重新播放
+                  </div>
+                </button>
+              )}
+            </>
+          ) : (
+            <img
+              key={`img-${sceneKey}`}
+              src={sceneImg}
+              alt={currentScene.title}
+              className="w-full h-full object-cover"
+            />
+          )}
         </div>
 
         {/* 场景标题 + 玩家头像 — 用 key 触发渐入动画 */}
@@ -509,10 +595,11 @@ const MALE_VOICES = [
 
 let activeAudio: HTMLAudioElement | null = null
 let ttsAbortController: AbortController | null = null
+let ttsEnabled = true
 
 async function speakScene(text: string) {
   if (typeof window === 'undefined') return
-  if ((window as any).__ttsEnabled === false) return
+  if (ttsEnabled === false) return
 
   stopSpeak()
 
@@ -593,6 +680,7 @@ function VolumeControl() {
   const toggleSpeaking = () => {
     const next = !speaking
     setSpeaking(next)
+    ttsEnabled = next
     if (!next) stopSpeak()
   }
   const onVolChange = (v: number) => {
@@ -600,9 +688,6 @@ function VolumeControl() {
     audioEngine.setVolume(v)
     if (muted && v > 0) { setMuted(false); audioEngine.setMuted(false) }
   }
-
-  // 朗读状态暴露到模块级
-  ;(window as any).__ttsEnabled = speaking ? true : false
 
   return (
     <div className="flex items-center gap-1.5 bg-ink-800/60 backdrop-blur border border-ink-600 rounded-full px-2 py-1">

@@ -200,6 +200,7 @@ export default function EraDetail({ eraId }: Props) {
   }
 
   return (
+    <>
     <div className="p-4 h-full overflow-y-auto scrollbar-thin">
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
@@ -540,17 +541,31 @@ export default function EraDetail({ eraId }: Props) {
         </div>
       )}
     </div>
-  )
 
-  // 关键大事详情弹窗
-  {selectedQuickEvent && era && (
-    <QuickEventDetail
-      event={selectedQuickEvent!}
-      eraName={era!.name}
-      eraColor={era!.color}
-      onClose={() => setSelectedQuickEvent(null)}
-    />
-  )}
+    {/* 关键大事详情弹窗 */}
+    {selectedQuickEvent && era && (
+      <QuickEventDetail
+        event={selectedQuickEvent}
+        eraName={era.name}
+        eraColor={era.color}
+        onClose={() => setSelectedQuickEvent(null)}
+      />
+    )}
+    </>
+  )
+}
+
+// 推断事件类型（基于标题关键词）
+function inferEventType(title: string): string {
+  if (/(建立|建国|创建|立国|开国)/.test(title)) return '建国'
+  if (/(战争|战役|征服|入侵|起义|兵变|平定|伐|攻陷|击败|大捷)/.test(title)) return '战争'
+  if (/(即位|继位|登基|加冕|称帝|称王)/.test(title)) return '即位'
+  if (/(改革|变法|维新|改制)/.test(title)) return '改革'
+  if (/(鼎盛|繁荣|黄金时代|盛世|崛起)/.test(title)) return '鼎盛'
+  if (/(衰|亡|灭|覆灭|终结|陷落|灭亡)/.test(title)) return '衰亡'
+  if (/(迁|迁都|迁都|移民)/.test(title)) return '迁都'
+  if (/(建|修|筑|造|成)/.test(title)) return '建设'
+  return '关键事件'
 }
 
 /** 把 **加粗** 转成 <strong>，段落用 <p> 分隔（保持其他文本安全） */
@@ -560,13 +575,13 @@ function renderMarkdownBold(text: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/\*\*(.+?)\*\*/g, '<strong class="text-bronze-300">$1</strong>')
-  // 把换行/句号后空格拆成段落
   return escaped
     .split(/\n+|(?<=[。！？!?])\s+/)
     .filter(p => p.trim())
     .map(p => `<p class="leading-relaxed">${p.trim()}</p>`)
     .join('')
 }
+
 // ============= 关键大事详情弹窗 =============
 function QuickEventDetail({ event, eraName, eraColor, onClose }: {
   event: { year: number; title: string; desc?: string; longDesc?: string; category?: string; importance?: number }
@@ -580,15 +595,16 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
   const aiOpenPanel = useAIStore(s => s.openPanel)
 
   const yearLabel = event.year < 0 ? `公元前 ${-event.year} 年` : `${event.year} 年`
-
-  // 智能推断事件类型
   const eventType = inferEventType(event.title)
-
-  // 事件图片（Bing）— 与 era 联动，更精准
   const imgKw = `${event.title} ${eraName} historical`
   const eventImg = bingImage(imgKw, 800, 450)
 
-  // 让 AI 详细解释这个事件
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [onClose])
+
   const handleAskAI = () => {
     const persona = `你是历史学家，专精 ${eraName}（公元前/公元 1 年到现在）时期的历史。
 用户询问的关键事件是「${event.title}」（${yearLabel}）：${event.desc || ''}
@@ -615,9 +631,7 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
       onClose={onClose}
       innerStyle={{ borderColor: eraColor + '60' }}
     >
-        {/* 顶部：事件图片（16:9 Bing 缩略图，与其他详情页一致） */}
         <div className="relative w-full bg-ink-900" style={{ aspectRatio: '16/9' }}>
-          {/* 兜底：时代色渐变 + 事件名首字 */}
           <div
             className="absolute inset-0 flex items-center justify-center select-none"
             style={{ background: `linear-gradient(135deg, ${eraColor}55 0%, ${eraColor}22 100%)` }}
@@ -634,7 +648,6 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
               {event.title.charAt(0)}
             </div>
           </div>
-          {/* img：真实事件图（Bing）— 加载成功后覆盖在兜底上 */}
           <img
             src={eventImg}
             alt={event.title}
@@ -642,9 +655,7 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
             loading="eager"
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
           />
-          {/* 渐变覆盖层（让标题清晰可读） */}
           <div className="absolute inset-0 bg-gradient-to-t from-ink-900/95 via-ink-900/30 to-transparent pointer-events-none z-10" />
-          {/* 标题覆盖在图片底部 */}
           <div className="absolute bottom-0 left-0 right-0 px-6 pt-8 pb-4 z-20">
             <div className="text-xs text-bronze-300 mb-1 tracking-wider uppercase">
               {eraName} · {eventType} · {yearLabel}
@@ -653,7 +664,6 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
               {event.title}
             </h2>
           </div>
-          {/* 关闭按钮 */}
           <button
             onClick={onClose}
             className="absolute top-3 right-3 z-20 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
@@ -662,9 +672,7 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
           >×</button>
         </div>
 
-        {/* 内容 */}
         <div className="p-6 space-y-4">
-          {/* 详细描述（longDesc）— 多段文字，与其他详情页一致 */}
           {event.longDesc && (
             <div>
               <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">📖 事件详情</div>
@@ -675,7 +683,6 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
             </div>
           )}
 
-          {/* 一句话简介（desc）— 突出显示 */}
           {event.desc && (
             <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
               <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">📋 一句话简介</div>
@@ -683,7 +690,6 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
             </div>
           )}
 
-          {/* 上下文信息：所属文明 / 时间 / 分类 — 2x2 网格 */}
           <div className="grid grid-cols-2 gap-3">
             <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
               <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">🏛️ 所属文明</div>
@@ -706,7 +712,6 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
           </div>
         </div>
 
-        {/* 操作按钮 */}
         <div className="px-6 pb-6">
           <button
             onClick={handleAskAI}
@@ -721,17 +726,4 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
         </div>
     </ModalShell>
   )
-}
-
-// 推断事件类型（基于标题关键词）
-function inferEventType(title: string): string {
-  if (/(建立|建国|创建|立国|开国)/.test(title)) return '建国'
-  if (/(战争|战役|征服|入侵|起义|兵变|平定|伐|攻陷|击败|大捷)/.test(title)) return '战争'
-  if (/(即位|继位|登基|加冕|称帝|称王)/.test(title)) return '即位'
-  if (/(改革|变法|维新|改制)/.test(title)) return '改革'
-  if (/(鼎盛|繁荣|黄金时代|盛世|崛起)/.test(title)) return '鼎盛'
-  if (/(衰|亡|灭|覆灭|终结|陷落|灭亡)/.test(title)) return '衰亡'
-  if (/(迁|迁都|迁都|移民)/.test(title)) return '迁都'
-  if (/(建|修|筑|造|成)/.test(title)) return '建设'
-  return '关键事件'
 }

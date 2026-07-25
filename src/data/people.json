@@ -399,8 +399,7 @@
     "id": "p-saladin",
     "name": "萨拉丁",
     "eraIds": [
-      "ayyubid",
-      "arab"
+      "arab-caliphate"
     ],
     "role": "阿尤布王朝开创者 / 收复耶路撒冷",
     "category": "military",
@@ -445,7 +444,7 @@
     "id": "p-victoria",
     "name": "维多利亚女王",
     "eraIds": [
-      "britain"
+      "british-empire"
     ],
     "role": "大不列颠及爱尔兰女王 / 维多利亚时代",
     "category": "politician",
@@ -1106,7 +1105,7 @@
     "name": "亚里士多德",
     "eraIds": [
       "ancient-greece",
-      "macedonia"
+      "macedon"
     ],
     "role": "古希腊哲学家 / 百科全书式学者",
     "category": "thinker",

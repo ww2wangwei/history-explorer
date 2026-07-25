@@ -7,11 +7,11 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "validate": "node scripts/validate-data.mjs",
+    "check": "npm run validate && npm run lint"
   },
   "dependencies": {
-    "@gsap/react": "^2.1.2",
-    "@remotion/player": "^4.0.496",
     "@types/d3-force": "^3.0.10",
     "@types/d3-selection": "^3.0.11",
     "@types/d3-zoom": "^3.0.8",
@@ -20,31 +20,33 @@
     "d3-scale": "^4.0.2",
     "d3-selection": "^3.0.0",
     "d3-zoom": "^3.0.0",
-    "edge-tts-universal": "^1.4.0",
     "gsap": "^3.15.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-markdown": "^9.1.0",
     "react-simple-maps": "^3.0.0",
     "remark-gfm": "^4.0.1",
-    "remotion": "^4.0.496",
     "topojson-client": "^3.1.0",
     "world-atlas": "^2.0.2",
     "zustand": "^5.0.1"
   },
   "devDependencies": {
-    "@remotion/bundler": "^4.0.496",
-    "@remotion/renderer": "^4.0.496",
-    "@types/d3-scale": "^4.0.8",
+    "@types/d3-scale": "^4.0.9",
     "@types/geojson": "^7946.0.16",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@vitejs/plugin-react": "^4.3.3",
-    "autoprefixer": "^10.4.20",
-    "playwright": "^1.61.1",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.15",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.11"
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^4.7.0",
+    "autoprefixer": "^10.5.4",
+    "playwright": "^1.62.0",
+    "postcss": "^8.5.23",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.9.3",
+    "vite": "^5.4.21"
+  },
+  "overrides": {
+    "d3-color": "^3.1.0",
+    "d3-interpolate": "^3.0.1",
+    "d3-transition": "^3.0.1",
+    "d3-zoom": "^3.0.0"
   }
 }

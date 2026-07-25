@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useHistoryStore } from '@/store/useHistoryStore'
+import { useShallow } from 'zustand/react/shallow'
 import { useCardsStore } from '@/store/useCardsStore'
 import { useAIStore } from '@/store/useAIStore'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
@@ -78,7 +79,14 @@ interface Props {
 }
 
 export default function EraDetail({ eraId }: Props) {
-  const { selectEra, selectEvent, setYear, setMapFocus, undoEraSelect, eraSelectionHistory } = useHistoryStore()
+  // 单项 selector：避免无关 history 字段（selectedEventId / mapFocus / year 等）变化时整页重渲染
+  // action 引用稳定，eraSelectionHistory 是数组用 useShallow 做浅比较
+  const selectEra = useHistoryStore(s => s.selectEra)
+  const selectEvent = useHistoryStore(s => s.selectEvent)
+  const setYear = useHistoryStore(s => s.setYear)
+  const setMapFocus = useHistoryStore(s => s.setMapFocus)
+  const undoEraSelect = useHistoryStore(s => s.undoEraSelect)
+  const eraSelectionHistory = useHistoryStore(useShallow(s => s.eraSelectionHistory))
   const addCard = useCardsStore(s => s.addCard)
   const aiSetContext = useAIStore(s => s.setContext)
   const aiSetPersona = useAIStore(s => s.setPersonaPrompt)

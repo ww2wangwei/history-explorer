@@ -314,8 +314,8 @@ function EraDetailInner({ eraId }: Props) {
           <button
             type="button"
             onClick={() => jumpToMap(era.capital!, `${era.name} 都城`, 4)}
-            className="bg-ink-700 px-3 py-2 rounded-lg col-span-2 text-left transition-colors hover:bg-ink-600 hover:ring-1 hover:ring-bronze-500/40 group"
-            title="在地图上定位都城"
+            className="bg-ink-700 hover:bg-ink-600 hover:ring-1 hover:ring-bronze-500/40 px-3 py-2 rounded-lg col-span-2 text-left transition-colors group cursor-pointer"
+            title="点击在地图上定位都城"
           >
             <div className="text-ink-500 mb-1 flex items-center justify-between">
               <span>都城</span>

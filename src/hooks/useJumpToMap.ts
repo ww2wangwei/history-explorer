@@ -21,6 +21,8 @@ export function useJumpToMap() {
 
   return useCallback(
     (center: [number, number], label: string, zoom = 4) => {
+      // eslint-disable-next-line no-console
+      console.debug('[useJumpToMap]', { center, label, zoom })
       setMapFocus({ center, zoom, label })
       setViewMode('map')
       selectEra(null)

@@ -307,7 +307,13 @@ function EraDetailInner({ eraId }: Props) {
         {era.capital && (
           <button
             type="button"
-            onClick={() => jumpToMap(era.capital!, `${era.name} 都城`, 4, { coverImageUrl: eraImg, snippet: eraSnippet })}
+            onClick={() => jumpToMap(era.capital!, `${era.name} 都城`, 4, {
+              coverImageUrl: eraImg,
+              snippet: eraSnippet,
+              reopenLabel: `${era.name} 都城`,
+              eraId: era.id,
+              eventYear: era.startYear,
+            })}
             className="bg-ink-700 hover:bg-ink-600 hover:ring-1 hover:ring-bronze-500/40 px-3 py-2 rounded-lg col-span-2 text-left transition-colors group cursor-pointer"
             title="点击在地图上定位都城"
           >

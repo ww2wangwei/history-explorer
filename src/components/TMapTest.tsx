@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from 'react'
 import { loadTianditu } from '@/lib/tdt/loader'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { getActiveErasAtYear } from '@/utils/geo'
+import { bingImage, fallbackKeyword } from '@/utils/geoImage'
+import { summarizeEra, summarizeEvent } from '@/utils/summarize'
 import erasData from '@/data/eras.json'
 import eventsData from '@/data/events.json'
 import type { Era, HistoricalEvent } from '@/types'
@@ -31,7 +33,7 @@ interface InfoCard {
   /** 「🔙 回到 {label}」按钮文案；无则不显示按钮（普通定位） */
   reopenLabel?: string
   /** 浮层返回时所需 — 只存在 reopenLabel 时才有意义 */
-  reopenKind?: 'quickEvent' | 'geoFeature' | 'territory' | 'war' | 'majorWar' | 'majorWarNode'
+  reopenKind?: 'quickEvent' | 'event' | 'cultureEvent' | 'geoFeature' | 'territory' | 'war' | 'majorWar' | 'majorWarNode'
   reopenEraId?: string
   reopenEventYear?: number
   reopenFeatureId?: string
@@ -129,6 +131,63 @@ export default function TMapTest() {
     }
   }, [])
 
+  // 显示 hover 卡片（含图片 + 简介）—— 移入图钉时调用
+  // 关键约束：
+  //   - 不覆盖已有的 jump 卡片（带 reopenLabel 的持久卡片优先）
+  //   - 计算屏幕坐标用 map.lngLatToContainerPoint（hover 时 viewport 已稳定）
+  //   - 24px 边距 clamp 防止卡片溢出容器
+  const showHoverCard = (
+    label: string,
+    lng: number,
+    lat: number,
+    coverImageUrl: string,
+    snippet: string,
+  ) => {
+    const map = mapRef.current as any
+    if (!map) return
+    const T = (window as any).T
+    if (!T) return
+    let pt: any = null
+    try {
+      if (typeof map.lngLatToContainerPoint === 'function') {
+        pt = map.lngLatToContainerPoint(new T.LngLat(lng, lat))
+      } else if (typeof map.lngLatToPoint === 'function') {
+        pt = map.lngLatToPoint(new T.LngLat(lng, lat))
+      }
+    } catch { /* ignore */ }
+    let sx = 0
+    let sy = 0
+    if (pt) {
+      if (Array.isArray(pt)) { sx = pt[0]; sy = pt[1] }
+      else if (pt.x !== undefined) { sx = pt.x; sy = pt.y }
+    }
+    const w = containerRef.current?.clientWidth ?? 0
+    const h = containerRef.current?.clientHeight ?? 0
+    const padding = 24
+    if (w > 0) sx = Math.max(padding, Math.min(sx, w - padding))
+    if (h > 0) sy = Math.max(padding, Math.min(sy, h - padding))
+    // 不覆盖 jump 卡片
+    setInfoCard(prev => {
+      if (prev?.source === 'jump') return prev
+      return {
+        label,
+        snippet: snippet || '（暂无简介）',
+        coverImageUrl: coverImageUrl || '',
+        lng,
+        lat,
+        screenX: sx,
+        screenY: sy,
+        source: 'hover',
+      }
+    })
+  }
+
+  // 清除 hover 卡片 —— 移出图钉时调用
+  // 关键约束：只清除 source === 'hover' 的卡片，绝不误关 jump 卡片
+  const hideHoverCard = () => {
+    setInfoCard(prev => (prev?.source === 'hover' ? null : prev))
+  }
+
   // currentYear 变化时：飞向当前朝代都城 + 重建 markers/polygons
   useEffect(() => {
     const map = mapRef.current
@@ -176,6 +235,19 @@ export default function TMapTest() {
       try { marker.setLabel(label) } catch { /* v4.0 可能不支持，回退到 addOverLay */ }
       try { map.addOverLay(label) } catch { /* ignore */ }
       marker.addEventListener('click', () => selectEra(chinaEra.id))
+      // hover 卡片：鼠标移入显示图片+简介，移开消失
+      try {
+        marker.addEventListener('mouseover', () => {
+          showHoverCard(
+            `${chinaEra.name} 都城`,
+            lng,
+            lat,
+            bingImage(fallbackKeyword(chinaEra.name, chinaEra.region), 400, 240),
+            summarizeEra(chinaEra as any),
+          )
+        })
+        marker.addEventListener('mouseout', hideHoverCard)
+      } catch { /* v4.0 不支持时跳过 */ }
       map.addOverLay(marker)
       markersRef.current.push(marker)
     }
@@ -203,6 +275,19 @@ export default function TMapTest() {
       try { marker.setLabel(label) } catch { /* v4.0 回退 */ }
       try { map.addOverLay(label) } catch { /* ignore */ }
       marker.addEventListener('click', () => selectEra(era.id))
+      // hover 卡片
+      try {
+        marker.addEventListener('mouseover', () => {
+          showHoverCard(
+            era.name,
+            lng,
+            lat,
+            bingImage(fallbackKeyword(era.name, era.region), 400, 240),
+            summarizeEra(era as any),
+          )
+        })
+        marker.addEventListener('mouseout', hideHoverCard)
+      } catch { /* ignore */ }
       map.addOverLay(marker)
       markersRef.current.push(marker)
     })
@@ -229,12 +314,28 @@ export default function TMapTest() {
         selectEvent(ev.id)
         setYear(ev.year)
       })
+      // hover 卡片
+      try {
+        marker.addEventListener('mouseover', () => {
+          showHoverCard(
+            ev.title,
+            lng,
+            lat,
+            bingImage(fallbackKeyword(ev.title, ev.category), 400, 240),
+            summarizeEvent(ev as any),
+          )
+        })
+        marker.addEventListener('mouseout', hideHoverCard)
+      } catch { /* ignore */ }
       map.addOverLay(marker)
       eventMarkersRef.current.push(marker)
     })
   }, [currentYear, selectEra, selectEvent, setYear])
 
   // 监听 mapFocusTarget：详情面板点图钉跳转 → 飞向坐标 + 渲染富化浮层
+  // 简化方案：
+  //   1) centerAndZoom 把目标放在地图中央 → 卡片初始定位在容器中央 → 小三角指向中央 = 指向 marker
+  //   2) 监听 dragend/zoomend：用户拖动/缩放地图后重新算 lngLatToContainerPoint，让卡片跟随 marker
   useEffect(() => {
     const map = mapRef.current
     if (!map || !mapReady || !mapFocusTarget) return
@@ -245,16 +346,14 @@ export default function TMapTest() {
       mapFocusTarget as any
     const [lng, lat] = center
 
-    // 容器可能还没拿到真实尺寸，提前 checkResize 避免 viewport=0 时坐标算错
+    // 1) checkResize 确保容器尺寸准确
     try { map.checkResize?.() } catch { /* ignore */ }
 
-    try { map.setCenter(new T.LngLat(lng, lat)) } catch (e) { console.warn('[TMapTest] setCenter failed:', e) }
-    try { map.setZoom(zoom) } catch (e) { console.warn('[TMapTest] setZoom failed:', e) }
-    console.debug('[TMapTest] jumped to', { center, zoom, label })
+    // 2) 用一行 centerAndZoom 完成飞行（与初始化 line 89 一致；v4 中比 setCenter + setZoom 两步更可靠）
+    try { map.centerAndZoom(new T.LngLat(lng, lat), zoom) } catch { /* ignore */ }
 
     if (!label) return
 
-    // 计算屏幕坐标（moveend 等真正渲染后）
     const computeScreen = (): [number, number] => {
       try {
         let pt: any = null
@@ -269,87 +368,52 @@ export default function TMapTest() {
       return [0, 0]
     }
 
-    const applyCard = (sx: number, sy: number) => {
-      // clamp 到地图容器内可见区域（卡片宽 ~280 / 高 ~360，留 24px 边距让小三角露在外面）
+    // 3) 初始把卡片放在容器中央（centerAndZoom 会把目标放到中央 → 卡片在中央 →
+    //    小三角指向中央 = 指向 marker；这里用确定的 (w/2, h/2) 而不是 lngLatToContainerPoint，
+    //    因为飞行是异步的，调用时 viewport 还没跟上，会算出错的坐标）
+    const placeCard = (useCenter: boolean) => {
       const w = containerRef.current?.clientWidth ?? 0
       const h = containerRef.current?.clientHeight ?? 0
       const padding = 24
-      // 卡片中心点要在 [padding, dim-padding] 之间
-      const clampedX = w > 0 ? Math.max(padding, Math.min(sx, w - padding)) : sx
-      const clampedY = h > 0 ? Math.max(padding, Math.min(sy, h - padding)) : sy
+      let sx: number
+      let sy: number
+      if (useCenter || w <= 0 || h <= 0) {
+        sx = w > 0 ? w / 2 : 0
+        sy = h > 0 ? h / 2 : 0
+      } else {
+        let [cx, cy] = computeScreen()
+        sx = Math.max(padding, Math.min(cx, w - padding))
+        sy = Math.max(padding, Math.min(cy, h - padding))
+      }
       setInfoCard({
         label,
         snippet: snippet || '（暂无简介）',
         coverImageUrl: coverImageUrl || '',
-        lng, lat, screenX: clampedX, screenY: clampedY,
+        lng, lat,
+        screenX: sx,
+        screenY: sy,
         source: 'jump',
         reopenLabel,
         reopenKind: reopenKind ?? kind,
       } as InfoCard)
     }
 
-    // 第一次立即算（兜底）
-    {
-      // 先看目标是否在容器内；不在则把地图 pan 让 marker 落在容器中点（避免小三角尖错位）
-      const containerW = containerRef.current?.clientWidth ?? 0
-      const containerH = containerRef.current?.clientHeight ?? 0
-      const [rawSx, rawSy] = computeScreen()
-      if (
-        containerW > 0 && containerH > 0 &&
-        (rawSx < 80 || rawSx > containerW - 80 || rawSy < 80 || rawSy > containerH - 80)
-      ) {
-        try {
-          // 计算需要把地图平移多少像素，让 marker 落在容器中心
-          // panBy(dx, dy)：向右向下为正。我们要把 marker (rawSx, rawSy) 移到 (containerW/2, containerH/2)
-          // 即屏幕向右移动 (containerW/2 - rawSx)，向下移动 (containerH/2 - rawSy)
-          const dx = containerW / 2 - rawSx
-          const dy = containerH / 2 - rawSy
-          if (typeof map.panBy === 'function') {
-            map.panBy(dx, dy)
-          }
-        } catch { /* ignore */ }
-      }
-      const [sx, sy] = computeScreen()
-      console.debug('[TMapTest] computeScreen (sync)', { lng, lat, sx, sy, mapCenter: map.getCenter?.(), mapZoom: map.getZoom?.() })
-      applyCard(sx, sy)
-    }
+    // 4) 初始放置：直接用容器中央（确定值，不受异步飞行影响）
+    placeCard(true)
 
-    // moveend 后再算（视口异步更新——v4 setCenter 是动画过渡）
+    // 5) 用户拖动/缩放后重新放置卡片（dragend/zoomend 时机确定，viewport 稳定，可信赖 lngLatToContainerPoint）
     let cancelled = false
-    const onMoveEnd = () => {
+    const onViewChange = () => {
       if (cancelled) return
-      const [sx, sy] = computeScreen()
-      console.debug('[TMapTest] computeScreen (moveend)', { sx, sy, mapCenter: map.getCenter?.(), mapZoom: map.getZoom?.() })
-      // 写入 state + 直接改 DOM（双重保险，绕过 React 异步批处理）
-      applyCard(sx, sy)
-      requestAnimationFrame(() => {
-        const el = document.querySelector('[data-testid="tmap-info-card"]') as HTMLElement | null
-        if (el) {
-          const computed = getComputedStyle(el)
-          console.debug('[TMapTest] DOM check after moveend', {
-            inlineStyle: el.getAttribute('style'),
-            computedLeft: computed.left,
-            computedTop: computed.top,
-          })
-        } else {
-          console.debug('[TMapTest] DOM check after moveend: NO CARD IN DOM')
-        }
-      })
+      placeCard(false)
     }
-    try { map.addEventListener('moveend', onMoveEnd) } catch { /* ignore */ }
-
-    // 1200ms 兜底（覆盖 v4 setCenter 动画过渡时长）
-    const timer = setTimeout(() => {
-      if (cancelled) return
-      const [sx, sy] = computeScreen()
-      console.debug('[TMapTest] computeScreen (timeout 1200ms)', { sx, sy, mapCenter: map.getCenter?.(), mapZoom: map.getZoom?.() })
-      applyCard(sx, sy)
-    }, 1200)
+    try { map.addEventListener('dragend', onViewChange) } catch { /* ignore */ }
+    try { map.addEventListener('zoomend', onViewChange) } catch { /* ignore */ }
 
     return () => {
       cancelled = true
-      clearTimeout(timer)
-      try { map.removeEventListener('moveend', onMoveEnd) } catch { /* ignore */ }
+      try { map.removeEventListener('dragend', onViewChange) } catch { /* ignore */ }
+      try { map.removeEventListener('zoomend', onViewChange) } catch { /* ignore */ }
     }
   }, [mapFocusTarget, mapReady])
 
@@ -377,11 +441,13 @@ export default function TMapTest() {
           }}
           onBack={() => {
             const kind = infoCard.reopenKind
-            // 触发 Layout 监听器（战争/朝代时间线/地理对应 active）
+            // 触发 Layout 监听器（战争/朝代时间线/地理/文化对应 active）
             if (kind === 'war' || kind === 'majorWar' || kind === 'majorWarNode') {
               window.dispatchEvent(new CustomEvent('history:go-wars'))
             } else if (kind === 'geoFeature' || kind === 'territory') {
               window.dispatchEvent(new CustomEvent('history:go-geography'))
+            } else if (kind === 'cultureEvent') {
+              window.dispatchEvent(new CustomEvent('history:go-cultures'))
             } else {
               window.dispatchEvent(new CustomEvent('history:go-dashboard'))
             }
@@ -425,11 +491,12 @@ function InfoCardView({
             <button
               type="button"
               onClick={onBack}
-              className="flex items-center gap-1 text-bronze-300 hover:text-bronze-200 text-xs"
+              className="flex items-center text-bronze-300 hover:text-bronze-200 text-sm"
               title="返回"
+              aria-label="返回"
             >
-              <span className="text-base leading-none">←</span>
-              <span>{card.reopenLabel}</span>
+              <span className="leading-none">←</span>
+              <span className="ml-1 text-xs">Back</span>
             </button>
           ) : (
             <span className="text-xs text-ink-500">📍 位置</span>
@@ -451,7 +518,6 @@ function InfoCardView({
               src={card.coverImageUrl}
               alt={card.label}
               onError={() => setImgFailed(true)}
-              onLoad={() => console.debug('[InfoCard] image loaded:', card.coverImageUrl)}
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>

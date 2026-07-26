@@ -80,6 +80,8 @@ interface HistoryStore {
         eraId: string
         event: { year: number; title: string; desc: string; longDesc?: string }
       }
+    | { kind: 'event'; eventId: string }
+    | { kind: 'cultureEvent'; cultureEventId: string }
     | { kind: 'geoFeature'; featureId: string }
     | { kind: 'territory'; territoryId: string; region: 'china' | 'world' }
     | { kind: 'war'; warId: string }

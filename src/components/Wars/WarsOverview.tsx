@@ -568,30 +568,18 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
   const openPanel = useAIStore(s => s.openPanel)
   const allContexts = useAllLearningContexts()
   // 跳到地图：设置年份 + 聚焦到战争地点
-  const setYear = useHistoryStore(s => s.setYear)
-  const setMapFocus = useHistoryStore(s => s.setMapFocus)
   const jumpToMap = useJumpToMap()
 
-  /** 处理"在地图看位置"：年份 + 坐标定位 + 通知父组件切到地图 + 写 pendingReopen 供浮层返回 */
+  /** 处理"在地图看位置"：通过 jumpToMap 统一走 EraDetail 相同路径 */
   const handleViewOnMap = (war: HistoricalEvent) => {
     if (war.coordinates) {
-      setYear(war.year)
       const warKw = warSearchKeywords[war.id] ?? `${war.title} battle`
-      setMapFocus({
-        center: war.coordinates,
-        zoom: 4,
-        label: war.title,
+      jumpToMap(war.coordinates!, war.title, 4, {
         coverImageUrl: bingImage(warKw, 400, 240),
         snippet: summarizeEvent(war),
         reopenLabel: war.title,
-        kind: 'war',
         warId: war.id,
-      } as any)
-      // 写 reopen（直接 setMapFocus 不会经过 useJumpToMap hook）
-      useHistoryStore.getState().setPendingReopen({ kind: 'war', warId: war.id })
-    } else {
-      // 没坐标的战争：只切年份
-      setYear(war.year)
+      })
     }
     setSelectedWar(null)
     onViewOnMap?.()
@@ -893,11 +881,21 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
           onClose={() => setSelectedMajorNode(null)}
           onBack={() => setSelectedMajorNode(null)}
           onSwitchNode={(n) => setSelectedMajorNode({ mw: selectedMajorNode.mw, node: n })}
-          onJumpToMap={(lngLat, year, label) => {
+          onJumpToMap={(lngLat, _year, label) => {
             setSelectedMajorNode(null)
             setSelectedMajorWar(null)
-            setMapFocus({ center: lngLat, zoom: 5, label })
-            setYear(year)
+            const nodeIdx = selectedMajorNode.mw.nodes.findIndex(
+              (n: MajorWarNode) => n.title === selectedMajorNode.node.title,
+            )
+            const mwKw = majorWarSearchKeywords[selectedMajorNode.mw.key] ?? selectedMajorNode.mw.title
+            const firstSentence = (selectedMajorNode.node.detail ?? selectedMajorNode.node.description ?? '').split(/[。.!?！？]/)[0].trim()
+            jumpToMap(lngLat, label, 5, {
+              coverImageUrl: bingImage(mwKw, 400, 240),
+              snippet: firstSentence.slice(0, 120),
+              reopenLabel: label,
+              mwKey: selectedMajorNode.mw.key,
+              nodeIndex: nodeIdx >= 0 ? nodeIdx : 0,
+            })
           }}
           onChat={() => {
             const adHocWar: HistoricalEvent = {
@@ -1321,19 +1319,10 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
 
   // 节点坐标：优先用 node.coordinates（精确），否则查 DICT
   const nodePos = node.coordinates || lookupLocationStrict(node.location)
-  const nodeKw = majorWarSearchKeywords[mw.key] ?? `${node.title} ${node.location}`
-  const jumpToMap = useJumpToMap()
   const handleJump = () => {
     if (!nodePos) return
-    // description 首句作为 snippet
-    const firstSentence = (node.detail || node.description || '').split(/[。.!?！？]/)[0].trim()
-    jumpToMap(nodePos, `${node.title}（${node.location}）`, 5, {
-      coverImageUrl: bingImage(nodeKw, 400, 240),
-      snippet: firstSentence.slice(0, 120),
-      reopenLabel: node.title,
-      mwKey: mw.key,
-      nodeIndex: idx >= 0 ? idx : 0,
-    })
+    // 走 props.onJumpToMap（父组件统一处理 setSelectedMajorNode(null) + jumpToMap）
+    onJumpToMap(nodePos, node.year, `${node.title}（${node.location}）`)
   }
 
   return (

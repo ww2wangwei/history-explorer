@@ -22,6 +22,8 @@ import { useHistoryStore } from '@/store/useHistoryStore'
 
 type ReopenPayload =
   | { kind: 'quickEvent'; eraId: string; event: { year: number; title: string; desc: string; longDesc?: string } }
+  | { kind: 'event'; eventId: string }
+  | { kind: 'cultureEvent'; cultureEventId: string }
   | { kind: 'geoFeature'; featureId: string }
   | { kind: 'territory'; territoryId: string; region: 'china' | 'world' }
   | { kind: 'war'; warId: string }
@@ -48,6 +50,10 @@ export function useJumpToMap() {
         // quickEvent
         eraId?: string
         eventYear?: number
+        // event (单事件详情)
+        eventId?: string
+        // cultureEvent (文化板块)
+        cultureEventId?: string
         // geoFeature / territory
         featureId?: string
         territoryId?: string
@@ -66,13 +72,20 @@ export function useJumpToMap() {
         else if (extras.mwKey) kind = 'majorWar'
         else if (extras.featureId) kind = 'geoFeature'
         else if (extras.territoryId) kind = 'territory'
-        else if (extras.eraId) kind = 'quickEvent'
+        else if (extras.eraId && extras.eventYear !== undefined) kind = 'quickEvent'
+        else if (extras.eventId) kind = 'event'
+        else if (extras.cultureEventId) kind = 'cultureEvent'
       }
 
       setMapFocus({ center, zoom, label, ...extras, kind } as any)
       setViewMode('map')
       selectEra(null)
       selectEvent(null)
+
+      // 主动通知 Layout：进入地图视图，关掉所有 Overview active flag
+      // （Dashboard / WarsOverview / GeographyOverview 等都是覆盖主区域的全屏页，
+      //  否则 TMapTest 不会挂载，InfoCard 浮层无 DOM 容器 → 看不见）
+      window.dispatchEvent(new CustomEvent('history:enter-map'))
 
       // reopen：派生 payload，写入 pendingReopen
       if (extras) {
@@ -83,6 +96,10 @@ export function useJumpToMap() {
             event: { year: extras.eventYear, title: extras.reopenLabel, desc: extras.snippet ?? '' },
           }
           setPendingReopen(payload)
+        } else if (extras.eventId) {
+          setPendingReopen({ kind: 'event', eventId: extras.eventId })
+        } else if (extras.cultureEventId) {
+          setPendingReopen({ kind: 'cultureEvent', cultureEventId: extras.cultureEventId })
         } else if (extras.featureId) {
           setPendingReopen({ kind: 'geoFeature', featureId: extras.featureId })
         } else if (extras.territoryId && extras.territoryRegion) {

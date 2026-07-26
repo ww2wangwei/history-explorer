@@ -66,6 +66,8 @@ export default function EventDetail({ eventId }: Props) {
     jumpToMap(event.coordinates, event.title, 4, {
       coverImageUrl: bingImage(kw, 400, 240),
       snippet: summarizeEvent(event),
+      reopenLabel: event.title,
+      eventId: event.id,
     })
   }
 

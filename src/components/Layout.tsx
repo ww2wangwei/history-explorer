@@ -88,9 +88,8 @@ export default function Layout() {
   const [initialFigureId, setInitialFigureId] = useState<string | null>(null)
   const [goalSettingsOpen, setGoalSettingsOpen] = useState(false)
 
-  // 程序触发聚焦（如 EraDetail/WarsOverview 跳到地图）→ 关掉所有 active 视图,
-  // 否则 Layout 仍渲染 Dashboard/Travel 等,WorldMap 不挂载,地图不响应。
-  // 注意:此 effect 只在 mapFocusTarget 从 null 变为非 null 时触发(setMapFocus(null) 不触发)。
+  // 进入地图视图：由 useJumpToMap 的 history:enter-map 事件驱动（line 138-150），
+  // 此处保留 null → 非 null 兜底（防止某些边缘路径绕过事件）
   useEffect(() => {
     if (!mapFocusTarget) return
     setDashboardActive(false)
@@ -122,12 +121,29 @@ export default function Layout() {
   // 监听浮层「🔙 回到事件」按钮事件：把 dashboard 切回 active
   useEffect(() => {
     const handler = () => {
-      // eslint-disable-next-line no-console
-      console.warn('[Layout] history:go-dashboard received — activating dashboard')
       setDashboardActive(true)
     }
     window.addEventListener('history:go-dashboard', handler)
     return () => window.removeEventListener('history:go-dashboard', handler)
+  }, [])
+
+  // 🔑 进入地图：useJumpToMap 调用时主动 dispatch，确保 TMapTest 一定 mount
+  // 替代依赖 mapFocusTarget effect（异步，可能在某些边缘场景下失效）
+  useEffect(() => {
+    const handler = () => {
+      setDashboardActive(false)
+      setFlashcardsActive(false)
+      setFiguresActive(false)
+      setWarsActive(false)
+      setCulturesActive(false)
+      setGeographyActive(false)
+      setTimeTravelActive(false)
+      setCurrentScenarioId(null)
+      setOverviewActive(false)
+      setViewMode('map')
+    }
+    window.addEventListener('history:enter-map', handler)
+    return () => window.removeEventListener('history:enter-map', handler)
   }, [])
 
   useEffect(() => {
@@ -146,6 +162,18 @@ export default function Layout() {
     }
     window.addEventListener('history:go-wars', handler)
     return () => window.removeEventListener('history:go-wars', handler)
+  }, [])
+
+  // 监听浮层「🔙 回到文化」事件：回到 CulturesOverview
+  useEffect(() => {
+    const handler = () => {
+      setDashboardActive(false)
+      setWarsActive(false)
+      setGeographyActive(false)
+      setCulturesActive(true)
+    }
+    window.addEventListener('history:go-cultures', handler)
+    return () => window.removeEventListener('history:go-cultures', handler)
   }, [])
 
   // 学习引导 Dashboard 默认开启，但如果 URL 有 focus 参数则跳过（直接进入地图）

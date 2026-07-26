@@ -53,6 +53,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
   const currentYear = useHistoryStore(s => s.currentYear)
   const setYear = useHistoryStore(s => s.setYear)
   const selectEra = useHistoryStore(s => s.selectEra)
+  const selectEvent = useHistoryStore(s => s.selectEvent)
   const eraSelectionHistory = useHistoryStore(s => s.eraSelectionHistory)
 
   // 进度数据
@@ -97,8 +98,6 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
 
   // 🎯 监听 store.pendingReopen — 浮层「🔙 回到事件」触发
   useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.warn('[Dashboard] pendingReopen subscriber mounted')
     // 立即读一次：Dashboard 可能在 pendingReopen 已被 setMapFocus 之后才 mount
     const current = useHistoryStore.getState().pendingReopen
     if (current?.kind === 'quickEvent') {
@@ -107,20 +106,23 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
         setSelectedQuickEvent(current.event)
         useHistoryStore.getState().setPendingReopen(null)
       }, 80)
+    } else if (current?.kind === 'event') {
+      // 还原 EventDetail
+      selectEvent(current.eventId)
+      useHistoryStore.getState().setPendingReopen(null)
     }
     return useHistoryStore.subscribe((s, prev) => {
       const target = s.pendingReopen
-      // eslint-disable-next-line no-console
-      console.warn('[Dashboard] subscribe fired', { target, prev: prev.pendingReopen })
       if (!target || target === prev.pendingReopen) return
       if (target.kind === 'quickEvent') {
         openQuickLearn(target.eraId)
-        // eslint-disable-next-line no-console
-        console.warn('[Dashboard] opening quickLearn + scheduling setSelectedQuickEvent')
         setTimeout(() => {
           setSelectedQuickEvent(target.event)
           useHistoryStore.getState().setPendingReopen(null)
         }, 60)
+      } else if (target.kind === 'event') {
+        selectEvent(target.eventId)
+        useHistoryStore.getState().setPendingReopen(null)
       }
     })
   }, [])
@@ -206,7 +208,6 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
   const progressByPath = useLearningPathStore(s => s.progressByPath)
   const recommendNext = useLearningPathStore(s => s.recommendNext)
   const recordVisit = useLearningPathStore(s => s.recordVisit)
-  const setMapFocus = useHistoryStore(s => s.setMapFocus)
 
   // 计算推荐（仅依赖稳定值）
   const recommendation = useMemo(
@@ -262,15 +263,21 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
               selectEra(recommendation.eraId)
               recordVisit('timeline', recommendation.eraId)
               if (recommendation.era.capital && Array.isArray(recommendation.era.capital)) {
-                setMapFocus({
-                  center: recommendation.era.capital as [number, number],
-                  zoom: 2,
-                  label: `${recommendation.era.name} 都城`,
-                  coverImageUrl: bingImage(fallbackKeyword(recommendation.era.name, recommendation.era.region), 400, 240),
-                  snippet: summarizeEra(recommendation.era),
-                })
+                jumpToMap(
+                  recommendation.era.capital as [number, number],
+                  `${recommendation.era.name} 都城`,
+                  2,
+                  {
+                    coverImageUrl: bingImage(fallbackKeyword(recommendation.era.name, recommendation.era.region), 400, 240),
+                    snippet: summarizeEra(recommendation.era),
+                    reopenLabel: `${recommendation.era.name} 都城`,
+                    eraId: recommendation.era.id,
+                    eventYear: recommendation.era.startYear,
+                  }
+                )
+              } else {
+                onEnterMap()
               }
-              onEnterMap()
             }}
           >
             <div className="flex items-start gap-4">

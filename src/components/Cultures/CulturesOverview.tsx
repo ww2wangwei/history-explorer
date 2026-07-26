@@ -14,6 +14,7 @@ import { useAIStore } from '@/store/useAIStore'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
 import { enhancePersonaPrompt } from '@/utils/useLearningContext'
 import { useHistoryStore } from '@/store/useHistoryStore'
+import { useJumpToMap } from '@/hooks/useJumpToMap'
 import PersonDetailDialog from '@/components/Figures/PersonDetailDialog'
 import MiniMap from '@/components/Figures/MiniMap'
 import OverviewLayout from '@/components/ui/OverviewLayout'
@@ -73,8 +74,22 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
   const markVisited = useLearningPathStore(s => s.markFigureVisited)
   const visitedFigureIds = useLearningPathStore(s => s.progressByPath.allFigures.visitedFigureIds) ?? []
   const allContexts = useAllLearningContexts()
-  const setMapFocus = useHistoryStore(s => s.setMapFocus)
-  const setYear = useHistoryStore(s => s.setYear)
+  const jumpToMap = useJumpToMap()
+
+
+  useEffect(() => {
+    if (!isActive) return
+    // 浮层 ← 按钮返回：mount 时读 pendingReopen 恢复弹窗
+    const pending = useHistoryStore.getState().pendingReopen
+    if (pending?.kind === 'cultureEvent') {
+      const ev = cultureEvents.find(e => e.id === pending.cultureEventId)
+      if (ev) {
+        setTab('events')
+        setSelectedEvent(ev)
+      }
+      useHistoryStore.getState().setPendingReopen(null)
+    }
+  }, [isActive])
 
   useEffect(() => {
     if (!isActive) return
@@ -167,10 +182,19 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
 
   // 文化内容 → 跳到主地图
   const handleEventViewOnMap = (event: typeof cultureEvents[number]) => {
-    onClose()
-    setMapFocus({ center: event.location, zoom: 5, label: event.title })
-    setYear(event.year)
     setSelectedEvent(null)
+    onClose()
+    jumpToMap(
+      event.location as [number, number],
+      event.title,
+      5,
+      {
+        coverImageUrl: bingImage(cultureSearchKeywords[event.id] ?? event.title, 400, 240),
+        snippet: event.description ?? '',
+        reopenLabel: event.title,
+        cultureEventId: event.id,
+      }
+    )
   }
 
   return (

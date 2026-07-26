@@ -21,6 +21,7 @@
  */
 import { useCallback } from 'react'
 import { useHistoryStore } from '@/store/useHistoryStore'
+import type { ReopenKind } from '@/lib/reopenRoutes'
 
 type ReopenPayload =
   | { kind: 'quickEvent'; eraId: string; event: { year: number; title: string; desc: string; longDesc?: string } }
@@ -54,7 +55,7 @@ function resolveReopen(extras: {
   warId?: string
   mwKey?: string
   nodeIndex?: number
-}): { kind: string; payload: ReopenPayload } | null {
+}): { kind: ReopenKind; payload: ReopenPayload } | null {
   const { reopenLabel, eraId, eventYear, eventId, cultureEventId, featureId, territoryId, territoryRegion, warId, mwKey, nodeIndex } = extras
 
   if (eraId && eventYear !== undefined && reopenLabel !== undefined) {

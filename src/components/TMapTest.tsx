@@ -13,6 +13,7 @@ import eventsData from '@/data/events.json'
 import { createMapMarker } from '@/lib/tdt/markers'
 import { getClampedScreenPoint } from '@/lib/tdt/mapHelpers'
 import { getReopenEvent } from '@/lib/reopenRoutes'
+import type { ReopenKind } from '@/lib/reopenRoutes'
 import type { Era, HistoricalEvent } from '@/types'
 
 const eras = erasData as Era[]
@@ -36,7 +37,7 @@ interface InfoCard {
   /** 「🔙 回到 {label}」按钮文案；无则不显示按钮（普通定位） */
   reopenLabel?: string
   /** 浮层返回时所需 — 只存在 reopenLabel 时才有意义 */
-  reopenKind?: 'quickEvent' | 'event' | 'cultureEvent' | 'geoFeature' | 'territory' | 'war' | 'majorWar' | 'majorWarNode'
+  reopenKind?: ReopenKind
   reopenEraId?: string
   reopenEventYear?: number
   reopenFeatureId?: string
@@ -71,32 +72,60 @@ export default function TMapTest() {
     const tk = import.meta.env.VITE_TIANDITU_KEY as string | undefined
     if (!tk || !containerRef.current) return
 
+    let cancelled = false
+    let createdMap: any = null
+    const timeoutIds: number[] = []
+    const schedule = (fn: () => void, delay: number) => {
+      const id = window.setTimeout(() => {
+        if (!cancelled) fn()
+      }, delay)
+      timeoutIds.push(id)
+    }
+
     setStatus('loading T API...')
     loadTianditu(tk)
-      .then(() => {
-        if (!containerRef.current) return
+      .then(async () => {
+        if (cancelled || !containerRef.current) return
         const T = (window as any).T
         if (!T) { setError('T undefined'); return }
 
-        // 清理容器
-        while (containerRef.current.firstChild) {
-          containerRef.current.removeChild(containerRef.current.firstChild)
+        // 等浏览器完成布局计算后再创建地图。
+        await new Promise<void>(resolve => {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => resolve())
+          })
+        })
+        if (cancelled || !containerRef.current) return
+        const container = containerRef.current
+
+        // Strict Mode 可能先执行一次已取消的初始化；只有当前 effect 才能清理/创建容器。
+        while (container.firstChild) {
+          container.removeChild(container.firstChild)
         }
 
         setStatus('creating T.Map...')
-        const map = new T.Map(containerRef.current)
-        setTimeout(() => {
-          try { map.checkResize?.() } catch { /* ignore */ }
-        }, 200)
+        const map = new T.Map(container, {
+          enableDrag: true,
+          enableScrollWheelZoom: true,
+        })
+        createdMap = map
         // 初始中心：默认定位到美索不达米亚（文明摇篮），打开地图就在内容区域
         const initialCenter: [number, number] = [44, 34]
         const initialZoom = 4
         map.centerAndZoom(new T.LngLat(initialCenter[0], initialCenter[1]), initialZoom)
-        map.disableDoubleClickZoom()
-        // 启用滚轮缩放
+        // 注意：v4.0 中 disableDoubleClickZoom 可能误伤拖拽，先不调用
+        // 改用构造函数选项控制（T.Map v4.0 constructor 支持 doubleClickZoom: false）
+        // 启用滚轮缩放（构造函数选项 + 显式调用双保险）
         if (typeof map.enableScrollWheelZoom === 'function') {
           map.enableScrollWheelZoom()
         }
+        // 初始化完成后再校正一次容器尺寸和交互状态。
+        schedule(() => {
+          try {
+            map.checkResize?.()
+            map.enableDrag?.()
+          } catch { /* ignore */ }
+        }, 200)
         mapRef.current = map
         ;(window as any).__tdtTestMap = map
         setStatus('T.Map ready')
@@ -104,9 +133,20 @@ export default function TMapTest() {
       })
       .catch(err => setError(err.message || String(err)))
 
+    // 容器尺寸变化时通知 T.Map 重算视口（影响拖拽/缩放行为）
+    let resizeObserver: ResizeObserver | null = null
+    if (containerRef.current) {
+      resizeObserver = new ResizeObserver(() => {
+        const map = mapRef.current
+        if (!map) return
+        try { map.checkResize?.() } catch { /* ignore */ }
+      })
+      resizeObserver.observe(containerRef.current)
+    }
+
     let resizeHandler: (() => void) | null = null
     // 稍后再挂 resize（等 map 存在）
-    setTimeout(() => {
+    schedule(() => {
       const map = mapRef.current
       if (!map) return
       resizeHandler = () => {
@@ -116,9 +156,12 @@ export default function TMapTest() {
     }, 500)
 
     return () => {
+      cancelled = true
+      timeoutIds.forEach(id => window.clearTimeout(id))
+      if (resizeObserver) resizeObserver.disconnect()
       if (resizeHandler) window.removeEventListener('resize', resizeHandler)
-      // 清理所有 overlays
-      const map = mapRef.current
+      // 只销毁本次 effect 创建的实例，避免 Strict Mode 旧任务误删新地图。
+      const map = createdMap
       if (map) {
         markersRef.current.forEach((m: any) => { try { map.removeOverLay(m) } catch { /* ignore */ } })
         polygonsRef.current.forEach((p: any) => { try { map.removeOverLay(p) } catch { /* ignore */ } })
@@ -128,9 +171,14 @@ export default function TMapTest() {
       markersRef.current = []
       polygonsRef.current = []
       eventMarkersRef.current = []
-      mapRef.current = null
+      if (mapRef.current === map) mapRef.current = null
+      if (containerRef.current && map) {
+        while (containerRef.current.firstChild) {
+          containerRef.current.removeChild(containerRef.current.firstChild)
+        }
+      }
       setMapReady(false)
-      if ((window as any).__tdtTestMap) delete (window as any).__tdtTestMap
+      if ((window as any).__tdtTestMap === map) delete (window as any).__tdtTestMap
     }
   }, [])
 

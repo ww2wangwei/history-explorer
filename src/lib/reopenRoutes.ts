@@ -6,7 +6,17 @@
  */
 
 /** kind → window CustomEvent 名（Layout 内各 useEffect 监听） */
-export const REOPEN_EVENT_MAP: Record<string, string> = {
+export type ReopenKind =
+  | 'quickEvent'
+  | 'event'
+  | 'cultureEvent'
+  | 'geoFeature'
+  | 'territory'
+  | 'war'
+  | 'majorWar'
+  | 'majorWarNode'
+
+export const REOPEN_EVENT_MAP: Record<ReopenKind, string> = {
   quickEvent: 'history:go-dashboard',
   event: 'history:go-dashboard',
   cultureEvent: 'history:go-cultures',
@@ -18,7 +28,7 @@ export const REOPEN_EVENT_MAP: Record<string, string> = {
 }
 
 /** 根据 kind 取对应 CustomEvent 名，无匹配时 fallback 到 dashboard */
-export function getReopenEvent(kind: string | undefined): string {
+export function getReopenEvent(kind: ReopenKind | undefined): string {
   if (kind && REOPEN_EVENT_MAP[kind]) return REOPEN_EVENT_MAP[kind]
   return 'history:go-dashboard'
 }

@@ -10,6 +10,9 @@ import { bingImage, fallbackKeyword } from '@/utils/geoImage'
 import { summarizeEra, summarizeEvent } from '@/utils/summarize'
 import erasData from '@/data/eras.json'
 import eventsData from '@/data/events.json'
+import { createMapMarker } from '@/lib/tdt/markers'
+import { getClampedScreenPoint } from '@/lib/tdt/mapHelpers'
+import { getReopenEvent } from '@/lib/reopenRoutes'
 import type { Era, HistoricalEvent } from '@/types'
 
 const eras = erasData as Era[]
@@ -145,27 +148,9 @@ export default function TMapTest() {
   ) => {
     const map = mapRef.current as any
     if (!map) return
-    const T = (window as any).T
-    if (!T) return
-    let pt: any = null
-    try {
-      if (typeof map.lngLatToContainerPoint === 'function') {
-        pt = map.lngLatToContainerPoint(new T.LngLat(lng, lat))
-      } else if (typeof map.lngLatToPoint === 'function') {
-        pt = map.lngLatToPoint(new T.LngLat(lng, lat))
-      }
-    } catch { /* ignore */ }
-    let sx = 0
-    let sy = 0
-    if (pt) {
-      if (Array.isArray(pt)) { sx = pt[0]; sy = pt[1] }
-      else if (pt.x !== undefined) { sx = pt.x; sy = pt.y }
-    }
     const w = containerRef.current?.clientWidth ?? 0
     const h = containerRef.current?.clientHeight ?? 0
-    const padding = 24
-    if (w > 0) sx = Math.max(padding, Math.min(sx, w - padding))
-    if (h > 0) sy = Math.max(padding, Math.min(sy, h - padding))
+    const { x: sx, y: sy } = getClampedScreenPoint(map, lng, lat, w, h, 24)
     // 不覆盖 jump 卡片
     setInfoCard(prev => {
       if (prev?.source === 'jump') return prev
@@ -204,10 +189,11 @@ export default function TMapTest() {
     eventMarkersRef.current = []
 
     const chinaEra = getChinaEraAtYear(currentYear)
-    // 如果有待处理的跳转（来自详情面板的「📍 在地图上定位」），
-    // 跳过 currentYear 的 setCenter，避免与 mapFocusTarget effect 的飞行动画竞态。
-    const hasPendingJump = !!useHistoryStore.getState().mapFocusTarget
-    if (chinaEra?.capital && !hasPendingJump) {
+    // 抑制窗口期内跳过 setCenter — useJumpToMap 调用时会设置 jumpSuppressUntil = now + 1200，
+    // 防止 currentYear effect 在 mapFocusTarget effect 之前/之后抢飞地图。
+    const jumpSuppressUntil = useHistoryStore.getState().jumpSuppressUntil
+    const isSuppressed = jumpSuppressUntil > Date.now()
+    if (chinaEra?.capital && !isSuppressed) {
       const [lng, lat] = chinaEra.capital
       // 飞向当前朝代都城（拆成 setCenter + setZoom 两步，v4 更可靠）
       try {
@@ -215,81 +201,51 @@ export default function TMapTest() {
         map.setZoom(4)
       } catch (e) { /* ignore */ }
 
-      // 朝代都城 marker（金色图钉）
-      const icon = new T.Icon({
-        iconUrl: 'data:image/svg+xml;utf8,' + encodeURIComponent(
-          `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="30" viewBox="0 0 22 30">
-            <path d="M 11 28 L 6 16 L 16 16 Z" fill="#c89a5b" stroke="#0f0e0c" stroke-width="1"/>
-            <circle cx="11" cy="9" r="9" fill="#c89a5b" stroke="#fdf8f0" stroke-width="1.5"/>
-            <circle cx="11" cy="9" r="3" fill="#fdf8f0"/>
-          </svg>`
-        ),
-        iconSize: new T.Point(22, 30),
-        iconAnchor: new T.Point(11, 28),
-      })
-      const marker = new T.Marker(new T.LngLat(lng, lat), { icon })
-      const label = new T.Label({
-        text: `★ ${chinaEra.name}`,
-        offset: new T.Point(0, -32),
-      })
-      try { marker.setLabel(label) } catch { /* v4.0 可能不支持，回退到 addOverLay */ }
-      try { map.addOverLay(label) } catch { /* ignore */ }
-      marker.addEventListener('click', () => selectEra(chinaEra.id))
-      // hover 卡片：鼠标移入显示图片+简介，移开消失
-      try {
-        marker.addEventListener('mouseover', () => {
+      const marker = createMapMarker(map, {
+        position: [lng, lat],
+        kind: 'chinaCapital',
+        label: chinaEra.name,
+        onClick: () => selectEra(chinaEra.id),
+        onHover: () =>
           showHoverCard(
             `${chinaEra.name} 都城`,
             lng,
             lat,
             bingImage(fallbackKeyword(chinaEra.name, chinaEra.region), 400, 240),
             summarizeEra(chinaEra as any),
-          )
-        })
-        marker.addEventListener('mouseout', hideHoverCard)
-      } catch { /* v4.0 不支持时跳过 */ }
-      map.addOverLay(marker)
-      markersRef.current.push(marker)
+          ),
+        onHoverOut: hideHoverCard,
+      })
+      if (marker) {
+        try { map.addOverLay(marker) } catch { /* ignore */ }
+        markersRef.current.push(marker)
+      }
     }
 
     // 同时期的世界朝代都城 marker
     const activeEras = getActiveErasAtYear(eras, currentYear)
     activeEras.filter(e => e.region !== 'china' && e.capital).slice(0, 4).forEach(era => {
       const [lng, lat] = era.capital!
-      const icon = new T.Icon({
-        iconUrl: 'data:image/svg+xml;utf8,' + encodeURIComponent(
-          `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 18 24">
-            <path d="M 9 22 L 5 13 L 13 13 Z" fill="${era.color}" stroke="#0f0e0c" stroke-width="1"/>
-            <circle cx="9" cy="7" r="7" fill="${era.color}" stroke="#fdf8f0" stroke-width="1"/>
-            <circle cx="9" cy="7" r="2" fill="#fdf8f0"/>
-          </svg>`
-        ),
-        iconSize: new T.Point(18, 24),
-        iconAnchor: new T.Point(9, 22),
-      })
-      const marker = new T.Marker(new T.LngLat(lng, lat), { icon })
-      const label = new T.Label({
-        text: era.name,
-        offset: new T.Point(0, -26),
-      })
-      try { marker.setLabel(label) } catch { /* v4.0 回退 */ }
-      try { map.addOverLay(label) } catch { /* ignore */ }
-      marker.addEventListener('click', () => selectEra(era.id))
-      // hover 卡片
-      try {
-        marker.addEventListener('mouseover', () => {
+      const marker = createMapMarker(map, {
+        position: [lng, lat],
+        kind: 'worldCapital',
+        color: era.color,
+        label: era.name,
+        onClick: () => selectEra(era.id),
+        onHover: () =>
           showHoverCard(
             era.name,
             lng,
             lat,
             bingImage(fallbackKeyword(era.name, era.region), 400, 240),
             summarizeEra(era as any),
-          )
-        })
-        marker.addEventListener('mouseout', hideHoverCard)
-      } catch { /* ignore */ }
-      map.addOverLay(marker)
-      markersRef.current.push(marker)
+          ),
+        onHoverOut: hideHoverCard,
+      })
+      if (marker) {
+        try { map.addOverLay(marker) } catch { /* ignore */ }
+        markersRef.current.push(marker)
+      }
     })
 
     // 该时期事件点（红色圆点）
@@ -299,36 +255,28 @@ export default function TMapTest() {
     ).slice(0, 30)
     eraEvents.forEach(ev => {
       const [lng, lat] = ev.coordinates!
-      const dot = new T.Icon({
-        iconUrl: 'data:image/svg+xml;utf8,' + encodeURIComponent(
-          `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12">
-            <circle cx="6" cy="6" r="5" fill="#dc2626" stroke="#fdf8f0" stroke-width="1.5"/>
-          </svg>`
-        ),
-        iconSize: new T.Point(12, 12),
-        iconAnchor: new T.Point(6, 6),
-      })
-      const marker = new T.Marker(new T.LngLat(lng, lat), { icon: dot })
-      try { marker.setTitle(ev.title) } catch { /* v4.0 可能不支持 */ }
-      marker.addEventListener('click', () => {
-        selectEvent(ev.id)
-        setYear(ev.year)
-      })
-      // hover 卡片
-      try {
-        marker.addEventListener('mouseover', () => {
+      const marker = createMapMarker(map, {
+        position: [lng, lat],
+        kind: 'event',
+        hoverTitle: ev.title,
+        onClick: () => {
+          selectEvent(ev.id)
+          setYear(ev.year)
+        },
+        onHover: () =>
           showHoverCard(
             ev.title,
             lng,
             lat,
             bingImage(fallbackKeyword(ev.title, ev.category), 400, 240),
             summarizeEvent(ev as any),
-          )
-        })
-        marker.addEventListener('mouseout', hideHoverCard)
-      } catch { /* ignore */ }
-      map.addOverLay(marker)
-      eventMarkersRef.current.push(marker)
+          ),
+        onHoverOut: hideHoverCard,
+      })
+      if (marker) {
+        try { map.addOverLay(marker) } catch { /* ignore */ }
+        eventMarkersRef.current.push(marker)
+      }
     })
   }, [currentYear, selectEra, selectEvent, setYear])
 
@@ -354,20 +302,6 @@ export default function TMapTest() {
 
     if (!label) return
 
-    const computeScreen = (): [number, number] => {
-      try {
-        let pt: any = null
-        if (typeof map.lngLatToContainerPoint === 'function') {
-          pt = map.lngLatToContainerPoint(new T.LngLat(lng, lat))
-        } else if (typeof map.lngLatToPoint === 'function') {
-          pt = map.lngLatToPoint(new T.LngLat(lng, lat))
-        }
-        if (Array.isArray(pt)) return [pt[0], pt[1]]
-        if (pt && typeof pt.x === 'number') return [pt.x, pt.y]
-      } catch { /* ignore */ }
-      return [0, 0]
-    }
-
     // 3) 初始把卡片放在容器中央（centerAndZoom 会把目标放到中央 → 卡片在中央 →
     //    小三角指向中央 = 指向 marker；这里用确定的 (w/2, h/2) 而不是 lngLatToContainerPoint，
     //    因为飞行是异步的，调用时 viewport 还没跟上，会算出错的坐标）
@@ -381,9 +315,9 @@ export default function TMapTest() {
         sx = w > 0 ? w / 2 : 0
         sy = h > 0 ? h / 2 : 0
       } else {
-        let [cx, cy] = computeScreen()
-        sx = Math.max(padding, Math.min(cx, w - padding))
-        sy = Math.max(padding, Math.min(cy, h - padding))
+        const { x: cx, y: cy } = getClampedScreenPoint(map, lng, lat, w, h, padding)
+        sx = cx
+        sy = cy
       }
       setInfoCard({
         label,
@@ -440,17 +374,8 @@ export default function TMapTest() {
             setMapFocus(null)
           }}
           onBack={() => {
-            const kind = infoCard.reopenKind
-            // 触发 Layout 监听器（战争/朝代时间线/地理/文化对应 active）
-            if (kind === 'war' || kind === 'majorWar' || kind === 'majorWarNode') {
-              window.dispatchEvent(new CustomEvent('history:go-wars'))
-            } else if (kind === 'geoFeature' || kind === 'territory') {
-              window.dispatchEvent(new CustomEvent('history:go-geography'))
-            } else if (kind === 'cultureEvent') {
-              window.dispatchEvent(new CustomEvent('history:go-cultures'))
-            } else {
-              window.dispatchEvent(new CustomEvent('history:go-dashboard'))
-            }
+            // 统一路由表：kind → CustomEvent（新增 reopen 路径只需在 reopenRoutes.ts 加一行）
+            window.dispatchEvent(new CustomEvent(getReopenEvent(infoCard.reopenKind)))
             setInfoCard(null)
             setMapFocus(null)
           }}

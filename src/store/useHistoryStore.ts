@@ -36,6 +36,13 @@ interface HistoryStore {
   // 地图聚焦目标（详情面板点击"聚焦地图"时设置）
   mapFocusTarget: { center: [number, number]; zoom: number; label?: string; coverImageUrl?: string; snippet?: string } | null
 
+  /**
+   * 抑制窗口时间戳（毫秒）：useJumpToMap 调用时设成 Date.now() + 1200，
+   * currentYear effect 据此跳过 setCenter，避免与 mapFocusTarget effect 的飞行竞态。
+   * 0 表示未抑制。
+   */
+  jumpSuppressUntil: number
+
   // 朝代透明度（key=eraId, value=0~1）
   eraOpacities: Record<string, number>
 
@@ -66,6 +73,7 @@ interface HistoryStore {
   resetFilters: () => void
   // 地图聚焦操作
   setMapFocus: (target: { center: [number, number]; zoom: number; label?: string; coverImageUrl?: string; snippet?: string } | null) => void
+  setJumpSuppressUntil: (ts: number) => void
   // 朝代透明度操作
   setEraOpacity: (eraId: string, opacity: number) => void
   resetEraOpacities: () => void
@@ -182,6 +190,7 @@ export const useHistoryStore = create<HistoryStore>((set) => ({
 
   mapFocusTarget: null,
   pendingReopen: null,
+  jumpSuppressUntil: 0,
 
   mapCenter: _initialParams.center,
   mapZoom: _initialParams.zoom,
@@ -261,6 +270,7 @@ export const useHistoryStore = create<HistoryStore>((set) => ({
   }),
 
   setMapFocus: (target) => set({ mapFocusTarget: target }),
+  setJumpSuppressUntil: (ts) => set({ jumpSuppressUntil: ts }),
 
   setEraOpacity: (eraId, opacity) => set((s) => ({
     eraOpacities: { ...s.eraOpacities, [eraId]: Math.max(0, Math.min(1, opacity)) },

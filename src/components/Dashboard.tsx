@@ -23,10 +23,12 @@ import { useCountUp } from '@/hooks/useCountUp'
 import gsap from 'gsap'
 import { isDue } from '@/utils/sm2'
 import erasData from '@/data/eras.json'
-import type { Era } from '@/types'
+import eventsData from '@/data/events.json'
+import type { Era, HistoricalEvent } from '@/types'
 import EraQuickLearnModal, { type QuickEventState } from './QuickLearn/EraQuickLearnModal'
 
 const eras = erasData as Era[]
+const events = eventsData as HistoricalEvent[]
 
 interface Props {
   isActive: boolean
@@ -77,29 +79,39 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
 
   // 🎯 pendingReopen → 还原 Modal 状态
   useEffect(() => {
-    const current = useHistoryStore.getState().pendingReopen
-    if (current?.kind === 'quickEvent') {
-      openQuickLearn(current.eraId)
-      setTimeout(() => {
-        setSelectedQuickEvent(current.event)
+    const restore = () => {
+      const p = useHistoryStore.getState().pendingReopen
+      if (!p) return
+      if (p.kind === 'quickEvent') {
+        const eraExists = eras.some(e => e.id === p.eraId)
+        if (!eraExists) { useHistoryStore.getState().setPendingReopen(null); return }
+        openQuickLearn(p.eraId)
+        setTimeout(() => {
+          setSelectedQuickEvent(p.event)
+          useHistoryStore.getState().setPendingReopen(null)
+        }, 80)
+      } else if (p.kind === 'event') {
+        const eventExists = events.some(e => e.id === p.eventId)
         useHistoryStore.getState().setPendingReopen(null)
-      }, 80)
-    } else if (current?.kind === 'event') {
-      selectEvent(current.eventId)
-      useHistoryStore.getState().setPendingReopen(null)
+        if (eventExists) selectEvent(p.eventId)
+      }
     }
+    restore()
     return useHistoryStore.subscribe((s, prev) => {
       const target = s.pendingReopen
       if (!target || target === prev.pendingReopen) return
       if (target.kind === 'quickEvent') {
+        const eraExists = eras.some(e => e.id === target.eraId)
+        if (!eraExists) { useHistoryStore.getState().setPendingReopen(null); return }
         openQuickLearn(target.eraId)
         setTimeout(() => {
           setSelectedQuickEvent(target.event)
           useHistoryStore.getState().setPendingReopen(null)
         }, 60)
       } else if (target.kind === 'event') {
-        selectEvent(target.eventId)
+        const eventExists = events.some(e => e.id === target.eventId)
         useHistoryStore.getState().setPendingReopen(null)
+        if (eventExists) selectEvent(target.eventId)
       }
     })
   }, [])

@@ -14,6 +14,7 @@ import MiniMap from '@/components/Figures/MiniMap'
 import TerritoryMapThumb from './TerritoryMapThumb'
 import OverviewLayout from '@/components/ui/OverviewLayout'
 import { useStaggerEntrance } from '@/hooks/useStaggerEntrance'
+import { useJumpToMap } from '@/hooks/useJumpToMap'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import type { Era } from '@/types'
 
@@ -108,12 +109,44 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
   }, [])
   const [selectedFeature, setSelectedFeature] = useState<GeoFeature | null>(null)
   const [selectedTerritory, setSelectedTerritory] = useState<{ id: string; region: 'china' | 'world'; era?: Era } | null>(null)
+  
+  // 🎯 pendingReopen → 从地图 Back 恢复详情
+  useEffect(() => {
+    if (!isActive) return
+    const pending = useHistoryStore.getState().pendingReopen
+    if (!pending) return
+    if (pending.kind === 'geoFeature') {
+      const feature = ALL_FEATURES.find(f => f.id === pending.featureId)
+      if (feature) {
+        setTab('nature')
+        setSelectedFeature(feature)
+      }
+      useHistoryStore.getState().setPendingReopen(null)
+      return
+    }
+    if (pending.kind === 'territory') {
+      const t = TERRITORY_FILES.find(
+        item => item.id === pending.territoryId && item.region === pending.region,
+      )
+      if (t) {
+        setTab('territory')
+        setTerritoryRegion(t.region)
+        const eraMatch = eras.find(e => e.id === t.id)
+        setSelectedTerritory({
+          id: t.id,
+          region: t.region,
+          era: eraMatch,
+        })
+      }
+      useHistoryStore.getState().setPendingReopen(null)
+    }
+  }, [isActive])
   // 各朝代加载的 GeoJSON（key = `${id}`，value = FeatureCollection）
   const [territoryGeojsons, setTerritoryGeojsons] = useState<Record<string, any>>({})
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({})
 
-  const setMapFocus = useHistoryStore(s => s.setMapFocus)
   const setYear = useHistoryStore(s => s.setYear)
+  const jumpToMap = useJumpToMap()
 
   // 朝代/文明的近似中心坐标（用于疆域弹窗的缩略图）
   const ERA_CENTERS: Record<string, [number, number]> = {
@@ -619,7 +652,10 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                     coordinates: selectedFeature.labelPos,
                   }]}
                   onJumpToMap={() => {
-                    setMapFocus({ center: selectedFeature.labelPos, zoom: 4, label: selectedFeature.name })
+                    jumpToMap(selectedFeature.labelPos, selectedFeature.name, 4, {
+                      reopenLabel: selectedFeature.name,
+                      featureId: selectedFeature.id,
+                    })
                     setYear(0)
                     setSelectedFeature(null)
                   }}
@@ -768,7 +804,11 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                           coordinates: center,
                         }]}
                         onJumpToMap={() => {
-                          setMapFocus({ center, zoom: 4, label: title })
+                          jumpToMap(center, title, 4, {
+                            reopenLabel: title,
+                            territoryId: selectedTerritory.id,
+                            territoryRegion: selectedTerritory.region,
+                          })
                           setYear(year)
                           setSelectedTerritory(null)
                         }}

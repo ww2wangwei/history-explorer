@@ -44,6 +44,7 @@ const SUPPRESS_WINDOW_MS = 1200
  * 现在统一成一个函数，一改全改。
  */
 function resolveReopen(extras: {
+  reopenKind?: ReopenKind
   reopenLabel?: string
   eraId?: string
   eventYear?: number
@@ -58,6 +59,39 @@ function resolveReopen(extras: {
 }): { kind: ReopenKind; payload: ReopenPayload } | null {
   const { reopenLabel, eraId, eventYear, eventId, cultureEventId, featureId, territoryId, territoryRegion, warId, mwKey, nodeIndex } = extras
 
+  // 如果调用方显式指定了 reopenKind，直接使用（不再推断）
+  if (extras.reopenKind) {
+    switch (extras.reopenKind) {
+      case 'quickEvent':
+        if (eraId && eventYear !== undefined) return { kind: 'quickEvent', payload: { kind: 'quickEvent', eraId, event: { year: eventYear, title: reopenLabel ?? '', desc: '' } } }
+        break
+      case 'event':
+        if (eventId) return { kind: 'event', payload: { kind: 'event', eventId } }
+        break
+      case 'cultureEvent':
+        if (cultureEventId) return { kind: 'cultureEvent', payload: { kind: 'cultureEvent', cultureEventId } }
+        break
+      case 'geoFeature':
+        if (featureId) return { kind: 'geoFeature', payload: { kind: 'geoFeature', featureId } }
+        break
+      case 'territory':
+        if (territoryId && territoryRegion) return { kind: 'territory', payload: { kind: 'territory', territoryId, region: territoryRegion } }
+        break
+      case 'war':
+        if (warId) return { kind: 'war', payload: { kind: 'war', warId } }
+        break
+      case 'majorWar':
+        if (mwKey) return { kind: 'majorWar', payload: { kind: 'majorWar', mwKey } }
+        break
+      case 'majorWarNode':
+        if (mwKey && nodeIndex !== undefined) return { kind: 'majorWarNode', payload: { kind: 'majorWarNode', mwKey, nodeIndex } }
+        break
+    }
+    // reopenKind 指定了但缺少必要 ID，不恢复
+    return null
+  }
+
+  // 无显式 reopenKind，走原有推断逻辑
   if (eraId && eventYear !== undefined && reopenLabel !== undefined) {
     return { kind: 'quickEvent', payload: { kind: 'quickEvent', eraId, event: { year: eventYear, title: reopenLabel, desc: '' } } }
   }
@@ -99,6 +133,7 @@ export function useJumpToMap() {
       label: string,
       zoom = 3,
       extras?: {
+        reopenKind?: ReopenKind
         coverImageUrl?: string
         snippet?: string
         reopenLabel?: string

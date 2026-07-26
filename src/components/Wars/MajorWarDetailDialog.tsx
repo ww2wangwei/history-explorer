@@ -26,8 +26,8 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
       coverImageUrl: bingImage(mwKw, 400, 240),
       snippet: firstSentence.slice(0, 120),
       reopenLabel: node.title,
+      reopenKind: 'majorWar',
       mwKey: mw.key,
-      // 不传 nodeIndex：从总览页跳地图，Back 应回到总览列表而非具体节点
     })
   }
 

@@ -59,6 +59,7 @@ export default function TMapTest() {
   const [error, setError] = useState<string | null>(null)
   const [mapReady, setMapReady] = useState(false)
   const [infoCard, setInfoCard] = useState<InfoCard | null>(null)
+  const backInProgressRef = useRef(false)
 
   const currentYear = useHistoryStore(s => s.currentYear)
   const selectEra = useHistoryStore(s => s.selectEra)
@@ -422,10 +423,13 @@ export default function TMapTest() {
             setMapFocus(null)
           }}
           onBack={() => {
+            if (backInProgressRef.current) return
+            backInProgressRef.current = true
             // 统一路由表：kind → CustomEvent（新增 reopen 路径只需在 reopenRoutes.ts 加一行）
             window.dispatchEvent(new CustomEvent(getReopenEvent(infoCard.reopenKind)))
             setInfoCard(null)
             setMapFocus(null)
+            setTimeout(() => { backInProgressRef.current = false }, 0)
           }}
         />
       )}

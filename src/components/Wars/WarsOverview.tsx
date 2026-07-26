@@ -11,6 +11,7 @@ import { useHistoryStore } from '@/store/useHistoryStore'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
 import { enhancePersonaPrompt } from '@/utils/useLearningContext'
 import { bingImage, warSearchKeywords, majorWarSearchKeywords } from '@/utils/geoImage'
+import { summarizeEvent } from '@/utils/summarize'
 import type { Era, HistoricalEvent } from '@/types'
 import MiniMap from '@/components/Figures/MiniMap'
 import EmptyState from '@/components/ui/EmptyState'
@@ -18,6 +19,7 @@ import OverviewLayout from '@/components/ui/OverviewLayout'
 import OverviewSearch from '@/components/ui/OverviewSearch'
 import { useStaggerEntrance } from '@/hooks/useStaggerEntrance'
 import { useJumpToMap } from '@/hooks/useJumpToMap'
+import { lookupLocationStrict } from '@/utils/locationCoords'
 
 const events = eventsData as HistoricalEvent[]
 const eras = erasData as Era[]
@@ -46,6 +48,8 @@ interface MajorWarNode {
   result?: string
   /** 节点详情：对后世的影响 */
   impact?: string
+  /** 精确坐标 [经度, 纬度]（可选；缺省时由 location 查 locationCoords 字典） */
+  coordinates?: [number, number]
 }
 
 interface MajorWar {
@@ -568,15 +572,23 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
   const setMapFocus = useHistoryStore(s => s.setMapFocus)
   const jumpToMap = useJumpToMap()
 
-  /** 处理"在地图看位置"：年份 + 坐标定位 + 通知父组件切到地图 */
+  /** 处理"在地图看位置"：年份 + 坐标定位 + 通知父组件切到地图 + 写 pendingReopen 供浮层返回 */
   const handleViewOnMap = (war: HistoricalEvent) => {
     if (war.coordinates) {
       setYear(war.year)
+      const warKw = warSearchKeywords[war.id] ?? `${war.title} battle`
       setMapFocus({
         center: war.coordinates,
         zoom: 4,
         label: war.title,
-      })
+        coverImageUrl: bingImage(warKw, 400, 240),
+        snippet: summarizeEvent(war),
+        reopenLabel: war.title,
+        kind: 'war',
+        warId: war.id,
+      } as any)
+      // 写 reopen（直接 setMapFocus 不会经过 useJumpToMap hook）
+      useHistoryStore.getState().setPendingReopen({ kind: 'war', warId: war.id })
     } else {
       // 没坐标的战争：只切年份
       setYear(war.year)
@@ -584,6 +596,27 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
     setSelectedWar(null)
     onViewOnMap?.()
   }
+
+  // 浮层 ← 按钮返回：mount 时立即读 pendingReopen 重开对应弹窗
+  useEffect(() => {
+    if (!isActive) return
+    const pending = useHistoryStore.getState().pendingReopen
+    if (!pending) return
+    if (pending.kind === 'war') {
+      const war = wars.find(w => w.id === pending.warId)
+      if (war) setSelectedWar(war)
+      useHistoryStore.getState().setPendingReopen(null)
+    } else if (pending.kind === 'majorWar') {
+      const mw = MAJOR_WARS.find(m => m.key === pending.mwKey)
+      if (mw) setSelectedMajorWar(mw)
+      useHistoryStore.getState().setPendingReopen(null)
+    } else if (pending.kind === 'majorWarNode') {
+      const mw = MAJOR_WARS.find(m => m.key === pending.mwKey)
+      const node = mw?.nodes[pending.nodeIndex]
+      if (mw && node) setSelectedMajorNode({ mw, node })
+      useHistoryStore.getState().setPendingReopen(null)
+    }
+  }, [isActive])
 
   // ESC 关闭
   useEffect(() => {
@@ -768,11 +801,15 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
               const relatedEra = war.relatedEraId ? eras.find(e => e.id === war.relatedEraId) : null
               const warKw = warSearchKeywords[war.id] ?? `${war.title} battle`
               const warImg = bingImage(warKw, 400, 240)
+              const firstSentence = (war.warBackground || war.description || '').split(/[。.!?！？]/)[0].trim()
               return (
-                <button
+                <div
                   key={war.id}
+                  role="button"
+                  tabIndex={0}
                   onClick={() => setSelectedWar(war)}
-                  className="war-card text-left rounded-lg border border-ink-600 bg-ink-800/60 hover:border-red-500/60 hover:bg-ink-700/60 transition-colors group overflow-hidden flex"
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedWar(war) } }}
+                  className="war-card text-left rounded-lg border border-ink-600 bg-ink-800/60 hover:border-red-500/60 hover:bg-ink-700/60 transition-colors group overflow-hidden flex cursor-pointer focus:outline-none focus:ring-2 focus:ring-bronze-500"
                 >
                   {/* 战争图片 */}
                   <div className="relative w-32 flex-shrink-0 bg-ink-900">
@@ -795,6 +832,24 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
                         ? <span className="text-xs px-1.5 py-0.5 rounded-lg bg-amber-900/30 text-amber-300 border border-amber-700/40">中国</span>
                         : <span className="text-xs px-1.5 py-0.5 rounded-lg bg-blue-900/30 text-blue-300 border border-blue-700/40">世界</span>
                       }
+                      {war.coordinates && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            jumpToMap(war.coordinates!, war.title, 4, {
+                              coverImageUrl: bingImage(warKw, 400, 240),
+                              snippet: firstSentence.slice(0, 120),
+                              reopenLabel: war.title,
+                              warId: war.id,
+                            })
+                          }}
+                          className="ml-auto text-xs px-2 py-0.5 rounded-lg bg-bronze-900/40 hover:bg-bronze-700/60 border border-bronze-700/50 hover:border-bronze-500/70 text-bronze-200 transition-colors inline-flex items-center gap-1"
+                          title="在地图上定位"
+                        >
+                          📍 在地图上定位 <span aria-hidden>↗</span>
+                        </button>
+                      )}
                     </div>
                     <div className="text-sm font-serif text-parchment-50 truncate">{war.title}</div>
                     <div className="text-[11px] text-ink-400 line-clamp-2 mt-0.5">{war.description}</div>
@@ -804,7 +859,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
                       </div>
                     )}
                   </div>
-                </button>
+                </div>
               )
             })}
           </div>
@@ -948,7 +1003,12 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
               {war.coordinates && (
                 <button
                   type="button"
-                  onClick={() => jumpToMap(war.coordinates!, war.title, 4)}
+                  onClick={() => jumpToMap(war.coordinates!, war.title, 4, {
+                    coverImageUrl: bingImage(warKw, 400, 240),
+                    snippet: summarizeEvent(war),
+                    reopenLabel: war.title,
+                    warId: war.id,
+                  })}
                   className="text-xs text-ink-500 tabular-nums mt-0.5 hover:text-bronze-400 transition-colors group inline-flex items-center gap-1"
                   title="在地图上定位"
                 >
@@ -1098,6 +1158,20 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
   const endYearLabel = mw.endYear < 0 ? `BC ${-mw.endYear}` : `${mw.endYear}`
   const mwKw = majorWarSearchKeywords[mw.key] ?? mw.title
   const mwImg = bingImage(mwKw, 800, 450)
+  const jumpToMap = useJumpToMap()
+
+  const handleNodeJump = (node: MajorWarNode, idx: number) => {
+    const pos = node.coordinates || lookupLocationStrict(node.location)
+    if (!pos) return
+    const firstSentence = (node.detail || node.description || '').split(/[。.!?！？]/)[0].trim()
+    jumpToMap(pos, `${node.title}（${node.location}）`, 5, {
+      coverImageUrl: bingImage(mwKw, 400, 240),
+      snippet: firstSentence.slice(0, 120),
+      reopenLabel: node.title,
+      mwKey: mw.key,
+      nodeIndex: idx,
+    })
+  }
 
   return (
     <div
@@ -1175,6 +1249,16 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
                           {node.location && (
                             <span className="text-xs text-ink-500">📍 {node.location}</span>
                           )}
+                          {(node.coordinates || lookupLocationStrict(node.location)) && (
+                            <button
+                              type="button"
+                              onClick={(e) => { e.stopPropagation(); handleNodeJump(node, i) }}
+                              className="ml-auto text-xs px-2 py-0.5 rounded-lg bg-bronze-900/40 hover:bg-bronze-700/60 border border-bronze-700/50 hover:border-bronze-500/70 text-bronze-200 transition-colors inline-flex items-center gap-1"
+                              title="在地图上定位"
+                            >
+                              📍 在地图上定位 <span aria-hidden>↗</span>
+                            </button>
+                          )}
                         </div>
                         <div className="text-sm font-serif text-parchment-50 mb-1.5">{node.title}</div>
                         <div className="text-[11px] text-ink-300 leading-relaxed mb-2">
@@ -1235,6 +1319,23 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
   // 是否有详细 4 段
   const hasDetail = node.background || node.detail || node.result || node.impact
 
+  // 节点坐标：优先用 node.coordinates（精确），否则查 DICT
+  const nodePos = node.coordinates || lookupLocationStrict(node.location)
+  const nodeKw = majorWarSearchKeywords[mw.key] ?? `${node.title} ${node.location}`
+  const jumpToMap = useJumpToMap()
+  const handleJump = () => {
+    if (!nodePos) return
+    // description 首句作为 snippet
+    const firstSentence = (node.detail || node.description || '').split(/[。.!?！？]/)[0].trim()
+    jumpToMap(nodePos, `${node.title}（${node.location}）`, 5, {
+      coverImageUrl: bingImage(nodeKw, 400, 240),
+      snippet: firstSentence.slice(0, 120),
+      reopenLabel: node.title,
+      mwKey: mw.key,
+      nodeIndex: idx >= 0 ? idx : 0,
+    })
+  }
+
   return (
     <div
       className="fixed inset-0 z-60 flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
@@ -1266,7 +1367,20 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
             <div className="flex-1 min-w-0">
               <div className="text-xs text-ink-500 mb-1 tabular-nums flex items-center gap-2">
                 <span>{yearLabel}</span>
-                {node.location && <span>📍 {node.location}</span>}
+                {node.location && nodePos && (
+                  <button
+                    type="button"
+                    onClick={handleJump}
+                    className="inline-flex items-center gap-1 text-ink-500 hover:text-bronze-400 transition-colors group"
+                    title="在地图上定位"
+                  >
+                    📍 {node.location}
+                    <span className="text-bronze-400 opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+                  </button>
+                )}
+                {node.location && !nodePos && (
+                  <span className="text-ink-500" title="暂无该地点坐标">📍 {node.location}</span>
+                )}
               </div>
               <h3 className="text-xl font-serif text-red-200">{node.title}</h3>
             </div>

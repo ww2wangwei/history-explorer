@@ -111,35 +111,39 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
   const [selectedTerritory, setSelectedTerritory] = useState<{ id: string; region: 'china' | 'world'; era?: Era } | null>(null)
   
   // 🎯 pendingReopen → 从地图 Back 恢复详情
+  // 用 setTimeout 推迟消费，避免 Strict Mode 双挂载 race
   useEffect(() => {
     if (!isActive) return
-    const pending = useHistoryStore.getState().pendingReopen
-    if (!pending) return
-    if (pending.kind === 'geoFeature') {
-      const feature = ALL_FEATURES.find(f => f.id === pending.featureId)
-      if (feature) {
-        setTab('nature')
-        setSelectedFeature(feature)
+    const timer = setTimeout(() => {
+      const pending = useHistoryStore.getState().pendingReopen
+      if (!pending) return
+      if (pending.kind === 'geoFeature') {
+        const feature = ALL_FEATURES.find(f => f.id === pending.featureId)
+        if (feature) {
+          setTab('nature')
+          setSelectedFeature(feature)
+        }
+        useHistoryStore.getState().setPendingReopen(null)
+        return
       }
-      useHistoryStore.getState().setPendingReopen(null)
-      return
-    }
-    if (pending.kind === 'territory') {
-      const t = TERRITORY_FILES.find(
-        item => item.id === pending.territoryId && item.region === pending.region,
-      )
-      if (t) {
-        setTab('territory')
-        setTerritoryRegion(t.region)
-        const eraMatch = eras.find(e => e.id === t.id)
-        setSelectedTerritory({
-          id: t.id,
-          region: t.region,
-          era: eraMatch,
-        })
+      if (pending.kind === 'territory') {
+        const t = TERRITORY_FILES.find(
+          item => item.id === pending.territoryId && item.region === pending.region,
+        )
+        if (t) {
+          setTab('territory')
+          setTerritoryRegion(t.region)
+          const eraMatch = eras.find(e => e.id === t.id)
+          setSelectedTerritory({
+            id: t.id,
+            region: t.region,
+            era: eraMatch,
+          })
+        }
+        useHistoryStore.getState().setPendingReopen(null)
       }
-      useHistoryStore.getState().setPendingReopen(null)
-    }
+    }, 0)
+    return () => clearTimeout(timer)
   }, [isActive])
   // 各朝代加载的 GeoJSON（key = `${id}`，value = FeatureCollection）
   const [territoryGeojsons, setTerritoryGeojsons] = useState<Record<string, any>>({})

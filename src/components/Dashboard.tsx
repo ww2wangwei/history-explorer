@@ -78,8 +78,10 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
   const closeQuickLearn = () => setLearnEraId(null)
 
   // 🎯 pendingReopen → 还原 Modal 状态
+  // 用 setTimeout 推迟消费，避免 React Strict Mode 双挂载时第一次清空第二次读不到
   useEffect(() => {
-    const restore = () => {
+    let timer: number | undefined
+    const doRestore = () => {
       const p = useHistoryStore.getState().pendingReopen
       if (!p) return
       if (p.kind === 'quickEvent') {
@@ -96,7 +98,16 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
         if (eventExists) selectEvent(p.eventId)
       }
     }
-    restore()
+    timer = window.setTimeout(doRestore, 0)
+    const unsub = useHistoryStore.subscribe((s, prev) => {
+      const target = s.pendingReopen
+      if (!target || target === prev.pendingReopen) return
+      doRestore()
+    })
+    return () => {
+      clearTimeout(timer)
+      unsub()
+    }
     return useHistoryStore.subscribe((s, prev) => {
       const target = s.pendingReopen
       if (!target || target === prev.pendingReopen) return

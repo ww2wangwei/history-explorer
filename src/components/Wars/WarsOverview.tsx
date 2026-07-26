@@ -75,24 +75,28 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
   }
 
   // 浮层 ← 按钮返回：mount 时立即读 pendingReopen 重开对应弹窗
+  // 用 setTimeout 推迟消费，避免 React Strict Mode 双挂载时第一次消费后第二次看到 null
   useEffect(() => {
     if (!isActive) return
-    const pending = useHistoryStore.getState().pendingReopen
-    if (!pending) return
-    if (pending.kind === 'war') {
-      const war = wars.find(w => w.id === pending.warId)
-      if (war) setSelectedWar(war)
-      useHistoryStore.getState().setPendingReopen(null)
-    } else if (pending.kind === 'majorWar') {
-      const mw = MAJOR_WARS.find(m => m.key === pending.mwKey)
-      if (mw) setSelectedMajorWar(mw)
-      useHistoryStore.getState().setPendingReopen(null)
-    } else if (pending.kind === 'majorWarNode') {
-      const mw = MAJOR_WARS.find(m => m.key === pending.mwKey)
-      const node = mw?.nodes[pending.nodeIndex]
-      if (mw && node) setSelectedMajorNode({ mw, node })
-      useHistoryStore.getState().setPendingReopen(null)
-    }
+    const timer = setTimeout(() => {
+      const pending = useHistoryStore.getState().pendingReopen
+      if (!pending) return
+      if (pending.kind === 'war') {
+        const war = wars.find(w => w.id === pending.warId)
+        if (war) setSelectedWar(war)
+        useHistoryStore.getState().setPendingReopen(null)
+      } else if (pending.kind === 'majorWar') {
+        const mw = MAJOR_WARS.find(m => m.key === pending.mwKey)
+        if (mw) setSelectedMajorWar(mw)
+        useHistoryStore.getState().setPendingReopen(null)
+      } else if (pending.kind === 'majorWarNode') {
+        const mw = MAJOR_WARS.find(m => m.key === pending.mwKey)
+        const node = mw?.nodes[pending.nodeIndex]
+        if (mw && node) setSelectedMajorNode({ mw, node })
+        useHistoryStore.getState().setPendingReopen(null)
+      }
+    }, 0)
+    return () => clearTimeout(timer)
   }, [isActive])
 
   // ESC 关闭

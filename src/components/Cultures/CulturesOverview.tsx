@@ -80,15 +80,19 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
   useEffect(() => {
     if (!isActive) return
     // 浮层 ← 按钮返回：mount 时读 pendingReopen 恢复弹窗
-    const pending = useHistoryStore.getState().pendingReopen
-    if (pending?.kind === 'cultureEvent') {
-      const ev = cultureEvents.find(e => e.id === pending.cultureEventId)
-      if (ev) {
-        setTab('events')
-        setSelectedEvent(ev)
+    // 用 setTimeout 推迟消费，避免 Strict Mode 双挂载 race
+    const timer = setTimeout(() => {
+      const pending = useHistoryStore.getState().pendingReopen
+      if (pending?.kind === 'cultureEvent') {
+        const ev = cultureEvents.find(e => e.id === pending.cultureEventId)
+        if (ev) {
+          setTab('events')
+          setSelectedEvent(ev)
+        }
+        useHistoryStore.getState().setPendingReopen(null)
       }
-      useHistoryStore.getState().setPendingReopen(null)
-    }
+    }, 0)
+    return () => clearTimeout(timer)
   }, [isActive])
 
   useEffect(() => {

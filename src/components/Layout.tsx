@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, lazy, Suspense } from 'react'
+import { useEffect, useReducer, useRef, lazy, Suspense } from 'react'
 import { useReducedMotionGlobal } from '@/hooks/useReducedMotion'
 import WorldMap from '@/components/Map/WorldMap'
 import Timeline from '@/components/Timeline/Timeline'
@@ -24,7 +24,14 @@ import Dashboard from '@/components/Dashboard'
 import AIChatPanel from '@/components/AIChatPanel'
 import ScenarioPlayer from '@/components/TimeTravel/ScenarioPlayer'
 import FlashcardsTrigger from '@/components/Flashcards/FlashcardsTrigger'
-import { useLearningPathStore, type PathId } from '@/store/useLearningPathStore'
+import { useLearningPathStore } from '@/store/useLearningPathStore'
+import {
+  layoutReducer,
+  getInitialLayoutState,
+  shouldShowTimeline,
+  pathEntryToAction,
+  type LayoutAction,
+} from './Layout/layoutReducer'
 
 // 次要页 lazy 化：d3-force / react-markdown 等大依赖按需加载，缩小首屏主 bundle
 const RelationshipGraph = lazy(() => import('@/components/RelationshipGraph'))
@@ -44,146 +51,92 @@ function PageFallback() {
   )
 }
 
+/**
+ * `history:*` 事件 → Action 的映射
+ *
+ * 之前有 5 个独立的 useEffect（每个挂一个 window listener），现在合并为一个。
+ * 增删一条 reopen 路径只需在此表加一行。
+ */
+const HISTORY_EVENT_TO_ACTION: Record<string, LayoutAction> = {
+  'history:go-dashboard': { type: 'OPEN_HOME' },
+  // `history:enter-map` 由 useJumpToMap 主动 dispatch，含义是「退出所有覆盖层 + 切到 map」；
+  // viewMode 同步由 useJumpToMap 自己 setViewMode('map')。
+  'history:enter-map': { type: 'OPEN_MAP' },
+  'history:go-geography': { type: 'OPEN_GEOGRAPHY' },
+  'history:go-wars': { type: 'OPEN_WARS' },
+  'history:go-cultures': { type: 'OPEN_CULTURES' },
+}
+
 export default function Layout() {
   // 响应 prefers-reduced-motion —— 全局禁用 GSAP 动画
-  // 改用全局 timeScale 压缩（比逐个 useEffect 检查更可靠）
-  // 注：导入在 build 时按需打包
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
   useReducedMotionGlobal()
+
+  // ============ 历史 store（全局） ============
   const {
     currentYear, selectedEventId, selectedEraId,
     selectEvent, selectEra,
-    viewMode, setViewMode,
+    setViewMode,                             // viewMode 同步到 store（URL 持久化）
     detailView, setDetailView,
     mapFocusTarget, setMapFocus,
     setMapPosition,
   } = useHistoryStore()
 
-  // 笔记总数（用于 Header 圆点徽章）
+  // ============ Layout 局部状态机 ============
+  const [ui, dispatch] = useReducer(layoutReducer, undefined, getInitialLayoutState)
+  const main = ui.main
+
+  // ============ 其他 store 派生 ============
   const notesCount = useNotesStore(s => Object.keys(s.notes).length)
-
-  // Header "更多" 下拉菜单
-  const [moreMenuOpen, setMoreMenuOpen] = useState(false)
-  const moreMenuRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (!moreMenuOpen) return
-    const onDown = (e: MouseEvent) => {
-      if (moreMenuRef.current && !moreMenuRef.current.contains(e.target as Node)) {
-        setMoreMenuOpen(false)
-      }
-    }
-    window.addEventListener('mousedown', onDown)
-    return () => window.removeEventListener('mousedown', onDown)
-  }, [moreMenuOpen])
-
-  // 复习模式状态
-  const [flashcardsActive, setFlashcardsActive] = useState(false)
-  const [figuresActive, setFiguresActive] = useState(false)
-  const [warsActive, setWarsActive] = useState(false)
-  const [culturesActive, setCulturesActive] = useState(false)
-  const [geographyActive, setGeographyActive] = useState(false)
-  const [timeTravelActive, setTimeTravelActive] = useState(false)
-  const [currentScenarioId, setCurrentScenarioId] = useState<string | null>(null)
-  // 从 Dashboard 进入全人物时携带的"默认打开的人物"（来自 onEnterPath 的 eraId 槽位）
-  const [initialFigureId, setInitialFigureId] = useState<string | null>(null)
-  const [goalSettingsOpen, setGoalSettingsOpen] = useState(false)
-
-  // 进入地图视图：由 useJumpToMap 的 history:enter-map 事件驱动（line 138-150），
-  // 此处保留 null → 非 null 兜底（防止某些边缘路径绕过事件）
-  useEffect(() => {
-    if (!mapFocusTarget) return
-    setDashboardActive(false)
-    setFlashcardsActive(false)
-    setFiguresActive(false)
-    setWarsActive(false)
-    setCulturesActive(false)
-    setGeographyActive(false)
-    setTimeTravelActive(false)
-    setCurrentScenarioId(null)
-    setViewMode('map')
-  }, [mapFocusTarget])
-  // 待复习卡片数（订阅 store 让徽章实时更新）
   const cardsCount = useCardsStore(s => Object.keys(s.cards).length)
   const dueCount = useCardsStore(s => {
     const now = Date.now()
     return Object.values(s.cards).filter(c => isDue(c, now)).length
   })
-  // 学习目标 + 今日已复习
   const goalTarget = useGoalStore(s => s.target)
   const todayCount = useCardsStore(s => countTodayReviews(s.cards))
+  const eraSelectionHistory = useHistoryStore(s => s.eraSelectionHistory)
+  const undoEraSelect = useHistoryStore(s => s.undoEraSelect)
 
-  const showDetailPanel = selectedEventId || selectedEraId
-  const bothSelected = !!(selectedEventId && selectedEraId)
-
-  // 笔记总览页面状态（替换主区域的地图/图谱）
-  const [overviewActive, setOverviewActive] = useState(false)
-
-  // 监听浮层「🔙 回到事件」按钮事件：把 dashboard 切回 active
+  // ============ More 菜单：click-outside 关闭 ============
+  const moreMenuRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    const handler = () => {
-      setDashboardActive(true)
+    if (!ui.moreMenuOpen) return
+    const onDown = (e: MouseEvent) => {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(e.target as Node)) {
+        dispatch({ type: 'CLOSE_MORE_MENU' })
+      }
     }
-    window.addEventListener('history:go-dashboard', handler)
-    return () => window.removeEventListener('history:go-dashboard', handler)
+    window.addEventListener('mousedown', onDown)
+    return () => window.removeEventListener('mousedown', onDown)
+  }, [ui.moreMenuOpen])
+
+  // ============ 合并的 history:* 事件监听（替代 5 个重复 useEffect） ============
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const action = HISTORY_EVENT_TO_ACTION[e.type]
+      if (action) dispatch(action)
+    }
+    Object.keys(HISTORY_EVENT_TO_ACTION).forEach(name => {
+      window.addEventListener(name, handler)
+    })
+    return () => {
+      Object.keys(HISTORY_EVENT_TO_ACTION).forEach(name => {
+        window.removeEventListener(name, handler)
+      })
+    }
   }, [])
 
-  // 🔑 进入地图：useJumpToMap 调用时主动 dispatch，确保 TMapTest 一定 mount
-  // 替代依赖 mapFocusTarget effect（异步，可能在某些边缘场景下失效）
+  // ============ mapFocusTarget 兜底：直接进入地图视图 ============
+  // 当某些边缘路径绕过 history:enter-map 事件时，这里强制切到地图。
   useEffect(() => {
-    const handler = () => {
-      setDashboardActive(false)
-      setFlashcardsActive(false)
-      setFiguresActive(false)
-      setWarsActive(false)
-      setCulturesActive(false)
-      setGeographyActive(false)
-      setTimeTravelActive(false)
-      setCurrentScenarioId(null)
-      setOverviewActive(false)
-      setViewMode('map')
-    }
-    window.addEventListener('history:enter-map', handler)
-    return () => window.removeEventListener('history:enter-map', handler)
-  }, [])
+    if (!mapFocusTarget) return
+    setViewMode('map')
+    if (main.mode !== 'map') dispatch({ type: 'OPEN_MAP' })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mapFocusTarget])
 
-  useEffect(() => {
-    const handler = () => {
-      setDashboardActive(false)
-      setGeographyActive(true)
-    }
-    window.addEventListener('history:go-geography', handler)
-    return () => window.removeEventListener('history:go-geography', handler)
-  }, [])
-
-  useEffect(() => {
-    const handler = () => {
-      setDashboardActive(false)
-      setWarsActive(true)
-    }
-    window.addEventListener('history:go-wars', handler)
-    return () => window.removeEventListener('history:go-wars', handler)
-  }, [])
-
-  // 监听浮层「🔙 回到文化」事件：回到 CulturesOverview
-  useEffect(() => {
-    const handler = () => {
-      setDashboardActive(false)
-      setWarsActive(false)
-      setGeographyActive(false)
-      setCulturesActive(true)
-    }
-    window.addEventListener('history:go-cultures', handler)
-    return () => window.removeEventListener('history:go-cultures', handler)
-  }, [])
-
-  // 学习引导 Dashboard 默认开启，但如果 URL 有 focus 参数则跳过（直接进入地图）
-  const [dashboardActive, setDashboardActive] = useState(() => {
-    if (typeof window === 'undefined') return true
-    return !new URLSearchParams(window.location.search).has('focus')
-  })
-
-  // 当 selected 从 null 变成非 null 时，重置 detailView 到对应默认
-  // 用 ref 跟踪上一次 selected，仅当从无到有时重置 view
+  // ============ selectedEventId/selectedEraId → 自动切换 detailView ============
+  // 仅当从 null 变成非 null 时重置（避免覆盖 NotesOverview 主动设置的 'notes'）
   const prevSelectedRef = useRef<{ event: string | null; era: string | null } | null>(null)
   useEffect(() => {
     const prev = prevSelectedRef.current
@@ -193,81 +146,94 @@ export default function Layout() {
     const initialMount = prev === null
     prevSelectedRef.current = { event: selectedEventId, era: selectedEraId }
     if (initialMount) {
-      // 初始挂载
       if (selectedEventId && !selectedEraId) setDetailView('event')
       else if (selectedEraId && !selectedEventId) setDetailView('era')
       else if (!selectedEventId && !selectedEraId) setDetailView('event')
     } else if (becameSelected) {
-      // 仅当 detailView 不是 'notes' 时才重置（避免覆盖 NotesOverview 跳转后主动设置的 'notes'）
       if (detailView === 'notes') return
       if (selectedEventId && !selectedEraId) setDetailView('event')
       else if (selectedEraId && !selectedEventId) setDetailView('era')
     }
   }, [selectedEventId, selectedEraId, setDetailView, detailView])
 
-  // ESC 键：总览/复习页激活时优先关闭，否则关闭详情面板
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        if (overviewActive || flashcardsActive) return  // 各自内部处理
-        if (showDetailPanel) {
-          selectEvent(null)
-          selectEra(null)
-        }
-      }
-    }
-    window.addEventListener('keydown', handleKey)
-    return () => window.removeEventListener('keydown', handleKey)
-  }, [overviewActive, flashcardsActive, showDetailPanel, selectEvent, selectEra])
-
-  // 决定显示哪个 detail
+  // ============ 详情面板可见性 ============
+  const showDetailPanel = !!selectedEventId || !!selectedEraId
+  const bothSelected = !!(selectedEventId && selectedEraId)
   const showEvent = detailView === 'event' && !!selectedEventId
   const showEra = detailView === 'era' && !!selectedEraId
   const showNotes = detailView === 'notes' && (!!selectedEventId || !!selectedEraId)
-
-  // 笔记面板的目标（优先选事件，否则选朝代）
   const notesTarget = selectedEventId
     ? { kind: 'event' as const, id: selectedEventId }
     : selectedEraId
     ? { kind: 'era' as const, id: selectedEraId }
     : null
 
-  // 朝代选择历史与撤销
-  const eraSelectionHistory = useHistoryStore(s => s.eraSelectionHistory)
-  const undoEraSelect = useHistoryStore(s => s.undoEraSelect)
+  // ============ ESC 键盘：总览/复习页激活时由内部处理，详情面板/朝代撤销由这里 ============
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      if (main.mode === 'overview' || main.mode === 'flashcards') return  // 各自内部处理
+      if (showDetailPanel) {
+        selectEvent(null)
+        selectEra(null)
+      }
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [main.mode, showDetailPanel, selectEvent, selectEra])
 
-  // 全局键盘快捷键（capture phase，不被具体组件拦截时使用）
+  // ============ 全局键盘快捷键 ============
+  // 用 ref 模式把所有 setter 缓存到 ref，effect 只挂一次（避免 13 个依赖导致的重渲染）
+  const handlersRef = useRef({
+    main, dueCount, eraSelectionHistory,
+    selectEvent, selectEra, undoEraSelect, setViewMode, dispatch,
+    currentYear: useHistoryStore.getState().currentYear,  // 实时读，下面会同步
+  })
+
+  // 同步最新状态到 ref（每次渲染后）
+  handlersRef.current = {
+    main, dueCount, eraSelectionHistory,
+    selectEvent, selectEra, undoEraSelect, setViewMode, dispatch,
+    currentYear,
+  }
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      // 输入框/textarea 中忽略（避免影响文字输入）
       const target = e.target as HTMLElement | null
       if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) {
         return
       }
-      // 已经按住的修饰键（除 Shift）忽略
       if (e.ctrlKey || e.metaKey || e.altKey) return
 
-      // Esc: 关闭详情面板 / 退出对照 / 关闭闪卡 / 关闭笔记总览 / 关闭全人物 / 撤销朝代选择
+      const { main, dueCount, eraSelectionHistory, selectEvent, selectEra, undoEraSelect, setViewMode, dispatch, currentYear } = handlersRef.current
+
+      // Esc: 关闭详情面板 / 撤销朝代 / 退出覆盖层
       if (e.key === 'Escape') {
-        if (selectedEventId) { selectEvent(null); e.preventDefault(); return }
-        if (selectedEraId && eraSelectionHistory.length > 0) {
+        if (selectedEventIdRef.current) { selectEvent(null); e.preventDefault(); return }
+        if (selectedEraIdRef.current && eraSelectionHistory.length > 0) {
           undoEraSelect(); e.preventDefault(); return
         }
-        if (selectedEraId) { selectEra(null); e.preventDefault(); return }
-        if (figuresActive) { setFiguresActive(false); e.preventDefault(); return }
-        if (flashcardsActive) { setFlashcardsActive(false); e.preventDefault(); return }
-        if (overviewActive) { setOverviewActive(false); e.preventDefault(); return }
-        if (timeTravelActive) { if (currentScenarioId) setCurrentScenarioId(null); else setTimeTravelActive(false); e.preventDefault(); return }
+        if (selectedEraIdRef.current) { selectEra(null); e.preventDefault(); return }
+        // 主视图层级退出（timeTravel 单独处理 scenarioId）
+        if (main.mode === 'timeTravel' && main.scenarioId !== null) {
+          dispatch({ type: 'EXIT_SCENARIO' }); e.preventDefault(); return
+        }
+        if (main.mode === 'timeTravel' && main.scenarioId === null) {
+          dispatch({ type: 'OPEN_HOME' }); e.preventDefault(); return
+        }
+        if (main.mode !== 'home' && main.mode !== 'map' && main.mode !== 'graph') {
+          dispatch({ type: 'LEAVE_OVERLAY' }); e.preventDefault(); return
+        }
       }
 
-      // u: 撤销朝代选择（回退一步）
+      // u: 撤销朝代选择
       if (e.key === 'u' || e.key === 'U') {
         if (eraSelectionHistory.length > 0) {
           undoEraSelect(); e.preventDefault(); return
         }
       }
 
-      // ← / →: ±1 年；Shift + ←/→: ±10 年
+      // ← / →: ±1 年；Shift + ±10 年
       if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
         const step = e.shiftKey ? 10 : 1
         const delta = e.key === 'ArrowLeft' ? -step : step
@@ -278,37 +244,136 @@ export default function Layout() {
 
       // g: 切到地图视图
       if (e.key === 'g' || e.key === 'G') {
-        if (viewMode !== 'map') setViewMode('map')
+        if (main.mode !== 'map') {
+          setViewMode('map')
+          dispatch({ type: 'OPEN_MAP' })
+        }
         e.preventDefault()
         return
       }
 
       // r: 切到关系图谱
       if (e.key === 'r' || e.key === 'R') {
-        if (viewMode !== 'graph') setViewMode('graph')
+        if (main.mode !== 'graph') {
+          setViewMode('graph')
+          dispatch({ type: 'OPEN_GRAPH' })
+        }
         e.preventDefault()
         return
       }
 
-      // c: 打开中外对照（已迁移到 EraDetail 内嵌，移除）
       // f: 打开复习卡片（仅当有待复习时）
       if (e.key === 'f' || e.key === 'F') {
-        if (dueCount > 0 && !flashcardsActive) setFlashcardsActive(true)
+        if (dueCount > 0 && main.mode !== 'flashcards') {
+          dispatch({ type: 'OPEN_FLASHCARDS' })
+        }
         e.preventDefault()
         return
       }
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [
-    selectedEventId, selectedEraId, currentYear, viewMode,
-    flashcardsActive, overviewActive, dueCount,
-    eraSelectionHistory,
-    selectEvent, selectEra, undoEraSelect, setFlashcardsActive, setOverviewActive, setViewMode,
-  ])
+  }, [])
+
+  // 单独 ref 跟踪 useHistoryStore 里两个常变字段（避免 13 依赖）
+  const selectedEventIdRef = useRef(selectedEventId)
+  selectedEventIdRef.current = selectedEventId
+  const selectedEraIdRef = useRef(selectedEraId)
+  selectedEraIdRef.current = selectedEraId
+
+  // ============ 渲染分支 ============
+  // 渲染主区域（基于 main.mode）
+  const renderMain = () => {
+    switch (main.mode) {
+      case 'home':
+        return null  // 走外层 <Dashboard /> 分支
+      case 'map':
+        return <TMapTest />
+      case 'graph':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <RelationshipGraph />
+          </Suspense>
+        )
+      case 'flashcards':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <FlashcardsPanel isActive onClose={() => dispatch({ type: 'OPEN_HOME' })} />
+          </Suspense>
+        )
+      case 'overview':
+        return (
+          <NotesOverview
+            variant="page"
+            isActive
+            onClose={() => dispatch({ type: 'OPEN_HOME' })}
+          />
+        )
+      case 'figures':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <FiguresOverview
+              isActive
+              initialPersonId={main.initialPersonId}
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+            />
+          </Suspense>
+        )
+      case 'wars':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <WarsOverview
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+              onViewOnMap={() => {
+                setViewMode('map')
+                dispatch({ type: 'OPEN_MAP' })
+              }}
+            />
+          </Suspense>
+        )
+      case 'cultures':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <CulturesOverview
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+            />
+          </Suspense>
+        )
+      case 'geography':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <GeographyOverview
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+            />
+          </Suspense>
+        )
+      case 'timeTravel':
+        return main.scenarioId !== null ? (
+          <ScenarioPlayer
+            scenarioId={main.scenarioId}
+            onExit={() => dispatch({ type: 'EXIT_SCENARIO' })}
+          />
+        ) : (
+          <Suspense fallback={<PageFallback />}>
+            <TimeTravelLobby
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+              onStart={(scenarioId) => dispatch({ type: 'START_SCENARIO', scenarioId })}
+            />
+          </Suspense>
+        )
+    }
+  }
+
+  // home 模式渲染 Dashboard，其他模式渲染 renderMain()
+  const showHome = main.mode === 'home'
+  const showTimeline = shouldShowTimeline(main)
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-ink-900 text-parchment-50 overflow-y-auto overflow-x-hidden">
+    <div className="h-screen w-screen flex flex-col bg-ink-900 text-parchment-50 overflow-hidden">
       {/* 顶部 Header */}
       <header className="flex items-center justify-between px-6 py-2.5 border-b border-ink-600 bg-ink-800/80 backdrop-blur z-10">
         <div className="flex items-center gap-3 flex-1 min-w-0">
@@ -323,20 +388,13 @@ export default function Layout() {
           <div className="flex rounded-lg bg-ink-700/80 border border-ink-600 overflow-hidden shrink-0">
             <button
               className={`px-2.5 py-1.5 text-xs shrink-0 whitespace-nowrap transition-colors ${
-                viewMode === 'map'
+                main.mode === 'map'
                   ? 'bg-bronze-600/40 text-bronze-400'
                   : 'text-ink-500 hover:text-parchment-50 hover:bg-ink-600'
               }`}
               onClick={() => {
-                setDashboardActive(false)
-                setFiguresActive(false)
-                setWarsActive(false)
-                setCulturesActive(false)
-                setGeographyActive(false)
-                setTimeTravelActive(false)
-                setOverviewActive(false)
-                setFlashcardsActive(false)
                 setViewMode('map')
+                dispatch({ type: 'OPEN_MAP' })
               }}
               title="地图视图"
             >
@@ -344,34 +402,27 @@ export default function Layout() {
             </button>
             <button
               className={`px-2.5 py-1.5 text-xs shrink-0 whitespace-nowrap transition-colors ${
-                viewMode === 'graph'
+                main.mode === 'graph'
                   ? 'bg-bronze-600/40 text-bronze-400'
                   : 'text-ink-500 hover:text-parchment-50 hover:bg-ink-600'
               }`}
               onClick={() => {
-                setDashboardActive(false)
-                setFiguresActive(false)
-                setWarsActive(false)
-                setCulturesActive(false)
-                setGeographyActive(false)
-                setTimeTravelActive(false)
-                setOverviewActive(false)
-                setFlashcardsActive(false)
                 setViewMode('graph')
+                dispatch({ type: 'OPEN_GRAPH' })
               }}
               title="关系图谱"
             >
               🕸️ 图谱
             </button>
           </div>
-          {/* 学习引导（核心返回入口，常驻） */}
+          {/* 学习引导（核心返回入口） */}
           <button
             className={`px-2.5 py-1.5 rounded-lg shrink-0 whitespace-nowrap text-xs flex items-center gap-1.5 transition-colors border ${
-              dashboardActive
+              main.mode === 'home'
                 ? 'bg-bronze-600/40 text-bronze-400 border-bronze-500/60'
                 : 'bg-ink-700/80 hover:bg-bronze-600/40 border-ink-600 text-bronze-400'
             }`}
-            onClick={() => setDashboardActive(true)}
+            onClick={() => dispatch({ type: 'OPEN_HOME' })}
             title="返回学习引导主页"
           >
             🏠 学习引导
@@ -381,35 +432,38 @@ export default function Layout() {
             dueCount={dueCount}
             todayCount={todayCount}
             target={goalTarget}
-            active={flashcardsActive}
-            onClick={() => { setDashboardActive(false); setFlashcardsActive(true) }}
+            active={main.mode === 'flashcards'}
+            onClick={() => dispatch({ type: 'OPEN_FLASHCARDS' })}
           />
-          {/* 更多菜单：收纳低频/次要动作 */}
+          {/* 更多菜单 */}
           <div className="relative shrink-0" ref={moreMenuRef}>
             <button
               className={`px-2 py-1.5 rounded-lg whitespace-nowrap text-xs flex items-center gap-1 transition-colors border relative ${
-                moreMenuOpen || overviewActive
+                ui.moreMenuOpen || main.mode === 'overview'
                   ? 'bg-bronze-600/40 text-bronze-400 border-bronze-500/60'
                   : 'bg-ink-700/80 hover:bg-ink-600 border-ink-600 text-bronze-400'
               }`}
-              onClick={() => setMoreMenuOpen(o => !o)}
+              onClick={() => dispatch({ type: 'TOGGLE_MORE_MENU' })}
               title="更多"
               aria-haspopup="menu"
-              aria-expanded={moreMenuOpen}
+              aria-expanded={ui.moreMenuOpen}
             >
               ⋯ 更多
               {notesCount > 0 && (
                 <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-bronze-500 ring-2 ring-ink-800" />
               )}
             </button>
-            {moreMenuOpen && (
+            {ui.moreMenuOpen && (
               <div
                 className="absolute top-full right-0 mt-1 w-44 py-1 rounded-lg bg-ink-800 border border-ink-600 shadow-2xl z-50"
                 role="menu"
               >
                 <button
                   className="w-full text-left px-3 py-2 text-xs text-parchment-50 hover:bg-ink-700 flex items-center justify-between gap-2 transition-colors"
-                  onClick={() => { setMoreMenuOpen(false); setDashboardActive(false); setOverviewActive(true) }}
+                  onClick={() => {
+                    dispatch({ type: 'CLOSE_MORE_MENU' })
+                    dispatch({ type: 'OPEN_OVERVIEW' })
+                  }}
                   role="menuitem"
                 >
                   <span>📒 我的笔记</span>
@@ -417,7 +471,10 @@ export default function Layout() {
                 </button>
                 <button
                   className="w-full text-left px-3 py-2 text-xs text-parchment-50 hover:bg-ink-700 flex items-center justify-between gap-2 transition-colors"
-                  onClick={() => { setMoreMenuOpen(false); setGoalSettingsOpen(true) }}
+                  onClick={() => {
+                    dispatch({ type: 'CLOSE_MORE_MENU' })
+                    dispatch({ type: 'OPEN_GOAL_SETTINGS' })
+                  }}
                   role="menuitem"
                 >
                   <span>🎯 每日目标</span>
@@ -427,7 +484,7 @@ export default function Layout() {
                   <button
                     className="w-full text-left px-3 py-2 text-xs text-bronze-300 hover:bg-ink-700 flex items-center gap-2 transition-colors border-t border-ink-700 mt-1 pt-2"
                     onClick={() => {
-                      setMoreMenuOpen(false)
+                      dispatch({ type: 'CLOSE_MORE_MENU' })
                       setMapFocus(null)
                       setMapPosition({ center: [0, 20], zoom: 1 })
                     }}
@@ -445,108 +502,29 @@ export default function Layout() {
         </div>
       </header>
 
-      {/* AmbientBackground 动态背景 — 进入任一页面都能看到的色彩漂移 */}
+      {/* AmbientBackground 动态背景 */}
       <AmbientBackground />
 
-      {/* 中间：地图/图谱 或 笔记总览页 + 详情面板 */}
+      {/* 中间：主区域 + 详情面板 */}
       <main className="flex-1 min-h-0 flex relative overflow-hidden">
         <div className="flex-1 min-w-0 min-h-0 relative overflow-hidden">
-          {dashboardActive ? (
+          {showHome ? (
             <Dashboard
-              isActive={dashboardActive}
+              isActive={showHome}
               onEnterMap={() => {
-                setDashboardActive(false)
                 setViewMode('map')
+                dispatch({ type: 'OPEN_MAP' })
               }}
               onEnterPath={(pathId, eraId) => {
-                setDashboardActive(false)
-                if (pathId === 'review') {
-                  setFlashcardsActive(true)
-                } else if (pathId === 'allFigures') {
-                  // eraId 在此场景下实际是 personId（Dashboard 全人物弹窗传入）
-                  setInitialFigureId(eraId ?? null)
-                  setFiguresActive(true)
-                } else if (pathId === 'allWars') {
-                  setWarsActive(true)
-                } else if (pathId === 'allCultures') {
-                  setCulturesActive(true)
-                } else if (pathId === 'allGeography') {
-                  setGeographyActive(true)
-                } else if (pathId === 'timeTravel') {
-                  setTimeTravelActive(true)
-                } else {
-                  setViewMode('map')
+                const action = pathEntryToAction(pathId, eraId)
+                dispatch(action)
+                if (eraId && pathId !== 'allFigures') {
+                  useLearningPathStore.getState().recordVisit(pathId, eraId)
                 }
-                if (eraId && pathId !== 'allFigures') useLearningPathStore.getState().recordVisit(pathId, eraId)
               }}
             />
-          ) : flashcardsActive ? (
-            <Suspense fallback={<PageFallback />}>
-              <FlashcardsPanel
-                isActive={flashcardsActive}
-                onClose={() => setFlashcardsActive(false)}
-              />
-            </Suspense>
-          ) : overviewActive ? (
-            <NotesOverview
-              variant="page"
-              isActive={overviewActive}
-              onClose={() => setOverviewActive(false)}
-            />
-          ) : figuresActive ? (
-            <Suspense fallback={<PageFallback />}>
-              <FiguresOverview
-                isActive={figuresActive}
-                onClose={() => { setFiguresActive(false); setInitialFigureId(null); setDashboardActive(true) }}
-                initialPersonId={initialFigureId}
-              />
-            </Suspense>
-          ) : warsActive ? (
-            <Suspense fallback={<PageFallback />}>
-              <WarsOverview
-                isActive={warsActive}
-                onClose={() => { setWarsActive(false); setDashboardActive(true) }}
-                onViewOnMap={() => {
-                  setWarsActive(false)
-                  setViewMode('map')
-                }}
-              />
-            </Suspense>
-          ) : culturesActive ? (
-            <Suspense fallback={<PageFallback />}>
-              <CulturesOverview
-                isActive={culturesActive}
-                onClose={() => { setCulturesActive(false); setDashboardActive(true) }}
-              />
-            </Suspense>
-          ) : geographyActive ? (
-            <Suspense fallback={<PageFallback />}>
-              <GeographyOverview
-                isActive={geographyActive}
-                onClose={() => { setGeographyActive(false); setDashboardActive(true) }}
-              />
-            </Suspense>
-          ) : timeTravelActive ? (
-            currentScenarioId ? (
-              <ScenarioPlayer
-                scenarioId={currentScenarioId}
-                onExit={() => { setCurrentScenarioId(null); setDashboardActive(true) }}
-              />
-            ) : (
-              <Suspense fallback={<PageFallback />}>
-                <TimeTravelLobby
-                  isActive={timeTravelActive}
-                  onClose={() => { setTimeTravelActive(false); setDashboardActive(true) }}
-                  onStart={(scenarioId) => setCurrentScenarioId(scenarioId)}
-                />
-              </Suspense>
-            )
-          ) : viewMode === 'graph' ? (
-            <Suspense fallback={<PageFallback />}>
-              <RelationshipGraph />
-            </Suspense>
           ) : (
-            <TMapTest />
+            renderMain()
           )}
         </div>
 
@@ -556,7 +534,6 @@ export default function Layout() {
             className="border-l border-ink-600 bg-ink-800/95 backdrop-blur overflow-hidden flex flex-col flex-shrink-0"
             style={{ width: '480px' }}
           >
-            {/* 面板头部：tab + 关闭按钮 */}
             <div className="flex items-center border-b border-ink-600 text-xs bg-ink-800">
               {bothSelected ? (
                 <>
@@ -593,7 +570,6 @@ export default function Layout() {
                 </>
               ) : (
                 <>
-                  {/* 单选时第一个 tab 也可点击切回详情 */}
                   <button
                     className={`flex-1 px-3 py-2.5 border-r border-ink-600 transition-colors ${
                       detailView !== 'notes'
@@ -616,7 +592,6 @@ export default function Layout() {
                   </button>
                 </>
               )}
-              {/* 明显的关闭按钮 */}
               <button
                 className="px-3 py-2.5 text-ink-500 hover:text-parchment-50 hover:bg-red-900/40 text-base transition-colors"
                 onClick={() => {
@@ -630,7 +605,6 @@ export default function Layout() {
               </button>
             </div>
 
-            {/* 内容区 */}
             <div className="flex-1 overflow-hidden">
               {showEvent && selectedEventId && <EventDetail eventId={selectedEventId} />}
               {showEra && selectedEraId && <EraDetail eraId={selectedEraId} />}
@@ -642,8 +616,8 @@ export default function Layout() {
         )}
       </main>
 
-      {/* 底部：时间轴 — 只在地图视图显示 */}
-      {!dashboardActive && !figuresActive && !warsActive && !culturesActive && !geographyActive && !timeTravelActive && !overviewActive && !flashcardsActive && viewMode !== 'graph' && (
+      {/* 底部：时间轴 */}
+      {showTimeline && (
         <footer className="relative z-10">
           <Timeline />
         </footer>
@@ -657,8 +631,8 @@ export default function Layout() {
       {/* 学习目标设置浮层 */}
       <Suspense fallback={null}>
         <GoalSettings
-          isOpen={goalSettingsOpen}
-          onClose={() => setGoalSettingsOpen(false)}
+          isOpen={ui.goalSettingsOpen}
+          onClose={() => dispatch({ type: 'CLOSE_GOAL_SETTINGS' })}
         />
       </Suspense>
       <AIChatPanel />

@@ -119,6 +119,35 @@ export default function Layout() {
   // 笔记总览页面状态（替换主区域的地图/图谱）
   const [overviewActive, setOverviewActive] = useState(false)
 
+  // 监听浮层「🔙 回到事件」按钮事件：把 dashboard 切回 active
+  useEffect(() => {
+    const handler = () => {
+      // eslint-disable-next-line no-console
+      console.warn('[Layout] history:go-dashboard received — activating dashboard')
+      setDashboardActive(true)
+    }
+    window.addEventListener('history:go-dashboard', handler)
+    return () => window.removeEventListener('history:go-dashboard', handler)
+  }, [])
+
+  useEffect(() => {
+    const handler = () => {
+      setDashboardActive(false)
+      setGeographyActive(true)
+    }
+    window.addEventListener('history:go-geography', handler)
+    return () => window.removeEventListener('history:go-geography', handler)
+  }, [])
+
+  useEffect(() => {
+    const handler = () => {
+      setDashboardActive(false)
+      setWarsActive(true)
+    }
+    window.addEventListener('history:go-wars', handler)
+    return () => window.removeEventListener('history:go-wars', handler)
+  }, [])
+
   // 学习引导 Dashboard 默认开启，但如果 URL 有 focus 参数则跳过（直接进入地图）
   const [dashboardActive, setDashboardActive] = useState(() => {
     if (typeof window === 'undefined') return true

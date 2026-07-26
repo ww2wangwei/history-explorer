@@ -14,7 +14,9 @@ import { useNotesStore } from '@/store/useNotesStore'
 import { useAIStore } from '@/store/useAIStore'
 import { countTodayReviews } from '@/utils/cardStats'
 import { getTargetTitle } from '@/utils/lookups'
-import { bingImage } from '@/utils/geoImage'
+import { bingImage, fallbackKeyword } from '@/utils/geoImage'
+import { summarizeEra } from '@/utils/summarize'
+import { useJumpToMap } from '@/hooks/useJumpToMap'
 import { useGoalStore } from '@/store/useGoalStore'
 import { useLearningPathStore, type PathId } from '@/store/useLearningPathStore'
 import ModalShell from '@/components/ui/Modal'
@@ -69,6 +71,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
   const aiSetPersona = useAIStore(s => s.setPersonaPrompt)
   const aiNewThread = useAIStore(s => s.newThread)
   const aiOpenPanel = useAIStore(s => s.openPanel)
+  const jumpToMap = useJumpToMap()
   const [showEraList, setShowEraList] = useState(false)
   const learnEra = learnEraId ? eras.find(e => e.id === learnEraId) : null
   // 5 件大事时间线容器（已停用 GSAP，保留 ref 兼容）
@@ -91,6 +94,36 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
     recordVisit('timeline', eraId)
   }
   const closeQuickLearn = () => setLearnEraId(null)
+
+  // 🎯 监听 store.pendingReopen — 浮层「🔙 回到事件」触发
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.warn('[Dashboard] pendingReopen subscriber mounted')
+    // 立即读一次：Dashboard 可能在 pendingReopen 已被 setMapFocus 之后才 mount
+    const current = useHistoryStore.getState().pendingReopen
+    if (current?.kind === 'quickEvent') {
+      openQuickLearn(current.eraId)
+      setTimeout(() => {
+        setSelectedQuickEvent(current.event)
+        useHistoryStore.getState().setPendingReopen(null)
+      }, 80)
+    }
+    return useHistoryStore.subscribe((s, prev) => {
+      const target = s.pendingReopen
+      // eslint-disable-next-line no-console
+      console.warn('[Dashboard] subscribe fired', { target, prev: prev.pendingReopen })
+      if (!target || target === prev.pendingReopen) return
+      if (target.kind === 'quickEvent') {
+        openQuickLearn(target.eraId)
+        // eslint-disable-next-line no-console
+        console.warn('[Dashboard] opening quickLearn + scheduling setSelectedQuickEvent')
+        setTimeout(() => {
+          setSelectedQuickEvent(target.event)
+          useHistoryStore.getState().setPendingReopen(null)
+        }, 60)
+      }
+    })
+  }, [])
 
   // 上一/下一朝代
   const learnIdx = learnEraId ? sortedEras.findIndex(e => e.id === learnEraId) : -1
@@ -233,6 +266,8 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
                   center: recommendation.era.capital as [number, number],
                   zoom: 2,
                   label: `${recommendation.era.name} 都城`,
+                  coverImageUrl: bingImage(fallbackKeyword(recommendation.era.name, recommendation.era.region), 400, 240),
+                  snippet: summarizeEra(recommendation.era),
                 })
               }
               onEnterMap()
@@ -700,6 +735,37 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
                   </div>
                 </div>
               </div>
+
+              {/* 地图定位按钮（朝代都城坐标） — 无 capital 的朝代则不显示 */}
+              {learnEra.capital && (
+                <div className="px-6 pb-3">
+                  <button
+                    onClick={() => {
+                      const eventSnipped = selectedQuickEvent.desc ?? selectedQuickEvent.longDesc?.slice(0, 120) ?? ''
+                      jumpToMap(
+                        learnEra.capital!,
+                        `${selectedQuickEvent.title} · ${learnEra.name}`,
+                        4,
+                        {
+                          coverImageUrl: eventImg,
+                          snippet: eventSnipped,
+                          reopenLabel: 'BACK',
+                          eraId: learnEra.id,
+                          eventYear: selectedQuickEvent.year,
+                        }
+                      )
+                      setSelectedQuickEvent(null)
+                    }}
+                    className="w-full px-4 py-2.5 rounded-lg bg-emerald-700/40 hover:bg-emerald-600/60 border border-emerald-500/50 text-emerald-200 text-sm font-serif transition-colors flex items-center justify-center gap-2"
+                  >
+                    <span className="text-base">📍</span>
+                    <span>在地图上定位（{learnEra.name} 都城）</span>
+                  </button>
+                  <div className="text-[10px] text-ink-500 text-center mt-1.5">
+                    跳转至 {learnEra.capital[0].toFixed(2)}°, {learnEra.capital[1].toFixed(2)}° 查看坐标
+                  </div>
+                </div>
+              )}
 
               {/* AI 按钮 */}
               <div className="px-6 pb-6">

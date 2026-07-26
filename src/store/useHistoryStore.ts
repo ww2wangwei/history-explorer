@@ -34,7 +34,7 @@ interface HistoryStore {
   mapZoom: number
 
   // 地图聚焦目标（详情面板点击"聚焦地图"时设置）
-  mapFocusTarget: { center: [number, number]; zoom: number; label?: string } | null
+  mapFocusTarget: { center: [number, number]; zoom: number; label?: string; coverImageUrl?: string; snippet?: string } | null
 
   // 朝代透明度（key=eraId, value=0~1）
   eraOpacities: Record<string, number>
@@ -65,7 +65,7 @@ interface HistoryStore {
   setMinImportance: (level: 1 | 2 | 3) => void
   resetFilters: () => void
   // 地图聚焦操作
-  setMapFocus: (target: { center: [number, number]; zoom: number; label?: string } | null) => void
+  setMapFocus: (target: { center: [number, number]; zoom: number; label?: string; coverImageUrl?: string; snippet?: string } | null) => void
   // 朝代透明度操作
   setEraOpacity: (eraId: string, opacity: number) => void
   resetEraOpacities: () => void
@@ -73,6 +73,20 @@ interface HistoryStore {
   setViewMode: (mode: 'map' | 'graph') => void
   // 详情 tab 切换
   setDetailView: (v: 'event' | 'era' | 'notes') => void
+  // 🎯 跨组件回弹窗通道：地图浮层「🔙 回到事件」按钮触发
+  pendingReopen:
+    | {
+        kind: 'quickEvent'
+        eraId: string
+        event: { year: number; title: string; desc: string; longDesc?: string }
+      }
+    | { kind: 'geoFeature'; featureId: string }
+    | { kind: 'territory'; territoryId: string; region: 'china' | 'world' }
+    | { kind: 'war'; warId: string }
+    | { kind: 'majorWar'; mwKey: string }
+    | { kind: 'majorWarNode'; mwKey: string; nodeIndex: number }
+    | null
+  setPendingReopen: (target: HistoryStore['pendingReopen']) => void
 }
 
 export const MIN_ZOOM = 0.5
@@ -165,6 +179,7 @@ export const useHistoryStore = create<HistoryStore>((set) => ({
   },
 
   mapFocusTarget: null,
+  pendingReopen: null,
 
   mapCenter: _initialParams.center,
   mapZoom: _initialParams.zoom,
@@ -254,6 +269,8 @@ export const useHistoryStore = create<HistoryStore>((set) => ({
   setViewMode: (mode) => set({ viewMode: mode }),
 
   setDetailView: (v) => set({ detailView: v }),
+
+  setPendingReopen: (target) => set({ pendingReopen: target }),
 
   setMapPosition: (pos) => set({ mapCenter: pos.center, mapZoom: pos.zoom }),
   setMapZoom: (zoom) => set({ mapZoom: zoom }),

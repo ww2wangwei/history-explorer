@@ -6,7 +6,8 @@ import { useAIStore } from '@/store/useAIStore'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
 import { useJumpToMap } from '@/hooks/useJumpToMap'
 import { formatYear, durationYears } from '@/utils/time'
-import { bingImage } from '@/utils/geoImage'
+import { bingImage, fallbackKeyword } from '@/utils/geoImage'
+import { summarizeEra } from '@/utils/summarize'
 import { type Era, type HistoricalEvent, type HistoricalFigure } from '@/types'
 import erasData from '@/data/eras.json'
 import eventsData from '@/data/events.json'
@@ -100,7 +101,7 @@ const onEraDetailRender: ProfilerOnRenderCallback = (
     mapFocus: s.mapFocusTarget ? 'set' : 'null',
     historyLen: s.eraSelectionHistory.length,
   }
-  console.debug(
+  console.warn(
     `[EraDetail ${phase}] ${actualDuration.toFixed(1)}ms (base ${baseDuration.toFixed(1)}ms)`,
     fp,
   )
@@ -120,7 +121,6 @@ function EraDetailInner({ eraId }: Props) {
   const selectEra = useHistoryStore(s => s.selectEra)
   const selectEvent = useHistoryStore(s => s.selectEvent)
   const setYear = useHistoryStore(s => s.setYear)
-  const setMapFocus = useHistoryStore(s => s.setMapFocus)
   const undoEraSelect = useHistoryStore(s => s.undoEraSelect)
   const eraSelectionHistory = useHistoryStore(useShallow(s => s.eraSelectionHistory))
   const addCard = useCardsStore(s => s.addCard)
@@ -149,6 +149,10 @@ function EraDetailInner({ eraId }: Props) {
   }, [eraId])
 
   if (!era) return null
+
+  const eraImgKw = `${era.name} ${era.region === 'china' ? 'dynasty' : era.region} historical`
+  const eraImg = bingImage(fallbackKeyword(era.name, era.region) || eraImgKw, 400, 240)
+  const eraSnippet = summarizeEra(era)
 
   const duration = durationYears(era.startYear, era.endYear)
 
@@ -234,16 +238,6 @@ function EraDetailInner({ eraId }: Props) {
     return contemporaryWorldEvents.filter(e => !groupedIds.has(e.id) && e.region !== era.region)
   }, [eventsByContemporaryEra, contemporaryWorldEvents, era])
 
-  // 聚焦地图到朝代都城
-  const focusOnMap = () => {
-    if (!era.capital) return
-    setMapFocus({
-      center: era.capital,
-      zoom: 2,
-      label: `${era.name} 都城`,
-    })
-  }
-
   return (
     <>
     <div className="p-4 h-full overflow-y-auto scrollbar-thin">
@@ -313,7 +307,7 @@ function EraDetailInner({ eraId }: Props) {
         {era.capital && (
           <button
             type="button"
-            onClick={() => jumpToMap(era.capital!, `${era.name} 都城`, 4)}
+            onClick={() => jumpToMap(era.capital!, `${era.name} 都城`, 4, { coverImageUrl: eraImg, snippet: eraSnippet })}
             className="bg-ink-700 hover:bg-ink-600 hover:ring-1 hover:ring-bronze-500/40 px-3 py-2 rounded-lg col-span-2 text-left transition-colors group cursor-pointer"
             title="点击在地图上定位都城"
           >

@@ -3,6 +3,8 @@ import { useHistoryStore } from '@/store/useHistoryStore'
 import { useCardsStore } from '@/store/useCardsStore'
 import { useJumpToMap } from '@/hooks/useJumpToMap'
 import { formatYear } from '@/utils/time'
+import { bingImage, fallbackKeyword, cultureSearchKeywords } from '@/utils/geoImage'
+import { summarizeEvent } from '@/utils/summarize'
 import { CATEGORY_COLORS, type HistoricalEvent, type Era } from '@/types'
 import eventsData from '@/data/events.json'
 import erasData from '@/data/eras.json'
@@ -58,8 +60,13 @@ export default function EventDetail({ eventId }: Props) {
 
   // 聚焦到事件地点
   const focusOnMap = () => {
+    if (!event) return
     if (!event.coordinates) return
-    jumpToMap(event.coordinates, event.title, 4)
+    const kw = cultureSearchKeywords[event.id] ?? fallbackKeyword(event.title, event.category)
+    jumpToMap(event.coordinates, event.title, 4, {
+      coverImageUrl: bingImage(kw, 400, 240),
+      snippet: summarizeEvent(event),
+    })
   }
 
   return (

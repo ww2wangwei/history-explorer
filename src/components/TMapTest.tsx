@@ -425,11 +425,7 @@ export default function TMapTest() {
           onBack={() => {
             if (backInProgressRef.current) return
             backInProgressRef.current = true
-            const eventName = getReopenEvent(infoCard.reopenKind)
-            const pending = useHistoryStore.getState().pendingReopen
-            console.log('[TMapTest] Back clicked, reopenKind:', infoCard.reopenKind, '→ event:', eventName, 'pendingReopen:', pending?.kind)
-            // 统一路由表：kind → CustomEvent（新增 reopen 路径只需在 reopenRoutes.ts 加一行）
-            window.dispatchEvent(new CustomEvent(eventName))
+            window.dispatchEvent(new CustomEvent(getReopenEvent(infoCard.reopenKind)))
             setInfoCard(null)
             setMapFocus(null)
             setTimeout(() => { backInProgressRef.current = false }, 0)

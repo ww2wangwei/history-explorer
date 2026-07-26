@@ -27,7 +27,7 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
       snippet: firstSentence.slice(0, 120),
       reopenLabel: node.title,
       mwKey: mw.key,
-      nodeIndex: idx,
+      // 不传 nodeIndex：从总览页跳地图，Back 应回到总览列表而非具体节点
     })
   }
 

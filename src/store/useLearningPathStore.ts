@@ -12,7 +12,7 @@ import type { Era } from '@/types'
 
 const eras = erasData as Era[]
 
-export type PathId = 'timeline' | 'crossReference' | 'eraDetail' | 'review' | 'allFigures' | 'allWars' | 'allCultures' | 'allGeography' | 'timeTravel'
+export type PathId = 'timeline' | 'crossReference' | 'eraDetail' | 'review' | 'allFigures' | 'allWars' | 'allCultures' | 'allGeography' | 'allPoems' | 'civilizations' | 'timeTravel'
 
 export interface PathProgress {
   visitedEraIds: string[]
@@ -22,6 +22,10 @@ export interface PathProgress {
   visitedFigureIds?: string[]
   /** 仅 allFigures 路径使用：最近查看的人物 */
   lastVisitedFigureId?: string | null
+  /** 仅 civilizations 路径使用：已读 section id 列表 */
+  visitedSectionIds?: string[]
+  /** 仅 civilizations 路径使用：最近查看的 section */
+  lastVisitedSectionId?: string | null
   /** 仅 timeTravel 路径使用：已通关的剧本 + 达成结局（支持多个） */
   completedScenarios?: string[]
   /** scenarioId → endingId[] （多结局支持） */
@@ -37,6 +41,10 @@ interface LearningPathState {
   recordVisit: (path: PathId, eraId: string) => void
   /** 全人物：标记某人物为已了解 */
   markFigureVisited: (figureId: string) => void
+  /** 全诗词：标记已浏览 */
+  markPoemVisited: () => void
+  /** 中西方文明大对比：标记某节已读 */
+  markCivilizationVisited: (sectionId: string) => void
   recordExit: () => void
   /** 获取某路径已学朝代 */
   getVisitedEras: (path: PathId) => string[]
@@ -61,6 +69,8 @@ export const useLearningPathStore = create<LearningPathState>()(
         allWars: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
         allCultures: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
         allGeography: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
+        allPoems: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
+        civilizations: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedSectionIds: [], lastVisitedSectionId: null },
         timeTravel: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, completedScenarios: [], scenarioEndings: {} },
       }
       return {
@@ -99,6 +109,41 @@ export const useLearningPathStore = create<LearningPathState>()(
                 ...cur,
                 visitedFigureIds: visited,
                 lastVisitedFigureId: figureId,
+                lastVisitedAt: Date.now(),
+              },
+            },
+            lastViewedAt: Date.now(),
+          }
+        }),
+
+      markPoemVisited: () =>
+        set(s => {
+          const cur = s.progressByPath.allPoems ?? defaultProgress.allPoems
+          return {
+            progressByPath: {
+              ...s.progressByPath,
+              allPoems: {
+                ...cur,
+                lastVisitedAt: Date.now(),
+              },
+            },
+            lastViewedAt: Date.now(),
+          }
+        }),
+
+      markCivilizationVisited: (sectionId) =>
+        set(s => {
+          const cur = s.progressByPath.civilizations ?? defaultProgress.civilizations
+          const visited = cur.visitedSectionIds?.includes(sectionId)
+            ? cur.visitedSectionIds ?? []
+            : [...(cur.visitedSectionIds ?? []), sectionId]
+          return {
+            progressByPath: {
+              ...s.progressByPath,
+              civilizations: {
+                ...cur,
+                visitedSectionIds: visited,
+                lastVisitedSectionId: sectionId,
                 lastVisitedAt: Date.now(),
               },
             },
@@ -156,6 +201,8 @@ export const useLearningPathStore = create<LearningPathState>()(
           allWars: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
           allCultures: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
           allGeography: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
+          allPoems: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
+          civilizations: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedSectionIds: [], lastVisitedSectionId: null },
           timeTravel: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, completedScenarios: [], scenarioEndings: {} },
         }
         if (persistedState.progressByPath) {

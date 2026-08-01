@@ -26,7 +26,7 @@ import type { PathId } from '@/store/useLearningPathStore'
 // 类型
 // ============================================================================
 
-/** 主视图模式（9 种互斥态） */
+/** 主视图模式（10 种互斥态） */
 export type MainView =
   | { mode: 'home' }                                            // Dashboard 学习引导
   | { mode: 'map' }                                             // 地图
@@ -37,6 +37,8 @@ export type MainView =
   | { mode: 'wars' }                                            // 全战争
   | { mode: 'cultures' }                                        // 全文化
   | { mode: 'geography' }                                       // 全地理
+  | { mode: 'poems' }                                           // 全诗词
+  | { mode: 'civilizations' }                                   // 中西方文明大对比
   | { mode: 'timeTravel'; scenarioId: string | null }           // 穿越历史（null = 大厅）
 
 /** Layout 整体 UI 状态（局部） */
@@ -58,6 +60,8 @@ export type LayoutAction =
   | { type: 'OPEN_WARS' }
   | { type: 'OPEN_CULTURES' }
   | { type: 'OPEN_GEOGRAPHY' }
+  | { type: 'OPEN_POEMS' }
+  | { type: 'OPEN_CIVILIZATIONS' }
   | { type: 'OPEN_TIME_TRAVEL' }
   | { type: 'START_SCENARIO'; scenarioId: string }
   | { type: 'EXIT_SCENARIO' }           // 回到 timeTravel lobby
@@ -121,6 +125,12 @@ export function layoutReducer(state: LayoutUIState, action: LayoutAction): Layou
     case 'OPEN_GEOGRAPHY':
       return { ...state, main: { mode: 'geography' } }
 
+    case 'OPEN_POEMS':
+      return { ...state, main: { mode: 'poems' } }
+
+    case 'OPEN_CIVILIZATIONS':
+      return { ...state, main: { mode: 'civilizations' } }
+
     case 'OPEN_TIME_TRAVEL':
       return { ...state, main: { mode: 'timeTravel', scenarioId: null } }
 
@@ -172,6 +182,8 @@ export function isOverlayActive(main: MainView): boolean {
       || main.mode === 'wars'
       || main.mode === 'cultures'
       || main.mode === 'geography'
+      || main.mode === 'poems'
+      || main.mode === 'civilizations'
       || main.mode === 'timeTravel'
 }
 
@@ -197,6 +209,10 @@ export function pathEntryToAction(
       return { type: 'OPEN_CULTURES' }
     case 'allGeography':
       return { type: 'OPEN_GEOGRAPHY' }
+    case 'allPoems':
+      return { type: 'OPEN_POEMS' }
+    case 'civilizations':
+      return { type: 'OPEN_CIVILIZATIONS' }
     case 'timeTravel':
       return { type: 'OPEN_TIME_TRAVEL' }
     case 'timeline':

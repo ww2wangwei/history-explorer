@@ -10,6 +10,7 @@ import TimeMachine from '@/components/TimeMachine'
 import FilterPanel from '@/components/FilterPanel'
 import QuizLauncher from '@/components/Quiz/QuizLauncher'
 import ToastHost from '@/components/ToastHost'
+import PoemMapPinCard from '@/components/Poems/PoemMapPinCard'
 import AmbientBackground from '@/components/AmbientBackground'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useNotesStore } from '@/store/useNotesStore'
@@ -25,11 +26,13 @@ import AIChatPanel from '@/components/AIChatPanel'
 import ScenarioPlayer from '@/components/TimeTravel/ScenarioPlayer'
 import FlashcardsTrigger from '@/components/Flashcards/FlashcardsTrigger'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
+import { audioEngine } from '@/utils/audioEngine'
 import {
   layoutReducer,
   getInitialLayoutState,
   shouldShowTimeline,
   pathEntryToAction,
+  isOverlayActive,
   type LayoutAction,
 } from './Layout/layoutReducer'
 
@@ -42,6 +45,8 @@ const GeographyOverview = lazy(() => import('@/components/Geography/GeographyOve
 const TimeTravelLobby = lazy(() => import('@/components/TimeTravel/TimeTravelLobby'))
 const FlashcardsPanel = lazy(() => import('@/components/Flashcards/FlashcardsPanel'))
 const GoalSettings = lazy(() => import('@/components/Flashcards/GoalSettings'))
+const PoemsOverview = lazy(() => import('@/components/Poems/PoemsOverview'))
+const CivilizationsOverview = lazy(() => import('@/components/Civilizations/CivilizationsOverview'))
 
 function PageFallback() {
   return (
@@ -65,6 +70,8 @@ const HISTORY_EVENT_TO_ACTION: Record<string, LayoutAction> = {
   'history:go-geography': { type: 'OPEN_GEOGRAPHY' },
   'history:go-wars': { type: 'OPEN_WARS' },
   'history:go-cultures': { type: 'OPEN_CULTURES' },
+  'history:go-poems': { type: 'OPEN_POEMS' },
+  'history:go-civilizations': { type: 'OPEN_CIVILIZATIONS' },
 }
 
 export default function Layout() {
@@ -350,6 +357,24 @@ export default function Layout() {
             />
           </Suspense>
         )
+      case 'poems':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <PoemsOverview
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+            />
+          </Suspense>
+        )
+      case 'civilizations':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <CivilizationsOverview
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+            />
+          </Suspense>
+        )
       case 'timeTravel':
         return main.scenarioId !== null ? (
           <ScenarioPlayer
@@ -393,6 +418,7 @@ export default function Layout() {
                   : 'text-ink-500 hover:text-parchment-50 hover:bg-ink-600'
               }`}
               onClick={() => {
+                audioEngine.playClick()
                 setViewMode('map')
                 dispatch({ type: 'OPEN_MAP' })
               }}
@@ -407,6 +433,7 @@ export default function Layout() {
                   : 'text-ink-500 hover:text-parchment-50 hover:bg-ink-600'
               }`}
               onClick={() => {
+                audioEngine.playClick()
                 setViewMode('graph')
                 dispatch({ type: 'OPEN_GRAPH' })
               }}
@@ -422,7 +449,7 @@ export default function Layout() {
                 ? 'bg-bronze-600/40 text-bronze-400 border-bronze-500/60'
                 : 'bg-ink-700/80 hover:bg-bronze-600/40 border-ink-600 text-bronze-400'
             }`}
-            onClick={() => dispatch({ type: 'OPEN_HOME' })}
+            onClick={() => { audioEngine.playModalClose(); dispatch({ type: 'OPEN_HOME' }) }}
             title="返回学习引导主页"
           >
             🏠 学习引导
@@ -443,7 +470,7 @@ export default function Layout() {
                   ? 'bg-bronze-600/40 text-bronze-400 border-bronze-500/60'
                   : 'bg-ink-700/80 hover:bg-ink-600 border-ink-600 text-bronze-400'
               }`}
-              onClick={() => dispatch({ type: 'TOGGLE_MORE_MENU' })}
+              onClick={() => { audioEngine.playClick(); dispatch({ type: 'TOGGLE_MORE_MENU' }) }}
               title="更多"
               aria-haspopup="menu"
               aria-expanded={ui.moreMenuOpen}
@@ -461,6 +488,7 @@ export default function Layout() {
                 <button
                   className="w-full text-left px-3 py-2 text-xs text-parchment-50 hover:bg-ink-700 flex items-center justify-between gap-2 transition-colors"
                   onClick={() => {
+                    audioEngine.playModalOpen()
                     dispatch({ type: 'CLOSE_MORE_MENU' })
                     dispatch({ type: 'OPEN_OVERVIEW' })
                   }}
@@ -472,6 +500,7 @@ export default function Layout() {
                 <button
                   className="w-full text-left px-3 py-2 text-xs text-parchment-50 hover:bg-ink-700 flex items-center justify-between gap-2 transition-colors"
                   onClick={() => {
+                    audioEngine.playClick()
                     dispatch({ type: 'CLOSE_MORE_MENU' })
                     dispatch({ type: 'OPEN_GOAL_SETTINGS' })
                   }}
@@ -484,6 +513,7 @@ export default function Layout() {
                   <button
                     className="w-full text-left px-3 py-2 text-xs text-bronze-300 hover:bg-ink-700 flex items-center gap-2 transition-colors border-t border-ink-700 mt-1 pt-2"
                     onClick={() => {
+                      audioEngine.playClick()
                       dispatch({ type: 'CLOSE_MORE_MENU' })
                       setMapFocus(null)
                       setMapPosition({ center: [0, 20], zoom: 1 })
@@ -638,6 +668,10 @@ export default function Layout() {
       <AIChatPanel />
       <QuizLauncher />
       <ToastHost />
+      {/* 诗词地图图钉浮层（地图模式右上角） */}
+      <PoemMapPinCard
+        onJumpToAllPoems={() => dispatch({ type: 'OPEN_POEMS' })}
+      />
     </div>
   )
 }

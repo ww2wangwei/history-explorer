@@ -8,6 +8,7 @@ import { useJumpToMap } from '@/hooks/useJumpToMap'
 import { formatYear, durationYears } from '@/utils/time'
 import { bingImage, fallbackKeyword } from '@/utils/geoImage'
 import { summarizeEra } from '@/utils/summarize'
+import { audioEngine } from '@/utils/audioEngine'
 import { type Era, type HistoricalEvent, type HistoricalFigure } from '@/types'
 import erasData from '@/data/eras.json'
 import eventsData from '@/data/events.json'
@@ -282,7 +283,7 @@ function EraDetailInner({ eraId }: Props) {
           )}
           <button
             className="text-ink-500 hover:text-parchment-50 text-lg"
-            onClick={() => selectEra(null)}
+            onClick={() => { audioEngine.playModalClose(); selectEra(null) }}
             title="关闭 (ESC)"
             aria-label="关闭"
           >

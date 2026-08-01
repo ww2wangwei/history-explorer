@@ -19,6 +19,7 @@ import { summarizeEra } from '@/utils/summarize'
 import { useJumpToMap } from '@/hooks/useJumpToMap'
 import { useGoalStore } from '@/store/useGoalStore'
 import { useLearningPathStore, type PathId } from '@/store/useLearningPathStore'
+import { usePoemStore } from '@/store/usePoemStore'
 import { useCountUp } from '@/hooks/useCountUp'
 import gsap from 'gsap'
 import { isDue } from '@/utils/sm2'
@@ -42,6 +43,8 @@ const PATHS: { id: PathId; icon: string; title: string; desc: string; color: str
   { id: 'allWars', icon: '⚔️', title: '全战争', desc: '从武王伐纣到现代的关键战争 75 场', color: '#b85450' },
   { id: 'allCultures', icon: '📚', title: '全文化', desc: '思想家、文学家、宗教人物的代表作品', color: '#5b9bc8' },
   { id: 'allGeography', icon: '🗺️', title: '全地理', desc: '自然地理特征 + 疆域变迁', color: '#5bc89a' },
+  { id: 'allPoems', icon: '📜', title: '全诗词', desc: '100 首最有名的唐诗宋词，含注解、注音、白话翻译', color: '#c89a8a' },
+  { id: 'civilizations', icon: '⚖️', title: '中西方文明大对比', desc: '15 节对比，看清两种截然不同的历史路径', color: '#d4a85b' },
   { id: 'timeTravel', icon: '🎭', title: '穿越历史', desc: '化身历史人物，在关键节点做选择', color: '#9b7eb6' },
   { id: 'review', icon: '🎯', title: '今日复习', desc: '基于 SM-2 算法的间隔复习', color: '#9bc89a' },
 ]
@@ -55,6 +58,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
 
   const goal = useGoalStore(s => s.target)
   const cardsArr = useCardsStore(s => s.cards)
+  const poemsFavoritesCount = usePoemStore(s => s.favorites.length)
 
   const [learnEraId, setLearnEraId] = useState<string | null>(null)
   const [selectedQuickEvent, setSelectedQuickEvent] = useState<QuickEventState | null>(null)
@@ -285,8 +289,18 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
             const progress = progressByPath[p.id] ?? { visitedEraIds: [] }
             const visited = p.id === 'allFigures'
               ? (progress.visitedFigureIds?.length ?? 0)
+              : p.id === 'allPoems'
+              ? poemsFavoritesCount
+              : p.id === 'civilizations'
+              ? (progress.visitedSectionIds?.length ?? 0)
               : progress.visitedEraIds.length
-            const total = p.id === 'allFigures' ? 26 : totalEras
+            const total = p.id === 'allFigures'
+              ? 26
+              : p.id === 'allPoems'
+              ? 100
+              : p.id === 'civilizations'
+              ? 15
+              : totalEras
             const pPct = total > 0 ? Math.round((visited / total) * 100) : 0
             return (
               <button

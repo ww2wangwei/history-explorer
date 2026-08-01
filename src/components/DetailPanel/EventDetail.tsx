@@ -8,6 +8,7 @@ import { summarizeEvent } from '@/utils/summarize'
 import { CATEGORY_COLORS, type HistoricalEvent, type Era } from '@/types'
 import eventsData from '@/data/events.json'
 import erasData from '@/data/eras.json'
+import { audioEngine } from '@/utils/audioEngine'
 
 const events = eventsData as HistoricalEvent[]
 const eras = erasData as Era[]
@@ -95,7 +96,7 @@ export default function EventDetail({ eventId }: Props) {
         </div>
         <button
           className="text-ink-500 hover:text-parchment-50 text-lg"
-          onClick={() => selectEvent(null)}
+          onClick={() => { audioEngine.playModalClose(); selectEvent(null) }}
           title="关闭 (ESC)"
           aria-label="关闭"
         >

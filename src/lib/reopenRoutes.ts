@@ -15,6 +15,7 @@ export type ReopenKind =
   | 'war'
   | 'majorWar'
   | 'majorWarNode'
+  | 'poem'
 
 export const REOPEN_EVENT_MAP: Record<ReopenKind, string> = {
   quickEvent: 'history:go-dashboard',
@@ -25,6 +26,7 @@ export const REOPEN_EVENT_MAP: Record<ReopenKind, string> = {
   war: 'history:go-wars',
   majorWar: 'history:go-wars',
   majorWarNode: 'history:go-wars',
+  poem: 'history:go-poems',
 }
 
 /** 根据 kind 取对应 CustomEvent 名，无匹配时 fallback 到 dashboard */

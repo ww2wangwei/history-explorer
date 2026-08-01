@@ -32,6 +32,7 @@ type ReopenPayload =
   | { kind: 'war'; warId: string }
   | { kind: 'majorWar'; mwKey: string }
   | { kind: 'majorWarNode'; mwKey: string; nodeIndex: number }
+  | { kind: 'poem'; poemId: string }
 
 /** 抑制窗口长度（毫秒）— 经验值：centerAndZoom 飞行约 800ms + 200ms 余量 */
 const SUPPRESS_WINDOW_MS = 1200
@@ -56,6 +57,7 @@ function resolveReopen(extras: {
   warId?: string
   mwKey?: string
   nodeIndex?: number
+  poemId?: string
 }): { kind: ReopenKind; payload: ReopenPayload } | null {
   const { reopenLabel, eraId, eventYear, eventId, cultureEventId, featureId, territoryId, territoryRegion, warId, mwKey, nodeIndex } = extras
 
@@ -85,6 +87,9 @@ function resolveReopen(extras: {
         break
       case 'majorWarNode':
         if (mwKey && nodeIndex !== undefined) return { kind: 'majorWarNode', payload: { kind: 'majorWarNode', mwKey, nodeIndex } }
+        break
+      case 'poem':
+        if (extras.poemId) return { kind: 'poem', payload: { kind: 'poem', poemId: extras.poemId } }
         break
     }
     // reopenKind 指定了但缺少必要 ID，不恢复
@@ -147,6 +152,7 @@ export function useJumpToMap() {
         warId?: string
         mwKey?: string
         nodeIndex?: number
+        poemId?: string
       },
     ) => {
       // 统一派生 kind + payload（替代之前的两段 if/else 链）

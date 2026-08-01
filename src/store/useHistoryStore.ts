@@ -95,6 +95,7 @@ interface HistoryStore {
     | { kind: 'war'; warId: string }
     | { kind: 'majorWar'; mwKey: string }
     | { kind: 'majorWarNode'; mwKey: string; nodeIndex: number }
+    | { kind: 'poem'; poemId: string }
     | null
   setPendingReopen: (target: HistoryStore['pendingReopen']) => void
 }

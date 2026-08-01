@@ -3,6 +3,7 @@ import { useHistoryStore } from '@/store/useHistoryStore'
 import { formatYear } from '@/utils/time'
 import type { Era } from '@/types'
 import erasData from '@/data/eras.json'
+import { audioEngine } from '@/utils/audioEngine'
 
 const eras = erasData as Era[]
 
@@ -47,6 +48,7 @@ export default function TimeMachine() {
 
   // 跳转到朝代中心
   const jumpToEra = (era: Era) => {
+    audioEngine.playSelect()
     const centerYear = Math.round((era.startYear + era.endYear) / 2)
     setYear(centerYear)
     // 同时把时间轴中心移过去（这样时间轴视图也跟着聚焦）
@@ -59,7 +61,7 @@ export default function TimeMachine() {
     <div className="relative" ref={containerRef}>
       <button
         className="px-3 py-1.5 rounded-lg bg-ink-700/80 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-xs flex items-center gap-1.5 transition-colors"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => { audioEngine.playClick(); setIsOpen(!isOpen) }}
         title="时间机器：跳转到特定朝代"
       >
         <span>⏳</span>

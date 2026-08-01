@@ -6,6 +6,7 @@
  * - target > 0 && todayCount < target：显示「X/Y」蓝色徽章（进度）
  * - target > 0 && todayCount >= target：显示 ✓ 绿色徽章（已完成）
  */
+import { audioEngine } from '@/utils/audioEngine'
 
 interface Props {
   dueCount: number
@@ -40,7 +41,7 @@ export default function FlashcardsTrigger({
           ? 'bg-emerald-900/40 text-emerald-300 border border-emerald-700/50'
           : 'bg-ink-700/80 hover:bg-ink-600 border border-ink-600 text-bronze-400'
       }`}
-      onClick={onClick}
+      onClick={() => { audioEngine.playClick(); onClick() }}
       title={
         title
           ?? goalReached

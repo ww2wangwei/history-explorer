@@ -201,7 +201,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
                           const key = `${bgm.style}_${bgm.mood}`
                           const entry = (bgmLibrary as any)[key] || (bgmLibrary as any).lobby
                           const urls = entry?.urls || []
-                          audioEngine.playRemoteBGM(urls)
+                          audioEngine.playRemoteBGM(urls, bgm.mood)
                           audioEngine.playClick()
                           // 短延迟让音效先响再切换场景
                           setTimeout(() => onStart(sc.id), 600)

@@ -146,7 +146,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
       const bgm = pickBGMForScenario(scenario.era, scenario.year)
       const entry = BGM_BY_KEY[`${bgm.style}_${bgm.mood}`] || BGM_BY_KEY.lobby
       const urls = entry?.urls || []
-      audioEngine.playRemoteBGM(urls)
+      audioEngine.playRemoteBGM(urls, bgm.mood)
     }
     return () => { audioEngine.stopBGM() }
   }, [scenario])
@@ -160,7 +160,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
         const style = (scenario.era && ['法国', '英国', '德国', '罗马'].includes(scenario.era)) ? 'european' : 'chinese'
         const entry = BGM_BY_KEY[`${style}_${mood}`] || BGM_BY_KEY.lobby
         const urls = entry?.urls || []
-        audioEngine.crossfadeBGM(urls, 1.2)
+        audioEngine.crossfadeBGM(urls, 1.2, mood)
         audioEngine.playPageTurn()
         // 朗读：拼接 标题 + 正文，浏览器原生中文 TTS
         speakScene(`${scene.title}。${scene.text}`)

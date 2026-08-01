@@ -6,6 +6,7 @@
 import { useEffect, useRef } from 'react'
 import { useToastStore } from '@/hooks/useToast'
 import gsap from 'gsap'
+import { audioEngine } from '@/utils/audioEngine'
 
 const VARIANT_STYLES = {
   success: { bg: 'bg-emerald-900/90', border: 'border-emerald-500/60', text: 'text-emerald-200', icon: '✅' },
@@ -30,6 +31,11 @@ export default function ToastHost() {
     // 找到刚加入的 items（未动画过的）
     const newItems = containerRef.current.querySelectorAll<HTMLElement>(':scope > div[data-not-animated]')
     if (newItems.length) {
+      // 按 variant 播对应音效
+      newItems.forEach(el => {
+        const variant = el.getAttribute('data-variant') as 'success' | 'error' | 'warn' | 'info' | null
+        if (variant) audioEngine.playToast(variant)
+      })
       gsap.from(newItems, {
         opacity: 0, y: -16, scale: 0.92, duration: 0.35, ease: 'back.out(1.4)', stagger: 0.08,
         onStart: function () { this.targets()[0]?.removeAttribute('data-not-animated') }
@@ -51,6 +57,7 @@ export default function ToastHost() {
           <div
             key={t.id}
             data-not-animated
+            data-variant={t.variant}
             className={`flex items-start gap-2 px-4 py-3 rounded-lg border ${style.bg} ${style.border} ${style.text} shadow-lg backdrop-blur cursor-pointer`}
             onClick={() => dismiss(t.id)}
           >

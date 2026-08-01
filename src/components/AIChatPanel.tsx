@@ -16,6 +16,7 @@ import { streamAI, requestAI, type AIRequestHandle } from '@/utils/aiStream'
 import erasData from '@/data/eras.json'
 import peopleData from '@/data/people.json'
 import type { Era, HistoricalEvent } from '@/types'
+import { audioEngine } from '@/utils/audioEngine'
 
 const eras = erasData as Era[]
 const people = peopleData as Array<{ id: string; name: string; emoji?: string; role: string; description: string }>
@@ -317,6 +318,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
         await handle.promise
         // 完成
         updateMessage(threadId, assistantId, { loading: false })
+        audioEngine.playAiReply()
       } catch (e: any) {
         console.error('[AI] sendMessage catch', e.name, e.message)
         if (e.name !== 'AbortError' && e.name !== 'TimeoutError') {

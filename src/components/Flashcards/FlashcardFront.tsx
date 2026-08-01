@@ -2,6 +2,7 @@
  * 卡片正面：只显示 target 名称 + "显示答案" 按钮
  * 支持三种 target：朝代 / 事件 / 人物
  */
+import { audioEngine } from '@/utils/audioEngine'
 
 interface Props {
   targetName: string
@@ -48,7 +49,7 @@ export default function FlashcardFront({ targetName, targetKind, missing, emoji,
       )}
 
       <button
-        onClick={onShowAnswer}
+        onClick={() => { audioEngine.playReveal(); onShowAnswer() }}
         className="px-6 py-2.5 text-sm rounded-lg bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/60 text-bronze-400 transition-colors"
       >
         💡 显示答案

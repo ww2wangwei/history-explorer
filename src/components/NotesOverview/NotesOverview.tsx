@@ -12,6 +12,7 @@ import NotesOverviewFilters, { type KindFilter } from './NotesOverviewFilters'
 import NotesOverviewList from './NotesOverviewList'
 import NotesOverviewStats from './NotesOverviewStats'
 import NoteEditor from '@/components/NotesPanel/NoteEditor'
+import { audioEngine } from '@/utils/audioEngine'
 import {
   downloadNotesJson,
   parseNotesJson,
@@ -108,20 +109,24 @@ export default function NotesOverview({ variant, isOpen, isActive, onClose }: Pr
     if (kind === 'all' || targetId === 'all') return
     const target = { kind: kind as NoteTargetKind, id: targetId }
     const newId = addNote(target)
+    audioEngine.playReveal()
     setEditingId(newId)
     setMode('edit')
   }
   const handleCloseEditor = () => { setMode('list'); setEditingId(null) }
   const handleDeleteFromEditor = (id: string) => {
     deleteNote(id)
+    audioEngine.playNoteDelete()
     if (id === editingId) { setEditingId(null); setMode('list') }
   }
   const handleSwitchNote = (id: string) => {
     if (id === editingId) return
+    audioEngine.playSelect()
     setEditingId(id)
   }
   const handleDelete = (id: string) => {
     deleteNote(id)
+    audioEngine.playNoteDelete()
     if (id === editingId) { setEditingId(null); setMode('list') }
   }
 

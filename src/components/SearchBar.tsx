@@ -4,6 +4,7 @@ import { formatYear } from '@/utils/time'
 import { CATEGORY_COLORS, type HistoricalEvent } from '@/types'
 import eventsData from '@/data/events.json'
 import erasData from '@/data/eras.json'
+import { audioEngine } from '@/utils/audioEngine'
 
 const events = eventsData as HistoricalEvent[]
 const eras = erasData as Array<{ id: string; name: string; region: string; startYear: number; endYear: number; shortDesc?: string }>
@@ -66,6 +67,7 @@ export default function SearchBar() {
     } else {
       selectEra(result.id)
     }
+    audioEngine.playSelect()
     setQuery('')
     setIsOpen(false)
   }

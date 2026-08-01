@@ -11,6 +11,7 @@ import type { Note } from '@/types/notes'
 import { useNotesStore } from '@/store/useNotesStore'
 import NotePreview from './NotePreview'
 import { formatRelativeTime } from '@/utils/relativeTime'
+import { audioEngine } from '@/utils/audioEngine'
 
 interface Props {
   /** 要编辑的笔记（null 表示新建） */
@@ -96,6 +97,7 @@ export default function NoteEditor({ note, onClose, onDelete }: Props) {
         if (!noteId) return
         updateNote(noteId, patch)
         setSavedAt(Date.now())
+        audioEngine.playNoteSave()
       }, 600),
     [noteId, updateNote],
   )
@@ -125,6 +127,7 @@ export default function NoteEditor({ note, onClose, onDelete }: Props) {
     if (noteId) {
       updateNote(noteId, draft)
       setSavedAt(Date.now())
+      audioEngine.playNoteSave()
     }
     onClose()
   }
@@ -134,6 +137,7 @@ export default function NoteEditor({ note, onClose, onDelete }: Props) {
     if (!noteId) return
     if (window.confirm('确认删除这条笔记？此操作不可撤销。')) {
       deleteNote(noteId)
+      audioEngine.playNoteDelete()
       onDelete?.(noteId)
       onClose()
     }

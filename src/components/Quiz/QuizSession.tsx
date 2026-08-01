@@ -10,6 +10,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useQuizStore } from '@/store/useQuizStore'
 import erasData from '@/data/eras.json'
 import type { QuizQuestion, Difficulty, QuizSessionResult } from '@/types/quiz'
+import { audioEngine } from '@/utils/audioEngine'
 
 type Era = (typeof erasData)[number]
 const eras = erasData as Era[]
@@ -60,6 +61,7 @@ export default function QuizSession({ open, onClose, onManage }: Props) {
 
   // 随机出题
   const startSession = () => {
+    audioEngine.playClick()
     const allQs = Object.values(questions)
     if (allQs.length === 0) return
     const pool = difficulty === 'mixed' ? allQs : allQs.filter(q => q.difficulty === difficulty)
@@ -82,6 +84,7 @@ export default function QuizSession({ open, onClose, onManage }: Props) {
     setSelected(i)
     setShowExplain(true)
     const isCorrect = i === currentQ.answer
+    audioEngine.playToast(isCorrect ? 'success' : 'error')
     const ms = Date.now() - questionStartRef.current
     recordAttempt({
       questionId: currentQ.id,
@@ -103,6 +106,7 @@ export default function QuizSession({ open, onClose, onManage }: Props) {
 
   const handleNext = () => {
     if (idx + 1 < queue.length) {
+      audioEngine.playClick()
       setIdx(idx + 1)
       setSelected(null)
       setShowExplain(false)
@@ -118,6 +122,7 @@ export default function QuizSession({ open, onClose, onManage }: Props) {
         byDifficulty: byDiff,
       }
       recordSession(result)
+      audioEngine.playQuizComplete()
       setPhase('result')
     }
   }

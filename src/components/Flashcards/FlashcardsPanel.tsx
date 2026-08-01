@@ -30,6 +30,7 @@ import FlashcardFront from './FlashcardFront'
 import FlashcardBack from './FlashcardBack'
 import FlashcardsComplete from './FlashcardsComplete'
 import FlashcardsEmpty from './FlashcardsEmpty'
+import { audioEngine } from '@/utils/audioEngine'
 
 interface Props {
   isActive: boolean
@@ -155,6 +156,12 @@ export default function FlashcardsPanel({ isActive, onClose }: Props) {
     : undefined
 
   const handleRate = (rating: Rating) => {
+    // 评级反馈音:forgot → wrong, hard → reveal, good/easy → star
+    if (rating === 'forgot') audioEngine.playWrong()
+    else if (rating === 'hard') audioEngine.playReveal()
+    else if (rating === 'good') audioEngine.playStar()
+    else audioEngine.playCorrect()
+
     // 写入 store
     rateCard(currentCard.id, rating)
     // 计数
@@ -163,6 +170,7 @@ export default function FlashcardsPanel({ isActive, onClose }: Props) {
 
     // 下一张或完成
     if (currentIdx + 1 >= total) {
+      audioEngine.playQuizComplete()
       setMode('complete')
     } else {
       setCurrentIdx(i => i + 1)

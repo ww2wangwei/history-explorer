@@ -25,6 +25,7 @@ import {
   type GeoFeature,
 } from '@/data/geographic-features'
 import { OCEAN_LABELS } from '@/data/oceans'
+import { audioEngine } from '@/utils/audioEngine'
 
 const events = eventsData as HistoricalEvent[]
 const eras = erasData as Era[]
@@ -347,7 +348,7 @@ export default function WorldMap() {
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    onClick={() => selectEra(activeChinaEra.id)}
+                    onClick={() => { audioEngine.playSelect(); selectEra(activeChinaEra.id) }}
                     style={{
                       default: {
                         fill: 'transparent',
@@ -384,7 +385,7 @@ export default function WorldMap() {
                   <Geography
                     key={geo.rsmKey}
                     geography={geo}
-                    onClick={() => selectEra(worldEra.id)}
+                    onClick={() => { audioEngine.playSelect(); selectEra(worldEra.id) }}
                     style={{
                       default: {
                         fill: 'transparent',
@@ -469,6 +470,7 @@ export default function WorldMap() {
                 style={{ cursor: 'pointer', opacity: eventIsGhost ? 0.3 : 1 }}
                 onClick={(e) => {
                   e.stopPropagation()
+                  audioEngine.playSelect()
                   selectEvent(event.id)
                 }}
               >
@@ -586,7 +588,7 @@ export default function WorldMap() {
         {/* 朝代都城 marker（统一小图钉：r=3 + 9px 标签） */}
         {selectedEra && selectedEra.capital && (
           <Marker key={`selected-${selectedEra.id}`} coordinates={selectedEra.capital}>
-            <g style={{ cursor: 'pointer' }} onClick={() => selectEra(selectedEra.id)}>
+            <g style={{ cursor: 'pointer' }} onClick={() => { audioEngine.playSelect(); selectEra(selectedEra.id) }}>
               <circle r={3} fill={selectedEra.color} stroke="#fdf8f0" strokeWidth={1} />
               <text
                 textAnchor="middle"
@@ -744,6 +746,7 @@ export default function WorldMap() {
         <button
           className="w-7 h-7 rounded-lg bg-ink-800/90 backdrop-blur border border-ink-600 hover:bg-ink-700 text-bronze-400 text-base font-bold leading-none"
           onClick={() => {
+            audioEngine.playClick()
             const svg = document.querySelector('.rsm-svg') as SVGSVGElement | null
             if (!svg) return
             const rect = svg.getBoundingClientRect()
@@ -764,6 +767,7 @@ export default function WorldMap() {
         <button
           className="w-7 h-7 rounded-lg bg-ink-800/90 backdrop-blur border border-ink-600 hover:bg-ink-700 text-bronze-400 text-base font-bold leading-none"
           onClick={() => {
+            audioEngine.playClick()
             const svg = document.querySelector('.rsm-svg') as SVGSVGElement | null
             if (!svg) return
             const rect = svg.getBoundingClientRect()

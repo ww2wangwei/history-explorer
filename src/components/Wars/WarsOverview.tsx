@@ -313,24 +313,6 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
                         ? <span className="text-xs px-1.5 py-0.5 rounded-lg bg-amber-900/30 text-amber-300 border border-amber-700/40">中国</span>
                         : <span className="text-xs px-1.5 py-0.5 rounded-lg bg-blue-900/30 text-blue-300 border border-blue-700/40">世界</span>
                       }
-                      {war.coordinates && (
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation()
-                            jumpToMap(war.coordinates!, war.title, 4, {
-                              coverImageUrl: bingImage(warKw, 400, 240),
-                              snippet: firstSentence.slice(0, 120),
-                              reopenLabel: war.title,
-                              warId: war.id,
-                            })
-                          }}
-                          className="ml-auto text-xs px-2 py-0.5 rounded-lg bg-bronze-900/40 hover:bg-bronze-700/60 border border-bronze-700/50 hover:border-bronze-500/70 text-bronze-200 transition-colors inline-flex items-center gap-1"
-                          title="在地图上定位"
-                        >
-                          📍 在地图上定位 <span aria-hidden>↗</span>
-                        </button>
-                      )}
                     </div>
                     <div className="text-sm font-serif text-parchment-50 truncate">{war.title}</div>
                     <div className="text-[11px] text-ink-400 line-clamp-2 mt-0.5">{war.description}</div>

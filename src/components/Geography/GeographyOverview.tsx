@@ -12,6 +12,7 @@ import { OCEAN_LABELS } from '@/data/oceans'
 import erasData from '@/data/eras.json'
 import MiniMap from '@/components/Figures/MiniMap'
 import TerritoryMapThumb from './TerritoryMapThumb'
+import GeoImageLightbox from './GeoImageLightbox'
 import OverviewLayout from '@/components/ui/OverviewLayout'
 import { useStaggerEntrance } from '@/hooks/useStaggerEntrance'
 import { useJumpToMap } from '@/hooks/useJumpToMap'
@@ -45,35 +46,39 @@ interface TerritoryFile {
   id: string
   /** GeoJSON 文件名（与 id 不一定一致。例如 id='han-west' 但 GeoJSON 文件叫 'han.geojson'） */
   geoFile?: string
+  /** 真实历史疆域图（PNG/SVG，自托管 + Wikimedia 公共 CC）— 优先级高于 GeoJSON */
+  geoSvg?: string
   region: 'china' | 'world'
   label: string
   /** 鼎盛期（用于卡片标题显示） */
   peakYear?: number
   /** 卡片显示的简短描述 */
   shortDesc?: string
+  /** 疆域主色（高对比，避免 era.color 太暗看不见） */
+  fallbackColor?: string
 }
 
 const TERRITORY_FILES: TerritoryFile[] = [
   // 中国朝代（按时间顺序）
-  { id: 'qin',          region: 'china', label: '中国', peakYear: -210, shortDesc: '首次大一统：统一文字、度量衡、车轨' },
+  { id: 'qin',          region: 'china', label: '中国', peakYear: -210, shortDesc: '首次大一统：统一文字、度量衡、车轨',            fallbackColor: '#d4a44a', geoSvg: '/geo/china/qin.png' },
   // 注意：eras.json 中只有 han-west（西汉）/han-east（东汉），但 GeoJSON 文件叫 han.geojson
   // 用 id='han-west' 触发中文显示（eras.find 会找到），用 geoFile='han' 找对的 GeoJSON
-  { id: 'han-west',     region: 'china', geoFile: 'han', label: '中国', peakYear: 1, shortDesc: '北击匈奴、通西域，丝绸之路开通' },
-  { id: 'tang',         region: 'china', label: '中国', peakYear: 710,  shortDesc: '东亚文化中心版图达极盛' },
+  { id: 'han-west',     region: 'china', geoFile: 'han', label: '中国', peakYear: 1, shortDesc: '北击匈奴、通西域，丝绸之路开通',          fallbackColor: '#c69a5b', geoSvg: '/geo/china/han.png' },
+  { id: 'tang',         region: 'china', label: '中国', peakYear: 710,  shortDesc: '东亚文化中心版图达极盛',                       fallbackColor: '#e07a3a', geoSvg: '/geo/china/tang.png' },
   // song.geojson（北宋/南宋合并版图）— 同 han 用 song-north id + geoFile='song' 文件映射
-  { id: 'song-north',   region: 'china', geoFile: 'song', label: '中国', peakYear: 1080, shortDesc: '北方收缩，但经济文化达到巅峰' },
-  { id: 'yuan',         region: 'china', label: '中国', peakYear: 1280, shortDesc: '蒙古大帝国下的中国，行省制' },
-  { id: 'ming',         region: 'china', label: '中国', peakYear: 1420, shortDesc: '永乐迁都北京，七下西洋' },
-  { id: 'qing',         region: 'china', label: '中国', peakYear: 1780, shortDesc: '极盛期版图北抵西伯利亚、南括中印半岛' },
+  { id: 'song-north',   region: 'china', geoFile: 'song', label: '中国', peakYear: 1080, shortDesc: '北方收缩，但经济文化达到巅峰',         fallbackColor: '#7e8ec1', geoSvg: '/geo/china/ming.png' },
+  { id: 'yuan',         region: 'china', label: '中国', peakYear: 1280, shortDesc: '蒙古大帝国下的中国，行省制',                  fallbackColor: '#a04a8a', geoSvg: '/geo/china/qing.png' },
+  { id: 'ming',         region: 'china', label: '中国', peakYear: 1420, shortDesc: '永乐迁都北京，七下西洋',                       fallbackColor: '#c8584a', geoSvg: '/geo/china/ming.png' },
+  { id: 'qing',         region: 'china', label: '中国', peakYear: 1780, shortDesc: '极盛期版图北抵西伯利亚、南括中印半岛',         fallbackColor: '#3e9a76', geoSvg: '/geo/china/qing.png' },
   // 世界帝国
-  { id: 'rome-republic',region: 'world', label: '世界', peakYear: -50,  shortDesc: '罗马共和国击败迦太基，地中海西部霸主' },
-  { id: 'rome-empire',  region: 'world', label: '世界', peakYear: 117,  shortDesc: '图拉真鼎盛期：版图含达契亚、亚美尼亚' },
-  { id: 'byzantine',    region: 'world', label: '世界', peakYear: 555,  shortDesc: '查士丁尼复兴：收复意大利、北非西部' },
-  { id: 'arab-caliphate', region: 'world', label: '世界', peakYear: 850, shortDesc: '阿拔斯王朝：横跨伊比利亚至中亚' },
-  { id: 'persia-safavid', region: 'world', label: '世界', peakYear: 1620, shortDesc: '波斯黄金时代，萨法维中兴' },
-  { id: 'ottoman',      region: 'world', label: '世界', peakYear: 1580, shortDesc: '横跨欧亚非三洲，苏莱曼大帝' },
-  { id: 'mongol-empire',region: 'world', label: '世界', peakYear: 1290, shortDesc: '人类史上最大陆上帝国' },
-  { id: 'british-empire', region: 'world', label: '世界', peakYear: 1900, shortDesc: '号称"日不落"，全球海洋霸主' },
+  { id: 'rome-republic',region: 'world', label: '世界', peakYear: -50,  shortDesc: '罗马共和国击败迦太基，地中海西部霸主',          fallbackColor: '#a8473e', geoSvg: '/geo/world/rome-republic.png' },
+  { id: 'rome-empire',  region: 'world', label: '世界', peakYear: 117,  shortDesc: '图拉真鼎盛期：版图含达契亚、亚美尼亚',         fallbackColor: '#a8473e', geoSvg: '/geo/world/roman-empire.png' },
+  { id: 'byzantine',    region: 'world', label: '世界', peakYear: 555,  shortDesc: '查士丁尼复兴：收复意大利、北非西部',            fallbackColor: '#5d3a8a', geoSvg: '/geo/world/byzantine.png' },
+  { id: 'arab-caliphate', region: 'world', label: '世界', peakYear: 850, shortDesc: '阿拔斯王朝：横跨伊比利亚至中亚',                fallbackColor: '#2c8a4a' },
+  { id: 'persia-safavid', region: 'world', label: '世界', peakYear: 1620, shortDesc: '波斯黄金时代，萨法维中兴',                       fallbackColor: '#8a3a3a' },
+  { id: 'ottoman',      region: 'world', label: '世界', peakYear: 1580, shortDesc: '横跨欧亚非三洲，苏莱曼大帝',                  fallbackColor: '#3a8a5a' },
+  { id: 'mongol-empire',region: 'world', label: '世界', peakYear: 1290, shortDesc: '人类史上最大陆上帝国',                            fallbackColor: '#5a3a2a', geoSvg: '/geo/world/mongol-empire.png' },
+  { id: 'british-empire', region: 'world', label: '世界', peakYear: 1900, shortDesc: '号称"日不落"，全球海洋霸主',                    fallbackColor: '#b04838' },
 ]
 
 const FEATURE_LABELS: Record<GeoFeatureType, { icon: string; label: string; color: string }> = {
@@ -109,6 +114,8 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
   }, [])
   const [selectedFeature, setSelectedFeature] = useState<GeoFeature | null>(null)
   const [selectedTerritory, setSelectedTerritory] = useState<{ id: string; region: 'china' | 'world'; era?: Era } | null>(null)
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null)
+  const [lightboxAlt, setLightboxAlt] = useState('')
   
   // 🎯 pendingReopen → 从地图 Back 恢复详情
   // 用 setTimeout 推迟消费，避免 Strict Mode 双挂载 race
@@ -498,7 +505,9 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                 const peakLabel = f.peakYear != null
                   ? (f.peakYear < 0 ? `BC ${-f.peakYear}` : `${f.peakYear}`)
                   : null
-                const eraColor = era?.color ?? '#888'
+                // 优先用人工精选的高对比 fallbackColor（如秦朝 era.color=#3a3a3a 太暗看不见），
+                // 其次 era.color，最后兜底 #888
+                const eraColor = f.fallbackColor ?? era?.color ?? '#888'
                 return (
                   <div
                     key={f.id}
@@ -513,15 +522,22 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                     onClick={() => setSelectedTerritory({ id: f.id, region: f.region, era })}
                   >
                     {/* 上下两层：上半部 SVG 全盛期地图 + 浮动信息，下半部简要介绍 */}
-                    <div className="relative w-full" style={{ aspectRatio: '16/7', background: '#0a1820' }}>
+                    <div className="relative w-full" style={{ aspectRatio: '16/9', background: '#0a1820' }}>
                       {/* SVG 全盛期地图（如果有 GeoJSON） */}
-                      {geojson ? (
+                      {geojson || f.geoSvg ? (
                         <TerritoryMapThumb
-                          geojson={geojson}
-                          width={400}
-                          height={175}
+                          geojson={geojson ?? undefined}
+                          geoSvg={f.geoSvg}
                           fallbackColor={eraColor}
                           className="w-full h-full"
+                          alt={`${f.id} 疆域图`}
+                          onClick={() => {
+                            if (f.geoSvg) {
+                              setLightboxSrc(f.geoSvg)
+                              setLightboxAlt(`${f.id} 疆域图`)
+                            }
+                            // GeoJSON fallback 留 detail dialog 看
+                          }}
                         />
                       ) : (
                         /* 占位/loading 状态 */
@@ -692,7 +708,12 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
           >
             {/* 朝代色带 */}
             {selectedTerritory.era && (
-              <div className="h-2 rounded-t-lg" style={{ background: selectedTerritory.era.color }} />
+              <div
+                className="h-2 rounded-t-lg"
+                style={{
+                  background: TERRITORY_FILES.find(f => f.id === selectedTerritory.id)?.fallbackColor ?? selectedTerritory.era.color,
+                }}
+              />
             )}
 
             <div className="px-6 py-4 border-b border-emerald-700/30 flex items-center justify-between">
@@ -717,6 +738,31 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
               </button>
             </div>
             <div className="p-6 space-y-4 text-sm">
+              {/* 🗺️ 大疆域地图（弹窗专用 — 用户实际最关心的视图） */}
+              {territoryGeojsons[selectedTerritory.id] && (
+                <div className="rounded-lg overflow-hidden border border-emerald-700/40 bg-ink-900/40">
+                  <TerritoryMapThumb
+                    geojson={territoryGeojsons[selectedTerritory.id]}
+                    geoSvg={TERRITORY_FILES.find(f => f.id === selectedTerritory.id)?.geoSvg}
+                    fallbackColor={TERRITORY_FILES.find(f => f.id === selectedTerritory.id)?.fallbackColor ?? selectedTerritory.era?.color ?? '#5b9bc8'}
+                    className="w-full h-auto"
+                    alt={`${selectedTerritory.id} 详细疆域图`}
+                    onClick={() => {
+                      const tg = TERRITORY_FILES.find(f => f.id === selectedTerritory.id)
+                      if (tg?.geoSvg) {
+                        setLightboxSrc(tg.geoSvg)
+                        setLightboxAlt(`${tg.id} 详细疆域图`)
+                      }
+                    }}
+                  />
+                </div>
+              )}
+              {!territoryGeojsons[selectedTerritory.id] && (
+                <div className="h-32 flex items-center justify-center text-xs text-ink-500 bg-ink-900/30 rounded">
+                  ⏳ 地图加载中…
+                </div>
+              )}
+
               {/* 一句话概述 */}
               {selectedTerritory.era?.shortDesc && (
                 <div className="text-parchment-100 leading-relaxed italic border-l-2 border-emerald-500/50 pl-3">
@@ -838,6 +884,14 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
           </div>
         </div>
       )}
+
+      {/* 全屏放大查看单张地图 */}
+      <GeoImageLightbox
+        src={lightboxSrc}
+        alt={lightboxAlt}
+        open={!!lightboxSrc}
+        onClose={() => setLightboxSrc(null)}
+      />
       </>
     </OverviewLayout>
   )

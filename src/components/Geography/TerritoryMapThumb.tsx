@@ -1,32 +1,34 @@
 /**
- * TerritoryMapThumb — 朝代/帝国 GeoJSON 缩略图
+ * TerritoryMapThumb — 朝代/帝国地图缩略图
  *
- * 用 d3-geo 的 geoEqualEarth 投影：
- * 1. 底图：world-atlas/countries-50m（国家轮廓线，淡灰色）— 让用户看到疆域在地球上的位置
- * 2. 主体：朝代/帝国 GeoJSON（填充色 + 半透明边框）
+ * 优先级：
+ *   1. geoSvg（真实 Wikimedia 地图）→ <img> 渲染
+ *   2. geojson（手画多边形）→ d3-geo + world-atlas 渲染 SVG
  *
- * GSAP 动画：
- * - 卡片入场时朝代疆域先描边（stroke-dashoffset）→ 再填充
- *
- * 用途：全地理 → 疆域变迁卡片的缩略图
+ * 统一外观：
+ *   - 容器用 object-contain，父元素控制尺寸（aspect-ratio 一致由调用方）
+ *   - 接受 onClick prop，点击即弹 lightbox（父组件管理状态）
  */
 import { useMemo, useState, useEffect, useRef } from 'react'
 import { geoEqualEarth, geoPath } from 'd3-geo'
 import { feature } from 'topojson-client'
-import gsap from 'gsap'
 import type { Feature, FeatureCollection, Geometry } from 'geojson'
 
 interface Props {
-  /** 朝代/帝国 GeoJSON（用作填充主体） */
-  geojson: FeatureCollection
-  width?: number
-  height?: number
-  /** 备用色（GeoJSON properties.color 缺失时） */
+  /** 真实 Wikimedia 地图（PNG/SVG 直链）— 优先于 GeoJSON */
+  geoSvg?: string | null
+  /** 朝代/帝国 GeoJSON（fallback 用） */
+  geojson?: FeatureCollection | null
+  width?: number | string
+  height?: number | string
   fallbackColor?: string
   className?: string
+  /** 点击图片回调 — 通常触发 lightbox */
+  onClick?: () => void
+  alt?: string
 }
 
-/** 计算 GeoJSON bbox */
+/** GeoJSON bbox 计算 */
 function computeBbox(features: Feature<Geometry, any>[]): [[number, number], [number, number]] | null {
   let minLng = Infinity, minLat = Infinity, maxLng = -Infinity, maxLat = -Infinity
   const walk = (c: any) => {
@@ -46,7 +48,6 @@ function computeBbox(features: Feature<Geometry, any>[]): [[number, number], [nu
   return [[minLng, minLat], [maxLng, maxLat]]
 }
 
-/** 单例缓存 — 共享一个 world-atlas Promise */
 let worldPromise: Promise<FeatureCollection | null> | null = null
 function getWorldGeo(): Promise<FeatureCollection | null> {
   if (!worldPromise) {
@@ -62,133 +63,110 @@ function getWorldGeo(): Promise<FeatureCollection | null> {
 }
 
 export default function TerritoryMapThumb({
+  geoSvg,
   geojson,
-  width = 240,
-  height = 140,
+  width,
+  height,
   fallbackColor = '#5b9bc8',
   className = '',
+  onClick,
+  alt = '疆域图',
 }: Props) {
-  const [worldGeo, setWorldGeo] = useState<FeatureCollection | null>(null)
-  const svgRef = useRef<SVGSVGElement | null>(null)
-  const [drawn, setDrawn] = useState(false)
-  useEffect(() => { getWorldGeo().then(g => { if (g) setWorldGeo(g) }) }, [])
+  const inner = geoSvg
+    ? (
+      <img
+        src={geoSvg}
+        alt={alt}
+        loading="lazy"
+        style={{ width: width as any, height: height as any, objectFit: 'cover' }}
+        className={`block ${className}`}
+      />
+    )
+    : (
+      <GeoJsonSvg
+        geojson={geojson}
+        width={width as number ?? 400}
+        height={height as number ?? 225}
+        fallbackColor={fallbackColor}
+      />
+    )
 
+  if (onClick) {
+    return (
+      <button
+        onClick={onClick}
+        className={`block w-full h-full cursor-zoom-in ${className}`}
+        style={{ background: '#0a1820' }}
+        aria-label={`放大查看 ${alt}`}
+      >
+        {inner}
+      </button>
+    )
+  }
+  return inner
+}
+
+/** 当有 geojson 时画一个紧凑 SVG（无外部图片时 fallback） */
+function GeoJsonSvg({
+  geojson, width = 400, height = 225, fallbackColor,
+}: { geojson?: FeatureCollection | null; width?: number; height?: number; fallbackColor?: string }) {
+  const [worldGeo, setWorldGeo] = useState<FeatureCollection | null>(null)
+  useEffect(() => { getWorldGeo().then(g => { if (g) setWorldGeo(g) }) }, [])
   const { worldPaths, empirePaths, empireColor } = useMemo(() => {
     const features = (geojson?.features || []) as Feature<Geometry, any>[]
-    const color = (features[0]?.properties?.color as string) || fallbackColor
+    const color = fallbackColor || (features[0]?.properties?.color as string) || '#5b9bc8'
     const bbox = computeBbox(features)
     if (!bbox) return { worldPaths: [] as string[], empirePaths: [] as string[], empireColor: color }
-
     const projection = (geoEqualEarth() as any).fitExtent(
       [[2, 2], [width - 2, height - 2]],
       { type: 'FeatureCollection', features }
     )
     const pathGen = (geoPath as any)(projection)
-
     const wPaths: string[] = worldGeo
       ? ((worldGeo.features as Feature<Geometry, any>[]) || []).map(f => pathGen(f as any) || '')
       : []
     const ePaths = features.map(f => pathGen(f as any) || '')
-
     return { worldPaths: wPaths, empirePaths: ePaths, empireColor: color }
   }, [geojson, width, height, fallbackColor, worldGeo])
 
-  // GSAP 描边 + fade-in 动画
-  useEffect(() => {
-    if (!svgRef.current || empirePaths.length === 0) return
-
-    const svg = svgRef.current
-    const empireNodes = svg.querySelectorAll<SVGPathElement>('.empire-path')
-    const worldNodes = svg.querySelectorAll<SVGPathElement>('.world-path')
-
-    const tl = gsap.timeline()
-    if (worldNodes.length) {
-      gsap.set(worldNodes, { autoAlpha: 0 })
-      tl.to(worldNodes, { autoAlpha: 1, duration: 0.4, ease: 'power2.out' }, 0)
-    }
-    if (empireNodes.length) {
-      gsap.set(empireNodes, { autoAlpha: 0 })
-      // 计算 pathLength 用于描边
-      empireNodes.forEach(path => {
-        const len = path.getTotalLength()
-        path.style.strokeDasharray = `${len}`
-        path.style.strokeDashoffset = `${len}`
-      })
-      tl.to(empireNodes, {
-        strokeDashoffset: 0,
-        duration: 1.2,
-        ease: 'power1.inOut',
-        stagger: 0.1,
-      }, 0.3)
-      .to(empireNodes, {
-        autoAlpha: 1,
-        duration: 0.5,
-        ease: 'power2.out',
-        onComplete: () => setDrawn(true),
-      }, 0.9)
-    } else {
-      setDrawn(true)
-    }
-    return () => { tl.kill() }
-  }, [empirePaths, worldPaths])
-
   return (
     <svg
-      ref={svgRef}
       viewBox={`0 0 ${width} ${height}`}
       width={width}
       height={height}
-      className={className}
-      style={{ display: 'block', overflow: 'hidden' }}
+      className={`block ${worldGeo ? '' : 'bg-ink-900/30'}`}
+      style={{ width, height, objectFit: 'cover', backgroundColor: '#0a1820' }}
       preserveAspectRatio="xMidYMid slice"
     >
-      <rect x={0} y={0} width={width} height={height} fill="#0a1820" />
-
-      {worldPaths.length > 0 && (
-        <g>
-          {worldPaths.map((d, i) => (
-            <path
-              key={`w-${i}`}
-              className="world-path"
-              d={d}
-              fill="#1f3540"
-              fillOpacity={0.55}
-              stroke="#3a5a6b"
-              strokeOpacity={0.45}
-              strokeWidth={0.3}
-            />
-          ))}
-        </g>
-      )}
-
-      {empirePaths.length > 0 ? (
-        <g>
-          {empirePaths.map((d, i) => (
-            <path
-              key={`e-${i}`}
-              className="empire-path"
-              d={d}
-              fill={empireColor}
-              fillOpacity={drawn ? 0.85 : 0}
-              stroke={empireColor}
-              strokeWidth={0.8}
-              strokeOpacity={1}
-            />
-          ))}
-        </g>
-      ) : worldPaths.length === 0 && (
-        <text
-          x={width / 2}
-          y={height / 2}
-          textAnchor="middle"
-          dominantBaseline="middle"
-          fontSize={10}
-          fill="#5a7a8a"
-          fontFamily="serif"
-        >
-          ⏳ 加载中
-        </text>
-      )}
+      <style>{`
+        .empire-path { animation: empire-fade 0.8s ease-out 0.2s both; }
+        @keyframes empire-fade { from { opacity: 0; } to { opacity: 1; } }
+        .world-path { animation: world-fade 0.5s ease-out both; }
+        @keyframes world-fade { from { opacity: 0; } to { opacity: 1; } }
+      `}</style>
+      {worldPaths.map((d, i) => (
+        <path
+          key={`w-${i}`}
+          className="world-path"
+          d={d}
+          fill="#1f3540"
+          fillOpacity={0.55}
+          stroke="#3a5a6b"
+          strokeOpacity={0.45}
+          strokeWidth={0.3}
+        />
+      ))}
+      {empirePaths.map((d, i) => (
+        <path
+          key={`e-${i}`}
+          className="empire-path"
+          d={d}
+          fill={empireColor}
+          fillOpacity={0.85}
+          stroke={empireColor}
+          strokeWidth={1.2}
+        />
+      ))}
     </svg>
   )
 }

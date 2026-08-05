@@ -201,16 +201,8 @@ export default function AmapTest() {
   const showLabels = useMapLayersStore(s => s.showLabels)
   const amapFeatures = useMapLayersStore(s => s.amapFeatures)
 
-  /** 点击要素 → 弹出详情卡片（中心位置） */
-  const handleGeoClick = (f: any) => {
-    const map = mapRef.current
-    if (!map) return
-    // 先飞向要素位置
-    try {
-      const [lng, lat] = f.labelPos
-      const [gLng, gLat] = wgs84ToGcj02([lng, lat])
-      map.setZoomAndCenter(5, new (window as any).AMap.LngLat(gLng, gLat))
-    } catch { /* noop */ }
+  /** 鼠标移入要素 → 弹出详情卡片（中心位置） */
+  const handleGeoHover = (f: any) => {
     setGeoCard({
       feature: {
         id: f.id,
@@ -223,8 +215,13 @@ export default function AmapTest() {
       },
       screenX: 0, // 中心显示
       screenY: 0,
-      source: 'click',
+      source: 'hover',
     })
+  }
+
+  /** 鼠标移出要素 → 关闭卡片 */
+  const handleGeoLeave = (f: any) => {
+    setGeoCard(null)
   }
 
   useEffect(() => {
@@ -232,7 +229,7 @@ export default function AmapTest() {
     if (!map) return
     // 1) 自然地理要素叠加层
     if (mapReady) {
-      const dispose = renderGeoFeatures(map, layersVisible, showLabels, handleGeoClick)
+      const dispose = renderGeoFeatures(map, layersVisible, showLabels, handleGeoHover, handleGeoLeave)
       return dispose
     }
   }, [mapReady, layersVisible, showLabels])

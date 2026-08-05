@@ -62,7 +62,8 @@ export function renderGeoFeatures(
   map: any,
   visible: Record<GeoLayerKey, boolean>,
   showLabels: boolean,
-  onFeatureClick?: (f: GeoFeature) => void,
+  onFeatureHover?: (f: GeoFeature) => void,
+  onFeatureLeave?: (f: GeoFeature) => void,
 ): () => void {
   const A = (window as any).AMap
   if (!A || !map) return () => {}
@@ -94,7 +95,8 @@ export function renderGeoFeatures(
             fillOpacity: style.fillOpacity ?? 0,
             map,
           })
-          if (onFeatureClick) poly.on('click', () => onFeatureClick(f))
+          if (onFeatureHover) poly.on('mouseover', () => onFeatureHover(f))
+          if (onFeatureLeave) poly.on('mouseout', () => onFeatureLeave(f))
           overlays.push(poly)
         } else {
           const line = new A.Polyline({
@@ -105,7 +107,8 @@ export function renderGeoFeatures(
             strokeStyle: style.strokeDasharray ? 'dashed' : 'solid',
             map,
           })
-          if (onFeatureClick) line.on('click', () => onFeatureClick(f))
+          if (onFeatureHover) line.on('mouseover', () => onFeatureHover(f))
+          if (onFeatureLeave) line.on('mouseout', () => onFeatureLeave(f))
           overlays.push(line)
         }
       } catch { /* single feature failed, skip */ }
@@ -135,7 +138,8 @@ export function renderGeoFeatures(
               'box-shadow': '0 1px 3px rgba(0,0,0,0.6)',
             },
           })
-          if (onFeatureClick) textLabel.on('click', () => onFeatureClick(f))
+          if (onFeatureHover) textLabel.on('mouseover', () => onFeatureHover(f))
+          if (onFeatureLeave) textLabel.on('mouseout', () => onFeatureLeave(f))
           overlays.push(textLabel)
         } catch { /* label failed */ }
       }

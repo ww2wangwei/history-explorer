@@ -76,8 +76,8 @@ export default function GraticuleLayer({
         const line = new A.Polyline({
           path: [new A.LngLat(lng, s0), new A.LngLat(lng, s1)],
           strokeColor: isMajor ? '#d8c9a8' : '#8a7d63',
-          strokeWeight: isMajor ? 2 : 1,
-          strokeOpacity: isMajor ? 0.9 : 0.5,
+          strokeWeight: isMajor ? 1.2 : 0.6,
+          strokeOpacity: isMajor ? 0.7 : 0.32,
           map,
           zIndex: 8,
         })
@@ -90,7 +90,8 @@ export default function GraticuleLayer({
             text: txt,
             position: new A.LngLat(lng, Math.min(s1, north)),
             anchor: 'top-center',
-            offset: new A.Pixel(0, 6),
+            offset: new A.Pixel(0, 4),
+            map, // 必须挂到地图才会显示
             style: {
               color: '#f0e6cf',
               'font-size': '11px',
@@ -111,8 +112,8 @@ export default function GraticuleLayer({
         const line = new A.Polyline({
           path: [new A.LngLat(w0, lat), new A.LngLat(w1, lat)],
           strokeColor: isMajor ? '#d8c9a8' : '#8a7d63',
-          strokeWeight: isMajor ? 2 : 1,
-          strokeOpacity: isMajor ? 0.9 : 0.5,
+          strokeWeight: isMajor ? 1.2 : 0.6,
+          strokeOpacity: isMajor ? 0.7 : 0.32,
           map,
           zIndex: 8,
         })
@@ -126,6 +127,7 @@ export default function GraticuleLayer({
             position: new A.LngLat(Math.max(w0, west), lat),
             anchor: 'middle-left',
             offset: new A.Pixel(6, 0),
+            map, // 必须挂到地图才会显示
             style: {
               color: '#f0e6cf',
               'font-size': '11px',

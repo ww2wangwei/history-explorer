@@ -48,6 +48,8 @@ const GoalSettings = lazy(() => import('@/components/Flashcards/GoalSettings'))
 const PoemsOverview = lazy(() => import('@/components/Poems/PoemsOverview'))
 const CivilizationsOverview = lazy(() => import('@/components/Civilizations/CivilizationsOverview'))
 const QuestionsOverview = lazy(() => import('@/components/Questions/QuestionsOverview'))
+const ArtsOverview = lazy(() => import('@/components/Arts/ArtsOverview'))
+const WorldHistoryOverview = lazy(() => import('@/components/WorldHistory/WorldHistoryOverview'))
 
 function PageFallback() {
   return (
@@ -395,6 +397,24 @@ export default function Layout() {
         return (
           <Suspense fallback={<PageFallback />}>
             <QuestionsOverview
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+            />
+          </Suspense>
+        )
+      case 'arts':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <ArtsOverview
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+            />
+          </Suspense>
+        )
+      case 'worldHistory':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <WorldHistoryOverview
               isActive
               onClose={() => dispatch({ type: 'OPEN_HOME' })}
             />

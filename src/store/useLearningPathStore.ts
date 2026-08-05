@@ -12,7 +12,7 @@ import type { Era } from '@/types'
 
 const eras = erasData as Era[]
 
-export type PathId = 'timeline' | 'crossReference' | 'eraDetail' | 'review' | 'allFigures' | 'allWars' | 'allCultures' | 'allGeography' | 'allPoems' | 'civilizations' | 'timeTravel' | 'allQuestions'
+export type PathId = 'timeline' | 'crossReference' | 'eraDetail' | 'review' | 'allFigures' | 'allWars' | 'allCultures' | 'allGeography' | 'allPoems' | 'civilizations' | 'allArts' | 'worldHistory' | 'timeTravel' | 'allQuestions'
 
 export interface PathProgress {
   visitedEraIds: string[]
@@ -26,6 +26,14 @@ export interface PathProgress {
   visitedSectionIds?: string[]
   /** 仅 civilizations 路径使用：最近查看的 section */
   lastVisitedSectionId?: string | null
+  /** 仅 allArts 路径使用：已读 lesson id 列表 */
+  visitedLessonIds?: string[]
+  /** 仅 allArts 路径使用：最近查看的 lesson */
+  lastVisitedLessonId?: string | null
+  /** 仅 worldHistory 路径使用：已读 lesson id 列表 */
+  visitedWorldLessonIds?: string[]
+  /** 仅 worldHistory 路径使用：最近查看的 lesson */
+  lastVisitedWorldLessonId?: string | null
   /** 仅 timeTravel 路径使用：已通关的剧本 + 达成结局（支持多个） */
   completedScenarios?: string[]
   /** scenarioId → endingId[] （多结局支持） */
@@ -45,6 +53,10 @@ interface LearningPathState {
   markPoemVisited: () => void
   /** 中西方文明大对比：标记某节已读 */
   markCivilizationVisited: (sectionId: string) => void
+  /** 全艺术：标记某节已读 */
+  markArtVisited: (lessonId: string) => void
+  /** 全文明（少年世界史）：标记某节已读 */
+  markWorldHistoryVisited: (lessonId: string) => void
   recordExit: () => void
   /** 获取某路径已学朝代 */
   getVisitedEras: (path: PathId) => string[]
@@ -71,6 +83,8 @@ export const useLearningPathStore = create<LearningPathState>()(
         allGeography: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
         allPoems: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
         civilizations: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedSectionIds: [], lastVisitedSectionId: null },
+        allArts: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedLessonIds: [], lastVisitedLessonId: null },
+        worldHistory: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedWorldLessonIds: [], lastVisitedWorldLessonId: null },
         timeTravel: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, completedScenarios: [], scenarioEndings: {} },
         allQuestions: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
       }
@@ -152,6 +166,46 @@ export const useLearningPathStore = create<LearningPathState>()(
           }
         }),
 
+      markArtVisited: (lessonId) =>
+        set(s => {
+          const cur = s.progressByPath.allArts ?? defaultProgress.allArts
+          const visited = cur.visitedLessonIds?.includes(lessonId)
+            ? cur.visitedLessonIds ?? []
+            : [...(cur.visitedLessonIds ?? []), lessonId]
+          return {
+            progressByPath: {
+              ...s.progressByPath,
+              allArts: {
+                ...cur,
+                visitedLessonIds: visited,
+                lastVisitedLessonId: lessonId,
+                lastVisitedAt: Date.now(),
+              },
+            },
+            lastViewedAt: Date.now(),
+          }
+        }),
+
+      markWorldHistoryVisited: (lessonId) =>
+        set(s => {
+          const cur = s.progressByPath.worldHistory ?? defaultProgress.worldHistory
+          const visited = cur.visitedWorldLessonIds?.includes(lessonId)
+            ? cur.visitedWorldLessonIds ?? []
+            : [...(cur.visitedWorldLessonIds ?? []), lessonId]
+          return {
+            progressByPath: {
+              ...s.progressByPath,
+              worldHistory: {
+                ...cur,
+                visitedWorldLessonIds: visited,
+                lastVisitedWorldLessonId: lessonId,
+                lastVisitedAt: Date.now(),
+              },
+            },
+            lastViewedAt: Date.now(),
+          }
+        }),
+
       recordExit: () => set({ lastViewedAt: Date.now() }),
 
       getVisitedEras: (path) => get().progressByPath[path]?.visitedEraIds ?? [],
@@ -204,6 +258,8 @@ export const useLearningPathStore = create<LearningPathState>()(
           allGeography: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
           allPoems: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
           civilizations: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedSectionIds: [], lastVisitedSectionId: null },
+          allArts: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedLessonIds: [], lastVisitedLessonId: null },
+          worldHistory: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedWorldLessonIds: [], lastVisitedWorldLessonId: null },
           timeTravel: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, completedScenarios: [], scenarioEndings: {} },
           allQuestions: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
         }

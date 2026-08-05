@@ -125,8 +125,8 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
   // 选择提交期间防双击
   const isChoosingRef = useRef(false)
   // 计时器追踪器：unmount / 场景切换时清理 setTimeout
-  const outcomeTimersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set())
-  const floatFxTimersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set())
+  const outcomeTimersRef = useRef<Set<number>>(new Set())
+  const floatFxTimersRef = useRef<Set<number>>(new Set())
 
   const setContext = useAIStore(s => s.setContext)
   const setPersonaPrompt = useAIStore(s => s.setPersonaPrompt)

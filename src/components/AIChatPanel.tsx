@@ -401,13 +401,13 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
           <span className="hidden group-hover:inline-block text-xs px-2 py-1 rounded-lg bg-ink-800/95 border border-bronze-500/40 text-bronze-300 shadow-lg whitespace-nowrap">
             🤖 AI 问 · <kbd className="px-1 bg-ink-700 rounded-lg text-xs">?</kbd>
           </span>
-          <span className="w-14 h-14 rounded-full bg-gradient-to-br from-bronze-500 to-bronze-700 shadow-2xl flex items-center justify-center border border-bronze-300/50">
+          <span className="w-10 h-10 rounded-full bg-gradient-to-br from-bronze-500 to-bronze-700 shadow-2xl flex items-center justify-center border border-bronze-300/50">
             {panelOpen ? (
-              <svg width="20" height="20" viewBox="0 0 20 20">
+              <svg width="16" height="16" viewBox="0 0 20 20">
                 <path d="M4 4 L16 16 M16 4 L4 16" stroke="#fdf8f0" strokeWidth="2" strokeLinecap="round" fill="none" />
               </svg>
             ) : (
-              <svg width="24" height="24" viewBox="0 0 24 24">
+              <svg width="18" height="18" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="9" fill="none" stroke="#fdf8f0" strokeWidth="1.2" opacity="0.5" />
                 <circle cx="12" cy="12" r="5" fill="#fdf8f0" />
                 <circle cx="12" cy="12" r="1.5" fill="#c89a5b" />

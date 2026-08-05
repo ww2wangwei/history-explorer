@@ -39,6 +39,8 @@ export type MainView =
   | { mode: 'geography' }                                       // 全地理
   | { mode: 'poems' }                                           // 全诗词
   | { mode: 'civilizations' }                                   // 中西方文明大对比
+  | { mode: 'arts' }                                            // 全艺术（西方艺术课60节）
+  | { mode: 'worldHistory' }                                    // 全文明（少年世界史 161 节）
   | { mode: 'timeTravel'; scenarioId: string | null }           // 穿越历史（null = 大厅）
   | { mode: 'questions' }                                       // 全问题
 
@@ -63,6 +65,8 @@ export type LayoutAction =
   | { type: 'OPEN_GEOGRAPHY' }
   | { type: 'OPEN_POEMS' }
   | { type: 'OPEN_CIVILIZATIONS' }
+  | { type: 'OPEN_ARTS' }
+  | { type: 'OPEN_WORLD_HISTORY' }
   | { type: 'OPEN_TIME_TRAVEL' }
   | { type: 'OPEN_QUESTIONS' }
   | { type: 'START_SCENARIO'; scenarioId: string }
@@ -133,6 +137,12 @@ export function layoutReducer(state: LayoutUIState, action: LayoutAction): Layou
     case 'OPEN_CIVILIZATIONS':
       return { ...state, main: { mode: 'civilizations' } }
 
+    case 'OPEN_ARTS':
+      return { ...state, main: { mode: 'arts' } }
+
+    case 'OPEN_WORLD_HISTORY':
+      return { ...state, main: { mode: 'worldHistory' } }
+
     case 'OPEN_TIME_TRAVEL':
       return { ...state, main: { mode: 'timeTravel', scenarioId: null } }
 
@@ -189,6 +199,8 @@ export function isOverlayActive(main: MainView): boolean {
       || main.mode === 'geography'
       || main.mode === 'poems'
       || main.mode === 'civilizations'
+      || main.mode === 'arts'
+      || main.mode === 'worldHistory'
       || main.mode === 'timeTravel'
       || main.mode === 'questions'
 }
@@ -219,6 +231,10 @@ export function pathEntryToAction(
       return { type: 'OPEN_POEMS' }
     case 'civilizations':
       return { type: 'OPEN_CIVILIZATIONS' }
+    case 'allArts':
+      return { type: 'OPEN_ARTS' }
+    case 'worldHistory':
+      return { type: 'OPEN_WORLD_HISTORY' }
     case 'timeTravel':
       return { type: 'OPEN_TIME_TRAVEL' }
     case 'allQuestions':

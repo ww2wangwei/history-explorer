@@ -51,6 +51,8 @@ const PATHS: { id: PathId; icon: string; title: string; desc: string; color: str
   { id: 'civilizations', icon: '⚖️', title: '中西方文明大对比', desc: '15 节对比，看清两种截然不同的历史路径', color: '#d4a85b' },
   { id: 'timeTravel', icon: '🎭', title: '穿越历史', desc: '化身历史人物，在关键节点做选择', color: '#9b7eb6' },
   { id: 'allQuestions', icon: '💭', title: '全问题', desc: '趣味/启发/思考题，AI 一问一答逐步深挖并打分', color: '#e07b9b' },
+  { id: 'allArts', icon: '🎨', title: '全艺术', desc: '60 节西方艺术课 · 从史前壁画到当代观念', color: '#e879b9' },
+  { id: 'worldHistory', icon: '🌍', title: '全文明', desc: '少年世界史 161 节 · 从人类起源到现代世界', color: '#d4a85b' },
   { id: 'review', icon: '🎯', title: '今日复习', desc: '基于 SM-2 算法的间隔复习', color: '#9bc89a' },
 ]
 
@@ -300,6 +302,10 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
               ? poemsFavoritesCount
               : p.id === 'civilizations'
               ? (progress.visitedSectionIds?.length ?? 0)
+              : p.id === 'allArts'
+              ? (progress.visitedLessonIds?.length ?? 0)
+              : p.id === 'worldHistory'
+              ? (progress.visitedWorldLessonIds?.length ?? 0)
               : p.id === 'allQuestions'
               ? Object.values(questionsProgress).filter(q => q.status === 'done').length
               : progress.visitedEraIds.length
@@ -309,6 +315,10 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
               ? 100
               : p.id === 'civilizations'
               ? 15
+              : p.id === 'allArts'
+              ? 60
+              : p.id === 'worldHistory'
+              ? 161
               : p.id === 'allQuestions'
               ? builtinQuestionList.length + customQuestionCount
               : totalEras

@@ -91,7 +91,6 @@ export default function GraticuleLayer({
             position: new A.LngLat(lng, Math.min(s1, north)),
             anchor: 'top-center',
             offset: new A.Pixel(0, 4),
-            map, // 必须挂到地图才会显示
             style: {
               color: '#f0e6cf',
               'font-size': '11px',
@@ -102,6 +101,7 @@ export default function GraticuleLayer({
               border: '1px solid rgba(216,201,168,0.4)',
             },
           })
+          label.setMap(map) // A.Text 不支持构造参数挂载，必须显式 setMap
           drawn.push(label)
         }
       }
@@ -127,7 +127,6 @@ export default function GraticuleLayer({
             position: new A.LngLat(Math.max(w0, west), lat),
             anchor: 'middle-left',
             offset: new A.Pixel(6, 0),
-            map, // 必须挂到地图才会显示
             style: {
               color: '#f0e6cf',
               'font-size': '11px',
@@ -138,6 +137,7 @@ export default function GraticuleLayer({
               border: '1px solid rgba(216,201,168,0.4)',
             },
           })
+          label.setMap(map) // A.Text 不支持构造参数挂载，必须显式 setMap
           drawn.push(label)
         }
       }

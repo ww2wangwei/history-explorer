@@ -201,8 +201,19 @@ export default function AmapTest() {
   const showLabels = useMapLayersStore(s => s.showLabels)
   const amapFeatures = useMapLayersStore(s => s.amapFeatures)
 
-  /** 鼠标移入要素 → 弹出详情卡片（中心位置） */
+  /** 鼠标移入要素 → 在该要素的标签位置上方弹卡 */
   const handleGeoHover = (f: any) => {
+    const map = mapRef.current
+    let sx = 0
+    let sy = 0
+    if (map && f.labelPos) {
+      const w = containerRef.current?.clientWidth ?? 0
+      const h = containerRef.current?.clientHeight ?? 0
+      // 24px padding：避免卡片贴边
+      const { x, y } = getClampedScreenPoint(map, f.labelPos[0], f.labelPos[1], w, h, 24)
+      sx = x
+      sy = y
+    }
     setGeoCard({
       feature: {
         id: f.id,
@@ -213,8 +224,8 @@ export default function AmapTest() {
         imageCredit: f.imageCredit,
         labelPos: f.labelPos,
       },
-      screenX: 0, // 中心显示
-      screenY: 0,
+      screenX: sx,
+      screenY: sy,
       source: 'hover',
     })
   }
@@ -603,10 +614,13 @@ function GeoFeatureCardView({
       data-testid="amap-geo-card"
       className="absolute z-20 pointer-events-auto"
       style={{
-        // 真正居中：left/top 50% + transform -50%/-50%，再加 maxHeight 防止内容过多导致超出可视区
-        left: '50%',
-        top: '50%',
-        transform: 'translate(-50%, -50%)',
+        // 卡片定位：在标签位置的正上方（与 InfoCardView 相同的"小三角指向"风格）
+        //  - left = 标签 screenX
+        //  - top  = 标签 screenY
+        //  - transform: translate(-50%, -100%) + 6px  → 卡片底边在标签上方 6px
+        left: card.screenX,
+        top: card.screenY,
+        transform: 'translate(-50%, calc(-100% - 6px))',
         width: '320px',
         maxWidth: 'calc(100vw - 32px)',
         maxHeight: 'min(620px, calc(100vh - 80px))',

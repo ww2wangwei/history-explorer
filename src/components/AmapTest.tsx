@@ -20,7 +20,6 @@ import eventsData from '@/data/events.json'
 import { createMapMarker } from '@/lib/amap/markers'
 import { getClampedScreenPoint } from '@/lib/amap/mapHelpers'
 import { getReopenEvent } from '@/lib/reopenRoutes'
-import { renderGeoFeatures } from '@/components/Map/GeoFeatureLayer'
 import GeoFeatureFilter from '@/components/Map/GeoFeatureFilter'
 import type { ReopenKind } from '@/lib/reopenRoutes'
 import type { Era, HistoricalEvent } from '@/types'
@@ -179,21 +178,8 @@ export default function AmapTest() {
     }
   }, [])
 
-  // 自然地理要素图层（叠加山脉/河流/海洋等）+ AMap 自带 feature 类别控制
-  const layersVisible = useMapLayersStore(s => s.visible)
-  const showLabels = useMapLayersStore(s => s.showLabels)
+  // AMap 自带 feature 类别（POI、水系标注等）：通过 setFeatures 控制显隐
   const amapFeatures = useMapLayersStore(s => s.amapFeatures)
-  useEffect(() => {
-    const map = mapRef.current
-    if (!map) return
-    // 1) 自然地理要素叠加层
-    if (mapReady) {
-      const dispose = renderGeoFeatures(map, layersVisible, showLabels)
-      return dispose
-    }
-  }, [mapReady, layersVisible, showLabels])
-
-  // 2) AMap 自带 feature 类别（POI、水系标注等）
   useEffect(() => {
     const map = mapRef.current
     if (!map || !mapReady) return

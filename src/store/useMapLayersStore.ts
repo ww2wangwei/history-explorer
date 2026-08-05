@@ -1,36 +1,14 @@
 /**
- * useMapLayersStore — 地图图层的可见性持久化
+ * useMapLayersStore — 地图 AMap 自带 feature 类别显隐持久化
  *
- *  - visible: 我们自己叠加的「山脉/河流/海洋」等 GeoFeature
- *  - amapFeatures: 高德底图自带的要素类别（POI/水系标注等），
- *                  通过 AMap.Map.setFeatures(['bg','point','road','water',...]) 控制
+ *  - 通过 AMap.Map.setFeatures() 控制底图要素（POI/道路/水系标注/绿地…）
  *  - 选择持久化到 localStorage（key: history-explorer-map-layers:v1）
+ *
+ * 注意：原 GeoFeatureLayer 自定义叠加层（我们额外画的 polyline/polygon）已移除，
+ * 因为高德底图自带相同要素，手动叠加是冗余的。
  */
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import type { GeoFeatureType } from '@/data/geographic-features'
-
-export type GeoLayerKey =
-  | 'rivers' | 'mountains' | 'seas' | 'lakes' | 'deserts'
-  | 'plains' | 'peninsulas' | 'straits' | 'waterfalls' | 'regions'
-  | 'continents'
-
-/** 用于 UI 展示的层级元数据 */
-export const LAYER_META: Record<GeoLayerKey, { type: GeoFeatureType; label: string; icon: string; defaultOn: boolean; desc: string }> = {
-  rivers:      { type: 'river',       label: '河流',    icon: '🌊', defaultOn: true,  desc: '尼罗河、长江、黄河… 文明常傍河而兴' },
-  mountains:   { type: 'mountain',    label: '山脉',    icon: '⛰️',  defaultOn: true,  desc: '喜马拉雅、阿尔卑斯、安第斯… 文明的分界与庇护' },
-  seas:        { type: 'sea',         label: '海洋',    icon: '🌀', defaultOn: false, desc: '地中海、红海、波斯湾…' },
-  lakes:       { type: 'lake',        label: '湖泊',    icon: '💧', defaultOn: false, desc: '贝加尔湖、维多利亚湖…' },
-  deserts:     { type: 'desert',      label: '沙漠',    icon: '🏜️',  defaultOn: false, desc: '撒哈拉、塔克拉玛干、阿拉伯…' },
-  plains:      { type: 'plain',       label: '平原',    icon: '🌾', defaultOn: false, desc: '恒河、两河、尼罗河、北中国平原…' },
-  peninsulas:  { type: 'peninsula',   label: '半岛',    icon: '📍', defaultOn: false, desc: '阿拉伯、印度、中南、伊比利亚…' },
-  straits:     { type: 'strait',      label: '海峡',    icon: '↔️',  defaultOn: false, desc: '直布罗陀、霍尔木兹、白令…' },
-  waterfalls:  { type: 'waterfall',   label: '瀑布',    icon: '🪨',  defaultOn: false, desc: '' },
-  regions:     { type: 'region',      label: '区域',    icon: '🗺', defaultOn: false, desc: '' },
-  continents:  { type: 'continent',   label: '大洲名',  icon: '🌐', defaultOn: false, desc: '亚洲、欧洲… 仅显示名称标签' },
-}
-
-const ALL_KEYS = Object.keys(LAYER_META) as GeoLayerKey[]
 
 /** AMap.Map.setFeatures() 支持的 feature 类别（高德官方） */
 export type AmapFeatureKey =
@@ -38,53 +16,32 @@ export type AmapFeatureKey =
   | 'water' | 'waterlabel' | 'land'
   | 'label' | 'mask' | 'grass'
 
-export const AMAP_FEATURE_META: Record<AmapFeatureKey, { label: string; icon: string; defaultOn: boolean }> = {
-  bg:         { label: '底图背景',    icon: '🎨', defaultOn: true },
-  point:      { label: 'POI 点',       icon: '📍', defaultOn: true },
-  road:       { label: '道路',        icon: '🛣️',  defaultOn: true },
-  building:   { label: '建筑',        icon: '🏢', defaultOn: true },
-  water:      { label: '水域面',       icon: '🌊', defaultOn: true },
-  waterlabel: { label: '水系标注',     icon: '🏷️',  defaultOn: true },
-  land:       { label: '陆地',        icon: '🗻', defaultOn: true },
-  label:      { label: '地名标注',     icon: '🔤', defaultOn: true },
-  mask:       { label: '区域遮罩',     icon: '🎭', defaultOn: true },
-  grass:      { label: '绿地/林地',    icon: '🌳', defaultOn: true },
+export const AMAP_FEATURE_META: Record<AmapFeatureKey, { label: string; icon: string; desc: string }> = {
+  bg:         { label: '底图背景',    icon: '🎨', desc: '关掉则底图全黑（一般保留）' },
+  point:      { label: 'POI 点',       icon: '📍', desc: '城市/景点/公司等小圆点' },
+  road:       { label: '道路',        icon: '🛣️',  desc: '街道、高速、国道线' },
+  building:   { label: '建筑',        icon: '🏢', desc: '城市建筑色块' },
+  water:      { label: '水域面',       icon: '🌊', desc: '河海蓝色面' },
+  waterlabel: { label: '水系标注',     icon: '🏷️',  desc: '"长江""黄河"等文字' },
+  land:       { label: '陆地',        icon: '🗻', desc: '陆地色块' },
+  label:      { label: '地名标注',     icon: '🔤', desc: '城市/省/国家名' },
+  mask:       { label: '区域遮罩',     icon: '🎭', desc: '省界/区域色带' },
+  grass:      { label: '绿地/林地',    icon: '🌳', desc: '公园、森林绿色面' },
 }
 
 const ALL_AMAP_KEYS = Object.keys(AMAP_FEATURE_META) as AmapFeatureKey[]
 export const AMAP_FEATURE_KEYS_FOR_UI: AmapFeatureKey[] = ALL_AMAP_KEYS
 
 interface MapLayersState {
-  /** layerKey -> 是否可见（自定义叠加层） */
-  visible: Record<GeoLayerKey, boolean>
-  /** 自定义叠加层是否显示名称标签 */
-  showLabels: boolean
-  /** AMap 自带 feature 类别 */
+  /** AMap 自带 feature 类别（勾选表示显示） */
   amapFeatures: AmapFeatureKey[]
-
-  /** 切换单个自定义图层 */
-  toggle: (key: GeoLayerKey) => void
-  /** 切换标签显示 */
-  toggleLabels: () => void
-  /** 自定义图层全开 / 全关 */
-  showAll: () => void
-  hideAll: () => void
-  /** 重置自定义图层到默认 */
-  resetDefault: () => void
-
-  /** 切换 AMap 自带 feature 类别 */
+  /** 切换单个 AMap feature */
   toggleAmap: (key: AmapFeatureKey) => void
   /** AMap features 全开 / 全关 */
   amapShowAll: () => void
   amapHideAll: () => void
   /** AMap features 重置为默认（全开） */
   amapResetDefault: () => void
-}
-
-function defaultVisible(): Record<GeoLayerKey, boolean> {
-  const out = {} as Record<GeoLayerKey, boolean>
-  for (const k of ALL_KEYS) out[k] = LAYER_META[k].defaultOn
-  return out
 }
 
 function defaultAmapFeatures(): AmapFeatureKey[] {
@@ -94,15 +51,7 @@ function defaultAmapFeatures(): AmapFeatureKey[] {
 export const useMapLayersStore = create<MapLayersState>()(
   persist(
     (set) => ({
-      visible: defaultVisible(),
-      showLabels: true,
       amapFeatures: defaultAmapFeatures(),
-
-      toggle: (key) => set(s => ({ visible: { ...s.visible, [key]: !s.visible[key] } })),
-      toggleLabels: () => set(s => ({ showLabels: !s.showLabels })),
-      showAll: () => set({ visible: ALL_KEYS.reduce((o, k) => { o[k] = true; return o }, {} as Record<GeoLayerKey, boolean>) }),
-      hideAll: () => set({ visible: ALL_KEYS.reduce((o, k) => { o[k] = false; return o }, {} as Record<GeoLayerKey, boolean>) }),
-      resetDefault: () => set({ visible: defaultVisible(), showLabels: true }),
 
       toggleAmap: (key) => set(s => ({
         amapFeatures: s.amapFeatures.includes(key)
@@ -116,12 +65,8 @@ export const useMapLayersStore = create<MapLayersState>()(
     {
       name: 'history-explorer-map-layers:v1',
       storage: createJSONStorage(() => localStorage),
-      partialize: (s) => ({
-        visible: s.visible,
-        showLabels: s.showLabels,
-        amapFeatures: s.amapFeatures,
-      }),
-      // 老用户没有 amapFeatures 字段 → 给默认
+      partialize: (s) => ({ amapFeatures: s.amapFeatures }),
+      // 老用户没有 amapFeatures 字段 → 给默认（版本 1 升级到 2）
       migrate: (persisted: any, _fromVersion) => {
         if (persisted && !persisted.amapFeatures) {
           persisted.amapFeatures = defaultAmapFeatures()

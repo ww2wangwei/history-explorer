@@ -107,10 +107,10 @@ export default function EraQuickLearnModal({
               </div>
             )}
 
-            {/* 5 件大事 */}
+            {/* 关键大事 */}
             {era.quickEvents && era.quickEvents.length > 0 && (
               <div>
-                <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">📜 5 件关键大事</div>
+                <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">📜 {era.quickEvents.length} 件关键大事</div>
                 <div className="relative pl-5">
                   <div className="absolute left-1.5 top-1 bottom-1 w-px bg-bronze-600/40" />
                   {era.quickEvents.map((ev, i) => (

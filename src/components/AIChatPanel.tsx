@@ -171,6 +171,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
   const [apiBaseUrl, setApiBaseUrl] = useState(apiConfig.baseUrl)
   const [apiModel, setApiModel] = useState(apiConfig.model)
   const [apiProtocol, setApiProtocol] = useState(apiConfig.protocol)
+  const [apiDisableThinking, setApiDisableThinking] = useState<boolean>(apiConfig.disableThinking !== false)
   const [error, setError] = useState<string | null>(null)
   // 最近保存的 AI 消息 id（用于显示"✓ 已加入笔记"反馈）
   const [noteSavedFor, setNoteSavedFor] = useState<string | null>(null)
@@ -306,6 +307,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
         messages: [{ role: 'system', content: activeSystemPrompt }, ...apiMessages],
         maxTokens: MAX_TOKENS,
         signal: ctrl.signal,
+        disableThinking: apiConfig.disableThinking,
         onDelta: (delta) => {
           updateMessage(threadId, assistantId, (m) => ({
             content: m.content + delta,
@@ -565,6 +567,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                       protocol: apiProtocol,
                       baseUrl: apiBaseUrl.trim(),
                       model: apiModel.trim() || 'minimax-chat',
+                      disableThinking: apiDisableThinking,
                     })
                     setShowKeyInput(false)
                   }}
@@ -579,6 +582,16 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   apiKey={apiKeyInput}
                 />
               </div>
+              <label className="flex items-center gap-2 text-xs text-ink-300 cursor-pointer select-none pt-1">
+                <input
+                  type="checkbox"
+                  checked={apiDisableThinking}
+                  onChange={e => setApiDisableThinking(e.target.checked)}
+                  className="accent-bronze-500"
+                />
+                <span>禁用 AI 思考模式</span>
+                <span className="text-ink-500">（MiniMax / DeepSeek 等模型关闭 &lt;thinking&gt; 块，推荐打开）</span>
+              </label>
             </div>
           )}
 

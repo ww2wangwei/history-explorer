@@ -102,13 +102,32 @@ export default function TiandituTiles({ center, zoom }: Props) {
   if (!key) {
     return (
       <g>
+        {/* 半透明深色背板，让提示更醒目（之前是一行小字，容易被忽略） */}
+        <rect x={WIDTH / 2 - 180} y={HEIGHT / 2 - 50} width={360} height={100} rx={8}
+          fill="rgba(15,14,12,0.85)" stroke="#c89a5b" strokeWidth={1} />
         <text
           x={WIDTH / 2}
-          y={HEIGHT / 2}
+          y={HEIGHT / 2 - 18}
           textAnchor="middle"
-          style={{ fill: '#5a5142', fontSize: 14 }}
+          style={{ fill: '#c89a5b', fontSize: 18, fontWeight: 600 }}
         >
-          天地图未配置
+          🗺 天地图 API Key 未配置
+        </text>
+        <text
+          x={WIDTH / 2}
+          y={HEIGHT / 2 + 6}
+          textAnchor="middle"
+          style={{ fill: '#a89a82', fontSize: 12 }}
+        >
+          在项目根目录 .env 添加 VITE_TIANDITU_KEY=你的AK
+        </text>
+        <text
+          x={WIDTH / 2}
+          y={HEIGHT / 2 + 26}
+          textAnchor="middle"
+          style={{ fill: '#7a6e58', fontSize: 11 }}
+        >
+          申请地址: console.tianditu.gov.cn/api/key
         </text>
       </g>
     )

@@ -39,12 +39,18 @@ export interface AIApiConfig {
   baseUrl: string
   /** 模型名（anthropic: claude-...；openai: gpt-... 或 minimax-chat） */
   model: string
+  /**
+   * 禁用模型思考模式（如 MiniMax-Text-01 默认会吐 `<thinking>...</thinking>` 块，把这道题场景会很烦）。
+   * 仅对 OpenAI 兼容协议生效；会下发 `enable_thinking: false`。
+   */
+  disableThinking?: boolean
 }
 
 export const DEFAULT_AI_CONFIG: AIApiConfig = {
   protocol: 'openai',
   baseUrl: 'https://api.minimaxi.com/v1',
   model: 'MiniMax-Text-01',
+  disableThinking: true,
 }
 
 interface AIState {
@@ -148,7 +154,7 @@ export const useAIStore = create<AIState>()(
     }),
     {
       name: 'history-explorer-ai:v1',
-      version: 1,
+      version: 2,
       storage: createJSONStorage(() => localStorage),
       // 只持久化 API key / config / 对话历史；面板开关 / 上下文是会话级
       partialize: (state) => ({
@@ -157,7 +163,16 @@ export const useAIStore = create<AIState>()(
         threads: state.threads,
         activeThreadId: state.activeThreadId,
       }),
-      migrate: (persisted, _fromVersion) => persisted as AIState,
+      migrate: (persisted, fromVersion) => {
+        if (fromVersion < 2 && persisted && typeof persisted === 'object') {
+          // 老用户的 apiConfig 没有 disableThinking 字段，补默认 true（关闭模型思考）
+          const p = persisted as Partial<AIState> & { apiConfig?: Partial<AIApiConfig> }
+          if (p.apiConfig && typeof p.apiConfig === 'object') {
+            p.apiConfig = { ...p.apiConfig, disableThinking: true }
+          }
+        }
+        return persisted as AIState
+      },
     },
   ),
 )

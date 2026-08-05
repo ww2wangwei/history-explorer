@@ -83,6 +83,21 @@ function invertFromD3Zoom(tx: number, ty: number, k: number, width: number, heig
   }
 }
 
+/**
+ * 把 [lng, lat] 投影到 RSM 内部 SVG 坐标（pre-transform）。
+ *   - ZoomableGroup 会对结果再施加 zoom/pan transform，所以放在 ZoomableGroup 内的元素会自动跟随平移缩放。
+ *   - 与 projectionInstance 完全一致（geoEqualEarth + translate + scale 175 + center (0,20)）。
+ */
+function projectLngLat([lng, lat]: [number, number]): [number, number] | null {
+  try {
+    const r = projectionInstance([lng, lat])
+    if (!Array.isArray(r) || !Number.isFinite(r[0]) || !Number.isFinite(r[1])) return null
+    return [r[0], r[1]]
+  } catch {
+    return null
+  }
+}
+
 function getChinaEraAtYear(year: number): Era | null {
   const chinaEras = eras.filter(e => e.region === 'china')
   return chinaEras.find(e => year >= e.startYear && year <= e.endYear) ?? null
@@ -325,7 +340,9 @@ export default function WorldMap() {
           )}
         </Geographies>
 
-        {/* 山脉/河流/海域/古都 — 均由天地图瓦片自带，不再叠加渲染 */}
+        {/* 山脉/河流/海域/古都 — 由天地图瓦片自带 */}
+        {/* 注：自然地理要素图层（GeoFeatureLayer / GeoFeatureFilter）已在 TMapTest.tsx 实现，
+            因为 Layout 实际渲染的是 TMapTest，本文件（WorldMap）已被废弃 */}
 
         <Geographies geography={mergedWorldGeo ?? { type: 'FeatureCollection', features: [] }}>
           {({ geographies }) =>

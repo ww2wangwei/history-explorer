@@ -26,7 +26,7 @@ import type { PathId } from '@/store/useLearningPathStore'
 // 类型
 // ============================================================================
 
-/** 主视图模式（10 种互斥态） */
+/** 主视图模式（11 种互斥态） */
 export type MainView =
   | { mode: 'home' }                                            // Dashboard 学习引导
   | { mode: 'map' }                                             // 地图
@@ -40,6 +40,7 @@ export type MainView =
   | { mode: 'poems' }                                           // 全诗词
   | { mode: 'civilizations' }                                   // 中西方文明大对比
   | { mode: 'timeTravel'; scenarioId: string | null }           // 穿越历史（null = 大厅）
+  | { mode: 'questions' }                                       // 全问题
 
 /** Layout 整体 UI 状态（局部） */
 export interface LayoutUIState {
@@ -63,6 +64,7 @@ export type LayoutAction =
   | { type: 'OPEN_POEMS' }
   | { type: 'OPEN_CIVILIZATIONS' }
   | { type: 'OPEN_TIME_TRAVEL' }
+  | { type: 'OPEN_QUESTIONS' }
   | { type: 'START_SCENARIO'; scenarioId: string }
   | { type: 'EXIT_SCENARIO' }           // 回到 timeTravel lobby
   | { type: 'LEAVE_OVERLAY' }           // 从任何非 home 状态回到 home
@@ -134,6 +136,9 @@ export function layoutReducer(state: LayoutUIState, action: LayoutAction): Layou
     case 'OPEN_TIME_TRAVEL':
       return { ...state, main: { mode: 'timeTravel', scenarioId: null } }
 
+    case 'OPEN_QUESTIONS':
+      return { ...state, main: { mode: 'questions' } }
+
     case 'START_SCENARIO':
       // 进入 play 模式（无论当前 state 如何都强制进 play）
       return { ...state, main: { mode: 'timeTravel', scenarioId: action.scenarioId } }
@@ -174,7 +179,7 @@ export function layoutReducer(state: LayoutUIState, action: LayoutAction): Layou
 // 派生 helpers
 // ============================================================================
 
-/** 是否在覆盖层（flashcards / overview / figures / wars / cultures / geography / timeTravel） */
+/** 是否在覆盖层（flashcards / overview / figures / wars / cultures / geography / timeTravel / questions） */
 export function isOverlayActive(main: MainView): boolean {
   return main.mode === 'flashcards'
       || main.mode === 'overview'
@@ -185,6 +190,7 @@ export function isOverlayActive(main: MainView): boolean {
       || main.mode === 'poems'
       || main.mode === 'civilizations'
       || main.mode === 'timeTravel'
+      || main.mode === 'questions'
 }
 
 /** 时间轴显示条件：只在地图模式显示 */
@@ -215,6 +221,8 @@ export function pathEntryToAction(
       return { type: 'OPEN_CIVILIZATIONS' }
     case 'timeTravel':
       return { type: 'OPEN_TIME_TRAVEL' }
+    case 'allQuestions':
+      return { type: 'OPEN_QUESTIONS' }
     case 'timeline':
     default:
       // timeline 路径不进覆盖层；由 Dashboard 自己处理（弹出朝代列表）

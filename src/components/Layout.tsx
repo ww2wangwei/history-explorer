@@ -47,6 +47,7 @@ const FlashcardsPanel = lazy(() => import('@/components/Flashcards/FlashcardsPan
 const GoalSettings = lazy(() => import('@/components/Flashcards/GoalSettings'))
 const PoemsOverview = lazy(() => import('@/components/Poems/PoemsOverview'))
 const CivilizationsOverview = lazy(() => import('@/components/Civilizations/CivilizationsOverview'))
+const QuestionsOverview = lazy(() => import('@/components/Questions/QuestionsOverview'))
 
 function PageFallback() {
   return (
@@ -387,6 +388,15 @@ export default function Layout() {
               isActive
               onClose={() => dispatch({ type: 'OPEN_HOME' })}
               onStart={(scenarioId) => dispatch({ type: 'START_SCENARIO', scenarioId })}
+            />
+          </Suspense>
+        )
+      case 'questions':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <QuestionsOverview
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
             />
           </Suspense>
         )

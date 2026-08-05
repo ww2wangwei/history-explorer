@@ -5,6 +5,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { loadTianditu } from '@/lib/tdt/loader'
 import { useHistoryStore } from '@/store/useHistoryStore'
+import { useMapLayersStore } from '@/store/useMapLayersStore'
 import { getActiveErasAtYear } from '@/utils/geo'
 import { bingImage, fallbackKeyword } from '@/utils/geoImage'
 import { summarizeEra, summarizeEvent } from '@/utils/summarize'
@@ -13,6 +14,8 @@ import eventsData from '@/data/events.json'
 import { createMapMarker } from '@/lib/tdt/markers'
 import { getClampedScreenPoint } from '@/lib/tdt/mapHelpers'
 import { getReopenEvent } from '@/lib/reopenRoutes'
+import { renderGeoFeatures } from '@/components/Map/GeoFeatureLayer'
+import GeoFeatureFilter from '@/components/Map/GeoFeatureFilter'
 import type { ReopenKind } from '@/lib/reopenRoutes'
 import type { Era, HistoricalEvent } from '@/types'
 
@@ -182,6 +185,18 @@ export default function TMapTest() {
       if ((window as any).__tdtTestMap === map) delete (window as any).__tdtTestMap
     }
   }, [])
+
+  // 自然地理要素图层：地图就绪后渲染；图层可见性变化时重渲染
+  // 关键：分别订阅 visible / showLabels，避免 selector 每次返回新对象引用导致无限循环
+  const layersVisible = useMapLayersStore(s => s.visible)
+  const showLabels = useMapLayersStore(s => s.showLabels)
+  useEffect(() => {
+    if (!mapReady) return
+    const map = mapRef.current
+    if (!map) return
+    const dispose = renderGeoFeatures(map, layersVisible, showLabels)
+    return dispose
+  }, [mapReady, layersVisible, showLabels])
 
   // 显示 hover 卡片（含图片 + 简介）—— 移入图钉时调用
   // 关键约束：
@@ -414,6 +429,9 @@ export default function TMapTest() {
           当前年: {currentYear} · 朝代: {getChinaEraAtYear(currentYear)?.name ?? '无'}
         </div>
       </div>
+
+      {/* 自然地理要素图层切换面板（按钮直接放在 T.Map 面板正下方） */}
+      <GeoFeatureFilter />
 
       {infoCard && (
         <InfoCardView

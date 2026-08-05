@@ -12,7 +12,7 @@ import type { Era } from '@/types'
 
 const eras = erasData as Era[]
 
-export type PathId = 'timeline' | 'crossReference' | 'eraDetail' | 'review' | 'allFigures' | 'allWars' | 'allCultures' | 'allGeography' | 'allPoems' | 'civilizations' | 'timeTravel'
+export type PathId = 'timeline' | 'crossReference' | 'eraDetail' | 'review' | 'allFigures' | 'allWars' | 'allCultures' | 'allGeography' | 'allPoems' | 'civilizations' | 'timeTravel' | 'allQuestions'
 
 export interface PathProgress {
   visitedEraIds: string[]
@@ -72,6 +72,7 @@ export const useLearningPathStore = create<LearningPathState>()(
         allPoems: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
         civilizations: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedSectionIds: [], lastVisitedSectionId: null },
         timeTravel: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, completedScenarios: [], scenarioEndings: {} },
+        allQuestions: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
       }
       return {
       progressByPath: defaultProgress,
@@ -204,6 +205,7 @@ export const useLearningPathStore = create<LearningPathState>()(
           allPoems: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
           civilizations: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedSectionIds: [], lastVisitedSectionId: null },
           timeTravel: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, completedScenarios: [], scenarioEndings: {} },
+          allQuestions: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
         }
         if (persistedState.progressByPath) {
           for (const key of Object.keys(mergedProgress) as PathId[]) {

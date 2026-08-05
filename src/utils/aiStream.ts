@@ -33,6 +33,11 @@ export interface AIRequestOptions {
   signal?: AbortSignal
   /** mock/未来测试扩展点；不开放 body/header override */
   fetchImpl?: typeof fetch
+  /**
+   * 关闭模型内置思考模式（OpenAI 兼容协议下会下发 `enable_thinking: false`）。
+   * 用于 MiniMax-Text-01、DeepSeek-Reasoner 这类默认吐 `<thinking>` 块的模型。
+   */
+  disableThinking?: boolean
 }
 
 export interface AIStreamOptions extends AIRequestOptions {
@@ -83,18 +88,28 @@ function buildAnthropic(opts: AIRequestOptions): BuiltRequest {
 
 function buildOpenAI(opts: AIRequestOptions): BuiltRequest {
   const baseClean = stripV1(stripSlash(opts.baseUrl))
+  const body: Record<string, unknown> = {
+    model: opts.model,
+    max_tokens: opts.maxTokens,
+    messages: opts.messages,
+    stream: true,
+  }
+  // 关闭模型内置思考：不同 OpenAI 兼容协议用不同字段名，分别下发
+  //  - MiniMax / DeepSeek 风格：enable_thinking=false
+  //  - Anthropic-via-OpenAI 风格：thinking.type="disabled"
+  //  - 部分国产代理：disable_thinking=true
+  if (opts.disableThinking) {
+    body.enable_thinking = false
+    body.disable_thinking = true
+    body.thinking = { type: 'disabled' }
+  }
   return {
     url: `${baseClean}/v1/chat/completions`,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${opts.apiKey}`,
     },
-    body: JSON.stringify({
-      model: opts.model,
-      max_tokens: opts.maxTokens,
-      messages: opts.messages,
-      stream: true,
-    }),
+    body: JSON.stringify(body),
   }
 }
 

@@ -20,16 +20,20 @@ import { useJumpToMap } from '@/hooks/useJumpToMap'
 import { useGoalStore } from '@/store/useGoalStore'
 import { useLearningPathStore, type PathId } from '@/store/useLearningPathStore'
 import { usePoemStore } from '@/store/usePoemStore'
+import { useQuestionsStore } from '@/store/useQuestionsStore'
 import { useCountUp } from '@/hooks/useCountUp'
 import gsap from 'gsap'
 import { isDue } from '@/utils/sm2'
 import erasData from '@/data/eras.json'
 import eventsData from '@/data/events.json'
+import builtinQuestions from '@/data/questions.json'
 import type { Era, HistoricalEvent } from '@/types'
+import type { Question } from '@/types/questions'
 import EraQuickLearnModal, { type QuickEventState } from './QuickLearn/EraQuickLearnModal'
 
 const eras = erasData as Era[]
 const events = eventsData as HistoricalEvent[]
+const builtinQuestionList = builtinQuestions as Question[]
 
 interface Props {
   isActive: boolean
@@ -46,6 +50,7 @@ const PATHS: { id: PathId; icon: string; title: string; desc: string; color: str
   { id: 'allPoems', icon: '📜', title: '全诗词', desc: '100 首最有名的唐诗宋词，含注解、注音、白话翻译', color: '#c89a8a' },
   { id: 'civilizations', icon: '⚖️', title: '中西方文明大对比', desc: '15 节对比，看清两种截然不同的历史路径', color: '#d4a85b' },
   { id: 'timeTravel', icon: '🎭', title: '穿越历史', desc: '化身历史人物，在关键节点做选择', color: '#9b7eb6' },
+  { id: 'allQuestions', icon: '💭', title: '全问题', desc: '趣味/启发/思考题，AI 一问一答逐步深挖并打分', color: '#e07b9b' },
   { id: 'review', icon: '🎯', title: '今日复习', desc: '基于 SM-2 算法的间隔复习', color: '#9bc89a' },
 ]
 
@@ -59,6 +64,8 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
   const goal = useGoalStore(s => s.target)
   const cardsArr = useCardsStore(s => s.cards)
   const poemsFavoritesCount = usePoemStore(s => s.favorites.length)
+  const questionsProgress = useQuestionsStore(s => s.progress)
+  const customQuestionCount = useQuestionsStore(s => s.customQuestions.length)
 
   const [learnEraId, setLearnEraId] = useState<string | null>(null)
   const [selectedQuickEvent, setSelectedQuickEvent] = useState<QuickEventState | null>(null)
@@ -293,6 +300,8 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
               ? poemsFavoritesCount
               : p.id === 'civilizations'
               ? (progress.visitedSectionIds?.length ?? 0)
+              : p.id === 'allQuestions'
+              ? Object.values(questionsProgress).filter(q => q.status === 'done').length
               : progress.visitedEraIds.length
             const total = p.id === 'allFigures'
               ? 26
@@ -300,6 +309,8 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
               ? 100
               : p.id === 'civilizations'
               ? 15
+              : p.id === 'allQuestions'
+              ? builtinQuestionList.length + customQuestionCount
               : totalEras
             const pPct = total > 0 ? Math.round((visited / total) * 100) : 0
             return (

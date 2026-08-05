@@ -66,6 +66,7 @@ export function callAIStream(
     model: apiConfig.model,
     messages,
     maxTokens: QUIZ_AI_MAX_TOKENS,
+    disableThinking: apiConfig.disableThinking,
     onDelta,
   }).promise.then(() => undefined)
 }
@@ -89,6 +90,7 @@ export function callAIStreamWithSignal(
     messages,
     maxTokens: QUIZ_AI_MAX_TOKENS,
     signal,
+    disableThinking: apiConfig.disableThinking,
     onDelta,
   }).promise.then(() => undefined)
 }

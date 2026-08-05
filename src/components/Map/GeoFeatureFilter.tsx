@@ -2,9 +2,10 @@
  * GeoFeatureFilter — 地图左上角的"图层"切换面板
  *
  *  收起时只显示一个浮动按钮 🗺 图层
- *  展开后展示两栏：
- *    A. 自定义叠加层（11 个 GeoFeature：山脉/河流/海洋/沙漠…）
- *    B. AMap 自带 feature 类别（10 类：POI/道路/水系标注/绿地/建筑…）
+ *  展开后展示三栏：
+ *    A. 底图样式（高德原生 / OpenTopoMap / ArcGIS 卫星）
+ *    B. 自定义叠加层（11 个 GeoFeature：山脉/河流/海洋/沙漠…）
+ *    C. AMap 自带 feature 类别（10 类：POI/道路/水系标注/绿地/建筑…）
  */
 import { useState } from 'react'
 import {
@@ -15,11 +16,17 @@ import {
   type GeoLayerKey,
   type AmapFeatureKey,
 } from '@/store/useMapLayersStore'
+import {
+  useMapStyleStore,
+  STYLE_META,
+  STYLE_KEYS_FOR_UI,
+  type MapStyleKey,
+} from '@/store/useMapStyleStore'
 import { LAYER_KEYS_FOR_UI } from './GeoFeatureLayer'
 
 export default function GeoFeatureFilter() {
   const [open, setOpen] = useState(false)
-  const [tab, setTab] = useState<'custom' | 'amap'>('custom')
+  const [tab, setTab] = useState<'style' | 'custom' | 'amap'>('style')
 
   const visible = useMapLayersStore(s => s.visible)
   const showLabels = useMapLayersStore(s => s.showLabels)
@@ -35,6 +42,9 @@ export default function GeoFeatureFilter() {
   const amapHideAll = useMapLayersStore(s => s.amapHideAll)
   const amapResetDefault = useMapLayersStore(s => s.amapResetDefault)
 
+  const mapStyle = useMapStyleStore(s => s.style)
+  const setMapStyle = useMapStyleStore(s => s.setStyle)
+
   const onCount = (LAYER_KEYS_FOR_UI as GeoLayerKey[]).filter(k => visible[k]).length
   const amapOnCount = amapFeatures.length
 
@@ -43,7 +53,7 @@ export default function GeoFeatureFilter() {
       {/* 浮动按钮 — 紧贴左上角 T.Map 面板正下方 */}
       <button
         onClick={() => setOpen(o => !o)}
-        title="图层（自定义叠加 + AMap 自带 feature）"
+        title="图层（底图样式 + 自定义叠加 + AMap 自带 feature）"
         className={`absolute left-2 z-50 px-3 py-2 rounded-lg border-2 shadow-2xl text-sm font-serif flex items-center gap-1.5 transition-all backdrop-blur ${
           open
             ? 'bg-bronze-600 border-bronze-300 text-parchment-50'
@@ -77,6 +87,14 @@ export default function GeoFeatureFilter() {
           {/* Tab 切换 */}
           <div className="flex rounded-lg bg-ink-900/60 border border-ink-700 overflow-hidden text-xs mb-3">
             <button
+              onClick={() => setTab('style')}
+              className={`flex-1 px-2 py-1.5 transition-colors ${
+                tab === 'style' ? 'bg-bronze-700/40 text-bronze-200' : 'text-ink-400 hover:text-parchment-50'
+              }`}
+            >
+              底图样式
+            </button>
+            <button
               onClick={() => setTab('custom')}
               className={`flex-1 px-2 py-1.5 transition-colors ${
                 tab === 'custom' ? 'bg-bronze-700/40 text-bronze-200' : 'text-ink-400 hover:text-parchment-50'
@@ -94,7 +112,40 @@ export default function GeoFeatureFilter() {
             </button>
           </div>
 
-          {tab === 'custom' ? (
+          {tab === 'style' ? (
+            <>
+              <div className="space-y-1 mb-2">
+                {STYLE_KEYS_FOR_UI.map((k: MapStyleKey) => {
+                  const meta = STYLE_META[k]
+                  const active = k === mapStyle
+                  return (
+                    <label
+                      key={k}
+                      className={`flex items-start gap-2 text-xs cursor-pointer px-1.5 py-1.5 rounded transition-colors ${
+                        active ? 'bg-bronze-900/40 border border-bronze-500/40' : 'hover:bg-ink-700/40'
+                      }`}
+                    >
+                      <input
+                        type="radio"
+                        name="map-style"
+                        checked={active}
+                        onChange={() => setMapStyle(k)}
+                        className="accent-bronze-500 mt-0.5"
+                      />
+                      <span className="text-base leading-none mt-0">{meta.icon}</span>
+                      <span className="flex-1 min-w-0">
+                        <span className="text-parchment-50 font-serif">{meta.label}</span>
+                        <span className="block text-[10px] text-ink-400 leading-tight mt-0.5">{meta.desc}</span>
+                      </span>
+                    </label>
+                  )
+                })}
+              </div>
+              <div className="text-[10px] text-ink-500 mt-2 leading-relaxed pt-2 border-t border-ink-700">
+                💡 高德原生样式是抽象政治底图；「地形图（ArcGIS）」和「世界卫星（ArcGIS）」是真实地形/卫星图。
+              </div>
+            </>
+          ) : tab === 'custom' ? (
             <>
               <label className="flex items-center gap-2 text-xs text-parchment-50 cursor-pointer mb-2 select-none">
                 <input

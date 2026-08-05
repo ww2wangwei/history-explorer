@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from 'react'
 import { loadAmap } from '@/lib/amap/loader'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useMapLayersStore } from '@/store/useMapLayersStore'
+import { useMapStyleStore, STYLE_META, type MapStyleKey } from '@/store/useMapStyleStore'
 import { getActiveErasAtYear } from '@/utils/geo'
 import { bingImage, fallbackKeyword } from '@/utils/geoImage'
 import { summarizeEra, summarizeEvent } from '@/utils/summarize'
@@ -73,6 +74,7 @@ interface GeoFeatureCard {
 export default function AmapTest() {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<any>(null)
+  const customTileLayerRef = useRef<any>(null)  // 自定义 TileLayer（如 OpenTopoMap）
   const markersRef = useRef<any[]>([])
   const labelsRef = useRef<any[]>([])
   const eventMarkersRef = useRef<any[]>([])
@@ -132,6 +134,8 @@ export default function AmapTest() {
 
         setStatus('creating AMap.Map...')
         const center = new A.LngLat(44, 34) // 美索不达米亚（文明摇篮）
+        const initialStyle = useMapStyleStore.getState().style
+        const initialMeta = STYLE_META[initialStyle]
         const map = new A.Map(container, {
           center,
           zoom: 4,
@@ -139,7 +143,9 @@ export default function AmapTest() {
           scrollWheel: true,
           doubleClickZoom: true,
           zoomControl: false,    // 用我们自定义按钮
-          mapStyle: 'amap://styles/darkblue', // 暗色风格与项目主题契合
+          mapStyle: initialMeta.kind === 'amap' && initialMeta.amapStyle
+            ? initialMeta.amapStyle
+            : 'amap://styles/darkblue', // 兜底使用 darkblue
         })
         createdMap = map
         schedule(() => {
@@ -253,6 +259,57 @@ export default function AmapTest() {
       try { map.setFeatures(amapFeatures) } catch { /* noop */ }
     }
   }, [mapReady, amapFeatures])
+
+  // 3) 底图样式切换（高德原生样式 / 自定义瓦片源）
+  const mapStyleKey = useMapStyleStore(s => s.style)
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !mapReady) return
+    const A = (window as any).AMap
+    if (!A) return
+    const meta = STYLE_META[mapStyleKey]
+
+    // 移除旧的自定义瓦片层
+    if (customTileLayerRef.current) {
+      try { map.remove(customTileLayerRef.current) } catch { /* noop */ }
+      customTileLayerRef.current = null
+    }
+
+    // 应用新样式
+    if (meta.kind === 'amap' && meta.amapStyle) {
+      try {
+        if (typeof map.setMapStyle === 'function') {
+          map.setMapStyle(meta.amapStyle)
+        }
+      } catch { /* noop */ }
+    } else if (meta.kind === 'tile' && meta.tileUrl) {
+      // 自定义瓦片层（OpenTopoMap / ArcGIS）
+      try {
+        const subdomains = meta.subdomains && meta.subdomains.length > 0
+          ? meta.subdomains
+          : ['']
+        const config: any = {
+          url: meta.tileUrl,
+          subdomains,
+          tileSize: 256,
+          zIndex: 1,
+        }
+        if (subdomains.length > 0) {
+          config.getTileUrl = (x: number, y: number, z: number) => {
+            const sub = subdomains[Math.abs(x + y) % subdomains.length]
+            return meta.tileUrl!
+              .replace('{s}', sub)
+              .replace('{x}', String(x))
+              .replace('{y}', String(y))
+              .replace('{z}', String(z))
+          }
+        }
+        const tileLayer = new A.TileLayer(config)
+        tileLayer.setMap(map)
+        customTileLayerRef.current = tileLayer
+      } catch { /* noop */ }
+    }
+  }, [mapReady, mapStyleKey])
 
   // 显示 hover 卡片
   const showHoverCard = (

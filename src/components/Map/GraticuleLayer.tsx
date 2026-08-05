@@ -83,14 +83,15 @@ export default function GraticuleLayer({
         })
         drawn.push(line)
 
-        // 主经线标签：放在该经线与「视口上沿附近」的交点
+        // 主经线标签：放在该经线与「视口纵向中点」的交点，画面中央最显眼
         if (isMajor && lng >= west - 1 && lng <= east + 1) {
+          const labelLat = (s0 + s1) / 2
           const txt = lng === 0 ? '0°' : `${Math.abs(lng)}°${lng > 0 ? 'E' : 'W'}`
           const label = new A.Text({
             text: txt,
-            position: new A.LngLat(lng, Math.min(s1, north)),
-            anchor: 'top-center',
-            offset: new A.Pixel(0, 4),
+            position: new A.LngLat(lng, labelLat),
+            anchor: 'middle-center',
+            offset: new A.Pixel(0, 0),
             style: {
               color: '#f0e6cf',
               'font-size': '11px',
@@ -119,14 +120,15 @@ export default function GraticuleLayer({
         })
         drawn.push(line)
 
-        // 主纬线标签：放在该纬线与「视口左沿附近」的交点
+        // 主纬线标签：放在该纬线与「视口横向中点」的交点，画面中央最显眼
         if (isMajor && lat >= south - 1 && lat <= north + 1) {
+          const labelLng = (w0 + w1) / 2
           const txt = lat === 0 ? '0°' : `${Math.abs(lat)}°${lat > 0 ? 'N' : 'S'}`
           const label = new A.Text({
             text: txt,
-            position: new A.LngLat(Math.max(w0, west), lat),
-            anchor: 'middle-left',
-            offset: new A.Pixel(6, 0),
+            position: new A.LngLat(labelLng, lat),
+            anchor: 'middle-center',
+            offset: new A.Pixel(0, 0),
             style: {
               color: '#f0e6cf',
               'font-size': '11px',

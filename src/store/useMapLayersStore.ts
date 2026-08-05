@@ -61,6 +61,8 @@ interface MapLayersState {
   showLabels: boolean
   /** AMap 自带 feature 类别 */
   amapFeatures: AmapFeatureKey[]
+  /** 经纬网可见性 */
+  showGraticule: boolean
 
   /** 切换单个自定义图层 */
   toggle: (key: GeoLayerKey) => void
@@ -79,6 +81,9 @@ interface MapLayersState {
   amapHideAll: () => void
   /** AMap features 重置为默认（全开） */
   amapResetDefault: () => void
+
+  /** 切换经纬网 */
+  toggleGraticule: () => void
 }
 
 function defaultVisible(): Record<GeoLayerKey, boolean> {
@@ -97,6 +102,7 @@ export const useMapLayersStore = create<MapLayersState>()(
       visible: defaultVisible(),
       showLabels: true,
       amapFeatures: defaultAmapFeatures(),
+      showGraticule: false,
 
       toggle: (key) => set(s => ({ visible: { ...s.visible, [key]: !s.visible[key] } })),
       toggleLabels: () => set(s => ({ showLabels: !s.showLabels })),
@@ -112,6 +118,8 @@ export const useMapLayersStore = create<MapLayersState>()(
       amapShowAll: () => set({ amapFeatures: [...ALL_AMAP_KEYS] }),
       amapHideAll: () => set({ amapFeatures: [] }),
       amapResetDefault: () => set({ amapFeatures: defaultAmapFeatures() }),
+
+      toggleGraticule: () => set(s => ({ showGraticule: !s.showGraticule })),
     }),
     {
       name: 'history-explorer-map-layers:v1',
@@ -120,15 +128,19 @@ export const useMapLayersStore = create<MapLayersState>()(
         visible: s.visible,
         showLabels: s.showLabels,
         amapFeatures: s.amapFeatures,
+        showGraticule: s.showGraticule,
       }),
-      // 老用户没有 amapFeatures 字段 → 给默认
+      // 老用户没有 amapFeatures 字段 → 给默认；老用户没有 showGraticule → 给 false
       migrate: (persisted: any, _fromVersion) => {
         if (persisted && !persisted.amapFeatures) {
           persisted.amapFeatures = defaultAmapFeatures()
         }
+        if (persisted && persisted.showGraticule === undefined) {
+          persisted.showGraticule = false
+        }
         return persisted
       },
-      version: 2,
+      version: 3,
     },
   ),
 )

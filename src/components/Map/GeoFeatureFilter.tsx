@@ -42,6 +42,9 @@ export default function GeoFeatureFilter() {
   const amapHideAll = useMapLayersStore(s => s.amapHideAll)
   const amapResetDefault = useMapLayersStore(s => s.amapResetDefault)
 
+  const showGraticule = useMapLayersStore(s => s.showGraticule)
+  const toggleGraticule = useMapLayersStore(s => s.toggleGraticule)
+
   const mapStyle = useMapStyleStore(s => s.style)
   const setMapStyle = useMapStyleStore(s => s.setStyle)
 
@@ -190,6 +193,18 @@ export default function GeoFeatureFilter() {
             </>
           ) : (
             <>
+              <label className="flex items-center gap-2 text-xs text-parchment-50 cursor-pointer mb-2 select-none px-1.5 py-1.5 rounded hover:bg-ink-700/40 transition-colors">
+                <input
+                  type="checkbox"
+                  checked={showGraticule}
+                  onChange={toggleGraticule}
+                  className="accent-bronze-500"
+                />
+                <span className="text-base leading-none">🌐</span>
+                <span className="font-serif">显示经纬网</span>
+                <span className="text-[10px] text-ink-400 ml-1">（每 30° 主线 / 10° 副线）</span>
+              </label>
+
               <div className="space-y-1.5 mb-2">
                 {AMAP_FEATURE_KEYS_FOR_UI.map(k => {
                   const meta = AMAP_FEATURE_META[k]

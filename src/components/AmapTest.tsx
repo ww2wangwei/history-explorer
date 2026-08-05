@@ -23,6 +23,7 @@ import { getClampedScreenPoint } from '@/lib/amap/mapHelpers'
 import { getReopenEvent } from '@/lib/reopenRoutes'
 import { renderGeoFeatures } from '@/components/Map/GeoFeatureLayer'
 import GeoFeatureFilter from '@/components/Map/GeoFeatureFilter'
+import GraticuleLayer from '@/components/Map/GraticuleLayer'
 import type { ReopenKind } from '@/lib/reopenRoutes'
 import type { Era, HistoricalEvent } from '@/types'
 
@@ -206,6 +207,7 @@ export default function AmapTest() {
   const layersVisible = useMapLayersStore(s => s.visible)
   const showLabels = useMapLayersStore(s => s.showLabels)
   const amapFeatures = useMapLayersStore(s => s.amapFeatures)
+  const showGraticule = useMapLayersStore(s => s.showGraticule)
 
   /** 鼠标移入要素 → 在该要素的标签位置上方弹卡 */
   const handleGeoHover = (f: any) => {
@@ -525,6 +527,9 @@ export default function AmapTest() {
 
       {/* 自然地理要素图层切换面板（叠加层 + AMap 自带 feature 开关） */}
       <GeoFeatureFilter />
+
+      {/* 经纬网（可开关） */}
+      <GraticuleLayer map={mapRef.current} visible={showGraticule} />
 
       {infoCard && (
         <InfoCardView

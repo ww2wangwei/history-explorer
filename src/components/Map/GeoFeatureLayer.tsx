@@ -148,7 +148,16 @@ export function renderGeoFeatures(
 
   return () => {
     // 一次性清掉所有 overlay（按类型 setMap(null)
-    map.remove(overlays)
+    // 防御：map 可能已被销毁（组件 unmount 时序问题），或某些 overlay 创建失败为 undefined
+    if (!map) return
+    for (const ov of overlays) {
+      if (ov == null) continue
+      try {
+        if (typeof ov.setMap === 'function') ov.setMap(null)
+        else if (typeof ov.close === 'function') ov.close()
+        else map.remove(ov)
+      } catch { /* ignore individual removal errors */ }
+    }
   }
 }
 

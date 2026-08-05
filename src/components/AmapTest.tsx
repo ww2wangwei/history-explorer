@@ -54,6 +54,22 @@ interface InfoCard {
   reopenNodeIndex?: string | number
 }
 
+/** 用户点击自然地理要素时弹出的详情卡片（与 InfoCardView 同结构） */
+interface GeoFeatureCard {
+  feature: {
+    id: string
+    name: string
+    type: string
+    description?: string
+    imageUrl?: string
+    imageCredit?: string
+    labelPos: [number, number]
+  }
+  screenX: number
+  screenY: number
+  source: 'click' | 'hover'
+}
+
 export default function AmapTest() {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<any>(null)
@@ -66,6 +82,7 @@ export default function AmapTest() {
   const [error, setError] = useState<string | null>(null)
   const [mapReady, setMapReady] = useState(false)
   const [infoCard, setInfoCard] = useState<InfoCard | null>(null)
+  const [geoCard, setGeoCard] = useState<GeoFeatureCard | null>(null)
   const backInProgressRef = useRef(false)
 
   const currentYear = useHistoryStore(s => s.currentYear)
@@ -183,12 +200,39 @@ export default function AmapTest() {
   const layersVisible = useMapLayersStore(s => s.visible)
   const showLabels = useMapLayersStore(s => s.showLabels)
   const amapFeatures = useMapLayersStore(s => s.amapFeatures)
+
+  /** 点击要素 → 弹出详情卡片（中心位置） */
+  const handleGeoClick = (f: any) => {
+    const map = mapRef.current
+    if (!map) return
+    // 先飞向要素位置
+    try {
+      const [lng, lat] = f.labelPos
+      const [gLng, gLat] = wgs84ToGcj02([lng, lat])
+      map.setZoomAndCenter(5, new (window as any).AMap.LngLat(gLng, gLat))
+    } catch { /* noop */ }
+    setGeoCard({
+      feature: {
+        id: f.id,
+        name: f.name,
+        type: f.type,
+        description: f.description,
+        imageUrl: f.imageUrl,
+        imageCredit: f.imageCredit,
+        labelPos: f.labelPos,
+      },
+      screenX: 0, // 中心显示
+      screenY: 0,
+      source: 'click',
+    })
+  }
+
   useEffect(() => {
     const map = mapRef.current
     if (!map) return
     // 1) 自然地理要素叠加层
     if (mapReady) {
-      const dispose = renderGeoFeatures(map, layersVisible, showLabels)
+      const dispose = renderGeoFeatures(map, layersVisible, showLabels, handleGeoClick)
       return dispose
     }
   }, [mapReady, layersVisible, showLabels])
@@ -434,6 +478,13 @@ export default function AmapTest() {
           }}
         />
       )}
+
+      {geoCard && (
+        <GeoFeatureCardView
+          card={geoCard}
+          onClose={() => setGeoCard(null)}
+        />
+      )}
     </div>
   )
 }
@@ -503,6 +554,119 @@ function InfoCardView({
           )}
         </div>
       </div>
+      <div
+        aria-hidden
+        className="absolute left-1/2 -translate-x-1/2"
+        style={{
+          top: '100%',
+          marginTop: '-1px',
+          width: 0, height: 0,
+          borderLeft: '8px solid transparent',
+          borderRight: '8px solid transparent',
+          borderTop: '8px solid rgba(30, 28, 24, 0.95)',
+          filter: 'drop-shadow(0 1px 0 rgba(201, 154, 91, 0.5))',
+        }}
+      />
+    </div>
+  )
+}
+
+/**
+ * GeoFeatureCardView — 自然地理要素详情卡（与 InfoCardView 同结构、同风格）
+ *  - 用户点击叠加层（河流/山脉/海洋/...）的名称 → 飞向位置 + 弹卡
+ *  - 显示类型 icon、名称、简介、Bing 图
+ *  - 顶部锚定（不被地图拖动影响）；关闭按钮回到地图
+ */
+const TYPE_META: Record<string, { icon: string; color: string }> = {
+  river:     { icon: '🌊', color: '#5fb0d8' },
+  mountain:  { icon: '⛰️',  color: '#c8997a' },
+  sea:       { icon: '🌀', color: '#3a6e9e' },
+  lake:      { icon: '💧', color: '#6a9ab6' },
+  desert:    { icon: '🏜️', color: '#c89a5b' },
+  plain:     { icon: '🌾', color: '#9bbf73' },
+  peninsula: { icon: '📍', color: '#b88a6a' },
+  strait:    { icon: '↔️',  color: '#8a9aba' },
+  waterfall: { icon: '🪨', color: '#6abab6' },
+  region:    { icon: '🗺', color: '#c8553d' },
+  continent: { icon: '🌐', color: '#a89a82' },
+}
+
+function GeoFeatureCardView({
+  card,
+  onClose,
+}: {
+  card: GeoFeatureCard
+  onClose: () => void
+}) {
+  const [imgFailed, setImgFailed] = useState(false)
+  const f = card.feature
+  const meta = TYPE_META[f.type] ?? { icon: '📌', color: '#c89a5b' }
+  return (
+    <div
+      data-testid="amap-geo-card"
+      className="absolute z-20 pointer-events-auto"
+      style={{
+        left: '50%',
+        top: '50%',
+        transform: 'translate(-50%, calc(-100% - 80px))',
+        width: '320px',
+        maxWidth: 'calc(100vw - 32px)',
+      }}
+      onClick={e => e.stopPropagation()}
+    >
+      <div className="relative bg-ink-900/95 border border-bronze-500/50 rounded-lg shadow-2xl overflow-hidden">
+        {/* 顶部条：类型 icon + 名称 + 关闭 */}
+        <div className="flex items-center justify-between px-3 py-2 border-b border-bronze-500/30">
+          <span className="flex items-center gap-2 text-sm">
+            <span className="text-base leading-none">{meta.icon}</span>
+            <span className="text-bronze-300 font-serif">{f.name}</span>
+            <span className="text-[10px] px-1.5 py-0.5 rounded border" style={{ color: meta.color, borderColor: meta.color + '60' }}>
+              {f.type}
+            </span>
+          </span>
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-ink-400 hover:text-ink-200 text-base leading-none"
+            title="关闭"
+            aria-label="关闭"
+          >
+            ×
+          </button>
+        </div>
+        {/* 图片（Bing 图片源） */}
+        {f.imageUrl && !imgFailed && (
+          <div className="relative w-full bg-ink-800" style={{ aspectRatio: '16 / 9' }}>
+            <img
+              src={f.imageUrl}
+              alt={f.name}
+              onError={() => setImgFailed(true)}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            {f.imageCredit && (
+              <div className="absolute bottom-1 right-1 text-[9px] text-parchment-100/70 bg-ink-900/60 px-1 rounded">
+                {f.imageCredit}
+              </div>
+            )}
+          </div>
+        )}
+        {/* 简介 */}
+        <div className="px-3 py-2 max-h-60 overflow-y-auto scrollbar-thin">
+          {f.description ? (
+            <div className="text-xs text-parchment-100 leading-relaxed whitespace-pre-wrap">
+              {f.description}
+            </div>
+          ) : (
+            <div className="text-xs text-ink-500">（暂无简介）</div>
+          )}
+        </div>
+        {/* 底部署名 */}
+        <div className="px-3 py-1.5 bg-ink-800/60 border-t border-ink-700 text-[10px] text-ink-500 flex items-center justify-between">
+          <span>来源：Bing 图片搜索 + 项目数据</span>
+          <span style={{ color: meta.color }}>· {f.type}</span>
+        </div>
+      </div>
+      {/* 朝下箭头 */}
       <div
         aria-hidden
         className="absolute left-1/2 -translate-x-1/2"

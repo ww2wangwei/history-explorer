@@ -13,6 +13,7 @@ import { useNotesStore } from '@/store/useNotesStore'
 import type { NoteTargetKind } from '@/types/notes'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
 import { streamAI, requestAI, type AIRequestHandle } from '@/utils/aiStream'
+import { useDraggableFab } from '@/hooks/useDraggableFab'
 import erasData from '@/data/eras.json'
 import peopleData from '@/data/people.json'
 import type { Era, HistoricalEvent } from '@/types'
@@ -363,9 +364,11 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
     setTimeout(() => setNoteSavedFor(curr => curr === m.id ? null : curr), 2000)
   }
 
-  // 浮动按钮位置
-  const fabClass =
-    fabPosition === 'bottom-right' ? 'bottom-4 right-4' : 'bottom-4 left-4'
+  // 浮动按钮位置（可拖拽，位置持久化到 localStorage）
+  const fabPos = useDraggableFab({
+    storageKey: 'ai-fab-pos',
+    initial: fabPosition === 'bottom-left' ? { right: -1, bottom: 16 } : { right: 16, bottom: 16 },
+  })
 
   // 全局键盘快捷键：? 键唤起 AI 面板（不与 ? 帮助冲突 — 改用 `Cmd+K` / `Ctrl+K` 唤起）
   useEffect(() => {
@@ -391,11 +394,17 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
 
   return (
     <>
-      {/* 浮动按钮（带"AI 问"文字标签让用户知道这个是 AI 入口） */}
+      {/* 浮动按钮（可拖拽；位置会保存到 localStorage） */}
       {showFab && (
         <button
+          onPointerDown={fabPos.onPointerDown}
+          onClickCapture={fabPos.suppressClickIfDragged}
           onClick={togglePanel}
-          className={`fixed ${fabClass} z-[70] group flex items-center gap-2 transition-all`}
+          className="fixed z-[70] group flex items-center gap-2 transition-all cursor-grab active:cursor-grabbing select-none touch-none"
+          style={{
+            right: fabPos.pos.right,
+            bottom: fabPos.pos.bottom,
+          }}
           title={panelOpen ? '关闭 AI 对话 (Cmd+K / ?)' : '打开 AI 对话 (Cmd+K / ?)'}
         >
           <span className="hidden group-hover:inline-block text-xs px-2 py-1 rounded-lg bg-ink-800/95 border border-bronze-500/40 text-bronze-300 shadow-lg whitespace-nowrap">

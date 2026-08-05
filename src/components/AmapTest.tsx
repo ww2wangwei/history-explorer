@@ -24,6 +24,7 @@ import { getReopenEvent } from '@/lib/reopenRoutes'
 import { renderGeoFeatures } from '@/components/Map/GeoFeatureLayer'
 import GeoFeatureFilter from '@/components/Map/GeoFeatureFilter'
 import GraticuleLayer from '@/components/Map/GraticuleLayer'
+import CloudOverlayLayer from '@/components/Map/CloudOverlayLayer'
 import type { ReopenKind } from '@/lib/reopenRoutes'
 import type { Era, HistoricalEvent } from '@/types'
 
@@ -208,6 +209,7 @@ export default function AmapTest() {
   const showLabels = useMapLayersStore(s => s.showLabels)
   const amapFeatures = useMapLayersStore(s => s.amapFeatures)
   const showGraticule = useMapLayersStore(s => s.showGraticule)
+  const showCloud = useMapLayersStore(s => s.showCloud)
 
   /** 鼠标移入要素 → 在该要素的标签位置上方弹卡 */
   const handleGeoHover = (f: any) => {
@@ -530,6 +532,13 @@ export default function AmapTest() {
 
       {/* 经纬网（可开关） */}
       <GraticuleLayer map={mapRef.current} visible={showGraticule} />
+
+      {/* 实时云图叠加（OpenWeatherMap，可开关） */}
+      <CloudOverlayLayer
+        map={mapRef.current}
+        visible={showCloud}
+        apiKey={import.meta.env.VITE_OWM_API_KEY || ''}
+      />
 
       {infoCard && (
         <InfoCardView

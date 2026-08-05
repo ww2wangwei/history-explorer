@@ -63,6 +63,8 @@ interface MapLayersState {
   amapFeatures: AmapFeatureKey[]
   /** 经纬网可见性 */
   showGraticule: boolean
+  /** 实时云图可见性 */
+  showCloud: boolean
 
   /** 切换单个自定义图层 */
   toggle: (key: GeoLayerKey) => void
@@ -84,6 +86,8 @@ interface MapLayersState {
 
   /** 切换经纬网 */
   toggleGraticule: () => void
+  /** 切换实时云图 */
+  toggleCloud: () => void
 }
 
 function defaultVisible(): Record<GeoLayerKey, boolean> {
@@ -103,6 +107,7 @@ export const useMapLayersStore = create<MapLayersState>()(
       showLabels: true,
       amapFeatures: defaultAmapFeatures(),
       showGraticule: false,
+      showCloud: false,
 
       toggle: (key) => set(s => ({ visible: { ...s.visible, [key]: !s.visible[key] } })),
       toggleLabels: () => set(s => ({ showLabels: !s.showLabels })),
@@ -120,6 +125,7 @@ export const useMapLayersStore = create<MapLayersState>()(
       amapResetDefault: () => set({ amapFeatures: defaultAmapFeatures() }),
 
       toggleGraticule: () => set(s => ({ showGraticule: !s.showGraticule })),
+      toggleCloud: () => set(s => ({ showCloud: !s.showCloud })),
     }),
     {
       name: 'history-explorer-map-layers:v1',
@@ -129,6 +135,7 @@ export const useMapLayersStore = create<MapLayersState>()(
         showLabels: s.showLabels,
         amapFeatures: s.amapFeatures,
         showGraticule: s.showGraticule,
+        showCloud: s.showCloud,
       }),
       // 老用户没有 amapFeatures 字段 → 给默认；老用户没有 showGraticule → 给 false
       migrate: (persisted: any, _fromVersion) => {
@@ -138,9 +145,12 @@ export const useMapLayersStore = create<MapLayersState>()(
         if (persisted && persisted.showGraticule === undefined) {
           persisted.showGraticule = false
         }
+        if (persisted && persisted.showCloud === undefined) {
+          persisted.showCloud = false
+        }
         return persisted
       },
-      version: 3,
+      version: 4,
     },
   ),
 )

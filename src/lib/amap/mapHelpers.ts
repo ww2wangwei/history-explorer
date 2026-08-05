@@ -1,31 +1,24 @@
 /**
- * 地图坐标工具
+ * amap/mapHelpers.ts — 高德地图屏幕坐标工具
  *
- * 两个核心场景：
- *   1) lng/lat → 容器屏幕像素（hover/click 时 viewport 已稳定）
- *   2) 把屏幕坐标 clamp 进容器可视区（避免 InfoCard 溢出）
- *
- * T.Map v4 同时支持 lngLatToContainerPoint 和 lngLatToPoint，部分历史版本只有后者，所以双路径兜底。
+ * AMap JS API v2.0:
+ *   map.lngLatToContainer(lnglat[, height]) — 容器像素
+ *   map.lngLatToPixel(lnglat, zoom)        — 像素
  */
-
 export interface ScreenPoint {
   x: number
   y: number
 }
 
-const T = (): any => (window as any).T
-
 /** 把 lng/lat 转为 [x, y]，失败返回 null */
 export function getContainerPoint(map: any, lng: number, lat: number): ScreenPoint | null {
   if (!map) return null
-  const TT = T()
-  if (!TT) return null
   try {
     let pt: any = null
-    if (typeof map.lngLatToContainerPoint === 'function') {
-      pt = map.lngLatToContainerPoint(new TT.LngLat(lng, lat))
-    } else if (typeof map.lngLatToPoint === 'function') {
-      pt = map.lngLatToPoint(new TT.LngLat(lng, lat))
+    if (typeof map.lngLatToContainer === 'function') {
+      pt = map.lngLatToContainer(new (window as any).AMap.LngLat(lng, lat))
+    } else if (typeof map.lngLatToPixel === 'function') {
+      pt = map.lngLatToPixel(new (window as any).AMap.LngLat(lng, lat), map.getZoom())
     }
     if (!pt) return null
     if (Array.isArray(pt)) return { x: pt[0], y: pt[1] }

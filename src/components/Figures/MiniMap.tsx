@@ -1,13 +1,14 @@
 /**
  * MiniMap — 节点位置缩略图
- * 用天地图 JavaScript SDK (T.Map) 创建独立地图实例
+ * 用高德 AMap 创建独立地图实例
  * 节点用 HTML div 标记
  *
  * 设计：marker 永远固定在地图中心（容器中心），不动不监听
  */
 import { useEffect, useRef, useState } from 'react'
-import { loadTianditu } from '@/lib/tdt/loader'
+import { loadAmap } from '@/lib/amap/loader'
 import { lookupLocation, type LngLat } from '@/utils/locationCoords'
+import { wgs84ToGcj02 } from '@/utils/coordsTransform'
 
 /** 通用节点类型：战争事件或大型战争节点 */
 export interface MapNode {
@@ -47,10 +48,10 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
   // 初始化地图（focusNode 切换时重新创建）
   useEffect(() => {
     if (!focusPos) return
-    const tk = import.meta.env.VITE_TIANDITU_KEY as string | undefined
-    if (!tk || !containerRef.current) {
+    const key = import.meta.env.VITE_AMAP_KEY as string | undefined
+    if (!key || !containerRef.current) {
       setStatus('error')
-      setError('TMap 不可用：缺少 VITE_TIANDITU_KEY 或容器未挂载')
+      setError('高德地图不可用：缺少 VITE_AMAP_KEY 或容器未挂载')
       return
     }
 
@@ -59,13 +60,13 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
     try { mapRef.current?.destroy?.() } catch { /* ignore */ }
     mapRef.current = null
 
-    loadTianditu(tk)
+    loadAmap(key, import.meta.env.VITE_AMAP_SECURITY_CODE as string | undefined)
       .then(() => {
         if (!containerRef.current) return
-        const T = (window as any).T
-        if (!T) {
+        const A = (window as any).AMap
+        if (!A) {
           setStatus('error')
-          setError('TMap 全局对象 T 未定义')
+          setError('AMap 全局对象未定义')
           return
         }
 
@@ -75,16 +76,17 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
         }
 
         // 创建地图（中心 = 当前节点位置，zoom 6 城市级）
-        const map = new T.Map(containerRef.current, {
-          projection: 'EPSG:4326',
+        // 注意：focusPos 是 WGS-84，AMap 要 GCJ-02，需转换
+        const [cLng, cLat] = wgs84ToGcj02(focusPos)
+        const map = new A.Map(containerRef.current, {
+          center: new A.LngLat(cLng, cLat),
+          zoom: 6,
+          draggable: false,
+          scrollWheel: false,
+          doubleClickZoom: false,
+          zoomControl: false,
         })
-        map.centerAndZoom(new T.LngLat(focusPos[0], focusPos[1]), 6)
         mapRef.current = map
-
-        // 禁用所有交互（完全静态）
-        if (typeof map.disableDragging === 'function') map.disableDragging()
-        if (typeof map.disableDoubleClickZoom === 'function') map.disableDoubleClickZoom()
-        if (typeof map.disableScrollWheelZoom === 'function') map.disableScrollWheelZoom()
 
         setStatus('ready')
       })

@@ -1,10 +1,9 @@
 /**
- * renderGeoFeatures — 在 TMap 上叠加渲染自然地理要素
+ * renderGeoFeatures — 在高德 AMap 上叠加渲染自然地理要素
  *
- *  - 用 T.Polyline 画线（河流、山脉、海峡）
- *  - 用 T.Polygon 画面（海、湖、沙漠、平原、半岛、区域）
- *  - 用 T.Label 标名字（位于 lng/lat，自动跟随地图平移缩放）
- *  - 用 try/catch 包裹：单类失败不影响其他类
+ *  - AMap.Polyline 画线（河流、山脉、海峡）
+ *  - AMap.Polygon 画面（海、湖、沙漠、平原、半岛、区域）
+ *  - AMap.Text 标名字（位于 lng/lat，自动跟随地图平移缩放）
  *
  * 返回的 dispose() 用于在图层切换或卸载时清掉所有 overlay。
  */
@@ -14,8 +13,9 @@ import {
   type GeoFeature,
 } from '@/data/geographic-features'
 import type { GeoLayerKey } from '@/store/useMapLayersStore'
+import { wgs84ToGcj02, wgs84ToGcj02Path } from '@/utils/coordsTransform'
 
-/** 每种 type 的视觉风格（对齐旧的 SVG 层，颜色保持一致） */
+/** 每种 type 的视觉风格（保留与原版一致） */
 const STYLE: Record<string, {
   stroke?: string
   strokeWeight?: number
@@ -27,8 +27,8 @@ const STYLE: Record<string, {
   labelColor?: string
   marker?: string
 }> = {
-  river:      { stroke: '#5fb0d8', strokeWeight: 2.5, strokeOpacity: 0.95, labelColor: '#a3d8ec' },
-  mountain:   { stroke: '#c8997a', strokeWeight: 2.5, strokeOpacity: 0.9,  strokeDasharray: '6,4', labelColor: '#e8c39a', marker: 'mountain' },
+  river:      { stroke: '#5fb0d8', strokeWeight: 3,   strokeOpacity: 0.95, labelColor: '#a3d8ec' },
+  mountain:   { stroke: '#c8997a', strokeWeight: 3,   strokeOpacity: 0.9,  strokeDasharray: '6,4', labelColor: '#e8c39a', marker: 'mountain' },
   sea:        { fill: '#3a6e9e', fillOpacity: 0.18,   stroke: '#5fb0d8', strokeWeight: 1.5, strokeOpacity: 0.6,  isPolygon: true, labelColor: '#bcd9eb' },
   lake:       { fill: '#4a90b8', fillOpacity: 0.55,   stroke: '#5fb0d8', strokeWeight: 1.5, strokeOpacity: 0.85, isPolygon: true, labelColor: '#bcd9eb' },
   desert:     { fill: '#c89a5b', fillOpacity: 0.18,   stroke: '#d4a85b', strokeWeight: 1,   strokeOpacity: 0.5,  strokeDasharray: '8,5', isPolygon: true, labelColor: '#e8c39a' },
@@ -57,15 +57,15 @@ const COLLECTION: Record<GeoLayerKey, GeoFeature[]> = {
 const ALL_KEYS = Object.keys(COLLECTION) as GeoLayerKey[]
 const LAYER_KEYS_FOR_UI: GeoLayerKey[] = ALL_KEYS
 
-/** 在 TMap 上渲染 selected 图层，返回 dispose() 移除所有 overlay */
+/** 在 AMap 上渲染 selected 图层，返回 dispose() 移除所有 overlay */
 export function renderGeoFeatures(
   map: any,
   visible: Record<GeoLayerKey, boolean>,
   showLabels: boolean,
   onFeatureClick?: (f: GeoFeature) => void,
 ): () => void {
-  const T: any = (window as any).T
-  if (!T || !map) return () => {}
+  const A = (window as any).AMap
+  if (!A || !map) return () => {}
 
   const overlays: any[] = []
 
@@ -75,35 +75,37 @@ export function renderGeoFeatures(
     const style = STYLE[feats[0]?.type] ?? {}
 
     for (const f of feats) {
-      // 把 [lng, lat][] 转成 T.LngLat[]
-      const pts = f.geometry
+      const path: any[] = wgs84ToGcj02Path(f.geometry as [number, number][])
         .map(([lng, lat]) => {
-          try { return new T.LngLat(lng, lat) } catch { return null }
+          try { return new A.LngLat(lng, lat) } catch { return null }
         })
         .filter(Boolean)
-      if (pts.length < 2) continue
+      if (path.length < 2) continue
 
       try {
         if (style.isPolygon) {
-          const poly = new T.Polygon(pts, {
-            color: style.stroke,
-            weight: style.strokeWeight ?? 1,
-            opacity: style.strokeOpacity ?? 1,
+          const poly = new A.Polygon({
+            path,
+            strokeColor: style.stroke,
+            strokeWeight: style.strokeWeight ?? 1,
+            strokeOpacity: style.strokeOpacity ?? 1,
+            strokeStyle: style.strokeDasharray ? 'dashed' : 'solid',
             fillColor: style.fill,
             fillOpacity: style.fillOpacity ?? 0,
+            map,
           })
-          if (onFeatureClick) poly.addEventListener?.('click', () => onFeatureClick(f))
-          map.addOverLay(poly)
+          if (onFeatureClick) poly.on('click', () => onFeatureClick(f))
           overlays.push(poly)
         } else {
-          const line = new T.Polyline(pts, {
-            color: style.stroke,
-            weight: style.strokeWeight ?? 1.5,
-            opacity: style.strokeOpacity ?? 0.9,
-            dashArray: style.strokeDasharray,
+          const line = new A.Polyline({
+            path,
+            strokeColor: style.stroke,
+            strokeWeight: style.strokeWeight ?? 1.5,
+            strokeOpacity: style.strokeOpacity ?? 0.9,
+            strokeStyle: style.strokeDasharray ? 'dashed' : 'solid',
+            map,
           })
-          if (onFeatureClick) line.addEventListener?.('click', () => onFeatureClick(f))
-          map.addOverLay(line)
+          if (onFeatureClick) line.on('click', () => onFeatureClick(f))
           overlays.push(line)
         }
       } catch { /* single feature failed, skip */ }
@@ -111,37 +113,38 @@ export function renderGeoFeatures(
       // Label
       if (showLabels && style.labelColor) {
         try {
-          const labelPos = new T.LngLat(f.labelPos[0], f.labelPos[1])
+          const [lLng, lLat] = wgs84ToGcj02(f.labelPos as [number, number])
+          const labelPos = new A.LngLat(lLng, lLat)
           const marker = style.marker === 'mountain' ? '▲ ' : ''
-          const label = new T.Label({
+          const textLabel = new A.Text({
             text: marker + f.name,
             position: labelPos,
-            offset: new T.Point(0, 0),
+            map,
+            anchor: 'center',
+            style: {
+              background: 'rgba(15,14,12,0.88)',
+              'border-radius': '3px',
+              color: style.labelColor,
+              'border-color': 'rgba(200,154,91,0.6)',
+              'border-style': 'solid',
+              'border-width': '1px',
+              'font-size': (f.importance === 3 ? '13px' : f.importance === 2 ? '12px' : '11px'),
+              'font-weight': (f.importance === 3 ? '600' : '400'),
+              padding: '1px 6px',
+              'white-space': 'nowrap',
+              'box-shadow': '0 1px 3px rgba(0,0,0,0.6)',
+            },
           })
-          // 让 TMap Label 保留默认白底+边框外观（清晰可读），仅改文字颜色
-          try {
-            const el = (label as any).getElement?.()
-            if (el && el.style) {
-              el.style.color = style.labelColor
-              el.style.fontSize = (f.importance === 3 ? '13px' : f.importance === 2 ? '12px' : '11px')
-              el.style.fontWeight = (f.importance === 3 ? '600' : '400')
-              el.style.whiteSpace = 'nowrap'
-              el.style.pointerEvents = 'none'
-            }
-          } catch { /* styling failed but label works */ }
-          if (onFeatureClick) label.addEventListener?.('click', () => onFeatureClick(f))
-          map.addOverLay(label)
-          overlays.push(label)
+          if (onFeatureClick) textLabel.on('click', () => onFeatureClick(f))
+          overlays.push(textLabel)
         } catch { /* label failed */ }
       }
     }
   }
 
-  // dispose
   return () => {
-    for (const ov of overlays) {
-      try { map.removeOverLay(ov) } catch { /* ignore */ }
-    }
+    // 一次性清掉所有 overlay（按类型 setMap(null)
+    map.remove(overlays)
   }
 }
 

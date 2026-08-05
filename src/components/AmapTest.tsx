@@ -603,11 +603,15 @@ function GeoFeatureCardView({
       data-testid="amap-geo-card"
       className="absolute z-20 pointer-events-auto"
       style={{
+        // 真正居中：left/top 50% + transform -50%/-50%，再加 maxHeight 防止内容过多导致超出可视区
         left: '50%',
         top: '50%',
-        transform: 'translate(-50%, calc(-100% - 80px))',
+        transform: 'translate(-50%, -50%)',
         width: '320px',
         maxWidth: 'calc(100vw - 32px)',
+        maxHeight: 'min(620px, calc(100vh - 80px))',
+        display: 'flex',
+        flexDirection: 'column',
       }}
       onClick={e => e.stopPropagation()}
     >

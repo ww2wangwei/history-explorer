@@ -1,16 +1,16 @@
 /**
  * AmapTest — 高德地图 (AMap) 完整版：
- *   底图 + 朝代都城 marker + 事件点 + 地理要素图层。
+ *   底图 + 朝代都城 marker + 事件点。
  *
  * 历史说明：
  *   - TMapTest.tsx → QqMapTest.tsx → AmapTest.tsx
- *   - AMap 矢量底图自带水系/绿地/POI 标注，配合 GeoFeatureFilter 显示山脉/河流/海洋
- *     等叠加层，整体观感显著优于天地图。
+ *   - 此前 GeoFeatureFilter 让用户手动叠加山脉/河流等要素；
+ *     但 AMap 矢量底图（darkblue 风格）已自带水系/绿地/POI 标注，
+ *     手动叠加是冗余且会与底图冲突，已移除。
  */
 import { useEffect, useRef, useState } from 'react'
 import { loadAmap } from '@/lib/amap/loader'
 import { useHistoryStore } from '@/store/useHistoryStore'
-import { useMapLayersStore } from '@/store/useMapLayersStore'
 import { getActiveErasAtYear } from '@/utils/geo'
 import { bingImage, fallbackKeyword } from '@/utils/geoImage'
 import { summarizeEra, summarizeEvent } from '@/utils/summarize'
@@ -20,8 +20,6 @@ import eventsData from '@/data/events.json'
 import { createMapMarker } from '@/lib/amap/markers'
 import { getClampedScreenPoint } from '@/lib/amap/mapHelpers'
 import { getReopenEvent } from '@/lib/reopenRoutes'
-import { renderGeoFeatures } from '@/components/Map/GeoFeatureLayer'
-import GeoFeatureFilter from '@/components/Map/GeoFeatureFilter'
 import type { ReopenKind } from '@/lib/reopenRoutes'
 import type { Era, HistoricalEvent } from '@/types'
 
@@ -179,15 +177,7 @@ export default function AmapTest() {
     }
   }, [])
 
-  // 自然地理要素图层
-  const layersVisible = useMapLayersStore(s => s.visible)
-  const showLabels = useMapLayersStore(s => s.showLabels)
-  useEffect(() => {
-    if (!mapReady) return
-    const map = mapRef.current
-    if (!map) return
-    return renderGeoFeatures(map, layersVisible, showLabels)
-  }, [mapReady, layersVisible, showLabels])
+  // 自然地理要素图层已移除：高德 darkblue 矢量底图自带水系/绿地/POI 标注。
 
   // 显示 hover 卡片
   const showHoverCard = (
@@ -400,8 +390,6 @@ export default function AmapTest() {
           当前年: {currentYear} · 朝代: {getChinaEraAtYear(currentYear)?.name ?? '无'}
         </div>
       </div>
-
-      <GeoFeatureFilter />
 
       {infoCard && (
         <InfoCardView

@@ -432,13 +432,13 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
                 autoPlay
                 muted
                 playsInline
+                loop
                 preload="metadata"
                 className="w-full h-full object-cover"
-                onEnded={() => setVideoEnded(true)}
-                onPlay={() => setVideoEnded(false)}
                 onError={() => setVideoLoadFailed(true)}
               />
-              {videoEnded && (
+              {/* 循环模式下不再覆盖"重新播放"按钮 — 视频自动无缝循环，配音独立播放 */}
+              {false && videoEnded && (
                 <button
                   onClick={() => {
                     if (videoEl) {

@@ -128,7 +128,8 @@
         "image": "xuanwumen hesitation",
         "text": "你决定再等几日，先禀明父皇再做决定。\n\n然而，6 月 1 日，太子党羽已在秦王府外设下埋伏。6 月 3 日深夜，齐王李元吉的密使拜访了秦王府的左车骑将军刘师立——你曾最信任的部下之一。\n\n就在你犹豫的这一夜，秦王府的亲信被逐一剪除。尉迟敬德在府中被人用毒酒谋害，所幸他警惕性高，只饮了一口就察觉异常，但已卧床不起。\n\n6 月 4 日清晨，你醒来时，长孙无忌浑身是血冲入秦王府：大王，晚了！太子已调集 2000 精兵包围秦王府！\n\n你被废为庶人，流放岭南。一年后，病死于途中。",
         "ending": "ending_inaction",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/xuanwumen-s1b_dead_end.mp4"
       },
       {
         "id": "s1c_collapse",
@@ -136,7 +137,8 @@
         "image": "mansion meeting",
         "text": "你决定召集所有幕僚公开讨论。\n\n消息很快泄露。6 月 2 日，太子李建成得到密报，召集齐王和心腹反扑。\n\n6 月 3 日深夜，太子党的刺客潜入秦王府。侯君集在回家途中遇刺身亡；杜如晦被围，幸亏尉迟敬德拼死相救才脱身，但已重伤。\n\n6 月 4 日清晨，你被迫仓促迎战。没有部署，没有退路，玄武门事变变成了一场混战。你和亲信被围困在秦王府内。\n\n最终，太子与齐王联合李渊下旨：将秦王天策上将府属官尽数削职为民，秦王府亲信 200 余人流放岭南。你在府中饮鸩自尽——\n\n宁可我死，不让天下再动刀兵。",
         "ending": "ending_collapse",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/xuanwumen-s1c_collapse.mp4"
       },
       {
         "id": "s2",
@@ -226,7 +228,8 @@
         "image": "xuanwumen arrow",
         "text": "你犹豫了。\n\n就在你张弓瞄准但未放箭的这几秒，太子李建成调转马头，向玄武门外冲去——他试图逃回东宫，调集太子禁军反击。\n\n追！不能让他跑！尉迟敬德大喝。\n\n但齐王李元吉反应极快，他在马上张弓还击——一箭射中你的左臂！剧痛之下，你跌落马下。\n\n太子逃回东宫。他立即调集太子禁军 2000 人（长林军），加上齐王府的数百骑——总计 2500 精锐骑兵，围攻玄武门。\n\n你被围困在玄武门内，只有 70 骑。长孙无忌受伤，尉迟敬德死战不退。\n\n最后时刻，尉迟敬德斩下太子与齐王首级，挂在城门上展示——东宫与齐王府的士兵见到主人首级，一哄而散。但你的精锐几乎全部战死。\n\n你虽最终获胜，但左臂残废，再不能拉弓。这场胜利的代价，远比你想象的更沉重。",
         "ending": "ending_compassion_dead",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/xuanwumen-s2c_fail.mp4"
       },
       {
         "id": "s3",
@@ -283,7 +286,8 @@
         "npcName": "魏征",
         "npcRole": "原太子洗马，现为你的臣下",
         "npcContext": "你是魏征，原太子李建成心腹，曾建议太子早除秦王。玄武门之变后李世民不计前嫌重用你，你一生犯颜直谏 200 余次，成为贞观之治的关键人物。你见证了帝王最不堪的秘密，也成为他最可信赖的镜子。",
-        "npcClosing": "陛下，您今日能坐在龙椅上，是因为您下了决心。臣今后愿以死相谏，助您开创盛世——但臣也希望陛下记住，今日所行之事，是为了让后世不再重演兄弟相残。"
+        "npcClosing": "陛下，您今日能坐在龙椅上，是因为您下了决心。臣今后愿以死相谏，助您开创盛世——但臣也希望陛下记住，今日所行之事，是为了让后世不再重演兄弟相残。",
+        "video": "/scenes/xuanwumen-s4.mp4"
       }
     ],
     "endings": [
@@ -426,7 +430,8 @@
               "wit": -1
             }
           }
-        ]
+        ],
+        "video": "/scenes/chibi-jingzhou.mp4"
       },
       {
         "id": "s0b_navy",
@@ -466,7 +471,8 @@
               "wit": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/chibi-navy.mp4"
       },
       {
         "id": "s1",
@@ -502,7 +508,8 @@
             "outcome": "你选择等待",
             "historicalNote": "历史假设：曹操的士兵多为北方人，不习水战，疫病已开始流行。"
           }
-        ]
+        ],
+        "video": "/scenes/chibi-debate.mp4"
       },
       {
         "id": "s1b_diplomacy",
@@ -535,14 +542,16 @@
               "wit": 3
             }
           }
-        ]
+        ],
+        "video": "/scenes/chibi-diplomacy.mp4"
       },
       {
         "id": "s1c_wait",
         "title": "错失良机",
         "text": "你按兵不动，士兵水土不服，疫病蔓延。短短一个月，瘟疫流行军中。\n\n孙权抓住时机，与刘备结盟。周瑜被任命为前部大督，程普为副，鲁肃为赞军校尉——东吴三万精兵屯于赤壁。\n\n刘备也派关羽、张飞、赵云等猛将助战。两军合计约 5 万人，对阵你的 20 余万。\n\n而你的士兵因疫病减员 1/3，士气低落。荀彧建议退兵：士卒疲病，宜待来年。\n\n你心中不甘，但军心已动。\n\n等明年开春，诸葛亮、庞统必有更多计谋——你已经失去最佳进攻时机。",
         "ending": "ending_delay_lost",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/chibi-wait.mp4"
       },
       {
         "id": "s2",
@@ -586,7 +595,8 @@
               "wit": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/chibi-prep.mp4"
       },
       {
         "id": "s3_fire",
@@ -598,7 +608,8 @@
         "npcName": "关羽",
         "npcRole": "刘备大将，曾为你效命",
         "npcContext": "你是关羽，曾在曹营受曹操厚待（上马金下马银），但你仍过五关斩六将寻刘备。今日赤壁，你奉诸葛亮将令在华容道伏击。曹操若败走至此，你放不放？",
-        "npcClosing": "关某当日受丞相厚恩，今日丞相败走华容道，关某奉军师将令在此等候。——你摇头叹息：关云长，仁义之至也。"
+        "npcClosing": "关某当日受丞相厚恩，今日丞相败走华容道，关某奉军师将令在此等候。——你摇头叹息：关云长，仁义之至也。",
+        "video": "/scenes/chibi-fire.mp4"
       },
       {
         "id": "s3_hard",
@@ -610,7 +621,8 @@
         "npcName": "周瑜",
         "npcRole": "孙权军大都督",
         "npcContext": "你是周瑜，孙权军大都督，年仅 34 岁。赤壁之战你以 3 万兵力抗住曹操 20 万大军，奠定了三国鼎立的格局。你风雅英武，但心胸不够宽广——你忌恨诸葛亮的才能。",
-        "npcClosing": "曹公，天下英雄，唯使君与瑜耳。今日赤壁，瑜以少胜多，非侥幸也——乃人心向背也。"
+        "npcClosing": "曹公，天下英雄，唯使君与瑜耳。今日赤壁，瑜以少胜多，非侥幸也——乃人心向背也。",
+        "video": "/scenes/chibi-hard.mp4"
       }
     ],
     "endings": [
@@ -744,7 +756,8 @@
               "popularity": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/napo-eve.mp4"
       },
       {
         "id": "s1",
@@ -788,7 +801,8 @@
               "popularity": -1
             }
           }
-        ]
+        ],
+        "video": "/scenes/napo-notredame.mp4"
       },
       {
         "id": "s1b_pope",
@@ -828,7 +842,8 @@
               "popularity": -1
             }
           }
-        ]
+        ],
+        "video": "/scenes/napo-pope.mp4"
       },
       {
         "id": "s2",
@@ -872,7 +887,8 @@
               "popularity": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/napo-campaign.mp4"
       },
       {
         "id": "s3",
@@ -916,7 +932,8 @@
               "popularity": -1
             }
           }
-        ]
+        ],
+        "video": "/scenes/napo-coronation.mp4"
       },
       {
         "id": "s4_firstdecree",
@@ -958,7 +975,8 @@
               "popularity": -1
             }
           }
-        ]
+        ],
+        "video": "/scenes/napo-decree.mp4"
       }
     ],
     "endings": [
@@ -1079,7 +1097,8 @@
               "sentiment": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/anshi-tiger.mp4"
       },
       {
         "id": "s0b_alarm",
@@ -1119,7 +1138,8 @@
               "sentiment": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/anshi-alarm.mp4"
       },
       {
         "id": "s1",
@@ -1159,14 +1179,16 @@
             "outcome": "你选择求和",
             "historicalNote": "历史事实：安禄山要的是帝位，不存在求和空间。"
           }
-        ]
+        ],
+        "video": "/scenes/anshi-rebellion.mp4"
       },
       {
         "id": "s1c_fail",
         "title": "求和的代价",
         "text": "你决定先遣使求和，争取时间。\n\n求和使被安禄山斩首示众——你的求和使成了叛军的战利品。\n\n消息传开，叛军知道你的软弱，加速南下。洛阳沦陷，潼关失守。\n\n短短数月，长安门户大开。\n\n你失去了所有主动权，被迫弃城西逃。",
         "ending": "ending_weak",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/anshi-siege.mp4"
       },
       {
         "id": "s2",
@@ -1206,14 +1228,16 @@
               "sentiment": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/anshi-lingbao.mp4"
       },
       {
         "id": "s2b_fail",
         "title": "出战的代价",
         "text": "你下令哥舒翰出关决战。\n\n20 万唐军北出潼关，正中安禄山埋伏。叛军诱敌深入，然后以逸待劳，全歼唐军。\n\n哥舒翰被俘投降。潼关失守。\n\n长安门户洞开。\n\n你无力回天，被迫弃城西逃。",
         "ending": "ending_lost",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/anshi-counter.mp4"
       },
       {
         "id": "s3",
@@ -1253,14 +1277,16 @@
               "sentiment": -1
             }
           }
-        ]
+        ],
+        "video": "/scenes/anshi-changsheng.mp4"
       },
       {
         "id": "s3b_fail",
         "title": "护妃的代价",
         "text": "你试图护住贵妃：谁敢动朕的爱妃！\n\n禁军哗变，刀剑相向。混乱中杨国忠被杀，杨贵妃也被迫自缢——你无力保护任何人。\n\n最终你被迫退位，被软禁于西内，郁郁而终。",
         "ending": "ending_protect_lost",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/anshi-despair.mp4"
       },
       {
         "id": "s3_flee",
@@ -1271,7 +1297,8 @@
         "npcName": "高力士",
         "npcRole": "你的贴身宦官，陪伴你一生",
         "npcContext": "你是高力士，玄宗最信任的宦官。从开元到天宝，你一直陪伴皇帝。你见证了盛世，也见证了衰败。你年事已高，但依然守护太上皇。",
-        "npcClosing": "陛下，老奴陪您一辈子了。开元盛世，老奴见过；天宝之乱，老奴也经历过。盛衰本是常事，但盛唐精神长存。"
+        "npcClosing": "陛下，老奴陪您一辈子了。开元盛世，老奴见过；天宝之乱，老奴也经历过。盛衰本是常事，但盛唐精神长存。",
+        "video": "/scenes/anshi-flee.mp4"
       },
       {
         "id": "s4_abdicate",
@@ -1283,7 +1310,8 @@
         "npcName": "高力士",
         "npcRole": "你的贴身宦官",
         "npcContext": "你是高力士。你看着玄宗从明君变成昏君，又看着他亲手葬送爱人。你一直陪着他，因为他曾经是好的皇帝。",
-        "npcClosing": "陛下，您亲手开创了开元盛世，也亲手葬送了它。但盛唐的余韵仍在——诗歌、瓷器、丝绸——会流传千年。"
+        "npcClosing": "陛下，您亲手开创了开元盛世，也亲手葬送了它。但盛唐的余韵仍在——诗歌、瓷器、丝绸——会流传千年。",
+        "video": "/scenes/anshi-abdicate.mp4"
       }
     ],
     "endings": [
@@ -1436,7 +1464,8 @@
               "public": -1
             }
           }
-        ]
+        ],
+        "video": "/scenes/french-revolution-s0_estates.mp4"
       },
       {
         "id": "s1",
@@ -1476,7 +1505,8 @@
               "public": 3
             }
           }
-        ]
+        ],
+        "video": "/scenes/french-revolution-s1.mp4"
       },
       {
         "id": "s1b_constitution",
@@ -1516,14 +1546,16 @@
               "public": -3
             }
           }
-        ]
+        ],
+        "video": "/scenes/french-revolution-s1b_constitution.mp4"
       },
       {
         "id": "s1b_fail",
         "title": "示弱的代价",
         "text": "你解除内克的消息让革命派误判你的软弱。\n\n7 月 14 日，巴黎市民攻陷巴士底狱。攻陷的市民得到鼓舞，王党彻底失去主动权。\n\n几个月内，制宪议会掌控一切。\n\n你被革命派视为敌人。",
         "ending": "ending_weak",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/french-revolution-s1b_fail.mp4"
       },
       {
         "id": "s2",
@@ -1563,7 +1595,8 @@
             "outcome": "你请求外援",
             "historicalNote": "历史事实：路易十六暗中勾结外国，此事曝光后彻底失去民心。"
           }
-        ]
+        ],
+        "video": "/scenes/french-revolution-s2.mp4"
       },
       {
         "id": "s2b_twilight",
@@ -1603,14 +1636,16 @@
               "public": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/french-revolution-s2b_twilight.mp4"
       },
       {
         "id": "s2c_fail",
         "title": "外援的代价",
         "text": "你请求外国军队的消息被泄露。\n\n革命派怒不可遏——国王竟勾结外敌！你的名誉彻底扫地，1792 年法兰西第一共和国成立，你被废黜。",
         "ending": "ending_foreign_aid",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/french-revolution-s2c_fail.mp4"
       },
       {
         "id": "s3_flight",
@@ -1622,7 +1657,8 @@
         "npcName": "罗伯斯庇尔",
         "npcRole": "雅各宾派领袖",
         "npcContext": "你是马克西米连·罗伯斯庇尔，律师出身，革命激进派领袖。你信奉人民主权，反对任何形式的妥协。你认为国王是暴政的象征，必须被推翻。",
-        "npcClosing": "路易，国王与人民不能两立。逃跑证明你从未接受革命。你被审判是历史的必然——人民审判国王。"
+        "npcClosing": "路易，国王与人民不能两立。逃跑证明你从未接受革命。你被审判是历史的必然——人民审判国王。",
+        "video": "/scenes/french-revolution-s3_flight.mp4"
       },
       {
         "id": "s3_stay",
@@ -1634,7 +1670,8 @@
         "npcName": "罗伯斯庇尔",
         "npcRole": "雅各宾派领袖",
         "npcContext": "你是罗伯斯庇尔，革命的核心人物。你反对君主制，主张建立共和国。当路易被关进 Temple 时，你主张立即审判处决。",
-        "npcClosing": "路易，革命不接受悔过。你没有主动退位，让法国陷入十年混乱——这是你的罪过。但历史会记住：你是唯一不撒谎的法国人。"
+        "npcClosing": "路易，革命不接受悔过。你没有主动退位，让法国陷入十年混乱——这是你的罪过。但历史会记住：你是唯一不撒谎的法国人。",
+        "video": "/scenes/french-revolution-s3_stay.mp4"
       }
     ],
     "endings": [
@@ -1776,7 +1813,8 @@
               "harmony": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/crusades-s0_succession.mp4"
       },
       {
         "id": "s0b_provoke",
@@ -1816,7 +1854,8 @@
               "harmony": -3
             }
           }
-        ]
+        ],
+        "video": "/scenes/crusades-s0b_provoke.mp4"
       },
       {
         "id": "s1",
@@ -1856,7 +1895,8 @@
             "outcome": "你选择外交",
             "historicalNote": "历史事实：萨拉丁要耶路撒冷，不会接受议和。"
           }
-        ]
+        ],
+        "video": "/scenes/crusades-s1.mp4"
       },
       {
         "id": "s1b_march",
@@ -1896,14 +1936,16 @@
               "harmony": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/crusades-s1b_march.mp4"
       },
       {
         "id": "s1c_fail",
         "title": "议和的代价",
         "text": "萨拉丁不接受求和，将你的软弱视为进攻信号。\n\n穆斯林大军长驱直入。\n\n你失去了所有主动权。",
         "ending": "ending_diplomacy",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/crusades-s1c_fail.mp4"
       },
       {
         "id": "s2",
@@ -1943,7 +1985,8 @@
             "outcome": "你以宗教换和平",
             "historicalNote": "历史假设：麻风王以皈依换和平——但这违背十字军信仰。"
           }
-        ]
+        ],
+        "video": "/scenes/crusades-s2.mp4"
       },
       {
         "id": "s2a_fail",
@@ -1954,7 +1997,8 @@
         "npcName": "萨拉丁",
         "npcRole": "穆斯林苏丹",
         "npcContext": "你是萨拉丁。哈廷之战后你乘胜收复耶路撒冷（1187 年 10 月），入城时禁止屠杀和抢掠。",
-        "npcClosing": "鲍德温，我的老对手。你的麻风病让你承受了常人无法想象的痛苦，但你从未屈服。虽然我赢了，但我敬佩你——你是我见过最勇敢的国王之一。"
+        "npcClosing": "鲍德温，我的老对手。你的麻风病让你承受了常人无法想象的痛苦，但你从未屈服。虽然我赢了，但我敬佩你——你是我见过最勇敢的国王之一。",
+        "video": "/scenes/crusades-s2a_fail.mp4"
       },
       {
         "id": "s2b_fail",
@@ -1965,14 +2009,16 @@
         "npcName": "萨拉丁",
         "npcRole": "穆斯林苏丹",
         "npcContext": "你是萨拉丁，夺取真十字架是伊斯兰世界 88 年来最大的胜利——第一次十字军东征时这件圣物被夺走。",
-        "npcClosing": "真十字架现在属于伊斯兰世界。这是真主对我们的恩赐。但我会善待你的子民——你虽是异教徒，却是个正直的国王。"
+        "npcClosing": "真十字架现在属于伊斯兰世界。这是真主对我们的恩赐。但我会善待你的子民——你虽是异教徒，却是个正直的国王。",
+        "video": "/scenes/crusades-s2b_fail.mp4"
       },
       {
         "id": "s2c_shame",
         "title": "受洗的代价",
         "text": "你宣布皈依伊斯兰教以换取和平，但你的骑士们不能接受——他们发动兵变，将你软禁。\n\n你最终死在狱中，耶路撒冷陷落。",
         "ending": "ending_converted",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/crusades-s2c_shame.mp4"
       }
     ],
     "endings": [
@@ -2112,7 +2158,8 @@
               "treasury": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/zheng-he-s0_mandate.mp4"
       },
       {
         "id": "s1",
@@ -2152,14 +2199,16 @@
             "outcome": "你选择先去日本",
             "historicalNote": "历史事实：日本方向是另一个朝贡路径，但下西洋是去西洋（西方），不是日本。"
           }
-        ]
+        ],
+        "video": "/scenes/zheng-he-s1.mp4"
       },
       {
         "id": "s1c_fail",
         "title": "方向的错误",
         "text": "你误把\"西洋\"理解为日本方向。\n\n朝廷的真正意图是与印度洋诸国建立联系，朝贡体系很快瓦解。\n\n永乐帝对你大失所望。",
         "ending": "ending_misdirected",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/zheng-he-s1c_fail.mp4"
       },
       {
         "id": "s2",
@@ -2199,7 +2248,8 @@
               "treasury": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/zheng-he-s2.mp4"
       },
       {
         "id": "s2b_storm",
@@ -2239,14 +2289,16 @@
               "treasury": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/zheng-he-s2b_storm.mp4"
       },
       {
         "id": "s2a_fail",
         "title": "招抚的代价",
         "text": "陈祖义假意归顺，趁夜色偷袭你的船队。\n\n虽然你最终击退，但舰队损失惨重，朝廷质疑你的决断。\n\n你被召回。",
         "ending": "ending_pacify_fail",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/zheng-he-s2a_fail.mp4"
       },
       {
         "id": "s3",
@@ -2286,14 +2338,16 @@
             "outcome": "你勒索当地",
             "historicalNote": "历史事实：郑和从未勒索，反而布施——这是大明的外交底线。"
           }
-        ]
+        ],
+        "video": "/scenes/zheng-he-s3.mp4"
       },
       {
         "id": "s3c_fail",
         "title": "勒索的代价",
         "text": "你勒索宝石的行为传到永乐帝耳中。\n\n皇帝震怒——大明是天朝上国，岂能行盗贼之事？你被召回南京，再未出海。",
         "ending": "ending_disgraced",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/zheng-he-s3c_fail.mp4"
       },
       {
         "id": "s4",
@@ -2305,7 +2359,8 @@
         "npcName": "王景弘",
         "npcRole": "你的副手",
         "npcContext": "你是王景弘。郑和逝世后，你独自完成了第七次下西洋的下半段。宝船在你眼前老化，朝廷不再拨款。",
-        "npcClosing": "大人，您开创的时代已经过去。大明不再远航，世界却记住了您的名字——人类历史上最大规模远洋舰队的统帅。"
+        "npcClosing": "大人，您开创的时代已经过去。大明不再远航，世界却记住了您的名字——人类历史上最大规模远洋舰队的统帅。",
+        "video": "/scenes/zheng-he-s4.mp4"
       }
     ],
     "endings": [
@@ -2456,7 +2511,8 @@
               "brotherhood": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/yongzheng-s0_prelude.mp4"
       },
       {
         "id": "s1_longkodo",
@@ -2493,14 +2549,16 @@
             "outcome": "你放弃了独揽大位的机会",
             "historicalNote": "历史事实：皇位之争从来容不得退让。康熙晚年八爷党势大，若胤禛稍有退却，皇位必落入胤禩之手——而胤禩对异己从不手软。"
           }
-        ]
+        ],
+        "video": "/scenes/yongzheng-s1_longkodo.mp4"
       },
       {
         "id": "s1_dead_betrayed",
         "title": "退让的代价",
         "text": "你决定联络众兄弟共推贤能，以为这样可以保全兄弟情义。\n\n然而八阿哥胤禩早已布好罗网。你派出的密使在半路被九门禁军截获——隆科多见你无意争位，转而投向八爷党。\n\n十一月十三日丑时，康熙帝驾崩。隆科多当众宣读\"遗诏\"：传位于八子胤禩。\n\n你被软禁于雍亲王府。三个月后，新帝胤禩以\"结党谋逆\"之名将你圈禁于宗人府。你的心腹年羹尧被调离川陕，夺去兵权。\n\n十年后，你在高墙之内郁郁而终。临终前，你想起那个风雪之夜——如果当初你没有退让，历史会怎样改写？",
         "ending": "ending_weak_retreat",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/yongzheng-s1_dead_betrayed.mp4"
       },
       {
         "id": "s2_will",
@@ -2538,14 +2596,16 @@
             "outcome": "你只顾哀悼而延误时机",
             "historicalNote": "历史事实：皇位更迭的瞬间，每一秒都关乎成败。胤禛在悲痛之余迅速控制局面，未给反对者留下任何机会。"
           }
-        ]
+        ],
+        "video": "/scenes/yongzheng-s2_will.mp4"
       },
       {
         "id": "s2_dead_wrong_edict",
         "title": "错失先机",
         "text": "你跪在父皇灵前痛哭失声，沉浸于丧父之痛。\n\n八阿哥胤禩却利用了这段时间。他迅速调集镶蓝旗侍卫，联合几位亲王闯入寝殿，要求\"查验遗诏\"。混乱中，遗诏被胤禩党羽夺去并当场烧毁。\n\n隆科多被软禁。胤禩对外宣布：康熙帝临终前有意传位于十四子胤禵，四阿哥遣人篡改遗诏——\"传位十四子\"被改为\"传位于四子\"。\n\n这个谣言迅速传遍京城。尽管你后来试图澄清，但大势已去。\n\n三天后，在八爷党主导的内阁会议上，你被\"众议\"排除在皇位继承之外。胤禩扶植年幼的皇子为傀儡，自己以总理大臣身份摄政。\n\n你被软禁于雍王府，从此消失于政治舞台。",
         "ending": "ending_missed_moment",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/yongzheng-s2_dead_wrong_edict.mp4"
       },
       {
         "id": "s3_brothers",
@@ -2586,7 +2646,8 @@
               "brotherhood": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/yongzheng-s3_brothers.mp4"
       },
       {
         "id": "s4_purge",
@@ -2624,14 +2685,16 @@
             "outcome": "你选择了拖延",
             "historicalNote": "历史事实：政治清算最忌拖延。雍正深知若不在登基之初彻底清除八爷党势力，日后必成大患。"
           }
-        ]
+        ],
+        "video": "/scenes/yongzheng-s4_purge.mp4"
       },
       {
         "id": "s4_dead_counterpurge",
         "title": "拖延的反噬",
         "text": "你决定暂缓处置八爷党，专心推行新政以固民心。\n\n然而你的宽容被胤禩视为软弱。雍正二年秋，八爷党暗中联络了一位不满你改革的满洲亲王，趁你巡视江南之际，在京城发动政变。\n\n隆科多在这场政变中立场动摇——他没有站在你这边，因为他觉得你\"不够狠\"，不足以压住朝堂。\n\n等你从江南赶回时，紫禁城已被胤禩控制。你被迫宣布\"病重退位\"，幽闭于圆明园。\n\n你推行了一半的改革——摊丁入亩、耗羡归公——全部被废除。大清失去了改革的最后窗口。\n\n历史将记住：一个想当仁君的人，被自己不忍心杀掉的兄弟推翻了。",
         "ending": "ending_counterpurged",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/yongzheng-s4_dead_counterpurge.mp4"
       },
       {
         "id": "s5_reform",
@@ -2673,7 +2736,8 @@
           }
         ],
         "isFinal": true,
-        "npcClosing": "陛下，老臣自康熙朝入仕，三十年矣。见过康熙爷的宽仁，也见过您的心狠手辣。但老臣不得不说——若无您这十三年，大清的国库早已空虚，吏治早已腐烂。您在史书上的名声或许不如康熙爷光辉，但您留下的，是一个能再撑百年的大清。千秋功罪，后人自有评说。"
+        "npcClosing": "陛下，老臣自康熙朝入仕，三十年矣。见过康熙爷的宽仁，也见过您的心狠手辣。但老臣不得不说——若无您这十三年，大清的国库早已空虚，吏治早已腐烂。您在史书上的名声或许不如康熙爷光辉，但您留下的，是一个能再撑百年的大清。千秋功罪，后人自有评说。",
+        "video": "/scenes/yongzheng-s5_reform.mp4"
       }
     ],
     "endings": [
@@ -2821,7 +2885,8 @@
               "legitimacy": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/caesar-rubicon-s0_ultimatum.mp4"
       },
       {
         "id": "s1_rubicon",
@@ -2860,7 +2925,8 @@
             "outcome": "你向左转——退回了高卢",
             "historicalNote": "历史假设：凯撒若退回，元老院将立刻宣布他为公敌，派庞培率军北伐。凯撒的犹豫就是庞培的集结时间。历史上凯撒精准地把握了时机——庞培的西班牙军团尚未到来，意大利空虚。"
           }
-        ]
+        ],
+        "video": "/scenes/caesar-rubicon-s1_rubicon.mp4"
       },
       {
         "id": "s1b_cross",
@@ -2900,14 +2966,16 @@
               "legitimacy": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/caesar-rubicon-s1b_cross.mp4"
       },
       {
         "id": "s1_dead",
         "title": "错失了命运的骰子",
         "text": "你调转马头，退回拉文纳。\n\n元老院收到消息后欣喜若狂。加图在元老院高呼：「诸位，凯撒怕了！那个高卢的僭主终于退缩了！」庞培则立即下令在意大利征兵——三周之内，六个新编军团在坎帕尼亚集结。\n\n你的遣使抵达罗马，请求再度谈判。但元老院已经看穿了你的犹豫——你的使者在元老院门口被拒之门外。加图的声音传遍罗马广场：「与叛国者不谈条件！」\n\n三天后，元老院正式宣布你为国家公敌（hostis publicus），剥夺所有总督职权。凯撒的名字被刻在元老院的耻辱柱上。\n\n又过了一周，庞培率六个军团北上。他的新兵或许不够精锐，但他的骑兵和来自东方的补给带来了巨大的优势。\n\n你的第十三军团孤立无援。信任你的士兵开始动摇——他们的统帅在最后关头退缩了。\n\n公元前 49 年 3 月，庞培大军围困拉文纳。你试图组织突围，但士气已溃。第十三军团的叛变者打开了城门。\n\n庞培将你押送元老院，当着全罗马的面审判。\n\n罪名成立——叛国、僭越、藐视元老院。\n\n你被流放至希腊。公元前 48 年，你客死于帕加马——一个曾经的征服者，一个没有动手的失败者。\n\n骰子从未被掷出——而你的一生，也从未真正活过。",
         "ending": "ending_rubicon_dead",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/caesar-rubicon-s1_dead.mp4"
       },
       {
         "id": "s2_rome",
@@ -2947,7 +3015,8 @@
               "legitimacy": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/caesar-rubicon-s2_rome.mp4"
       },
       {
         "id": "s3_pharsalus",
@@ -2986,14 +3055,16 @@
               "legitimacy": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/caesar-rubicon-s3_pharsalus.mp4"
       },
       {
         "id": "s3_dead",
         "title": "法萨卢斯的尸山",
         "text": "你下令正面强攻——第十军团带头冲锋，全军压上。\n\n但庞培的骑兵在拉比埃努斯指挥下，从两翼包抄。他们如一群猎犬围住了你的队列——左翼被骑兵湮灭，右翼被步兵包围，阵线迅速崩溃。\n\n你的老兵们拼死搏杀。但兵力差距太大——近 50,000 对 22,000。这不是战斗，这是一场屠杀。\n\n拉比埃努斯骑着高头大马出现在阵前，他的长矛上挂着一名你熟悉的百夫长的头盔——那是第十军团最老的一个士兵，曾在高卢阿莱西亚与你并肩战斗。\n\n拉比埃努斯沙哑地喊道：「凯撒，你骑得不错——但高卢的运气到了尽头。把他们全部杀光——」\n\n这场屠杀持续了整整一天。法萨卢斯平原浸透了鲜血。\n\n到黄昏时分，你的军队只剩下不到 2000 人——你带着他们逃出战场，穿越马其顿山区的反方向，与追兵展开了长达一周的赛跑。\n\n庞培登上海拉迪的帅舰，大笑着向埃及航行——他要去那里重整旗鼓。\n\n你在逃奔马其顿时，被庞培的骑兵俘虏。\n\n你不屈——「我是凯撒，命运欠我一次，我不认输——」\n\n但命运没有听到你的话。拉比埃努斯亲自行刑——\n\n他用你的高卢战旗绑住你的手，用第十军团的鹰徽刺穿你的心脏。\n\n公元前 48 年 8 月 10 日，法萨卢斯的血迹干涸在东方的阳光下。\n\n罗马共和国的最后一个征服者——死在了昔日战友的手中。",
         "ending": "ending_pharsalus_dead",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/caesar-rubicon-s3_dead.mp4"
       },
       {
         "id": "s4_dictator",
@@ -3035,7 +3106,8 @@
               "legitimacy": 3
             }
           }
-        ]
+        ],
+        "video": "/scenes/caesar-rubicon-s4_dictator.mp4"
       }
     ],
     "endings": [
@@ -3182,14 +3254,16 @@
             "outcome": "你选择了观望",
             "historicalNote": "历史事实：埃及的国力无法在罗马内战中独善其身。无论安东尼还是屋大维，胜者都会来索取埃及的粮仓。中立只是一种幻觉。"
           }
-        ]
+        ],
+        "video": "/scenes/cleopatra-s0_caesar_dead.mp4"
       },
       {
         "id": "s0c_neutral",
         "title": "中立的幻觉",
         "text": "你决定严守中立，命令舰队封锁尼罗河口，陆军在东部边境筑垒。\n\n一年后，安东尼派来的使者不仅没有减少，反而越来越多——一开始是客气的请求，后来变成了赤裸裸的勒索：要求埃及提供二十万石粮食，否则\"罗马军团将亲自来取\"。\n\n更糟的是，你的中立让屋大维也认定你已是安东尼一方——因为安东尼在你门口，而你没有公开反对他。罗马元老院宣布埃及是\"潜在敌国\"。\n\n你成了两头都不讨好的孤家寡人。当安东尼的军团跨过西奈半岛时，你的边境守军一触即溃。安东尼策马踏入亚历山大港时，你手中已没有任何谈判的筹码——只有投降或死亡。",
         "ending": "ending_neutral_fail",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/cleopatra-s0c_neutral.mp4"
       },
       {
         "id": "s1_tarsus",
@@ -3232,7 +3306,8 @@
               "wisdom": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/cleopatra-s1_tarsus.mp4"
       },
       {
         "id": "s2_alexandria_feast",
@@ -3271,14 +3346,16 @@
             "outcome": "你向虎穴走去",
             "historicalNote": "历史假设：克里奥帕特拉若亲自去罗马，将面临巨大的政治风险——罗马人对她的敌意极深。但此举也可能彻底改变三头政治的格局。"
           }
-        ]
+        ],
+        "video": "/scenes/cleopatra-s2_alexandria_feast.mp4"
       },
       {
         "id": "s2c_rome_gamble",
         "title": "虎穴之行",
         "text": "你不顾朝臣反对，和安东尼一同前往罗马。\n\n然而罗马不是你想象中的样子。当你踏入罗马城的那一刻，迎接你的不是欢呼，而是石头和唾沫。罗马平民高喊着\"埃及妖妇滚回去\"冲向你。屋大维在元老院发表了一场慷慨激昂的演说，称你为\"威胁罗马的东方毒蛇\"。\n\n安东尼在元老院中为你辩护，但在众目睽睽之下，他的声音越来越弱。元老们根本不接受一个外国女王站在神圣的罗马广场上。\n\n你被强行护送离开罗马——实际上是驱逐。而安东尼被迫在公开场合与屋大维的姐姐奥克塔维亚牵手，表示他与罗马站在一起。\n\n你的罗马之行不仅没能改变政治格局，反而让屋大维利用你的出现加剧了对安东尼的舆论攻击。",
         "ending": "ending_rome_humiliation",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/cleopatra-s2c_rome_gamble.mp4"
       },
       {
         "id": "s3_actium",
@@ -3321,7 +3398,8 @@
               "wisdom": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/cleopatra-s3_actium.mp4"
       },
       {
         "id": "s4_asps",
@@ -3366,7 +3444,8 @@
               "wisdom": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/cleopatra-s4_asps.mp4"
       }
     ],
     "endings": [
@@ -3497,7 +3576,8 @@
               "diplomacy": 3
             }
           }
-        ]
+        ],
+        "video": "/scenes/columbus-1492-s0_seven_years.mp4"
       },
       {
         "id": "s1",
@@ -3534,7 +3614,8 @@
             "outcome": "你押上了最后筹码",
             "historicalNote": "历史事实：若昂二世虽曾拒绝哥伦布，但后来后悔了——哥伦布确实可以回葡萄牙。"
           }
-        ]
+        ],
+        "video": "/scenes/columbus-1492-s1.mp4"
       },
       {
         "id": "s1b_terms",
@@ -3573,21 +3654,24 @@
             "outcome": "你贪心地讨价还价",
             "historicalNote": "历史事实：哥伦布没有继续讨价还价——他怕女王收回成命。"
           }
-        ]
+        ],
+        "video": "/scenes/columbus-1492-s1b_terms.mp4"
       },
       {
         "id": "s1c_risky",
         "title": "赌注失败",
         "text": "你的威胁奏效了——但也激怒了女王。\n\n「你竟敢在朕面前威胁？」伊莎贝拉勃然大怒。她的自尊不容挑衅。你被逐出宫廷，永不许回到卡斯蒂利亚。\n\n你带着儿子迭戈黯然离开。\n\n数月后，你听说葡萄牙的巴尔托洛梅乌·迪亚士已经从非洲绕过了好望角——通往印度的航线已经初现。而你的向西航线，再也没有人在意了。",
         "ending": "ending_gambit_fail",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/columbus-1492-s1c_risky.mp4"
       },
       {
         "id": "s1bc_greed",
         "title": "得寸进尺的代价",
         "text": "你坚持要再加一艘船。\n\n女王的面色变了。她已经给了你超乎预期的条件——而你竟然还要讨价还价。\n\n「看来你并不是那么渴望这次机会。」她冷淡地说。「退下吧。」\n\n你失去了这个窗口。就在同一年，葡萄牙的航海家们继续沿着非洲海岸探索东方航线。你被彻底边缘化，在帕洛斯港度过余生，成为一个被遗忘的、满嘴疯话的热那亚老人。",
         "ending": "ending_greed",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/columbus-1492-s1bc_greed.mp4"
       },
       {
         "id": "s2",
@@ -3628,7 +3712,8 @@
               "diplomacy": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/columbus-1492-s2.mp4"
       },
       {
         "id": "s2b_direct",
@@ -3648,7 +3733,8 @@
               "diplomacy": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/columbus-1492-s2b_direct.mp4"
       },
       {
         "id": "s3",
@@ -3690,7 +3776,8 @@
               "diplomacy": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/columbus-1492-s3.mp4"
       },
       {
         "id": "s4",
@@ -3733,7 +3820,8 @@
               "diplomacy": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/columbus-1492-s4.mp4"
       },
       {
         "id": "s5",
@@ -3775,7 +3863,8 @@
               "diplomacy": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/columbus-1492-s5.mp4"
       }
     ],
     "endings": [
@@ -3945,7 +4034,8 @@
               "vision": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/hongmen-s0_julu.mp4"
       },
       {
         "id": "s0a_rash",
@@ -3955,7 +4045,8 @@
         "npcContext": "你是项伯，项羽的叔父。你与张良有旧交——当年你杀人逃亡时张良救过你一命。得知项羽要攻刘邦，你连夜驰入霸上，告知张良速逃。却不知这一去，改变了整个历史。",
         "text": "你下令夤夜发兵。\n\n但就在这紧张的一夜，你的叔父项伯——心怀私恩——快马加鞭溜出了鸿门大营。他找到了张良，让张良快逃。张良却没有独自逃走，而是将一切告诉了刘邦。\n\n刘邦连夜采纳了张良的计策：先拉拢项伯，约为儿女亲家，再让项伯在你面前为他说情。\n\n黎明时分，项伯回到大营，跪在你面前：「沛公不先破关中，公岂敢入乎？今人有大功而击之，不义也。不如因善遇之。」\n\n你正待发作，帐外的探子来报——刘邦的军队已在霸上严阵以待，他们知道了你的计划。奇袭的先机已失。\n\n仓促之中出兵，不仅没有灭了刘邦，还让四十万联军中的诸侯们开始猜忌：项羽此人，是否也容不下我们？",
         "ending": "ending_rash_attack",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/hongmen-s0a_rash.mp4"
       },
       {
         "id": "s1_feast",
@@ -3997,7 +4088,8 @@
               "vision": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/hongmen-s1_feast.mp4"
       },
       {
         "id": "s2_xiangzhuang",
@@ -4037,7 +4129,8 @@
               "vision": 3
             }
           }
-        ]
+        ],
+        "video": "/scenes/hongmen-s2_xiangzhuang.mp4"
       },
       {
         "id": "s2_observe",
@@ -4077,7 +4170,8 @@
               "vision": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/hongmen-s2_observe.mp4"
       },
       {
         "id": "s3_fankuai",
@@ -4118,7 +4212,8 @@
               "vision": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/hongmen-s3_fankuai.mp4"
       },
       {
         "id": "s3a_dead",
@@ -4128,7 +4223,8 @@
         "npcContext": "你是张良。帐中刀兵已起——项羽一声令下，武士们扑向樊哙。你看着这混乱的场面，袖中的白璧已被冷汗浸透。你清楚，今天不是你死，就是沛公死。",
         "text": "你下令处死樊哙。\n\n武士们一拥而上。樊哙挥盾砸翻了两个，但最终寡不敌众。长剑刺入他的胸膛，鲜血溅在刘邦的袍角上。\n\n刘邦面如土色。\n\n张良猛然起身：「将军！樊哙不过是一个莽夫，他为自己主公说了几句话，罪不至死。今日在诸侯面前杀沛公的参乘——传到天下，将军何以服诸侯之心？」\n\n但刘邦已从你眼中看到了答案。\n\n他抢在张良伸出的手之前，踢翻了面前的酒爵，拉起残存的亲随夺路而逃。宴席崩溃，诸侯哗然。\n\n消息传开——霸王无故诛杀沛公参乘，诸侯人人自危。齐王田荣首先反叛，燕王、赵王相继自立。你的天下还没统一，就已四分五裂。\n\n你杀了一个屠夫，毁了自己的大局。",
         "ending": "ending_kill_fankuai",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/hongmen-s3a_dead.mp4"
       },
       {
         "id": "s4_escape",
@@ -4169,7 +4265,8 @@
               "vision": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/hongmen-s4_escape.mp4"
       },
       {
         "id": "s5_fenfen",
@@ -4211,7 +4308,8 @@
               "vision": 3
             }
           }
-        ]
+        ],
+        "video": "/scenes/hongmen-s5_fenfen.mp4"
       }
     ],
     "endings": [
@@ -4360,7 +4458,8 @@
               "blood": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/jurassic-s0_prelude.mp4"
       },
       {
         "id": "s1",
@@ -4398,7 +4497,8 @@
               "blood": 0
             }
           }
-        ]
+        ],
+        "video": "/scenes/jurassic-s1.mp4"
       },
       {
         "id": "s1b_mercy",
@@ -4406,7 +4506,8 @@
         "image": "zhao prince",
         "text": "你放过了戚夫人，让她与刘如意去了赵国。\n\n起初一切平静。刘如意在赵国表现得恭顺有加。但三年后，刘如意成年了——他长得越来越像刘邦，赵国上下对他忠心耿耿。\n\n更重要的是，功臣集团开始私下议论：当年先帝本就要立赵王为太子，若非商山四皓……\n\n陈平派人秘密联络赵国。周勃借口巡视赵地，与刘如意密谈了一整夜。\n\n你察觉到了危险，但为时已晚。刘如意以「清君侧」为名起兵，功臣集团在长安内应。\n\n你的吕氏亲族被一网打尽。刘盈被废，你被幽禁于长乐宫。\n\n在一个没有月亮的夜晚，你喝下了那杯鸩酒——和当年你赐死韩信的那杯一模一样。",
         "ending": "ending_mercy_dead",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/jurassic-s1b_mercy.mp4"
       },
       {
         "id": "s2",
@@ -4447,7 +4548,8 @@
               "blood": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/jurassic-s2.mp4"
       },
       {
         "id": "s3",
@@ -4482,7 +4584,8 @@
             "outcome": "你走出了史无前例的一步",
             "historicalNote": "历史事实：吕后从未称帝，始终以太后、太皇太后的名义临朝。中国历史上唯一的女皇帝是武则天数百年后的事。汉代的政治环境不可能接受女帝。"
           }
-        ]
+        ],
+        "video": "/scenes/jurassic-s3.mp4"
       },
       {
         "id": "s3b_retreat",
@@ -4494,7 +4597,8 @@
         "npcName": "刘恒",
         "npcRole": "汉文帝，刘邦第四子",
         "npcContext": "你是刘恒，未来的汉文帝。你的母亲薄姬不受刘邦宠爱，你也因此得以远离宫廷斗争。当你接到吕后迎你入京的消息时，你几乎不敢相信——天底下怎么会有把皇位拱手让人的太后？但你知道，吕后不是一个简单的女人。她的退让，一定有她的条件。",
-        "npcClosing": "母后，儿臣会记住您的选择。不是每个掌权者都放得下权力。您放手的那一刻，比您紧紧攥着的时候，更让人敬畏。"
+        "npcClosing": "母后，儿臣会记住您的选择。不是每个掌权者都放得下权力。您放手的那一刻，比您紧紧攥着的时候，更让人敬畏。",
+        "video": "/scenes/jurassic-s3b_retreat.mp4"
       },
       {
         "id": "s3c_usurp",
@@ -4502,7 +4606,8 @@
         "image": "coup failure",
         "text": "你宣布废汉自立。\n\n朝堂上死一般的寂静。然后——王陵当场撞柱而死，血溅丹墀。周勃在殿外拔剑，陈平转身离去。\n\n你调集吕氏亲兵守卫皇宫，但连他们都在犹豫——一个女人称帝？亘古未闻！\n\n三日后，周勃持刘邦斩蛇剑冲入未央宫。齐王刘襄的大军已经兵临长安城下。你的侄子吕产、吕禄试图组织抵抗，但南军和北军的士兵们拒绝为你而战。\n\n你在长乐宫中被俘。周勃下令：吕氏篡汉，大逆不道——尽诛诸吕！\n\n吕氏满门被斩于长安东市，血流成河。你被废为庶人，囚于永巷——就是你曾经囚禁戚夫人的那个永巷。\n\n一个月后，你死在了那里。死时头发散乱，无人收尸。\n\n史官在你的名字后面写下四个字：牝鸡司晨。",
         "ending": "ending_usurp_dead",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/jurassic-s3c_usurp.mp4"
       },
       {
         "id": "s4",
@@ -4547,7 +4652,8 @@
               "blood": 0
             }
           }
-        ]
+        ],
+        "video": "/scenes/jurassic-s4.mp4"
       }
     ],
     "endings": [
@@ -4702,7 +4808,8 @@
               "compassion": 0
             }
           }
-        ]
+        ],
+        "video": "/scenes/lincoln-civil-war-s0_secession.mp4"
       },
       {
         "id": "s1_mcclellan",
@@ -4741,21 +4848,24 @@
               "compassion": 0
             }
           }
-        ]
+        ],
+        "video": "/scenes/lincoln-civil-war-s1_mcclellan.mp4"
       },
       {
         "id": "s1b_deadend",
         "title": "等待的代价",
         "text": "林肯一次又一次地妥协，麦克莱伦一次又一次地拖延。\n\n1862 年春季，麦克莱伦终于发动半岛战役。但他在约克敦被少得多的南方军吓住，白白浪费了三周。罗伯特·李趁此机会集结兵力，在七日战役中击退了联邦军。\n\n1862 年 8 月，第二次布尔溪战役中，波普将军被李和杰克逊联手击败。\n\n9 月，李将军第一次北犯——麦克莱伦在马里兰截获了李的作战计划（第 191 号特令），但他仍然犹豫了两天。安提塔姆战役虽然挡住了李，但麦克莱伦拒绝追击溃败的南军。\n\n你的耐心终于耗尽——你在 11 月解除了麦克莱伦的指挥权。但为时已晚。战争的主动权早已失去。\n\n1864 年大选，北方选民受够了旷日持久的战争。你败给了民主党候选人——前麦克莱伦将军本人。\n\n南方邦联得以保存。联邦分裂成为永久事实。",
         "ending": "ending_mcclellan_lost",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/lincoln-civil-war-s1b_deadend.mp4"
       },
       {
         "id": "s2_deadend",
         "title": "亲赴前线的代价",
         "text": "你亲赴前线，当面与麦克莱伦商议进攻计划。他礼貌而恭敬，但内心深处他看不起你这个「伊利诺伊的乡下律师」。\n\n他在背后写信给妻子：「总统是个原始的大猩猩。」你的军事建议被礼貌地忽视。\n\n与此同时，1862 年 8 月，第二次布尔溪战役惨败。李将军兵临华盛顿城下。恐慌席卷首都。\n\n国会中的激进派趁机发难——他们指控你亲赴前线干扰了指挥链，导致了失败。弹劾提案摆上了桌面。虽然最终未能通过，但你已经威信扫地。\n\n至 1863 年底，战争进入僵局，厌战情绪如瘟疫般蔓延。法国准备承认南方邦联，英国正在考虑出面调停——实质上就是承认分裂。\n\n你亲赴前线的努力，换来的是一场你再也无法控制的乱局。",
         "ending": "ending_frontline_chaos",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/lincoln-civil-war-s2_deadend.mp4"
       },
       {
         "id": "s2_emancipation",
@@ -4794,14 +4904,16 @@
             "outcome": "你选择等待",
             "historicalNote": "历史事实：如果林肯迟迟不处理奴隶制问题，可能导致欧洲列强（尤其是英国的工人阶级）不再支持联邦。而没有欧洲的中立，联邦可能无法赢得战争。"
           }
-        ]
+        ],
+        "video": "/scenes/lincoln-civil-war-s2_emancipation.mp4"
       },
       {
         "id": "s2c_deadend",
         "title": "犹豫的代价",
         "text": "你决定先把废奴问题搁置——先打胜仗再说。\n\n但「再说」的日子永远不会来。\n\n你错过了 1862 年秋季安提塔姆战役后的窗口。英国政府内的亲南方派日益壮大。1863 年春季，下议院辩论是否承认南方邦联——支持票比以往任何时候都多。\n\n更要命的是，迟迟不处理奴隶制让北方的激进废奴主义者对你失去了信心。弗雷德里克·道格拉斯公开撰文批评：「总统似乎更关心安抚边界州的奴隶主，而不是解放被奴役的同胞。」\n\n没有宣言，没有 20 万黑人参军——联邦军的人力开始枯竭。1863 年底，强制征兵在纽约市引发了血腥暴动。\n\n至 1864 年，战争的疲惫拖垮了北方人的意志。你在大选中败北。\n\n新政府与南方达成了妥协——边界恢复战前原状，奴隶制继续存在。你在离任时说：「我以为上帝会给我更多时间。」",
         "ending": "ending_delayed_emancipation",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/lincoln-civil-war-s2c_deadend.mp4"
       },
       {
         "id": "s3_gettysburg",
@@ -4843,7 +4955,8 @@
               "compassion": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/lincoln-civil-war-s3_gettysburg.mp4"
       },
       {
         "id": "s4_victory",
@@ -4883,7 +4996,8 @@
               "compassion": 3
             }
           }
-        ]
+        ],
+        "video": "/scenes/lincoln-civil-war-s4_victory.mp4"
       }
     ],
     "endings": [
@@ -5039,7 +5153,8 @@
               "legitimacy": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/october-revolution-s0_april.mp4"
       },
       {
         "id": "s1_july",
@@ -5074,21 +5189,24 @@
             "outcome": "你选择武装对抗到底",
             "historicalNote": "历史事实：七月起义是一次自发性群众运动，缺乏统一指挥和武装准备。列宁清醒地认识到此时不是决战的时机——力量对比还不在布尔什维克一边。"
           }
-        ]
+        ],
+        "video": "/scenes/october-revolution-s1_july.mp4"
       },
       {
         "id": "s1b_arrested",
         "title": "审判与镇压",
         "text": "你决定出庭受审。\n\n1917 年 7 月 22 日，你在彼得格勒被临时政府逮捕。审判被安排在军事法庭——临时政府不打算给你民事审判的权利。\n\n公审那天，你在法庭上慷慨陈词：揭露临时政府是“帝国主义战争的延续”，是“资产阶级的反人民的政府”。你的演说在工人中激起新的愤怒——但临时政府早有准备。\n\n法庭以“叛国罪”判你终身监禁，关押在十字监狱（Kresty Prison）。你的党被宣布为非法组织，数千名布尔什维克党员被捕。\n\n9 月，科尔尼洛夫将军发动政变，宣布戒严。在混乱中，临时政府对监狱中的政治犯进行了大规模处决——你的名字在第一页名单上。\n\n狱卒在深夜打开你的牢门：列宁公民，跟我们来。\n\n你死于狱中，年仅 47 岁。布尔什维克党的核心被摧毁。俄国错过了社会主义革命的窗口，最终在军事独裁和长期混乱中沉沦。",
         "ending": "ending_arrested",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/october-revolution-s1b_arrested.mp4"
       },
       {
         "id": "s1c_crushed",
         "title": "七月起义的覆灭",
         "text": "你拒绝撤离，号召工人自卫队武装反击。\n\n但临时政府已经从前线调回了忠于政府的骑兵师和哥萨克部队。工人赤卫队的武装——大多是陈旧步枪和手枪——根本无法与正规军抗衡。\n\n7 月 19 日凌晨，政府军突袭克舍辛斯卡娅宫。布尔什维克党员试图抵抗，但在一小时内被击溃。你和数十名中央委员被捕。\n\n《真理报》编辑部被摧毁，印刷机被砸烂。苏维埃执委会——由孟什维克和社会革命党控制——竟然支持政府镇压，称七月起义为“反革命的冒险”。\n\n你们被押入彼得保罗要塞，未经审判。同年 9 月，科尔尼洛夫军事叛乱期间，政治犯被秘密处决——你们被编造成“企图越狱被击毙”。\n\n你的党死了。你的革命死了。",
         "ending": "ending_crushed",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/october-revolution-s1c_crushed.mp4"
       },
       {
         "id": "s2_secret",
@@ -5127,14 +5245,16 @@
               "legitimacy": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/october-revolution-s2_secret.mp4"
       },
       {
         "id": "s2b_miss",
         "title": "错过的时刻",
         "text": "你决定等待第二次全俄苏维埃代表大会召开。\n\n但克伦斯基并不打算等你。10 月 24 日清晨——就在大会开幕前一天——临时政府率先行动：查封布尔什维克印刷厂，切断斯莫尔尼宫的电话线，下令逮捕军事革命委员会成员，并从前线调集忠于政府的部队开入彼得格勒。\n\n你的犹豫给了敌人先手的机会。当士兵闯入斯莫尔尼宫时，赤卫队虽然奋勇抵抗，但没有统一的指挥和部署，很快被各个击破。\n\n托洛茨基被捕，党中央被迫解散。第二次苏维埃代表大会被宣布非法延期——克伦斯基用武力粉碎了革命的最后机会。\n\n你再次逃往芬兰。但这次，革命的火焰已被扑灭。临时政府在军事独裁的道路上越走越远，白色恐怖笼罩了俄国。",
         "ending": "ending_missed_moment",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/october-revolution-s2b_miss.mp4"
       },
       {
         "id": "s3_plan",
@@ -5173,14 +5293,16 @@
               "legitimacy": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/october-revolution-s3_plan.mp4"
       },
       {
         "id": "s3b_hesitate",
         "title": "再开一次会的代价",
         "text": "你召集了苏维埃执委会公开讨论。\n\n孟什维克代表马尔托夫站起来：同志们，这是一场冒险！俄国没有准备好——农民不理解、军队不支持、国际无产阶级没有响应——你们会把革命推进深渊！\n\n你的犹豫给了克伦斯基时间。当夜，临时政府下令逮捕军事革命委员会全体成员。哥萨克部队包围了斯莫尔尼宫。\n\n你的组织被一网打尽。布尔什维克再次被宣布为非法。彼得保罗要塞的牢房里塞满了革命者。\n\n你最终被流放到西伯利亚——这一次，是永久的。",
         "ending": "ending_hesitation",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/october-revolution-s3b_hesitate.mp4"
       },
       {
         "id": "s4_winter",
@@ -5219,14 +5341,16 @@
               "legitimacy": 3
             }
           }
-        ]
+        ],
+        "video": "/scenes/october-revolution-s4_winter.mp4"
       },
       {
         "id": "s4b_delay",
         "title": "延宕的代价",
         "text": "你坚持先谈判，给了克伦斯基喘息之机。\n\n他从前线带回了数千名忠于政府的哥萨克骑兵——克拉斯诺夫将军的部队。10 月 27 日，这支军队开始向彼得格勒挺进。\n\n你被迫在中途转而动员赤卫队应战，局面从革命夺权变为准内战。虽然最终击退了克拉斯诺夫，但流血惨重——数百名工人在普尔科沃高地阵亡。\n\n在此期间，反布尔什维克的势力得到了组织的时间。莫斯科的苦战打了整整一周。各地方苏维埃陷入分裂。白军运动的种子在这场延宕中扎下了根。\n\n革命成功了——但它的代价比必要的大得多。",
         "ending": "ending_delayed",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/october-revolution-s4b_delay.mp4"
       },
       {
         "id": "s5_brest",
@@ -5263,7 +5387,8 @@
             "outcome": "你选择了理想主义的绝境抗争",
             "historicalNote": "历史事实：以布哈林为首的左派共产主义者主张“革命战争”——如果列宁在中央委员会上被击败，苏维埃政权几乎必然被德军摧毁。列宁的清醒——认识到没有军队就无法打仗——挽救了革命。"
           }
-        ]
+        ],
+        "video": "/scenes/october-revolution-s5_brest.mp4"
       }
     ],
     "endings": [
@@ -5434,7 +5559,8 @@
               "unify": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/qin-unification-s0_unify.mp4"
       },
       {
         "id": "s1",
@@ -5476,7 +5602,8 @@
               "unify": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/qin-unification-s1.mp4"
       },
       {
         "id": "s2",
@@ -5518,7 +5645,8 @@
               "unify": 3
             }
           }
-        ]
+        ],
+        "video": "/scenes/qin-unification-s2.mp4"
       },
       {
         "id": "s3",
@@ -5560,7 +5688,8 @@
               "unify": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/qin-unification-s3.mp4"
       },
       {
         "id": "s4",
@@ -5601,7 +5730,8 @@
               "unify": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/qin-unification-s4.mp4"
       }
     ],
     "endings": [
@@ -5756,14 +5886,16 @@
             "outcome": "你拖延了变法",
             "historicalNote": "历史事实：秦孝公若不果断，商鞅将步吴起后尘——旧贵族反扑，变法中废。"
           }
-        ]
+        ],
+        "video": "/scenes/shangyang-s0_debate.mp4"
       },
       {
         "id": "s0c_fail",
         "title": "犹豫的代价",
         "text": "你命商鞅与甘龙私下商议，期待双方能达成共识。\n\n甘龙表面应允，暗中却联络杜挚、公子虔等旧贵族，在幕后织起一张反扑之网。\n\n三个月后，商鞅在渭河边被刺客伏击，身中毒矢。他临死前对你叹息：\"君上，公族皆怨鞅，鞅早知其不可免。独恨变法未成，秦国又失十年。\"\n\n商鞅死后，甘龙拥立新君，尽废新法。秦国重回老路，河西之地终不可复。\n\n你病逝于栎阳宫中，临死前看向手中的《求贤令》——那上面刻着你写的字：\"能出奇计强秦者，与之分土。\"",
         "ending": "ending_hesitation",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/shangyang-s0c_fail.mp4"
       },
       {
         "id": "s1_wood",
@@ -5805,14 +5937,16 @@
               "people": 3
             }
           }
-        ]
+        ],
+        "video": "/scenes/shangyang-s1_wood.mp4"
       },
       {
         "id": "s1b_half",
         "title": "半途而废",
         "text": "你命商鞅低调处理徙木之事。赏金被私下交付，围观百姓不知所以。\n\n法令颁布之日，百姓依然像往常一样冷眼旁观——官府的话，谁信？\n\n新法推行半年，收效甚微。甘龙在朝中散布流言：\"商君之法，秦人不服。\"民间口耳相传：\"官家说赏金，最后只给了半价。\"\n\n商鞅上书力谏，你亦知理亏，却已如覆水难收。\n\n邻国窥见秦之疲软，魏国挥师西进。你在内外交困中郁郁而终。",
         "ending": "ending_halfway",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/shangyang-s1b_half.mp4"
       },
       {
         "id": "s1b_reward",
@@ -5850,7 +5984,8 @@
             "outcome": "你退让了",
             "historicalNote": "历史事实：商鞅执法不留情面，若秦孝公退让，新法即告破产。"
           }
-        ]
+        ],
+        "video": "/scenes/shangyang-s1b_reward.mp4"
       },
       {
         "id": "s2_prince",
@@ -5893,14 +6028,16 @@
               "people": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/shangyang-s2_prince.mp4"
       },
       {
         "id": "s2b_soft",
         "title": "包庇太子的代价",
         "text": "你私召太子训斥，命其闭门思过。对外秘而不宣。\n\n但消息走漏了。甘龙党羽大喜过望，在栎阳街巷中传唱童谣：\"法能刑太子否？不能！法为黔首设，不治公族身！\"\n\n商鞅的新法一夜之间威严扫地。那些刚刚被罚没家产的旧贵族纷纷串联，各地郡守阳奉阴违。不到半年，私斗复起，连坐废弛。\n\n商鞅上表告老，你挽留再三，他已心灰意冷。变法大业，功亏一篑。\n\n五年后，魏国大将庞涓攻秦，你亲自上阵迎敌，却因国力不张、军功不行，大败于河西。你身负重伤，临终前向天叹道：\"寡人之过，在不能一断于法。\"",
         "ending": "ending_soft",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/shangyang-s2b_soft.mp4"
       },
       {
         "id": "s3_hexi",
@@ -5939,14 +6076,16 @@
             "outcome": "你选择韬晦",
             "historicalNote": "历史事实：商鞅正是趁魏国与齐赵交兵之际，果断出击。若错过时机，魏国缓过气来，河西之争将是另一番局面。"
           }
-        ]
+        ],
+        "video": "/scenes/shangyang-s3_hexi.mp4"
       },
       {
         "id": "s3c_peace",
         "title": "错失良机",
         "text": "你选择了与魏国议和，换取休整时间。\n\n然而魏惠王看出你的虚弱。他一面假意议和，一面紧急从东方战场调回精锐。半年后，魏军重新在河西集结，秦国永远失去了收复失土的最佳时机。\n\n商鞅忧愤成疾。他在病榻上给你写下最后一封奏疏：\"君上，机不可失，时不再来。\"\n\n你最终病逝于咸阳宫中。河西不复，秦国依然是那个被中原诸国鄙夷的西陲小邦。",
         "ending": "ending_missed",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/shangyang-s3c_peace.mp4"
       },
       {
         "id": "s3b_victory",
@@ -5988,14 +6127,16 @@
               "people": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/shangyang-s3b_victory.mp4"
       },
       {
         "id": "s3c_remove",
         "title": "鸟尽弓藏",
         "text": "河西既定，你开始削弱商鞅兵权，将他从大良造降为闲职。\n\n满朝哗然。旧贵族弹冠相庆——他们怕的不是商鞅，是你。如今你亲自卸掉自己的臂膀，甘龙弟子遍布朝野，再无顾忌。\n\n商鞅退居商地，闭门谢客。他在一封帛书中写道：\"商君之法，孝公行之十年。今公既疑臣，臣不复言。\"\n\n三年后，甘龙一党反攻倒算，复辟旧法。你的身体已支撑不住，在失望中病逝。商鞅则被车裂于咸阳——变法十年，一夜归零。",
         "ending": "ending_betray",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/shangyang-s3c_remove.mp4"
       },
       {
         "id": "s4_death",
@@ -6037,14 +6178,16 @@
               "people": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/shangyang-s4_death.mp4"
       },
       {
         "id": "s3_fail_hesitation",
         "title": "退让的代价",
         "text": "你暂缓行刑，先安抚公族情绪。甘龙等人趁势反攻，在朝会中集体发难：\"商鞅之法，残民以逞！\"\n\n商鞅孤立无援。你试图调和双方，最终新法名存实亡——那些被法条压制的旧贵族卷土重来，私斗复起，连坐不行。\n\n商鞅心灰意冷，请求归老。你挽留不成，许他告退。\n\n他离开咸阳那天，满城百姓却夹道哭送——法令虽苛，至少人人平等。商鞅走后，秦又回到了\"刑不上大夫\"的旧时代。\n\n你在失望中走完了作为国君的最后几年。",
         "ending": "ending_weak",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/shangyang-s3_fail_hesitation.mp4"
       }
     ],
     "endings": [
@@ -6217,7 +6360,8 @@
               "boldness": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/sekigahara-s0_death.mp4"
       },
       {
         "id": "s0b_march",
@@ -6257,7 +6401,8 @@
               "boldness": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/sekigahara-s0b_march.mp4"
       },
       {
         "id": "s1_kobayakawa",
@@ -6297,7 +6442,8 @@
               "boldness": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/sekigahara-s1_kobayakawa.mp4"
       },
       {
         "id": "s2_deployment",
@@ -6336,14 +6482,16 @@
             "outcome": "你孤身犯险",
             "historicalNote": "历史假设：家康亲自去见秀秋——这极度危险，秀秋在西军阵营，随时可能扣留你作为人质。但若成功，收获也最大。"
           }
-        ]
+        ],
+        "video": "/scenes/sekigahara-s2_deployment.mp4"
       },
       {
         "id": "s2c_persuade",
         "title": "孤身犯险",
         "text": "你做出一个令在场所有家臣震惊的决定——亲自前往松尾山脚下，面见小早川秀秋。\n\n本多忠胜大惊失色：\"主公不可！若秀秋翻脸，您就是西军的阶下囚！\"\n\n但你心意已决。你只带了数名随从，策马穿过大雾，来到松尾山脚下西军阵地边缘。\n\n秀秋的家臣通报后，小早川秀秋亲自下山——这个 19 岁的年轻人，神色慌张、手足无措。\n\n你翻身下马，将腰间太刀解下交给随从，空手走上前去。\n\n\"秀秋，你是秀吉公的养子。我今日来，不为别的——只为问你一句话：你要把秀赖公的天下，交给石田三成那个只会写文章的文官吗？\"\n\n秀秋沉默了。他的手指在颤抖。\n\n\"我德川家康承诺——今日你助我，战后我保你筑前 52 万石安堵，一字不食。你若不信，此枪为证。\"你将手中折扇递给他。\n\n秀秋接过折扇……\n\n但你不知道的是，大谷吉继的斥候已经发现了这一幕。大谷吉继正在调兵。\n\n你能否安全返回本阵？",
         "ending": "ending_persuade_risky",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/sekigahara-s2c_persuade.mp4"
       },
       {
         "id": "s3_battle",
@@ -6382,14 +6530,16 @@
               "boldness": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/sekigahara-s3_battle.mp4"
       },
       {
         "id": "s3b_wait",
         "title": "再等的代价",
         "text": "你决定继续等待。\n\n午时已过，末时（下午 2 点）。松尾山上依然毫无动静。\n\n大谷吉继趁机将部队收拢到松尾山脚下，彻底封锁了下山通道。这个\"出云的谋将\"看穿了你的算盘——他在藤堂高虎和京极高次的猛攻下死守不退，一个人顶住了东军整个右翼的压力。\n\n更糟的是——岛津义弘的萨摩兵开始行动了。这个九州猛将本来按兵不动，但见东军右翼吃紧，率 1500 名岛津勇士从东军左翼穿插突进，直逼你的本阵！\n\n井伊直政不得不分兵回防。东军阵形开始松动。\n\n黄昏时分，石田三成察觉到东军的疲态，下令全军压上。\n\n你虽然最终没有输，但这一战也没赢。双方各自收兵，关原之战陷入僵局。\n\n此后数月，双方在日本各地展开拉锯战。你最终凭借雄厚的国力和更多盟友的加入，逐步压倒了西军——但付出的代价远比在关原一战定乾坤要大得多。",
         "ending": "ending_prolonged",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/sekigahara-s3b_wait.mp4"
       },
       {
         "id": "s4_climax",
@@ -6432,7 +6582,8 @@
               "boldness": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/sekigahara-s4_climax.mp4"
       },
       {
         "id": "s5_shogunate",
@@ -6442,7 +6593,8 @@
         "npcContext": "你是天海僧正，天台宗高僧，家康最信赖的精神顾问。你为江户城选址、为幕府的治国理念定调——\"权现\"之道。你深谙阴阳风水与政治哲学，是德川体制的精神设计师。",
         "npcClosing": "上様，百战终得天下。但自古得天下易、守天下难。源赖朝只传三代，足利尊氏威名扫地。上様若欲德川之天下传万世——治国之道，现在才开始。",
         "text": "庆长八年（1603 年），朝廷下诏：征夷大将军——德川家康。\n\n江户幕府正式开创。\n\n你开始着手构建一个将持续 260 年的体制：\n- 亲藩（德川同族）、谱代（世袭老臣）、外样（外围大名）三级分封\n- 参勤交代制度——大名必须定期上江户觐见，消耗财力\n- 一国一城令——每藩只许保留一座城堡\n- 锁国体制——禁止基督教传播，限制对外贸易\n\n你的长子信康已死（1579 年奉信长命切腹），继承人是三子秀忠。你深知——创业容易守业难。源赖朝的镰仓幕府只传了三代，足利尊氏的室町幕府晚期形同虚设。\n\n德川家的天下要传几代？\n\n天海僧正进言：\"上様，天道循环。织田信长捣了米，丰臣秀吉蒸了饼，而真正吃这顿饭的——是您。这是命数。但您的后人能否守住这碗饭，却在人为。\"\n\n你站起身来，望向江户城下无边的灯火。",
-        "isFinal": true
+        "isFinal": true,
+        "video": "/scenes/sekigahara-s5_shogunate.mp4"
       }
     ],
     "endings": [
@@ -6574,7 +6726,8 @@
               "prudence": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/washington-delaware-s0_winter.mp4"
       },
       {
         "id": "s1_council",
@@ -6613,14 +6766,16 @@
             "outcome": "你选择了等待",
             "historicalNote": "历史事实：若华盛顿在 12 月不进攻，他的军队在 12 月 31 日兵役到期后将自行解体——没有春天可等。"
           }
-        ]
+        ],
+        "video": "/scenes/washington-delaware-s1_council.mp4"
       },
       {
         "id": "s1c_abandon",
         "title": "没有春天了",
         "text": "你决定等待来年春天再做打算。\n\n12 月 25 日，你向全军下达固守宾夕法尼亚的命令。士兵们本已士气低落，听到这个消息后更加绝望。\n\n12 月 31 日，兵役到期的民兵们纷纷离去——他们没有理由再留下。你在纽扣工厂（Morristown）收拢残兵时，大陆军从 3000 人减到了 800 人。\n\n1 月 3 日，豪将军的英军跨过结冰的特拉华河，轻松占领费城。大陆会议逃往更南方的约克镇。\n\n1 月 15 日，你收到消息：新泽西、宾夕法尼亚的民兵组织纷纷解散，革命的火种逐一熄灭。\n\n2 月，大陆会议通过决议——向英王请降，条件是从轻发落参与独立运动的领袖。\n\n你没有被列入赦免名单。\n\n你在弗吉尼亚的庄园被没收，你本人以叛国罪被判处绞刑——但因你在各殖民地的声望，你被允许流亡。你最终在伦敦度过余生。\n\n美利坚合众国，从未诞生。",
         "ending": "ending_no_spring",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/washington-delaware-s1c_abandon.mp4"
       },
       {
         "id": "s2_crossing",
@@ -6660,14 +6815,16 @@
             "outcome": "你被风雪打败",
             "historicalNote": "历史事实：华盛顿在渡河成功后退路已断（船只已被浮冰堵住），撤回宾夕法尼亚已不可能——只能前进。"
           }
-        ]
+        ],
+        "video": "/scenes/washington-delaware-s2_crossing.mp4"
       },
       {
         "id": "s2c_abort",
         "title": "风雪的胜利",
         "text": "你看着暴风雪中瑟瑟发抖的士兵，下令撤回宾夕法尼亚。\n\n格洛弗上校试图反对：\"阁下，我们已经过了河！现在回头……\"你挥手打断了他。\n\n回程更加危险——风向变了，浮冰堆积在宾夕法尼亚岸边，Durham 驳船无法靠岸。在混乱的撤退中，一艘满载弹药的火炮船撞上浮冰倾覆，18 名士兵淹死在冰冷的河水中。\n\n消息传回费城，大陆会议对\"圣诞夜败退\"极为失望。\n\n更重要的是：黑森人得知了这场未遂的渡河行动。拉尔上校加强了特伦顿的防御，英军也从普林斯顿调来了两个步兵团。\n\n12 月 31 日，民兵兵役到期。大陆军自行瓦解。\n\n你在纽扣工厂收拾行装时，收到了豪将军的招降信。这一次，你没有拒绝的资本了。\n\n独立战争结束于 1777 年 1 月——不是以胜利者的姿态，而是以逃兵的叹息。",
         "ending": "ending_abort_crossing",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/washington-delaware-s2c_abort.mp4"
       },
       {
         "id": "s3_trenton",
@@ -6711,7 +6868,8 @@
               "prudence": -2
             }
           }
-        ]
+        ],
+        "video": "/scenes/washington-delaware-s3_trenton.mp4"
       },
       {
         "id": "s4_cornwallis",
@@ -6755,7 +6913,8 @@
               "prudence": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/washington-delaware-s4_cornwallis.mp4"
       },
       {
         "id": "s5_princeton",
@@ -6797,7 +6956,8 @@
               "prudence": 3
             }
           }
-        ]
+        ],
+        "video": "/scenes/washington-delaware-s5_princeton.mp4"
       }
     ],
     "endings": [
@@ -6929,7 +7089,8 @@
               "caution": 1
             }
           }
-        ]
+        ],
+        "video": "/scenes/elizabeth-armada-s0_armada.mp4"
       },
       {
         "id": "s1",
@@ -6968,14 +7129,16 @@
             "outcome": "你试图以外交拖延",
             "historicalNote": "历史事实：伊丽莎白从未求和——她深知与腓力二世没有谈判空间。教皇已颁布废黜令，腓力要的是整个英格兰回归天主教。求和等于投降。"
           }
-        ]
+        ],
+        "video": "/scenes/elizabeth-armada-s1.mp4"
       },
       {
         "id": "s1c_negotiate",
         "title": "屈膝的代价",
         "text": "你遣使赴西班牙旗舰圣马丁号谈判。\n\n梅迪纳·西多尼亚公爵在甲板上接见你的使者。他冷冷地听完后，展开一张羊皮纸——教皇签署的废黜令，外加腓力二世的亲笔信。\n\n条件只有一个：伊丽莎白退位，英格兰接受哈布斯堡统治，回归罗马教会。\n\n消息传回伦敦，议会哗然。新教贵族密谋废黜你，另立被囚已久的苏格兰玛丽女王——尽管她是天主教徒，也比一个懦弱的女王更得人心。\n\n你犹豫不决之际，无敌舰队从容抵达加莱锚地。\n\n帕尔马公爵起锚——3 万西班牙老兵在多佛登陆。提尔伯里的民兵一触即溃。\n\n你没有给英格兰一个战斗的机会。\n\n史书会将你记为：那个在敌人面前屈膝的童贞女王。",
         "ending": "ending_negotiation",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/elizabeth-armada-s1c_negotiate.mp4"
       },
       {
         "id": "s2",
@@ -7014,14 +7177,16 @@
             "outcome": "你选择正面硬碰硬",
             "historicalNote": "历史事实：英军若放弃火攻而正面决战，将被西班牙巨舰的接舷战优势压制——英军船小炮弱，近战必败。火船是改变战局的唯一杠杆。"
           }
-        ]
+        ],
+        "video": "/scenes/elizabeth-armada-s2.mp4"
       },
       {
         "id": "s2c_passive",
         "title": "错失良机",
         "text": "你放弃了德雷克的火船计划，选择正面决战。\n\n没有火船的惊扰，无敌舰队在加莱稳住了锚地。梅迪纳·西多尼亚公爵从容派快船联络帕尔马公爵——会合之日定在两天之后。\n\n风向突然转为西北偏北——这一次，顺风属于西班牙人。\n\n无敌舰队变阵出击。130 艘巨舰列成战列线直压英军。你的小船在近距离炮击中不敌西班牙人的重炮，损失惨重。德雷克的复仇号被三艘西班牙大帆船围攻，险些沉没。\n\n三天后，帕尔马公爵的佛兰德老兵在多佛登陆。\n\n提尔伯里的陆军——由临时征召的农民和民兵组成——挡不住身经百战的西班牙步兵方阵。伦敦城破。\n\n你被俘，被迫在威斯敏斯特签署退位诏书。英格兰新教时代终结——宗教裁判所的火刑柱在史密斯菲尔德重燃。苏格兰的玛丽·斯图亚特从囚牢中走出，戴上英格兰王冠——但不过是个傀儡。\n\n真正的统治者在马德里。",
         "ending": "ending_invasion",
-        "isDeadEnd": true
+        "isDeadEnd": true,
+        "video": "/scenes/elizabeth-armada-s2c_passive.mp4"
       },
       {
         "id": "s3",
@@ -7064,7 +7229,8 @@
               "caution": 0
             }
           }
-        ]
+        ],
+        "video": "/scenes/elizabeth-armada-s3.mp4"
       },
       {
         "id": "s4",
@@ -7107,7 +7273,8 @@
               "caution": 2
             }
           }
-        ]
+        ],
+        "video": "/scenes/elizabeth-armada-s4.mp4"
       },
       {
         "id": "s5",
@@ -7152,7 +7319,8 @@
               "caution": -1
             }
           }
-        ]
+        ],
+        "video": "/scenes/elizabeth-armada-s5.mp4"
       }
     ],
     "endings": [

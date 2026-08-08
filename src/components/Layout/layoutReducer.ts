@@ -43,6 +43,7 @@ export type MainView =
   | { mode: 'worldHistory' }                                    // 全文明（少年世界史 161 节）
   | { mode: 'timeTravel'; scenarioId: string | null }           // 穿越历史（null = 大厅）
   | { mode: 'questions' }                                       // 全问题
+  | { mode: 'ladder' }                                          // 文史天梯
 
 /** Layout 整体 UI 状态（局部） */
 export interface LayoutUIState {
@@ -69,6 +70,7 @@ export type LayoutAction =
   | { type: 'OPEN_WORLD_HISTORY' }
   | { type: 'OPEN_TIME_TRAVEL' }
   | { type: 'OPEN_QUESTIONS' }
+  | { type: 'OPEN_LADDER' }
   | { type: 'START_SCENARIO'; scenarioId: string }
   | { type: 'EXIT_SCENARIO' }           // 回到 timeTravel lobby
   | { type: 'LEAVE_OVERLAY' }           // 从任何非 home 状态回到 home
@@ -149,6 +151,9 @@ export function layoutReducer(state: LayoutUIState, action: LayoutAction): Layou
     case 'OPEN_QUESTIONS':
       return { ...state, main: { mode: 'questions' } }
 
+    case 'OPEN_LADDER':
+      return { ...state, main: { mode: 'ladder' } }
+
     case 'START_SCENARIO':
       // 进入 play 模式（无论当前 state 如何都强制进 play）
       return { ...state, main: { mode: 'timeTravel', scenarioId: action.scenarioId } }
@@ -189,7 +194,7 @@ export function layoutReducer(state: LayoutUIState, action: LayoutAction): Layou
 // 派生 helpers
 // ============================================================================
 
-/** 是否在覆盖层（flashcards / overview / figures / wars / cultures / geography / timeTravel / questions） */
+/** 是否在覆盖层（flashcards / overview / figures / wars / cultures / geography / timeTravel / questions / ladder） */
 export function isOverlayActive(main: MainView): boolean {
   return main.mode === 'flashcards'
       || main.mode === 'overview'
@@ -203,6 +208,7 @@ export function isOverlayActive(main: MainView): boolean {
       || main.mode === 'worldHistory'
       || main.mode === 'timeTravel'
       || main.mode === 'questions'
+      || main.mode === 'ladder'
 }
 
 /** 时间轴显示条件：只在地图模式显示 */

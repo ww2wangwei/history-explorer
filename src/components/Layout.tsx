@@ -21,6 +21,7 @@ import { countTodayReviews } from '@/utils/cardStats'
 import { formatYear } from '@/utils/time'
 import NotesOverview from '@/components/NotesOverview'
 import TMapTest from '@/components/AmapTest'
+import LadderPanel from '@/components/Ladder/LadderPanel'
 import Dashboard from '@/components/Dashboard'
 import AIChatPanel from '@/components/AIChatPanel'
 import ScenarioPlayer from '@/components/TimeTravel/ScenarioPlayer'
@@ -393,6 +394,10 @@ export default function Layout() {
             />
           </Suspense>
         )
+      case 'ladder':
+        return (
+          <LadderPanel onClose={() => dispatch({ type: 'OPEN_HOME' })} />
+        )
       case 'questions':
         return (
           <Suspense fallback={<PageFallback />}>
@@ -582,6 +587,7 @@ export default function Layout() {
                   useLearningPathStore.getState().recordVisit(pathId, eraId)
                 }
               }}
+              onEnterLadder={() => dispatch({ type: 'OPEN_LADDER' })}
             />
           ) : (
             renderMain()

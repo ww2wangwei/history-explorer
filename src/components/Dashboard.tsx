@@ -39,6 +39,7 @@ interface Props {
   isActive: boolean
   onEnterMap: () => void
   onEnterPath: (pathId: PathId, eraId?: string) => void
+  onEnterLadder: () => void
 }
 
 const PATHS: { id: PathId; icon: string; title: string; desc: string; color: string }[] = [
@@ -56,7 +57,7 @@ const PATHS: { id: PathId; icon: string; title: string; desc: string; color: str
   { id: 'review', icon: '🎯', title: '今日复习', desc: '基于 SM-2 算法的间隔复习', color: '#9bc89a' },
 ]
 
-export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) {
+export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLadder }: Props) {
   const currentYear = useHistoryStore(s => s.currentYear)
   const setYear = useHistoryStore(s => s.setYear)
   const selectEra = useHistoryStore(s => s.selectEra)
@@ -293,6 +294,28 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
 
         {/* 学习路径 */}
         <h2 className="text-sm text-ink-500 mb-3 uppercase tracking-wider">选择学习路径</h2>
+
+        {/* 文史天梯专项卡片（高亮） */}
+        <button
+          onClick={onEnterLadder}
+          className="w-full mb-4 text-left p-5 rounded-2xl border-2 border-bronze-500 bg-gradient-to-br from-bronze-900/40 via-ink-800/80 to-ink-800/80 hover:border-bronze-400 transition-all relative overflow-hidden"
+        >
+          <div className="flex items-center gap-4">
+            <div className="text-4xl">🪜</div>
+            <div className="flex-1">
+              <div className="flex items-baseline gap-2">
+                <h3 className="font-serif text-xl text-bronze-300">文史天梯</h3>
+                <span className="text-[10px] uppercase tracking-wider text-bronze-400/80">NEW</span>
+              </div>
+              <p className="text-sm text-parchment-200 mt-1">史·诗·人 三条天梯 · 学测记问 4 步闭环 · 通关可重开</p>
+              <div className="mt-2 flex items-center gap-4 text-xs text-ink-400">
+                <span>独立页面 · 顶部 nav 保留 · Esc 返回</span>
+              </div>
+            </div>
+            <span className="text-bronze-300 text-3xl">→</span>
+          </div>
+        </button>
+
         <div ref={pathCardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {PATHS.filter(p => p.title).map(p => {
             const progress = progressByPath[p.id] ?? { visitedEraIds: [] }

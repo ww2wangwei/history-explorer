@@ -52,7 +52,7 @@ export default function CloudOverlayLayer({ map, visible, apiKey }: Props) {
     if (!apiKey) {
       if (!reportedRef.current) {
         reportedRef.current = true
-        console.warn('[CloudOverlay] 未配置 VITE_OWM_API_KEY，实时云图无法显示。免费注册：https://openweathermap.org/api')
+        console.info('[CloudOverlay] VITE_OWM_API_KEY not set; realtime cloud overlay disabled. Free signup: https://openweathermap.org/api')
       }
       return
     }
@@ -70,7 +70,7 @@ export default function CloudOverlayLayer({ map, visible, apiKey }: Props) {
       tileLayer.setMap(map)
       layerRef.current = tileLayer
     } catch (e) {
-      console.warn('[CloudOverlay] 创建云图层失败', e)
+      console.info('[CloudOverlay] create tile-layer failed', e)
     }
   }, [map, visible, apiKey])
 

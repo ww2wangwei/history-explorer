@@ -80,3 +80,6 @@ playwright-report/
 public/scenes/*.mp4
 .codepilot-uploads/
 .learnings/
+
+# 项目状态快照(个人笔记,不入版本,含本地路径)
+STATE.md

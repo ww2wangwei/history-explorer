@@ -13,6 +13,7 @@ import { useNotesStore } from '@/store/useNotesStore'
 import type { NoteTargetKind } from '@/types/notes'
 import { useAllLearningContexts } from '@/utils/useLearningContext'
 import { streamAI, requestAI, type AIRequestHandle } from '@/utils/aiStream'
+import { useDraggableFab } from '@/hooks/useDraggableFab'
 import erasData from '@/data/eras.json'
 import peopleData from '@/data/people.json'
 import type { Era, HistoricalEvent } from '@/types'
@@ -171,6 +172,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
   const [apiBaseUrl, setApiBaseUrl] = useState(apiConfig.baseUrl)
   const [apiModel, setApiModel] = useState(apiConfig.model)
   const [apiProtocol, setApiProtocol] = useState(apiConfig.protocol)
+  const [apiDisableThinking, setApiDisableThinking] = useState<boolean>(apiConfig.disableThinking !== false)
   const [error, setError] = useState<string | null>(null)
   // 最近保存的 AI 消息 id（用于显示"✓ 已加入笔记"反馈）
   const [noteSavedFor, setNoteSavedFor] = useState<string | null>(null)
@@ -306,6 +308,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
         messages: [{ role: 'system', content: activeSystemPrompt }, ...apiMessages],
         maxTokens: MAX_TOKENS,
         signal: ctrl.signal,
+        disableThinking: apiConfig.disableThinking,
         onDelta: (delta) => {
           updateMessage(threadId, assistantId, (m) => ({
             content: m.content + delta,
@@ -361,9 +364,11 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
     setTimeout(() => setNoteSavedFor(curr => curr === m.id ? null : curr), 2000)
   }
 
-  // 浮动按钮位置
-  const fabClass =
-    fabPosition === 'bottom-right' ? 'bottom-4 right-4' : 'bottom-4 left-4'
+  // 浮动按钮位置（可拖拽，位置持久化到 localStorage）
+  const fabPos = useDraggableFab({
+    storageKey: 'ai-fab-pos',
+    initial: fabPosition === 'bottom-left' ? { right: -1, bottom: 16 } : { right: 16, bottom: 16 },
+  })
 
   // 全局键盘快捷键：? 键唤起 AI 面板（不与 ? 帮助冲突 — 改用 `Cmd+K` / `Ctrl+K` 唤起）
   useEffect(() => {
@@ -389,23 +394,29 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
 
   return (
     <>
-      {/* 浮动按钮（带"AI 问"文字标签让用户知道这个是 AI 入口） */}
+      {/* 浮动按钮（可拖拽；位置会保存到 localStorage） */}
       {showFab && (
         <button
+          onPointerDown={fabPos.onPointerDown}
+          onClickCapture={fabPos.suppressClickIfDragged}
           onClick={togglePanel}
-          className={`fixed ${fabClass} z-[70] group flex items-center gap-2 transition-all`}
+          className="fixed z-[70] group flex items-center gap-2 transition-all cursor-grab active:cursor-grabbing select-none touch-none"
+          style={{
+            right: fabPos.pos.right,
+            bottom: fabPos.pos.bottom,
+          }}
           title={panelOpen ? '关闭 AI 对话 (Cmd+K / ?)' : '打开 AI 对话 (Cmd+K / ?)'}
         >
           <span className="hidden group-hover:inline-block text-xs px-2 py-1 rounded-lg bg-ink-800/95 border border-bronze-500/40 text-bronze-300 shadow-lg whitespace-nowrap">
             🤖 AI 问 · <kbd className="px-1 bg-ink-700 rounded-lg text-xs">?</kbd>
           </span>
-          <span className="w-14 h-14 rounded-full bg-gradient-to-br from-bronze-500 to-bronze-700 shadow-2xl flex items-center justify-center border border-bronze-300/50">
+          <span className="w-10 h-10 rounded-full bg-gradient-to-br from-bronze-500 to-bronze-700 shadow-2xl flex items-center justify-center border border-bronze-300/50">
             {panelOpen ? (
-              <svg width="20" height="20" viewBox="0 0 20 20">
+              <svg width="16" height="16" viewBox="0 0 20 20">
                 <path d="M4 4 L16 16 M16 4 L4 16" stroke="#fdf8f0" strokeWidth="2" strokeLinecap="round" fill="none" />
               </svg>
             ) : (
-              <svg width="24" height="24" viewBox="0 0 24 24">
+              <svg width="18" height="18" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="9" fill="none" stroke="#fdf8f0" strokeWidth="1.2" opacity="0.5" />
                 <circle cx="12" cy="12" r="5" fill="#fdf8f0" />
                 <circle cx="12" cy="12" r="1.5" fill="#c89a5b" />
@@ -565,6 +576,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                       protocol: apiProtocol,
                       baseUrl: apiBaseUrl.trim(),
                       model: apiModel.trim() || 'minimax-chat',
+                      disableThinking: apiDisableThinking,
                     })
                     setShowKeyInput(false)
                   }}
@@ -579,6 +591,16 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   apiKey={apiKeyInput}
                 />
               </div>
+              <label className="flex items-center gap-2 text-xs text-ink-300 cursor-pointer select-none pt-1">
+                <input
+                  type="checkbox"
+                  checked={apiDisableThinking}
+                  onChange={e => setApiDisableThinking(e.target.checked)}
+                  className="accent-bronze-500"
+                />
+                <span>禁用 AI 思考模式</span>
+                <span className="text-ink-500">（MiniMax / DeepSeek 等模型关闭 &lt;thinking&gt; 块，推荐打开）</span>
+              </label>
             </div>
           )}
 

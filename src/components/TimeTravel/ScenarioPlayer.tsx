@@ -125,8 +125,8 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
   // 选择提交期间防双击
   const isChoosingRef = useRef(false)
   // 计时器追踪器：unmount / 场景切换时清理 setTimeout
-  const outcomeTimersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set())
-  const floatFxTimersRef = useRef<Set<ReturnType<typeof setTimeout>>>(new Set())
+  const outcomeTimersRef = useRef<Set<number>>(new Set())
+  const floatFxTimersRef = useRef<Set<number>>(new Set())
 
   const setContext = useAIStore(s => s.setContext)
   const setPersonaPrompt = useAIStore(s => s.setPersonaPrompt)
@@ -432,13 +432,13 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
                 autoPlay
                 muted
                 playsInline
+                loop
                 preload="metadata"
                 className="w-full h-full object-cover"
-                onEnded={() => setVideoEnded(true)}
-                onPlay={() => setVideoEnded(false)}
                 onError={() => setVideoLoadFailed(true)}
               />
-              {videoEnded && (
+              {/* 循环模式下不再覆盖"重新播放"按钮 — 视频自动无缝循环，配音独立播放 */}
+              {false && videoEnded && (
                 <button
                   onClick={() => {
                     if (videoEl) {

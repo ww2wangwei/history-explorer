@@ -77,7 +77,7 @@ export interface Era {
   shortDesc?: string;                // 一句话简介
   /** 快速学习：3-5 个核心要点（每个一句话，覆盖政治/经济/文化/对外） */
   keyPoints?: string[]
-  /** 快速学习：5 件关键事件（按时间顺序），每件 = { year, title, desc } */
+  /** 快速学习：关键事件列表（按时间顺序），每件 = { year, title, desc } */
   quickEvents?: { year: number; title: string; desc: string; longDesc?: string }[]
   /** 快速学习：历史意义/对后世的影响（一段话） */
   legacy?: string

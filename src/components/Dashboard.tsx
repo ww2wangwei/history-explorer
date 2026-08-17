@@ -20,21 +20,26 @@ import { useJumpToMap } from '@/hooks/useJumpToMap'
 import { useGoalStore } from '@/store/useGoalStore'
 import { useLearningPathStore, type PathId } from '@/store/useLearningPathStore'
 import { usePoemStore } from '@/store/usePoemStore'
+import { useQuestionsStore } from '@/store/useQuestionsStore'
 import { useCountUp } from '@/hooks/useCountUp'
 import gsap from 'gsap'
 import { isDue } from '@/utils/sm2'
 import erasData from '@/data/eras.json'
 import eventsData from '@/data/events.json'
+import builtinQuestions from '@/data/questions.json'
 import type { Era, HistoricalEvent } from '@/types'
+import type { Question } from '@/types/questions'
 import EraQuickLearnModal, { type QuickEventState } from './QuickLearn/EraQuickLearnModal'
 
 const eras = erasData as Era[]
 const events = eventsData as HistoricalEvent[]
+const builtinQuestionList = builtinQuestions as Question[]
 
 interface Props {
   isActive: boolean
   onEnterMap: () => void
   onEnterPath: (pathId: PathId, eraId?: string) => void
+  onEnterLadder: () => void
 }
 
 const PATHS: { id: PathId; icon: string; title: string; desc: string; color: string }[] = [
@@ -46,10 +51,13 @@ const PATHS: { id: PathId; icon: string; title: string; desc: string; color: str
   { id: 'allPoems', icon: '📜', title: '全诗词', desc: '100 首最有名的唐诗宋词，含注解、注音、白话翻译', color: '#c89a8a' },
   { id: 'civilizations', icon: '⚖️', title: '中西方文明大对比', desc: '15 节对比，看清两种截然不同的历史路径', color: '#d4a85b' },
   { id: 'timeTravel', icon: '🎭', title: '穿越历史', desc: '化身历史人物，在关键节点做选择', color: '#9b7eb6' },
+  { id: 'allQuestions', icon: '💭', title: '全问题', desc: '趣味/启发/思考题，AI 一问一答逐步深挖并打分', color: '#e07b9b' },
+  { id: 'allArts', icon: '🎨', title: '全艺术', desc: '60 节西方艺术课 · 从史前壁画到当代观念', color: '#e879b9' },
+  { id: 'worldHistory', icon: '🌍', title: '全文明', desc: '少年世界史 161 节 · 从人类起源到现代世界', color: '#d4a85b' },
   { id: 'review', icon: '🎯', title: '今日复习', desc: '基于 SM-2 算法的间隔复习', color: '#9bc89a' },
 ]
 
-export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) {
+export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLadder }: Props) {
   const currentYear = useHistoryStore(s => s.currentYear)
   const setYear = useHistoryStore(s => s.setYear)
   const selectEra = useHistoryStore(s => s.selectEra)
@@ -59,6 +67,8 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
   const goal = useGoalStore(s => s.target)
   const cardsArr = useCardsStore(s => s.cards)
   const poemsFavoritesCount = usePoemStore(s => s.favorites.length)
+  const questionsProgress = useQuestionsStore(s => s.progress)
+  const customQuestionCount = useQuestionsStore(s => s.customQuestions.length)
 
   const [learnEraId, setLearnEraId] = useState<string | null>(null)
   const [selectedQuickEvent, setSelectedQuickEvent] = useState<QuickEventState | null>(null)
@@ -284,6 +294,28 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
 
         {/* 学习路径 */}
         <h2 className="text-sm text-ink-500 mb-3 uppercase tracking-wider">选择学习路径</h2>
+
+        {/* 文史天梯专项卡片（高亮） */}
+        <button
+          onClick={onEnterLadder}
+          className="w-full mb-4 text-left p-5 rounded-2xl border-2 border-bronze-500 bg-gradient-to-br from-bronze-900/40 via-ink-800/80 to-ink-800/80 hover:border-bronze-400 transition-all relative overflow-hidden"
+        >
+          <div className="flex items-center gap-4">
+            <div className="text-4xl">🪜</div>
+            <div className="flex-1">
+              <div className="flex items-baseline gap-2">
+                <h3 className="font-serif text-xl text-bronze-300">文史天梯</h3>
+                <span className="text-[10px] uppercase tracking-wider text-bronze-400/80">NEW</span>
+              </div>
+              <p className="text-sm text-parchment-200 mt-1">史·诗·人 三条天梯 · 学测记问 4 步闭环 · 通关可重开</p>
+              <div className="mt-2 flex items-center gap-4 text-xs text-ink-400">
+                <span>独立页面 · 顶部 nav 保留 · Esc 返回</span>
+              </div>
+            </div>
+            <span className="text-bronze-300 text-3xl">→</span>
+          </div>
+        </button>
+
         <div ref={pathCardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {PATHS.filter(p => p.title).map(p => {
             const progress = progressByPath[p.id] ?? { visitedEraIds: [] }
@@ -293,6 +325,12 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
               ? poemsFavoritesCount
               : p.id === 'civilizations'
               ? (progress.visitedSectionIds?.length ?? 0)
+              : p.id === 'allArts'
+              ? (progress.visitedLessonIds?.length ?? 0)
+              : p.id === 'worldHistory'
+              ? (progress.visitedWorldLessonIds?.length ?? 0)
+              : p.id === 'allQuestions'
+              ? Object.values(questionsProgress).filter(q => q.status === 'done').length
               : progress.visitedEraIds.length
             const total = p.id === 'allFigures'
               ? 26
@@ -300,6 +338,12 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath }: Props) 
               ? 100
               : p.id === 'civilizations'
               ? 15
+              : p.id === 'allArts'
+              ? 60
+              : p.id === 'worldHistory'
+              ? 161
+              : p.id === 'allQuestions'
+              ? builtinQuestionList.length + customQuestionCount
               : totalEras
             const pPct = total > 0 ? Math.round((visited / total) * 100) : 0
             return (

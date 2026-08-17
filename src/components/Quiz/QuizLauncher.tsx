@@ -2,11 +2,13 @@
  * QuizLauncher — 右下角浮动按钮 + Quiz 面板（管理和测试入口）
  * 复用 useAIStore 的 apiKey 判断是否可以 AI 出题
  * 浮动按钮：📝，与 AI 🤖 按钮并排显示
+ * 按钮可拖拽：位置持久化到 localStorage
  */
 import { useState } from 'react'
 import QuizSession from './QuizSession'
 import QuizManager from './QuizManager'
 import { useQuizStore } from '@/store/useQuizStore'
+import { useDraggableFab } from '@/hooks/useDraggableFab'
 
 export default function QuizLauncher() {
   const [panelOpen, setPanelOpen] = useState(false)
@@ -19,12 +21,23 @@ export default function QuizLauncher() {
   const openManager = () => setManagerOpen(true)
   const closeManager = () => setManagerOpen(false)
 
+  const fabPos = useDraggableFab({
+    storageKey: 'quiz-fab-pos',
+    initial: { right: 16, bottom: 70 },  // 默认位于 AI 按钮上方
+  })
+
   return (
     <>
-      {/* 浮动按钮 */}
+      {/* 浮动按钮（可拖拽） */}
       <button
+        onPointerDown={fabPos.onPointerDown}
+        onClickCapture={fabPos.suppressClickIfDragged}
         onClick={togglePanel}
-        className="fixed bottom-20 right-4 z-50 w-14 h-14 rounded-full bg-bronze-600 hover:bg-bronze-500 shadow-2xl flex items-center justify-center text-2xl transition-all"
+        className="fixed z-50 w-10 h-10 rounded-full bg-bronze-600 hover:bg-bronze-500 shadow-2xl flex items-center justify-center text-lg transition-all cursor-grab active:cursor-grabbing select-none touch-none"
+        style={{
+          right: fabPos.pos.right,
+          bottom: fabPos.pos.bottom,
+        }}
         title="历史测试 (📝)"
       >
         {panelOpen ? '×' : '📝'}

@@ -26,7 +26,7 @@ import type { PathId } from '@/store/useLearningPathStore'
 // 类型
 // ============================================================================
 
-/** 主视图模式（10 种互斥态） */
+/** 主视图模式（11 种互斥态） */
 export type MainView =
   | { mode: 'home' }                                            // Dashboard 学习引导
   | { mode: 'map' }                                             // 地图
@@ -39,7 +39,11 @@ export type MainView =
   | { mode: 'geography' }                                       // 全地理
   | { mode: 'poems' }                                           // 全诗词
   | { mode: 'civilizations' }                                   // 中西方文明大对比
+  | { mode: 'arts' }                                            // 全艺术（西方艺术课60节）
+  | { mode: 'worldHistory' }                                    // 全文明（少年世界史 161 节）
   | { mode: 'timeTravel'; scenarioId: string | null }           // 穿越历史（null = 大厅）
+  | { mode: 'questions' }                                       // 全问题
+  | { mode: 'ladder' }                                          // 文史天梯
 
 /** Layout 整体 UI 状态（局部） */
 export interface LayoutUIState {
@@ -62,7 +66,11 @@ export type LayoutAction =
   | { type: 'OPEN_GEOGRAPHY' }
   | { type: 'OPEN_POEMS' }
   | { type: 'OPEN_CIVILIZATIONS' }
+  | { type: 'OPEN_ARTS' }
+  | { type: 'OPEN_WORLD_HISTORY' }
   | { type: 'OPEN_TIME_TRAVEL' }
+  | { type: 'OPEN_QUESTIONS' }
+  | { type: 'OPEN_LADDER' }
   | { type: 'START_SCENARIO'; scenarioId: string }
   | { type: 'EXIT_SCENARIO' }           // 回到 timeTravel lobby
   | { type: 'LEAVE_OVERLAY' }           // 从任何非 home 状态回到 home
@@ -131,8 +139,20 @@ export function layoutReducer(state: LayoutUIState, action: LayoutAction): Layou
     case 'OPEN_CIVILIZATIONS':
       return { ...state, main: { mode: 'civilizations' } }
 
+    case 'OPEN_ARTS':
+      return { ...state, main: { mode: 'arts' } }
+
+    case 'OPEN_WORLD_HISTORY':
+      return { ...state, main: { mode: 'worldHistory' } }
+
     case 'OPEN_TIME_TRAVEL':
       return { ...state, main: { mode: 'timeTravel', scenarioId: null } }
+
+    case 'OPEN_QUESTIONS':
+      return { ...state, main: { mode: 'questions' } }
+
+    case 'OPEN_LADDER':
+      return { ...state, main: { mode: 'ladder' } }
 
     case 'START_SCENARIO':
       // 进入 play 模式（无论当前 state 如何都强制进 play）
@@ -174,7 +194,7 @@ export function layoutReducer(state: LayoutUIState, action: LayoutAction): Layou
 // 派生 helpers
 // ============================================================================
 
-/** 是否在覆盖层（flashcards / overview / figures / wars / cultures / geography / timeTravel） */
+/** 是否在覆盖层（flashcards / overview / figures / wars / cultures / geography / timeTravel / questions / ladder） */
 export function isOverlayActive(main: MainView): boolean {
   return main.mode === 'flashcards'
       || main.mode === 'overview'
@@ -184,7 +204,11 @@ export function isOverlayActive(main: MainView): boolean {
       || main.mode === 'geography'
       || main.mode === 'poems'
       || main.mode === 'civilizations'
+      || main.mode === 'arts'
+      || main.mode === 'worldHistory'
       || main.mode === 'timeTravel'
+      || main.mode === 'questions'
+      || main.mode === 'ladder'
 }
 
 /** 时间轴显示条件：只在地图模式显示 */
@@ -213,8 +237,14 @@ export function pathEntryToAction(
       return { type: 'OPEN_POEMS' }
     case 'civilizations':
       return { type: 'OPEN_CIVILIZATIONS' }
+    case 'allArts':
+      return { type: 'OPEN_ARTS' }
+    case 'worldHistory':
+      return { type: 'OPEN_WORLD_HISTORY' }
     case 'timeTravel':
       return { type: 'OPEN_TIME_TRAVEL' }
+    case 'allQuestions':
+      return { type: 'OPEN_QUESTIONS' }
     case 'timeline':
     default:
       // timeline 路径不进覆盖层；由 Dashboard 自己处理（弹出朝代列表）

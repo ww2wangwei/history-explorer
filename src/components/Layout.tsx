@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useRef, lazy, Suspense } from 'react'
 import { useReducedMotionGlobal } from '@/hooks/useReducedMotion'
-import WorldMap from '@/components/Map/WorldMap'
+import WorldMap from '@/components/AmapTest' // legacy alias
 import Timeline from '@/components/Timeline/Timeline'
 import EventDetail from '@/components/DetailPanel/EventDetail'
 import EraDetail from '@/components/DetailPanel/EraDetail'
@@ -20,7 +20,8 @@ import { isDue } from '@/utils/sm2'
 import { countTodayReviews } from '@/utils/cardStats'
 import { formatYear } from '@/utils/time'
 import NotesOverview from '@/components/NotesOverview'
-import TMapTest from '@/components/TMapTest'
+import TMapTest from '@/components/AmapTest'
+import LadderPanel from '@/components/Ladder/LadderPanel'
 import Dashboard from '@/components/Dashboard'
 import AIChatPanel from '@/components/AIChatPanel'
 import ScenarioPlayer from '@/components/TimeTravel/ScenarioPlayer'
@@ -47,6 +48,9 @@ const FlashcardsPanel = lazy(() => import('@/components/Flashcards/FlashcardsPan
 const GoalSettings = lazy(() => import('@/components/Flashcards/GoalSettings'))
 const PoemsOverview = lazy(() => import('@/components/Poems/PoemsOverview'))
 const CivilizationsOverview = lazy(() => import('@/components/Civilizations/CivilizationsOverview'))
+const QuestionsOverview = lazy(() => import('@/components/Questions/QuestionsOverview'))
+const ArtsOverview = lazy(() => import('@/components/Arts/ArtsOverview'))
+const WorldHistoryOverview = lazy(() => import('@/components/WorldHistory/WorldHistoryOverview'))
 
 function PageFallback() {
   return (
@@ -390,6 +394,37 @@ export default function Layout() {
             />
           </Suspense>
         )
+      case 'ladder':
+        return (
+          <LadderPanel onClose={() => dispatch({ type: 'OPEN_HOME' })} />
+        )
+      case 'questions':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <QuestionsOverview
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+            />
+          </Suspense>
+        )
+      case 'arts':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <ArtsOverview
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+            />
+          </Suspense>
+        )
+      case 'worldHistory':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <WorldHistoryOverview
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+            />
+          </Suspense>
+        )
     }
   }
 
@@ -552,6 +587,7 @@ export default function Layout() {
                   useLearningPathStore.getState().recordVisit(pathId, eraId)
                 }
               }}
+              onEnterLadder={() => dispatch({ type: 'OPEN_LADDER' })}
             />
           ) : (
             renderMain()

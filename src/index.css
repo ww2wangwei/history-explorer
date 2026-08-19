@@ -87,10 +87,25 @@
     overflow: hidden;
   }
 
+  /* ============ 字体默认值（墨·朱砂 v2） ============
+     正文：宋体（serif）
+     UI / 按钮：黑体（sans）—— 用 .font-sans 显式指定
+     数据：等宽（mono）—— 用 .font-mono 显式指定
+     装饰：毛笔（brush）—— 用 .font-brush 显式指定
+  */
   body {
-    font-family: theme('fontFamily.sans');
+    font-family: theme('fontFamily.serif');
     -webkit-font-smoothing: antialiased;
     -moz-osx-smoothing: grayscale;
+  }
+
+  /* UI 元素默认无衬线（黑体）—— UI 按钮/表单/标签 */
+  button, input, select, textarea, optgroup {
+    font-family: theme('fontFamily.sans');
+  }
+  /* 数据表格默认等宽 */
+  code, kbd, samp, pre {
+    font-family: theme('fontFamily.mono');
   }
 }
 

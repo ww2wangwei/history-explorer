@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ============================================
-   全局 UI 效果
+   全局 UI 效果  (墨·朱砂 v2)
    ============================================ */
 
 /* 🔆 Hover shine（扫光）—— 在任意容器加 .shine-on-hover 即可 */
@@ -37,7 +37,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(240,220,191,0.06);
 }
 
-/* ✒️ 标题装饰底线 —— bronze 渐隐,放在标题容器下 */
+/* ✒️ 标题装饰底线 —— 朱砂渐隐,放在标题容器下 */
 .title-underline {
   position: relative;
   padding-bottom: 6px;
@@ -49,7 +49,7 @@
   bottom: 0;
   width: 48px;
   height: 2px;
-  background: linear-gradient(90deg, theme('colors.bronze.400'), transparent);
+  background: linear-gradient(90deg, theme('colors.vermilion.500'), transparent);
   border-radius: 2px;
 }
 
@@ -74,7 +74,7 @@
 
 /* 🖱 按下涟漪（focus 增强） */
 .focus-ring:focus-visible {
-  outline: 2px solid theme('colors.bronze.400');
+  outline: 2px solid theme('colors.vermilion.500');
   outline-offset: 2px;
   transition: outline-offset 0.15s ease-out;
 }
@@ -90,7 +90,7 @@
   body {
     font-family: theme('fontFamily.sans');
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    -moz-osx-smoothing: grayscale;
   }
 }
 
@@ -116,4 +116,123 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
     background-repeat: repeat;
   }
+
+  /* 🌫 水墨渐晕（墨·朱砂 v2）—— 暗底氛围光
+     左上偏暗金暖光 + 右下偏朱砂暖光 + 中心微提亮 + 边缘暗角 */
+  .ink-wash-bg {
+    background:
+      radial-gradient(ellipse 700px 500px at 22% 28%, rgba(201, 165, 87, 0.10) 0%, rgba(201, 165, 87, 0.03) 40%, transparent 70%),
+      radial-gradient(ellipse 800px 600px at 80% 75%, rgba(184, 67, 58, 0.08) 0%, rgba(184, 67, 58, 0.02) 50%, transparent 75%),
+      radial-gradient(ellipse 60% 50% at 50% 45%, rgba(51, 44, 37, 0.5) 0%, transparent 60%),
+      radial-gradient(ellipse 100% 100% at 50% 50%, transparent 50%, rgba(14, 12, 10, 0.6) 100%),
+      #1a1714;
+  }
+
+  /* 📜 宣纸纹理（墨·朱砂 v2）—— 全屏 SVG 噪点 overlay */
+  .paper-grain {
+    position: relative;
+  }
+  .paper-grain::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.85  0 0 0 0 0.78  0 0 0 0 0.65  0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+  }
+
+  /* 🖋 朱砂印章 —— 真实盖章质感
+     - 圆形主体 + 残缺 mask + 墨晕 haze */
+  .vermilion-seal {
+    background: #b8433a;
+    color: #e6dcc7;
+    font-family: theme('fontFamily.serif');
+    font-weight: 700;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 8px rgba(184, 67, 58, 0.12),
+      inset 0 0 0 3px #8b2f28,
+      inset 0 0 14px rgba(0, 0, 0, 0.25);
+    mask-image: radial-gradient(circle, #000 82%, transparent 92%);
+    -webkit-mask-image: radial-gradient(circle, #000 82%, transparent 92%);
+    position: relative;
+  }
+  .vermilion-seal::before {
+    content: '';
+    position: absolute;
+    inset: -28px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184, 67, 58, 0.18) 0%, transparent 70%);
+    z-index: -1;
+  }
+
+  /* 🖋 盖章动画（scale 2.4→0.92→1.04→1）+ 模糊淡入 */
+  .vermilion-seal-stamped {
+    animation: stamp-drop 0.7s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  }
+  @keyframes stamp-drop {
+    0%   { transform: rotate(-12deg) scale(2.4); opacity: 0; filter: blur(8px); }
+    55%  { transform: rotate(-12deg) scale(0.92); opacity: 1; filter: blur(0); }
+    72%  { transform: rotate(-12deg) scale(1.04); }
+    100% { transform: rotate(-12deg) scale(1); }
+  }
+
+  /* 💧 墨晕涟漪（marker / 印章外圈 halo） */
+  .ink-ripple {
+    position: relative;
+  }
+  .ink-ripple::before {
+    content: '';
+    position: absolute;
+    inset: -16px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184, 67, 58, 0.18) 0%, transparent 70%);
+    animation: ink-ripple 2.4s ease-out infinite;
+  }
+  @keyframes ink-ripple {
+    0%   { transform: scale(0.6); opacity: 0.8; }
+    100% { transform: scale(1.6); opacity: 0; }
+  }
+
+  /* ✒️ 笔触状边线（毛笔毛糙感）—— 用在 border-bottom / 时间轴 */
+  .brush-stroke {
+    border-radius: 50%;
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='4'><filter id='b'><feTurbulence baseFrequency='0.4' numOctaves='2'/><feDisplacementMap in='SourceGraphic' scale='2'/></filter><rect width='100%' height='100%' filter='url(%23b)'/></svg>");
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='4'><filter id='b'><feTurbulence baseFrequency='0.4' numOctaves='2'/><feDisplacementMap in='SourceGraphic' scale='2'/></filter><rect width='100%' height='100%' filter='url(%23b)'/></svg>");
+  }
+
+  /* 💧 朱砂红滴（marker 默认） */
+  .marker-vermilion {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: #b8433a;
+    box-shadow: 0 0 0 4px rgba(184, 67, 58, 0.18), 0 0 12px rgba(184, 67, 58, 0.5);
+  }
+  /* 暗金 marker */
+  .marker-gold {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: #c9a557;
+    box-shadow: 0 0 0 3px rgba(201, 165, 87, 0.15);
+  }
+  /* 极淡墨 marker */
+  .marker-faint {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: #6e6557;
+    box-shadow: 0 0 0 2px rgba(110, 101, 87, 0.2);
+  }
+
+  /* 🔴 朱砂红文字 (强调) */
+  .text-vermilion { color: #b8433a; }
+  /* ✨ 暗金文字 (高亮) */
+  .text-gold { color: #c9a557; }
+  /* 🪶 暖白主文字 */
+  .text-bone { color: #e6dcc7; }
+  /* 🔘 极淡墨文字 */
+  .text-faint { color: #6e6557; }
 }

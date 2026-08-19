@@ -91,8 +91,15 @@ export default {
         religious:  '#c89a8a',   // 宗教人物
       },
       fontFamily: {
-        serif: ['"Source Han Serif SC"', '"Noto Serif CJK SC"', 'Georgia', 'serif'],
-        sans: ['"Source Han Sans SC"', '"Noto Sans CJK SC"', 'system-ui', 'sans-serif'],
+        // === 墨·朱砂 v2 字体栈 ===
+        // Serif —— 宋体（正文/标题主体）
+        serif: ['"Noto Serif SC"', '"Source Han Serif SC"', '"Noto Serif CJK SC"', 'Georgia', 'serif'],
+        // Sans —— 黑体（UI/按钮/标签）
+        sans: ['"Noto Sans SC"', '"Source Han Sans SC"', '"Noto Sans CJK SC"', 'system-ui', 'sans-serif'],
+        // Brush —— 毛笔（题款/朝代名/装饰）
+        brush: ['"Ma Shan Zheng"', '"KaiTi"', '楷体', 'STKaiti', 'serif'],
+        // Mono —— 等宽（年份/经纬度/数据）
+        mono: ['"JetBrains Mono"', '"SF Mono"', 'Consolas', 'monospace'],
       },
       // 间距 token（卡片/章节常用档位）
       spacing: {

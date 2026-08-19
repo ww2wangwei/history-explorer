@@ -27,6 +27,33 @@ const styleEl = typeof document !== 'undefined' ? (() => {
       20% { opacity: 1; }
       100% { opacity: 0; transform: translateY(-40px); }
     }
+    /* 静态图 fallback 动画：Ken Burns + 水墨流动 + 粒子 */
+    @keyframes ken-burns {
+      0%   { transform: scale(1.0)  translate(0%, 0%); }
+      50%  { transform: scale(1.15) translate(-2%, -1%); }
+      100% { transform: scale(1.0)  translate(0%, 0%); }
+    }
+    @keyframes ink-drift {
+      0%   { transform: translateX(0%)     translateY(0%)   scale(1);   opacity: 0.55; }
+      33%  { transform: translateX(15%)    translateY(-3%)  scale(1.1); opacity: 0.45; }
+      66%  { transform: translateX(-10%)   translateY(4%)   scale(0.95);opacity: 0.65; }
+      100% { transform: translateX(0%)     translateY(0%)   scale(1);   opacity: 0.55; }
+    }
+    @keyframes ink-drift-2 {
+      0%   { transform: translateX(0%)     translateY(0%)   scale(1.05); opacity: 0.4; }
+      50%  { transform: translateX(-18%)   translateY(5%)   scale(0.9);  opacity: 0.55; }
+      100% { transform: translateX(0%)     translateY(0%)   scale(1.05); opacity: 0.4; }
+    }
+    @keyframes ash-fall {
+      0%   { transform: translateY(-10%)  translateX(0%);   opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.6; }
+      100% { transform: translateY(110%)  translateX(8%);   opacity: 0; }
+    }
+    @keyframes vignette-pulse {
+      0%, 100% { opacity: 0.55; }
+      50%      { opacity: 0.75; }
+    }
   `
   document.head.appendChild(s)
   return s
@@ -98,6 +125,95 @@ interface Scenario {
 }
 
 const scenarios = scenariosData as Scenario[]
+
+/**
+ * AnimatedSceneFallback — 视频缺失时的动画场景图 fallback
+ * 用 Ken Burns 缓慢推拉 + 双层水墨流动 + 飘落粒子 + vignette 脉冲，
+ * 让没有视频的场景也看起来有动感（与场景文字的 slide-up 配合）。
+ */
+function AnimatedSceneFallback({
+  sceneKey,
+  src,
+  alt,
+  color,
+}: {
+  sceneKey: string
+  src: string
+  alt: string
+  color: string
+}) {
+  return (
+    <div
+      key={`fallback-${sceneKey}`}
+      className="absolute inset-0 overflow-hidden"
+      style={{ animation: 'scene-image-zoom 0.8s ease-out' }}
+    >
+      {/* 底层：Ken Burns 缩放的 Bing 图 */}
+      <img
+        src={src}
+        alt={alt}
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ animation: 'ken-burns 18s ease-in-out infinite' }}
+      />
+
+      {/* 第一层水墨：场景色流动 */}
+      <div
+        className="absolute inset-0 mix-blend-soft-light pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse at 30% 40%, ${color}55 0%, transparent 60%)`,
+          animation: 'ink-drift 12s ease-in-out infinite',
+        }}
+      />
+
+      {/* 第二层水墨：反向流动 */}
+      <div
+        className="absolute inset-0 mix-blend-overlay pointer-events-none"
+        style={{
+          background: `radial-gradient(ellipse at 70% 60%, ${color}44 0%, transparent 55%)`,
+          animation: 'ink-drift-2 16s ease-in-out infinite',
+        }}
+      />
+
+      {/* 飘落粒子：6 颗灰烬 */}
+      {[
+        { left: 12, delay: 0,  size: 3 },
+        { left: 28, delay: 2,  size: 2 },
+        { left: 45, delay: 5,  size: 4 },
+        { left: 62, delay: 1,  size: 2 },
+        { left: 78, delay: 4,  size: 3 },
+        { left: 90, delay: 3,  size: 2 },
+      ].map((p, i) => (
+        <span
+          key={i}
+          className="absolute rounded-full bg-parchment-200/70 pointer-events-none"
+          style={{
+            left: `${p.left}%`,
+            top: 0,
+            width: p.size,
+            height: p.size,
+            boxShadow: '0 0 6px rgba(255,212,122,0.6)',
+            animation: `ash-fall ${8 + i}s linear ${p.delay}s infinite`,
+          }}
+        />
+      ))}
+
+      {/* vignette 脉冲 + 顶部暗角（让文字区更可读） */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.55) 100%)',
+          animation: 'vignette-pulse 6s ease-in-out infinite',
+        }}
+      />
+      <div
+        className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
+        style={{
+          background: 'linear-gradient(to top, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.4) 60%, transparent 100%)',
+        }}
+      />
+    </div>
+  )
+}
 
 interface Props {
   scenarioId: string
@@ -456,11 +572,11 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
               )}
             </>
           ) : (
-            <img
-              key={`img-${sceneKey}`}
+            <AnimatedSceneFallback
+              sceneKey={sceneKey}
               src={sceneImg}
               alt={currentScene.title}
-              className="w-full h-full object-cover"
+              color={scenario.color}
             />
           )}
         </div>

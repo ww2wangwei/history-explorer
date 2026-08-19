@@ -50,6 +50,8 @@ export default function GeoFeatureFilter() {
 
   const mapStyle = useMapStyleStore(s => s.style)
   const setMapStyle = useMapStyleStore(s => s.setStyle)
+  const viewMode = useMapStyleStore(s => s.viewMode)
+  const setViewMode = useMapStyleStore(s => s.setViewMode)
 
   const onCount = (LAYER_KEYS_FOR_UI as GeoLayerKey[]).filter(k => visible[k]).length
   const amapOnCount = amapFeatures.length
@@ -147,6 +149,41 @@ export default function GeoFeatureFilter() {
                   )
                 })}
               </div>
+
+              {/* 2D / 3D 切换 */}
+              <div className="pt-2 mt-2 border-t border-ink-700">
+                <div className="text-[10px] text-ink-400 mb-1.5">视图模式</div>
+                <div className="flex gap-1">
+                  <button
+                    onClick={() => viewMode !== '2D' && setViewMode('2D')}
+                    className={`flex-1 px-2 py-1.5 text-xs rounded transition-colors ${
+                      viewMode === '2D'
+                        ? 'bg-bronze-600 text-parchment-50 font-serif'
+                        : 'bg-ink-900 text-ink-400 hover:bg-ink-700 hover:text-parchment-50'
+                    }`}
+                    title="标准平面地图"
+                  >
+                    🗺 2D 平面
+                  </button>
+                  <button
+                    onClick={() => viewMode !== '3D' && setViewMode('3D')}
+                    className={`flex-1 px-2 py-1.5 text-xs rounded transition-colors ${
+                      viewMode === '3D'
+                        ? 'bg-bronze-600 text-parchment-50 font-serif'
+                        : 'bg-ink-900 text-ink-400 hover:bg-ink-700 hover:text-parchment-50'
+                    }`}
+                    title="立体透视图，可俯仰/旋转（鼠标右键拖动 / Ctrl+左键拖动）"
+                  >
+                    🏔 3D 立体
+                  </button>
+                </div>
+                {viewMode === '3D' && (
+                  <div className="text-[10px] text-ink-500 mt-1.5 leading-relaxed">
+                    切换时会重建地图（保留中心/缩放）。3D 模式下右键拖动调整俯仰角，左键拖动旋转。
+                  </div>
+                )}
+              </div>
+
               <div className="text-[10px] text-ink-500 mt-2 leading-relaxed pt-2 border-t border-ink-700">
                 💡 高德原生样式是抽象政治底图；「地形图（ArcGIS）」和「世界卫星（ArcGIS）」是真实地形/卫星图。
               </div>

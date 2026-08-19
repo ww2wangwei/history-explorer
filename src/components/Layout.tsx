@@ -27,6 +27,7 @@ import AIChatPanel from '@/components/AIChatPanel'
 import ScenarioPlayer from '@/components/TimeTravel/ScenarioPlayer'
 import FlashcardsTrigger from '@/components/Flashcards/FlashcardsTrigger'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
+import { useApiKeysStore } from '@/store/useApiKeysStore'
 import { audioEngine } from '@/utils/audioEngine'
 import {
   layoutReducer,
@@ -51,6 +52,7 @@ const CivilizationsOverview = lazy(() => import('@/components/Civilizations/Civi
 const QuestionsOverview = lazy(() => import('@/components/Questions/QuestionsOverview'))
 const ArtsOverview = lazy(() => import('@/components/Arts/ArtsOverview'))
 const WorldHistoryOverview = lazy(() => import('@/components/WorldHistory/WorldHistoryOverview'))
+const ApiKeysSettings = lazy(() => import('@/components/Settings/ApiKeysSettings'))
 
 function PageFallback() {
   return (
@@ -544,6 +546,20 @@ export default function Layout() {
                   <span>🎯 每日目标</span>
                   <span className="text-ink-500">{goalTarget}</span>
                 </button>
+                <button
+                  className="w-full text-left px-3 py-2 text-xs text-parchment-50 hover:bg-ink-700 flex items-center gap-2 transition-colors border-t border-ink-700 mt-1 pt-2"
+                  onClick={() => {
+                    audioEngine.playClick()
+                    dispatch({ type: 'CLOSE_MORE_MENU' })
+                    useApiKeysStore.getState().setModalOpen(true)
+                  }}
+                  role="menuitem"
+                >
+                  <span>🔑 API Keys</span>
+                  <span className="text-ink-500 text-[10px]">
+                    {useApiKeysStore.getState().amapKey ? '已设置' : '未配置'}
+                  </span>
+                </button>
                 {mapFocusTarget && (
                   <button
                     className="w-full text-left px-3 py-2 text-xs text-bronze-300 hover:bg-ink-700 flex items-center gap-2 transition-colors border-t border-ink-700 mt-1 pt-2"
@@ -699,6 +715,14 @@ export default function Layout() {
         <GoalSettings
           isOpen={ui.goalSettingsOpen}
           onClose={() => dispatch({ type: 'CLOSE_GOAL_SETTINGS' })}
+        />
+      </Suspense>
+
+      {/* 第三方 API Key 设置浮层 */}
+      <Suspense fallback={null}>
+        <ApiKeysSettings
+          isOpen={useApiKeysStore(s => s.modalOpen)}
+          onClose={() => useApiKeysStore.getState().setModalOpen(false)}
         />
       </Suspense>
       <AIChatPanel />

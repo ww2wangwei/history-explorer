@@ -11,6 +11,8 @@ import { useEffect, useRef, useState } from 'react'
 import { loadAmap } from '@/lib/amap/loader'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useMapLayersStore } from '@/store/useMapLayersStore'
+import { useAIStore } from '@/store/useAIStore'
+import { getAmapKey, getAmapSecurityCode, getOwmApiKey, useApiKeysStore } from '@/store/useApiKeysStore'
 import { useMapStyleStore, STYLE_META, type MapStyleKey } from '@/store/useMapStyleStore'
 import { getActiveErasAtYear } from '@/utils/geo'
 import { bingImage, fallbackKeyword } from '@/utils/geoImage'
@@ -88,6 +90,8 @@ export default function AmapTest() {
   const [infoCard, setInfoCard] = useState<InfoCard | null>(null)
   const [geoCard, setGeoCard] = useState<GeoFeatureCard | null>(null)
   const backInProgressRef = useRef(false)
+  // 跨 viewMode 切换保留视图状态（中心/缩放/俯仰/旋转）
+  const savedViewStateRef = useRef<{ lng: number; lat: number; zoom: number; pitch: number; rotation: number } | null>(null)
 
   const currentYear = useHistoryStore(s => s.currentYear)
   const selectEra = useHistoryStore(s => s.selectEra)
@@ -95,12 +99,17 @@ export default function AmapTest() {
   const setYear = useHistoryStore(s => s.setYear)
   const mapFocusTarget = useHistoryStore(s => s.mapFocusTarget)
   const setMapFocus = useHistoryStore(s => s.setMapFocus)
+  // 监听 apiKeysStore — 用户改 key 后 map 自动重建
+  const amapKeyFromStore = useApiKeysStore(s => s.amapKey)
+  const amapSecurityFromStore = useApiKeysStore(s => s.amapSecurityCode)
+  // 监听视图模式 (2D/3D) — AMap viewMode 必须在创建时指定，切换会重建
+  const viewMode = useMapStyleStore(s => s.viewMode)
 
-  // 初始化 AMap（只一次）
+  // 初始化 AMap（viewMode 变化时重建）
   useEffect(() => {
-    const key = import.meta.env.VITE_AMAP_KEY as string | undefined
+    const key = getAmapKey()
     if (!key || !containerRef.current) {
-      setError('未配置 VITE_AMAP_KEY，请在 .env 设置高德地图 Key')
+      setError('未配置高德地图 Key。可在右上"更多"菜单 → 🔑 API Keys 中填写，或在 .env 设置 VITE_AMAP_KEY。')
       return
     }
 
@@ -115,7 +124,7 @@ export default function AmapTest() {
     }
 
     setStatus('loading AMap...')
-    const securityCode = import.meta.env.VITE_AMAP_SECURITY_CODE as string | undefined
+    const securityCode = getAmapSecurityCode()
     loadAmap(key, securityCode)
       .then(async () => {
         if (cancelled || !containerRef.current) return
@@ -135,12 +144,18 @@ export default function AmapTest() {
         }
 
         setStatus('creating AMap.Map...')
-        const center = new A.LngLat(44, 34) // 美索不达米亚（文明摇篮）
         const initialStyle = useMapStyleStore.getState().style
         const initialMeta = STYLE_META[initialStyle]
-        const map = new A.Map(container, {
+        // 跨 viewMode 切换时保留视图状态
+        const saved = savedViewStateRef.current
+        const center = saved
+          ? new A.LngLat(saved.lng, saved.lat)
+          : new A.LngLat(44, 34) // 美索不达米亚（文明摇篮）
+        const initialZoom = saved?.zoom ?? 4
+        const mapOpts: any = {
           center,
-          zoom: 4,
+          zoom: initialZoom,
+          viewMode: useMapStyleStore.getState().viewMode,
           draggable: true,
           scrollWheel: true,
           doubleClickZoom: true,
@@ -148,8 +163,28 @@ export default function AmapTest() {
           mapStyle: initialMeta.kind === 'amap' && initialMeta.amapStyle
             ? initialMeta.amapStyle
             : 'amap://styles/darkblue', // 兜底使用 darkblue
-        })
+        }
+        // 3D 模式设置 pitch / rotation（保存在 store 里）
+        if (useMapStyleStore.getState().viewMode === '3D') {
+          // 仅当 saved.pitch > 5° 才视为"之前的 3D 状态"，否则用 store 默认值
+          // (避免从 2D 切换时使用 saved.pitch=0 看上去还是平面)
+          const storePitch = useMapStyleStore.getState().pitch
+          const storeRot = useMapStyleStore.getState().rotation
+          mapOpts.pitch = (saved?.pitch && saved.pitch > 5) ? saved.pitch : storePitch
+          mapOpts.rotation = (saved?.rotation !== undefined && saved.rotation !== null)
+            ? saved.rotation
+            : storeRot
+        }
+        const map = new A.Map(container, mapOpts)
         createdMap = map
+
+        // 3D 模式：加 ControlBar（俯仰角/旋转角控件）
+        if (useMapStyleStore.getState().viewMode === '3D' && A.ControlBar) {
+          try {
+            const ctrl = new A.ControlBar({ position: { top: '80px', right: '10px' } })
+            map.addControl(ctrl)
+          } catch { /* ignore */ }
+        }
         schedule(() => {
           try { map.resize?.() } catch { /* noop */ }
         }, 200)
@@ -157,6 +192,42 @@ export default function AmapTest() {
         ;(window as any).__amapTestMap = map
         setStatus('AMap ready')
         setMapReady(true)
+
+        // 地图任意点点击：反向地理编码 → 弹 AI 窗口介绍这块地
+        // 必须挂在 init effect 里，否则 viewMode 切换重建后 handler 不重新挂上
+        const onMapClick = (e: any) => {
+          const lng = e?.lnglat?.getLng?.() ?? e?.lnglat?.lng
+          const lat = e?.lnglat?.getLat?.() ?? e?.lnglat?.lat
+          if (typeof lng !== 'number' || typeof lat !== 'number') return
+
+          const ask = (region: string) => {
+            const prompt = `我点击了地图上的一个位置（经度 ${lng.toFixed(2)}°，纬度 ${lat.toFixed(2)}°${region ? `，约位于${region}` : ''}）。请介绍这个地区的地理与历史背景：它属于哪个朝代/文明？这里曾经发生过哪些重要历史事件？相关的著名人物？不要使用 markdown 表格。`
+            sessionStorage.setItem('history-explorer-pending-auto-question', prompt)
+            useAIStore.getState().openPanel()
+          }
+
+          if (A.Geocoder) {
+            try {
+              const geo = new A.Geocoder({ city: '', extensions: 'base' })
+              geo.getAddress([lng, lat], (status: string, result: any) => {
+                if (status === 'complete' && result?.regeocode) {
+                  const ac = result.regeocode.addressComponent || {}
+                  const region = [ac.country, ac.province, ac.city, ac.district].filter(Boolean).join(' ')
+                  ask(region)
+                } else {
+                  ask('')
+                }
+              })
+            } catch {
+              ask('')
+            }
+          } else {
+            ask('')
+          }
+        }
+        map.on('click', onMapClick)
+        // 让 cleanup 拿到 onMapClick 用于 off
+        ;(map as any).__onMapClick = onMapClick
       })
       .catch(err => setError(err.message || String(err)))
 
@@ -187,6 +258,27 @@ export default function AmapTest() {
       if (resizeHandler) window.removeEventListener('resize', resizeHandler)
       const map = createdMap
       if (map) {
+        // 销毁前保留视图状态，下次重建（viewMode 切换）时复用
+        try {
+          const c = map.getCenter?.()
+          const z = map.getZoom?.()
+          const p = map.getPitch?.()
+          const r = map.getRotation?.()
+          if (c && Number.isFinite(z)) {
+            savedViewStateRef.current = {
+              lng: c.getLng ? c.getLng() : c.lng,
+              lat: c.getLat ? c.getLat() : c.lat,
+              zoom: z,
+              pitch: typeof p === 'function' ? p() : (p ?? 0),
+              rotation: typeof r === 'function' ? r() : (r ?? 0),
+            }
+          }
+        } catch { /* noop */ }
+        // 移除 click handler（init effect 里挂上的）
+        try {
+          const handler = (map as any).__onMapClick
+          if (handler) map.off('click', handler)
+        } catch { /* noop */ }
         try { map.destroy?.() } catch { /* ignore */ }
       }
       markersRef.current = []
@@ -202,7 +294,7 @@ export default function AmapTest() {
       setMapReady(false)
       if ((window as any).__amapTestMap === map) delete (window as any).__amapTestMap
     }
-  }, [])
+  }, [amapKeyFromStore, amapSecurityFromStore, viewMode])
 
   // 自然地理要素图层（叠加山脉/河流/海洋等）+ AMap 自带 feature 类别控制
   const layersVisible = useMapLayersStore(s => s.visible)
@@ -509,6 +601,7 @@ export default function AmapTest() {
       cancelled = true
       map.off('dragend', onViewChange)
       map.off('zoomend', onViewChange)
+      // click handler 在 init effect 里挂，这里不再重复
     }
   }, [mapFocusTarget, mapReady])
 
@@ -521,7 +614,18 @@ export default function AmapTest() {
       <div className="absolute top-2 left-2 z-10 text-xs bg-ink-800/95 px-3 py-1.5 rounded-lg border border-bronze-500/40 shadow-lg">
         <span className="text-bronze-400 font-serif">高德地图 AMap</span>
         <span className="ml-2 text-parchment-100">Status: {status}</span>
-        {error && <span className="text-red-400 ml-2">ERROR: {error}</span>}
+        {error && (
+          <>
+            <span className="text-red-400 ml-2">ERROR: {error}</span>
+            <button
+              onClick={() => useApiKeysStore.getState().setModalOpen(true)}
+              className="ml-2 px-2 py-0.5 rounded bg-bronze-600 hover:bg-bronze-500 text-parchment-50 text-[11px] font-serif"
+              title="打开 API Key 设置"
+            >
+              ⚙ 设置 Key
+            </button>
+          </>
+        )}
         <div className="text-xs text-ink-500 mt-1">
           当前年: {currentYear} · 朝代: {getChinaEraAtYear(currentYear)?.name ?? '无'}
         </div>
@@ -537,7 +641,7 @@ export default function AmapTest() {
       <CloudOverlayLayer
         map={mapRef.current}
         visible={showCloud}
-        apiKey={import.meta.env.VITE_OWM_API_KEY || ''}
+        apiKey={getOwmApiKey() || ''}
       />
 
       {infoCard && (

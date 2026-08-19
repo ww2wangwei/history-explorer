@@ -164,6 +164,18 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
       setInput(pending)
       sessionStorage.removeItem('history-explorer-pending-question')
     }
+    // 自动发送（地图点击 / 外部触发）
+    const auto = sessionStorage.getItem('history-explorer-pending-auto-question')
+    if (auto && apiKey) {
+      sessionStorage.removeItem('history-explorer-pending-auto-question')
+      // 延迟一帧确保 input 已同步
+      setTimeout(() => sendMessage(auto), 50)
+    } else if (auto) {
+      // 没 API key — 把问题留到输入框并提示用户
+      setInput(auto)
+      sessionStorage.removeItem('history-explorer-pending-auto-question')
+      setError('请先在右上"设置"中输入你的 API key')
+    }
   }, [panelOpen])
 
   const [input, setInput] = useState('')

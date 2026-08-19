@@ -104,21 +104,38 @@ export const STYLE_KEYS_FOR_UI: MapStyleKey[] = [
   'satellite', 'topo-arcgis', 'world-imagery',
 ]
 
+/** 2D/3D 视图模式（3D 模式由 viewMode: '3D' 启用，AMap 需要在地图创建时指定，无法动态切换） */
+export type MapViewMode = '2D' | '3D'
+
 interface MapStyleState {
   style: MapStyleKey
+  viewMode: MapViewMode
+  /** 3D 模式下的俯仰角（0=俯视，83=接近平视） */
+  pitch: number
+  /** 3D 模式下的旋转角（0=正北，顺时针） */
+  rotation: number
   setStyle: (k: MapStyleKey) => void
+  setViewMode: (m: MapViewMode) => void
+  setPitch: (p: number) => void
+  setRotation: (r: number) => void
 }
 
 export const useMapStyleStore = create<MapStyleState>()(
   persist(
     (set) => ({
       style: 'darkblue',
+      viewMode: '2D',
+      pitch: 30,
+      rotation: 0,
       setStyle: (k) => set({ style: k }),
+      setViewMode: (m) => set({ viewMode: m }),
+      setPitch: (p) => set({ pitch: p }),
+      setRotation: (r) => set({ rotation: r }),
     }),
     {
       name: 'history-explorer-map-style:v1',
       storage: createJSONStorage(() => localStorage),
-      partialize: (s) => ({ style: s.style }),
+      partialize: (s) => ({ style: s.style, viewMode: s.viewMode, pitch: s.pitch, rotation: s.rotation }),
     },
   ),
 )

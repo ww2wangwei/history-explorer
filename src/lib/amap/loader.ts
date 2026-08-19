@@ -19,8 +19,8 @@ export function loadAmap(key: string, securityJsCode?: string): Promise<void> {
 
   loadingPromise = new Promise<void>((resolve, reject) => {
     const script = document.createElement('script')
-    // 带常用插件的 polyline/polygon/text，避免后续单独加载
-    script.src = `https://webapi.amap.com/maps?v=2.0&key=${encodeURIComponent(key)}&plugin=AMap.Polyline,AMap.Polygon,AMap.Text,AMap.Marker`
+    // 带常用插件的 polyline/polygon/text/ControlBar/Geocoder，避免后续单独加载
+    script.src = `https://webapi.amap.com/maps?v=2.0&key=${encodeURIComponent(key)}&plugin=AMap.Polyline,AMap.Polygon,AMap.Text,AMap.Marker,AMap.ControlBar,AMap.Geocoder`
     script.async = true
     script.crossOrigin = 'anonymous'
     script.onload = () => {
@@ -34,7 +34,7 @@ export function loadAmap(key: string, securityJsCode?: string): Promise<void> {
           // 诊断：key 无效 / 网络被劫持 / 安全密钥缺失 / 跨域 CSP 拦截 都会触发这个错误
           let diag = 'AMap script loaded but window.AMap missing.'
           if (key === 'your-amap-key' || key.includes('your-') || key.length < 10) {
-            diag += ' 原因：.env 中的 VITE_AMAP_KEY 仍是占位符，请填入真实 Key。'
+            diag += ' 原因：Key 仍是占位符或太短 — 请在更多菜单 → 🔑 API Keys 中填写真实 Key。'
           } else {
             diag += ' 可能原因：① Key 无效；② Key 启用了「安全密钥」但未设置；③ 网络被拦截（控制台 Network 看 amap.com 是否 200）；④ CSP/广告拦截器屏蔽。'
           }

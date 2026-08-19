@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from 'react'
 import { loadAmap } from '@/lib/amap/loader'
 import { lookupLocation, type LngLat } from '@/utils/locationCoords'
 import { wgs84ToGcj02 } from '@/utils/coordsTransform'
+import { getAmapKey, getAmapSecurityCode, useApiKeysStore } from '@/store/useApiKeysStore'
 
 /** 通用节点类型：战争事件或大型战争节点 */
 export interface MapNode {
@@ -48,10 +49,10 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
   // 初始化地图（focusNode 切换时重新创建）
   useEffect(() => {
     if (!focusPos) return
-    const key = import.meta.env.VITE_AMAP_KEY as string | undefined
+    const key = getAmapKey()
     if (!key || !containerRef.current) {
       setStatus('error')
-      setError('高德地图不可用：缺少 VITE_AMAP_KEY 或容器未挂载')
+      setError('高德地图 Key 未配置。可在更多菜单 → 🔑 API Keys 填写。')
       return
     }
 
@@ -60,7 +61,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
     try { mapRef.current?.destroy?.() } catch { /* ignore */ }
     mapRef.current = null
 
-    loadAmap(key, import.meta.env.VITE_AMAP_SECURITY_CODE as string | undefined)
+    loadAmap(key, getAmapSecurityCode())
       .then(() => {
         if (!containerRef.current) return
         const A = (window as any).AMap

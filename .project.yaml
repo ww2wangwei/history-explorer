@@ -1,0 +1,47 @@
+name: 历史软件
+tagline: 历史探索者·History Explorer——双轴联动的时空史学习工具
+status: active
+progress: 65
+
+tags: [学习, 历史, 可视化, 地图, 时间轴]
+tech: [react, typescript, vite, maplibre-gl, d3-scale, zustand, tailwindcss]
+domain: web
+
+entry: npm run dev
+port: 3000
+url: http://localhost:3000
+start_cmd: npm install && npm run dev
+
+description: |
+  历史探索者·History Explorer——给历史爱好者的个人学习工具，
+  通过**双轴联动**（横向时间轴 + 动态世界地图）建立中国史与世界史的时空认知框架。
+
+  核心特性：
+  - **双轴联动**：拖动时间轴 → 世界地图版图平滑切换；点击地图国家 → 时间轴定位
+  - **5000 年跨度**：公元前 3000 至公元 2025
+  - **中国史**：秦/汉/唐/宋/元/明/清 7 大朝代 + 三国过渡期
+  - **世界史**：罗马共和国/帝国、拜占庭、阿拉伯帝国、奥斯曼、蒙古帝国、波斯萨法维、大英帝国
+  - **80+ 标志性事件**：改变历史走向的转折点
+  - **暗色暖色调 UI**：历史感氛围
+
+  技术栈：
+  - 前端：React 18 + TypeScript + Vite
+  - 地图：MapLibre GL JS（WebGL 渲染）+ react-map-gl
+  - 时间轴：自实现 SVG（d3-scale）
+  - 状态管理：Zustand
+  - 样式：Tailwind CSS
+
+  截图：cross-*.png（跨文明对比）、dbg-*.png（debug 界面）、debug-*.png（早期调试）、crop-mediterranean.png（地中海区域）
+
+milestones:
+  - { name: 时间轴渲染（d3-scale + SVG）, done: true }
+  - { name: 多文明对比（MapLibre 地图版图）, done: true }
+  - { name: 笔记系统（详情面板 + 笔记 Tab）, done: true }
+  - { name: 5000 年事件数据, done: true }
+  - { name: 暗色暖色主题, done: true }
+  - { name: 导入/导出, done: false }
+  - { name: 笔记搜索, done: false }
+
+next_step: 完成导入/导出 + 笔记搜索
+created: 2025-04-20
+last_active: 2025-07-26

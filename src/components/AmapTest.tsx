@@ -611,15 +611,15 @@ export default function AmapTest() {
         ref={containerRef}
         style={{ position: 'absolute', inset: 0, zIndex: 0 }}
       />
-      <div className="absolute top-2 left-2 z-10 text-xs bg-ink-800/95 px-3 py-1.5 rounded-lg border border-bronze-500/40 shadow-lg">
-        <span className="text-bronze-400 font-serif">高德地图 AMap</span>
+      <div className="absolute top-2 left-2 z-10 text-xs bg-ink-800/95 px-3 py-1.5 rounded-lg border border-gold-500/40 shadow-lg">
+        <span className="text-bone font-serif tracking-wide">高德地图 AMap</span>
         <span className="ml-2 text-parchment-100">Status: {status}</span>
         {error && (
           <>
             <span className="text-red-400 ml-2">ERROR: {error}</span>
             <button
               onClick={() => useApiKeysStore.getState().setModalOpen(true)}
-              className="ml-2 px-2 py-0.5 rounded bg-bronze-600 hover:bg-bronze-500 text-parchment-50 text-[11px] font-serif"
+              className="ml-2 px-2 py-0.5 rounded bg-vermilion-500 hover:bg-vermilion-600 text-bone text-[11px] font-serif"
               title="打开 API Key 设置"
             >
               ⚙ 设置 Key
@@ -627,7 +627,7 @@ export default function AmapTest() {
           </>
         )}
         <div className="text-xs text-ink-500 mt-1">
-          当前年: {currentYear} · 朝代: {getChinaEraAtYear(currentYear)?.name ?? '无'}
+          当前年: <span className="text-vermilion-300 font-mono">{currentYear}</span> · 朝代: {getChinaEraAtYear(currentYear)?.name ?? '无'}
         </div>
       </div>
 
@@ -695,13 +695,13 @@ function InfoCardView({
       }}
       onClick={e => e.stopPropagation()}
     >
-      <div className="relative bg-ink-900/95 border border-bronze-500/50 rounded-lg shadow-2xl overflow-hidden">
-        <div className="flex items-center justify-between px-3 py-2 border-b border-bronze-500/30">
+      <div className="relative bg-ink-900/95 border border-vermilion-500/40 rounded-lg shadow-2xl overflow-hidden">
+        <div className="flex items-center justify-between px-3 py-2 border-b border-vermilion-500/30">
           {card.reopenLabel ? (
             <button
               type="button"
               onClick={onBack}
-              className="flex items-center text-bronze-300 hover:text-bronze-200 text-sm"
+              className="flex items-center text-vermilion-300 hover:text-vermilion-200 text-sm"
               title="返回"
               aria-label="返回"
             >
@@ -804,12 +804,12 @@ function GeoFeatureCardView({
       }}
       onClick={e => e.stopPropagation()}
     >
-      <div className="relative bg-ink-900/95 border border-bronze-500/50 rounded-lg shadow-2xl overflow-hidden">
+      <div className="relative bg-ink-900/95 border border-vermilion-500/40 rounded-lg shadow-2xl overflow-hidden">
         {/* 顶部条：类型 icon + 名称 + 关闭 */}
-        <div className="flex items-center justify-between px-3 py-2 border-b border-bronze-500/30">
+        <div className="flex items-center justify-between px-3 py-2 border-b border-vermilion-500/30">
           <span className="flex items-center gap-2 text-sm">
             <span className="text-base leading-none">{meta.icon}</span>
-            <span className="text-bronze-300 font-serif">{f.name}</span>
+            <span className="text-vermilion-300 font-serif">{f.name}</span>
             <span className="text-[10px] px-1.5 py-0.5 rounded border" style={{ color: meta.color, borderColor: meta.color + '60' }}>
               {f.type}
             </span>

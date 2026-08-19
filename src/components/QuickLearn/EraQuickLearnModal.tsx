@@ -67,13 +67,18 @@ export default function EraQuickLearnModal({
       >
         <div
           className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-vermilion-500/40 shadow-2xl"
+          style={{ scrollPaddingTop: 96 }}
           role="dialog"
           aria-modal="true"
           aria-label="详情"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* header */}
-          <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-ink-600 px-6 py-4 flex items-start justify-between">
+          {/* header — sticky with proper z-index + solid backdrop so scrolling
+              content doesn't bleed through visually */}
+          <div
+            className="sticky top-0 z-20 bg-ink-800/95 backdrop-blur-md border-b border-vermilion-500/40 px-6 py-4 flex items-start justify-between"
+            style={{ backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)' }}
+          >
             <div>
               <div className="text-xs text-ink-500 mb-1">
                 {era.region === 'china' ? '中国朝代' : '世界文明'} ·{' '}

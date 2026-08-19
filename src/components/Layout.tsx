@@ -435,13 +435,20 @@ export default function Layout() {
   const showTimeline = shouldShowTimeline(main)
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-ink-900 text-parchment-50 overflow-hidden">
+    <div className="h-screen w-screen flex flex-col bg-ink-900 text-parchment-50 ink-wash-bg overflow-hidden">
       {/* 顶部 Header */}
-      <header className="flex items-center justify-between px-6 py-2.5 border-b border-ink-600 bg-ink-800/80 backdrop-blur z-10">
+      <header
+        className="flex items-center justify-between px-6 py-2.5 border-b border-ink-600 bg-ink-800/80 backdrop-blur z-10"
+        style={{ borderBottomColor: 'rgba(110, 101, 87, 0.4)' }}
+      >
         <div className="flex items-center gap-3 flex-1 min-w-0">
-          <div className="flex items-baseline gap-3 shrink-0">
-            <h1 className="text-lg font-serif text-bronze-400">📜 历史探索者</h1>
-            <span className="text-xs text-ink-500 hidden lg:inline">History Explorer</span>
+          <div className="flex items-center gap-3 shrink-0">
+            {/* 朱砂印章 logo（墨·朱砂 v2） */}
+            <div className="vermilion-seal vermilion-seal-stamped" style={{ width: 32, height: 32, fontSize: 16, transform: 'rotate(-12deg)' }}>
+              史
+            </div>
+            <h1 className="text-lg font-serif text-bone tracking-wide">历史探索者</h1>
+            <span className="text-xs text-faint hidden lg:inline tracking-widest uppercase">History · Explorer</span>
           </div>
           <SearchBar />
           <TimeMachine />
@@ -451,7 +458,7 @@ export default function Layout() {
             <button
               className={`px-2.5 py-1.5 text-xs shrink-0 whitespace-nowrap transition-colors ${
                 main.mode === 'map'
-                  ? 'bg-bronze-600/40 text-bronze-400'
+                  ? 'bg-vermilion-500/30 text-vermilion-300'
                   : 'text-ink-500 hover:text-parchment-50 hover:bg-ink-600'
               }`}
               onClick={() => {
@@ -466,7 +473,7 @@ export default function Layout() {
             <button
               className={`px-2.5 py-1.5 text-xs shrink-0 whitespace-nowrap transition-colors ${
                 main.mode === 'graph'
-                  ? 'bg-bronze-600/40 text-bronze-400'
+                  ? 'bg-vermilion-500/30 text-vermilion-300'
                   : 'text-ink-500 hover:text-parchment-50 hover:bg-ink-600'
               }`}
               onClick={() => {
@@ -483,8 +490,8 @@ export default function Layout() {
           <button
             className={`px-2.5 py-1.5 rounded-lg shrink-0 whitespace-nowrap text-xs flex items-center gap-1.5 transition-colors border ${
               main.mode === 'home'
-                ? 'bg-bronze-600/40 text-bronze-400 border-bronze-500/60'
-                : 'bg-ink-700/80 hover:bg-bronze-600/40 border-ink-600 text-bronze-400'
+                ? 'bg-vermilion-500/30 text-vermilion-300 border-vermilion-500/60'
+                : 'bg-ink-700/80 hover:bg-vermilion-500/30 border-ink-600 text-bronze-400'
             }`}
             onClick={() => { audioEngine.playModalClose(); dispatch({ type: 'OPEN_HOME' }) }}
             title="返回学习引导主页"
@@ -504,7 +511,7 @@ export default function Layout() {
             <button
               className={`px-2 py-1.5 rounded-lg whitespace-nowrap text-xs flex items-center gap-1 transition-colors border relative ${
                 ui.moreMenuOpen || main.mode === 'overview'
-                  ? 'bg-bronze-600/40 text-bronze-400 border-bronze-500/60'
+                  ? 'bg-vermilion-500/30 text-vermilion-300 border-vermilion-500/60'
                   : 'bg-ink-700/80 hover:bg-ink-600 border-ink-600 text-bronze-400'
               }`}
               onClick={() => { audioEngine.playClick(); dispatch({ type: 'TOGGLE_MORE_MENU' }) }}
@@ -514,7 +521,7 @@ export default function Layout() {
             >
               ⋯ 更多
               {notesCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-bronze-500 ring-2 ring-ink-800" />
+                <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-vermilion-500 ring-2 ring-ink-800" />
               )}
             </button>
             {ui.moreMenuOpen && (
@@ -622,7 +629,7 @@ export default function Layout() {
                   <button
                     className={`flex-1 px-3 py-2.5 border-r border-ink-600 transition-colors ${
                       detailView === 'event'
-                        ? 'bg-bronze-600/30 text-bronze-400 border-b-2 border-bronze-400'
+                        ? 'bg-vermilion-500/30 text-vermilion-300 border-b-2 border-vermilion-500'
                         : 'text-ink-500 hover:bg-ink-700 hover:text-parchment-50'
                     }`}
                     onClick={() => setDetailView('event')}
@@ -632,7 +639,7 @@ export default function Layout() {
                   <button
                     className={`flex-1 px-3 py-2.5 border-r border-ink-600 transition-colors ${
                       detailView === 'era'
-                        ? 'bg-bronze-600/30 text-bronze-400 border-b-2 border-bronze-400'
+                        ? 'bg-vermilion-500/30 text-vermilion-300 border-b-2 border-vermilion-500'
                         : 'text-ink-500 hover:bg-ink-700 hover:text-parchment-50'
                     }`}
                     onClick={() => setDetailView('era')}
@@ -642,7 +649,7 @@ export default function Layout() {
                   <button
                     className={`flex-1 px-3 py-2.5 border-r border-ink-600 transition-colors ${
                       detailView === 'notes'
-                        ? 'bg-bronze-600/30 text-bronze-400 border-b-2 border-bronze-400'
+                        ? 'bg-vermilion-500/30 text-vermilion-300 border-b-2 border-vermilion-500'
                         : 'text-ink-500 hover:bg-ink-700 hover:text-parchment-50'
                     }`}
                     onClick={() => setDetailView('notes')}
@@ -655,7 +662,7 @@ export default function Layout() {
                   <button
                     className={`flex-1 px-3 py-2.5 border-r border-ink-600 transition-colors ${
                       detailView !== 'notes'
-                        ? 'bg-bronze-600/30 text-bronze-400 border-b-2 border-bronze-400'
+                        ? 'bg-vermilion-500/30 text-vermilion-300 border-b-2 border-vermilion-500'
                         : 'text-ink-500 hover:bg-ink-700 hover:text-parchment-50'
                     }`}
                     onClick={() => setDetailView(selectedEventId ? 'event' : 'era')}
@@ -665,7 +672,7 @@ export default function Layout() {
                   <button
                     className={`flex-1 px-3 py-2.5 border-r border-ink-600 transition-colors ${
                       detailView === 'notes'
-                        ? 'bg-bronze-600/30 text-bronze-400 border-b-2 border-bronze-400'
+                        ? 'bg-vermilion-500/30 text-vermilion-300 border-b-2 border-vermilion-500'
                         : 'text-ink-500 hover:bg-ink-700 hover:text-parchment-50'
                     }`}
                     onClick={() => setDetailView('notes')}

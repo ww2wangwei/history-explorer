@@ -229,11 +229,11 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
   const totalEras = eras.length
 
   return (
-    <div className="w-full h-full overflow-y-auto scrollbar-thin bg-ink-900 paper-texture vignette">
+    <div className="w-full h-full overflow-y-auto scrollbar-thin bg-ink-900 ink-wash-bg paper-texture vignette">
       <div className="max-w-5xl mx-auto px-6 py-8">
         {/* 欢迎标题 */}
         <div ref={welcomeTitleRef} className="mb-8">
-          <h1 className="text-display font-serif text-bronze-300 mb-2 title-underline inline-block">📜 历史探索者</h1>
+          <h1 className="text-display font-serif text-bone mb-2 title-underline inline-block">📜 历史探索者</h1>
           <p className="text-ink-400 text-sm leading-relaxed">
             从 {currentYear < 0 ? `公元前${-currentYear}` : currentYear} 年开始，
             系统地学习中国和世界的 50 个朝代 + 251 个历史事件。
@@ -243,7 +243,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         {/* 智能推荐 */}
         {recommendation && (
           <div
-            className="mb-6 p-5 rounded-lg border border-bronze-500/40 bg-gradient-to-r from-bronze-900/30 to-ink-800/80 cursor-pointer hover:border-bronze-400 transition-colors shine-on-hover focus-ring depth-2"
+            className="mb-6 p-5 rounded-lg border border-vermilion-500/40 bg-gradient-to-r from-vermilion-900/30 to-ink-800/80 cursor-pointer hover:border-vermilion-400 transition-colors shine-on-hover focus-ring depth-2"
             onClick={() => {
               selectEra(recommendation.eraId)
               recordVisit('timeline', recommendation.eraId)
@@ -269,7 +269,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
               <div className="text-3xl flex-shrink-0">👉</div>
               <div className="flex-1">
                 <div className="text-xs text-ink-500 mb-1">智能推荐 · 下一步</div>
-                <div className="text-lg font-serif text-bronze-300 mb-1">
+                <div className="text-lg font-serif text-vermilion-300 mb-1">
                   {recommendation.era.name}
                   <span className="ml-2 text-xs text-ink-400">
                     ({recommendation.era.startYear < 0 ? `公元前${-recommendation.era.startYear}` : recommendation.era.startYear}
@@ -279,7 +279,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
                 </div>
                 <div className="text-xs text-ink-500">{recommendation.reason}</div>
               </div>
-              <div className="text-bronze-400 text-2xl flex-shrink-0">→</div>
+              <div className="text-vermilion-300 text-2xl flex-shrink-0">→</div>
             </div>
           </div>
         )}
@@ -298,21 +298,21 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         {/* 文史天梯专项卡片（高亮） */}
         <button
           onClick={onEnterLadder}
-          className="w-full mb-4 text-left p-5 rounded-2xl border-2 border-bronze-500 bg-gradient-to-br from-bronze-900/40 via-ink-800/80 to-ink-800/80 hover:border-bronze-400 transition-all relative overflow-hidden"
+          className="w-full mb-4 text-left p-5 rounded-2xl border-2 border-vermilion-500/40 bg-gradient-to-br from-bronze-900/40 via-ink-800/80 to-ink-800/80 hover:border-vermilion-400 transition-all relative overflow-hidden"
         >
           <div className="flex items-center gap-4">
             <div className="text-4xl">🪜</div>
             <div className="flex-1">
               <div className="flex items-baseline gap-2">
-                <h3 className="font-serif text-xl text-bronze-300">文史天梯</h3>
-                <span className="text-[10px] uppercase tracking-wider text-bronze-400/80">NEW</span>
+                <h3 className="font-serif text-xl text-vermilion-300">文史天梯</h3>
+                <span className="text-[10px] uppercase tracking-wider text-vermilion-300/80">NEW</span>
               </div>
               <p className="text-sm text-parchment-200 mt-1">史·诗·人 三条天梯 · 学测记问 4 步闭环 · 通关可重开</p>
               <div className="mt-2 flex items-center gap-4 text-xs text-ink-400">
                 <span>独立页面 · 顶部 nav 保留 · Esc 返回</span>
               </div>
             </div>
-            <span className="text-bronze-300 text-3xl">→</span>
+            <span className="text-vermilion-300 text-3xl">→</span>
           </div>
         </button>
 
@@ -357,14 +357,14 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
                     onEnterPath(p.id as PathId)
                   }
                 }}
-                className="text-left p-5 rounded-lg border border-ink-600 bg-ink-800/60 hover:border-bronze-500 hover:bg-ink-800 transition-all group path-card"
+                className="text-left p-5 rounded-lg border border-ink-600 bg-ink-800/60 hover:border-vermilion-500/40 hover:bg-ink-800 transition-all group path-card"
                 style={{ borderLeftWidth: '3px', borderLeftColor: p.color }}
               >
                 <div className="flex items-start gap-4">
                   <div className="text-3xl flex-shrink-0" style={{ filter: `drop-shadow(0 0 6px ${p.color}40)` }}>{p.icon}</div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
-                      <div className="font-serif text-base group-hover:text-bronze-300 transition-colors" style={{ color: p.color }}>
+                      <div className="font-serif text-base group-hover:text-vermilion-300 transition-colors" style={{ color: p.color }}>
                         {p.title}
                       </div>
                       <div className="text-xs text-ink-500">{pPct}%</div>
@@ -382,10 +382,10 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
 
         {/* 快速入口 */}
         <div className="mt-8 flex flex-wrap gap-3 text-xs text-ink-400">
-          <button onClick={onEnterMap} className="px-3 py-1.5 rounded-lg border border-ink-600 hover:border-bronze-500 hover:text-bronze-300 transition-colors">
+          <button onClick={onEnterMap} className="px-3 py-1.5 rounded-lg border border-ink-600 hover:border-vermilion-500/40 hover:text-vermilion-300 transition-colors">
             🗺 进入地图（自由浏览）
           </button>
-          <button onClick={() => setYear(0)} className="px-3 py-1.5 rounded-lg border border-ink-600 hover:border-bronze-500 hover:text-bronze-300 transition-colors">
+          <button onClick={() => setYear(0)} className="px-3 py-1.5 rounded-lg border border-ink-600 hover:border-vermilion-500/40 hover:text-vermilion-300 transition-colors">
             ⏳ 跳到公元 0 年
           </button>
           <div className="px-3 py-1.5 text-ink-500">
@@ -401,7 +401,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           onClick={() => setShowEraList(false)}
         >
           <div
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl"
+            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-vermilion-500/40 shadow-2xl"
             role="dialog"
             aria-modal="true"
             aria-label="详情"
@@ -409,8 +409,8 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           >
             <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-ink-600 px-6 py-4 flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-serif text-bronze-300">📜 选一个朝代学习</h2>
-                <div className="text-xs text-ink-500 mt-0.5">按时间顺序排列。已学的朝代用 <span className="text-green-400">绿色</span> 标记，下一个推荐的用 <span className="text-bronze-400">金色</span> 高亮。</div>
+                <h2 className="text-xl font-serif text-vermilion-300">📜 选一个朝代学习</h2>
+                <div className="text-xs text-ink-500 mt-0.5">按时间顺序排列。已学的朝代用 <span className="text-green-400">绿色</span> 标记，下一个推荐的用 <span className="text-vermilion-300">金色</span> 高亮。</div>
               </div>
               <button
                 className="text-ink-500 hover:text-parchment-50 text-2xl leading-none"
@@ -436,10 +436,10 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
                       }}
                       className={`text-left rounded-lg border-2 transition-all overflow-hidden group ${
                         isRecommended
-                          ? 'border-bronze-500 hover:border-bronze-400'
+                          ? 'border-vermilion-500/40 hover:border-vermilion-400'
                           : visited
                           ? 'border-green-700/50 hover:border-green-500/80'
-                          : 'border-ink-600 hover:border-bronze-500/60'
+                          : 'border-ink-600 hover:border-vermilion-500/60'
                       }`}
                     >
                       <div className="relative w-full h-28 bg-ink-900">
@@ -452,7 +452,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-ink-900/95 to-transparent" />
                         <div className="absolute bottom-0 left-0 right-0 px-3 py-1.5 flex items-center gap-2">
-                          {isRecommended && <span className="text-bronze-300 text-xs bg-bronze-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">👉 推荐</span>}
+                          {isRecommended && <span className="text-vermilion-300 text-xs bg-bronze-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">👉 推荐</span>}
                           {visited && <span className="text-green-300 text-xs bg-green-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">✓ 已学</span>}
                           {!hasQuick && <span className="text-ink-400 text-xs bg-ink-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">详细</span>}
                           <span className="text-base font-serif flex-1 truncate" style={{ color: era.color }}>
@@ -503,7 +503,7 @@ function StatCard({ icon, label, value, hint, progress }: { icon: string; label:
   const totalStr = match && match[3] ? ' / ' : ''
   const totalEl = match && match[3] ? totalRef : null
   return (
-    <div className="p-3 rounded-lg bg-ink-800/60 border border-ink-600 hover:border-bronze-500/60 transition-colors shine-on-hover focus-ring depth-1 hover:depth-3">
+    <div className="p-3 rounded-lg bg-ink-800/60 border border-ink-600 hover:border-vermilion-500/60 transition-colors shine-on-hover focus-ring depth-1 hover:depth-3">
       <div className="flex items-center gap-2 mb-1">
         <span className="text-lg">{icon}</span>
         <div className="text-xs text-ink-500 uppercase tracking-wider truncate">{label}</div>
@@ -517,7 +517,7 @@ function StatCard({ icon, label, value, hint, progress }: { icon: string; label:
       )}
       {progress !== undefined && (
         <div className="h-1 bg-ink-700 rounded-lg overflow-hidden mt-1.5">
-          <div className="h-full bg-bronze-500" style={{ width: `${progress}%`, transition: 'width 1.2s ease-out' }} />
+          <div className="h-full bg-vermilion-500" style={{ width: `${progress}%`, transition: 'width 1.2s ease-out' }} />
         </div>
       )}
     </div>

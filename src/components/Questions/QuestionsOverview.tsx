@@ -78,7 +78,7 @@ export default function QuestionsOverview({ isActive, onClose }: Props) {
         {/* 头部 */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-4xl font-serif text-bronze-300 mb-1">💭 全问题</h1>
+            <h1 className="text-4xl font-serif text-vermilion-300 mb-1">💭 全问题</h1>
             <p className="text-sm text-ink-400">
               数十道历史思考题，用 AI 一步步陪你深挖。{allQuestions.length} 道题 · 少一个标准答案，多一层自己的见解。
             </p>
@@ -86,7 +86,7 @@ export default function QuestionsOverview({ isActive, onClose }: Props) {
           <div className="flex items-center gap-2">
             <div className="flex flex-col items-center px-3 py-1 rounded-lg bg-ink-800/60 border border-ink-600 text-xs">
               <span className="text-ink-400">已作答</span>
-              <span className="text-base font-serif text-bronze-300">{doneCount}/{allQuestions.length}</span>
+              <span className="text-base font-serif text-vermilion-300">{doneCount}/{allQuestions.length}</span>
             </div>
             <div className="flex flex-col items-center px-3 py-1 rounded-lg bg-ink-800/60 border border-ink-600 text-xs">
               <span className="text-ink-400">平均分</span>
@@ -147,7 +147,7 @@ export default function QuestionsOverview({ isActive, onClose }: Props) {
                 <div
                   key={q.id}
                   className={`p-5 rounded-lg border-2 transition-all flex items-start gap-4 ${
-                    done ? 'border-emerald-700/40 hover:border-emerald-500/70' : 'border-ink-600 hover:border-bronze-500/80'
+                    done ? 'border-emerald-700/40 hover:border-emerald-500/70' : 'border-ink-600 hover:border-vermilion-500/40/80'
                   }`}
                   style={{ background: `linear-gradient(135deg, ${done ? '#14532d' : '#3b2f16'}22 0%, transparent 55%)` }}
                 >
@@ -201,7 +201,7 @@ export default function QuestionsOverview({ isActive, onClose }: Props) {
 
         {/* 玩法说明 */}
         <div className="mt-8 p-4 rounded-lg bg-ink-800/60 border border-ink-700 text-sm text-ink-400 space-y-1">
-          <div className="text-bronze-300 font-serif mb-2">💡 玩法说明</div>
+          <div className="text-vermilion-300 font-serif mb-2">💡 玩法说明</div>
           <ul className="list-disc list-inside space-y-1 text-xs">
             <li>选一道题「开始作答」，先写下你的初步想法</li>
             <li>AI 会像苏格拉底一样，顺着你的回答连环追问，帮你一步步想深</li>
@@ -254,7 +254,7 @@ function FilterTabs({ options, value, onChange }: {
           key={String(v)}
           onClick={() => onChange(v)}
           className={`px-3 py-1.5 transition-colors whitespace-nowrap ${
-            value === v ? 'bg-bronze-700/40 text-bronze-200' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-700'
+            value === v ? 'bg-vermilion-700/40 text-vermilion-200' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-700'
           }`}
         >
           {label}

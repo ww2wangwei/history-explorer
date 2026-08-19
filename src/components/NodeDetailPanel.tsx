@@ -46,13 +46,13 @@ export default function NodeDetailPanel({ node, relations, onSelectNode, onClose
   const order: RelationshipType[] = ['succession', 'transformation', 'contemporary', 'temporal-prev', 'temporal-next']
 
   return (
-    <div className="absolute top-4 right-4 w-80 max-h-[calc(100vh-2rem)] flex flex-col bg-ink-800/95 backdrop-blur border border-bronze-500/40 rounded-lg shadow-2xl z-30 overflow-hidden">
+    <div className="absolute top-4 right-4 w-80 max-h-[calc(100vh-2rem)] flex flex-col bg-ink-800/95 backdrop-blur border border-vermilion-500/40 rounded-lg shadow-2xl z-30 overflow-hidden">
       {/* 头部：节点基本信息 */}
       <div className="px-4 py-3 border-b border-ink-700">
         <div className="flex items-start gap-2">
           <span className="text-2xl flex-shrink-0">{node.emoji || (node.kind === 'era' ? '🏛' : '👤')}</span>
           <div className="flex-1 min-w-0">
-            <div className="text-sm font-serif text-bronze-300 truncate">
+            <div className="text-sm font-serif text-vermilion-300 truncate">
               {node.era?.name ?? node.figure?.name ?? node.id}
             </div>
             <div className="text-xs text-ink-500 mt-0.5">
@@ -112,7 +112,7 @@ export default function NodeDetailPanel({ node, relations, onSelectNode, onClose
                 >
                   <span className="text-base flex-shrink-0">{r.other.emoji ?? '📍'}</span>
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm text-parchment-100 truncate group-hover:text-bronze-300 transition-colors">
+                    <div className="text-sm text-parchment-100 truncate group-hover:text-vermilion-300 transition-colors">
                       {r.direction === 'in' && '← '}
                       {r.other.name}
                       {r.direction === 'out' && ' →'}
@@ -123,7 +123,7 @@ export default function NodeDetailPanel({ node, relations, onSelectNode, onClose
                       </div>
                     )}
                   </div>
-                  <span className="text-ink-500 group-hover:text-bronze-400 text-base">›</span>
+                  <span className="text-ink-500 group-hover:text-vermilion-300 text-base">›</span>
                 </button>
               ))}
             </div>

@@ -34,7 +34,7 @@ export default function NotesOverviewStats({ notes, onExport, onImport }: Props)
       <div className="flex items-center gap-4 flex-1 min-w-0">
       <div className="flex items-baseline gap-1.5">
         <span className="text-ink-500">共</span>
-        <span className="text-bronze-400 text-lg font-serif tabular-nums">{notes.length}</span>
+        <span className="text-vermilion-300 text-lg font-serif tabular-nums">{notes.length}</span>
         <span className="text-ink-500">条</span>
       </div>
       <span className="text-ink-600">·</span>

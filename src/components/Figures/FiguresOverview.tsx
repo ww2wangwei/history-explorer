@@ -159,7 +159,7 @@ export default function FiguresOverview({ isActive, onClose, initialPersonId }: 
               onClick={() => setCategory('all')}
               className={`text-xs px-2.5 py-1 rounded-lg border transition-colors ${
                 category === 'all'
-                  ? 'bg-bronze-600/40 text-bronze-300 border-bronze-500/60'
+                  ? 'bg-vermilion-500/40 text-vermilion-300 border-vermilion-500/60'
                   : 'bg-ink-700/60 text-ink-400 border-ink-600 hover:text-parchment-50'
               }`}
             >
@@ -175,7 +175,7 @@ export default function FiguresOverview({ isActive, onClose, initialPersonId }: 
                   onClick={() => setCategory(cat)}
                   className={`text-xs px-2.5 py-1 rounded-lg border transition-colors ${
                     category === cat
-                      ? 'border-bronze-500/60'
+                      ? 'border-vermilion-500/60'
                       : 'bg-ink-700/60 text-ink-400 border-ink-600 hover:text-parchment-50'
                   }`}
                   style={category === cat ? { background: meta.color + '30', color: meta.color } : undefined}

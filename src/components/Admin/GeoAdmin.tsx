@@ -59,7 +59,7 @@ export default function GeoAdmin() {
               value={query}
               onChange={e => setQuery(e.target.value)}
               placeholder="搜索 id / 名称 / 描述..."
-              className="flex-1 px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
+              className="flex-1 px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-vermilion-500/40"
             />
             <button
               onClick={() => {
@@ -76,7 +76,7 @@ export default function GeoAdmin() {
           <div className="flex flex-wrap gap-1">
             <button
               onClick={() => setTypeFilter('all')}
-              className={`text-xs px-2 py-0.5 rounded-lg border ${typeFilter === 'all' ? 'bg-bronze-700/40 border-bronze-500 text-bronze-200' : 'bg-ink-800 border-ink-600 text-ink-400'}`}
+              className={`text-xs px-2 py-0.5 rounded-lg border ${typeFilter === 'all' ? 'bg-vermilion-700/40 border-vermilion-500/40 text-vermilion-200' : 'bg-ink-800 border-ink-600 text-ink-400'}`}
             >
               全部 ({merged.length})
             </button>
@@ -87,7 +87,7 @@ export default function GeoAdmin() {
                 <button
                   key={t}
                   onClick={() => setTypeFilter(t)}
-                  className={`text-xs px-2 py-0.5 rounded-lg border ${typeFilter === t ? 'bg-bronze-700/40 border-bronze-500 text-bronze-200' : 'bg-ink-800 border-ink-600 text-ink-400'}`}
+                  className={`text-xs px-2 py-0.5 rounded-lg border ${typeFilter === t ? 'bg-vermilion-700/40 border-vermilion-500/40 text-vermilion-200' : 'bg-ink-800 border-ink-600 text-ink-400'}`}
                 >
                   {GEO_TYPE_LABELS[t]} ({count})
                 </button>
@@ -263,7 +263,7 @@ function GeoEditForm({ feature }: { feature: GeoFeature }) {
             {isNew && <span className="text-emerald-400 bg-emerald-900/30 px-1.5 rounded-lg">🆕 新建</span>}
             {isDeleted && <span className="text-red-400 bg-red-900/30 px-1.5 rounded-lg">🚫 已删除</span>}
           </div>
-          <h2 className="text-2xl font-serif text-bronze-300 mt-1">{feature.name}</h2>
+          <h2 className="text-2xl font-serif text-vermilion-300 mt-1">{feature.name}</h2>
           <code className="text-xs text-ink-500">id: {feature.id}</code>
         </div>
         <div className="flex gap-2">
@@ -380,7 +380,7 @@ function GeoEditForm({ feature }: { feature: GeoFeature }) {
   )
 }
 
-const inputCls = 'w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500'
+const inputCls = 'w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-vermilion-500/40'
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (

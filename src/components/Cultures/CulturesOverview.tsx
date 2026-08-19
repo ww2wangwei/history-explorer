@@ -218,13 +218,13 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
           <div className="flex rounded-lg bg-ink-700/60 border border-ink-600 overflow-hidden text-xs mb-3 w-fit">
             <button
               onClick={() => { setTab('events'); setCategory('all') }}
-              className={`px-4 py-1.5 transition-colors ${tab === 'events' ? 'bg-bronze-600/40 text-bronze-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'}`}
+              className={`px-4 py-1.5 transition-colors ${tab === 'events' ? 'bg-vermilion-500/40 text-vermilion-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'}`}
             >
               🏛️ 文化内容 ({cultureEvents.length})
             </button>
             <button
               onClick={() => { setTab('people'); setCategory('all') }}
-              className={`px-4 py-1.5 transition-colors ${tab === 'people' ? 'bg-bronze-600/40 text-bronze-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'}`}
+              className={`px-4 py-1.5 transition-colors ${tab === 'people' ? 'bg-vermilion-500/40 text-vermilion-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'}`}
             >
               👤 人物 ({culturePeople.length})
             </button>
@@ -236,7 +236,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                 <button
                   key={r}
                   onClick={() => setRegion(r)}
-                  className={`px-3 py-1.5 transition-colors ${region === r ? 'bg-bronze-600/40 text-bronze-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'}`}
+                  className={`px-3 py-1.5 transition-colors ${region === r ? 'bg-vermilion-500/40 text-vermilion-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'}`}
                 >
                   {r === 'all' ? '全部' : r === 'china' ? '🇨🇳 中国' : '🌍 世界'}
                 </button>
@@ -247,7 +247,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                 <button
                   key={k}
                   onClick={() => setCategory(k as string)}
-                  className={`px-3 py-1.5 transition-colors ${category === k ? 'bg-bronze-600/40 text-bronze-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'}`}
+                  className={`px-3 py-1.5 transition-colors ${category === k ? 'bg-vermilion-500/40 text-vermilion-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'}`}
                 >
                   {label}
                 </button>
@@ -276,7 +276,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                   <button
                     key={p.id}
                     onClick={() => handlePersonClick(p)}
-                    className="text-left p-4 rounded-lg bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-700/60 transition-all relative group"
+                    className="text-left p-4 rounded-lg bg-ink-800/60 border border-ink-700 hover:border-vermilion-500/60 hover:bg-ink-700/60 transition-all relative group"
                   >
                     {visited && (
                       <span className="absolute top-2 right-2 text-green-400 text-sm" title="已了解">✓</span>
@@ -285,7 +285,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                     <div className="text-sm font-serif text-parchment-50 truncate">{p.name}</div>
                     <div className="text-xs text-ink-400 mt-1 line-clamp-2 min-h-[2.5em]">{p.role}</div>
                     {p.culturalWorks && p.culturalWorks.length > 0 && (
-                      <div className="text-xs text-bronze-400/80 mt-1 line-clamp-1 italic">
+                      <div className="text-xs text-vermilion-300/80 mt-1 line-clamp-1 italic">
                         {p.culturalWorks[0]}{p.culturalWorks.length > 1 ? ` 等 ${p.culturalWorks.length} 部` : ''}
                       </div>
                     )}
@@ -309,7 +309,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                   <button
                     key={ev.id}
                     onClick={() => setSelectedEvent(ev)}
-                    className="text-left rounded-lg bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-700/60 transition-all relative overflow-hidden flex"
+                    className="text-left rounded-lg bg-ink-800/60 border border-ink-700 hover:border-vermilion-500/60 hover:bg-ink-700/60 transition-all relative overflow-hidden flex"
                   >
                     {/* 缩略图 */}
                     <div className="relative w-32 flex-shrink-0 bg-ink-900">
@@ -370,7 +370,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
           onClick={() => setSelectedEvent(null)}
         >
           <div
-            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl"
+            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-vermilion-500/40 shadow-2xl"
             role="dialog"
             aria-modal="true"
             aria-label="文化内容详情"
@@ -394,7 +394,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                   </span>
                   <span>📍 {selectedEvent.region}</span>
                 </div>
-                <h3 className="text-2xl font-serif text-bronze-200">{selectedEvent.title}</h3>
+                <h3 className="text-2xl font-serif text-vermilion-200">{selectedEvent.title}</h3>
               </div>
               <button
                 onClick={() => setSelectedEvent(null)}

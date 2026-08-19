@@ -23,7 +23,7 @@ export default function NoteCard({ note, onEdit, onDelete }: Props) {
 
   return (
     <div
-      className="group rounded-lg border border-ink-600 bg-ink-700/40 hover:bg-ink-700/70 hover:border-bronze-500/50 transition-colors cursor-pointer"
+      className="group rounded-lg border border-ink-600 bg-ink-700/40 hover:bg-ink-700/70 hover:border-vermilion-500/40 transition-colors cursor-pointer"
       onClick={() => onEdit(note.id)}
     >
       <div className="flex items-start justify-between gap-2 px-3 py-2.5">

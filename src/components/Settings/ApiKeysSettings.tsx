@@ -72,7 +72,7 @@ export default function ApiKeysSettings({ isOpen, onClose }: Props) {
       >
         {/* header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-ink-600 bg-ink-900/40">
-          <h2 className="text-sm font-serif text-bronze-300">🔑 第三方 API Key 设置</h2>
+          <h2 className="text-sm font-serif text-vermilion-300">🔑 第三方 API Key 设置</h2>
           <button
             onClick={onClose}
             className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-7 h-7 flex items-center justify-center rounded-lg hover:bg-ink-700"
@@ -104,7 +104,7 @@ export default function ApiKeysSettings({ isOpen, onClose }: Props) {
             </div>
 
             <div className="text-ink-400 leading-relaxed">
-              在高德开放平台 (<a href="https://lbs.amap.com/" target="_blank" rel="noreferrer" className="text-bronze-400 hover:underline">lbs.amap.com</a>)
+              在高德开放平台 (<a href="https://lbs.amap.com/" target="_blank" rel="noreferrer" className="text-vermilion-300 hover:underline">lbs.amap.com</a>)
               申请「Web 端 (JS API)」key，绑定域名 <code className="px-1 bg-ink-900 rounded">localhost</code>。
             </div>
 
@@ -145,7 +145,7 @@ export default function ApiKeysSettings({ isOpen, onClose }: Props) {
             </div>
 
             <div className="text-ink-400 leading-relaxed">
-              在 OpenWeatherMap (<a href="https://openweathermap.org/api" target="_blank" rel="noreferrer" className="text-bronze-400 hover:underline">openweathermap.org/api</a>)
+              在 OpenWeatherMap (<a href="https://openweathermap.org/api" target="_blank" rel="noreferrer" className="text-vermilion-300 hover:underline">openweathermap.org/api</a>)
               申请免费 key（&quot;Current Weather Data&quot+或&quot;3 hour forecast&quot+均可）。
               免费层 60 次/分钟、100 万次/月。
             </div>
@@ -187,7 +187,7 @@ export default function ApiKeysSettings({ isOpen, onClose }: Props) {
             <button
               onClick={save}
               disabled={!amapKeyInput.trim() && !amapCodeInput.trim()}
-              className="px-3 py-1.5 text-xs bg-bronze-600 hover:bg-bronze-500 disabled:bg-ink-700 disabled:text-ink-500 text-parchment-50 rounded-lg font-serif"
+              className="px-3 py-1.5 text-xs bg-vermilion-500 hover:bg-vermilion-600 disabled:bg-ink-700 disabled:text-ink-500 text-parchment-50 rounded-lg font-serif"
             >
               {saved ? '✓ 已保存，刷新中…' : '保存并刷新'}
             </button>

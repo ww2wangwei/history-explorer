@@ -36,10 +36,10 @@ export default function FlashcardsTrigger({
     <button
       className={`px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 relative transition-colors ${
         active
-          ? 'bg-bronze-600/40 text-bronze-400 border border-bronze-500/60'
+          ? 'bg-vermilion-500/40 text-vermilion-300 border border-vermilion-500/60'
           : goalReached
           ? 'bg-emerald-900/40 text-emerald-300 border border-emerald-700/50'
-          : 'bg-ink-700/80 hover:bg-ink-600 border border-ink-600 text-bronze-400'
+          : 'bg-ink-700/80 hover:bg-ink-600 border border-ink-600 text-vermilion-300'
       }`}
       onClick={() => { audioEngine.playClick(); onClick() }}
       title={

@@ -27,7 +27,7 @@ export default function OverviewSearch({
       placeholder={placeholder}
       aria-label={placeholder}
       style={{ minWidth: `${minWidth}px` }}
-      className={`flex-1 text-xs px-3 py-1.5 bg-ink-700/60 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500 ${className}`}
+      className={`flex-1 text-xs px-3 py-1.5 bg-ink-700/60 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-vermilion-500/40 ${className}`}
     />
   )
 }

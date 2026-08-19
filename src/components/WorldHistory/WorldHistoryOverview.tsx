@@ -132,8 +132,8 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
       title={title}
       subtitle={
         <>
-          {subtitle} · <span className="text-bronze-400">{source}</span> · 已读{' '}
-          <span className="text-bronze-400">{visitedCount}</span> / {totalCount} ({pPct}%)
+          {subtitle} · <span className="text-vermilion-300">{source}</span> · 已读{' '}
+          <span className="text-vermilion-300">{visitedCount}</span> / {totalCount} ({pPct}%)
         </>
       }
       onClose={onClose}

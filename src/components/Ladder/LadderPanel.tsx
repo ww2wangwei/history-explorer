@@ -177,15 +177,15 @@ export default function LadderPanel({ onClose }: Props) {
         <div>
           <button
             onClick={() => { audioEngine.playClick(); onClose() }}
-            className="text-xs text-ink-400 hover:text-bronze-300 mb-1"
+            className="text-xs text-ink-400 hover:text-vermilion-300 mb-1"
           >← 返回 Dashboard</button>
-          <h1 className="font-serif text-2xl text-bronze-300">🪜 文史天梯</h1>
+          <h1 className="font-serif text-2xl text-vermilion-300">🪜 文史天梯</h1>
           <p className="text-xs text-ink-500 mt-0.5">史 · 诗 · 人 三条天梯 · 学 / 测 / 记 / 问 四步闭环</p>
         </div>
         <div className="flex gap-2">
           <button
             onClick={() => { audioEngine.playClick(); setShowAchievement(true) }}
-            className="px-3 py-1.5 rounded-lg bg-bronze-700/40 hover:bg-bronze-700 text-bronze-300 text-sm border border-bronze-600/40"
+            className="px-3 py-1.5 rounded-lg bg-vermilion-700/40 hover:bg-bronze-700 text-vermilion-300 text-sm border border-bronze-600/40"
             title="全景画卷：你走过的所有关卡"
           >🏆 全景画卷</button>
           <button
@@ -217,11 +217,11 @@ export default function LadderPanel({ onClose }: Props) {
               />
             </div>
             <div className="mt-1 text-xs text-ink-400 flex justify-between">
-              <span>累计 XP <span className="text-bronze-300">{totalXp}</span></span>
+              <span>累计 XP <span className="text-vermilion-300">{totalXp}</span></span>
               {prog.next ? (
-                <span>距 <span style={{ color: prog.next.color }}>{prog.next.name}</span> 还差 <span className="text-bronze-300">{prog.xpToNext}</span> XP</span>
+                <span>距 <span style={{ color: prog.next.color }}>{prog.next.name}</span> 还差 <span className="text-vermilion-300">{prog.xpToNext}</span> XP</span>
               ) : (
-                <span className="text-bronze-300">已至最高境界 ✦</span>
+                <span className="text-vermilion-300">已至最高境界 ✦</span>
               )}
             </div>
           </div>
@@ -233,8 +233,8 @@ export default function LadderPanel({ onClose }: Props) {
           <div className="grid sm:grid-cols-4 gap-3 text-sm">
             {['学', '测', '记', '问'].map((s, i) => (
               <div key={s} className="rounded-xl border border-ink-700 bg-ink-900/60 p-3">
-                <div className="flex items-center gap-2 text-bronze-300">
-                  <span className="w-6 h-6 rounded-full bg-bronze-700/40 flex items-center justify-center text-xs">{i + 1}</span>
+                <div className="flex items-center gap-2 text-vermilion-300">
+                  <span className="w-6 h-6 rounded-full bg-vermilion-700/40 flex items-center justify-center text-xs">{i + 1}</span>
                   <span className="font-medium">{s}</span>
                 </div>
                 <p className="text-xs text-ink-400 mt-1.5">
@@ -247,7 +247,7 @@ export default function LadderPanel({ onClose }: Props) {
             ))}
           </div>
           <div className="mt-3 text-xs text-ink-400 leading-relaxed">
-            每关通过获得 <span className="text-bronze-300">+20 XP</span>。三关通完可解锁该天梯难度轮回（重开同一内容出更难题）。
+            每关通过获得 <span className="text-vermilion-300">+20 XP</span>。三关通完可解锁该天梯难度轮回（重开同一内容出更难题）。
           </div>
         </section>
 
@@ -263,10 +263,10 @@ export default function LadderPanel({ onClose }: Props) {
                 <button
                   key={lid}
                   onClick={() => { audioEngine.playClick(); setActiveLadder(lid) }}
-                  className="rounded-2xl border-2 border-ink-700 hover:border-bronze-500 bg-ink-800/80 p-5 text-left transition-all"
+                  className="rounded-2xl border-2 border-ink-700 hover:border-vermilion-500/40 bg-ink-800/80 p-5 text-left transition-all"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-4xl font-serif text-bronze-300 w-12 h-12 rounded-full bg-bronze-700/20 flex items-center justify-center">
+                    <span className="text-4xl font-serif text-vermilion-300 w-12 h-12 rounded-full bg-bronze-700/20 flex items-center justify-center">
                       {LADDER_LABEL[lid]}
                     </span>
                     <div>
@@ -278,7 +278,7 @@ export default function LadderPanel({ onClose }: Props) {
                   </div>
                   <div className="mt-4 flex items-center justify-between text-xs">
                     <span className="text-ink-400">关卡进度</span>
-                    <span className="text-bronze-300 font-medium">{done} / {total || '—'}</span>
+                    <span className="text-vermilion-300 font-medium">{done} / {total || '—'}</span>
                   </div>
                   <div className="mt-1 h-1.5 rounded-full bg-ink-700 overflow-hidden">
                     <div className="h-full bg-bronze-500" style={{ width: total ? `${(done / total) * 100}%` : '0%' }} />
@@ -348,8 +348,8 @@ function LadderMapView({
     <div className="w-full h-full bg-ink-900 overflow-y-auto">
       <header className="sticky top-0 z-10 bg-ink-900/95 backdrop-blur border-b border-ink-700 px-6 py-4 flex items-center justify-between">
         <div>
-          <button onClick={onBack} className="text-xs text-ink-400 hover:text-bronze-300 mb-1">← 返回天梯</button>
-          <h1 className="font-serif text-2xl text-bronze-300">
+          <button onClick={onBack} className="text-xs text-ink-400 hover:text-vermilion-300 mb-1">← 返回天梯</button>
+          <h1 className="font-serif text-2xl text-vermilion-300">
             {ladder === 'history' ? '史天梯' : ladder === 'poem' ? '诗天梯' : '人天梯'}
           </h1>
           <p className="text-xs text-ink-500 mt-0.5">本难度进度：{completedIds.length} / {sorted.length} · XP {xp}</p>
@@ -368,7 +368,7 @@ function LadderMapView({
                 title={unlocked ? `切换到难度 ${cyc}` : '未解锁'}
                 className={`px-3 py-1.5 rounded-lg text-xs transition-colors ${
                   isActive
-                    ? 'bg-bronze-600 text-parchment-50'
+                    ? 'bg-vermilion-500 text-parchment-50'
                     : unlocked
                     ? 'bg-ink-700 text-parchment-100 hover:bg-ink-600'
                     : 'bg-ink-800/40 text-ink-600 cursor-not-allowed'
@@ -436,9 +436,9 @@ function LadderMapView({
                   locked
                     ? 'border-ink-700 bg-ink-900/40 opacity-40 cursor-not-allowed'
                     : done
-                    ? 'border-bronze-500/50 bg-bronze-700/10 hover:bg-bronze-700/20'
+                    ? 'border-vermilion-500/40 bg-bronze-700/10 hover:bg-bronze-700/20'
                     : isCurrent
-                    ? 'border-bronze-400 bg-ink-800 ring-2 ring-bronze-500/40 animate-pulse-slow'
+                    ? 'border-vermilion-400 bg-ink-800 ring-2 ring-vermilion-500/40 animate-pulse-slow'
                     : 'border-ink-700 bg-ink-800/60'
                 }`}
               >
@@ -448,7 +448,7 @@ function LadderMapView({
                     : done
                     ? 'bg-bronze-500 text-ink-900'
                     : isCurrent
-                    ? 'bg-bronze-700 text-bronze-300'
+                    ? 'bg-bronze-700 text-vermilion-300'
                     : 'bg-ink-700 text-ink-500'
                 }`}>
                   {locked ? '🔒' : done ? '✓' : i + 1}
@@ -459,7 +459,7 @@ function LadderMapView({
                     {locked ? '需先通关上一关' : `${t.entityId} · ${t.quiz.length} 道题`}
                   </p>
                 </div>
-                {done && <span className="text-xs text-bronze-400">+{t.reward.xp} XP</span>}
+                {done && <span className="text-xs text-vermilion-300">+{t.reward.xp} XP</span>}
               </button>
             )
           })}
@@ -496,9 +496,9 @@ function LevelView({
   return (
     <div className="w-full h-full bg-ink-900 overflow-y-auto">
       <header className="sticky top-0 z-10 bg-ink-900/95 backdrop-blur border-b border-ink-700 px-6 py-4 flex items-center justify-between">
-        <button onClick={onBack} className="text-xs text-ink-400 hover:text-bronze-300">← 关卡地图</button>
+        <button onClick={onBack} className="text-xs text-ink-400 hover:text-vermilion-300">← 关卡地图</button>
         <h1 className="font-serif text-xl text-parchment-50 truncate px-2">{level.study.title}</h1>
-        <span className="text-xs text-bronze-300">+{level.reward.xp} XP</span>
+        <span className="text-xs text-vermilion-300">+{level.reward.xp} XP</span>
       </header>
       <main className="max-w-3xl mx-auto px-6 py-8">
         {/* Stepper */}
@@ -509,7 +509,7 @@ function LevelView({
                 onClick={() => setStep(s)}
                 className={`px-3 py-1.5 rounded-full border ${
                   step === s
-                    ? 'border-bronze-500 bg-bronze-700/30 text-bronze-300'
+                    ? 'border-vermilion-500/40 bg-bronze-700/30 text-vermilion-300'
                     : 'border-ink-700 text-ink-500'
                 }`}
               >
@@ -522,11 +522,11 @@ function LevelView({
 
         {step === 'study' && (
           <section className="rounded-2xl border border-ink-700 bg-ink-800/80 p-6 space-y-4">
-            <h2 className="font-serif text-2xl text-bronze-300">{level.study.title}</h2>
+            <h2 className="font-serif text-2xl text-vermilion-300">{level.study.title}</h2>
             <p className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
               {level.study.summary}
             </p>
-            <button onClick={onAdvance} className="w-full py-3 rounded-xl bg-bronze-600 hover:bg-bronze-500 text-parchment-50 font-medium">
+            <button onClick={onAdvance} className="w-full py-3 rounded-xl bg-vermilion-500 hover:bg-vermilion-600 text-parchment-50 font-medium">
               {level.study.cta}
             </button>
           </section>
@@ -542,7 +542,7 @@ function LevelView({
 
         {step === 'notes' && (
           <section className="rounded-2xl border border-ink-700 bg-ink-800/80 p-6 space-y-4">
-            <h2 className="font-serif text-lg text-bronze-300">{level.notes.templateTitle}</h2>
+            <h2 className="font-serif text-lg text-vermilion-300">{level.notes.templateTitle}</h2>
             <p className="text-xs text-ink-400">自动生成的笔记骨架 · 你可改写补充，然后保存</p>
             <textarea
               value={noteDraft || level.notes.templateBody}
@@ -550,7 +550,7 @@ function LevelView({
               rows={14}
               className="w-full rounded-xl bg-ink-900 border border-ink-700 px-4 py-3 text-sm text-parchment-100 leading-relaxed font-mono"
             />
-            <button onClick={onAdvance} className="w-full py-3 rounded-xl bg-bronze-600 hover:bg-bronze-500 text-parchment-50 font-medium">
+            <button onClick={onAdvance} className="w-full py-3 rounded-xl bg-vermilion-500 hover:bg-vermilion-600 text-parchment-50 font-medium">
               记完 → 去提问
             </button>
           </section>
@@ -607,7 +607,7 @@ function QuizStep({
   return (
     <section className="rounded-2xl border border-ink-700 bg-ink-800/80 p-6 space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="font-serif text-lg text-bronze-300">测一测 · {questions.length} 道题</h2>
+        <h2 className="font-serif text-lg text-vermilion-300">测一测 · {questions.length} 道题</h2>
         {submitted && (
           <span className="text-xs text-ink-400">
             已对 {correctCount} / {questions.length}
@@ -633,7 +633,7 @@ function QuizStep({
                       className={`text-left rounded-lg border px-3 py-2 text-sm transition-all ${
                         isRight ? 'border-green-500 bg-green-900/30 text-green-200'
                         : isWrong ? 'border-red-500 bg-red-900/30 text-red-200'
-                        : chosen ? 'border-bronze-500 bg-bronze-700/20 text-parchment-100'
+                        : chosen ? 'border-vermilion-500/40 bg-bronze-700/20 text-parchment-100'
                         : 'border-ink-600 text-ink-300 hover:border-ink-500'
                       }`}
                     >
@@ -662,7 +662,7 @@ function QuizStep({
                         <option key={j} value={rp.left}>{rp.left}</option>
                       ))}
                     </select>
-                    <span className="text-bronze-300">↔</span>
+                    <span className="text-vermilion-300">↔</span>
                     <span className="text-parchment-100">{p.right}</span>
                   </div>
                 ))}
@@ -676,7 +676,7 @@ function QuizStep({
                     const it = q.items!.find(x => x.id === id)!
                     return (
                       <li key={`${id}-${i}`} className="flex items-center gap-2 rounded-lg bg-ink-800 px-3 py-1.5 text-sm text-parchment-100">
-                        <span className="w-5 h-5 rounded-full bg-bronze-700 text-bronze-300 flex items-center justify-center text-xs">{i + 1}</span>
+                        <span className="w-5 h-5 rounded-full bg-bronze-700 text-vermilion-300 flex items-center justify-center text-xs">{i + 1}</span>
                         <span>{it.label}</span>
                       </li>
                     )
@@ -713,7 +713,7 @@ function QuizStep({
 
       <div className="flex gap-3">
         {!submitted ? (
-          <button onClick={() => setSubmitted(true)} className="flex-1 py-3 rounded-xl bg-bronze-600 hover:bg-bronze-500 text-parchment-50 font-medium">
+          <button onClick={() => setSubmitted(true)} className="flex-1 py-3 rounded-xl bg-vermilion-500 hover:bg-vermilion-600 text-parchment-50 font-medium">
             提交答案
           </button>
         ) : allDone ? (
@@ -769,7 +769,7 @@ function AskStep({
 
   return (
     <section className="rounded-2xl border border-ink-700 bg-ink-800/80 p-6 space-y-5">
-      <h2 className="font-serif text-lg text-bronze-300">问 AI · 你可以向一位历史人物提问</h2>
+      <h2 className="font-serif text-lg text-vermilion-300">问 AI · 你可以向一位历史人物提问</h2>
       <p className="text-xs text-ink-400">点击角色 → AIChatPanel 打开已配置该角色人设 + 本关上下文；对话完毕回来点「我已问完」</p>
 
       <div className="space-y-2 max-h-[420px] overflow-y-auto pr-1">
@@ -780,14 +780,14 @@ function AskStep({
               key={npc.id}
               onClick={() => startAi(npc)}
               className={`w-full text-left rounded-xl border p-4 transition-all ${
-                chosen === npc.id ? 'border-bronze-500 bg-bronze-700/20' : 'border-ink-700 hover:border-ink-500'
+                chosen === npc.id ? 'border-vermilion-500/40 bg-bronze-700/20' : 'border-ink-700 hover:border-ink-500'
               }`}
             >
               <div className="flex items-baseline gap-2">
                 <span className="font-serif text-lg text-parchment-50">{npc.name}</span>
                 <span className="text-xs text-ink-500">{npc.era}</span>
-                <span className="text-xs text-bronze-400">[{npc.tag}]</span>
-                {isGuide && <span className="text-[10px] uppercase tracking-wider text-bronze-400 ml-1">通识向导</span>}
+                <span className="text-xs text-vermilion-300">[{npc.tag}]</span>
+                {isGuide && <span className="text-[10px] uppercase tracking-wider text-vermilion-300 ml-1">通识向导</span>}
               </div>
               <p className="text-xs text-ink-400 mt-1 leading-relaxed line-clamp-3">{npc.persona}</p>
             </button>
@@ -809,7 +809,7 @@ function AskStep({
 
       <div className="flex gap-3 pt-2">
         {!done ? (
-          <button onClick={onDone} className="flex-1 py-3 rounded-xl bg-bronze-600 hover:bg-bronze-500 text-parchment-50 font-medium">
+          <button onClick={onDone} className="flex-1 py-3 rounded-xl bg-vermilion-500 hover:bg-vermilion-600 text-parchment-50 font-medium">
             我已问完 ✓
           </button>
         ) : (
@@ -868,8 +868,8 @@ function AchievementView({ ladders, prog, totalXp, onBack }: {
     <div className="w-full h-full bg-ink-900 overflow-y-auto">
       <header className="sticky top-0 z-10 bg-ink-900/95 backdrop-blur border-b border-ink-700 px-6 py-4 flex items-center justify-between">
         <div>
-          <button onClick={onBack} className="text-xs text-ink-400 hover:text-bronze-300 mb-1">← 返回天梯</button>
-          <h1 className="font-serif text-2xl text-bronze-300">🏆 全景画卷</h1>
+          <button onClick={onBack} className="text-xs text-ink-400 hover:text-vermilion-300 mb-1">← 返回天梯</button>
+          <h1 className="font-serif text-2xl text-vermilion-300">🏆 全景画卷</h1>
           <p className="text-xs text-ink-500 mt-0.5">关卡 {totalCompleted} / {totalLevels} · 总 XP {totalXp}</p>
         </div>
       </header>
@@ -887,11 +887,11 @@ function AchievementView({ ladders, prog, totalXp, onBack }: {
               <span className="font-serif text-xl text-parchment-50">{prog.cur.name}</span>
             </div>
             <div className="mt-1 text-sm text-parchment-200">
-              已通 <span className="text-bronze-400">{totalCompleted}</span> 关（/ {totalLevels}）
+              已通 <span className="text-vermilion-300">{totalCompleted}</span> 关（/ {totalLevels}）
             </div>
           </div>
           <div className="text-right">
-            <div className="font-serif text-3xl text-bronze-300 tabular-nums">{totalXp}</div>
+            <div className="font-serif text-3xl text-vermilion-300 tabular-nums">{totalXp}</div>
             <div className="text-xs text-ink-500">总 XP</div>
           </div>
         </section>
@@ -915,7 +915,7 @@ function AchievementView({ ladders, prog, totalXp, onBack }: {
                   <span className="text-xs text-ink-400 tabular-nums w-32 text-right">
                     {r.done} / {r.total} · {r.xp} XP
                   </span>
-                  {isDone && <span className="text-bronze-300 text-sm">★</span>}
+                  {isDone && <span className="text-vermilion-300 text-sm">★</span>}
                 </div>
               )
             })}

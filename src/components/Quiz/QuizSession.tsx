@@ -131,17 +131,17 @@ export default function QuizSession({ open, onClose, onManage }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink-900/85 backdrop-blur p-4">
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl">
+      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-vermilion-500/40 shadow-2xl">
         <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-ink-600 px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-xl">📝</span>
-            <span className="font-serif text-bronze-300">历史测试</span>
+            <span className="font-serif text-vermilion-300">历史测试</span>
             {phase === 'playing' && queue.length > 0 && (
               <span className="text-xs text-ink-400">· {idx + 1} / {queue.length}</span>
             )}
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={onManage} className="text-xs text-ink-400 hover:text-bronze-300 px-2 py-1 rounded-lg hover:bg-ink-700">
+            <button onClick={onManage} className="text-xs text-ink-400 hover:text-vermilion-300 px-2 py-1 rounded-lg hover:bg-ink-700">
               管理
             </button>
             <button onClick={onClose} className="text-ink-500 hover:text-parchment-50 text-xl leading-none">×</button>
@@ -225,7 +225,7 @@ function ConfigPanel({ onStart, questionCount, difficulty, setDifficulty, count,
                   onClick={() => setDifficulty(d as any)}
                   className={`px-3 py-2 rounded-lg text-xs ${
                     difficulty === d
-                      ? 'bg-bronze-600/40 text-bronze-300 border border-bronze-500/60'
+                      ? 'bg-vermilion-500/40 text-vermilion-300 border border-vermilion-500/60'
                       : 'bg-ink-700/40 text-ink-300 hover:bg-ink-700/60 border border-ink-600/40'
                   }`}
                 >
@@ -243,7 +243,7 @@ function ConfigPanel({ onStart, questionCount, difficulty, setDifficulty, count,
                   onClick={() => setCount(n)}
                   className={`flex-1 px-3 py-2 rounded-lg text-sm ${
                     count === n
-                      ? 'bg-bronze-600/40 text-bronze-300 border border-bronze-500/60'
+                      ? 'bg-vermilion-500/40 text-vermilion-300 border border-vermilion-500/60'
                       : 'bg-ink-700/40 text-ink-300 hover:bg-ink-700/60 border border-ink-600/40'
                   }`}
                 >
@@ -253,12 +253,12 @@ function ConfigPanel({ onStart, questionCount, difficulty, setDifficulty, count,
             </div>
           </div>
           <div className="text-xs text-ink-400 text-center">
-            题库中现有 <span className="text-bronze-400">{questionCount}</span> 道题
+            题库中现有 <span className="text-vermilion-300">{questionCount}</span> 道题
           </div>
           <button
             onClick={onStart}
             disabled={questionCount === 0}
-            className="w-full px-4 py-3 rounded-lg bg-bronze-600 hover:bg-bronze-500 disabled:opacity-50 disabled:cursor-not-allowed text-parchment-50 font-medium"
+            className="w-full px-4 py-3 rounded-lg bg-vermilion-500 hover:bg-vermilion-600 disabled:opacity-50 disabled:cursor-not-allowed text-parchment-50 font-medium"
           >
             🚀 开始测试
           </button>
@@ -327,7 +327,7 @@ function PlayingPanel({ q, selected, showExplain, handleSelect, handleNext, isLa
       {selected !== null && (
         <button
           onClick={handleNext}
-          className="w-full px-4 py-3 rounded-lg bg-bronze-600 hover:bg-bronze-500 text-parchment-50 font-medium"
+          className="w-full px-4 py-3 rounded-lg bg-vermilion-500 hover:bg-vermilion-600 text-parchment-50 font-medium"
         >
           {isLast ? '查看结果' : '下一题 →'}
         </button>
@@ -350,7 +350,7 @@ function ResultPanel({ total, correct, byDiff, wrongIds, questions, onClose, onR
     <div className="space-y-4">
       <div className="text-center">
         <div className="text-5xl mb-2">{accuracy >= 80 ? '🎉' : accuracy >= 60 ? '👍' : '💪'}</div>
-        <div className="text-3xl font-serif text-bronze-300">{correct} / {total}</div>
+        <div className="text-3xl font-serif text-vermilion-300">{correct} / {total}</div>
         <div className="text-sm text-ink-400">正确率 {accuracy}%</div>
       </div>
 
@@ -394,7 +394,7 @@ function ResultPanel({ total, correct, byDiff, wrongIds, questions, onClose, onR
         <button onClick={onRestart} className="flex-1 px-4 py-3 rounded-lg bg-ink-700 hover:bg-ink-600 text-parchment-50">
           再来一次
         </button>
-        <button onClick={onClose} className="flex-1 px-4 py-3 rounded-lg bg-bronze-600 hover:bg-bronze-500 text-parchment-50">
+        <button onClick={onClose} className="flex-1 px-4 py-3 rounded-lg bg-vermilion-500 hover:bg-vermilion-600 text-parchment-50">
           完成
         </button>
       </div>

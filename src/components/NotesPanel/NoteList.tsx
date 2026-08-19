@@ -19,11 +19,11 @@ export default function NoteList({ notes, onCreate, onEdit, onDelete }: Props) {
       {/* 顶部：新建按钮 + 计数 */}
       <div className="flex items-center justify-between px-3 py-2 border-b border-ink-600 text-xs">
         <span className="text-ink-500">
-          共 <span className="text-bronze-400">{notes.length}</span> 条笔记
+          共 <span className="text-vermilion-300">{notes.length}</span> 条笔记
         </span>
         <button
           onClick={onCreate}
-          className="px-3 py-1 rounded-lg bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/50 text-bronze-400 transition-colors"
+          className="px-3 py-1 rounded-lg bg-vermilion-500/30 hover:bg-vermilion-500/50 border border-vermilion-500/40 text-vermilion-300 transition-colors"
         >
           ＋ 新建笔记
         </button>

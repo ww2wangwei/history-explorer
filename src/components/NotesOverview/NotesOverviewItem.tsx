@@ -66,10 +66,10 @@ export default function NotesOverviewItem({
         compact ? 'py-2' : 'py-3'
       } ${
         active
-          ? 'bg-bronze-600/20 border-bronze-500/60 ring-1 ring-bronze-500/40'
+          ? 'bg-vermilion-500/20 border-vermilion-500/60 ring-1 ring-vermilion-500/40'
           : missing
           ? 'bg-ink-700/20 border-ink-600 opacity-60'
-          : 'bg-ink-700/40 border-ink-600 hover:bg-ink-700/70 hover:border-bronze-500/50'
+          : 'bg-ink-700/40 border-ink-600 hover:bg-ink-700/70 hover:border-vermilion-500/40'
       }`}
       title={active ? '当前编辑中' : '点击编辑'}
     >
@@ -107,7 +107,7 @@ export default function NotesOverviewItem({
             🗑
           </button>
           <span
-            className="opacity-0 group-hover:opacity-100 text-bronze-400 text-sm transition-all"
+            className="opacity-0 group-hover:opacity-100 text-vermilion-300 text-sm transition-all"
             title="点击编辑"
           >
             ✏️

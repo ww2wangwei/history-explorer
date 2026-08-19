@@ -14,7 +14,7 @@ export default function FlashcardsHeader({ total, current, onClose }: Props) {
   return (
     <div className="flex items-center justify-between px-6 py-3 border-b border-ink-600 bg-ink-800/80">
       <div className="flex items-center gap-3 flex-1">
-        <span className="font-serif text-base text-bronze-400">🎴 复习模式</span>
+        <span className="font-serif text-base text-vermilion-300">🎴 复习模式</span>
         <span className="text-sm text-ink-500">
           第 <span className="text-parchment-50">{current + 1}</span> / {total} 张
         </span>

@@ -111,7 +111,7 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
                             <button
                               type="button"
                               onClick={(e) => { e.stopPropagation(); handleNodeJump(node, i) }}
-                              className="ml-auto text-xs px-2 py-0.5 rounded-lg bg-bronze-900/40 hover:bg-bronze-700/60 border border-bronze-700/50 hover:border-bronze-500/70 text-bronze-200 transition-colors inline-flex items-center gap-1"
+                              className="ml-auto text-xs px-2 py-0.5 rounded-lg bg-vermilion-900/30 hover:bg-bronze-700/60 border border-bronze-700/50 hover:border-vermilion-500/40/70 text-vermilion-200 transition-colors inline-flex items-center gap-1"
                               title="在地图上定位"
                             >
                               📍 在地图上定位 <span aria-hidden>↗</span>

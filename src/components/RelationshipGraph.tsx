@@ -691,7 +691,7 @@ const { currentYear, setYear, selectEra } = useHistoryStore()
         <div className="bg-ink-800/95 backdrop-blur border border-ink-600 rounded-lg shadow-lg overflow-hidden flex flex-col">
           <button
             onClick={() => setZoom(z => Math.min(3, z * 1.25))}
-            className="w-8 h-8 flex items-center justify-center text-ink-300 hover:text-bronze-300 hover:bg-ink-700/60 transition-colors"
+            className="w-8 h-8 flex items-center justify-center text-ink-300 hover:text-vermilion-300 hover:bg-ink-700/60 transition-colors"
             title="放大"
             aria-label="图谱放大"
           >＋</button>
@@ -700,13 +700,13 @@ const { currentYear, setYear, selectEra } = useHistoryStore()
           </div>
           <button
             onClick={() => setZoom(z => Math.max(0.15, z / 1.25))}
-            className="w-8 h-8 flex items-center justify-center text-ink-300 hover:text-bronze-300 hover:bg-ink-700/60 transition-colors"
+            className="w-8 h-8 flex items-center justify-center text-ink-300 hover:text-vermilion-300 hover:bg-ink-700/60 transition-colors"
             title="缩小"
             aria-label="图谱缩小"
           >−</button>
           <button
             onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }) }}
-            className="w-8 h-8 flex items-center justify-center text-xs text-ink-400 hover:text-bronze-300 hover:bg-ink-700/60 border-t border-ink-700 transition-colors"
+            className="w-8 h-8 flex items-center justify-center text-xs text-ink-400 hover:text-vermilion-300 hover:bg-ink-700/60 border-t border-ink-700 transition-colors"
             title="重置"
             aria-label="重置图谱视图"
           >⟲</button>
@@ -765,10 +765,10 @@ const { currentYear, setYear, selectEra } = useHistoryStore()
       <div className="absolute top-4 right-4 px-3 py-2 rounded-lg bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
         <div className="text-ink-500 mb-1">图谱统计</div>
         <div className="grid grid-cols-2 gap-x-3 gap-y-0.5">
-          <span>节点：</span><span className="text-bronze-400 tabular-nums">{nodes.length}</span>
-          <span>关系：</span><span className="text-bronze-400 tabular-nums">{links.length}</span>
+          <span>节点：</span><span className="text-vermilion-300 tabular-nums">{nodes.length}</span>
+          <span>关系：</span><span className="text-vermilion-300 tabular-nums">{links.length}</span>
           <span>活跃：</span>
-          <span className="text-bronze-400 tabular-nums">
+          <span className="text-vermilion-300 tabular-nums">
             {nodes.filter(n => n.era && isActive(n.era)).length}
           </span>
         </div>

@@ -84,7 +84,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
 
   return (
     <>
-    <ModalShell isOpen onClose={onClose} innerClassName="border-bronze-500/40">
+    <ModalShell isOpen onClose={onClose} innerClassName="border-vermilion-500/40">
       {/* 人物肖像图 */}
         <div className="relative w-full bg-ink-900" style={{ aspectRatio: '3/2' }}>
           <img
@@ -101,7 +101,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
           />
           {/* 名字+角色覆盖在图片底部 */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-ink-900/95 to-transparent px-6 pt-8 pb-3">
-            <div className="text-xs text-bronze-300 mb-0.5">{person.role}</div>
+            <div className="text-xs text-vermilion-300 mb-0.5">{person.role}</div>
             <h3 className="text-2xl font-serif text-parchment-50">{person.name}</h3>
           </div>
           {/* 关闭按钮 */}
@@ -116,7 +116,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
         </div>
 
         {/* 头部 sticky 标题区 */}
-        <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-bronze-500/30 px-6 py-3 flex items-center justify-between">
+        <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-vermilion-500/30 px-6 py-3 flex items-center justify-between">
           <div className="text-xs text-ink-500 uppercase tracking-wider">👤 人物详情</div>
         </div>
 
@@ -164,7 +164,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
                 {person.culturalWorks.map((w, i) => (
                   <span
                     key={i}
-                    className="text-xs px-2 py-0.5 rounded-lg bg-bronze-900/30 text-bronze-200 border border-bronze-700/40"
+                    className="text-xs px-2 py-0.5 rounded-lg bg-vermilion-900/30 text-vermilion-200 border border-bronze-700/40"
                   >
                     {w}
                   </span>
@@ -184,7 +184,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
             {hasRelations && (
               <button
                 onClick={() => setShowGraph(true)}
-                className="px-4 py-2.5 rounded-lg bg-bronze-900/40 hover:bg-bronze-800/60 border border-bronze-600/50 text-bronze-200 text-sm transition-colors"
+                className="px-4 py-2.5 rounded-lg bg-vermilion-900/30 hover:bg-bronze-800/60 border border-bronze-600/50 text-vermilion-200 text-sm transition-colors"
                 title="查看关系网"
               >
                 🕸️ 关系网

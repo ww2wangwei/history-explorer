@@ -59,7 +59,7 @@ export default function StatsDashboard({ onClose }: Props) {
         >
           {/* 头部 */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-ink-600">
-            <h2 className="font-serif text-xl text-bronze-400 flex items-center gap-2">
+            <h2 className="font-serif text-xl text-vermilion-300 flex items-center gap-2">
               📊 复习统计
             </h2>
             <button

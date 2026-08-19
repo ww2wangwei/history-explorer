@@ -42,7 +42,7 @@ export default function OverviewLayout({
   suppressEsc = false,
   toolbar,
   children,
-  headerBorderClass = 'border-bronze-500/40',
+  headerBorderClass = 'border-vermilion-500/40',
 }: Props) {
   useEffect(() => {
     if (suppressEsc) return
@@ -62,7 +62,7 @@ export default function OverviewLayout({
         <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="flex items-start justify-between gap-3 mb-3">
             <div className="min-w-0">
-              <h2 className="text-2xl font-serif text-bronze-300">
+              <h2 className="text-2xl font-serif text-vermilion-300">
                 {emoji && <span className="mr-1.5">{emoji}</span>}
                 {title}
               </h2>

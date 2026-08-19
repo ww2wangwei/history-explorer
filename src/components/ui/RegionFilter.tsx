@@ -26,7 +26,7 @@ export default function RegionFilter({ value, onChange, className = '' }: Props)
           onClick={() => onChange(opt.value)}
           className={`px-3 py-1.5 transition-colors ${
             value === opt.value
-              ? 'bg-bronze-600/40 text-bronze-300'
+              ? 'bg-vermilion-500/40 text-vermilion-300'
               : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'
           }`}
         >

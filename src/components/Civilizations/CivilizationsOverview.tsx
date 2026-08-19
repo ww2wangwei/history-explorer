@@ -120,8 +120,8 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
       title={comparisonData.title}
       subtitle={
         <>
-          {comparisonData.subtitle} · <span className="text-bronze-400">{source}</span> · 已读{' '}
-          <span className="text-bronze-400">{visitedCount}</span> / {totalCount} ({pPct}%)
+          {comparisonData.subtitle} · <span className="text-vermilion-300">{source}</span> · 已读{' '}
+          <span className="text-vermilion-300">{visitedCount}</span> / {totalCount} ({pPct}%)
         </>
       }
       onClose={onClose}
@@ -134,7 +134,7 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
             placeholder="🔍 搜索章节..."
             value={query}
             onChange={e => setQuery(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg bg-ink-700 border border-ink-600 text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
+            className="w-full px-3 py-2 rounded-lg bg-ink-700 border border-ink-600 text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-vermilion-500/40"
           />
           <div className="text-xs text-ink-500 px-1">
             {filtered.length} / {sections.length} 节
@@ -149,10 +149,10 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
                   onClick={() => handleSelect(s.id)}
                   className={`w-full text-left p-3 rounded-lg border transition-all ${
                     isActive
-                      ? 'bg-bronze-700/30 border-bronze-500/70 text-parchment-50'
+                      ? 'bg-bronze-700/30 border-vermilion-500/40/70 text-parchment-50'
                       : isVisited
-                      ? 'bg-ink-800/80 border-emerald-700/40 text-ink-300 hover:border-bronze-500/60'
-                      : 'bg-ink-800/40 border-ink-700 text-ink-400 hover:border-bronze-500/40 hover:text-parchment-50'
+                      ? 'bg-ink-800/80 border-emerald-700/40 text-ink-300 hover:border-vermilion-500/60'
+                      : 'bg-ink-800/40 border-ink-700 text-ink-400 hover:border-vermilion-500/40 hover:text-parchment-50'
                   }`}
                 >
                   <div className="flex items-start gap-2">
@@ -183,8 +183,8 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
           </div>
 
           {/* 章节标题 */}
-          <div className="p-5 rounded-lg bg-gradient-to-br from-bronze-900/30 to-ink-800 border border-bronze-700/40">
-            <div className="text-xs text-bronze-400 uppercase tracking-wider mb-2">
+          <div className="p-5 rounded-lg bg-gradient-to-br from-vermilion-900/30 to-ink-800 border border-bronze-700/40">
+            <div className="text-xs text-vermilion-300 uppercase tracking-wider mb-2">
               第 {sections.findIndex(s => s.id === active.id) + 1} 节 · {active.topic}
             </div>
             <h2 className="text-2xl font-serif text-parchment-50 mb-3">{active.title}</h2>
@@ -223,7 +223,7 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
             <ul className="space-y-2">
               {active.keyPoints.map((kp, i) => (
                 <li key={i} className="flex items-start gap-2.5 text-sm text-parchment-100 leading-relaxed">
-                  <span className="text-bronze-400 mt-0.5 shrink-0">▸</span>
+                  <span className="text-vermilion-300 mt-0.5 shrink-0">▸</span>
                   <span>{kp}</span>
                 </li>
               ))}
@@ -239,7 +239,7 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
                   <li key={i} className="pl-5 relative">
                     <span className="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-bronze-500 ring-2 ring-ink-800" />
                     <div className="flex items-baseline gap-3">
-                      <span className="text-xs font-mono text-bronze-400 shrink-0 tabular-nums">
+                      <span className="text-xs font-mono text-vermilion-300 shrink-0 tabular-nums">
                         {t.year < 0 ? `公元前 ${-t.year}` : t.year}
                       </span>
                       <span className="text-sm text-parchment-100 leading-relaxed">{t.event}</span>
@@ -257,9 +257,9 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {active.figures.map((f, i) => (
                   <div key={i} className="flex items-start gap-2">
-                    <span className="text-bronze-400 text-xs font-serif mt-0.5 shrink-0">▸</span>
+                    <span className="text-vermilion-300 text-xs font-serif mt-0.5 shrink-0">▸</span>
                     <div>
-                      <div className="text-sm font-serif text-bronze-300">{f.name}</div>
+                      <div className="text-sm font-serif text-vermilion-300">{f.name}</div>
                       <div className="text-xs text-ink-400 leading-relaxed">{f.role}</div>
                     </div>
                   </div>

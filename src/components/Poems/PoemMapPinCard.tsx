@@ -111,7 +111,7 @@ export default function PoemMapPinCard({ onJumpToAllPoems }: Props) {
             setPendingReopen(null)
             onJumpToAllPoems()
           }}
-          className="flex-1 py-2 text-bronze-300 hover:bg-ink-700/80 transition-colors border-r border-ink-700"
+          className="flex-1 py-2 text-vermilion-300 hover:bg-ink-700/80 transition-colors border-r border-ink-700"
         >
           ← 返回全诗词
         </button>

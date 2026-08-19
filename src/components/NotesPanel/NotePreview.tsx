@@ -36,19 +36,19 @@ export default function NotePreview({ content }: Props) {
           h1: ({ node: _node, ...props }) => (
             <h1
               {...props}
-              className="font-serif text-lg text-bronze-400 mt-3 mb-1.5 border-b border-ink-600 pb-1"
+              className="font-serif text-lg text-vermilion-300 mt-3 mb-1.5 border-b border-ink-600 pb-1"
             />
           ),
           h2: ({ node: _node, ...props }) => (
             <h2
               {...props}
-              className="font-serif text-base text-bronze-400 mt-2.5 mb-1"
+              className="font-serif text-base text-vermilion-300 mt-2.5 mb-1"
             />
           ),
           h3: ({ node: _node, ...props }) => (
             <h3
               {...props}
-              className="font-serif text-sm text-bronze-400 mt-2 mb-1"
+              className="font-serif text-sm text-vermilion-300 mt-2 mb-1"
             />
           ),
           h4: ({ node: _node, ...props }) => (
@@ -65,7 +65,7 @@ export default function NotePreview({ content }: Props) {
               {...props}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-bronze-400 hover:underline"
+              className="text-vermilion-300 hover:underline"
             />
           ),
           ul: ({ node: _node, ...props }) => (
@@ -87,7 +87,7 @@ export default function NotePreview({ content }: Props) {
                   checked={checked}
                   readOnly
                   disabled
-                  className="mr-1.5 accent-bronze-500 align-middle"
+                  className="mr-1.5 accent-vermilion-500 align-middle"
                 />
               )
             }
@@ -96,13 +96,13 @@ export default function NotePreview({ content }: Props) {
           blockquote: ({ node: _node, ...props }) => (
             <blockquote
               {...props}
-              className="border-l-2 border-bronze-500/60 pl-3 my-2 italic text-ink-300"
+              className="border-l-2 border-vermilion-500/60 pl-3 my-2 italic text-ink-300"
             />
           ),
           code: ({ node: _node, ...props }) => (
             <code
               {...props}
-              className="bg-ink-700 px-1 py-0.5 rounded-lg text-bronze-400 text-xs font-mono"
+              className="bg-ink-700 px-1 py-0.5 rounded-lg text-vermilion-300 text-xs font-mono"
             />
           ),
           pre: ({ node: _node, ...props }) => (
@@ -120,7 +120,7 @@ export default function NotePreview({ content }: Props) {
           th: ({ node: _node, ...props }) => (
             <th
               {...props}
-              className="border border-ink-600 px-2 py-1 bg-ink-700 text-bronze-400 font-medium"
+              className="border border-ink-600 px-2 py-1 bg-ink-700 text-vermilion-300 font-medium"
             />
           ),
           td: ({ node: _node, ...props }) => (
@@ -133,7 +133,7 @@ export default function NotePreview({ content }: Props) {
             <hr {...props} className="border-ink-600 my-3" />
           ),
           strong: ({ node: _node, ...props }) => (
-            <strong {...props} className="font-semibold text-bronze-400" />
+            <strong {...props} className="font-semibold text-vermilion-300" />
           ),
           em: ({ node: _node, ...props }) => (
             <em {...props} className="italic text-parchment-200" />

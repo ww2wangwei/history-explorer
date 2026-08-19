@@ -491,7 +491,7 @@ export default function Layout() {
             className={`px-2.5 py-1.5 rounded-lg shrink-0 whitespace-nowrap text-xs flex items-center gap-1.5 transition-colors border ${
               main.mode === 'home'
                 ? 'bg-vermilion-500/30 text-vermilion-300 border-vermilion-500/60'
-                : 'bg-ink-700/80 hover:bg-vermilion-500/30 border-ink-600 text-bronze-400'
+                : 'bg-ink-700/80 hover:bg-vermilion-500/30 border-ink-600 text-vermilion-300'
             }`}
             onClick={() => { audioEngine.playModalClose(); dispatch({ type: 'OPEN_HOME' }) }}
             title="返回学习引导主页"
@@ -512,7 +512,7 @@ export default function Layout() {
               className={`px-2 py-1.5 rounded-lg whitespace-nowrap text-xs flex items-center gap-1 transition-colors border relative ${
                 ui.moreMenuOpen || main.mode === 'overview'
                   ? 'bg-vermilion-500/30 text-vermilion-300 border-vermilion-500/60'
-                  : 'bg-ink-700/80 hover:bg-ink-600 border-ink-600 text-bronze-400'
+                  : 'bg-ink-700/80 hover:bg-ink-600 border-ink-600 text-vermilion-300'
               }`}
               onClick={() => { audioEngine.playClick(); dispatch({ type: 'TOGGLE_MORE_MENU' }) }}
               title="更多"
@@ -569,7 +569,7 @@ export default function Layout() {
                 </button>
                 {mapFocusTarget && (
                   <button
-                    className="w-full text-left px-3 py-2 text-xs text-bronze-300 hover:bg-ink-700 flex items-center gap-2 transition-colors border-t border-ink-700 mt-1 pt-2"
+                    className="w-full text-left px-3 py-2 text-xs text-vermilion-300 hover:bg-ink-700 flex items-center gap-2 transition-colors border-t border-ink-700 mt-1 pt-2"
                     onClick={() => {
                       audioEngine.playClick()
                       dispatch({ type: 'CLOSE_MORE_MENU' })
@@ -586,7 +586,7 @@ export default function Layout() {
           </div>
         </div>
         <div className="text-sm font-serif text-ink-500 shrink-0 ml-3">
-          当前：<span className="text-bronze-400 text-base ml-1.5">{formatYear(currentYear)}</span>
+          当前：<span className="text-vermilion-300 text-base ml-1.5">{formatYear(currentYear)}</span>
         </div>
       </header>
 

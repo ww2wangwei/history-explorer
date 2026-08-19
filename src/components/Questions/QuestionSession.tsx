@@ -261,7 +261,7 @@ export default function QuestionSession({ question, onClose, onSaved }: Props) {
   return (
     <div className="fixed inset-0 z-[80] flex items-center justify-center bg-ink-900/90 backdrop-blur p-4" onClick={onClose}>
       <div
-        className="relative w-full max-w-2xl max-h-[92vh] flex flex-col bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl"
+        className="relative w-full max-w-2xl max-h-[92vh] flex flex-col bg-ink-800 rounded-lg border border-vermilion-500/40 shadow-2xl"
         onClick={e => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -270,7 +270,7 @@ export default function QuestionSession({ question, onClose, onSaved }: Props) {
         {/* 头部 */}
         <div className="px-5 py-3 border-b border-ink-600 flex items-center justify-between">
           <div>
-            <div className="text-xl font-serif text-bronze-300 flex items-center gap-2">
+            <div className="text-xl font-serif text-vermilion-300 flex items-center gap-2">
               <span>{question.icon}</span>
               {question.title}
             </div>
@@ -290,8 +290,8 @@ export default function QuestionSession({ question, onClose, onSaved }: Props) {
 
         <div className="flex-1 overflow-y-auto scrollbar-thin p-4 space-y-3">
           {/* 开场问题 */}
-          <div className="rounded-lg p-3 bg-gradient-to-br from-bronze-900/30 to-ink-700/30 border border-bronze-700/40">
-            <div className="text-xs text-bronze-300 mb-1">📜 开始思考</div>
+          <div className="rounded-lg p-3 bg-gradient-to-br from-vermilion-900/30 to-ink-700/30 border border-bronze-700/40">
+            <div className="text-xs text-vermilion-300 mb-1">📜 开始思考</div>
             <div className="text-sm text-parchment-50 leading-relaxed whitespace-pre-wrap">{question.opening}</div>
             {question.hints.length > 0 && (
               <div className="mt-2 flex flex-wrap gap-1.5">
@@ -308,7 +308,7 @@ export default function QuestionSession({ question, onClose, onSaved }: Props) {
             <div
               key={i}
               className={`rounded-lg p-3 text-sm ${
-                m.role === 'user' ? 'bg-bronze-900/30 ml-8 border border-bronze-800/30' : 'bg-ink-700/40 mr-4'
+                m.role === 'user' ? 'bg-vermilion-900/30 ml-8 border border-bronze-800/30' : 'bg-ink-700/40 mr-4'
               }`}
             >
               <div className="text-xs text-ink-500 mb-1">
@@ -360,7 +360,7 @@ export default function QuestionSession({ question, onClose, onSaved }: Props) {
                     <button
                       onClick={sendAnswer}
                       disabled={!input.trim() || streaming}
-                      className="px-4 py-1.5 text-xs bg-bronze-600 hover:bg-bronze-500 disabled:opacity-50 disabled:cursor-not-allowed text-parchment-50 rounded-lg"
+                      className="px-4 py-1.5 text-xs bg-vermilion-500 hover:bg-vermilion-600 disabled:opacity-50 disabled:cursor-not-allowed text-parchment-50 rounded-lg"
                     >
                       回答
                     </button>
@@ -385,10 +385,10 @@ export default function QuestionSession({ question, onClose, onSaved }: Props) {
             </>
           ) : (
             score && (
-              <div className="p-3 rounded-lg border border-bronze-500/40 bg-ink-900/50">
+              <div className="p-3 rounded-lg border border-vermilion-500/40 bg-ink-900/50">
                 <div className="flex items-center justify-between mb-3">
                   <div>
-                    <div className="text-3xl font-serif text-bronze-300">
+                    <div className="text-3xl font-serif text-vermilion-300">
                       {score.total}<span className="text-sm text-ink-400">/100</span>
                     </div>
                     <div className="text-xs text-ink-400 mt-0.5">
@@ -404,7 +404,7 @@ export default function QuestionSession({ question, onClose, onSaved }: Props) {
                       <div key={d}>
                         <div className="flex items-center justify-between text-[11px] mb-0.5">
                           <span className="text-ink-400">{d}</span>
-                          <span className="font-serif text-bronze-300">{v}</span>
+                          <span className="font-serif text-vermilion-300">{v}</span>
                         </div>
                         <div className="h-1 bg-ink-700 rounded-full overflow-hidden">
                           <div className="h-full bg-bronze-500" style={{ width: `${v}%` }} />
@@ -419,7 +419,7 @@ export default function QuestionSession({ question, onClose, onSaved }: Props) {
                 <div className="flex gap-2 mt-3">
                   <button
                     onClick={onClose}
-                    className="px-4 py-2 text-xs bg-bronze-600 hover:bg-bronze-500 text-parchment-50 rounded-lg"
+                    className="px-4 py-2 text-xs bg-vermilion-500 hover:bg-vermilion-600 text-parchment-50 rounded-lg"
                   >
                     完成
                   </button>
@@ -427,7 +427,7 @@ export default function QuestionSession({ question, onClose, onSaved }: Props) {
                     onClick={() => {
                       if (navigator.clipboard) navigator.clipboard.writeText(score.summary || `${score.total}/100`)
                     }}
-                    className="px-4 py-2 text-xs border border-ink-600 text-ink-300 hover:text-parchment-50 hover:border-bronze-500 rounded-lg"
+                    className="px-4 py-2 text-xs border border-ink-600 text-ink-300 hover:text-parchment-50 hover:border-vermilion-500/40 rounded-lg"
                   >
                     📋 复制总评
                   </button>

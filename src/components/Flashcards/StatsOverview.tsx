@@ -30,7 +30,7 @@ export default function StatsOverview({
     { label: '待复习', value: dueCount, color: 'text-red-300' },
     { label: '新卡', value: newCount, color: 'text-blue-300' },
     { label: '已掌握', value: masteredCount, color: 'text-emerald-300' },
-    { label: '总复习', value: totalReviews, color: 'text-bronze-400' },
+    { label: '总复习', value: totalReviews, color: 'text-vermilion-300' },
   ]
 
   return (

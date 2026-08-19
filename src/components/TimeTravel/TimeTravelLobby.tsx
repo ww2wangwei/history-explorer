@@ -64,7 +64,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
         {/* 头部 */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-4xl font-serif text-bronze-300 mb-1">🎭 穿越历史</h1>
+            <h1 className="text-4xl font-serif text-vermilion-300 mb-1">🎭 穿越历史</h1>
             <p className="text-sm text-ink-400">
               化身历史人物，在关键节点做选择。{scenarios.length} 个剧本 · 多个结局 · 你的决定塑造历史。
             </p>
@@ -108,7 +108,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
               <button
                 key={r}
                 onClick={() => setRegion(r)}
-                className={`px-3 py-1.5 transition-colors ${region === r ? 'bg-bronze-700/40 text-bronze-200' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-700'}`}
+                className={`px-3 py-1.5 transition-colors ${region === r ? 'bg-vermilion-700/40 text-vermilion-200' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-700'}`}
               >
                 {r === 'all' ? '全部' : r === 'china' ? '🇨🇳 中国' : '🌍 世界'}
               </button>
@@ -119,7 +119,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
               <button
                 key={s}
                 onClick={() => setStatusFilter(s)}
-                className={`px-3 py-1.5 transition-colors ${statusFilter === s ? 'bg-bronze-700/40 text-bronze-200' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-700'}`}
+                className={`px-3 py-1.5 transition-colors ${statusFilter === s ? 'bg-vermilion-700/40 text-vermilion-200' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-700'}`}
               >
                 {s === 'all' ? '全部状态' : s === 'unplayed' ? '🆕 未通关' : '✓ 已通关'}
               </button>
@@ -144,7 +144,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
             return (
               <div
                 key={sc.id}
-                className="p-6 rounded-lg border-2 transition-all hover:border-bronze-500/80 group"
+                className="p-6 rounded-lg border-2 transition-all hover:border-vermilion-500/40/80 group"
                 style={{
                   background: `linear-gradient(135deg, ${sc.color}20 0%, transparent 60%)`,
                   borderColor: completed ? sc.color + '80' : 'rgba(90, 90, 106, 0.4)',
@@ -163,12 +163,12 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
                       {completed && <span className="text-xs px-2 py-0.5 rounded-lg bg-emerald-700/40 text-emerald-300 border border-emerald-600/50">✓ 已通关</span>}
                       <span className="text-xs text-ink-500">· {sc.era} · {sc.year} 年 · {sc.location}</span>
                     </div>
-                    <div className="text-sm text-bronze-300 mb-2">{sc.subtitle}</div>
+                    <div className="text-sm text-vermilion-300 mb-2">{sc.subtitle}</div>
                     <p className="text-sm text-ink-300 leading-relaxed mb-3">{sc.background}</p>
                     {myEnding && (
                       <div className="mb-3 p-2 rounded-lg bg-ink-900/60 border border-bronze-700/30 text-xs">
                         <span className="text-ink-500">上次结局：</span>
-                        <span className="text-bronze-300 font-serif">{myEnding.title}</span>
+                        <span className="text-vermilion-300 font-serif">{myEnding.title}</span>
                       </div>
                     )}
                     {/* 结局解锁进度 */}
@@ -176,7 +176,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
                       <div className="mb-3">
                         <div className="flex items-center justify-between text-xs mb-1">
                           <span className="text-ink-500">结局解锁</span>
-                          <span className={unlockedCount === totalEndings ? 'text-emerald-400 font-serif' : 'text-bronze-300'}>
+                          <span className={unlockedCount === totalEndings ? 'text-emerald-400 font-serif' : 'text-vermilion-300'}>
                             {unlockedCount} / {totalEndings}
                           </span>
                         </div>
@@ -228,7 +228,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
 
         {/* 提示 */}
         <div className="mt-8 p-4 rounded-lg bg-ink-800/60 border border-ink-700 text-sm text-ink-400 space-y-1">
-          <div className="text-bronze-300 font-serif mb-2">💡 玩法说明</div>
+          <div className="text-vermilion-300 font-serif mb-2">💡 玩法说明</div>
           <ul className="list-disc list-inside space-y-1 text-xs">
             <li>点击 "▶ 穿越开始" 进入剧本，化身历史人物</li>
             <li>每个场景末尾有 2-3 个选项，你的选择将影响后续剧情</li>
@@ -269,7 +269,7 @@ function LobbyVolumeControl() {
       <button onClick={toggleMuted} className="text-base hover:scale-110 transition-transform" title={muted ? '取消静音' : '静音'}>
         {muted ? '🔇' : '🔊'}
       </button>
-      <input type="range" min="0" max="1" step="0.05" value={vol} onChange={e => onVolChange(parseFloat(e.target.value))} className="w-16 h-1 accent-bronze-500" style={{ filter: muted ? 'grayscale(1)' : 'none' }} />
+      <input type="range" min="0" max="1" step="0.05" value={vol} onChange={e => onVolChange(parseFloat(e.target.value))} className="w-16 h-1 accent-vermilion-500" style={{ filter: muted ? 'grayscale(1)' : 'none' }} />
     </div>
   )
 }

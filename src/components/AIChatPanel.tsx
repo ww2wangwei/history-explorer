@@ -419,7 +419,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
           }}
           title={panelOpen ? '关闭 AI 对话 (Cmd+K / ?)' : '打开 AI 对话 (Cmd+K / ?)'}
         >
-          <span className="hidden group-hover:inline-block text-xs px-2 py-1 rounded-lg bg-ink-800/95 border border-bronze-500/40 text-bronze-300 shadow-lg whitespace-nowrap">
+          <span className="hidden group-hover:inline-block text-xs px-2 py-1 rounded-lg bg-ink-800/95 border border-vermilion-500/40 text-vermilion-300 shadow-lg whitespace-nowrap">
             🤖 AI 问 · <kbd className="px-1 bg-ink-700 rounded-lg text-xs">?</kbd>
           </span>
           <span className="w-10 h-10 rounded-full bg-gradient-to-br from-bronze-500 to-bronze-700 shadow-2xl flex items-center justify-center border border-bronze-300/50">
@@ -441,7 +441,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
       {/* 对话面板 */}
       {panelOpen && (
         <div
-          className="fixed z-[70] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-6rem)] flex flex-col bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl resize overflow-auto"
+          className="fixed z-[70] max-w-[calc(100vw-2rem)] max-h-[calc(100vh-6rem)] flex flex-col bg-ink-800 rounded-lg border border-vermilion-500/40 shadow-2xl resize overflow-auto"
           style={{
             width: 450,
             height: 580,
@@ -460,7 +460,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                 <div className="text-3xl shrink-0">{person.emoji || '👤'}</div>
                 <div className="flex-1 min-w-0">
                   <div className="text-sm font-serif text-purple-200 truncate">
-                    正在与 <span className="text-bronze-300">{person.name}</span> 对话
+                    正在与 <span className="text-vermilion-300">{person.name}</span> 对话
                   </div>
                   <div className="text-xs text-purple-300/70 truncate">{person.role}</div>
                 </div>
@@ -496,7 +496,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
             <div className="flex items-center gap-2">
               <span className="text-xl">🤖</span>
               <div>
-                <div className="text-sm font-serif text-bronze-300">历史问答助手</div>
+                <div className="text-sm font-serif text-vermilion-300">历史问答助手</div>
                 <div className="text-xs text-ink-500">
                   {apiKey ? '✓ API key 已配置' : '⚠ 需要 API key'}
                 </div>
@@ -508,7 +508,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   setShowKeyInput((s) => !s)
                   setApiKeyInput(apiKey ?? '')
                 }}
-                className="text-xs text-ink-400 hover:text-bronze-300 px-2 py-1 rounded-lg hover:bg-ink-700/60"
+                className="text-xs text-ink-400 hover:text-vermilion-300 px-2 py-1 rounded-lg hover:bg-ink-700/60"
                 title="设置 Anthropic API key"
                 aria-label="设置 Anthropic API key"
               >
@@ -541,7 +541,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                     }}
                     className={`px-2 py-1 rounded-lg border ${
                       apiProtocol === p
-                        ? 'border-bronze-500 bg-bronze-600/30 text-bronze-300'
+                        ? 'border-vermilion-500/40 bg-vermilion-500/30 text-vermilion-300'
                         : 'border-ink-600 text-ink-400'
                     }`}
                   >
@@ -592,7 +592,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                     })
                     setShowKeyInput(false)
                   }}
-                  className="px-3 py-1 text-xs bg-bronze-600 hover:bg-bronze-500 text-parchment-50 rounded-lg"
+                  className="px-3 py-1 text-xs bg-vermilion-500 hover:bg-vermilion-600 text-parchment-50 rounded-lg"
                 >
                   保存
                 </button>
@@ -608,7 +608,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   type="checkbox"
                   checked={apiDisableThinking}
                   onChange={e => setApiDisableThinking(e.target.checked)}
-                  className="accent-bronze-500"
+                  className="accent-vermilion-500"
                 />
                 <span>禁用 AI 思考模式</span>
                 <span className="text-ink-500">（MiniMax / DeepSeek 等模型关闭 &lt;thinking&gt; 块，推荐打开）</span>
@@ -623,7 +623,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                 key={t.id}
                 className={`flex items-center gap-0.5 rounded-lg whitespace-nowrap ${
                   t.id === activeThreadId
-                    ? 'bg-bronze-600/40 text-bronze-300'
+                    ? 'bg-vermilion-500/40 text-vermilion-300'
                     : 'text-ink-400 hover:bg-ink-700/40'
                 }`}
               >
@@ -682,7 +682,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
 
             {activeThread && activeThread.messages.length === 0 && contextEraId && (
               <div className="space-y-1.5">
-                <div className="text-xs text-bronze-400 mb-2">💡 快速提问（已选朝代自动带入上下文）：</div>
+                <div className="text-xs text-vermilion-300 mb-2">💡 快速提问（已选朝代自动带入上下文）：</div>
                 {QUICK_PROMPTS.map((p, i) => (
                   <button
                     key={i}
@@ -705,7 +705,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                 key={m.id}
                 className={`rounded-lg p-3 ${
                   m.role === 'user'
-                    ? 'bg-bronze-900/30 ml-8'
+                    ? 'bg-vermilion-900/30 ml-8'
                     : 'bg-ink-700/40 mr-8'
                 }`}
               >
@@ -715,7 +715,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                       {personForMsg.emoji || '👤'}
                     </span>
                   )}
-                  <span className={m.role === 'user' ? 'text-bronze-400' : 'text-purple-300'}>
+                  <span className={m.role === 'user' ? 'text-vermilion-300' : 'text-purple-300'}>
                     {m.role === 'user' ? '👤 你' : (contextPersonId ? `🎭 ${people.find(p => p.id === contextPersonId)?.name ?? 'AI'}` : '🤖 AI')}
                   </span>
                   {m.contextEras?.map(eid => {
@@ -736,7 +736,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   <div className="flex items-center gap-2 mt-2 pt-1.5 border-t border-ink-700/40">
                     <button
                       onClick={() => saveAsNote(m)}
-                      className="text-xs px-2 py-0.5 rounded-lg text-bronze-400 hover:text-bronze-300 hover:bg-bronze-900/30 border border-bronze-700/30"
+                      className="text-xs px-2 py-0.5 rounded-lg text-vermilion-300 hover:text-vermilion-300 hover:bg-vermilion-900/30 border border-bronze-700/30"
                       title="把这条 AI 回答加入笔记"
                     aria-label="把这条 AI 回答加入笔记"
                     >
@@ -802,7 +802,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                 <button
                   onClick={() => sendMessage(input)}
                   disabled={!input.trim() || !apiKey}
-                  className="px-3 py-1.5 text-xs bg-bronze-600 hover:bg-bronze-500 disabled:opacity-50 disabled:cursor-not-allowed text-parchment-50 rounded-lg self-end"
+                  className="px-3 py-1.5 text-xs bg-vermilion-500 hover:bg-vermilion-600 disabled:opacity-50 disabled:cursor-not-allowed text-parchment-50 rounded-lg self-end"
                 >
                   发送
                 </button>
@@ -830,6 +830,6 @@ function renderMarkdown(text: string): string {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-bronze-300">$1</strong>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-vermilion-300">$1</strong>')
     .replace(/\n/g, '<br/>')
 }

@@ -39,12 +39,12 @@ export default function FlashcardsComplete({
     <>
       <div className="flex-1 flex flex-col items-center justify-center text-center px-8 py-12 overflow-y-auto scrollbar-thin">
         <div className="text-5xl mb-4">🎉</div>
-        <div className="text-xl font-serif text-bronze-400 mb-2">本场复习完成！</div>
+        <div className="text-xl font-serif text-vermilion-300 mb-2">本场复习完成！</div>
         <div className="text-sm text-ink-500 mb-8">所有待复习卡片已学完，下次复习时间已自动更新</div>
 
         {/* 目标达成激励 */}
         {goalReached && (
-          <div className="mb-6 px-6 py-4 rounded-lg bg-gradient-to-r from-emerald-900/40 to-bronze-900/30 border border-emerald-700/50 max-w-sm w-full">
+          <div className="mb-6 px-6 py-4 rounded-lg bg-gradient-to-r from-emerald-900/40 to-vermilion-900/30 border border-emerald-700/50 max-w-sm w-full">
             <div className="flex items-center justify-center gap-2 mb-2">
               <span className="text-2xl">🎯</span>
               <span className="text-base font-serif text-emerald-300">今日目标已达成！</span>
@@ -90,7 +90,7 @@ export default function FlashcardsComplete({
           </div>
           <div className="px-4 py-3 rounded-lg bg-ink-700/40 border border-ink-600">
             <div className="text-xs text-ink-500 mb-1">掌握率</div>
-            <div className="text-2xl font-serif text-bronze-400">{masteredRate}%</div>
+            <div className="text-2xl font-serif text-vermilion-300">{masteredRate}%</div>
           </div>
           <div className="px-4 py-3 rounded-lg bg-red-900/20 border border-red-700/40">
             <div className="text-xs text-red-400 mb-1">忘了</div>
@@ -105,13 +105,13 @@ export default function FlashcardsComplete({
         <div className="flex gap-3">
           <button
             onClick={() => setShowStats(true)}
-            className="px-6 py-2 text-sm rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-bronze-400 transition-colors"
+            className="px-6 py-2 text-sm rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-vermilion-300 transition-colors"
           >
             📊 查看统计
           </button>
           <button
             onClick={onClose}
-            className="px-6 py-2 text-sm rounded-lg bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/60 text-bronze-400 transition-colors"
+            className="px-6 py-2 text-sm rounded-lg bg-vermilion-500/30 hover:bg-vermilion-500/50 border border-vermilion-500/60 text-vermilion-300 transition-colors"
           >
             ← 返回地图
           </button>

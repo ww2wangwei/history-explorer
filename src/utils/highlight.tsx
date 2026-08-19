@@ -59,7 +59,7 @@ export function highlightText(text: string, query: string): ReactNode {
       return (
         <mark
           key={i}
-          className="bg-bronze-600/40 text-parchment-50 rounded px-0.5"
+          className="bg-vermilion-500/40 text-parchment-50 rounded px-0.5"
         >
           {part}
         </mark>

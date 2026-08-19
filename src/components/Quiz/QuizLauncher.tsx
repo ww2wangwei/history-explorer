@@ -33,7 +33,7 @@ export default function QuizLauncher() {
         onPointerDown={fabPos.onPointerDown}
         onClickCapture={fabPos.suppressClickIfDragged}
         onClick={togglePanel}
-        className="fixed z-50 w-10 h-10 rounded-full bg-bronze-600 hover:bg-bronze-500 shadow-2xl flex items-center justify-center text-lg transition-all cursor-grab active:cursor-grabbing select-none touch-none"
+        className="fixed z-50 w-10 h-10 rounded-full bg-vermilion-500 hover:bg-vermilion-600 shadow-2xl flex items-center justify-center text-lg transition-all cursor-grab active:cursor-grabbing select-none touch-none"
         style={{
           right: fabPos.pos.right,
           bottom: fabPos.pos.bottom,

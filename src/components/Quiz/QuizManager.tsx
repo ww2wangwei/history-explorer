@@ -128,11 +128,11 @@ export default function QuizManager({ open, onClose }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-ink-900/85 backdrop-blur p-4">
-      <div className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl">
+      <div className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-vermilion-500/40 shadow-2xl">
         <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-ink-600 px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-xl">📝</span>
-            <span className="font-serif text-bronze-300">题库管理</span>
+            <span className="font-serif text-vermilion-300">题库管理</span>
             <span className="text-xs text-ink-400">· {Object.keys(questions).length} 题 · {Object.keys(pending).length} 待审</span>
           </div>
           <div className="flex items-center gap-2">
@@ -147,7 +147,7 @@ export default function QuizManager({ open, onClose }: Props) {
           {mode === 'list' && (
             <>
               <div className="flex gap-2">
-                <button onClick={() => switchMode('add')} className="flex-1 px-4 py-3 rounded-lg bg-bronze-600 hover:bg-bronze-500 text-parchment-50 text-sm">
+                <button onClick={() => switchMode('add')} className="flex-1 px-4 py-3 rounded-lg bg-vermilion-500 hover:bg-vermilion-600 text-parchment-50 text-sm">
                   + 手动添加题目
                 </button>
                 <button
@@ -211,7 +211,7 @@ export default function QuizManager({ open, onClose }: Props) {
                       onClick={() => setForm({ ...form, difficulty: d })}
                       className={`flex-1 px-2 py-1 rounded-lg text-xs ${
                         form.difficulty === d
-                          ? 'bg-bronze-600/40 text-bronze-300 border border-bronze-500/60'
+                          ? 'bg-vermilion-500/40 text-vermilion-300 border border-vermilion-500/60'
                           : 'bg-ink-700/40 text-ink-300 hover:bg-ink-700/60 border border-ink-600/40'
                       }`}
                     >
@@ -277,7 +277,7 @@ export default function QuizManager({ open, onClose }: Props) {
               <button
                 onClick={handleAdd}
                 disabled={!form.prompt.trim() || form.options.some(o => !o.trim())}
-                className="w-full px-4 py-2 rounded-lg bg-bronze-600 hover:bg-bronze-500 disabled:opacity-50 text-parchment-50"
+                className="w-full px-4 py-2 rounded-lg bg-vermilion-500 hover:bg-vermilion-600 disabled:opacity-50 text-parchment-50"
               >
                 ✓ 添加题目
               </button>
@@ -305,7 +305,7 @@ export default function QuizManager({ open, onClose }: Props) {
                       onClick={() => setAiForm({ ...aiForm, difficulty: d })}
                       className={`flex-1 px-2 py-1 rounded-lg text-xs ${
                         aiForm.difficulty === d
-                          ? 'bg-bronze-600/40 text-bronze-300 border border-bronze-500/60'
+                          ? 'bg-vermilion-500/40 text-vermilion-300 border border-vermilion-500/60'
                           : 'bg-ink-700/40 text-ink-300 hover:bg-ink-700/60 border border-ink-600/40'
                       }`}
                     >

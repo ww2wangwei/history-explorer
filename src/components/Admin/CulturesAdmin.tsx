@@ -37,7 +37,7 @@ export default function CulturesAdmin() {
       <div className="w-96 flex-shrink-0 border-r border-ink-700 flex flex-col">
         <div className="p-3 border-b border-ink-700 space-y-2">
           <div className="flex gap-2">
-            <input value={query} onChange={e => setQuery(e.target.value)} placeholder="搜索 标题 / id..." className="flex-1 px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500" />
+            <input value={query} onChange={e => setQuery(e.target.value)} placeholder="搜索 标题 / id..." className="flex-1 px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-vermilion-500/40" />
             <button onClick={() => {
               const id = `ce-new-${Date.now()}`
               useAdminStore.getState().createCulture({ id, title: '新建文化内容', year: 0, category: '文化', region: '', location: [0, 0], importance: 1, description: '' })
@@ -124,7 +124,7 @@ function CultureEditForm({ culture }: { culture: CultureEvent }) {
     setLat(override.location?.[1] ?? culture.location[1])
   }, [culture.id])
 
-  const inputCls = 'w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500'
+  const inputCls = 'w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-vermilion-500/40'
   const previewUrl = imageSearch ? bingImage(imageSearch, 800, 450) : ''
 
   const handleSave = () => {
@@ -150,7 +150,7 @@ function CultureEditForm({ culture }: { culture: CultureEvent }) {
             {isNew && <span className="text-emerald-400 bg-emerald-900/30 px-1.5 rounded-lg">🆕 新建</span>}
             {isDeleted && <span className="text-red-400 bg-red-900/30 px-1.5 rounded-lg">🚫 已删除</span>}
           </div>
-          <h2 className="text-2xl font-serif text-bronze-300 mt-1">{culture.title}</h2>
+          <h2 className="text-2xl font-serif text-vermilion-300 mt-1">{culture.title}</h2>
           <code className="text-xs text-ink-500">id: {culture.id}</code>
         </div>
         <div className="flex gap-2">

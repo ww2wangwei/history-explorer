@@ -290,7 +290,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
                   tabIndex={0}
                   onClick={() => setSelectedWar(war)}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedWar(war) } }}
-                  className="war-card text-left rounded-lg border border-ink-600 bg-ink-800/60 hover:border-red-500/60 hover:bg-ink-700/60 transition-colors group overflow-hidden flex cursor-pointer focus:outline-none focus:ring-2 focus:ring-bronze-500"
+                  className="war-card text-left rounded-lg border border-ink-600 bg-ink-800/60 hover:border-red-500/60 hover:bg-ink-700/60 transition-colors group overflow-hidden flex cursor-pointer focus:outline-none focus:ring-2 focus:ring-vermilion-500"
                 >
                   {/* 战争图片 */}
                   <div className="relative w-32 flex-shrink-0 bg-ink-900">
@@ -482,11 +482,11 @@ function WarDetailDialog({ war, onClose, onChat, onViewOnMap }: {
                     reopenLabel: war.title,
                     warId: war.id,
                   })}
-                  className="text-xs text-ink-500 tabular-nums mt-0.5 hover:text-bronze-400 transition-colors group inline-flex items-center gap-1"
+                  className="text-xs text-ink-500 tabular-nums mt-0.5 hover:text-vermilion-300 transition-colors group inline-flex items-center gap-1"
                   title="在地图上定位"
                 >
                   {war.coordinates[0].toFixed(2)}°E, {war.coordinates[1].toFixed(2)}°N
-                  <span className="text-bronze-400 opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+                  <span className="text-vermilion-300 opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
                 </button>
               )}
             </div>
@@ -687,11 +687,11 @@ function MajorWarNodeDetailDialog({ mw, node, onClose, onBack, onChat, onSwitchN
                   <button
                     type="button"
                     onClick={handleJump}
-                    className="inline-flex items-center gap-1 text-ink-500 hover:text-bronze-400 transition-colors group"
+                    className="inline-flex items-center gap-1 text-ink-500 hover:text-vermilion-300 transition-colors group"
                     title="在地图上定位"
                   >
                     📍 {node.location}
-                    <span className="text-bronze-400 opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+                    <span className="text-vermilion-300 opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
                   </button>
                 )}
                 {node.location && !nodePos && (

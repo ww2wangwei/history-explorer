@@ -136,7 +136,7 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
       onClick={handleClose}
     >
       <div
-        className="relative w-full max-w-3xl max-h-[92vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl"
+        className="relative w-full max-w-3xl max-h-[92vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-vermilion-500/40 shadow-2xl"
         role="dialog"
         aria-modal="true"
         aria-label={poem.title}
@@ -181,7 +181,7 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
               href={poem.image.pageUrl || '#'}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              className="text-bronze-400/85 hover:text-bronze-300 transition-colors truncate max-w-[60%]"
+              className="text-vermilion-300/85 hover:text-vermilion-300 transition-colors truncate max-w-[60%]"
               title={poem.image.artworkName ?? poem.title}
             >
               {poem.image.artworkName || 'Wikimedia artwork'}
@@ -197,7 +197,7 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
 
         {/* 元信息条 */}
         <div className="flex items-center gap-2 px-6 py-3 border-b border-ink-700 text-xs flex-wrap">
-          <span className="font-serif text-base text-bronze-300 truncate">{poem.title}</span>
+          <span className="font-serif text-base text-vermilion-300 truncate">{poem.title}</span>
           <span className="text-ink-500">·</span>
           <span className="text-parchment-100">{poem.author}</span>
           <span
@@ -242,7 +242,7 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
                       className={`group flex flex-col items-start text-left px-3 py-1.5 rounded-lg border text-xs transition-colors max-w-full ${
                         active
                           ? 'bg-amber-600/30 border-amber-400/70 text-amber-100'
-                          : 'bg-ink-700/40 border-ink-600 text-parchment-100 hover:bg-ink-700 hover:border-bronze-500/50'
+                          : 'bg-ink-700/40 border-ink-600 text-parchment-100 hover:bg-ink-700 hover:border-vermilion-500/40'
                       }`}
                       title="点击在原文中高亮"
                     >
@@ -260,7 +260,7 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
               {activeTerm && (
                 <button
                   onClick={() => setActiveTerm(null)}
-                  className="mt-2 text-xs text-ink-500 hover:text-bronze-300 transition-colors"
+                  className="mt-2 text-xs text-ink-500 hover:text-vermilion-300 transition-colors"
                 >
                   ✕ 取消高亮
                 </button>
@@ -294,7 +294,7 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
 可以用现代汉语的口语表达，比如：
 "明亮的月光洒在床前，抬头望月，低头就想起远方的故乡。"`}
               rows={5}
-              className="w-full px-3 py-2 bg-ink-700/60 border border-ink-600 rounded-lg text-sm text-parchment-100 placeholder-ink-500 leading-relaxed resize-y focus:outline-none focus:border-bronze-500 font-serif"
+              className="w-full px-3 py-2 bg-ink-700/60 border border-ink-600 rounded-lg text-sm text-parchment-100 placeholder-ink-500 leading-relaxed resize-y focus:outline-none focus:border-vermilion-500/40 font-serif"
             />
             <div className="flex justify-between text-[10px] text-ink-500 mt-1 px-1">
               <span>输入会自动保存到本地</span>
@@ -321,7 +321,7 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
                       })
                     }, 100)
                   }}
-                  className="text-[11px] px-2.5 py-1 rounded-lg bg-ink-700/70 hover:bg-ink-700 border border-ink-600 text-bronze-300 hover:text-bronze-200 flex items-center gap-1 transition-colors"
+                  className="text-[11px] px-2.5 py-1 rounded-lg bg-ink-700/70 hover:bg-ink-700 border border-ink-600 text-vermilion-300 hover:text-vermilion-200 flex items-center gap-1 transition-colors"
                   title={`在大地图上查看 ${poem.geoLabel || poem.title} 的位置`}
                 >
                   🗺️ 在地图上查看 · {poem.geoLabel || poem.title}

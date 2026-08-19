@@ -64,8 +64,8 @@ export default function GeoFeatureFilter() {
         title="图层（底图样式 + 自定义叠加 + AMap 自带 feature）"
         className={`absolute left-2 z-50 px-3 py-2 rounded-lg border-2 shadow-2xl text-sm font-serif flex items-center gap-1.5 transition-all backdrop-blur ${
           open
-            ? 'bg-bronze-600 border-bronze-300 text-parchment-50'
-            : 'bg-ink-900/95 border-bronze-500/80 text-bronze-300 hover:bg-ink-800 hover:border-bronze-300'
+            ? 'bg-vermilion-500 border-bronze-300 text-parchment-50'
+            : 'bg-ink-900/95 border-vermilion-500/40/80 text-vermilion-300 hover:bg-ink-800 hover:border-bronze-300'
         }`}
         style={{ top: '70px' }}
       >
@@ -78,13 +78,13 @@ export default function GeoFeatureFilter() {
       {/* 面板 */}
       {open && (
         <div
-          className="absolute left-2 z-50 w-72 max-h-[70vh] overflow-y-auto scrollbar-thin rounded-lg border border-bronze-500/40 bg-ink-800/95 backdrop-blur shadow-2xl p-3"
+          className="absolute left-2 z-50 w-72 max-h-[70vh] overflow-y-auto scrollbar-thin rounded-lg border border-vermilion-500/40 bg-ink-800/95 backdrop-blur shadow-2xl p-3"
           style={{ top: '115px' }}
           role="dialog"
           aria-label="地理要素图层"
         >
           <div className="flex items-center justify-between mb-2">
-            <div className="text-sm font-serif text-bronze-300">🗺 地图图层</div>
+            <div className="text-sm font-serif text-vermilion-300">🗺 地图图层</div>
             <button
               onClick={() => setOpen(false)}
               className="text-ink-500 hover:text-parchment-50 text-base leading-none"
@@ -97,7 +97,7 @@ export default function GeoFeatureFilter() {
             <button
               onClick={() => setTab('style')}
               className={`flex-1 px-2 py-1.5 transition-colors ${
-                tab === 'style' ? 'bg-bronze-700/40 text-bronze-200' : 'text-ink-400 hover:text-parchment-50'
+                tab === 'style' ? 'bg-vermilion-700/40 text-vermilion-200' : 'text-ink-400 hover:text-parchment-50'
               }`}
             >
               底图样式
@@ -105,7 +105,7 @@ export default function GeoFeatureFilter() {
             <button
               onClick={() => setTab('custom')}
               className={`flex-1 px-2 py-1.5 transition-colors ${
-                tab === 'custom' ? 'bg-bronze-700/40 text-bronze-200' : 'text-ink-400 hover:text-parchment-50'
+                tab === 'custom' ? 'bg-vermilion-700/40 text-vermilion-200' : 'text-ink-400 hover:text-parchment-50'
               }`}
             >
               叠加层 <span className="text-[10px] opacity-70">({onCount})</span>
@@ -113,7 +113,7 @@ export default function GeoFeatureFilter() {
             <button
               onClick={() => setTab('amap')}
               className={`flex-1 px-2 py-1.5 transition-colors ${
-                tab === 'amap' ? 'bg-bronze-700/40 text-bronze-200' : 'text-ink-400 hover:text-parchment-50'
+                tab === 'amap' ? 'bg-vermilion-700/40 text-vermilion-200' : 'text-ink-400 hover:text-parchment-50'
               }`}
             >
               底图要素 <span className="text-[10px] opacity-70">({amapOnCount})</span>
@@ -130,7 +130,7 @@ export default function GeoFeatureFilter() {
                     <label
                       key={k}
                       className={`flex items-start gap-2 text-xs cursor-pointer px-1.5 py-1.5 rounded transition-colors ${
-                        active ? 'bg-bronze-900/40 border border-bronze-500/40' : 'hover:bg-ink-700/40'
+                        active ? 'bg-vermilion-900/30 border border-vermilion-500/40' : 'hover:bg-ink-700/40'
                       }`}
                     >
                       <input
@@ -138,7 +138,7 @@ export default function GeoFeatureFilter() {
                         name="map-style"
                         checked={active}
                         onChange={() => setMapStyle(k)}
-                        className="accent-bronze-500 mt-0.5"
+                        className="accent-vermilion-500 mt-0.5"
                       />
                       <span className="text-base leading-none mt-0">{meta.icon}</span>
                       <span className="flex-1 min-w-0">
@@ -158,7 +158,7 @@ export default function GeoFeatureFilter() {
                     onClick={() => viewMode !== '2D' && setViewMode('2D')}
                     className={`flex-1 px-2 py-1.5 text-xs rounded transition-colors ${
                       viewMode === '2D'
-                        ? 'bg-bronze-600 text-parchment-50 font-serif'
+                        ? 'bg-vermilion-500 text-parchment-50 font-serif'
                         : 'bg-ink-900 text-ink-400 hover:bg-ink-700 hover:text-parchment-50'
                     }`}
                     title="标准平面地图"
@@ -169,7 +169,7 @@ export default function GeoFeatureFilter() {
                     onClick={() => viewMode !== '3D' && setViewMode('3D')}
                     className={`flex-1 px-2 py-1.5 text-xs rounded transition-colors ${
                       viewMode === '3D'
-                        ? 'bg-bronze-600 text-parchment-50 font-serif'
+                        ? 'bg-vermilion-500 text-parchment-50 font-serif'
                         : 'bg-ink-900 text-ink-400 hover:bg-ink-700 hover:text-parchment-50'
                     }`}
                     title="立体透视图，可俯仰/旋转（鼠标右键拖动 / Ctrl+左键拖动）"
@@ -195,7 +195,7 @@ export default function GeoFeatureFilter() {
                   type="checkbox"
                   checked={showLabels}
                   onChange={toggleLabels}
-                  className="accent-bronze-500"
+                  className="accent-vermilion-500"
                 />
                 <span>显示要素名称标签</span>
               </label>
@@ -209,7 +209,7 @@ export default function GeoFeatureFilter() {
                         type="checkbox"
                         checked={visible[k]}
                         onChange={() => toggle(k)}
-                        className="accent-bronze-500 mt-0.5"
+                        className="accent-vermilion-500 mt-0.5"
                       />
                       <span className="text-base leading-none mt-0">{meta.icon}</span>
                       <span className="flex-1 min-w-0">
@@ -222,9 +222,9 @@ export default function GeoFeatureFilter() {
               </div>
 
               <div className="flex items-center gap-1.5 pt-2 border-t border-ink-700 text-[10px]">
-                <button onClick={showAll} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-bronze-500 hover:text-bronze-300">全开</button>
-                <button onClick={hideAll} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-bronze-500 hover:text-bronze-300">全关</button>
-                <button onClick={resetDefault} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-bronze-500 hover:text-bronze-300 ml-auto">恢复默认</button>
+                <button onClick={showAll} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-vermilion-500/40 hover:text-vermilion-300">全开</button>
+                <button onClick={hideAll} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-vermilion-500/40 hover:text-vermilion-300">全关</button>
+                <button onClick={resetDefault} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-vermilion-500/40 hover:text-vermilion-300 ml-auto">恢复默认</button>
               </div>
 
               <div className="text-[10px] text-ink-500 mt-2 leading-relaxed">
@@ -238,7 +238,7 @@ export default function GeoFeatureFilter() {
                   type="checkbox"
                   checked={showGraticule}
                   onChange={toggleGraticule}
-                  className="accent-bronze-500"
+                  className="accent-vermilion-500"
                 />
                 <span className="text-base leading-none">🌐</span>
                 <span className="font-serif">显示经纬网</span>
@@ -250,7 +250,7 @@ export default function GeoFeatureFilter() {
                   type="checkbox"
                   checked={showCloud}
                   onChange={toggleCloud}
-                  className="accent-bronze-500"
+                  className="accent-vermilion-500"
                 />
                 <span className="text-base leading-none">⛅</span>
                 <span className="font-serif">实时云图</span>
@@ -267,7 +267,7 @@ export default function GeoFeatureFilter() {
                         type="checkbox"
                         checked={checked}
                         onChange={() => toggleAmap(k)}
-                        className="accent-bronze-500 mt-0.5"
+                        className="accent-vermilion-500 mt-0.5"
                       />
                       <span className="text-base leading-none mt-0">{meta.icon}</span>
                       <span className="flex-1 min-w-0">
@@ -280,9 +280,9 @@ export default function GeoFeatureFilter() {
               </div>
 
               <div className="flex items-center gap-1.5 pt-2 border-t border-ink-700 text-[10px]">
-                <button onClick={amapShowAll} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-bronze-500 hover:text-bronze-300">全开</button>
-                <button onClick={amapHideAll} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-bronze-500 hover:text-bronze-300">全关</button>
-                <button onClick={amapResetDefault} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-bronze-500 hover:text-bronze-300 ml-auto">恢复默认</button>
+                <button onClick={amapShowAll} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-vermilion-500/40 hover:text-vermilion-300">全开</button>
+                <button onClick={amapHideAll} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-vermilion-500/40 hover:text-vermilion-300">全关</button>
+                <button onClick={amapResetDefault} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-vermilion-500/40 hover:text-vermilion-300 ml-auto">恢复默认</button>
               </div>
 
               <div className="text-[10px] text-ink-500 mt-2 leading-relaxed">

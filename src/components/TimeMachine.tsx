@@ -60,7 +60,7 @@ export default function TimeMachine() {
   return (
     <div className="relative" ref={containerRef}>
       <button
-        className="px-3 py-1.5 rounded-lg bg-ink-700/80 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-xs flex items-center gap-1.5 transition-colors"
+        className="px-3 py-1.5 rounded-lg bg-ink-700/80 hover:bg-ink-600 border border-ink-600 text-vermilion-300 text-xs flex items-center gap-1.5 transition-colors"
         onClick={() => { audioEngine.playClick(); setIsOpen(!isOpen) }}
         title="时间机器：跳转到特定朝代"
       >
@@ -79,7 +79,7 @@ export default function TimeMachine() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               autoFocus
-              className="w-full px-2 py-1.5 rounded-lg bg-ink-700 border border-ink-600 text-xs text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
+              className="w-full px-2 py-1.5 rounded-lg bg-ink-700 border border-ink-600 text-xs text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-vermilion-500/40"
             />
           </div>
 

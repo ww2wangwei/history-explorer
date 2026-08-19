@@ -66,7 +66,7 @@ export default function ModalShell({
         aria-modal="true"
         aria-label={ariaLabel}
         tabIndex={-1}
-        className={`relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl focus:outline-none ${innerClassName}`}
+        className={`relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-vermilion-500/40 shadow-2xl focus:outline-none ${innerClassName}`}
         style={innerStyle}
         onClick={(e) => e.stopPropagation()}
       >

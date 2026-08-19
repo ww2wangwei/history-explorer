@@ -50,8 +50,8 @@ export default function FilterPanel() {
       <button
         className={`px-3 py-1.5 rounded-lg border text-xs flex items-center gap-1.5 transition-colors ${
           hasActiveFilters
-            ? 'bg-bronze-600/30 border-bronze-500/60 text-bronze-400'
-            : 'bg-ink-700/80 hover:bg-ink-600 border-ink-600 text-bronze-400'
+            ? 'bg-vermilion-500/30 border-vermilion-500/60 text-vermilion-300'
+            : 'bg-ink-700/80 hover:bg-ink-600 border-ink-600 text-vermilion-300'
         }`}
         onClick={() => setIsOpen(!isOpen)}
         title="事件筛选"
@@ -70,7 +70,7 @@ export default function FilterPanel() {
           {/* 顶部：状态条 */}
           <div className="px-3 py-2 border-b border-ink-700 flex items-center justify-between">
             <div className="text-xs text-ink-500">
-              <span className="text-bronze-400 font-serif">{filteredCount}</span>
+              <span className="text-vermilion-300 font-serif">{filteredCount}</span>
               <span> / {totalCount}</span> 个事件匹配
             </div>
             {hasActiveFilters && (
@@ -133,7 +133,7 @@ export default function FilterPanel() {
                     key={region}
                     className={`px-2 py-0.5 rounded-lg text-xs border transition-all ${
                       active
-                        ? 'bg-bronze-600/30 border-bronze-500/60 text-bronze-400'
+                        ? 'bg-vermilion-500/30 border-vermilion-500/60 text-vermilion-300'
                         : 'border-ink-600 text-ink-500 hover:border-ink-500'
                     }`}
                     onClick={() => toggleRegion(region)}
@@ -154,7 +154,7 @@ export default function FilterPanel() {
                   key={level}
                   className={`flex-1 px-2 py-1 rounded-lg text-xs border transition-all ${
                     filters.minImportance === level
-                      ? 'bg-bronze-600/30 border-bronze-500/60 text-bronze-400'
+                      ? 'bg-vermilion-500/30 border-vermilion-500/60 text-vermilion-300'
                       : 'border-ink-600 text-ink-500 hover:border-ink-500'
                   }`}
                   onClick={() => setMinImportance(level as 1 | 2 | 3)}

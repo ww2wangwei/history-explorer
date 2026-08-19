@@ -85,7 +85,7 @@ export default function PersonCard({ person, visited, onClick, className = '' }:
   return (
     <button
       onClick={onClick}
-      className={`person-card text-left rounded-lg bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-700/60 transition-all relative group overflow-hidden flex w-full ${className}`}
+      className={`person-card text-left rounded-lg bg-ink-800/60 border border-ink-700 hover:border-vermilion-500/60 hover:bg-ink-700/60 transition-all relative group overflow-hidden flex w-full ${className}`}
     >
       {/* 左：人物头像（双层：程序化兜底 + Bing 真实图）— 紧凑 96px */}
       <div className="relative w-24 flex-shrink-0 bg-ink-900 overflow-hidden">

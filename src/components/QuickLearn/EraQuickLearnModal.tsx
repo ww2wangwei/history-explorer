@@ -66,7 +66,7 @@ export default function EraQuickLearnModal({
         onClick={onClose}
       >
         <div
-          className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-bronze-500/40 shadow-2xl"
+          className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-vermilion-500/40 shadow-2xl"
           role="dialog"
           aria-modal="true"
           aria-label="详情"
@@ -112,7 +112,7 @@ export default function EraQuickLearnModal({
               <div>
                 <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">📜 {era.quickEvents.length} 件关键大事</div>
                 <div className="relative pl-5">
-                  <div className="absolute left-1.5 top-1 bottom-1 w-px bg-bronze-600/40" />
+                  <div className="absolute left-1.5 top-1 bottom-1 w-px bg-vermilion-500/40" />
                   {era.quickEvents.map((ev, i) => (
                     <button
                       key={i}
@@ -126,15 +126,15 @@ export default function EraQuickLearnModal({
                           longDesc: ev.longDesc,
                         })
                       }}
-                      className="w-full text-left relative pb-3 mb-1 last:pb-0 cursor-pointer rounded-lg border border-transparent hover:border-bronze-500/60 hover:bg-bronze-900/30 transition-colors group p-2 -ml-2"
+                      className="w-full text-left relative pb-3 mb-1 last:pb-0 cursor-pointer rounded-lg border border-transparent hover:border-vermilion-500/60 hover:bg-vermilion-900/30 transition-colors group p-2 -ml-2"
                       title="点击查看详情"
                       style={{ zIndex: 10 }}
                     >
                       <div className="absolute -left-3.5 top-2.5 w-2 h-2 rounded-full bg-bronze-500 ring-2 ring-ink-900 group-hover:scale-150 transition-transform pointer-events-none" />
-                      <div className="text-xs text-bronze-400 tabular-nums">
+                      <div className="text-xs text-vermilion-300 tabular-nums">
                         {ev.year < 0 ? `BC ${-ev.year}` : ev.year}
                       </div>
-                      <div className="text-sm font-serif text-parchment-50 group-hover:text-bronze-200 transition-colors mt-0.5">{ev.title}</div>
+                      <div className="text-sm font-serif text-parchment-50 group-hover:text-vermilion-200 transition-colors mt-0.5">{ev.title}</div>
                       {ev.desc && <div className="text-xs text-ink-500 mt-0.5 line-clamp-2">{ev.desc}</div>}
                     </button>
                   ))}
@@ -145,7 +145,7 @@ export default function EraQuickLearnModal({
             {/* 历史意义 */}
             {era.legacy && (
               <div className="p-3 rounded-lg bg-bronze-900/20 border border-bronze-700/40">
-                <div className="text-xs text-bronze-400 uppercase tracking-wider mb-1.5">🎯 历史意义 / 对后世影响</div>
+                <div className="text-xs text-vermilion-300 uppercase tracking-wider mb-1.5">🎯 历史意义 / 对后世影响</div>
                 <div
                   className="text-sm text-parchment-50 leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: renderMarkdownBold(era.legacy) }}
@@ -190,7 +190,7 @@ export default function EraQuickLearnModal({
           {/* footer */}
           <div className="sticky bottom-0 z-10 bg-ink-800/95 backdrop-blur border-t border-ink-600 px-6 py-3 flex items-center justify-between">
             <button
-              className="px-3 py-1.5 rounded-lg text-xs text-ink-300 hover:text-bronze-300 border border-ink-600 transition-colors"
+              className="px-3 py-1.5 rounded-lg text-xs text-ink-300 hover:text-vermilion-300 border border-ink-600 transition-colors"
               onClick={onPrev}
               disabled={!prevEra}
               title={prevEra ? `上一朝代：${prevEra.name}` : '已是第一朝代'}
@@ -199,14 +199,14 @@ export default function EraQuickLearnModal({
             </button>
             <div className="flex items-center gap-2">
               <button
-                className="px-3 py-1.5 rounded-lg text-xs bg-bronze-600/30 text-bronze-300 hover:bg-bronze-600/50 border border-bronze-500/60 transition-colors"
+                className="px-3 py-1.5 rounded-lg text-xs bg-vermilion-500/30 text-vermilion-300 hover:bg-vermilion-500/50 border border-vermilion-500/60 transition-colors"
                 onClick={onMarkLearned}
               >
                 ✓ 标记已学
               </button>
             </div>
             <button
-              className="px-3 py-1.5 rounded-lg text-xs text-ink-300 hover:text-bronze-300 border border-ink-600 transition-colors"
+              className="px-3 py-1.5 rounded-lg text-xs text-ink-300 hover:text-vermilion-300 border border-ink-600 transition-colors"
               onClick={onNext}
               disabled={!nextEra}
               title={nextEra ? `下一朝代：${nextEra.name}` : '已是最后朝代'}
@@ -283,7 +283,7 @@ function QuickEventDetail({ era, event, onClose }: QuickEventDetailProps) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink-900/95 via-ink-900/30 to-transparent pointer-events-none z-10" />
         <div className="absolute bottom-0 left-0 right-0 px-6 pt-8 pb-4 z-20">
-          <div className="text-xs text-bronze-300 mb-1 tracking-wider uppercase">
+          <div className="text-xs text-vermilion-300 mb-1 tracking-wider uppercase">
             {era.name} · {eventType} · {yearLabel}
           </div>
           <h2 className="text-2xl font-serif leading-snug" style={{ color: era.color }}>
@@ -317,7 +317,7 @@ function QuickEventDetail({ era, event, onClose }: QuickEventDetailProps) {
         {event.longDesc && event.desc && (
           <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
             <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">📋 一句话简介</div>
-            <div className="text-sm text-bronze-300 font-serif italic">{event.desc}</div>
+            <div className="text-sm text-vermilion-300 font-serif italic">{event.desc}</div>
           </div>
         )}
 
@@ -328,7 +328,7 @@ function QuickEventDetail({ era, event, onClose }: QuickEventDetailProps) {
           </div>
           <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
             <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">📅 时间</div>
-            <div className="text-sm text-bronze-300 font-serif">{yearLabel}</div>
+            <div className="text-sm text-vermilion-300 font-serif">{yearLabel}</div>
           </div>
           <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
             <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">📂 分类</div>
@@ -401,7 +401,7 @@ function renderMarkdownBold(text: string): string {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-bronze-300">$1</strong>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-vermilion-300">$1</strong>')
   return escaped
     .split(/\n+|(?<=[。！？!?])\s+/)
     .filter(p => p.trim())
@@ -482,12 +482,12 @@ function AutoEventsInRange({ eraId: _eraId, startYear, endYear }: { eraId: strin
     <div>
       <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">📜 同时期关键事件（自动聚合）</div>
       <div className="relative pl-5">
-        <div className="absolute left-1.5 top-1 bottom-1 w-px bg-bronze-600/40" />
+        <div className="absolute left-1.5 top-1 bottom-1 w-px bg-vermilion-500/40" />
         {eraEvents.map((ev, i) => (
           <div key={i} className="relative pb-3 last:pb-0">
             <div className="absolute -left-3.5 top-1 w-2 h-2 rounded-full bg-bronze-500 ring-2 ring-ink-900" />
             <div className="flex items-baseline gap-2 mb-0.5">
-              <span className="text-xs text-bronze-400 tabular-nums">
+              <span className="text-xs text-vermilion-300 tabular-nums">
                 {ev.year < 0 ? `BC ${-ev.year}` : ev.year}
               </span>
               {ev.importance === 3 && <span className="text-xs text-amber-400">⭐ 关键</span>}

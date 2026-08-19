@@ -30,7 +30,7 @@ function OneStat({ def, value, color }: { def: StatDef; value: number; color: st
           <span className="font-serif">{def.name}</span>
         </span>
         <span
-          className={`tabular-nums font-serif ${danger ? 'text-danger' : high ? 'text-bronze-300' : 'text-parchment-100'}`}
+          className={`tabular-nums font-serif ${danger ? 'text-danger' : high ? 'text-vermilion-300' : 'text-parchment-100'}`}
         >
           {value} / {def.max}
         </span>

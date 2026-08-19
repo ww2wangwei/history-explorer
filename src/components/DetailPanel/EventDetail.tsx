@@ -86,7 +86,7 @@ export default function EventDetail({ eventId }: Props) {
           >
             {event.category}
           </div>
-          <h2 className="text-lg font-serif text-bronze-400">{event.title}</h2>
+          <h2 className="text-lg font-serif text-vermilion-300">{event.title}</h2>
           <div className="text-sm text-ink-500 mt-1 font-serif">{formatYear(event.year)}</div>
           {event.endYear !== undefined && (
             <div className="text-xs text-ink-500 mt-0.5">
@@ -116,11 +116,11 @@ export default function EventDetail({ eventId }: Props) {
           <button
             type="button"
             onClick={focusOnMap}
-            className="px-2 py-1 rounded-lg bg-ink-700 text-ink-500 hover:bg-ink-600 hover:text-bronze-400 transition-colors group inline-flex items-center gap-1"
+            className="px-2 py-1 rounded-lg bg-ink-700 text-ink-500 hover:bg-ink-600 hover:text-vermilion-300 transition-colors group inline-flex items-center gap-1"
             title="在地图上定位"
           >
             📍 {event.coordinates[1].toFixed(2)}°, {event.coordinates[0].toFixed(2)}°
-            <span className="text-bronze-400 opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+            <span className="text-vermilion-300 opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
           </button>
         )}
       </div>
@@ -128,14 +128,14 @@ export default function EventDetail({ eventId }: Props) {
       {/* 操作按钮组 */}
       <div className="flex gap-2 mb-4">
         <button
-          className="flex-1 px-3 py-2 rounded-lg bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/50 text-bronze-400 text-sm transition-colors"
+          className="flex-1 px-3 py-2 rounded-lg bg-vermilion-500/30 hover:bg-vermilion-500/50 border border-vermilion-500/40 text-vermilion-300 text-sm transition-colors"
           onClick={() => setYear(event.year)}
         >
           📅 定位时间轴
         </button>
         {event.coordinates && (
           <button
-            className="flex-1 px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-sm transition-colors"
+            className="flex-1 px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-vermilion-300 text-sm transition-colors"
             onClick={focusOnMap}
           >
             🗺️ 聚焦地图
@@ -151,7 +151,7 @@ export default function EventDetail({ eventId }: Props) {
           </button>
         ) : (
           <button
-            className="flex-1 px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-sm transition-colors"
+            className="flex-1 px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-vermilion-300 text-sm transition-colors"
             onClick={() => addCard({ kind: 'event', id: eventId })}
             title="加入间隔重复复习"
           >
@@ -252,7 +252,7 @@ export default function EventDetail({ eventId }: Props) {
             {relatedEvents.map(ev => (
               <button
                 key={ev.id}
-                className="w-full text-left px-2 py-1.5 rounded-lg border border-transparent hover:border-bronze-500/60 hover:bg-bronze-900/20 transition-colors flex items-baseline gap-2 group"
+                className="w-full text-left px-2 py-1.5 rounded-lg border border-transparent hover:border-vermilion-500/60 hover:bg-bronze-900/20 transition-colors flex items-baseline gap-2 group"
                 onClick={() => selectEvent(ev.id)}
                 title="点击查看事件详情"
               >

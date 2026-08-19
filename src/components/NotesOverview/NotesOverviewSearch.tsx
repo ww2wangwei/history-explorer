@@ -27,7 +27,7 @@ export default function NotesOverviewSearch({ value, onChange }: Props) {
         value={value}
         onChange={e => onChange(e.target.value)}
         placeholder="搜索笔记标题或内容…"
-        className="w-full pl-9 pr-9 py-2 bg-ink-700/60 border border-ink-600 rounded-lg text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
+        className="w-full pl-9 pr-9 py-2 bg-ink-700/60 border border-ink-600 rounded-lg text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-vermilion-500/40"
       />
       {value && (
         <button

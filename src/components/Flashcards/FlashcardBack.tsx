@@ -59,7 +59,7 @@ export default function FlashcardBack({
         {targetKind === 'figure' && emoji && (
           <div className="text-5xl mb-1">{emoji}</div>
         )}
-        <div className="text-xl md:text-2xl font-serif text-bronze-400">{targetName}</div>
+        <div className="text-xl md:text-2xl font-serif text-vermilion-300">{targetName}</div>
         {subtitle && (
           <div className="text-xs text-ink-400 mt-1">{subtitle}</div>
         )}

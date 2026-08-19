@@ -63,7 +63,7 @@ export default function AdminLayout({ tab, onTabChange, children }: Props) {
       {/* 侧边栏 */}
       <aside className="w-56 flex-shrink-0 bg-ink-800 border-r border-ink-700 flex flex-col">
         <div className="px-4 py-4 border-b border-ink-700">
-          <div className="text-lg font-serif text-bronze-300 flex items-center gap-2">
+          <div className="text-lg font-serif text-vermilion-300 flex items-center gap-2">
             ⚙️ 后台管理
           </div>
           <div className="text-xs text-ink-500 mt-1">
@@ -82,7 +82,7 @@ export default function AdminLayout({ tab, onTabChange, children }: Props) {
               onClick={() => onTabChange(t.id)}
               className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
                 tab === t.id
-                  ? 'bg-bronze-700/30 text-bronze-200 border border-bronze-600/50'
+                  ? 'bg-bronze-700/30 text-vermilion-200 border border-bronze-600/50'
                   : 'text-ink-300 hover:bg-ink-700/60 hover:text-parchment-50 border border-transparent'
               }`}
             >

@@ -158,7 +158,7 @@ export default function PoemsOverview({ isActive, onClose }: Props) {
                   key={k}
                   onClick={() => setDynasty(k as DynastyFilter)}
                   className={`px-3 py-1.5 transition-colors ${
-                    dynasty === k ? 'bg-bronze-600/40 text-bronze-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'
+                    dynasty === k ? 'bg-vermilion-500/40 text-vermilion-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'
                   }`}
                 >
                   {label}
@@ -171,7 +171,7 @@ export default function PoemsOverview({ isActive, onClose }: Props) {
                   key={k}
                   onClick={() => setCategory(k)}
                   className={`px-3 py-1.5 transition-colors ${
-                    category === k ? 'bg-bronze-600/40 text-bronze-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'
+                    category === k ? 'bg-vermilion-500/40 text-vermilion-300' : 'text-ink-400 hover:text-parchment-50 hover:bg-ink-600'
                   }`}
                 >
                   {label}
@@ -182,7 +182,7 @@ export default function PoemsOverview({ isActive, onClose }: Props) {
             <select
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
-              className="px-3 py-1.5 rounded-lg bg-ink-700/60 border border-ink-600 text-xs text-parchment-50 focus:outline-none focus:border-bronze-500 max-w-[180px]"
+              className="px-3 py-1.5 rounded-lg bg-ink-700/60 border border-ink-600 text-xs text-parchment-50 focus:outline-none focus:border-vermilion-500/40 max-w-[180px]"
               title="按作者筛选"
             >
               <option value="all">👤 全部作者</option>
@@ -228,7 +228,7 @@ export default function PoemsOverview({ isActive, onClose }: Props) {
             return (
               <div
                 key={poem.id}
-                className="group rounded-lg overflow-hidden bg-ink-800/60 border border-ink-700 hover:border-bronze-500/60 hover:bg-ink-800 transition-all flex flex-col"
+                className="group rounded-lg overflow-hidden bg-ink-800/60 border border-ink-700 hover:border-vermilion-500/60 hover:bg-ink-800 transition-all flex flex-col"
               >
                 <button
                   onClick={() => setSelected(poem)}

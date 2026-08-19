@@ -19,9 +19,9 @@ export default function AdminOverview({ onTabChange }: Props) {
 
   return (
     <div className="p-8 max-w-4xl">
-      <h1 className="text-3xl font-serif text-bronze-300 mb-2">⚙️ 后台管理</h1>
+      <h1 className="text-3xl font-serif text-vermilion-300 mb-2">⚙️ 后台管理</h1>
       <p className="text-sm text-ink-400 mb-8">
-        编辑后的内容存在浏览器 localStorage（key: <code className="text-bronze-300">history-explorer-admin</code>），不影响源文件。
+        编辑后的内容存在浏览器 localStorage（key: <code className="text-vermilion-300">history-explorer-admin</code>），不影响源文件。
         主应用读取时会优先用这里的覆盖。
       </p>
 
@@ -37,7 +37,7 @@ export default function AdminOverview({ onTabChange }: Props) {
         <div className="flex items-center justify-between">
           <div>
             <div className="text-sm text-parchment-50 mb-1">
-              总编辑数：<span className="text-2xl font-serif text-bronze-300">{total}</span>
+              总编辑数：<span className="text-2xl font-serif text-vermilion-300">{total}</span>
             </div>
             <div className="text-xs text-ink-500">
               状态：{isDirty ? '🟡 有未保存改动（已自动存到 localStorage）' : '🟢 已同步'}
@@ -60,7 +60,7 @@ export default function AdminOverview({ onTabChange }: Props) {
 
       {/* 说明 */}
       <div className="p-4 rounded-lg bg-ink-800/60 border border-ink-700 text-sm text-ink-300 space-y-2">
-        <div className="text-bronze-300 font-serif">💡 使用说明</div>
+        <div className="text-vermilion-300 font-serif">💡 使用说明</div>
         <ul className="list-disc list-inside space-y-1 text-xs">
           <li>在 <strong>地理/人物/文化/战争</strong> 页面可以增删改查条目</li>
           <li>图片字段输入<strong>英文关键词</strong>，保存后自动用 Bing 缩略图</li>
@@ -78,7 +78,7 @@ function StatCard({ icon, label, count, color, onClick }: { icon: string; label:
   return (
     <button
       onClick={onClick}
-      className="p-4 rounded-lg bg-ink-800 border border-ink-700 hover:border-bronze-500/60 text-left transition-colors"
+      className="p-4 rounded-lg bg-ink-800 border border-ink-700 hover:border-vermilion-500/60 text-left transition-colors"
     >
       <div className="flex items-center gap-2 mb-1">
         <span className="text-2xl">{icon}</span>

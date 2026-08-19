@@ -3,7 +3,7 @@
  *
  * 视觉规格与 ui/OverviewLayout 的头部保持一致：
  *   - 关闭按钮 32×32、字形 `×`、hover 高亮、aria-label
- *   - 标题 text-2xl font-serif text-bronze-300
+ *   - 标题 text-2xl font-serif text-vermilion-300
  * 注：本组件不套用 OverviewLayout（笔记 page 形态是 flex 撑满高度的
  *     编辑器分屏布局，与 OverviewLayout 的滚动流模型不兼容），仅对齐头部视觉。
  */
@@ -13,8 +13,8 @@ interface Props {
 
 export default function NotesOverviewHeader({ onClose }: Props) {
   return (
-    <div className="flex items-center justify-between px-5 py-4 border-b border-bronze-500/40 bg-ink-800/95 backdrop-blur">
-      <h2 className="font-serif text-2xl text-bronze-300 flex items-center gap-2">
+    <div className="flex items-center justify-between px-5 py-4 border-b border-vermilion-500/40 bg-ink-800/95 backdrop-blur">
+      <h2 className="font-serif text-2xl text-vermilion-300 flex items-center gap-2">
         📒 我的笔记
       </h2>
       <button

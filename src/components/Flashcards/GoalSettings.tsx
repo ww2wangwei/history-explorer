@@ -64,7 +64,7 @@ export default function GoalSettings({ isOpen, onClose }: Props) {
       >
         {/* 头部 */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-ink-600">
-          <h2 className="font-serif text-lg text-bronze-400 flex items-center gap-2">
+          <h2 className="font-serif text-lg text-vermilion-300 flex items-center gap-2">
             🎯 每日复习目标
           </h2>
           <button
@@ -89,7 +89,7 @@ export default function GoalSettings({ isOpen, onClose }: Props) {
                 max="100"
                 value={draft}
                 onChange={e => setDraft(Math.max(0, Math.min(100, parseInt(e.target.value || '0', 10))))}
-                className="w-20 px-3 py-2 bg-ink-700/60 border border-ink-600 rounded-lg text-base text-parchment-50 text-center focus:outline-none focus:border-bronze-500"
+                className="w-20 px-3 py-2 bg-ink-700/60 border border-ink-600 rounded-lg text-base text-parchment-50 text-center focus:outline-none focus:border-vermilion-500/40"
               />
               <span className="text-sm text-ink-300">张 / 天</span>
               <span className="text-xs text-ink-500 ml-2">（0 = 关闭目标）</span>
@@ -148,7 +148,7 @@ export default function GoalSettings({ isOpen, onClose }: Props) {
           </button>
           <button
             onClick={handleSave}
-            className="px-4 py-1.5 text-sm rounded-lg bg-bronze-600/40 hover:bg-bronze-600/60 border border-bronze-500/60 text-bronze-400 transition-colors"
+            className="px-4 py-1.5 text-sm rounded-lg bg-vermilion-500/40 hover:bg-vermilion-500/60 border border-vermilion-500/60 text-vermilion-300 transition-colors"
           >
             保存
           </button>

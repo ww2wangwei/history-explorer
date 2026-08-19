@@ -85,7 +85,7 @@ export default function SearchBar() {
           }}
           onFocus={() => setIsOpen(true)}
           onBlur={() => setTimeout(() => setIsOpen(false), 200)}
-          className="w-full px-3 py-1.5 pl-8 rounded-lg bg-ink-700 border border-ink-600 text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
+          className="w-full px-3 py-1.5 pl-8 rounded-lg bg-ink-700 border border-ink-600 text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-vermilion-500/40"
         />
         <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-ink-500 text-sm">
           🔍

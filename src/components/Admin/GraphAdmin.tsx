@@ -254,7 +254,7 @@ export default function GraphAdmin() {
             value={search}
             onChange={e => setSearch(e.target.value)}
             placeholder="搜索人物设置焦点..."
-            className="w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-bronze-500"
+            className="w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 rounded-lg text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-vermilion-500/40"
           />
         </div>
         <div className="flex-1 overflow-y-auto">
@@ -277,7 +277,7 @@ export default function GraphAdmin() {
             )
           ) : (
             <div className="p-3 space-y-2 text-xs text-ink-400">
-              <div className="text-bronze-300">💡 使用方法</div>
+              <div className="text-vermilion-300">💡 使用方法</div>
               <ul className="list-disc list-inside space-y-1">
                 <li>上方搜索框切换焦点人物</li>
                 <li>SVG 中<strong>从一个节点拖到另一个</strong> → 创建关系</li>
@@ -475,8 +475,8 @@ export default function GraphAdmin() {
         if (!s || !t) return null
         return (
           <div className="fixed inset-0 z-[80] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4" onClick={() => setNewRel(null)}>
-            <div className="bg-ink-800 rounded-lg border border-bronze-500/40 p-6 w-96" onClick={e => e.stopPropagation()}>
-              <h3 className="text-lg font-serif text-bronze-300 mb-3">➕ 创建关系</h3>
+            <div className="bg-ink-800 rounded-lg border border-vermilion-500/40 p-6 w-96" onClick={e => e.stopPropagation()}>
+              <h3 className="text-lg font-serif text-vermilion-300 mb-3">➕ 创建关系</h3>
               <div className="mb-3 text-sm">
                 <div className="flex items-center gap-2 mb-2">
                   <span>{s.emoji || '👤'}</span>
@@ -536,8 +536,8 @@ export default function GraphAdmin() {
       {/* 编辑关系类型 */}
       {editRel && (
         <div className="fixed inset-0 z-[80] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4" onClick={() => setEditRel(null)}>
-          <div className="bg-ink-800 rounded-lg border border-bronze-500/40 p-6 w-96" onClick={e => e.stopPropagation()}>
-            <h3 className="text-lg font-serif text-bronze-300 mb-3">✏️ 编辑关系类型</h3>
+          <div className="bg-ink-800 rounded-lg border border-vermilion-500/40 p-6 w-96" onClick={e => e.stopPropagation()}>
+            <h3 className="text-lg font-serif text-vermilion-300 mb-3">✏️ 编辑关系类型</h3>
             <div className="grid grid-cols-5 gap-1 mb-4">
               {(Object.keys(RELATION_STYLE) as RelationType[]).map(t => (
                 <button

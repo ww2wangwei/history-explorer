@@ -303,7 +303,7 @@ function EraDetailInner({ eraId }: Props) {
         </div>
         <div className="bg-ink-700 px-3 py-2 rounded-lg col-span-2">
           <div className="text-ink-500 mb-1">持续时长</div>
-          <div className="text-bronze-400 font-serif">{duration} 年</div>
+          <div className="text-vermilion-300 font-serif">{duration} 年</div>
         </div>
         {era.capital && (
           <button
@@ -315,12 +315,12 @@ function EraDetailInner({ eraId }: Props) {
               eraId: era.id,
               eventYear: era.startYear,
             })}
-            className="bg-ink-700 hover:bg-ink-600 hover:ring-1 hover:ring-bronze-500/40 px-3 py-2 rounded-lg col-span-2 text-left transition-colors group cursor-pointer"
+            className="bg-ink-700 hover:bg-ink-600 hover:ring-1 hover:ring-vermilion-500/40 px-3 py-2 rounded-lg col-span-2 text-left transition-colors group cursor-pointer"
             title="点击在地图上定位都城"
           >
             <div className="text-ink-500 mb-1 flex items-center justify-between">
               <span>都城</span>
-              <span className="text-bronze-400 opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+              <span className="text-vermilion-300 opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
             </div>
             <div className="text-parchment-100 text-xs">
               📍 {era.capital[1].toFixed(2)}°N, {era.capital[0].toFixed(2)}°E
@@ -336,7 +336,7 @@ function EraDetailInner({ eraId }: Props) {
       {/* 操作按钮 */}
       <div className="flex gap-2 mb-4">
         <button
-          className="flex-1 px-3 py-2 rounded-lg bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/50 text-bronze-400 text-sm transition-colors"
+          className="flex-1 px-3 py-2 rounded-lg bg-vermilion-500/30 hover:bg-vermilion-500/50 border border-vermilion-500/40 text-vermilion-300 text-sm transition-colors"
           onClick={() => setYear(Math.round((era.startYear + era.endYear) / 2))}
         >
           📅 跳到中心时间
@@ -373,7 +373,7 @@ function EraDetailInner({ eraId }: Props) {
           </button>
         ) : (
           <button
-            className="flex-1 px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-bronze-400 text-sm transition-colors"
+            className="flex-1 px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-vermilion-300 text-sm transition-colors"
             onClick={() => addCard({ kind: 'era', id: era.id })}
             title="加入间隔重复复习"
           >
@@ -443,7 +443,7 @@ function EraDetailInner({ eraId }: Props) {
                       {events.map(ev => (
                         <button
                           key={ev.id}
-                          className="w-full text-left px-2 py-1.5 rounded-lg border border-transparent hover:border-bronze-500/60 hover:bg-bronze-900/20 transition-colors flex items-baseline gap-2 group"
+                          className="w-full text-left px-2 py-1.5 rounded-lg border border-transparent hover:border-vermilion-500/60 hover:bg-bronze-900/20 transition-colors flex items-baseline gap-2 group"
                           onClick={() => {
                             selectEvent(ev.id)
                             setYear(ev.year)
@@ -453,8 +453,8 @@ function EraDetailInner({ eraId }: Props) {
                           <span className="text-[9px] text-ink-500 font-serif shrink-0 w-10 tabular-nums">
                             {ev.year < 0 ? '前' + Math.abs(ev.year) : ev.year}
                           </span>
-                          <span className="text-[11px] text-parchment-100 group-hover:text-bronze-200 flex-1 truncate transition-colors">{ev.title}</span>
-                          <span className="text-[9px] text-ink-500 group-hover:text-bronze-400 shrink-0 transition-colors">→</span>
+                          <span className="text-[11px] text-parchment-100 group-hover:text-vermilion-200 flex-1 truncate transition-colors">{ev.title}</span>
+                          <span className="text-[9px] text-ink-500 group-hover:text-vermilion-300 shrink-0 transition-colors">→</span>
                         </button>
                       ))}
                     </div>
@@ -490,15 +490,15 @@ function EraDetailInner({ eraId }: Props) {
                     {byRegion[region].map(ev => (
                       <button
                         key={ev.id}
-                        className="w-full text-left px-2 py-1.5 rounded-lg border border-transparent hover:border-bronze-500/60 hover:bg-bronze-900/20 transition-colors flex items-baseline gap-2 group"
+                        className="w-full text-left px-2 py-1.5 rounded-lg border border-transparent hover:border-vermilion-500/60 hover:bg-bronze-900/20 transition-colors flex items-baseline gap-2 group"
                         onClick={() => { selectEvent(ev.id); setYear(ev.year) }}
                         title="点击查看事件详情"
                       >
                         <span className="text-[9px] text-ink-500 font-serif shrink-0 w-10 tabular-nums">
                           {ev.year < 0 ? '前' + Math.abs(ev.year) : ev.year}
                         </span>
-                        <span className="text-[11px] text-parchment-100 group-hover:text-bronze-200 flex-1 truncate transition-colors">{ev.title}</span>
-                        <span className="text-[9px] text-ink-500 group-hover:text-bronze-400 shrink-0 transition-colors">→</span>
+                        <span className="text-[11px] text-parchment-100 group-hover:text-vermilion-200 flex-1 truncate transition-colors">{ev.title}</span>
+                        <span className="text-[9px] text-ink-500 group-hover:text-vermilion-300 shrink-0 transition-colors">→</span>
                       </button>
                     ))}
                   </div>
@@ -519,7 +519,7 @@ function EraDetailInner({ eraId }: Props) {
             {eraEvents.slice(0, 8).map(ev => (
               <button
                 key={ev.id}
-                className="w-full text-left px-2 py-1.5 rounded-lg border border-transparent hover:border-bronze-500/60 hover:bg-bronze-900/20 transition-colors flex items-baseline gap-2 group"
+                className="w-full text-left px-2 py-1.5 rounded-lg border border-transparent hover:border-vermilion-500/60 hover:bg-bronze-900/20 transition-colors flex items-baseline gap-2 group"
                 onClick={() => {
                   selectEvent(ev.id)
                   setYear(ev.year)
@@ -529,8 +529,8 @@ function EraDetailInner({ eraId }: Props) {
                 <span className="text-xs text-ink-500 font-serif shrink-0 w-12 tabular-nums">
                   {ev.year < 0 ? '前' + Math.abs(ev.year) : ev.year}
                 </span>
-                <span className="text-xs text-parchment-100 group-hover:text-bronze-200 truncate flex-1 transition-colors">{ev.title}</span>
-                <span className="text-[9px] text-ink-500 group-hover:text-bronze-400 transition-colors">查看 →</span>
+                <span className="text-xs text-parchment-100 group-hover:text-vermilion-200 truncate flex-1 transition-colors">{ev.title}</span>
+                <span className="text-[9px] text-ink-500 group-hover:text-vermilion-300 transition-colors">查看 →</span>
               </button>
             ))}
           </div>
@@ -542,7 +542,7 @@ function EraDetailInner({ eraId }: Props) {
         <div className="mt-4 p-3 rounded-lg bg-ink-700/40 border border-ink-600/60">
           <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">📜 关键大事（{era.quickEvents.length}）· 点击查看详情</div>
           <div className="relative pl-5">
-            <div className="absolute left-1.5 top-1 bottom-1 w-px bg-bronze-600/40" />
+            <div className="absolute left-1.5 top-1 bottom-1 w-px bg-vermilion-500/40" />
             {era.quickEvents.map((ev, i) => (
               <button
                 key={i}
@@ -551,15 +551,15 @@ function EraDetailInner({ eraId }: Props) {
                   e.stopPropagation()
                   setSelectedQuickEvent({ year: ev.year, title: ev.title, desc: ev.desc, longDesc: ev.longDesc, category: undefined, importance: undefined })
                 }}
-                className="w-full text-left relative pb-3 mb-1 last:pb-0 cursor-pointer rounded-lg border border-transparent hover:border-bronze-500/60 hover:bg-bronze-900/30 transition-colors group p-2 -ml-2"
+                className="w-full text-left relative pb-3 mb-1 last:pb-0 cursor-pointer rounded-lg border border-transparent hover:border-vermilion-500/60 hover:bg-vermilion-900/30 transition-colors group p-2 -ml-2"
                 title="点击查看详情"
                 style={{ zIndex: 10 }}
               >
                 <div className="absolute -left-3.5 top-2.5 w-2 h-2 rounded-full bg-bronze-500 ring-2 ring-ink-900 group-hover:scale-150 transition-transform pointer-events-none" />
-                <div className="text-xs text-bronze-400 tabular-nums">
+                <div className="text-xs text-vermilion-300 tabular-nums">
                   {ev.year < 0 ? `BC ${-ev.year}` : `${ev.year}`}
                 </div>
-                <div className="text-xs font-serif text-parchment-50 group-hover:text-bronze-200 transition-colors mt-0.5">{ev.title}</div>
+                <div className="text-xs font-serif text-parchment-50 group-hover:text-vermilion-200 transition-colors mt-0.5">{ev.title}</div>
                 {ev.desc && <div className="text-xs text-ink-500 mt-0.5 line-clamp-1">{ev.desc}</div>}
               </button>
             ))}
@@ -570,7 +570,7 @@ function EraDetailInner({ eraId }: Props) {
       {/* 🎯 历史意义 / 后期影响 */}
       {era.legacy && (
         <div className="mt-4 p-3 rounded-lg bg-bronze-900/20 border border-bronze-700/40">
-          <div className="text-xs text-bronze-400 uppercase tracking-wider mb-1.5">🎯 历史意义 / 对后世影响</div>
+          <div className="text-xs text-vermilion-300 uppercase tracking-wider mb-1.5">🎯 历史意义 / 对后世影响</div>
           <div className="text-xs text-parchment-50 leading-relaxed" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(era.legacy) }} />
         </div>
       )}
@@ -628,7 +628,7 @@ function renderMarkdownBold(text: string): string {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-bronze-300">$1</strong>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-vermilion-300">$1</strong>')
   return escaped
     .split(/\n+|(?<=[。！？!?])\s+/)
     .filter(p => p.trim())
@@ -711,7 +711,7 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink-900/95 via-ink-900/30 to-transparent pointer-events-none z-10" />
           <div className="absolute bottom-0 left-0 right-0 px-6 pt-8 pb-4 z-20">
-            <div className="text-xs text-bronze-300 mb-1 tracking-wider uppercase">
+            <div className="text-xs text-vermilion-300 mb-1 tracking-wider uppercase">
               {eraName} · {eventType} · {yearLabel}
             </div>
             <h2 className="text-2xl font-serif leading-snug" style={{ color: eraColor }}>
@@ -740,7 +740,7 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
           {event.desc && (
             <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
               <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">📋 一句话简介</div>
-              <div className="text-sm text-bronze-300 font-serif italic">{event.desc}</div>
+              <div className="text-sm text-vermilion-300 font-serif italic">{event.desc}</div>
             </div>
           )}
 
@@ -751,7 +751,7 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
             </div>
             <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
               <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">📅 时间</div>
-              <div className="text-sm text-bronze-300 font-serif">{yearLabel}</div>
+              <div className="text-sm text-vermilion-300 font-serif">{yearLabel}</div>
             </div>
             <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
               <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">📂 分类</div>

@@ -50,7 +50,7 @@ export default function FlashcardFront({ targetName, targetKind, missing, emoji,
 
       <button
         onClick={() => { audioEngine.playReveal(); onShowAnswer() }}
-        className="px-6 py-2.5 text-sm rounded-lg bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/60 text-bronze-400 transition-colors"
+        className="px-6 py-2.5 text-sm rounded-lg bg-vermilion-500/30 hover:bg-vermilion-500/50 border border-vermilion-500/60 text-vermilion-300 transition-colors"
       >
         💡 显示答案
       </button>

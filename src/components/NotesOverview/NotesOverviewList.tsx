@@ -69,14 +69,14 @@ export default function NotesOverviewList({
     <div className="flex-1 overflow-y-auto scrollbar-thin px-4 py-3">
       <div className="flex items-center justify-between gap-2 mb-2 px-1">
         <span className="text-xs text-ink-500">
-          显示 <span className="text-bronze-400">{notes.length}</span> / {totalCount} 条
+          显示 <span className="text-vermilion-300">{notes.length}</span> / {totalCount} 条
         </span>
         <button
           onClick={onCreate}
           disabled={!canCreate}
           className={`px-3 py-1 rounded-lg text-xs transition-colors ${
             canCreate
-              ? 'bg-bronze-600/30 hover:bg-bronze-600/50 border border-bronze-500/50 text-bronze-400'
+              ? 'bg-vermilion-500/30 hover:bg-vermilion-500/50 border border-vermilion-500/40 text-vermilion-300'
               : 'bg-ink-700/60 border border-ink-600 text-ink-500 cursor-not-allowed'
           }`}
           title={canCreate ? '新建笔记' : '请先在上方筛选区选择具体朝代或事件'}

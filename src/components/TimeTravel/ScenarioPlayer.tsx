@@ -486,7 +486,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
       <div className="w-full h-full flex items-center justify-center bg-ink-900">
         <div className="text-center">
           <div className="text-ink-400 mb-4">加载中...</div>
-          <button onClick={onExit} className="px-4 py-2 rounded-lg bg-bronze-700/40 text-bronze-200">返回</button>
+          <button onClick={onExit} className="px-4 py-2 rounded-lg bg-vermilion-700/40 text-vermilion-200">返回</button>
         </div>
       </div>
     )
@@ -564,7 +564,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
                   }}
                   className="absolute inset-0 flex items-center justify-center bg-ink-900/70 hover:bg-ink-900/85 transition-colors"
                 >
-                  <div className="px-6 py-3 rounded-full bg-bronze-600 hover:bg-bronze-500 text-parchment-50 font-serif text-lg flex items-center gap-2 shadow-2xl">
+                  <div className="px-6 py-3 rounded-full bg-vermilion-500 hover:bg-vermilion-600 text-bone font-serif text-lg flex items-center gap-2 shadow-2xl">
                     <span className="text-2xl">▶</span>
                     重新播放
                   </div>
@@ -639,10 +639,10 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
               <button
                 key={c.id}
                 onClick={() => handleChoice(c)}
-                className="w-full text-left p-4 rounded-lg border-2 border-ink-700 bg-ink-800/60 hover:border-bronze-500 hover:bg-ink-700/80 transition-all group"
+                className="w-full text-left p-4 rounded-lg border-2 border-ink-700 bg-ink-800/60 hover:border-vermilion-500 hover:bg-ink-700/80 transition-all group"
               >
                 <div className="flex items-center justify-between gap-3">
-                  <div className="text-sm text-parchment-50 group-hover:text-bronze-200 transition-colors">{c.text}</div>
+                  <div className="text-sm text-parchment-50 group-hover:text-vermilion-300 transition-colors">{c.text}</div>
                   {scenario.stats && c.effects && (
                     <div className="flex items-center gap-2 shrink-0 text-xs">
                       {c.effects[scenario.stats.a.id] ? (
@@ -665,10 +665,10 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
 
         {/* 最终场景：显示 NPC closing + 完成按钮 */}
         {currentScene.isFinal && currentScene.npcClosing && currentScene.npcName && !outcomeText && (
-          <div className="mt-6 p-5 rounded-lg bg-bronze-900/30 border border-bronze-600/40 flex items-start gap-3">
+          <div className="mt-6 p-5 rounded-lg bg-vermilion-900/30 border border-vermilion-500/40 flex items-start gap-3">
             <CharacterAvatar name={currentScene.npcName} size={48} />
             <div className="flex-1 min-w-0">
-              <div className="text-xs text-bronze-400 uppercase tracking-wider mb-2">📜 {currentScene.npcName} 说</div>
+              <div className="text-xs text-vermilion-400 uppercase tracking-wider mb-2">📜 {currentScene.npcName} 说</div>
               <div className="text-sm text-parchment-100 italic leading-relaxed font-serif mb-3">{currentScene.npcClosing}</div>
               <button
                 onClick={handleNpcClosing}
@@ -820,7 +820,7 @@ function VolumeControl() {
         min="0" max="1" step="0.05"
         value={vol}
         onChange={e => onVolChange(parseFloat(e.target.value))}
-        className="w-16 h-1 accent-bronze-500"
+        className="w-16 h-1 accent-vermilion-500"
         style={{ filter: muted ? 'grayscale(1)' : 'none' }}
       />
     </div>

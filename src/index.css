@@ -235,4 +235,7 @@
   .text-bone { color: #e6dcc7; }
   /* 🔘 极淡墨文字 */
   .text-faint { color: #6e6557; }
+
+  /* 🖌 毛笔字（Tailwind v3 没原生 font-brush 工具类，加 alias） */
+  .font-brush { font-family: theme('fontFamily.brush'); }
 }

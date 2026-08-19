@@ -17,13 +17,49 @@ export default {
         // 深色层次（最常用于背景/文字/边框）
         ink: {
           900: '#100e0b',
-          800: '#1a1814',
-          700: '#26221c',
-          600: '#3a342a',
-          500: '#5a5142',
-          400: '#7a705c',
+          800: '#1a1714',
+          700: '#26221d',
+          600: '#332c25',
+          500: '#4a3f33',
+          400: '#6e6557',
+          300: '#9a8f7e',
+          200: '#b8ad97',
         },
-        // 主强调色（CTA / 重要标记）
+        // === 墨·朱砂 v2 主题色（新增）===
+        // 暖白主文字（不是 #fff 冷白）
+        bone: '#e6dcc7',
+        // 次要文字
+        muted: '#9a8f7e',
+        // 极淡墨（飞白/水印）
+        faint: '#6e6557',
+        // 朱砂红（主强调色，取代 bronze-400 作为主 CTA）
+        vermilion: {
+          DEFAULT: '#b8433a',
+          50:  '#fbe9e7',
+          100: '#f6ccc7',
+          200: '#ec9b94',
+          300: '#df6c61',
+          400: '#c85044',
+          500: '#b8433a',
+          600: '#9a332c',
+          700: '#7a2621',
+          800: '#5a1b18',
+          soft: 'rgba(184, 67, 58, 0.18)',
+          deep: '#8b2f28',
+        },
+        // 暗金（次强调色，计数、高亮）
+        gold: {
+          DEFAULT: '#c9a557',
+          50: '#f4ead0',
+          100: '#e8d59e',
+          200: '#d8be75',
+          300: '#cdac60',
+          400: '#c9a557',
+          500: '#b08d3e',
+          600: '#8e6f2a',
+          soft: 'rgba(201, 165, 87, 0.15)',
+        },
+        // 墨色（保留 bronze 别名作 alias，避免破坏现存代码）
         bronze: {
           200: '#f0dcbf',
           300: '#e8c997',
@@ -92,6 +128,37 @@ export default {
         '180': '180ms',
         '250': '250ms',
         '400': '400ms',
+      },
+      // 动效曲线（墨·朱砂 easings：偏ease-out快入慢出）
+      transitionTimingFunction: {
+        'ink': 'cubic-bezier(0.2, 0.8, 0.3, 1)',
+        'stamp': 'cubic-bezier(0.2, 0.8, 0.3, 1)',
+      },
+      // 背景图（墨·朱砂 utilities）
+      backgroundImage: {
+        // 宣纸纹理（极淡 SVG 噪点 + 暖色）
+        'paper-noise': "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.85  0 0 0 0 0.78  0 0 0 0 0.65  0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+        // 笔触状边线 mask（让直线带毛笔毛糙感）
+        'brush-edge': "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='4'><filter id='b'><feTurbulence baseFrequency='0.4' numOctaves='2'/><feDisplacementMap in='SourceGraphic' scale='2'/></filter><rect width='100%' height='100%' filter='url(%23b)'/></svg>\")",
+        // 朱砂印章残缺 mask
+        'stamp-rough': "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><filter id='r'><feTurbulence baseFrequency='0.3' numOctaves='2'/><feDisplacementMap in='SourceGraphic' scale='3'/></filter><rect width='100%' height='100%' filter='url(%23r)'/></svg>\")",
+      },
+      // 自定义动画（墨·朱砂 印章盖章、墨晕涟漪）
+      animation: {
+        'stamp-drop': 'stamp-drop 0.7s cubic-bezier(0.2, 0.8, 0.3, 1) both',
+        'ink-ripple': 'ink-ripple 2.4s ease-out infinite',
+      },
+      keyframes: {
+        'stamp-drop': {
+          '0%':   { transform: 'rotate(-12deg) scale(2.4)', opacity: '0', filter: 'blur(8px)' },
+          '55%':  { transform: 'rotate(-12deg) scale(0.92)', opacity: '1', filter: 'blur(0)' },
+          '72%':  { transform: 'rotate(-12deg) scale(1.04)' },
+          '100%': { transform: 'rotate(-12deg) scale(1)' },
+        },
+        'ink-ripple': {
+          '0%':   { transform: 'scale(0.6)', opacity: '0.8' },
+          '100%': { transform: 'scale(1.6)', opacity: '0' },
+        },
       },
     },
   },

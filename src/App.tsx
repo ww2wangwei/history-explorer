@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Layout from '@/components/Layout'
 import AdminApp from '@/components/Admin/AdminApp'
 import Splash, { shouldShowSplash, markSplashSeen } from '@/components/Splash'
+import { ErrorBoundary } from '@/components/ErrorBoundary'
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(() =>
@@ -15,20 +16,26 @@ function App() {
     return () => window.removeEventListener('popstate', onPop)
   }, [])
 
-  if (isAdmin) return <AdminApp />
+  if (isAdmin) return <ErrorBoundary><AdminApp /></ErrorBoundary>
 
   if (showSplash) {
     return (
-      <Splash
-        onDone={() => {
-          markSplashSeen()
-          setShowSplash(false)
-        }}
-      />
+      <ErrorBoundary>
+        <Splash
+          onDone={() => {
+            markSplashSeen()
+            setShowSplash(false)
+          }}
+        />
+      </ErrorBoundary>
     )
   }
 
-  return <Layout />
+  return (
+    <ErrorBoundary>
+      <Layout />
+    </ErrorBoundary>
+  )
 }
 
 export default App

@@ -114,8 +114,3 @@ export interface AuthorMeta {
   shortBio: string
 }
 
-/** poems.json 顶层结构 */
-export interface PoemsData {
-  authors: Record<string, AuthorMeta>
-  poems: Poem[]
-}

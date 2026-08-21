@@ -96,7 +96,3 @@ export const LADDER_GUIDES: LadderGuide[] = [
       '吾曹雪芹，石头记作者。看尽人世悲欢，问红楼、问命运、问小说，可答得悲悯、敏慧。',
   },
 ]
-
-/** 工具：按 id 找 */
-export const guideById = (id: string): LadderGuide | undefined =>
-  LADDER_GUIDES.find(g => g.id === id)

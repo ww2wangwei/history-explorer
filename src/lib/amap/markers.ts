@@ -115,26 +115,3 @@ function resolveIconDescriptor(kind: MarkerKind, color?: string): {
       }
   }
 }
-
-// ===== 旧 API 兼容 =====
-export type CapitalKind = 'selected' | 'china' | 'world'
-
-interface LegacyCreateOpts {
-  era: Era
-  kind: CapitalKind
-  onClick?: () => void
-}
-
-export function createCapitalMarker(opts: LegacyCreateOpts): any | null {
-  const A = (window as any).AMap
-  if (!A || !opts.era.capital) return null
-  const markerKind: MarkerKind = opts.kind === 'world' ? 'worldCapital' : 'chinaCapital'
-  const map = (window as any).__amapTestMap
-  return createMapMarker(map, {
-    position: opts.era.capital,
-    kind: markerKind,
-    color: opts.kind === 'selected' ? '#c89a5b' : opts.era.color,
-    label: opts.kind === 'world' ? opts.era.name : `★ ${opts.era.name}`,
-    onClick: opts.onClick,
-  })
-}

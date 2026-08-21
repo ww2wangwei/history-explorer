@@ -101,25 +101,6 @@ export default function CharacterAvatar({ name, size = 64, searchKeyword, fallba
   )
 }
 
-/** 纯文字头像（不尝试加载图片）—— 用于 NPC 名字等 */
-export function TextAvatar({ name, size = 48, className = '', rounded = '50%' }: { name: string; size?: number; className?: string; rounded?: string }) {
-  const [c1, c2] = colorFromName(name)
-  return (
-    <div
-      className={`flex items-center justify-center font-serif text-parchment-50 select-none flex-shrink-0 ${className}`}
-      style={{
-        width: size, height: size, borderRadius: rounded,
-        background: `linear-gradient(135deg, ${c1} 0%, ${c2} 100%)`,
-        fontSize: size * 0.45, fontWeight: 600,
-        boxShadow: '0 0 0 1.5px rgba(255,255,255,0.2) inset',
-      }}
-      title={name}
-    >
-      {name.trim().charAt(0) || '?'}
-    </div>
-  )
-}
-
 /** 玩家自己的头像（用首字 + 主色） */
 export function PlayerAvatar({ name, size = 64, color = '#c89a5b', className = '' }: { name: string; size?: number; color?: string; className?: string }) {
   return (

@@ -177,7 +177,4 @@ export const useAIStore = create<AIState>()(
   ),
 )
 
-/** Anthropic Messages API 端点 */
-export const ANTHROPIC_ENDPOINT = 'https://api.anthropic.com/v1/messages'
-export const DEFAULT_MODEL = 'claude-haiku-4-5-20251001'  // 便宜快速
 export const MAX_TOKENS = 1024

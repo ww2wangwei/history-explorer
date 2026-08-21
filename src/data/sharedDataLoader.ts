@@ -70,7 +70,6 @@ export function useCoreDataReady(): boolean {
 export function getEras(): Era[] { return _data.eras }
 export function getPeople(): HistoricalFigure[] { return _data.people }
 export function getEvents(): HistoricalEvent[] { return _data.events }
-export function getCoreData(): CoreData { return _data }
 
 /** 模块级变量直接访问（仅在 useCoreDataReady=true 后才安全使用） */
 export const eras = /* @__PURE__ */ getEras()

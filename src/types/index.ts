@@ -95,9 +95,6 @@ export const TIME_RANGE = {
   DEFAULT_YEAR: 1500, // 默认定位到中后期
 } as const;
 
-// 世界地图年份取样间隔（每 10 年一个数据点）
-export const WORLD_GEO_YEAR_STEP = 10;
-
 // 历史事件分类颜色映射
 export const CATEGORY_COLORS: Record<EventCategory, string> = {
   '政治': '#c8553d',

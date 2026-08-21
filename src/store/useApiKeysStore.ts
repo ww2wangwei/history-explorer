@@ -91,8 +91,3 @@ export function getOwmApiKey(): string | undefined {
   const envKey = (import.meta.env.VITE_OWM_API_KEY as string | undefined)?.trim()
   return envKey || undefined
 }
-
-/** 是否有任何来源的 key（用户 store 或 env） */
-export function hasAmapKey(): boolean {
-  return Boolean(getAmapKey())
-}

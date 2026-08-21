@@ -2,37 +2,25 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
 /**
- * 文史天梯（Ladder）状态机 — 4 步闭环（学 / 测 / 记 / 问）+ 难度轮回
+ * 文史天梯（Ladder）状态机 �?4 步闭环（�?/ �?/ �?/ 问）+ 难度轮回
  *
- * 持久化到 localStorage（key: history-explorer-ladder:v1）
+ * 持久化到 localStorage（key: history-explorer-ladder:v1�?
  */
 
 export type LadderId = 'history' | 'poem' | 'figure'
 export type LadderStep = 'study' | 'quiz' | 'notes' | 'ask'
 export type DifficultyCycle = 1 | 2 | 3
 
-export const LADDER_TITLE: Record<LadderId, string> = {
-  history: '史天梯',
-  poem: '诗天梯',
-  figure: '人天梯',
-}
-
-export const LADDER_COLOR: Record<LadderId, string> = {
-  history: '#b85450',
-  poem: '#c89a5b',
-  figure: '#9bc89a',
-}
-
 export interface QuizQuestion {
   kind: 'single' | 'match' | 'order'
-  /** 单选 */
+  /** 单�?*/
   prompt?: string
   options?: string[]
   correctIndex?: number
   explain?: string
   /** 配对 */
   pairs?: { left: string; right: string }[]
-  /** 排年表 */
+  /** 排年�?*/
   items?: { id: string; label: string }[]
   correctOrder?: string[]
 }
@@ -44,7 +32,7 @@ export interface LadderLevel {
   entityId: string
   /** 排序权重，数字小靠前 */
   order: number
-  /** 上一关通过后给的 XP */
+  /** 上一关通过后给�?XP */
   unlockXpRequired: number
   study: {
     title: string
@@ -76,7 +64,7 @@ export interface CycleProgress {
   currentLevelId: string | null
   completedLevelIds: string[]
   xp: number
-  /** 已解锁的最高难度 */
+  /** 已解锁的最高难�?*/
   cycleUnlocked: DifficultyCycle
 }
 
@@ -244,6 +232,3 @@ export const useLadderStore = create<LadderState>()(
   ),
 )
 
-/** 辅助：从 levelId 取 ladder */
-export const ladderOf = (levelId: string): LadderId =>
-  (levelId.split(':')[0] as LadderId)

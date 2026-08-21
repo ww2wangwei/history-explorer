@@ -13211,23 +13211,4 @@ export const ALL_GEO_FEATURES = {
   regions: REGIONS,
 }
 
-// 样式映射
-export const GEO_FEATURE_STYLES: Record<GeoFeatureType, {
-  color: string
-  fontSize: number
-  fontStyle: 'normal' | 'italic'
-  fontWeight: 'normal' | 'bold'
-  visible: boolean
-}> = {
-  continent:  { color: '#4a4232', fontSize: 13, fontStyle: 'normal',   fontWeight: 'bold',   visible: true  },
-  sea:        { color: '#5a8aa6', fontSize: 11, fontStyle: 'italic',   fontWeight: 'normal', visible: true  },
-  lake:       { color: '#6a9ab6', fontSize: 10, fontStyle: 'italic',   fontWeight: 'normal', visible: true  },
-  river:      { color: '#5a8aa6', fontSize: 9,  fontStyle: 'italic',   fontWeight: 'normal', visible: true  },
-  mountain:   { color: '#8a6a4a', fontSize: 9,  fontStyle: 'normal',   fontWeight: 'bold',   visible: true  },
-  desert:     { color: '#c8a85b', fontSize: 9,  fontStyle: 'italic',   fontWeight: 'normal', visible: true  },
-  region:     { color: '#6a5a4a', fontSize: 9,  fontStyle: 'normal',   fontWeight: 'normal', visible: true  },
-  plain:      { color: '#9bc89a', fontSize: 9,  fontStyle: 'normal',   fontWeight: 'normal', visible: true  },
-  peninsula:  { color: '#b88a6a', fontSize: 9,  fontStyle: 'normal',   fontWeight: 'bold',   visible: true  },
-  strait:     { color: '#8a9aba', fontSize: 9,  fontStyle: 'italic',   fontWeight: 'normal', visible: true  },
-  waterfall:  { color: '#6abab6', fontSize: 9,  fontStyle: 'normal',   fontWeight: 'bold',   visible: true  },
-}
+// 样式映射（删除：未被任何文件引用）

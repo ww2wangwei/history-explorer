@@ -53,10 +53,6 @@ export function getMergedGeoFeatures(): GeoFeature[] {
   return merged
 }
 
-export function getMergedGeoFeature(id: string): GeoFeature | null {
-  return getMergedGeoFeatures().find(f => f.id === id) ?? null
-}
-
 // ============= 人物 =============
 export function getMergedPeople(): HistoricalFigure[] {
   const overrides = useAdminStore.getState().peopleOverrides
@@ -96,10 +92,6 @@ export function getMergedPeople(): HistoricalFigure[] {
     }
   }
   return merged
-}
-
-export function getMergedPerson(id: string): HistoricalFigure | null {
-  return getMergedPeople().find(p => p.id === id) ?? null
 }
 
 // ============= 战争 =============

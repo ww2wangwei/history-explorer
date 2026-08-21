@@ -52,25 +52,6 @@ export function buildQuizGenPrompt(era: Era, difficulty: Difficulty, count: numb
 
 export const QUIZ_AI_MAX_TOKENS = 4096
 
-/** 调用 LLM 流式，拼接完整字符串（向后兼容：不支持 signal） */
-export function callAIStream(
-  apiKey: string,
-  apiConfig: AIApiConfig,
-  messages: { role: 'user' | 'assistant' | 'system'; content: string }[],
-  onDelta: (text: string) => void,
-): Promise<void> {
-  return streamAI({
-    protocol: apiConfig.protocol,
-    apiKey,
-    baseUrl: apiConfig.baseUrl,
-    model: apiConfig.model,
-    messages,
-    maxTokens: QUIZ_AI_MAX_TOKENS,
-    disableThinking: apiConfig.disableThinking,
-    onDelta,
-  }).promise.then(() => undefined)
-}
-
 /**
  * 调用 LLM 流式,支持外部 AbortSignal(组件卸载/切页/重新点击前中止)。
  * 取消时不调用方区分 AbortError(由调用方处理,不显示红色失败提示)。

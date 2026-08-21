@@ -189,7 +189,7 @@ def main():
     for L in yh['lessons']:
         lid = L['id']
         grp = L.get('group')
-        if grp != 'bonus':
+        if grp not in ('bonus', 'main'):
             continue
         if L.get('infographic'):
             continue

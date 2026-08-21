@@ -52,6 +52,10 @@ Thumbs.db
 /_*
 !/_*.d.ts
 
+# 一次性 demo HTML（设计稿原型）和 probe 脚本
+/demo-ui*.html
+/probe-*.mjs
+
 # scripts/ 下的临时一次性脚本
 scripts/_tmp_*
 scripts/*-tmp.*

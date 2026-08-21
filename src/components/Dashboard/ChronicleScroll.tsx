@@ -601,7 +601,9 @@ export default function ChronicleScroll({
     })
   }, [open, visitedEraIds])
 
-  // ===== 出场时间线（必须在 early return 之前，遵守 hooks 规则） =====
+  if (!mounted) return null
+
+  // ===== 出场时间线 =====
   const handleClose = useCallback(() => {
     if (exitTimelineRef.current) return  // 已在播
     if (reduce.current) {
@@ -674,8 +676,6 @@ export default function ChronicleScroll({
       }, 0.5)
     }
   }, [onClose])
-
-  if (!mounted) return null
 
   const onOverlayClick = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) handleClose()

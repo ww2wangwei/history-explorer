@@ -17,12 +17,43 @@ import { useNotesStore } from '@/store/useNotesStore'
 import { useCardsStore } from '@/store/useCardsStore'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
 import { isDue } from '@/utils/sm2'
-import peopleData from '@/data/people.json'
-import erasData from '@/data/eras.json'
 import type { Era, HistoricalFigure } from '@/types'
 
-const people = peopleData as HistoricalFigure[]
-const eras = erasData as Era[]
+// 🎯 性能优化：people.json (58KB) + eras.json (356KB) 改动态 import，
+//   拆出独立 chunk，只在用户首次进入需要 AI 上下文时才下载（不进主 bundle）。
+//   数据未到位前 hook 返回"空上下文"，AI 第一次对话无个性化，几毫秒后正常。
+interface LearningData {
+  people: HistoricalFigure[]
+  eras: Era[]
+}
+
+let _data: LearningData | null = null
+let _dataPromise: Promise<LearningData> | null = null
+
+function ensureData(): LearningData | null {
+  if (_data) return _data
+  if (!_dataPromise) {
+    _dataPromise = Promise.all([
+      import('@/data/people.json'),
+      import('@/data/eras.json'),
+    ]).then(([p, e]) => {
+      _data = {
+        people: p.default as HistoricalFigure[],
+        eras: e.default as Era[],
+      }
+      return _data
+    })
+  }
+  return null
+}
+
+// 模块加载即触发加载（不阻塞主线程）
+ensureData()
+
+const EMPTY: LearningData = { people: [], eras: [] }
+function getData(): LearningData {
+  return _data ?? EMPTY
+}
 
 export interface LearningContext {
   /** 拼到 personaPrompt 后的中文段落 */
@@ -39,6 +70,13 @@ export interface LearningContext {
   }
 }
 
+const EMPTY_CONTEXT: LearningContext = {
+  contextString: '',
+  summary: '加载中…',
+  debug: { eras: [], relatedNotes: 0, masteredEras: 0, dueCards: 0, relatedFiguresKnown: 0 },
+}
+const EMPTY_CONTEXT_MAP: Record<string, LearningContext> = {}
+
 /**
  * @param eraIds 焦点人物所关联的朝代 id 列表
  * @param focusFigureId 可选：焦点人物 id，用于排除"自己"以及找"已了解的相关人物"
@@ -48,6 +86,11 @@ export function useLearningContext(eraIds: string[], focusFigureId?: string): Le
   const cards = useCardsStore(s => s.cards)
   const visitedEraIds = useLearningPathStore(s => s.progressByPath.timeline.visitedEraIds)
   const visitedFigureIds = useLearningPathStore(s => s.progressByPath.allFigures.visitedFigureIds ?? [])
+
+  // 数据未加载完时返回空 context（首次几毫秒）
+  if (!_data) return EMPTY_CONTEXT
+
+  const { people, eras } = _data
 
   return useMemo(() => {
     // 1. 找到相关朝代
@@ -297,6 +340,11 @@ export function useAllLearningContexts(): Record<string, LearningContext> {
   const cards = useCardsStore(s => s.cards)
   const visitedEraIds = useLearningPathStore(s => s.progressByPath.timeline.visitedEraIds)
   const visitedFigureIds = useLearningPathStore(s => s.progressByPath.allFigures.visitedFigureIds ?? [])
+
+  // 数据未加载完时返回空 map（避免 30+ 人物 hooks 第一次渲染时拿不到数据）
+  if (!_data) return EMPTY_CONTEXT_MAP
+
+  const { people, eras } = _data
 
   return useMemo(() => {
     const map: Record<string, LearningContext> = {}

@@ -20,15 +20,14 @@ import { formatYear } from '@/utils/time'
 import NotesOverview from '@/components/NotesOverview'
 import TMapTest from '@/components/AmapTest'
 import EraRail from '@/components/Map/EraRail'
-import LadderPanel from '@/components/Ladder/LadderPanel'
 import Dashboard from '@/components/Dashboard'
-import AIChatPanel from '@/components/AIChatPanel'
 import ScenarioPlayer from '@/components/TimeTravel/ScenarioPlayer'
 import FlashcardsTrigger from '@/components/Flashcards/FlashcardsTrigger'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
 import { useApiKeysStore } from '@/store/useApiKeysStore'
 import { audioEngine } from '@/utils/audioEngine'
 import ThemeToggle from '@/components/ThemeToggle'
+// ❌ LadderPanel 已 lazy（line 56）
 import {
   layoutReducer,
   getInitialLayoutState,
@@ -53,6 +52,10 @@ const QuestionsOverview = lazy(() => import('@/components/Questions/QuestionsOve
 const ArtsOverview = lazy(() => import('@/components/Arts/ArtsOverview'))
 const WorldHistoryOverview = lazy(() => import('@/components/WorldHistory/WorldHistoryOverview'))
 const ApiKeysSettings = lazy(() => import('@/components/Settings/ApiKeysSettings'))
+// 🎯 性能优化：LadderPanel + ladders.ts(1MB) 拆出主 bundle
+const LadderPanel = lazy(() => import('@/components/Ladder/LadderPanel'))
+// 🎯 性能优化：AIChatPanel + people.json/eras.json 拆出主 bundle
+const AIChatPanel = lazy(() => import('@/components/AIChatPanel'))
 
 function PageFallback() {
   return (
@@ -398,7 +401,9 @@ export default function Layout() {
         )
       case 'ladder':
         return (
-          <LadderPanel onClose={() => dispatch({ type: 'OPEN_HOME' })} />
+          <Suspense fallback={<PageFallback />}>
+            <LadderPanel onClose={() => dispatch({ type: 'OPEN_HOME' })} />
+          </Suspense>
         )
       case 'questions':
         return (
@@ -735,7 +740,9 @@ export default function Layout() {
           onClose={() => useApiKeysStore.getState().setModalOpen(false)}
         />
       </Suspense>
-      <AIChatPanel />
+      <Suspense fallback={null}>
+        <AIChatPanel />
+      </Suspense>
       <QuizLauncher />
       <ToastHost />
       {/* 诗词地图图钉浮层（地图模式右上角） */}

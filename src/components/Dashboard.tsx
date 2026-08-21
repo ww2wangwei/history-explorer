@@ -9,7 +9,7 @@
  *
  * 快速学习 / 关键大事详情两个 Modal 已抽到 ./QuickLearn/EraQuickLearnModal.tsx
  */
-import { useMemo, useState, useEffect, useRef } from 'react'
+import { useMemo, useState, useEffect, useRef, memo, useCallback } from 'react'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useCardsStore } from '@/store/useCardsStore'
 import { useAIStore } from '@/store/useAIStore'
@@ -224,6 +224,31 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentYear, eraSelectionHistory],
   )
+
+  // 🎯 性能优化：避免每次渲染都 .includes()（O(n) per era → O(1) per era）
+  const visitedSet = useMemo(
+    () => new Set(progressByPath.timeline.visitedEraIds),
+    [progressByPath.timeline.visitedEraIds]
+  )
+
+  // 🎯 性能优化：eraImg URL 用 map 缓存，避免 67 次 bingImage() 重复调用
+  const eraImgMap = useMemo(() => {
+    const m = new Map<string, string>()
+    sortedEras.forEach((era) => {
+      m.set(
+        era.id,
+        bingImage(`${era.name} ${era.region === 'china' ? 'chinese dynasty' : 'civilization'} ${era.startYear}`, 400, 240)
+      )
+    })
+    return m
+  }, [sortedEras])
+
+  // 🎯 性能优化：稳定 onSelect 引用，避免 EraButton memo 失效
+  const handleEraSelect = useCallback((eraId: string) => {
+    setLearnEraId(eraId)
+    recordVisit('timeline', eraId)
+    setShowEraList(false)
+  }, [recordVisit])
 
   const learnedInTimeline = progressByPath.timeline.visitedEraIds.length
   const xrefVisitedCount = progressByPath.crossReference.visitedEraIds.length
@@ -461,53 +486,19 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
             <div className="p-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {sortedEras.map((era) => {
-                  const visited = progressByPath.timeline.visitedEraIds.includes(era.id)
+                  const visited = visitedSet.has(era.id)
                   const isRecommended = recommendation?.era?.id === era.id
                   const hasQuick = !!era.keyPoints
-                  const eraImg = bingImage(`${era.name} ${era.region === 'china' ? 'chinese dynasty' : 'civilization'} ${era.startYear}`, 400, 240)
                   return (
-                    <button
+                    <EraButton
                       key={era.id}
-                      onClick={() => {
-                        setLearnEraId(era.id)
-                        recordVisit('timeline', era.id)
-                        setShowEraList(false)
-                      }}
-                      className={`text-left rounded-lg border-2 transition-all overflow-hidden group ${
-                        isRecommended
-                          ? 'border-vermilion-500/40 hover:border-vermilion-400'
-                          : visited
-                          ? 'border-green-700/50 hover:border-green-500/80'
-                          : 'border-ink-600 hover:border-vermilion-500/60'
-                      }`}
-                    >
-                      <div className="relative w-full h-28 bg-ink-900">
-                        <img
-                          src={eraImg}
-                          alt={era.name}
-                          loading="lazy"
-                          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
-                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-ink-900/95 to-transparent" />
-                        <div className="absolute bottom-0 left-0 right-0 px-3 py-1.5 flex items-center gap-2">
-                          {isRecommended && <span className="text-vermilion-300 text-xs bg-bronze-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">👉 推荐</span>}
-                          {visited && <span className="text-green-300 text-xs bg-green-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">✓ 已学</span>}
-                          {!hasQuick && <span className="text-ink-400 text-xs bg-ink-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">详细</span>}
-                          <span className="text-base font-brush flex-1 truncate tracking-wide" style={{ color: era.color }}>
-                            {era.name}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="px-3 py-2">
-                        <div className="text-xs text-ink-400 tabular-nums">
-                          {era.startYear < 0 ? `BC ${-era.startYear}` : era.startYear} ~ {era.endYear < 0 ? `BC ${-era.endYear}` : era.endYear} · {era.region === 'china' ? '🇨🇳 中国' : '🌍 世界'}
-                        </div>
-                        {era.shortDesc && (
-                          <div className="text-xs text-ink-300 mt-0.5 line-clamp-2 leading-relaxed">{era.shortDesc}</div>
-                        )}
-                      </div>
-                    </button>
+                      era={era}
+                      visited={visited}
+                      isRecommended={isRecommended}
+                      hasQuick={hasQuick}
+                      eraImg={eraImgMap.get(era.id) ?? ''}
+                      onSelect={handleEraSelect}
+                    />
                   )
                 })}
               </div>
@@ -594,3 +585,66 @@ function PrimaryPathCard({
     </button>
   )
 }
+
+// 🎯 性能优化：朝代卡 memo，避免 67 张卡全部重渲染
+const EraButton = memo(function EraButton({
+  era,
+  visited,
+  isRecommended,
+  hasQuick,
+  eraImg,
+  onSelect,
+}: {
+  era: Era
+  visited: boolean
+  isRecommended: boolean
+  hasQuick: boolean
+  eraImg: string
+  onSelect: (id: string) => void
+}) {
+  return (
+    <button
+      onClick={() => onSelect(era.id)}
+      className={`text-left rounded-lg border-2 transition-all overflow-hidden group ${
+        isRecommended
+          ? 'border-vermilion-500/40 hover:border-vermilion-400'
+          : visited
+          ? 'border-green-700/50 hover:border-green-500/80'
+          : 'border-ink-600 hover:border-vermilion-500/60'
+      }`}
+      style={{
+        // 🎯 性能优化：浏览器自动跳过屏幕外卡渲染 + contain layout/paint
+        contentVisibility: 'auto',
+        containIntrinsicSize: '0 200px',
+      }}
+    >
+      <div className="relative w-full h-28 bg-ink-900">
+        <img
+          src={eraImg}
+          alt={era.name}
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-900/95 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 px-3 py-1.5 flex items-center gap-2">
+          {isRecommended && <span className="text-vermilion-300 text-xs bg-bronze-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">👉 推荐</span>}
+          {visited && <span className="text-green-300 text-xs bg-green-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">✓ 已学</span>}
+          {!hasQuick && <span className="text-ink-400 text-xs bg-ink-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">详细</span>}
+          <span className="text-base font-brush flex-1 truncate tracking-wide" style={{ color: era.color }}>
+            {era.name}
+          </span>
+        </div>
+      </div>
+      <div className="px-3 py-2">
+        <div className="text-xs text-ink-400 tabular-nums">
+          {era.startYear < 0 ? `BC ${-era.startYear}` : era.startYear} ~ {era.endYear < 0 ? `BC ${-era.endYear}` : era.endYear} · {era.region === 'china' ? '🇨🇳 中国' : '🌍 世界'}
+        </div>
+        {era.shortDesc && (
+          <div className="text-xs text-ink-300 mt-0.5 line-clamp-2 leading-relaxed">{era.shortDesc}</div>
+        )}
+      </div>
+    </button>
+  )
+})

@@ -319,104 +319,81 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           </p>
         </div>
 
-        {/* === 2. 学习路径（主路径 + 余目合并 · bento + 3 列网格） === */}
+        {/* === 2. 学习路径（13 卡真 bento · 大小错落 · 4×5 网格） === */}
         <div className="flex items-center gap-4 mb-3">
           <span className="font-brush text-lg text-bone tracking-[0.4em]">学习路径</span>
           <div className="flex-1">
             <GreekKeyDivider />
           </div>
-          <span className="text-xs text-ink-400 font-brush tracking-widest">十 · 三 · 路</span>
+          <span className="text-xs text-ink-400 font-brush tracking-widest">错 · 落</span>
         </div>
-        {/* Bento 排版：朝代时间线（large 2×2）+ 3 个小卡垂直堆叠 */}
-        <div ref={pathCardsRef} className="grid grid-cols-2 md:grid-cols-3 md:grid-rows-2 gap-4 mb-6 auto-rows-fr">
-          {MAIN_PATHS.map((p, i) => {
-            // 第 1 个（朝代时间线）= large；其余 3 个 = normal
-            const isLarge = i === 0
-            return (
-              <PrimaryPathCard
-                key={p.id}
-                path={p}
-                visited={getPathVisited(p.id)}
-                total={getPathTotal(p.id)}
-                size={isLarge ? 'large' : 'normal'}
-                className={isLarge ? 'md:col-span-2 md:row-span-2' : ''}
-                onClick={() => {
-                  if (p.id === 'ladder') {
-                    onEnterLadder()
-                  } else if (p.id === 'timeline') {
-                    audioEngine.playModalOpen()
-                    if (recommendation) recordVisit('timeline', recommendation.eraId)
-                    setShowEraList(true)
-                  } else {
-                    onEnterPath(p.id as PathId)
-                  }
-                }}
-                highlight={p.id === 'ladder'}
-                preview={p.id === 'timeline' ? <TimelinePreview eras={eras} visitedIds={visitedSet} /> : undefined}
-              />
-            )
-          })}
-        </div>
-        {/* 余·目 紧接下方（无中文标题分隔，直接网格） */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-3 mb-10">
-          {MORE_PATHS.map(p => {
-            const visited = getPathVisited(p.id)
-            const total = getPathTotal(p.id)
-            const hasProgress = visited > 0 && total > 0
-            const accent = p.color
-            return (
-              <button
-                key={p.id}
-                onClick={() => onEnterPath(p.id as PathId)}
-                className="group relative overflow-hidden rounded-lg transition-all hover:translate-y-[-3px] focus:outline-none text-left flex flex-col"
-                style={{
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.25), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.25)',
-                  background: 'rgb(var(--bg-card-rgb) / 0.95)',
-                }}
-                title={p.title}
-              >
-                <div className="h-1 shrink-0" style={{ background: accent }} aria-hidden />
+        {/*
+          Bento 4×5（md+）13 卡全部错落：
+          ┌──────────────┬──────┬──────┐
+          │              │ 👥   │ 🎭   │ row 1
+          │   朝代 2×2   ├──────┼──────┤
+          │              │ 🪜   │ ⚔   │ row 2
+          ├──────┬───────┴──────┴──────┤
+          │ 📜诗词 │ 🗺   │ ⚖         │ row 3 (2×1)
+          │  2×1   │      │            │
+          ├──────┼──────┼──────┬──────┤
+          │ 📚   │ 💭   │ 🎨   │ 🌍   │ row 4
+          ├──────┴──────┴──────┴──────┤
+          │ 🎯 复习（横条 4×1）       │ row 5
+          └───────────────────────────┘
 
-                <div className="flex-1 flex items-center gap-2.5 p-3">
-                  <div
-                    className="shrink-0 w-10 h-10 rounded-md flex items-center justify-center text-xl"
-                    style={{
-                      background: `linear-gradient(135deg, ${accent}33 0%, ${accent}66 100%)`,
-                      boxShadow: `0 0 8px ${accent}33`,
-                      border: `1px solid ${accent}55`,
-                    }}
-                  >
-                    {p.icon}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="font-brush text-sm tracking-wider truncate" style={{ color: accent }}>
-                      {p.title}
-                    </h4>
-                    <p className="text-[10px] mt-0.5 line-clamp-1" style={{ color: 'rgb(var(--text-primary-rgb) / 0.8)' }}>
-                      {p.desc}
-                    </p>
-                    {hasProgress ? (
-                      <div className="text-[10px] tabular-nums mt-0.5" style={{ color: 'rgb(var(--vermilion-2-rgb))' }}>
-                        {visited} / {total}
-                      </div>
-                    ) : (
-                      <div className="text-[10px] italic mt-0.5" style={{ color: 'rgb(var(--text-faint-rgb))' }}>
-                        — 待启 —
-                      </div>
-                    )}
-                  </div>
-                </div>
+          1 个 hero (2×2)
+          1 个 wide (2×1)
+          1 个横条 (4×1)
+          10 个 normal (1×1)
+        */}
+        <div ref={pathCardsRef} className="grid grid-cols-2 md:grid-cols-4 md:grid-rows-5 gap-3 mb-10 auto-rows-fr">
+          {/* Row 1-2: hero 朝代 (2×2) + 3 normal stacked */}
+          <PrimaryPathCard
+            path={MAIN_PATHS[0]}
+            visited={getPathVisited(MAIN_PATHS[0].id)}
+            total={getPathTotal(MAIN_PATHS[0].id)}
+            size="large"
+            className="md:col-span-2 md:row-span-2"
+            onClick={() => {
+              audioEngine.playModalOpen()
+              if (recommendation) recordVisit('timeline', recommendation.eraId)
+              setShowEraList(true)
+            }}
+            preview={<TimelinePreview eras={eras} visitedIds={visitedSet} />}
+          />
+          <PrimaryPathCard path={MAIN_PATHS[1]} visited={getPathVisited(MAIN_PATHS[1].id)} total={getPathTotal(MAIN_PATHS[1].id)} size="normal" onClick={() => onEnterPath(MAIN_PATHS[1].id as PathId)} />
+          <PrimaryPathCard path={MAIN_PATHS[2]} visited={getPathVisited(MAIN_PATHS[2].id)} total={getPathTotal(MAIN_PATHS[2].id)} size="normal" onClick={() => onEnterPath(MAIN_PATHS[2].id as PathId)} />
+          <PrimaryPathCard path={MAIN_PATHS[3]} visited={getPathVisited(MAIN_PATHS[3].id)} total={getPathTotal(MAIN_PATHS[3].id)} size="normal" onClick={onEnterLadder} highlight />
+          <PrimaryPathCard path={MORE_PATHS[0]} visited={getPathVisited(MORE_PATHS[0].id)} total={getPathTotal(MORE_PATHS[0].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[0].id as PathId)} />
 
-                <div
-                  className="h-px shrink-0"
-                  style={{
-                    background: `linear-gradient(90deg, transparent 0%, ${accent}55 50%, transparent 100%)`,
-                  }}
-                  aria-hidden
-                />
-              </button>
-            )
-          })}
+          {/* Row 3: 全诗词 wide (2×1) + 2 normal */}
+          <PrimaryPathCard
+            path={MORE_PATHS[3]}  /* 全诗词 */
+            visited={getPathVisited(MORE_PATHS[3].id)}
+            total={getPathTotal(MORE_PATHS[3].id)}
+            size="normal"
+            className="md:col-span-2"
+            onClick={() => onEnterPath(MORE_PATHS[3].id as PathId)}
+          />
+          <PrimaryPathCard path={MORE_PATHS[1]} visited={getPathVisited(MORE_PATHS[1].id)} total={getPathTotal(MORE_PATHS[1].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[1].id as PathId)} />
+          <PrimaryPathCard path={MORE_PATHS[5]} visited={getPathVisited(MORE_PATHS[5].id)} total={getPathTotal(MORE_PATHS[5].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[5].id as PathId)} />
+
+          {/* Row 4: 4 normal (📚全地理 ⚖中西方 🎨全艺 🌍全文明) */}
+          <PrimaryPathCard path={MORE_PATHS[2]} visited={getPathVisited(MORE_PATHS[2].id)} total={getPathTotal(MORE_PATHS[2].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[2].id as PathId)} />
+          <PrimaryPathCard path={MORE_PATHS[4]} visited={getPathVisited(MORE_PATHS[4].id)} total={getPathTotal(MORE_PATHS[4].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[4].id as PathId)} />
+          <PrimaryPathCard path={MORE_PATHS[6]} visited={getPathVisited(MORE_PATHS[6].id)} total={getPathTotal(MORE_PATHS[6].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[6].id as PathId)} />
+          <PrimaryPathCard path={MORE_PATHS[7]} visited={getPathVisited(MORE_PATHS[7].id)} total={getPathTotal(MORE_PATHS[7].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[7].id as PathId)} />
+
+          {/* Row 5: 复习 (4×1) 横条 */}
+          <PrimaryPathCard
+            path={MORE_PATHS[8]}  /* 今日复习 */
+            visited={getPathVisited(MORE_PATHS[8].id)}
+            total={getPathTotal(MORE_PATHS[8].id)}
+            size="normal"
+            className="md:col-span-4"
+            onClick={() => onEnterPath(MORE_PATHS[8].id as PathId)}
+          />
         </div>
 
         {/* === 3. Hero CTA（当前推荐 · 卷轴式） === */}

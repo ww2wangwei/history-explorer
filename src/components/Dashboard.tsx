@@ -409,7 +409,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
               {todayCount} / {goal} 今日
             </span>
           </div>
-          <div className="relative h-2 bg-ink-700 rounded-lg overflow-hidden">
+<div className="relative h-2 bg-ink-700 rounded-lg overflow-hidden">
             <div
               className="absolute inset-y-0 left-0 bg-gradient-to-r from-vermilion-600 to-vermilion-400 transition-all duration-1000"
               style={{ width: `${Math.round((learnedInTimeline / totalEras) * 100)}%` }}
@@ -423,6 +423,8 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
               />
             ))}
           </div>
+          {/* 朝代点（按时间位置显示已学和未学） */}
+          <ProgressEraDots eras={eras} visitedIds={visitedSet} />
           {dueCount > 0 && (
             <div className="text-xs text-amber-400 mt-2">
               ⏰ {dueCount} 张卡片待复习 · <button onClick={() => onEnterPath('review')} className="underline hover:text-amber-300">立即复习</button>
@@ -609,6 +611,61 @@ function PrimaryPathCard({
         </div>
       )}
     </button>
+  )
+}
+
+// ===== 进度总览：朝代点 =====
+// 在进度条下方画一行朝代点（按真实年份位置），已学=绿，未学=灰/朱砂（中国）
+function ProgressEraDots({ eras, visitedIds }: { eras: Era[]; visitedIds: Set<string> }) {
+  const MIN_YEAR = -2200
+  const MAX_YEAR = 2100
+  const SPAN = MAX_YEAR - MIN_YEAR
+  const xFor = (y: number) => ((y - MIN_YEAR) / SPAN) * 100  // 百分比
+  const KEY_YEARS: { year: number; label: string }[] = [
+    { year: -221, label: '秦' },
+    { year: 0,    label: '公元' },
+    { year: 1279, label: '宋末' },
+    { year: 1912, label: '民国' },
+  ]
+  return (
+    <div className="relative h-4 mt-1">
+      {/* 朝代点 */}
+      {eras.map(e => {
+        const isVisited = visitedIds.has(e.id)
+        const isChina = e.region === 'china'
+        const x = xFor((e.startYear + e.endYear) / 2)
+        return (
+          <div
+            key={e.id}
+            title={`${e.name}${isVisited ? ' (已学)' : ''}`}
+            className={`absolute top-1/2 w-1.5 h-1.5 rounded-full transition-colors ${
+              isVisited
+                ? 'bg-green-400'
+                : isChina
+                  ? 'bg-vermilion-500/40'
+                  : 'bg-ink-500/40'
+            }`}
+            style={{ left: `calc(${x}% - 3px)`, transform: 'translateY(-50%)' }}
+          />
+        )
+      })}
+      {/* 关键年标 */}
+      {KEY_YEARS.map(k => {
+        const x = xFor(k.year)
+        return (
+          <div
+            key={k.year}
+            className="absolute top-0 bottom-0 flex flex-col items-center"
+            style={{ left: `${x}%`, transform: 'translateX(-50%)' }}
+          >
+            <div className="w-px h-full bg-gold-500/40" />
+            <div className="absolute -top-0.5 text-[9px] text-gold-300 font-serif whitespace-nowrap">
+              {k.label}
+            </div>
+          </div>
+        )
+      })}
+    </div>
   )
 }
 

@@ -327,28 +327,35 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           </div>
           <span className="text-xs text-ink-400 font-brush tracking-widest">四扇屏风</span>
         </div>
-        <div ref={pathCardsRef} className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
-          {MAIN_PATHS.map(p => (
-            <PrimaryPathCard
-              key={p.id}
-              path={p}
-              visited={getPathVisited(p.id)}
-              total={getPathTotal(p.id)}
-              onClick={() => {
-                if (p.id === 'ladder') {
-                  onEnterLadder()
-                } else if (p.id === 'timeline') {
-                  audioEngine.playModalOpen()
-                  if (recommendation) recordVisit('timeline', recommendation.eraId)
-                  setShowEraList(true)
-                } else {
-                  onEnterPath(p.id as PathId)
-                }
-              }}
-              highlight={p.id === 'ladder'}
-              preview={p.id === 'timeline' ? <TimelinePreview eras={eras} visitedIds={visitedSet} /> : undefined}
-            />
-          ))}
+        {/* 🎨 Bento 排版：朝代时间线（large 2×2）+ 3 个小卡垂直堆叠 */}
+        <div ref={pathCardsRef} className="grid grid-cols-2 md:grid-cols-3 md:grid-rows-2 gap-4 mb-10 auto-rows-fr">
+          {MAIN_PATHS.map((p, i) => {
+            // 第 1 个（朝代时间线）= large；其余 3 个 = normal
+            const isLarge = i === 0
+            return (
+              <PrimaryPathCard
+                key={p.id}
+                path={p}
+                visited={getPathVisited(p.id)}
+                total={getPathTotal(p.id)}
+                size={isLarge ? 'large' : 'normal'}
+                className={isLarge ? 'md:col-span-2 md:row-span-2' : ''}
+                onClick={() => {
+                  if (p.id === 'ladder') {
+                    onEnterLadder()
+                  } else if (p.id === 'timeline') {
+                    audioEngine.playModalOpen()
+                    if (recommendation) recordVisit('timeline', recommendation.eraId)
+                    setShowEraList(true)
+                  } else {
+                    onEnterPath(p.id as PathId)
+                  }
+                }}
+                highlight={p.id === 'ladder'}
+                preview={p.id === 'timeline' ? <TimelinePreview eras={eras} visitedIds={visitedSet} /> : undefined}
+              />
+            )
+          })}
         </div>
 
         {/* === 3. Hero CTA（当前推荐 · 卷轴式） === */}
@@ -677,6 +684,8 @@ function PrimaryPathCard({
   onClick,
   highlight,
   preview,
+  size = 'normal',
+  className = '',
 }: {
   path: { id: string; icon: string; title: string; desc: string; color: string; imageKeyword: string }
   visited: number
@@ -685,51 +694,68 @@ function PrimaryPathCard({
   highlight?: boolean
   /** 可选的卡片专属预览元素（如朝代时间线卡的小型时间线） */
   preview?: ReactNode
+  /** bento 排版：大卡（2列宽） vs 小卡（1列宽） */
+  size?: 'large' | 'normal'
+  /** 额外的 className（如 col-span/row-span） */
+  className?: string
 }) {
   const pct = total > 0 ? Math.round((visited / total) * 100) : 0
   const isNew = highlight
   const accent = p.color
-  // 强制四张卡同高：进度条区有 / 无都用同一 min-height 填充
+  const isLarge = size === 'large'
+  const cover = bingImage(p.imageKeyword, isLarge ? 600 : 320, isLarge ? 360 : 180)
   return (
     <button
       onClick={onClick}
-      className="group relative text-left transition-all hover:translate-y-[-2px] focus:outline-none h-full"
+      className={`group relative overflow-hidden rounded-md transition-all hover:translate-y-[-3px] focus:outline-none h-full text-left ${className}`}
+      style={{
+        boxShadow: isNew
+          ? '0 4px 16px rgba(0,0,0,0.3), 0 0 0 1px rgb(var(--vermilion-rgb) / 0.5), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.4)'
+          : '0 4px 12px rgba(0,0,0,0.25), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.3)',
+        background: 'rgb(var(--bg-card-rgb) / 0.85)',
+      }}
     >
+      {/* 顶部彩色边条 */}
+      <div className="h-1 shrink-0" style={{ background: accent }} aria-hidden />
+
+      {/* 图片区 */}
       <div
-        className="relative rounded-md overflow-hidden transition-shadow h-full flex flex-col"
+        className={`relative w-full bg-cover bg-center ${isLarge ? 'h-48' : 'h-24'}`}
         style={{
-          background: 'rgb(var(--bg-card-rgb) / 0.85)',
-          boxShadow: isNew
-            ? '0 0 0 1px rgb(var(--vermilion-rgb) / 0.5), 0 0 18px rgb(var(--vermilion-rgb) / 0.18), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.4)'
-            : '0 0 0 1px rgb(var(--gold-rgb) / 0.3), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.18)',
-          minHeight: 180,
+          backgroundImage: `url(${cover})`,
+          backgroundColor: 'rgb(var(--bg-elevated-rgb))',
         }}
       >
-        {/* 四角方印 */}
-        <span className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 pointer-events-none" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
-        <span className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 pointer-events-none" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
-        <span className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 pointer-events-none" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
-        <span className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 pointer-events-none" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
-
-        {/* 顶部额枋（栏额式） */}
+        {/* 顶部彩色渐变覆盖 */}
         <div
-          className="relative px-3 py-2 flex items-center justify-between shrink-0"
+          className="absolute inset-0"
           style={{
-            background: `linear-gradient(180deg, rgb(var(--bg-elevated-rgb) / 0.6) 0%, rgb(var(--bg-card-rgb) / 0) 100%)`,
-            borderBottom: '1px solid rgb(var(--gold-rgb) / 0.25)',
+            background: `linear-gradient(180deg, ${accent}44 0%, transparent 50%, rgba(0,0,0,0.55) 100%)`,
           }}
+        />
+        {/* 左上 icon */}
+        <div
+          className={`absolute top-2 left-2 ${isLarge ? 'text-4xl' : 'text-2xl'}`}
+          style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.6))' }}
         >
-          <div className="flex items-center gap-2 min-w-0">
-            <span className="text-2xl shrink-0" style={{ filter: `drop-shadow(0 0 6px ${accent}50)` }}>
-              {p.icon}
+          {p.icon}
+        </div>
+        {/* 右上进度/NEW 印章 */}
+        <div className="absolute top-2 right-2 flex items-center gap-1.5">
+          {hasProgress(visited, total) && (
+            <span
+              className="px-1.5 py-0.5 rounded-full text-[10px] tabular-nums font-mono backdrop-blur-sm"
+              style={{
+                background: 'rgb(var(--vermilion-rgb) / 0.85)',
+                color: 'rgb(var(--text-parchment-rgb))',
+              }}
+            >
+              {visited}/{total}
             </span>
-            <span className="font-brush text-base tracking-wider leading-none truncate" style={{ color: accent }}>
-              {p.title}
-            </span>
-          </div>
+          )}
           {isNew && (
             <span
-              className="font-brush text-[10px] px-1.5 py-0.5 rounded-[2px] shrink-0 ml-1"
+              className="font-brush text-[10px] px-1.5 py-0.5 rounded-[2px]"
               style={{
                 background: 'rgb(var(--vermilion-rgb) / 0.92)',
                 color: 'rgb(var(--text-parchment-rgb))',
@@ -742,55 +768,68 @@ function PrimaryPathCard({
             </span>
           )}
         </div>
-
-        {/* 屏风主体（flex-1 让四张等高） */}
-        <div className="px-3 py-3 relative flex-1 flex flex-col">
-          <p className="text-xs text-ink-300 leading-relaxed line-clamp-2">
-            {p.desc}
-          </p>
-
-          {preview}
-
-          {/* 进度区：有 total 才显示进度条；无 total 留空占位（保证高度） */}
-          <div className="mt-auto pt-3 min-h-[44px]">
-            {total > 0 ? (
-              <>
-                <div className="text-[10px] text-ink-400 tabular-nums mb-1 flex justify-between">
-                  <span>已学 {visited} / {total}</span>
-                  <span>{pct}%</span>
-                </div>
-                <div className="relative h-1 bg-ink-700 rounded-full overflow-hidden">
-                  <div
-                    className="h-full transition-all duration-700"
-                    style={{ width: `${pct}%`, background: `linear-gradient(90deg, ${accent}80 0%, ${accent} 100%)` }}
-                  />
-                </div>
-              </>
-            ) : (
-              /* 没有进度的卡（如穿越历史、文史天梯）：显示「未启程」占位 */
-              <div className="text-[10px] text-ink-500 italic">— 待启程 —</div>
-            )}
-          </div>
-
-          {isNew && (
-            <div className="mt-2 text-xs text-vermilion-300 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-              <span>入此门</span>
-              <span>→</span>
+        {/* 标题浮在图片底部（大卡用） */}
+        {isLarge && (
+          <div className="absolute bottom-2 left-3 right-3">
+            <div
+              className="font-brush text-2xl tracking-wider leading-tight drop-shadow-md"
+              style={{ color: 'rgb(var(--text-parchment-rgb))' }}
+            >
+              {p.title}
             </div>
-          )}
-        </div>
+          </div>
+        )}
+      </div>
 
-        {/* 底部雕花条 */}
-        <div
-          className="h-1 shrink-0"
-          style={{
-            background: `linear-gradient(90deg, transparent 0%, rgb(var(--gold-rgb) / 0.5) 30%, rgb(var(--gold-rgb) / 0.5) 70%, transparent 100%)`,
-          }}
-          aria-hidden
-        />
+      {/* 底部信息区 */}
+      <div
+        className={`px-3 ${isLarge ? 'py-3' : 'py-2'}`}
+        style={{
+          background: 'linear-gradient(180deg, rgb(var(--bg-card-rgb)) 0%, rgb(var(--bg-elevated-rgb)) 100%)',
+        }}
+      >
+        {/* 小卡标题在底部 */}
+        {!isLarge && (
+          <div className="flex items-baseline justify-between gap-2">
+            <div
+              className="font-brush text-sm tracking-wider truncate"
+              style={{ color: accent }}
+            >
+              {p.title}
+            </div>
+          </div>
+        )}
+        <p className={`text-ink-300 leading-relaxed ${isLarge ? 'text-sm mt-2 line-clamp-2' : 'text-[11px] mt-1 line-clamp-1'}`}>
+          {p.desc}
+        </p>
+        {/* 预览元素（朝代时间线小图） */}
+        {preview && <div className={isLarge ? 'mt-3' : 'mt-1'}>{preview}</div>}
+        {/* 进度条（大卡显示完整版） */}
+        {isLarge && total > 0 && (
+          <div className="mt-3">
+            <div className="text-[10px] text-ink-400 tabular-nums mb-1 flex justify-between">
+              <span>已学 {visited} / {total}</span>
+              <span>{pct}%</span>
+            </div>
+            <div className="relative h-1 bg-ink-700 rounded-full overflow-hidden">
+              <div
+                className="h-full transition-all duration-700"
+                style={{ width: `${pct}%`, background: `linear-gradient(90deg, ${accent}80 0%, ${accent} 100%)` }}
+              />
+            </div>
+          </div>
+        )}
+        {/* 小卡无进度显示待启程 */}
+        {!isLarge && !hasProgress(visited, total) && (
+          <div className="text-[9px] text-ink-500 italic mt-1">— 待启程 —</div>
+        )}
       </div>
     </button>
   )
+}
+
+function hasProgress(visited: number, total: number): boolean {
+  return visited > 0 && total > 0
 }
 
 // ===== 进度总览：朝代点 =====

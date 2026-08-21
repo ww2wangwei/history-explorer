@@ -2,10 +2,11 @@ import { useState, useMemo, useRef, useEffect } from 'react'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { formatYear } from '@/utils/time'
 import type { Era } from '@/types'
-import erasData from '@/data/eras.json'
+// 🎯 性能优化：eras.json 改用共享懒加载
+import { getEras } from '@/data/sharedDataLoader'
 import { audioEngine } from '@/utils/audioEngine'
 
-const eras = erasData as Era[]
+const eras = getEras()
 
 /**
  * 时间机器：朝代名快捷跳转

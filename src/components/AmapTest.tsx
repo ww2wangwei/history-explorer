@@ -18,8 +18,10 @@ import { getActiveErasAtYear } from '@/utils/geo'
 import { bingImage, fallbackKeyword } from '@/utils/geoImage'
 import { summarizeEra, summarizeEvent } from '@/utils/summarize'
 import { wgs84ToGcj02 } from '@/utils/coordsTransform'
-import erasData from '@/data/eras.json'
-import eventsData from '@/data/events.json'
+// 🎯 性能优化：data 改用懒加载共享 loader — eras.json + events.json 从主 bundle 拆出
+import { getEras, getEvents, useCoreDataReady } from '@/data/sharedDataLoader'
+const erasData = getEras()
+const eventsData = getEvents()
 import { createMapMarker } from '@/lib/amap/markers'
 import { getClampedScreenPoint } from '@/lib/amap/mapHelpers'
 import { getReopenEvent } from '@/lib/reopenRoutes'

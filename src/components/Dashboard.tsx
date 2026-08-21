@@ -24,15 +24,16 @@ import { useQuestionsStore } from '@/store/useQuestionsStore'
 import { audioEngine } from '@/utils/audioEngine'
 import gsap from 'gsap'
 import { isDue } from '@/utils/sm2'
-import erasData from '@/data/eras.json'
-import eventsData from '@/data/events.json'
 import builtinQuestions from '@/data/questions.json'
 import type { Era, HistoricalEvent } from '@/types'
 import type { Question } from '@/types/questions'
 import EraQuickLearnModal, { type QuickEventState } from './QuickLearn/EraQuickLearnModal'
 
-const eras = erasData as Era[]
-const events = eventsData as HistoricalEvent[]
+// 🎯 性能优化：data 改用懒加载共享 loader — 不再静态 import，eras.json + events.json
+//   从主 bundle 拆出。数据未到位时 eras/events 为空数组（useCoreDataReady 检测）。
+import { getEras, getEvents, useCoreDataReady } from '@/data/sharedDataLoader'
+const eras = getEras()
+const events = getEvents()
 const builtinQuestionList = builtinQuestions as Question[]
 
 interface Props {
@@ -77,6 +78,9 @@ const PATH_TOTALS: Record<string, number> = {
 }
 
 export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLadder }: Props) {
+  // 🎯 性能优化：核心数据 (eras/events) 懒加载，未到位时显示极简 loading
+  const dataReady = useCoreDataReady()
+
   const currentYear = useHistoryStore(s => s.currentYear)
   const setYear = useHistoryStore(s => s.setYear)
   const selectEra = useHistoryStore(s => s.selectEra)
@@ -285,6 +289,18 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
   }
 
   if (!isActive) return null
+
+  // 🎯 性能优化：核心数据未到位时显示极简 loading（避免 .find() 返回 undefined）
+  if (!dataReady) {
+    return (
+      <div className="w-full h-full flex items-center justify-center bg-ink-900">
+        <div className="text-center">
+          <div className="text-4xl mb-3">📜</div>
+          <div className="text-sm text-ink-400 animate-pulse">正在准备朝代数据…</div>
+        </div>
+      </div>
+    )
+  }
 
   const totalEras = eras.length
 

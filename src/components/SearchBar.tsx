@@ -2,12 +2,12 @@ import { useState, useMemo } from 'react'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { formatYear } from '@/utils/time'
 import { CATEGORY_COLORS, type HistoricalEvent } from '@/types'
-import eventsData from '@/data/events.json'
-import erasData from '@/data/eras.json'
+// 🎯 性能优化：events.json + eras.json 改用共享懒加载
+import { getEvents, getEras } from '@/data/sharedDataLoader'
 import { audioEngine } from '@/utils/audioEngine'
 
-const events = eventsData as HistoricalEvent[]
-const eras = erasData as Array<{ id: string; name: string; region: string; startYear: number; endYear: number; shortDesc?: string }>
+const events = getEvents()
+const eras = getEras()
 
 interface SearchResult {
   type: 'event' | 'era'

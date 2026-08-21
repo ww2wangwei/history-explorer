@@ -7,10 +7,10 @@
  */
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
-import erasData from '@/data/eras.json'
+import { getEras } from '@/data/sharedDataLoader'
 import type { Era } from '@/types'
 
-const eras = erasData as Era[]
+const eras = getEras()
 
 export type PathId = 'timeline' | 'crossReference' | 'eraDetail' | 'review' | 'allFigures' | 'allWars' | 'allCultures' | 'allGeography' | 'allPoems' | 'civilizations' | 'allArts' | 'worldHistory' | 'timeTravel' | 'allQuestions'
 

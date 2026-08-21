@@ -1,9 +1,9 @@
 import { useState, useMemo, useRef, useEffect } from 'react'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { CATEGORY_COLORS, type EventCategory, type HistoricalEvent } from '@/types'
-import eventsData from '@/data/events.json'
-
-const events = eventsData as HistoricalEvent[]
+// 🎯 性能优化：events.json 改用共享懒加载
+import { getEvents } from '@/data/sharedDataLoader'
+const events = getEvents()
 const ALL_CATEGORIES: EventCategory[] = ['政治', '经济', '文化', '军事', '科技', '思想', '外交']
 const ALL_REGIONS = ['china', 'rome', 'arab', 'persia', 'mongol', 'britain', 'other']
 

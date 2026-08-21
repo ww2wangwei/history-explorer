@@ -22,8 +22,6 @@ import { useLearningPathStore, type PathId } from '@/store/useLearningPathStore'
 import { usePoemStore } from '@/store/usePoemStore'
 import { useQuestionsStore } from '@/store/useQuestionsStore'
 import { audioEngine } from '@/utils/audioEngine'
-import TimelinePathCard from './Dashboard/TimelinePathCard'
-import ChronicleScroll from './Dashboard/ChronicleScroll'
 import gsap from 'gsap'
 import { isDue } from '@/utils/sm2'
 import erasData from '@/data/eras.json'
@@ -282,40 +280,26 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         {/* === 2. 主路径（4 个核心） === */}
         <h2 className="text-sm text-ink-300 mb-3 uppercase tracking-wider">主路径</h2>
         <div ref={pathCardsRef} className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-          {MAIN_PATHS.map(p => {
-            // 朝代时间线：专属时间线缩略卡（更炫）
-            if (p.id === 'timeline') {
-              return (
-                <TimelinePathCard
-                  key={p.id}
-                  visited={getPathVisited(p.id)}
-                  total={getPathTotal(p.id)}
-                  recommendedEra={recommendation?.era ?? null}
-                  onClick={() => {
-                    audioEngine.playModalOpen()
-                    if (recommendation) recordVisit('timeline', recommendation.eraId)
-                    setShowEraList(true)
-                  }}
-                />
-              )
-            }
-            return (
-              <PrimaryPathCard
-                key={p.id}
-                path={p}
-                visited={getPathVisited(p.id)}
-                total={getPathTotal(p.id)}
-                onClick={() => {
-                  if (p.id === 'ladder') {
-                    onEnterLadder()
-                  } else {
-                    onEnterPath(p.id as PathId)
-                  }
-                }}
-                highlight={p.id === 'ladder'}
-              />
-            )
-          })}
+          {MAIN_PATHS.map(p => (
+            <PrimaryPathCard
+              key={p.id}
+              path={p}
+              visited={getPathVisited(p.id)}
+              total={getPathTotal(p.id)}
+              onClick={() => {
+                if (p.id === 'ladder') {
+                  onEnterLadder()
+                } else if (p.id === 'timeline') {
+                  audioEngine.playModalOpen()
+                  if (recommendation) recordVisit('timeline', recommendation.eraId)
+                  setShowEraList(true)
+                } else {
+                  onEnterPath(p.id as PathId)
+                }
+              }}
+              highlight={p.id === 'ladder'}
+            />
+          ))}
         </div>
 
         {/* === 3. Hero CTA（当前推荐） === */}
@@ -449,17 +433,88 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         </div>
       </div>
 
-      {/* 朝代选择列表 — 古卷长轴（ChronicleScroll） */}
-      <ChronicleScroll
-        open={showEraList}
-        onClose={() => setShowEraList(false)}
-        visitedEraIds={progressByPath.timeline.visitedEraIds}
-        recommendedEraId={recommendation?.era?.id ?? null}
-        onSelect={(eraId) => {
-          setLearnEraId(eraId)
-          recordVisit('timeline', eraId)
-        }}
-      />
+      {/* 朝代选择列表 */}
+      {showEraList && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
+          onClick={() => setShowEraList(false)}
+        >
+          <div
+            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-vermilion-500/40 shadow-2xl"
+            role="dialog"
+            aria-modal="true"
+            aria-label="详情"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-ink-600 px-6 py-4 flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-brush text-vermilion-300 tracking-wide">📜 选一个朝代学习</h2>
+                <div className="text-xs text-ink-500 mt-0.5">按时间顺序排列。已学的朝代用 <span className="text-green-400">绿色</span> 标记，下一个推荐的用 <span className="text-vermilion-300">金色</span> 高亮。</div>
+              </div>
+              <button
+                className="text-ink-500 hover:text-parchment-50 text-2xl leading-none"
+                onClick={() => setShowEraList(false)}
+                title="关闭 (Esc)"
+                aria-label="关闭"
+              >×</button>
+            </div>
+            <div className="p-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {sortedEras.map((era) => {
+                  const visited = progressByPath.timeline.visitedEraIds.includes(era.id)
+                  const isRecommended = recommendation?.era?.id === era.id
+                  const hasQuick = !!era.keyPoints
+                  const eraImg = bingImage(`${era.name} ${era.region === 'china' ? 'chinese dynasty' : 'civilization'} ${era.startYear}`, 400, 240)
+                  return (
+                    <button
+                      key={era.id}
+                      onClick={() => {
+                        setLearnEraId(era.id)
+                        recordVisit('timeline', era.id)
+                        setShowEraList(false)
+                      }}
+                      className={`text-left rounded-lg border-2 transition-all overflow-hidden group ${
+                        isRecommended
+                          ? 'border-vermilion-500/40 hover:border-vermilion-400'
+                          : visited
+                          ? 'border-green-700/50 hover:border-green-500/80'
+                          : 'border-ink-600 hover:border-vermilion-500/60'
+                      }`}
+                    >
+                      <div className="relative w-full h-28 bg-ink-900">
+                        <img
+                          src={eraImg}
+                          alt={era.name}
+                          loading="lazy"
+                          className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-ink-900/95 to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 px-3 py-1.5 flex items-center gap-2">
+                          {isRecommended && <span className="text-vermilion-300 text-xs bg-bronze-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">👉 推荐</span>}
+                          {visited && <span className="text-green-300 text-xs bg-green-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">✓ 已学</span>}
+                          {!hasQuick && <span className="text-ink-400 text-xs bg-ink-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">详细</span>}
+                          <span className="text-base font-brush flex-1 truncate tracking-wide" style={{ color: era.color }}>
+                            {era.name}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="px-3 py-2">
+                        <div className="text-xs text-ink-400 tabular-nums">
+                          {era.startYear < 0 ? `BC ${-era.startYear}` : era.startYear} ~ {era.endYear < 0 ? `BC ${-era.endYear}` : era.endYear} · {era.region === 'china' ? '🇨🇳 中国' : '🌍 世界'}
+                        </div>
+                        {era.shortDesc && (
+                          <div className="text-xs text-ink-300 mt-0.5 line-clamp-2 leading-relaxed">{era.shortDesc}</div>
+                        )}
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 🚀 快速学习 Modal + 关键大事详情（已抽到子组件） */}
       <EraQuickLearnModal

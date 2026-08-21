@@ -481,16 +481,16 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           )}
         </div>
 
-        {/* === 5. 探索更多（网格 chip · 干净卡片） === */}
+        {/* === 5. 探索更多（网格 chip · 竹简） === */}
         <div className="flex items-center gap-4 mb-3">
           <span className="font-brush text-base text-ink-200 tracking-[0.4em]">余 · 目</span>
           <div className="flex-1">
             <CloudDivider />
           </div>
-          <span className="text-xs text-ink-500 font-brush tracking-widest">细 · 览</span>
+          <span className="text-xs text-ink-500 font-brush tracking-widest">竹 · 简</span>
         </div>
-        {/* 干净的多列网格 */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2.5 mb-8">
+        {/* 竹简网格：每条 = 一片编绳竹简 */}
+        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
           {MORE_PATHS.map(p => {
             const visited = getPathVisited(p.id)
             const total = getPathTotal(p.id)
@@ -499,32 +499,64 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
               <button
                 key={p.id}
                 onClick={() => onEnterPath(p.id as PathId)}
-                className="group relative px-3 py-3 rounded transition-all hover:bg-ink-700/40 focus:outline-none text-center"
+                className="group relative rounded-sm transition-all hover:translate-y-[-2px] focus:outline-none"
                 style={{
-                  borderTop: `2px solid ${p.color}`,
+                  /* 竹简：米黄底色 + 上下深褐绳带 + 4 个装订孔 */
+                  background: 'linear-gradient(180deg, #d9c896 0%, #c8b478 50%, #d9c896 100%)',
+                  padding: '14px 10px 18px',
+                  boxShadow: 'inset 0 0 0 1px rgba(101, 67, 33, 0.35), 0 1px 2px rgba(0,0,0,0.3)',
                 }}
+                title={p.title}
               >
+                {/* 上绳带 */}
                 <div
-                  className="text-2xl mb-1.5"
-                  style={{ filter: `drop-shadow(0 0 4px ${p.color}40)` }}
-                >
-                  {p.icon}
-                </div>
+                  className="absolute left-0 right-0 top-0 h-[6px]"
+                  style={{ background: 'linear-gradient(180deg, #4a3528 0%, #6b4a32 50%, #4a3528 100%)' }}
+                  aria-hidden
+                />
+                {/* 下绳带 */}
                 <div
-                  className="font-brush text-xs tracking-wider leading-tight truncate"
-                  style={{ color: p.color }}
-                  title={p.title}
-                >
-                  {p.title}
-                </div>
-                <div className="text-[10px] text-ink-500 tabular-nums mt-1">
-                  {hasProgress ? (
-                    <span style={{ color: 'rgb(var(--vermilion-2-rgb))' }}>
-                      {visited} / {total}
-                    </span>
-                  ) : (
-                    <span className="opacity-60">—</span>
-                  )}
+                  className="absolute left-0 right-0 bottom-0 h-[6px]"
+                  style={{ background: 'linear-gradient(180deg, #4a3528 0%, #6b4a32 50%, #4a3528 100%)' }}
+                  aria-hidden
+                />
+                {/* 4 个装订孔（左右上下各 1） */}
+                <span
+                  className="absolute w-[5px] h-[5px] rounded-full bg-[#3a2818] left-[6px] top-[2px]"
+                  style={{ boxShadow: 'inset 0 0 1px rgba(0,0,0,0.6)' }}
+                  aria-hidden
+                />
+                <span
+                  className="absolute w-[5px] h-[5px] rounded-full bg-[#3a2818] right-[6px] top-[2px]"
+                  style={{ boxShadow: 'inset 0 0 1px rgba(0,0,0,0.6)' }}
+                  aria-hidden
+                />
+                <span
+                  className="absolute w-[5px] h-[5px] rounded-full bg-[#3a2818] left-[6px] bottom-[2px]"
+                  style={{ boxShadow: 'inset 0 0 1px rgba(0,0,0,0.6)' }}
+                  aria-hidden
+                />
+                <span
+                  className="absolute w-[5px] h-[5px] rounded-full bg-[#3a2818] right-[6px] bottom-[2px]"
+                  style={{ boxShadow: 'inset 0 0 1px rgba(0,0,0,0.6)' }}
+                  aria-hidden
+                />
+
+                {/* 内容 */}
+                <div className="relative z-10 flex flex-col items-center gap-1.5 py-1">
+                  <span className="text-xl" aria-hidden>{p.icon}</span>
+                  <span
+                    className="font-brush text-xs tracking-wider leading-tight text-center truncate w-full"
+                    style={{ color: '#3a2818' }}
+                  >
+                    {p.title}
+                  </span>
+                  <span
+                    className="text-[9px] tabular-nums"
+                    style={{ color: hasProgress ? '#8b3a2c' : '#8a6a4a' }}
+                  >
+                    {hasProgress ? `${visited} / ${total}` : '—'}
+                  </span>
                 </div>
               </button>
             )

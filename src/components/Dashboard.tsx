@@ -44,21 +44,21 @@ interface Props {
   onEnterLadder: () => void
 }
 
-const PATHS: { id: string; icon: string; title: string; desc: string; color: string }[] = [
-  { id: 'timeline', icon: '📜', title: '朝代时间线', desc: '按时间顺序学习每个朝代', color: '#c89a5b' },
-  { id: 'allFigures', icon: '👥', title: '全人物', desc: '浏览 26+ 位历史人物并与 AI 对话', color: '#9b7eb6' },
-  { id: 'allWars', icon: '⚔️', title: '全战争', desc: '从武王伐纣到现代的关键战争 75 场', color: '#b85450' },
-  { id: 'allCultures', icon: '📚', title: '全文化', desc: '思想家、文学家、宗教人物的代表作品', color: '#5b9bc8' },
-  { id: 'allGeography', icon: '🗺️', title: '全地理', desc: '自然地理特征 + 疆域变迁', color: '#5bc89a' },
-  { id: 'allPoems', icon: '📜', title: '全诗词', desc: '100 首最有名的唐诗宋词，含注解、注音、白话翻译', color: '#c89a8a' },
-  { id: 'civilizations', icon: '⚖️', title: '中西方文明大对比', desc: '15 节对比，看清两种截然不同的历史路径', color: '#d4a85b' },
-  { id: 'timeTravel', icon: '🎭', title: '穿越历史', desc: '化身历史人物，在关键节点做选择', color: '#9b7eb6' },
-  { id: 'allQuestions', icon: '💭', title: '全问题', desc: '趣味/启发/思考题，AI 一问一答逐步深挖并打分', color: '#e07b9b' },
-  { id: 'allArts', icon: '🎨', title: '全艺术', desc: '60 节西方艺术课 · 从史前壁画到当代观念', color: '#e879b9' },
-  { id: 'worldHistory', icon: '🌍', title: '全文明', desc: '少年世界史 161 节 · 从人类起源到现代世界', color: '#d4a85b' },
-  { id: 'review', icon: '🎯', title: '今日复习', desc: '基于 SM-2 算法的间隔重复', color: '#9bc89a' },
+const PATHS: { id: string; icon: string; title: string; desc: string; color: string; imageKeyword: string }[] = [
+  { id: 'timeline', icon: '📜', title: '朝代时间线', desc: '按时间顺序学习每个朝代', color: '#c89a5b', imageKeyword: 'chinese dynasty scroll timeline' },
+  { id: 'allFigures', icon: '👥', title: '全人物', desc: '浏览 26+ 位历史人物并与 AI 对话', color: '#9b7eb6', imageKeyword: 'historical figure portrait painting' },
+  { id: 'allWars', icon: '⚔️', title: '全战争', desc: '从武王伐纣到现代的关键战争 75 场', color: '#b85450', imageKeyword: 'ancient war battlefield painting' },
+  { id: 'allCultures', icon: '📚', title: '全文化', desc: '思想家、文学家、宗教人物的代表作品', color: '#5b9bc8', imageKeyword: 'ancient culture calligraphy' },
+  { id: 'allGeography', icon: '🗺️', title: '全地理', desc: '自然地理特征 + 疆域变迁', color: '#5bc89a', imageKeyword: 'world map historical geography' },
+  { id: 'allPoems', icon: '📜', title: '全诗词', desc: '100 首最有名的唐诗宋词，含注解、注音、白话翻译', color: '#c89a8a', imageKeyword: 'chinese poetry scroll ink' },
+  { id: 'civilizations', icon: '⚖️', title: '中西方文明大对比', desc: '15 节对比，看清两种截然不同的历史路径', color: '#d4a85b', imageKeyword: 'east west civilization contrast' },
+  { id: 'timeTravel', icon: '🎭', title: '穿越历史', desc: '化身历史人物，在关键节点做选择', color: '#9b7eb6', imageKeyword: 'time travel ancient china' },
+  { id: 'allQuestions', icon: '💭', title: '全问题', desc: '趣味/启发/思考题，AI 一问一答逐步深挖并打分', color: '#e07b9b', imageKeyword: 'philosophical question thinking' },
+  { id: 'allArts', icon: '🎨', title: '全艺术', desc: '60 节西方艺术课 · 从史前壁画到当代观念', color: '#e879b9', imageKeyword: 'ancient art painting gallery' },
+  { id: 'worldHistory', icon: '🌍', title: '全文明', desc: '少年世界史 161 节 · 从人类起源到现代世界', color: '#d4a85b', imageKeyword: 'world civilization ruins' },
+  { id: 'review', icon: '🎯', title: '今日复习', desc: '基于 SM-2 算法的间隔重复', color: '#9bc89a', imageKeyword: 'study review notebook open book' },
   // 👇 特殊情况：文史天梯（自定义页，非 store 路径）
-  { id: 'ladder', icon: '🪜', title: '文史天梯', desc: '史·诗·人 三条天梯 · 学测记问 4 步闭环 · 通关可重开', color: '#b8433a' },
+  { id: 'ladder', icon: '🪜', title: '文史天梯', desc: '史·诗·人 三条天梯 · 学测记问 4 步闭环 · 通关可重开', color: '#b8433a', imageKeyword: 'literature ladder temple steps' },
 ]
 
 // === 主路径（4 个核心） ===
@@ -481,82 +481,90 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           )}
         </div>
 
-        {/* === 5. 探索更多（网格 chip · 竹简） === */}
+        {/* === 5. 探索更多（网格 chip · 图片卡） === */}
         <div className="flex items-center gap-4 mb-3">
           <span className="font-brush text-base text-ink-200 tracking-[0.4em]">余 · 目</span>
           <div className="flex-1">
             <CloudDivider />
           </div>
-          <span className="text-xs text-ink-500 font-brush tracking-widest">竹 · 简</span>
+          <span className="text-xs text-ink-500 font-brush tracking-widest">图 · 录</span>
         </div>
-        {/* 竹简网格：每条 = 一片编绳竹简 */}
-        <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-3 mb-8">
+        {/* 图片卡网格：每条 = Bing 图片 + 标题 */}
+        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
           {MORE_PATHS.map(p => {
             const visited = getPathVisited(p.id)
             const total = getPathTotal(p.id)
             const hasProgress = visited > 0 && total > 0
+            const cover = bingImage(p.imageKeyword, 320, 180)
             return (
               <button
                 key={p.id}
                 onClick={() => onEnterPath(p.id as PathId)}
-                className="group relative rounded-sm transition-all hover:translate-y-[-2px] focus:outline-none"
+                className="group relative overflow-hidden rounded-md transition-all hover:translate-y-[-3px] focus:outline-none"
                 style={{
-                  /* 竹简：米黄底色 + 上下深褐绳带 + 4 个装订孔 */
-                  background: 'linear-gradient(180deg, #d9c896 0%, #c8b478 50%, #d9c896 100%)',
-                  padding: '14px 10px 18px',
-                  boxShadow: 'inset 0 0 0 1px rgba(101, 67, 33, 0.35), 0 1px 2px rgba(0,0,0,0.3)',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.3), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.3)',
+                  background: 'rgb(var(--bg-card-rgb) / 0.85)',
                 }}
                 title={p.title}
               >
-                {/* 上绳带 */}
+                {/* 图片 */}
                 <div
-                  className="absolute left-0 right-0 top-0 h-[6px]"
-                  style={{ background: 'linear-gradient(180deg, #4a3528 0%, #6b4a32 50%, #4a3528 100%)' }}
-                  aria-hidden
-                />
-                {/* 下绳带 */}
-                <div
-                  className="absolute left-0 right-0 bottom-0 h-[6px]"
-                  style={{ background: 'linear-gradient(180deg, #4a3528 0%, #6b4a32 50%, #4a3528 100%)' }}
-                  aria-hidden
-                />
-                {/* 4 个装订孔（左右上下各 1） */}
-                <span
-                  className="absolute w-[5px] h-[5px] rounded-full bg-[#3a2818] left-[6px] top-[2px]"
-                  style={{ boxShadow: 'inset 0 0 1px rgba(0,0,0,0.6)' }}
-                  aria-hidden
-                />
-                <span
-                  className="absolute w-[5px] h-[5px] rounded-full bg-[#3a2818] right-[6px] top-[2px]"
-                  style={{ boxShadow: 'inset 0 0 1px rgba(0,0,0,0.6)' }}
-                  aria-hidden
-                />
-                <span
-                  className="absolute w-[5px] h-[5px] rounded-full bg-[#3a2818] left-[6px] bottom-[2px]"
-                  style={{ boxShadow: 'inset 0 0 1px rgba(0,0,0,0.6)' }}
-                  aria-hidden
-                />
-                <span
-                  className="absolute w-[5px] h-[5px] rounded-full bg-[#3a2818] right-[6px] bottom-[2px]"
-                  style={{ boxShadow: 'inset 0 0 1px rgba(0,0,0,0.6)' }}
-                  aria-hidden
-                />
+                  className="relative w-full aspect-video bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url(${cover})`,
+                    backgroundColor: 'rgb(var(--bg-elevated-rgb))',
+                  }}
+                >
+                  {/* 顶部彩色渐变覆盖（保持主题色感） */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: `linear-gradient(180deg, ${p.color}33 0%, transparent 50%, rgba(0,0,0,0.6) 100%)`,
+                    }}
+                  />
+                  {/* 顶部色带 */}
+                  <div
+                    className="absolute top-0 left-0 right-0 h-1"
+                    style={{ background: p.color }}
+                  />
+                  {/* 进度小圆点 */}
+                  {hasProgress && (
+                    <div
+                      className="absolute top-2 right-2 px-1.5 py-0.5 rounded-full text-[10px] tabular-nums font-mono backdrop-blur-sm"
+                      style={{
+                        background: 'rgb(var(--vermilion-rgb) / 0.85)',
+                        color: 'rgb(var(--text-parchment-rgb))',
+                      }}
+                    >
+                      {visited}/{total}
+                    </div>
+                  )}
+                  {/* icon 浮在左上 */}
+                  <div
+                    className="absolute top-2 left-2 text-2xl"
+                    style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.6))' }}
+                  >
+                    {p.icon}
+                  </div>
+                </div>
 
-                {/* 内容 */}
-                <div className="relative z-10 flex flex-col items-center gap-1.5 py-1">
-                  <span className="text-xl" aria-hidden>{p.icon}</span>
-                  <span
-                    className="font-brush text-xs tracking-wider leading-tight text-center truncate w-full"
-                    style={{ color: '#3a2818' }}
+                {/* 标题条 */}
+                <div
+                  className="px-3 py-2 text-center"
+                  style={{
+                    background: 'linear-gradient(180deg, rgb(var(--bg-card-rgb)) 0%, rgb(var(--bg-elevated-rgb)) 100%)',
+                    borderTop: '1px solid rgb(var(--gold-rgb) / 0.3)',
+                  }}
+                >
+                  <div
+                    className="font-brush text-sm tracking-wider leading-tight"
+                    style={{ color: p.color }}
                   >
                     {p.title}
-                  </span>
-                  <span
-                    className="text-[9px] tabular-nums"
-                    style={{ color: hasProgress ? '#8b3a2c' : '#8a6a4a' }}
-                  >
-                    {hasProgress ? `${visited} / ${total}` : '—'}
-                  </span>
+                  </div>
+                  {!hasProgress && (
+                    <div className="text-[9px] text-ink-500 italic mt-0.5">待启程</div>
+                  )}
                 </div>
               </button>
             )
@@ -670,7 +678,7 @@ function PrimaryPathCard({
   highlight,
   preview,
 }: {
-  path: { id: string; icon: string; title: string; desc: string; color: string }
+  path: { id: string; icon: string; title: string; desc: string; color: string; imageKeyword: string }
   visited: number
   total: number
   onClick: () => void

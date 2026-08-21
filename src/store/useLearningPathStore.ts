@@ -232,7 +232,8 @@ export const useLearningPathStore = create<LearningPathState>()(
             return { eraId: era.id, era, reason: `在你当前年份 (${yrLabel}) 附近.` }
           }
         }
-        // 全部学完 → 推荐第一个
+        // 全部学完 → 推荐第一个；若 eras 数据未加载（sorted 为空）则返回 null
+        if (sorted.length === 0) return null
         return {
           eraId: sorted[0].id,
           era: sorted[0],

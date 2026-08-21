@@ -224,7 +224,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
   const recordVisit = useLearningPathStore(s => s.recordVisit)
 
   const recommendation = useMemo(
-    () => recommendNext(currentYear, useHistoryStore.getState().selectedEraId, eraSelectionHistory),
+    () => recommendNext(currentYear, useHistoryStore.getState().selectedEraId, eraSelectionHistory) ?? null,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentYear, eraSelectionHistory],
   )

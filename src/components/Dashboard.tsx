@@ -481,84 +481,121 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           )}
         </div>
 
-        {/* === 5. 探索更多（横滑 chip · 小屏风条） === */}
+        {/* === 5. 探索更多（横滑 chip · 迷你手卷） === */}
         <div className="flex items-center gap-4 mb-3">
           <span className="font-brush text-base text-ink-200 tracking-[0.4em]">余 · 目</span>
           <div className="flex-1">
             <CloudDivider />
           </div>
-          <span className="text-xs text-ink-500 font-brush tracking-widest">横 · 览</span>
+          <span className="text-xs text-ink-500 font-brush tracking-widest">卷 · 览</span>
         </div>
-        {/* 横滑小屏风条容器 */}
-        <div className="flex gap-3 overflow-x-auto pb-3 mb-8 -mx-2 px-2 scrollbar-thin snap-x">
-          {MORE_PATHS.map(p => {
-            const visited = getPathVisited(p.id)
-            const total = getPathTotal(p.id)
-            const hasProgress = visited > 0 && total > 0
-            return (
-              <button
-                key={p.id}
-                onClick={() => onEnterPath(p.id as PathId)}
-                className="group relative flex-shrink-0 snap-start transition-transform hover:translate-y-[-2px] focus:outline-none"
-              >
-                <div
-                  className="relative rounded-sm overflow-hidden"
-                  style={{
-                    width: 140,
-                    background: 'rgb(var(--bg-card-rgb) / 0.85)',
-                    boxShadow: hasProgress
-                      ? '0 0 0 1px rgb(var(--vermilion-rgb) / 0.5), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.3)'
-                      : '0 0 0 1px rgb(var(--gold-rgb) / 0.25), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.12)',
-                  }}
+        {/* 整段横滑装裱在一根大卷轴上 */}
+        <div
+          className="relative flex items-stretch rounded-sm overflow-x-auto pb-3 mb-8 -mx-2 px-2 scrollbar-thin snap-x"
+          style={{
+            background: 'linear-gradient(180deg, rgb(var(--bg-card-rgb) / 0.4) 0%, rgb(var(--bg-card-rgb) / 0.15) 100%)',
+            boxShadow: 'inset 0 0 0 1px rgb(var(--gold-rgb) / 0.2)',
+          }}
+        >
+          {/* 左卷头 */}
+          <div className="shrink-0 w-8 flex items-center" aria-hidden>
+            <ScrollEdge side="left" className="w-full h-32" />
+          </div>
+
+          {/* 卷中：手卷条目 */}
+          <div className="flex-1 flex items-center gap-3 px-3 min-w-0">
+            {MORE_PATHS.map(p => {
+              const visited = getPathVisited(p.id)
+              const total = getPathTotal(p.id)
+              const hasProgress = visited > 0 && total > 0
+              return (
+                <button
+                  key={p.id}
+                  onClick={() => onEnterPath(p.id as PathId)}
+                  className="group relative flex-shrink-0 snap-start transition-all hover:translate-y-[-2px] focus:outline-none"
+                  style={{ width: 156 }}
                 >
-                  {/* 四角小印 */}
-                  <span className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l pointer-events-none" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
-                  <span className="absolute top-0 right-0 w-1.5 h-1.5 border-t border-r pointer-events-none" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
-                  <span className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b border-l pointer-events-none" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
-                  <span className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r pointer-events-none" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
-
-                  {/* 顶部色带（仿额枋染色） */}
-                  <div
-                    className="h-1 shrink-0"
-                    style={{ background: `linear-gradient(90deg, transparent, ${p.color}99 50%, transparent)` }}
-                  />
-
-                  {/* 主体：icon + 标题 */}
-                  <div className="px-2.5 py-3 flex flex-col items-center gap-1.5">
-                    <span
-                      className="text-2xl"
-                      style={{ filter: `drop-shadow(0 0 6px ${p.color}50)` }}
+                  {/* 单条手卷：上下两端卷轴 + 中间宣纸 */}
+                  <div className="relative">
+                    {/* 上卷轴（横向） */}
+                    <div
+                      className="h-2.5 rounded-full mx-1 mb-[-1px] relative"
+                      style={{
+                        background: 'linear-gradient(180deg, rgb(var(--gold-rgb) / 1) 0%, rgb(var(--gold-deep-rgb) / 1) 50%, rgb(var(--gold-rgb) / 1) 100%)',
+                        boxShadow: '0 1px 2px rgba(0,0,0,0.4), inset 0 -1px 1px rgb(var(--border-strong-rgb) / 0.3)',
+                      }}
+                      aria-hidden
                     >
-                      {p.icon}
-                    </span>
-                    <span
-                      className="font-brush text-sm tracking-wider text-center leading-tight min-h-[2.5em] flex items-center"
-                      style={{ color: p.color }}
-                    >
-                      {p.title}
-                    </span>
-                  </div>
+                      {/* 卷轴杆中线 */}
+                      <div
+                        className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px"
+                        style={{ background: 'rgb(var(--border-strong-rgb) / 0.5)' }}
+                      />
+                    </div>
 
-                  {/* 底部进度或「未启」占位 */}
-                  <div
-                    className="px-2 py-1.5 text-center"
-                    style={{ borderTop: '1px solid rgb(var(--gold-rgb) / 0.15)' }}
-                  >
-                    {hasProgress ? (
-                      <span
-                        className="text-[10px] tabular-nums font-mono"
-                        style={{ color: 'rgb(var(--vermilion-2-rgb))' }}
-                      >
-                        {visited} / {total}
-                      </span>
-                    ) : (
-                      <span className="text-[10px] text-ink-500 italic">— 待启 —</span>
-                    )}
+                    {/* 中间宣纸 */}
+                    <div
+                      className="relative px-3 py-2.5"
+                      style={{
+                        background: 'rgb(var(--bg-card-rgb) / 0.92)',
+                        borderLeft: '1px solid rgb(var(--gold-rgb) / 0.4)',
+                        borderRight: '1px solid rgb(var(--gold-rgb) / 0.4)',
+                        boxShadow: hasProgress
+                          ? 'inset 0 0 12px rgb(var(--vermilion-rgb) / 0.08)'
+                          : 'inset 0 0 12px rgb(var(--bg-page-rgb) / 0.4)',
+                      }}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span
+                          className="text-xl shrink-0"
+                          style={{ filter: `drop-shadow(0 0 4px ${p.color}50)` }}
+                        >
+                          {p.icon}
+                        </span>
+                        <div className="flex-1 min-w-0">
+                          <div
+                            className="font-brush text-sm tracking-wider leading-tight truncate"
+                            style={{ color: p.color }}
+                          >
+                            {p.title}
+                          </div>
+                          <div className="text-[9px] text-ink-400 mt-0.5 tabular-nums">
+                            {hasProgress ? (
+                              <span style={{ color: 'rgb(var(--vermilion-2-rgb))' }}>
+                                {visited} / {total}
+                              </span>
+                            ) : (
+                              <span className="italic">待启程</span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 下卷轴 */}
+                    <div
+                      className="h-2.5 rounded-full mx-1 mt-[-1px] relative"
+                      style={{
+                        background: 'linear-gradient(180deg, rgb(var(--gold-rgb) / 1) 0%, rgb(var(--gold-deep-rgb) / 1) 50%, rgb(var(--gold-rgb) / 1) 100%)',
+                        boxShadow: '0 -1px 2px rgba(0,0,0,0.4), inset 0 1px 1px rgb(var(--border-strong-rgb) / 0.3)',
+                      }}
+                      aria-hidden
+                    >
+                      <div
+                        className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px"
+                        style={{ background: 'rgb(var(--border-strong-rgb) / 0.5)' }}
+                      />
+                    </div>
                   </div>
-                </div>
-              </button>
-            )
-          })}
+                </button>
+              )
+            })}
+          </div>
+
+          {/* 右卷头 */}
+          <div className="shrink-0 w-8 flex items-center" aria-hidden>
+            <ScrollEdge side="right" className="w-full h-32" />
+          </div>
         </div>
 
         {/* === 6. 快捷入口（极简） === */}

@@ -686,38 +686,62 @@ const { currentYear, setYear, selectEra } = useHistoryStore()
         )
       })()}
 
-      {/* 缩放控制条 —— 浮动在右上角 */}
+      {/* 缩放控制条 —— 浮动在右上角（始终深色，不随主题切换——图谱画布是深色） */}
       <div className="absolute top-4 right-4 flex flex-col gap-1 z-10">
-        <div className="bg-ink-800/95 backdrop-blur border border-ink-600 rounded-lg shadow-lg overflow-hidden flex flex-col">
+        <div
+          className="rounded-lg shadow-lg overflow-hidden flex flex-col"
+          style={{
+            backgroundColor: 'rgb(26 23 20 / 0.95)',
+            border: '1px solid rgb(74 63 51)',
+            backdropFilter: 'blur(12px)',
+          }}
+        >
           <button
             onClick={() => setZoom(z => Math.min(3, z * 1.25))}
-            className="w-8 h-8 flex items-center justify-center text-ink-300 hover:text-vermilion-300 hover:bg-ink-700/60 transition-colors"
+            className="w-8 h-8 flex items-center justify-center transition-colors"
+            style={{ color: 'rgb(184 198 184)' }}
             title="放大"
             aria-label="图谱放大"
           >＋</button>
-          <div className="px-1 py-0.5 text-center text-xs text-ink-400 tabular-nums border-y border-ink-700">
+          <div
+            className="px-1 py-0.5 text-center text-xs tabular-nums"
+            style={{ color: 'rgb(154 143 126)', borderTop: '1px solid rgb(51 44 37)', borderBottom: '1px solid rgb(51 44 37)' }}
+          >
             {Math.round(zoom * 100)}%
           </div>
           <button
             onClick={() => setZoom(z => Math.max(0.15, z / 1.25))}
-            className="w-8 h-8 flex items-center justify-center text-ink-300 hover:text-vermilion-300 hover:bg-ink-700/60 transition-colors"
+            className="w-8 h-8 flex items-center justify-center transition-colors"
+            style={{ color: 'rgb(184 198 184)' }}
             title="缩小"
             aria-label="图谱缩小"
           >−</button>
           <button
             onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }) }}
-            className="w-8 h-8 flex items-center justify-center text-xs text-ink-400 hover:text-vermilion-300 hover:bg-ink-700/60 border-t border-ink-700 transition-colors"
+            className="w-8 h-8 flex items-center justify-center text-xs transition-colors"
+            style={{ color: 'rgb(154 143 126)', borderTop: '1px solid rgb(51 44 37)' }}
             title="重置"
             aria-label="重置图谱视图"
           >⟲</button>
         </div>
-        <div className="text-xs text-ink-500 text-center mt-1 px-1 bg-ink-900/60 rounded">
+        <div
+          className="text-xs text-center mt-1 px-1 rounded"
+          style={{ backgroundColor: 'rgb(16 14 11 / 0.6)', color: 'rgb(154 143 126)' }}
+        >
           Alt+拖 = 平移
         </div>
       </div>
 
-      {/* 显示人物 toggle */}
-      <div className="absolute top-4 left-4 px-3 py-2 rounded-lg bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
+      {/* 显示人物 toggle —— 始终深色 */}
+      <div
+        className="absolute top-4 left-4 px-3 py-2 rounded-lg text-xs z-10 shadow-lg"
+        style={{
+          backgroundColor: 'rgb(26 23 20 / 0.95)',
+          border: '1px solid rgb(74 63 51)',
+          color: 'rgb(247 238 216)',
+          backdropFilter: 'blur(12px)',
+        }}
+      >
         <label className="flex items-center gap-2 cursor-pointer select-none">
           <input
             type="checkbox"
@@ -725,14 +749,22 @@ const { currentYear, setYear, selectEra } = useHistoryStore()
             onChange={(e) => setShowPeople(e.target.checked)}
             className="w-3.5 h-3.5 accent-purple-500"
           />
-          <span className="text-parchment-100">显示人物层</span>
-          <span className="text-ink-500">({people.length} 人)</span>
+          <span>显示人物层</span>
+          <span style={{ color: 'rgb(154 143 126)' }}>({people.length} 人)</span>
         </label>
       </div>
 
-      {/* 图例：关系类型 */}
-      <div className="absolute top-16 left-4 px-3 py-2 rounded-lg bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
-        <div className="text-ink-500 mb-1.5">关系类型（点击高亮）</div>
+      {/* 图例：关系类型 —— 始终深色 */}
+      <div
+        className="absolute top-16 left-4 px-3 py-2 rounded-lg text-xs z-10 shadow-lg"
+        style={{
+          backgroundColor: 'rgb(26 23 20 / 0.95)',
+          border: '1px solid rgb(74 63 51)',
+          color: 'rgb(247 238 216)',
+          backdropFilter: 'blur(12px)',
+        }}
+      >
+        <div style={{ color: 'rgb(154 143 126)' }} className="mb-1.5">关系类型（点击高亮）</div>
         <div className="space-y-1">
           {Object.entries(RELATIONSHIP_STYLES).map(([type, style]) => {
             const active = highlightedRelationType === type
@@ -740,9 +772,10 @@ const { currentYear, setYear, selectEra } = useHistoryStore()
             return (
               <button
                 key={type}
-                className={`w-full text-left px-2 py-1 rounded-lg flex items-center gap-2 transition-colors ${
-                  active ? 'bg-ink-700' : 'hover:bg-ink-700/50'
-                }`}
+                className="w-full text-left px-2 py-1 rounded-lg flex items-center gap-2 transition-colors"
+                style={{
+                  backgroundColor: active ? 'rgb(38 34 29)' : undefined,
+                }}
                 onClick={() => setHighlightedRelationType(active ? null : type)}
               >
                 <svg width="20" height="6">
@@ -754,16 +787,24 @@ const { currentYear, setYear, selectEra } = useHistoryStore()
                   />
                 </svg>
                 <span className="flex-1 text-xs">{style.label}</span>
-                <span className="text-xs text-ink-500">{count}</span>
+                <span className="text-xs" style={{ color: 'rgb(154 143 126)' }}>{count}</span>
               </button>
             )
           })}
         </div>
       </div>
 
-      {/* 统计信息 */}
-      <div className="absolute top-4 right-4 px-3 py-2 rounded-lg bg-ink-800/95 backdrop-blur border border-ink-600 text-xs z-10 shadow-lg">
-        <div className="text-ink-500 mb-1">图谱统计</div>
+      {/* 统计信息 —— 始终深色 */}
+      <div
+        className="absolute top-4 right-4 px-3 py-2 rounded-lg text-xs z-10 shadow-lg"
+        style={{
+          backgroundColor: 'rgb(26 23 20 / 0.95)',
+          border: '1px solid rgb(74 63 51)',
+          color: 'rgb(247 238 216)',
+          backdropFilter: 'blur(12px)',
+        }}
+      >
+        <div style={{ color: 'rgb(154 143 126)' }} className="mb-1">图谱统计</div>
         <div className="grid grid-cols-2 gap-x-3 gap-y-0.5">
           <span>节点：</span><span className="text-vermilion-300 tabular-nums">{nodes.length}</span>
           <span>关系：</span><span className="text-vermilion-300 tabular-nums">{links.length}</span>
@@ -772,13 +813,24 @@ const { currentYear, setYear, selectEra } = useHistoryStore()
             {nodes.filter(n => n.era && isActive(n.era)).length}
           </span>
         </div>
-        <div className="mt-2 pt-2 border-t border-ink-700 text-xs text-ink-500">
+        <div
+          className="mt-2 pt-2 text-xs"
+          style={{ borderTop: '1px solid rgb(51 44 37)', color: 'rgb(154 143 126)' }}
+        >
           当前：{currentYear < 0 ? '前' + Math.abs(currentYear) : currentYear} 年
         </div>
       </div>
 
-      {/* 操作提示 */}
-      <div className="absolute bottom-4 right-4 px-3 py-1.5 rounded-lg bg-ink-800/90 backdrop-blur border border-ink-600 text-xs text-ink-500 z-10">
+      {/* 操作提示 —— 始终深色 */}
+      <div
+        className="absolute bottom-4 right-4 px-3 py-1.5 rounded-lg text-xs z-10"
+        style={{
+          backgroundColor: 'rgb(26 23 20 / 0.9)',
+          border: '1px solid rgb(74 63 51)',
+          color: 'rgb(154 143 126)',
+          backdropFilter: 'blur(12px)',
+        }}
+      >
         拖动节点调整位置 · 滚轮缩放 · 拖动空白平移图谱 · 点击节点看关联关系
       </div>
     </div>

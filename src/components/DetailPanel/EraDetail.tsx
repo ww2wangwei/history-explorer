@@ -258,12 +258,12 @@ function EraDetailInner({ eraId }: Props) {
             {era.name}
           </h2>
           {era.shortDesc && (
-            <div className="text-sm text-ink-500 mt-1 italic">{era.shortDesc}</div>
+            <div className="text-sm text-ink-300 mt-1 italic">{era.shortDesc}</div>
           )}
           {era.keyPoints && era.keyPoints.length > 0 && (
-            <div className="mt-3 p-3 rounded-lg bg-ink-700/40 border border-ink-600/60">
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">📚 5 个核心要点</div>
-              <ol className="text-xs text-parchment-50 space-y-1 list-decimal pl-4 marker:text-ink-500">
+            <div className="mt-3 p-3 rounded-lg bg-ink-700/40 border border-ink-500/60">
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">📚 5 个核心要点</div>
+              <ol className="text-xs text-bone space-y-1 list-decimal pl-4 marker:text-ink-300">
                 {era.keyPoints.map((pt, i) => (
                   <li key={i} dangerouslySetInnerHTML={{ __html: renderMarkdownBold(pt) }} />
                 ))}
@@ -274,7 +274,7 @@ function EraDetailInner({ eraId }: Props) {
         <div className="flex items-center gap-1.5">
           {eraSelectionHistory.length > 0 && (
             <button
-              className="px-2 py-0.5 text-xs text-ink-500 hover:text-parchment-50 border border-ink-600 rounded-lg transition-colors"
+              className="px-2 py-0.5 text-xs text-ink-300 hover:text-bone border border-ink-400 rounded-lg transition-colors"
               onClick={() => undoEraSelect()}
               title="回退到上一个朝代 (u)"
             >
@@ -282,7 +282,7 @@ function EraDetailInner({ eraId }: Props) {
             </button>
           )}
           <button
-            className="text-ink-500 hover:text-parchment-50 text-lg"
+            className="text-ink-300 hover:text-bone text-lg"
             onClick={() => { audioEngine.playModalClose(); selectEra(null) }}
             title="关闭 (ESC)"
             aria-label="关闭"
@@ -294,15 +294,15 @@ function EraDetailInner({ eraId }: Props) {
 
       <div className="grid grid-cols-2 gap-2 mb-3 text-xs">
         <div className="bg-ink-700 px-3 py-2 rounded-lg">
-          <div className="text-ink-500 mb-1">起始</div>
-          <div className="text-parchment-100 font-serif">{formatYear(era.startYear)}</div>
+          <div className="text-ink-300 mb-1">起始</div>
+          <div className="text-bone font-serif">{formatYear(era.startYear)}</div>
         </div>
         <div className="bg-ink-700 px-3 py-2 rounded-lg">
-          <div className="text-ink-500 mb-1">结束</div>
-          <div className="text-parchment-100 font-serif">{formatYear(era.endYear)}</div>
+          <div className="text-ink-300 mb-1">结束</div>
+          <div className="text-bone font-serif">{formatYear(era.endYear)}</div>
         </div>
         <div className="bg-ink-700 px-3 py-2 rounded-lg col-span-2">
-          <div className="text-ink-500 mb-1">持续时长</div>
+          <div className="text-ink-300 mb-1">持续时长</div>
           <div className="text-vermilion-300 font-serif">{duration} 年</div>
         </div>
         {era.capital && (
@@ -318,18 +318,18 @@ function EraDetailInner({ eraId }: Props) {
             className="bg-ink-700 hover:bg-ink-600 hover:ring-1 hover:ring-vermilion-500/40 px-3 py-2 rounded-lg col-span-2 text-left transition-colors group cursor-pointer"
             title="点击在地图上定位都城"
           >
-            <div className="text-ink-500 mb-1 flex items-center justify-between">
+            <div className="text-ink-300 mb-1 flex items-center justify-between">
               <span>都城</span>
               <span className="text-vermilion-300 opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
             </div>
-            <div className="text-parchment-100 text-xs">
+            <div className="text-bone text-xs">
               📍 {era.capital[1].toFixed(2)}°N, {era.capital[0].toFixed(2)}°E
             </div>
           </button>
         )}
       </div>
 
-      <div className="text-sm leading-relaxed text-parchment-100 mb-4">
+      <div className="text-sm leading-relaxed text-bone mb-4">
         {era.description}
       </div>
 
@@ -373,7 +373,7 @@ function EraDetailInner({ eraId }: Props) {
           </button>
         ) : (
           <button
-            className="flex-1 px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-vermilion-300 text-sm transition-colors"
+            className="flex-1 px-3 py-2 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-400 text-vermilion-300 text-sm transition-colors"
             onClick={() => addCard({ kind: 'era', id: era.id })}
             title="加入间隔重复复习"
           >
@@ -384,27 +384,27 @@ function EraDetailInner({ eraId }: Props) {
 
       {/* 前/后朝代导航 */}
       {(prevEra || nextEra) && (
-        <div className="mb-4 border-t border-ink-600 pt-3">
-          <div className="text-xs text-ink-500 mb-1.5">朝代导航</div>
+        <div className="mb-4 border-t border-ink-400 pt-3">
+          <div className="text-xs text-ink-300 mb-1.5">朝代导航</div>
           <div className="grid grid-cols-2 gap-2">
             {prevEra ? (
               <button
-                className="text-left px-2 py-1.5 rounded-lg bg-ink-700/40 hover:bg-ink-700 transition-colors"
+                className="text-left px-2 py-1.5 rounded-lg bg-ink-600/60 hover:bg-ink-600 border border-ink-400/40 transition-colors"
                 onClick={() => selectEra(prevEra.id)}
               >
-                <div className="text-[9px] text-ink-500">← 前一朝代</div>
-                <div className="text-xs truncate" style={{ color: prevEra.color }}>
+                <div className="text-[9px] text-ink-200">← 前一朝代</div>
+                <div className="text-xs truncate font-brush tracking-wide" style={{ color: prevEra.color }}>
                   {prevEra.name}
                 </div>
               </button>
             ) : <div />}
             {nextEra ? (
               <button
-                className="text-right px-2 py-1.5 rounded-lg bg-ink-700/40 hover:bg-ink-700 transition-colors"
+                className="text-right px-2 py-1.5 rounded-lg bg-ink-600/60 hover:bg-ink-600 border border-ink-400/40 transition-colors"
                 onClick={() => selectEra(nextEra.id)}
               >
-                <div className="text-[9px] text-ink-500">后一朝代 →</div>
-                <div className="text-xs truncate" style={{ color: nextEra.color }}>
+                <div className="text-[9px] text-ink-200">后一朝代 →</div>
+                <div className="text-xs truncate font-brush tracking-wide" style={{ color: nextEra.color }}>
                   {nextEra.name}
                 </div>
               </button>
@@ -415,8 +415,8 @@ function EraDetailInner({ eraId }: Props) {
 
       {/* 同时期其他文明 + 该文明下的大事（嵌套） */}
       {contemporaryEras.length > 0 && (
-        <div className="mb-4 border-t border-ink-600 pt-3">
-          <div className="text-xs text-ink-500 mb-2">同期世界文明</div>
+        <div className="mb-4 border-t border-ink-400 pt-3">
+          <div className="text-xs text-ink-300 mb-2">同期世界文明</div>
           <div className="space-y-2">
             {contemporaryEras.map(e => {
               const events = eventsByContemporaryEra[e.id]
@@ -433,13 +433,13 @@ function EraDetailInner({ eraId }: Props) {
                     <span className="flex-1 text-xs" style={{ color: e.color }}>
                       {e.name}
                     </span>
-                    <span className="text-xs text-ink-500">
+                    <span className="text-xs text-ink-300">
                       {e.startYear < 0 ? '前' + Math.abs(e.startYear) : e.startYear} ~ {e.endYear}
                     </span>
                   </button>
                   {/* 该文明下的大事件（importance ≥ 2，时间在朝代 + 文明时段内） */}
                   {events && events.length > 0 && (
-                    <div className="ml-4 mt-1 pl-2 border-l border-ink-600/60 space-y-0.5">
+                    <div className="ml-4 mt-1 pl-2 border-l border-ink-500/60 space-y-0.5">
                       {events.map(ev => (
                         <button
                           key={ev.id}
@@ -450,11 +450,11 @@ function EraDetailInner({ eraId }: Props) {
                           }}
                           title="点击查看事件详情"
                         >
-                          <span className="text-[9px] text-ink-500 font-serif shrink-0 w-10 tabular-nums">
+                          <span className="text-[9px] text-ink-300 font-serif shrink-0 w-10 tabular-nums">
                             {ev.year < 0 ? '前' + Math.abs(ev.year) : ev.year}
                           </span>
-                          <span className="text-[11px] text-parchment-100 group-hover:text-vermilion-200 flex-1 truncate transition-colors">{ev.title}</span>
-                          <span className="text-[9px] text-ink-500 group-hover:text-vermilion-300 shrink-0 transition-colors">→</span>
+                          <span className="text-[11px] text-bone group-hover:text-vermilion-300 flex-1 truncate transition-colors">{ev.title}</span>
+                          <span className="text-[9px] text-ink-300 group-hover:text-vermilion-300 shrink-0 transition-colors">→</span>
                         </button>
                       ))}
                     </div>
@@ -478,15 +478,15 @@ function EraDetailInner({ eraId }: Props) {
         // region 排序：other 在最后（最杂的）
         const order = Object.keys(byRegion).sort((a, b) => a === 'other' ? 1 : b === 'other' ? -1 : a.localeCompare(b))
         return (
-          <div className="mb-4 border-t border-ink-600 pt-3">
-            <div className="text-xs text-ink-500 mb-2">🌍 其他同时期大事（{ungroupedWorldEvents.length}）</div>
+          <div className="mb-4 border-t border-ink-400 pt-3">
+            <div className="text-xs text-ink-300 mb-2">🌍 其他同时期大事（{ungroupedWorldEvents.length}）</div>
             <div className="space-y-2">
               {order.map(region => (
                 <div key={region}>
-                  <div className="text-xs text-ink-400 mb-1 px-2">
+                  <div className="text-xs text-ink-300 mb-1 px-2">
                     · {REGION_SHORT[region] || region}（{byRegion[region].length}）
                   </div>
-                  <div className="ml-3 pl-2 border-l border-ink-600/60 space-y-0.5">
+                  <div className="ml-3 pl-2 border-l border-ink-500/60 space-y-0.5">
                     {byRegion[region].map(ev => (
                       <button
                         key={ev.id}
@@ -494,11 +494,11 @@ function EraDetailInner({ eraId }: Props) {
                         onClick={() => { selectEvent(ev.id); setYear(ev.year) }}
                         title="点击查看事件详情"
                       >
-                        <span className="text-[9px] text-ink-500 font-serif shrink-0 w-10 tabular-nums">
+                        <span className="text-[9px] text-ink-300 font-serif shrink-0 w-10 tabular-nums">
                           {ev.year < 0 ? '前' + Math.abs(ev.year) : ev.year}
                         </span>
-                        <span className="text-[11px] text-parchment-100 group-hover:text-vermilion-200 flex-1 truncate transition-colors">{ev.title}</span>
-                        <span className="text-[9px] text-ink-500 group-hover:text-vermilion-300 shrink-0 transition-colors">→</span>
+                        <span className="text-[11px] text-bone group-hover:text-vermilion-300 flex-1 truncate transition-colors">{ev.title}</span>
+                        <span className="text-[9px] text-ink-300 group-hover:text-vermilion-300 shrink-0 transition-colors">→</span>
                       </button>
                     ))}
                   </div>
@@ -511,7 +511,7 @@ function EraDetailInner({ eraId }: Props) {
 
       {/* 该朝代下的事件（发展历程） */}
       {eraEvents.length > 0 && (
-        <div className="border-t border-ink-600 pt-3">
+        <div className="border-t border-ink-400 pt-3">
           <div className="text-xs text-amber-400 mb-1.5">
             📜 {era.name} 发展历程（{eraEvents.length}）
           </div>
@@ -526,11 +526,11 @@ function EraDetailInner({ eraId }: Props) {
                 }}
                 title="点击查看事件详情"
               >
-                <span className="text-xs text-ink-500 font-serif shrink-0 w-12 tabular-nums">
+                <span className="text-xs text-ink-300 font-serif shrink-0 w-12 tabular-nums">
                   {ev.year < 0 ? '前' + Math.abs(ev.year) : ev.year}
                 </span>
-                <span className="text-xs text-parchment-100 group-hover:text-vermilion-200 truncate flex-1 transition-colors">{ev.title}</span>
-                <span className="text-[9px] text-ink-500 group-hover:text-vermilion-300 transition-colors">查看 →</span>
+                <span className="text-xs text-bone group-hover:text-vermilion-300 truncate flex-1 transition-colors">{ev.title}</span>
+                <span className="text-[9px] text-ink-300 group-hover:text-vermilion-300 transition-colors">查看 →</span>
               </button>
             ))}
           </div>
@@ -539,8 +539,8 @@ function EraDetailInner({ eraId }: Props) {
 
       {/* 📜 关键大事时间线 */}
       {era.quickEvents && era.quickEvents.length > 0 && (
-        <div className="mt-4 p-3 rounded-lg bg-ink-700/40 border border-ink-600/60">
-          <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">📜 关键大事（{era.quickEvents.length}）· 点击查看详情</div>
+        <div className="mt-4 p-3 rounded-lg bg-ink-700/40 border border-ink-500/60">
+          <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">📜 关键大事（{era.quickEvents.length}）· 点击查看详情</div>
           <div className="relative pl-5">
             <div className="absolute left-1.5 top-1 bottom-1 w-px bg-vermilion-500/40" />
             {era.quickEvents.map((ev, i) => (
@@ -559,8 +559,8 @@ function EraDetailInner({ eraId }: Props) {
                 <div className="text-xs text-vermilion-300 tabular-nums">
                   {ev.year < 0 ? `BC ${-ev.year}` : `${ev.year}`}
                 </div>
-                <div className="text-xs font-serif text-parchment-50 group-hover:text-vermilion-200 transition-colors mt-0.5">{ev.title}</div>
-                {ev.desc && <div className="text-xs text-ink-500 mt-0.5 line-clamp-1">{ev.desc}</div>}
+                <div className="text-xs font-serif text-bone group-hover:text-vermilion-300 transition-colors mt-0.5">{ev.title}</div>
+                {ev.desc && <div className="text-xs text-ink-300 mt-0.5 line-clamp-1">{ev.desc}</div>}
               </button>
             ))}
           </div>
@@ -571,26 +571,26 @@ function EraDetailInner({ eraId }: Props) {
       {era.legacy && (
         <div className="mt-4 p-3 rounded-lg bg-bronze-900/20 border border-bronze-700/40">
           <div className="text-xs text-vermilion-300 uppercase tracking-wider mb-1.5">🎯 历史意义 / 对后世影响</div>
-          <div className="text-xs text-parchment-50 leading-relaxed" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(era.legacy) }} />
+          <div className="text-xs text-bone leading-relaxed" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(era.legacy) }} />
         </div>
       )}
 
       {/* 🔗 与前后朝代连接 */}
       {era.succession && (era.succession.predecessor || era.succession.successor) && (
-        <div className="mt-4 p-3 rounded-lg bg-ink-700/40 border border-ink-600/60">
-          <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">🔗 朝代连续性</div>
+        <div className="mt-4 p-3 rounded-lg bg-ink-700/40 border border-ink-500/60">
+          <div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">🔗 朝代连续性</div>
           {era.succession.predecessor && (
-            <div className="text-xs text-ink-300 mb-1">
-              <span className="text-ink-500">← 前承：</span>{era.succession.predecessor}
+            <div className="text-xs text-bone mb-1">
+              <span className="text-ink-300">← 前承：</span>{era.succession.predecessor}
             </div>
           )}
           {era.succession.successor && (
-            <div className="text-xs text-ink-300 mb-1">
-              <span className="text-ink-500">后继：</span>{era.succession.successor} →
+            <div className="text-xs text-bone mb-1">
+              <span className="text-ink-300">后继：</span>{era.succession.successor} →
             </div>
           )}
           {era.succession.note && (
-            <div className="text-xs text-ink-500 italic mt-1">{era.succession.note}</div>
+            <div className="text-xs text-ink-300 italic mt-1">{era.succession.note}</div>
           )}
         </div>
       )}
@@ -720,7 +720,7 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
           </div>
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 z-20 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
+            className="absolute top-3 right-3 z-20 text-bone/80 hover:text-bone text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
             title="关闭 (ESC)"
             aria-label="关闭"
           >×</button>
@@ -729,37 +729,37 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
         <div className="p-6 space-y-4">
           {event.longDesc && (
             <div>
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">📖 事件详情</div>
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">📖 事件详情</div>
               <div
-                className="text-sm text-parchment-100 leading-relaxed space-y-2"
+                className="text-sm text-bone leading-relaxed space-y-2"
                 dangerouslySetInnerHTML={{ __html: renderMarkdownBold(event.longDesc) }}
               />
             </div>
           )}
 
           {event.desc && (
-            <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">📋 一句话简介</div>
+            <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-500/40">
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📋 一句话简介</div>
               <div className="text-sm text-vermilion-300 font-serif italic">{event.desc}</div>
             </div>
           )}
 
           <div className="grid grid-cols-2 gap-3">
-            <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">🏛️ 所属文明</div>
+            <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-500/40">
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">🏛️ 所属文明</div>
               <div className="text-sm font-serif" style={{ color: eraColor }}>{eraName}</div>
             </div>
-            <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">📅 时间</div>
+            <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-500/40">
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📅 时间</div>
               <div className="text-sm text-vermilion-300 font-serif">{yearLabel}</div>
             </div>
-            <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">📂 分类</div>
-              <div className="text-sm text-parchment-50">{eventType}</div>
+            <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-500/40">
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📂 分类</div>
+              <div className="text-sm text-bone">{eventType}</div>
             </div>
-            <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">⭐ 重要程度</div>
-              <div className="text-sm text-parchment-50">
+            <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-500/40">
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">⭐ 重要程度</div>
+              <div className="text-sm text-bone">
                 {event.importance === 3 ? '⭐⭐⭐ 关键' : event.importance === 2 ? '⭐⭐ 重要' : '⭐ 一般'}
               </div>
             </div>
@@ -774,7 +774,7 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
             <span className="text-base">🤖</span>
             <span>让 AI 详细讲解这个事件</span>
           </button>
-          <div className="text-xs text-ink-500 text-center mt-2">
+          <div className="text-xs text-ink-300 text-center mt-2">
             AI 将解释：背景 / 经过 / 影响 / 关键人物 / 历史评价
           </div>
         </div>

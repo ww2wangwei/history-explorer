@@ -319,16 +319,16 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           </p>
         </div>
 
-        {/* === 2. 主路径（4 个核心 · 屏风式） === */}
+        {/* === 2. 学习路径（主路径 + 余目合并 · bento + 3 列网格） === */}
         <div className="flex items-center gap-4 mb-3">
-          <span className="font-brush text-lg text-bone tracking-[0.4em]">主路径</span>
+          <span className="font-brush text-lg text-bone tracking-[0.4em]">学习路径</span>
           <div className="flex-1">
             <GreekKeyDivider />
           </div>
-          <span className="text-xs text-ink-400 font-brush tracking-widest">四扇屏风</span>
+          <span className="text-xs text-ink-400 font-brush tracking-widest">十 · 三 · 路</span>
         </div>
-        {/* 🎨 Bento 排版：朝代时间线（large 2×2）+ 3 个小卡垂直堆叠 */}
-        <div ref={pathCardsRef} className="grid grid-cols-2 md:grid-cols-3 md:grid-rows-2 gap-4 mb-10 auto-rows-fr">
+        {/* Bento 排版：朝代时间线（large 2×2）+ 3 个小卡垂直堆叠 */}
+        <div ref={pathCardsRef} className="grid grid-cols-2 md:grid-cols-3 md:grid-rows-2 gap-4 mb-6 auto-rows-fr">
           {MAIN_PATHS.map((p, i) => {
             // 第 1 个（朝代时间线）= large；其余 3 个 = normal
             const isLarge = i === 0
@@ -354,6 +354,67 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
                 highlight={p.id === 'ladder'}
                 preview={p.id === 'timeline' ? <TimelinePreview eras={eras} visitedIds={visitedSet} /> : undefined}
               />
+            )
+          })}
+        </div>
+        {/* 余·目 紧接下方（无中文标题分隔，直接网格） */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-3 mb-10">
+          {MORE_PATHS.map(p => {
+            const visited = getPathVisited(p.id)
+            const total = getPathTotal(p.id)
+            const hasProgress = visited > 0 && total > 0
+            const accent = p.color
+            return (
+              <button
+                key={p.id}
+                onClick={() => onEnterPath(p.id as PathId)}
+                className="group relative overflow-hidden rounded-lg transition-all hover:translate-y-[-3px] focus:outline-none text-left flex flex-col"
+                style={{
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.25), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.25)',
+                  background: 'rgb(var(--bg-card-rgb) / 0.95)',
+                }}
+                title={p.title}
+              >
+                <div className="h-1 shrink-0" style={{ background: accent }} aria-hidden />
+
+                <div className="flex-1 flex items-center gap-2.5 p-3">
+                  <div
+                    className="shrink-0 w-10 h-10 rounded-md flex items-center justify-center text-xl"
+                    style={{
+                      background: `linear-gradient(135deg, ${accent}33 0%, ${accent}66 100%)`,
+                      boxShadow: `0 0 8px ${accent}33`,
+                      border: `1px solid ${accent}55`,
+                    }}
+                  >
+                    {p.icon}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-brush text-sm tracking-wider truncate" style={{ color: accent }}>
+                      {p.title}
+                    </h4>
+                    <p className="text-[10px] mt-0.5 line-clamp-1" style={{ color: 'rgb(var(--text-primary-rgb) / 0.8)' }}>
+                      {p.desc}
+                    </p>
+                    {hasProgress ? (
+                      <div className="text-[10px] tabular-nums mt-0.5" style={{ color: 'rgb(var(--vermilion-2-rgb))' }}>
+                        {visited} / {total}
+                      </div>
+                    ) : (
+                      <div className="text-[10px] italic mt-0.5" style={{ color: 'rgb(var(--text-faint-rgb))' }}>
+                        — 待启 —
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div
+                  className="h-px shrink-0"
+                  style={{
+                    background: `linear-gradient(90deg, transparent 0%, ${accent}55 50%, transparent 100%)`,
+                  }}
+                  aria-hidden
+                />
+              </button>
             )
           })}
         </div>
@@ -488,76 +549,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           )}
         </div>
 
-        {/* === 5. 探索更多（网格 chip · 无图卡，与主路径同风格） === */}
-        <div className="flex items-center gap-4 mb-3">
-          <span className="font-brush text-base text-ink-200 tracking-[0.4em]">余 · 目</span>
-          <div className="flex-1">
-            <CloudDivider />
-          </div>
-          <span className="text-xs text-ink-500 font-brush tracking-widest">同 · 风</span>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
-          {MORE_PATHS.map(p => {
-            const visited = getPathVisited(p.id)
-            const total = getPathTotal(p.id)
-            const hasProgress = visited > 0 && total > 0
-            const accent = p.color
-            return (
-              <button
-                key={p.id}
-                onClick={() => onEnterPath(p.id as PathId)}
-                className="group relative overflow-hidden rounded-lg transition-all hover:translate-y-[-3px] focus:outline-none text-left flex flex-col"
-                style={{
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.25), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.25)',
-                  background: 'rgb(var(--bg-card-rgb) / 0.95)',
-                }}
-                title={p.title}
-              >
-                {/* 顶部色带 */}
-                <div className="h-1 shrink-0" style={{ background: accent }} aria-hidden />
-
-                <div className="flex-1 flex items-center gap-2.5 p-3">
-                  {/* icon 圆角框 */}
-                  <div
-                    className="shrink-0 w-10 h-10 rounded-md flex items-center justify-center text-xl"
-                    style={{
-                      background: `linear-gradient(135deg, ${accent}33 0%, ${accent}66 100%)`,
-                      boxShadow: `0 0 8px ${accent}33`,
-                      border: `1px solid ${accent}55`,
-                    }}
-                  >
-                    {p.icon}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="font-brush text-sm tracking-wider truncate" style={{ color: accent }}>
-                      {p.title}
-                    </h4>
-                    <p className="text-[10px] mt-0.5 line-clamp-1" style={{ color: 'rgb(var(--text-primary-rgb) / 0.8)' }}>
-                      {p.desc}
-                    </p>
-                    {hasProgress ? (
-                      <div className="text-[10px] tabular-nums mt-0.5" style={{ color: 'rgb(var(--vermilion-2-rgb))' }}>
-                        {visited} / {total}
-                      </div>
-                    ) : (
-                      <div className="text-[10px] italic mt-0.5" style={{ color: 'rgb(var(--text-faint-rgb))' }}>
-                        — 待启 —
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div
-                  className="h-px shrink-0"
-                  style={{
-                    background: `linear-gradient(90deg, transparent 0%, ${accent}55 50%, transparent 100%)`,
-                  }}
-                  aria-hidden
-                />
-              </button>
-            )
-          })}
-        </div>
+        {/* === 5. 已合并到「学习路径」section（上方），删除旧的独立余·目 section === */}
 
         {/* === 6. 快捷入口（极简） === */}
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-ink-500 pt-4 border-t border-ink-700">

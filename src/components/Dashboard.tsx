@@ -28,6 +28,7 @@ import builtinQuestions from '@/data/questions.json'
 import type { Era, HistoricalEvent } from '@/types'
 import type { Question } from '@/types/questions'
 import EraQuickLearnModal, { type QuickEventState } from './QuickLearn/EraQuickLearnModal'
+import { ScrollEdge, Seal, GreekKeyDivider, CloudDivider } from '@/components/ui/ChineseOrnament'
 
 // 🎯 性能优化：data 改用懒加载共享 loader — 不再静态 import，eras.json + events.json
 //   从主 bundle 拆出。数据未到位时 eras/events 为空数组（useCoreDataReady 检测）。
@@ -318,9 +319,15 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           </p>
         </div>
 
-        {/* === 2. 主路径（4 个核心） === */}
-        <h2 className="text-sm text-ink-300 mb-3 uppercase tracking-wider">主路径</h2>
-        <div ref={pathCardsRef} className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        {/* === 2. 主路径（4 个核心 · 屏风式） === */}
+        <div className="flex items-center gap-4 mb-3">
+          <span className="font-brush text-lg text-bone tracking-[0.4em]">主路径</span>
+          <div className="flex-1">
+            <GreekKeyDivider />
+          </div>
+          <span className="text-xs text-ink-400 font-brush tracking-widest">四扇屏风</span>
+        </div>
+        <div ref={pathCardsRef} className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
           {MAIN_PATHS.map(p => (
             <PrimaryPathCard
               key={p.id}
@@ -344,10 +351,10 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           ))}
         </div>
 
-        {/* === 3. Hero CTA（当前推荐） === */}
+        {/* === 3. Hero CTA（当前推荐 · 卷轴式） === */}
         {recommendation && (
           <div
-            className="mb-8 p-6 rounded-2xl border border-vermilion-500/40 bg-gradient-to-br from-vermilion-900/30 via-ink-800/60 to-ink-800 cursor-pointer hover:border-vermilion-400 transition-all shine-on-hover focus-ring depth-2 group"
+            className="mb-10 cursor-pointer group focus-ring transition-transform hover:translate-y-[-1px]"
             onClick={() => {
               selectEra(recommendation.eraId)
               recordVisit('timeline', recommendation.eraId)
@@ -369,27 +376,69 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
               }
             }}
           >
-            <div className="flex items-start gap-5">
-              <div
-                className="text-5xl flex-shrink-0"
-                style={{ filter: `drop-shadow(0 0 12px ${recommendation.era.color}80)` }}
-              >
-                👉
+            <div
+              className="relative flex items-stretch rounded-md overflow-hidden"
+              style={{
+                background: 'rgb(var(--bg-card-rgb) / 0.6)',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.3), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.3)',
+              }}
+            >
+              {/* 📜 左侧卷轴（装裱杆） */}
+              <div className="w-9 shrink-0 relative" aria-hidden>
+                <ScrollEdge side="left" className="w-full h-full" />
               </div>
-              <div className="flex-1">
-                <div className="text-xs text-ink-300 mb-1 uppercase tracking-wider">下一步推荐</div>
-                <div className="font-brush text-2xl text-bone mb-2 group-hover:text-vermilion-300 transition-colors tracking-wide">
-                  {recommendation.era.name}
-                  <span className="ml-3 text-sm text-ink-300 font-sans tabular-nums">
-                    {recommendation.era.startYear < 0 ? `BC ${-recommendation.era.startYear}` : recommendation.era.startYear}
-                    {' ~ '}
-                    {recommendation.era.endYear < 0 ? `BC ${-recommendation.era.endYear}` : recommendation.era.endYear} 年
+
+              {/* 📜 右侧卷轴 */}
+              <div className="w-9 shrink-0 relative" aria-hidden>
+                <ScrollEdge side="right" className="w-full h-full" />
+              </div>
+
+              {/* 📜 卷轴中央展开部分 */}
+              <div className="flex-1 px-5 py-5 relative">
+                {/* 顶部：题引 + 朱红印章「荐」 */}
+                <div className="flex items-start gap-4 mb-2">
+                  <div className="flex-1">
+                    <div className="text-[10px] tracking-[0.4em] text-ink-400 mb-2 uppercase">
+                      启 · 学 · 之 · 荐
+                    </div>
+                    <div className="font-brush text-2xl text-bone group-hover:text-vermilion-300 transition-colors tracking-wider leading-tight">
+                      {recommendation.era.name}
+                      <span className="ml-3 text-sm text-ink-300 font-sans tabular-nums font-normal">
+                        {recommendation.era.startYear < 0 ? `BC ${-recommendation.era.startYear}` : recommendation.era.startYear}
+                        {' ~ '}
+                        {recommendation.era.endYear < 0 ? `BC ${-recommendation.era.endYear}` : recommendation.era.endYear} 年
+                      </span>
+                    </div>
+                  </div>
+                  {/* 朱红印章 */}
+                  <Seal text="荐" size={44} rotated />
+                </div>
+
+                {/* 中部：理由 */}
+                <div className="text-sm text-ink-300 leading-relaxed mb-3 pl-1">
+                  {recommendation.reason}
+                </div>
+
+                {/* 底部：行动提示 */}
+                <div className="flex items-center gap-2 text-xs">
+                  <span
+                    className="font-brush tracking-widest text-ink-400 group-hover:text-vermilion-300 transition-colors"
+                  >
+                    展卷而入
+                  </span>
+                  <span
+                    className="font-brush text-vermilion-300 group-hover:translate-x-2 transition-transform"
+                  >
+                    →→→
                   </span>
                 </div>
-                <div className="text-sm text-ink-400 mb-3">{recommendation.reason}</div>
-                <div className="text-xs text-vermilion-300 group-hover:translate-x-1 transition-transform">
-                  点击进入学习 →
-                </div>
+
+                {/* 右侧朝代色条 */}
+                <div
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-1 h-12 rounded-full"
+                  style={{ background: recommendation.era.color, opacity: 0.6 }}
+                  aria-hidden
+                />
               </div>
             </div>
           </div>
@@ -433,7 +482,13 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         </div>
 
         {/* === 5. 探索更多（横滑 chips） === */}
-        <h2 className="text-sm text-ink-500 mb-3 uppercase tracking-wider">探索更多</h2>
+        <div className="flex items-center gap-4 mb-3">
+          <span className="font-brush text-base text-ink-200 tracking-[0.4em]">余 · 目</span>
+          <div className="flex-1">
+            <CloudDivider />
+          </div>
+          <span className="text-xs text-ink-500 font-brush tracking-widest">更多路径</span>
+        </div>
         <div className="flex gap-2 overflow-x-auto pb-2 mb-8 -mx-2 px-2 scrollbar-thin">
           {MORE_PATHS.map(p => {
             const visited = getPathVisited(p.id)
@@ -588,51 +643,103 @@ function PrimaryPathCard({
 }) {
   const pct = total > 0 ? Math.round((visited / total) * 100) : 0
   const isNew = highlight
+  // 屏风主色：金 + 朱 + 该路径专属色（边框/印章）
+  const accent = p.color
   return (
     <button
       onClick={onClick}
-      className={`text-left p-4 rounded-lg border transition-all group path-card relative overflow-hidden ${
-        isNew
-          ? 'border-vermilion-500/50 bg-gradient-to-br from-vermilion-900/40 to-ink-800/80 hover:border-vermilion-400'
-          : preview
-            ? 'border-vermilion-500/40 bg-gradient-to-br from-vermilion-tint/30 via-ink-800/70 to-ink-800/70 hover:border-vermilion-400 hover:shadow-[0_0_16px_rgba(184,67,58,0.25)]'
-            : 'border-ink-700 bg-ink-800/60 hover:border-vermilion-500/40 hover:bg-ink-800'
-      }`}
+      className="group relative text-left transition-all hover:translate-y-[-2px] focus:outline-none"
+      style={{ paddingTop: 14 }}
     >
-      {isNew && (
-        <div className="absolute top-2 right-2 text-[10px] uppercase tracking-wider text-vermilion-300/80">
-          NEW
-        </div>
-      )}
-      <div className="text-3xl mb-2" style={{ filter: `drop-shadow(0 0 6px ${p.color}40)` }}>
-        {p.icon}
-      </div>
-      <div className="font-brush text-base mb-1 group-hover:text-vermilion-300 transition-colors tracking-wide" style={{ color: p.color }}>
-        {p.title}
-      </div>
-      <div className="text-xs text-ink-300 mb-2 line-clamp-2 leading-snug min-h-[2rem]">
-        {p.desc}
-      </div>
-      {/* 卡片专属预览（如朝代时间线卡的小型时间线） */}
-      {preview}
-      {total > 0 && (
-        <>
-          <div className="text-xs text-ink-400 tabular-nums mb-1">
-            {visited} / {total} · {pct}%
+      {/* 🏛️ 屏风外框：双线金边 + 四角小印 */}
+      <div
+        className="relative rounded-md overflow-hidden transition-shadow"
+        style={{
+          background: 'rgb(var(--bg-card-rgb) / 0.85)',
+          boxShadow: isNew
+            ? '0 0 0 1px rgb(var(--vermilion-rgb) / 0.5), 0 0 18px rgb(var(--vermilion-rgb) / 0.18), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.4)'
+            : '0 0 0 1px rgb(var(--gold-rgb) / 0.3), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.18)',
+        }}
+      >
+        {/* 四角方印 */}
+        <span className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
+        <span className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
+        <span className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
+        <span className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
+
+        {/* 🪧 顶部额枋（匾额式） */}
+        <div
+          className="relative px-3 py-2 flex items-center justify-between"
+          style={{
+            background: `linear-gradient(180deg, rgb(var(--bg-elevated-rgb) / 0.6) 0%, rgb(var(--bg-card-rgb) / 0) 100%)`,
+            borderBottom: '1px solid rgb(var(--gold-rgb) / 0.25)',
+          }}
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-2xl" style={{ filter: `drop-shadow(0 0 6px ${accent}50)` }}>
+              {p.icon}
+            </span>
+            <span className="font-brush text-base tracking-wider leading-none" style={{ color: accent }}>
+              {p.title}
+            </span>
           </div>
-          <div className="h-1 bg-ink-700 rounded-lg overflow-hidden">
-            <div
-              className="h-full transition-all"
-              style={{ width: `${pct}%`, background: p.color }}
-            />
-          </div>
-        </>
-      )}
-      {isNew && (
-        <div className="text-xs text-vermilion-300 mt-2 group-hover:translate-x-1 transition-transform">
-          进入 →
+          {isNew && (
+            <span
+              className="font-brush text-[10px] px-1.5 py-0.5 rounded-[2px]"
+              style={{
+                background: 'rgb(var(--vermilion-rgb) / 0.92)',
+                color: 'rgb(var(--text-parchment-rgb))',
+                transform: 'rotate(-6deg)',
+                boxShadow: '0 0 0 1px rgb(var(--vermilion-3-rgb) / 1), 0 1px 4px rgba(0,0,0,0.4)',
+              }}
+              aria-label="新内容"
+            >
+              新
+            </span>
+          )}
         </div>
-      )}
+
+        {/* 📜 屏风主体 */}
+        <div className="px-3 py-3 relative">
+          <p className="text-xs text-ink-300 leading-relaxed min-h-[2.5rem] line-clamp-2">
+            {p.desc}
+          </p>
+
+          {/* 卡片专属预览（如朝代时间线卡的小型时间线） */}
+          {preview}
+
+          {total > 0 && (
+            <div className="mt-3">
+              <div className="text-[10px] text-ink-400 tabular-nums mb-1 flex justify-between">
+                <span>已学 {visited} / {total}</span>
+                <span>{pct}%</span>
+              </div>
+              <div className="relative h-1 bg-ink-700 rounded-full overflow-hidden">
+                <div
+                  className="h-full transition-all duration-700"
+                  style={{ width: `${pct}%`, background: `linear-gradient(90deg, ${accent}80 0%, ${accent} 100%)` }}
+                />
+              </div>
+            </div>
+          )}
+
+          {isNew && (
+            <div className="mt-3 text-xs text-vermilion-300 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              <span>入此门</span>
+              <span>→</span>
+            </div>
+          )}
+        </div>
+
+        {/* 底部装饰条（仿屏风雕花底座） */}
+        <div
+          className="h-1"
+          style={{
+            background: `linear-gradient(90deg, transparent 0%, rgb(var(--gold-rgb) / 0.5) 30%, rgb(var(--gold-rgb) / 0.5) 70%, transparent 100%)`,
+          }}
+          aria-hidden
+        />
+      </div>
     </button>
   )
 }

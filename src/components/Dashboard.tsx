@@ -9,7 +9,7 @@
  *
  * 快速学习 / 关键大事详情两个 Modal 已抽到 ./QuickLearn/EraQuickLearnModal.tsx
  */
-import { useMemo, useState, useEffect, useRef, memo, useCallback } from 'react'
+import { useMemo, useState, useEffect, useRef, memo, useCallback, type ReactNode } from 'react'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useCardsStore } from '@/store/useCardsStore'
 import { useAIStore } from '@/store/useAIStore'
@@ -339,6 +339,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
                 }
               }}
               highlight={p.id === 'ladder'}
+              preview={p.id === 'timeline' ? <TimelinePreview eras={eras} visitedIds={visitedSet} /> : undefined}
             />
           ))}
         </div>
@@ -397,7 +398,9 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         {/* === 4. 进度总览（一行 timeline-style 条） === */}
         <div className="mb-8 p-4 rounded-lg bg-ink-800/40 border border-ink-700">
           <div className="flex items-center justify-between mb-2 text-xs">
-            <span className="text-ink-500">总进度 · {Math.round((learnedInTimeline / totalEras) * 100)}%</span>
+            <span className="text-ink-500">
+              总进度 · {totalEras > 0 ? `${Math.round((learnedInTimeline / totalEras) * 100)}%` : '未开始'}
+            </span>
             <span className="text-ink-500 font-mono tabular-nums">
               {learnedInTimeline} / {totalEras} 朝代
               {' · '}
@@ -548,12 +551,15 @@ function PrimaryPathCard({
   total,
   onClick,
   highlight,
+  preview,
 }: {
   path: { id: string; icon: string; title: string; desc: string; color: string }
   visited: number
   total: number
   onClick: () => void
   highlight?: boolean
+  /** 可选的卡片专属预览元素（如朝代时间线卡的小型时间线） */
+  preview?: ReactNode
 }) {
   const pct = total > 0 ? Math.round((visited / total) * 100) : 0
   const isNew = highlight
@@ -563,7 +569,9 @@ function PrimaryPathCard({
       className={`text-left p-4 rounded-lg border transition-all group path-card relative overflow-hidden ${
         isNew
           ? 'border-vermilion-500/50 bg-gradient-to-br from-vermilion-900/40 to-ink-800/80 hover:border-vermilion-400'
-          : 'border-ink-700 bg-ink-800/60 hover:border-vermilion-500/40 hover:bg-ink-800'
+          : preview
+            ? 'border-vermilion-500/40 bg-gradient-to-br from-vermilion-tint/30 via-ink-800/70 to-ink-800/70 hover:border-vermilion-400 hover:shadow-[0_0_16px_rgba(184,67,58,0.25)]'
+            : 'border-ink-700 bg-ink-800/60 hover:border-vermilion-500/40 hover:bg-ink-800'
       }`}
     >
       {isNew && (
@@ -580,6 +588,8 @@ function PrimaryPathCard({
       <div className="text-xs text-ink-300 mb-2 line-clamp-2 leading-snug min-h-[2rem]">
         {p.desc}
       </div>
+      {/* 卡片专属预览（如朝代时间线卡的小型时间线） */}
+      {preview}
       {total > 0 && (
         <>
           <div className="text-xs text-ink-400 tabular-nums mb-1">
@@ -599,6 +609,56 @@ function PrimaryPathCard({
         </div>
       )}
     </button>
+  )
+}
+
+// ===== 朝代时间线迷你预览 =====
+// 用 SVG 显示一条压缩时间线（BC 2200 → 2100）+ 67 个朝代点 + 4 个关键年标
+// 不依赖任何动效，纯粹视觉信息
+function TimelinePreview({ eras, visitedIds }: { eras: Era[]; visitedIds: Set<string> }) {
+  const MIN_YEAR = -2200
+  const MAX_YEAR = 2100
+  const SPAN = MAX_YEAR - MIN_YEAR
+  const KEY_YEARS: { year: number; label: string }[] = [
+    { year: -221, label: '秦' },
+    { year: 0,    label: '公元' },
+    { year: 1279, label: '宋末' },
+    { year: 1912, label: '民国' },
+  ]
+  const xFor = (y: number) => ((y - MIN_YEAR) / SPAN) * 200
+
+  return (
+    <div className="mb-2">
+      <svg viewBox="0 0 200 28" className="w-full h-7" preserveAspectRatio="none">
+        {/* 朱砂主线 */}
+        <line x1="0" y1="14" x2="200" y2="14"
+          stroke="rgb(var(--vermilion-rgb))" strokeWidth="1" opacity="0.5" />
+        {/* 朝代点 */}
+        {eras.map(e => {
+          const x = xFor(e.startYear)
+          const isVisited = visitedIds.has(e.id)
+          const isChina = e.region === 'china'
+          return (
+            <circle key={e.id}
+              cx={x} cy="14" r={isChina ? 1.3 : 1}
+              fill={isVisited ? 'rgb(74 222 128)' : isChina ? 'rgb(var(--vermilion-rgb))' : 'rgb(var(--text-faint-rgb))'}
+              opacity={isVisited ? 0.95 : 0.6}
+            />
+          )
+        })}
+        {/* 关键年标 */}
+        {KEY_YEARS.map(k => (
+          <g key={k.year}>
+            <line x1={xFor(k.year)} y1="20" x2={xFor(k.year)} y2="26"
+              stroke="rgb(var(--gold-rgb))" strokeWidth="0.5" opacity="0.6" />
+            <text x={xFor(k.year)} y="11" textAnchor="middle" fontSize="5"
+              fill="rgb(var(--text-faint-rgb))" fontFamily="serif">
+              {k.label}
+            </text>
+          </g>
+        ))}
+      </svg>
+    </div>
   )
 }
 

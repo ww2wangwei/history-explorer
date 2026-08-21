@@ -307,13 +307,13 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
 
   return (
     <div className="w-full h-full overflow-y-auto scrollbar-thin bg-ink-900 ink-wash-bg paper-texture vignette">
-      <div className="max-w-5xl mx-auto px-6 py-10">
+      <div className="max-w-5xl mx-auto px-6 py-4">
         {/* === 1. 标题（极简） === */}
-        <div ref={welcomeTitleRef} className="mb-10">
-          <h1 className="text-display font-brush text-bone mb-2 title-underline inline-block tracking-wide">
+        <div ref={welcomeTitleRef} className="mb-4">
+          <h1 className="text-2xl font-brush text-bone mb-1 tracking-wide inline-block">
             📜 历史探索者
           </h1>
-          <p className="text-ink-300 text-sm leading-relaxed">
+          <p className="text-ink-300 text-xs leading-relaxed">
             从 {currentYear < 0 ? `公元前${-currentYear}` : currentYear} 年开始 ·
             系统地学习中国和世界的 50 个朝代 + 251 个历史事件。
           </p>
@@ -351,7 +351,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           - 1 全宽横条 (4×1)：今日复习
           - 7 normal (1×1)：其余
         */}
-        <div ref={pathCardsRef} className="grid grid-cols-2 md:grid-cols-4 md:grid-rows-5 gap-3 mb-10 auto-rows-fr">
+        <div ref={pathCardsRef} className="grid grid-cols-2 md:grid-cols-4 md:grid-rows-5 gap-2 mb-6 auto-rows-fr">
           {/* Row 1-2: hero (2×2) + 右侧 small + tall */}
           <PrimaryPathCard
             path={MAIN_PATHS[0]}
@@ -691,16 +691,16 @@ function PrimaryPathCard({
 
       {/* 主体区：左 icon + 右标题（无图片） */}
       <div className={`flex-1 flex ${
-          isLarge ? 'flex-col p-5 gap-3' :
-          isTall ? 'flex-col p-3 gap-2' :
-          'flex-row items-center gap-3 p-3'
+          isLarge ? 'flex-col p-3 gap-2' :
+          isTall ? 'flex-col p-2 gap-1.5' :
+          'flex-row items-center gap-2 p-2'
         }`}>
         {/* 左上 / 大卡顶部 icon */}
         <div
           className={`shrink-0 flex items-center justify-center rounded-md ${
-            isLarge ? 'w-16 h-16 text-4xl' :
-            isTall ? 'w-10 h-10 text-xl' :
-            'w-10 h-10 text-xl'
+            isLarge ? 'w-12 h-12 text-3xl' :
+            isTall ? 'w-9 h-9 text-lg' :
+            'w-9 h-9 text-lg'
           }`}
           style={{
             background: `linear-gradient(135deg, ${accent}33 0%, ${accent}66 100%)`,
@@ -713,12 +713,12 @@ function PrimaryPathCard({
 
         {/* 文字主体 */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center justify-between gap-1.5">
             <h3
               className={`font-brush tracking-wider leading-tight truncate ${
-                isLarge ? 'text-2xl' :
-                isTall ? 'text-base' :
-                'text-sm'
+                isLarge ? 'text-lg' :
+                isTall ? 'text-sm' :
+                'text-xs'
               }`}
               style={{ color: accent }}
             >
@@ -740,10 +740,10 @@ function PrimaryPathCard({
             )}
           </div>
 
-          <p className={`leading-relaxed mt-1 ${
-               isLarge ? 'text-sm' :
-               isTall ? 'text-[11px] line-clamp-2' :
-               'text-[11px] line-clamp-1'
+          <p className={`leading-snug mt-0.5 ${
+               isLarge ? 'text-xs' :
+               isTall ? 'text-[10px] line-clamp-2' :
+               'text-[10px] line-clamp-1'
              }`}
              style={{ color: 'rgb(var(--text-primary-rgb) / 0.85)' }}>
             {p.desc}

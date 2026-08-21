@@ -480,8 +480,8 @@ const { currentYear, setYear, selectEra } = useHistoryStore()
                   textAnchor="middle"
                   fontSize="9"
                   fill={style.color}
+                  fontWeight="600"
                   className="pointer-events-none"
-                  style={{ paintOrder: 'stroke', stroke: '#0f0e0c', strokeWidth: 2 }}
                 >
                   {link.relationship.label ?? style.label}
                 </text>
@@ -539,8 +539,8 @@ const { currentYear, setYear, selectEra } = useHistoryStore()
                   textAnchor="middle"
                   y={hoveredNodeId === node.id ? -18 : 20}
                   fontSize={hoveredNodeId === node.id ? 10 : 8}
-                  fill={hoveredNodeId === node.id ? '#c89a5b' : '#c0b89a'}
-                  style={{ pointerEvents: 'none', userSelect: 'none', paintOrder: 'stroke', stroke: '#0f0e0c', strokeWidth: 2 }}
+                  fill={hoveredNodeId === node.id ? '#8b3a2c' : '#5a4632'}
+                  style={{ pointerEvents: 'none', userSelect: 'none' }}
                 >
                   {node.figure?.name}
                 </text>
@@ -632,7 +632,7 @@ const { currentYear, setYear, selectEra } = useHistoryStore()
                     textAnchor="middle"
                     y={r + 14}
                     fontSize="11"
-                    fill={active ? '#fdf8f0' : dimmed ? '#5a5142' : '#a8a094'}
+                    fill={active ? '#8b3a2c' : dimmed ? '#8a7a6a' : '#3a2f23'}
                     fontWeight={active ? 'bold' : 'normal'}
                     opacity={dimmed ? 0.4 : 1}
                     className="pointer-events-none"

@@ -481,15 +481,16 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           )}
         </div>
 
-        {/* === 5. 探索更多（横滑 chips） === */}
+        {/* === 5. 探索更多（横滑 chip · 小屏风条） === */}
         <div className="flex items-center gap-4 mb-3">
           <span className="font-brush text-base text-ink-200 tracking-[0.4em]">余 · 目</span>
           <div className="flex-1">
             <CloudDivider />
           </div>
-          <span className="text-xs text-ink-500 font-brush tracking-widest">更多路径</span>
+          <span className="text-xs text-ink-500 font-brush tracking-widest">横 · 览</span>
         </div>
-        <div className="flex gap-2 overflow-x-auto pb-2 mb-8 -mx-2 px-2 scrollbar-thin">
+        {/* 横滑小屏风条容器 */}
+        <div className="flex gap-3 overflow-x-auto pb-3 mb-8 -mx-2 px-2 scrollbar-thin snap-x">
           {MORE_PATHS.map(p => {
             const visited = getPathVisited(p.id)
             const total = getPathTotal(p.id)
@@ -498,29 +499,63 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
               <button
                 key={p.id}
                 onClick={() => onEnterPath(p.id as PathId)}
-                className={`flex-shrink-0 flex items-center gap-2 pl-3 pr-3 py-2 rounded-full border transition-colors group ${
-                  hasProgress
-                    ? 'border-vermilion-500/50 bg-vermilion-tint/20 hover:bg-vermilion-tint/40'
-                    : 'border-ink-700 bg-ink-800/60 hover:border-vermilion-500/40 hover:bg-ink-800'
-                }`}
-                style={{ borderLeftWidth: '3px', borderLeftColor: p.color }}
+                className="group relative flex-shrink-0 snap-start transition-transform hover:translate-y-[-2px] focus:outline-none"
               >
-                <span className="text-base">{p.icon}</span>
-                <span className={`font-brush text-sm tracking-wide transition-colors ${hasProgress ? 'text-vermilion-200' : 'text-ink-300 group-hover:text-bone'}`}>
-                  {p.title}
-                </span>
-                {hasProgress && (
-                  <span
-                    className="text-[10px] tabular-nums px-1.5 py-0.5 rounded-full font-mono"
-                    style={{
-                      background: 'rgb(var(--vermilion-rgb) / 0.25)',
-                      color: 'rgb(var(--text-parchment-rgb))',
-                      border: '1px solid rgb(var(--vermilion-rgb) / 0.5)',
-                    }}
+                <div
+                  className="relative rounded-sm overflow-hidden"
+                  style={{
+                    width: 140,
+                    background: 'rgb(var(--bg-card-rgb) / 0.85)',
+                    boxShadow: hasProgress
+                      ? '0 0 0 1px rgb(var(--vermilion-rgb) / 0.5), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.3)'
+                      : '0 0 0 1px rgb(var(--gold-rgb) / 0.25), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.12)',
+                  }}
+                >
+                  {/* 四角小印 */}
+                  <span className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l pointer-events-none" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
+                  <span className="absolute top-0 right-0 w-1.5 h-1.5 border-t border-r pointer-events-none" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
+                  <span className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b border-l pointer-events-none" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
+                  <span className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r pointer-events-none" style={{ borderColor: 'rgb(var(--gold-rgb) / 0.7)' }} />
+
+                  {/* 顶部色带（仿额枋染色） */}
+                  <div
+                    className="h-1 shrink-0"
+                    style={{ background: `linear-gradient(90deg, transparent, ${p.color}99 50%, transparent)` }}
+                  />
+
+                  {/* 主体：icon + 标题 */}
+                  <div className="px-2.5 py-3 flex flex-col items-center gap-1.5">
+                    <span
+                      className="text-2xl"
+                      style={{ filter: `drop-shadow(0 0 6px ${p.color}50)` }}
+                    >
+                      {p.icon}
+                    </span>
+                    <span
+                      className="font-brush text-sm tracking-wider text-center leading-tight min-h-[2.5em] flex items-center"
+                      style={{ color: p.color }}
+                    >
+                      {p.title}
+                    </span>
+                  </div>
+
+                  {/* 底部进度或「未启」占位 */}
+                  <div
+                    className="px-2 py-1.5 text-center"
+                    style={{ borderTop: '1px solid rgb(var(--gold-rgb) / 0.15)' }}
                   >
-                    {visited} / {total}
-                  </span>
-                )}
+                    {hasProgress ? (
+                      <span
+                        className="text-[10px] tabular-nums font-mono"
+                        style={{ color: 'rgb(var(--vermilion-2-rgb))' }}
+                      >
+                        {visited} / {total}
+                      </span>
+                    ) : (
+                      <span className="text-[10px] text-ink-500 italic">— 待启 —</span>
+                    )}
+                  </div>
+                </div>
               </button>
             )
           })}

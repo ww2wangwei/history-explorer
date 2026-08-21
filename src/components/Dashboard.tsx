@@ -488,91 +488,72 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           )}
         </div>
 
-        {/* === 5. 探索更多（网格 chip · 图片卡） === */}
+        {/* === 5. 探索更多（网格 chip · 无图卡，与主路径同风格） === */}
         <div className="flex items-center gap-4 mb-3">
           <span className="font-brush text-base text-ink-200 tracking-[0.4em]">余 · 目</span>
           <div className="flex-1">
             <CloudDivider />
           </div>
-          <span className="text-xs text-ink-500 font-brush tracking-widest">图 · 录</span>
+          <span className="text-xs text-ink-500 font-brush tracking-widest">同 · 风</span>
         </div>
-        {/* 图片卡网格：每条 = Bing 图片 + 标题 */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
           {MORE_PATHS.map(p => {
             const visited = getPathVisited(p.id)
             const total = getPathTotal(p.id)
             const hasProgress = visited > 0 && total > 0
-            const cover = bingImage(p.imageKeyword, 320, 180)
+            const accent = p.color
             return (
               <button
                 key={p.id}
                 onClick={() => onEnterPath(p.id as PathId)}
-                className="group relative overflow-hidden rounded-md transition-all hover:translate-y-[-3px] focus:outline-none"
+                className="group relative overflow-hidden rounded-lg transition-all hover:translate-y-[-3px] focus:outline-none text-left flex flex-col"
                 style={{
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.3), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.3)',
-                  background: 'rgb(var(--bg-card-rgb) / 0.85)',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.25), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.25)',
+                  background: 'rgb(var(--bg-card-rgb) / 0.95)',
                 }}
                 title={p.title}
               >
-                {/* 图片 */}
-                <div
-                  className="relative w-full aspect-video bg-cover bg-center"
-                  style={{
-                    backgroundImage: `url(${cover})`,
-                    backgroundColor: 'rgb(var(--bg-elevated-rgb))',
-                  }}
-                >
-                  {/* 顶部彩色渐变覆盖（保持主题色感） */}
+                {/* 顶部色带 */}
+                <div className="h-1 shrink-0" style={{ background: accent }} aria-hidden />
+
+                <div className="flex-1 flex items-center gap-2.5 p-3">
+                  {/* icon 圆角框 */}
                   <div
-                    className="absolute inset-0"
+                    className="shrink-0 w-10 h-10 rounded-md flex items-center justify-center text-xl"
                     style={{
-                      background: `linear-gradient(180deg, ${p.color}33 0%, transparent 50%, rgba(0,0,0,0.6) 100%)`,
+                      background: `linear-gradient(135deg, ${accent}33 0%, ${accent}66 100%)`,
+                      boxShadow: `0 0 8px ${accent}33`,
+                      border: `1px solid ${accent}55`,
                     }}
-                  />
-                  {/* 顶部色带 */}
-                  <div
-                    className="absolute top-0 left-0 right-0 h-1"
-                    style={{ background: p.color }}
-                  />
-                  {/* 进度小圆点 */}
-                  {hasProgress && (
-                    <div
-                      className="absolute top-2 right-2 px-1.5 py-0.5 rounded-full text-[10px] tabular-nums font-mono backdrop-blur-sm"
-                      style={{
-                        background: 'rgb(var(--vermilion-rgb) / 0.85)',
-                        color: 'rgb(var(--text-parchment-rgb))',
-                      }}
-                    >
-                      {visited}/{total}
-                    </div>
-                  )}
-                  {/* icon 浮在左上 */}
-                  <div
-                    className="absolute top-2 left-2 text-2xl"
-                    style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.6))' }}
                   >
                     {p.icon}
                   </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-brush text-sm tracking-wider truncate" style={{ color: accent }}>
+                      {p.title}
+                    </h4>
+                    <p className="text-[10px] mt-0.5 line-clamp-1" style={{ color: 'rgb(var(--text-primary-rgb) / 0.8)' }}>
+                      {p.desc}
+                    </p>
+                    {hasProgress ? (
+                      <div className="text-[10px] tabular-nums mt-0.5" style={{ color: 'rgb(var(--vermilion-2-rgb))' }}>
+                        {visited} / {total}
+                      </div>
+                    ) : (
+                      <div className="text-[10px] italic mt-0.5" style={{ color: 'rgb(var(--text-faint-rgb))' }}>
+                        — 待启 —
+                      </div>
+                    )}
+                  </div>
                 </div>
 
-                {/* 标题条 */}
                 <div
-                  className="px-3 py-2 text-center"
+                  className="h-px shrink-0"
                   style={{
-                    background: 'linear-gradient(180deg, rgb(var(--bg-card-rgb)) 0%, rgb(var(--bg-elevated-rgb)) 100%)',
-                    borderTop: '1px solid rgb(var(--gold-rgb) / 0.3)',
+                    background: `linear-gradient(90deg, transparent 0%, ${accent}55 50%, transparent 100%)`,
                   }}
-                >
-                  <div
-                    className="font-brush text-sm tracking-wider leading-tight"
-                    style={{ color: p.color }}
-                  >
-                    {p.title}
-                  </div>
-                  {!hasProgress && (
-                    <div className="text-[9px] text-ink-500 italic mt-0.5">待启程</div>
-                  )}
-                </div>
+                  aria-hidden
+                />
               </button>
             )
           })}
@@ -703,127 +684,97 @@ function PrimaryPathCard({
   const isNew = highlight
   const accent = p.color
   const isLarge = size === 'large'
-  const cover = bingImage(p.imageKeyword, isLarge ? 600 : 320, isLarge ? 360 : 180)
   return (
     <button
       onClick={onClick}
-      className={`group relative overflow-hidden rounded-md transition-all hover:translate-y-[-3px] focus:outline-none h-full text-left ${className}`}
+      className={`group relative overflow-hidden rounded-lg transition-all hover:translate-y-[-3px] focus:outline-none h-full text-left flex flex-col ${className}`}
       style={{
         boxShadow: isNew
           ? '0 4px 16px rgba(0,0,0,0.3), 0 0 0 1px rgb(var(--vermilion-rgb) / 0.5), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.4)'
           : '0 4px 12px rgba(0,0,0,0.25), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.3)',
-        background: 'rgb(var(--bg-card-rgb) / 0.85)',
+        background: 'rgb(var(--bg-card-rgb) / 0.95)',
       }}
     >
       {/* 顶部彩色边条 */}
       <div className="h-1 shrink-0" style={{ background: accent }} aria-hidden />
 
-      {/* 图片区 */}
-      <div
-        className={`relative w-full bg-cover bg-center ${isLarge ? 'h-48' : 'h-24'}`}
-        style={{
-          backgroundImage: `url(${cover})`,
-          backgroundColor: 'rgb(var(--bg-elevated-rgb))',
-        }}
-      >
-        {/* 顶部彩色渐变覆盖 */}
+      {/* 主体区：左 icon + 右标题（无图片） */}
+      <div className={`flex-1 flex ${isLarge ? 'flex-col p-5 gap-3' : 'flex-row items-center gap-3 p-3'}`}>
+        {/* 左上 / 大卡顶部 icon */}
         <div
-          className="absolute inset-0"
+          className={`shrink-0 flex items-center justify-center rounded-md ${isLarge ? 'w-16 h-16 text-4xl' : 'w-10 h-10 text-xl'}`}
           style={{
-            background: `linear-gradient(180deg, ${accent}44 0%, transparent 50%, rgba(0,0,0,0.55) 100%)`,
+            background: `linear-gradient(135deg, ${accent}33 0%, ${accent}66 100%)`,
+            boxShadow: `0 0 12px ${accent}33`,
+            border: `1px solid ${accent}55`,
           }}
-        />
-        {/* 左上 icon */}
-        <div
-          className={`absolute top-2 left-2 ${isLarge ? 'text-4xl' : 'text-2xl'}`}
-          style={{ filter: 'drop-shadow(0 1px 3px rgba(0,0,0,0.6))' }}
         >
           {p.icon}
         </div>
-        {/* 右上进度/NEW 印章 */}
-        <div className="absolute top-2 right-2 flex items-center gap-1.5">
-          {hasProgress(visited, total) && (
-            <span
-              className="px-1.5 py-0.5 rounded-full text-[10px] tabular-nums font-mono backdrop-blur-sm"
-              style={{
-                background: 'rgb(var(--vermilion-rgb) / 0.85)',
-                color: 'rgb(var(--text-parchment-rgb))',
-              }}
-            >
-              {visited}/{total}
-            </span>
-          )}
-          {isNew && (
-            <span
-              className="font-brush text-[10px] px-1.5 py-0.5 rounded-[2px]"
-              style={{
-                background: 'rgb(var(--vermilion-rgb) / 0.92)',
-                color: 'rgb(var(--text-parchment-rgb))',
-                transform: 'rotate(-6deg)',
-                boxShadow: '0 0 0 1px rgb(var(--vermilion-3-rgb) / 1), 0 1px 4px rgba(0,0,0,0.4)',
-              }}
-              aria-label="新内容"
-            >
-              新
-            </span>
-          )}
-        </div>
-        {/* 标题浮在图片底部（大卡用） */}
-        {isLarge && (
-          <div className="absolute bottom-2 left-3 right-3">
-            <div
-              className="font-brush text-2xl tracking-wider leading-tight drop-shadow-md"
-              style={{ color: 'rgb(var(--text-parchment-rgb))' }}
-            >
-              {p.title}
-            </div>
-          </div>
-        )}
-      </div>
 
-      {/* 底部信息区 */}
-      <div
-        className={`px-3 ${isLarge ? 'py-3' : 'py-2'}`}
-        style={{
-          background: 'linear-gradient(180deg, rgb(var(--bg-card-rgb)) 0%, rgb(var(--bg-elevated-rgb)) 100%)',
-        }}
-      >
-        {/* 小卡标题在底部 */}
-        {!isLarge && (
-          <div className="flex items-baseline justify-between gap-2">
-            <div
-              className="font-brush text-sm tracking-wider truncate"
+        {/* 文字主体 */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between gap-2">
+            <h3
+              className={`font-brush tracking-wider leading-tight truncate ${isLarge ? 'text-2xl' : 'text-sm'}`}
               style={{ color: accent }}
             >
               {p.title}
-            </div>
+            </h3>
+            {isNew && (
+              <span
+                className="font-brush text-[10px] px-1.5 py-0.5 rounded-[2px] shrink-0"
+                style={{
+                  background: 'rgb(var(--vermilion-rgb) / 0.92)',
+                  color: 'rgb(var(--text-parchment-rgb))',
+                  transform: 'rotate(-6deg)',
+                  boxShadow: '0 0 0 1px rgb(var(--vermilion-3-rgb) / 1), 0 1px 4px rgba(0,0,0,0.4)',
+                }}
+                aria-label="新内容"
+              >
+                新
+              </span>
+            )}
           </div>
-        )}
-        <p className={`text-ink-300 leading-relaxed ${isLarge ? 'text-sm mt-2 line-clamp-2' : 'text-[11px] mt-1 line-clamp-1'}`}>
-          {p.desc}
-        </p>
-        {/* 预览元素（朝代时间线小图） */}
-        {preview && <div className={isLarge ? 'mt-3' : 'mt-1'}>{preview}</div>}
-        {/* 进度条（大卡显示完整版） */}
-        {isLarge && total > 0 && (
-          <div className="mt-3">
-            <div className="text-[10px] text-ink-400 tabular-nums mb-1 flex justify-between">
-              <span>已学 {visited} / {total}</span>
-              <span>{pct}%</span>
+
+          <p className={`leading-relaxed mt-1 ${isLarge ? 'text-sm' : 'text-[11px] line-clamp-1'}`}
+             style={{ color: 'rgb(var(--text-primary-rgb) / 0.85)' }}>
+            {p.desc}
+          </p>
+
+          {/* 预览元素（朝代时间线小图） */}
+          {preview && <div className={isLarge ? 'mt-3' : 'hidden'}>{preview}</div>}
+
+          {/* 进度条 / 占位 */}
+          {hasProgress(visited, total) ? (
+            <div className={isLarge ? 'mt-3' : 'mt-1.5'}>
+              <div className="text-[10px] tabular-nums mb-1 flex justify-between" style={{ color: 'rgb(var(--text-secondary-rgb))' }}>
+                <span>已学 {visited} / {total}</span>
+                <span>{pct}%</span>
+              </div>
+              <div className="relative h-1 bg-ink-700 rounded-full overflow-hidden">
+                <div
+                  className="h-full transition-all duration-700"
+                  style={{ width: `${pct}%`, background: `linear-gradient(90deg, ${accent}80 0%, ${accent} 100%)` }}
+                />
+              </div>
             </div>
-            <div className="relative h-1 bg-ink-700 rounded-full overflow-hidden">
-              <div
-                className="h-full transition-all duration-700"
-                style={{ width: `${pct}%`, background: `linear-gradient(90deg, ${accent}80 0%, ${accent} 100%)` }}
-              />
+          ) : (
+            <div className="text-[10px] italic mt-1.5" style={{ color: 'rgb(var(--text-faint-rgb))' }}>
+              — 待启程 —
             </div>
-          </div>
-        )}
-        {/* 小卡无进度显示待启程 */}
-        {!isLarge && !hasProgress(visited, total) && (
-          <div className="text-[9px] text-ink-500 italic mt-1">— 待启程 —</div>
-        )}
+          )}
+        </div>
       </div>
+
+      {/* 底部细线 */}
+      <div
+        className="h-px shrink-0"
+        style={{
+          background: `linear-gradient(90deg, transparent 0%, ${accent}55 50%, transparent 100%)`,
+        }}
+        aria-hidden
+      />
     </button>
   )
 }

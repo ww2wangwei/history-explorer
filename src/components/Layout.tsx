@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useRef, lazy, Suspense } from 'react'
+import { useEffect, useReducer, useRef, lazy, Suspense, useMemo } from 'react'
 import { useReducedMotionGlobal } from '@/hooks/useReducedMotion'
 import WorldMap from '@/components/AmapTest' // legacy alias
 import Timeline from '@/components/Timeline/Timeline'
@@ -88,14 +88,18 @@ export default function Layout() {
   useReducedMotionGlobal()
 
   // ============ 历史 store（全局） ============
-  const {
-    currentYear, selectedEventId, selectedEraId,
-    selectEvent, selectEra,
-    setViewMode,                             // viewMode 同步到 store（URL 持久化）
-    detailView, setDetailView,
-    mapFocusTarget, setMapFocus,
-    setMapPosition,
-  } = useHistoryStore()
+  // 🎯 性能优化：单项 selector + useShallow 避免整 store 重订阅
+  const currentYear = useHistoryStore(s => s.currentYear)
+  const selectedEventId = useHistoryStore(s => s.selectedEventId)
+  const selectedEraId = useHistoryStore(s => s.selectedEraId)
+  const selectEvent = useHistoryStore(s => s.selectEvent)
+  const selectEra = useHistoryStore(s => s.selectEra)
+  const setViewMode = useHistoryStore(s => s.setViewMode)
+  const detailView = useHistoryStore(s => s.detailView)
+  const setDetailView = useHistoryStore(s => s.setDetailView)
+  const mapFocusTarget = useHistoryStore(s => s.mapFocusTarget)
+  const setMapFocus = useHistoryStore(s => s.setMapFocus)
+  const setMapPosition = useHistoryStore(s => s.setMapPosition)
 
   // ============ Layout 局部状态机 ============
   const [ui, dispatch] = useReducer(layoutReducer, undefined, getInitialLayoutState)
@@ -104,14 +108,16 @@ export default function Layout() {
   // ============ 其他 store 派生 ============
   const notesCount = useNotesStore(s => Object.keys(s.notes).length)
   const cardsCount = useCardsStore(s => Object.keys(s.cards).length)
-  const dueCount = useCardsStore(s => {
-    const now = Date.now()
-    return Object.values(s.cards).filter(c => isDue(c, now)).length
-  })
+  const cardsArr = useCardsStore(s => s.cards)  // 🎯 取一次，下面 useMemo 派生
   const goalTarget = useGoalStore(s => s.target)
   const todayCount = useCardsStore(s => countTodayReviews(s.cards))
   const eraSelectionHistory = useHistoryStore(s => s.eraSelectionHistory)
   const undoEraSelect = useHistoryStore(s => s.undoEraSelect)
+  // 🎯 性能优化：Date.now() 不能放 selector（每次返回新值 → 无限重渲染）
+  const dueCount = useMemo(() => {
+    const now = Date.now()
+    return Object.values(cardsArr).filter(c => isDue(c, now)).length
+  }, [cardsArr])
 
   // ============ More 菜单：click-outside 关闭 ============
   const moreMenuRef = useRef<HTMLDivElement>(null)

@@ -95,15 +95,12 @@ export default function AmapTest() {
   const savedViewStateRef = useRef<{ lng: number; lat: number; zoom: number; pitch: number; rotation: number } | null>(null)
 
   const currentYear = useHistoryStore(s => s.currentYear)
-  // 🎯 性能优化：marker rebuild 跟随 currentYear，但用 80ms debounce。
-  //   拖时间轴时 setYear 每帧触发（~60Hz），不 debounce 会导致
-  //   每次都 map.remove 35+ markers + 重新创建 → 卡顿。
-  //   拖动结束后 80ms 才一次性重建最终 markers。
-  const [markerYear, setMarkerYear] = useState(currentYear)
-  useEffect(() => {
-    const t = setTimeout(() => setMarkerYear(currentYear), 80)
-    return () => clearTimeout(t)
-  }, [currentYear])
+  // markers 直接跟随 currentYear（不再 debounce）。
+  // 之前 80ms debounce 让 markers 拖拽时停在原位，
+  // 但地图 setCenter 在跟 → markers 看起来"消失"了。
+  // React 18 自动 batching 已合并同帧内的多次 setState，
+  // 不需要手动 debounce。
+  const markerYear = currentYear
   const selectEra = useHistoryStore(s => s.selectEra)
   const selectEvent = useHistoryStore(s => s.selectEvent)
   const setYear = useHistoryStore(s => s.setYear)

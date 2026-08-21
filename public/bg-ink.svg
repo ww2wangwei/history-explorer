@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 900" preserveAspectRatio="xMidYMid slice" width="1500" height="900">
+  <!-- 全屏水墨山水意境背景（单张，无重复） -->
+  <defs>
+    <!-- 飞白笔触 mask -->
+    <filter id="dry-brush" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="3"/>
+      <feDisplacementMap in="SourceGraphic" scale="6"/>
+    </filter>
+    <!-- 墨晕 -->
+    <filter id="ink-blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5"/>
+    </filter>
+  </defs>
+
+  <!-- 远山（极淡墨，留白意境） -->
+  <g opacity="0.32" fill="none" stroke="rgb(70,60,45)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 0,520 Q 200,460 350,490 T 700,470 Q 850,440 1000,470 T 1300,460 L 1500,490 L 1500,900 L 0,900 Z"/>
+    <path d="M 100,540 Q 280,500 420,520"/>
+    <path d="M 600,500 Q 800,470 950,490"/>
+    <path d="M 1100,500 Q 1300,470 1450,490"/>
+  </g>
+
+  <!-- 中景山（淡墨） -->
+  <g opacity="0.42" fill="none" stroke="rgb(45,38,28)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 0,650 Q 150,590 320,620 Q 480,650 650,600 Q 820,560 990,610 Q 1180,660 1350,600 L 1500,640 L 1500,900 L 0,900 Z"/>
+    <path d="M 200,640 Q 360,610 480,640"/>
+    <path d="M 700,640 Q 880,610 1040,640"/>
+    <path d="M 1180,650 Q 1320,620 1450,640"/>
+  </g>
+
+  <!-- 近景（深墨飞白笔触） -->
+  <g opacity="0.55" fill="none" stroke="rgb(25,20,14)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#dry-brush)">
+    <path d="M 0,780 Q 220,720 420,750 Q 600,780 780,730 Q 980,690 1180,730 Q 1340,760 1500,720 L 1500,900 L 0,900 Z"/>
+    <path d="M 100,800 Q 280,760 420,780"/>
+    <path d="M 700,780 Q 880,760 1040,780"/>
+    <path d="M 1200,790 Q 1340,770 1450,780"/>
+  </g>
+
+  <!-- 飞白大笔触（右下角，最显眼的水墨感） -->
+  <g opacity="0.6" fill="none" stroke="rgb(20,15,10)" stroke-width="3.5" stroke-linecap="round" filter="url(#dry-brush)">
+    <path d="M 980,820 Q 1100,720 1240,760 Q 1380,800 1480,740"/>
+    <path d="M 1050,830 Q 1180,750 1320,790"/>
+    <path d="M 1240,840 Q 1380,790 1490,810"/>
+  </g>
+
+  <!-- 左下飞白（呼应右下） -->
+  <g opacity="0.45" fill="none" stroke="rgb(25,20,14)" stroke-width="2.8" stroke-linecap="round" filter="url(#dry-brush)">
+    <path d="M 0,860 Q 80,790 200,830 Q 320,860 420,820"/>
+  </g>
+
+  <!-- 远山屋脊（非常淡，远处村落的暗示） -->
+  <g opacity="0.3" fill="none" stroke="rgb(60,50,35)" stroke-width="0.8" stroke-linecap="round">
+    <line x1="950" y1="595" x2="970" y2="585"/>
+    <line x1="970" y1="585" x2="990" y2="595"/>
+    <line x1="975" y1="585" x2="975" y2="572"/>
+
+    <line x1="1080" y1="615" x2="1100" y2="605"/>
+    <line x1="1100" y1="605" x2="1120" y2="615"/>
+    <line x1="1105" y1="605" x2="1105" y2="595"/>
+  </g>
+
+  <!-- 朱砂印章（右上角小印） -->
+  <g transform="translate(1370,100) rotate(-6)" opacity="0.75">
+    <rect x="0" y="0" width="62" height="62" fill="rgb(184,67,58)" filter="url(#ink-blur)"/>
+    <text x="31" y="44" font-family="'Noto Serif SC',serif" font-size="34" font-weight="700" fill="rgb(245,239,223)" text-anchor="middle" filter="url(#ink-blur)">史</text>
+  </g>
+</svg>

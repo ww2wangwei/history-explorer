@@ -3,6 +3,102 @@
 @tailwind utilities;
 
 /* ============================================
+   主题变量（深/浅双主题切换）
+   ============================================
+   深色 = 墨·朱砂（默认）
+   浅色 = 宣纸·朱砂
+   所有 Tailwind 颜色 token / utility class 都映射到这些变量
+   ============================================ */
+:root,
+:root[data-theme="dark"] {
+  /* 背景层（页面 / 表面 / 卡片 / 浮层） */
+  --bg-page-rgb:    16 14 11;       /* ink-900 #100e0b */
+  --bg-surface-rgb: 26 23 20;       /* ink-800 #1a1714 */
+  --bg-card-rgb:    38 34 29;       /* ink-700 #26221d */
+  --bg-elevated-rgb:51 44 37;       /* ink-600 #332c25 */
+  --bg-raised-rgb:  34 31 25;       /* surface-raised */
+
+  /* 文字层 */
+  --text-primary-rgb:230 220 199;   /* bone #e6dcc7 */
+  --text-secondary-rgb:154 143 126; /* muted #9a8f7e */
+  --text-faint-rgb: 110 101 87;     /* faint #6e6557 */
+  --text-parchment-rgb:253 248 240; /* parchment-50 #fdf8f0 */
+
+  /* 边框 / 分隔 */
+  --border-rgb:     74 63 51;       /* ink-500 #4a3f33 */
+  --border-strong-rgb:110 101 87;   /* faint */
+  --hairline-rgb:   47 42 34;       /* hairline #2f2a22 */
+
+  /* 强调色 */
+  --vermilion-rgb:  184 67 58;      /* #b8433a */
+  --vermilion-2-rgb:200 80 68;      /* #c85044 */
+  --vermilion-3-rgb:154 51 44;      /* #9a332c */
+  --vermilion-tint-rgb:122 38 33;   /* for soft tints in dark */
+  --gold-rgb:       201 165 87;     /* #c9a557 */
+  --gold-deep-rgb:  176 141 62;     /* #b08d3e */
+
+  /* 语义色 */
+  --success-rgb:    91 200 154;
+  --danger-rgb:     184 84 80;
+  --warning-rgb:    232 162 60;
+  --info-rgb:       91 155 200;
+
+  /* 角色色（人物分类） */
+  --politician-rgb: 200 154 91;
+  --military-rgb:   184 84 80;
+  --thinker-rgb:    155 126 182;
+  --literati-rgb:   91 155 200;
+  --scientist-rgb:  91 200 154;
+  --reformer-rgb:   200 168 91;
+  --explorer-rgb:   91 143 200;
+  --religious-rgb:  200 154 138;
+}
+
+:root[data-theme="light"] {
+  /* 宣纸米背景 */
+  --bg-page-rgb:    237 228 207;    /* paper #ede4cf（页面底色） */
+  --bg-surface-rgb: 245 239 223;    /* paper-warm #f5efdf（表面，浅一档） */
+  --bg-card-rgb:    225 211 175;    /* paper-deep 浅版 #e1d3af（容器比 page 明显深） */
+  --bg-elevated-rgb:170 152 118;    /* 深米色（边框可见、悬停态） */
+  --bg-raised-rgb:  225 211 175;
+
+  /* 墨褐文字（统一标准：WCAG AA 对比度） */
+  --text-primary-rgb:  44 31 23;        /* 主文字 #2c1f17（墨色） */
+  --text-secondary-rgb: 90 70 50;       /* 次要文字 #5a4632（深褐，4.7:1 对比度） */
+  --text-faint-rgb:    130 108 78;      /* 第三档 #826c4e（中等褐，3.5:1 可读） */
+  --text-parchment-rgb: 44 31 23;
+
+  /* 边框（统一加深保证可见） */
+  --border-rgb:        130 108 78;      /* ink-500 等同第三档文字色 */
+  --border-strong-rgb:  90 70 50;      /* ink-400 等同次要文字色 */
+  --hairline-rgb:      160 140 100;     /* 淡褐细分隔线 */
+
+  /* 强调色保留（朱砂红两个主题统一） */
+  --vermilion-rgb:  184 67 58;      /* #b8433a */
+  --vermilion-2-rgb:200 80 68;      /* #c85044 */
+  --vermilion-3-rgb:154 51 44;      /* #9a332c */
+  --vermilion-tint-rgb:244 216 212; /* light vermilion tint */
+  --gold-rgb:       160 123 46;     /* gold-2 #a07b2e (浅色用更深的金) */
+  --gold-deep-rgb:  201 165 87;     /* c9a557 */
+
+  /* 语义色（浅色下稍微深一点保证对比度） */
+  --success-rgb:    72 142 100;
+  --danger-rgb:     158 60 56;
+  --warning-rgb:    184 122 36;
+  --info-rgb:       60 116 156;
+
+  /* 角色色 */
+  --politician-rgb: 160 105 40;
+  --military-rgb:   158 60 56;
+  --thinker-rgb:    120 90 150;
+  --literati-rgb:   60 116 156;
+  --scientist-rgb:  72 142 100;
+  --reformer-rgb:   160 124 40;
+  --explorer-rgb:   60 110 156;
+  --religious-rgb:  170 110 90;
+}
+
+/* ============================================
    全局 UI 效果  (墨·朱砂 v2)
    ============================================ */
 
@@ -12,7 +108,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.16) 50%, transparent 100%);
+  background: linear-gradient(120deg, transparent 0%, rgb(var(--text-parchment-rgb) / 0.16) 50%, transparent 100%);
   transform: translateX(-120%);
   transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
@@ -24,17 +120,20 @@
 
 /* 🌫 Glass 玻璃效果 */
 .glass-card {
-  background-color: rgba(26, 24, 20, 0.7);
+  background-color: rgb(var(--bg-surface-rgb) / 0.7);
   backdrop-filter: blur(12px) saturate(140%);
   -webkit-backdrop-filter: blur(12px) saturate(140%);
 }
 
 /* 📜 典籍卡片质感 —— 暖调面 + 柔和边框 + 顶部受光高光 */
 .card-classic {
-  background-color: theme('colors.surface-raised');
-  border: 1px solid theme('colors.hairline');
-  border-radius: theme('borderRadius.card');
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(240,220,191,0.06);
+  background-color: rgb(var(--bg-raised-rgb) / 1);
+  border: 1px solid rgb(var(--hairline-rgb) / 1);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.3), inset 0 1px 0 rgb(240 220 191 / 0.06);
+}
+:root[data-theme="light"] .card-classic {
+  box-shadow: 0 2px 8px rgb(60 40 20 / 0.08), inset 0 1px 0 rgb(255 255 255 / 0.6);
 }
 
 /* ✒️ 标题装饰底线 —— 朱砂渐隐,放在标题容器下 */
@@ -49,7 +148,7 @@
   bottom: 0;
   width: 48px;
   height: 2px;
-  background: linear-gradient(90deg, theme('colors.vermilion.500'), transparent);
+  background: linear-gradient(90deg, rgb(var(--vermilion-rgb) / 1), transparent);
   border-radius: 2px;
 }
 
@@ -62,19 +161,26 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  box-shadow: inset 0 0 160px rgba(0,0,0,0.42);
+  box-shadow: inset 0 0 160px rgb(0 0 0 / 0.42);
   z-index: 0;
+}
+:root[data-theme="light"] .vignette::after {
+  box-shadow: inset 0 0 160px rgb(60 40 20 / 0.06);
 }
 
 /* 🔦 Box shadow depth（深度） */
-.depth-1 { box-shadow: 0 1px 2px rgba(0,0,0,0.25); }
-.depth-2 { box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
-.depth-3 { box-shadow: 0 4px 16px rgba(0,0,0,0.35); }
-.depth-4 { box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.depth-1 { box-shadow: 0 1px 2px rgb(0 0 0 / 0.25); }
+.depth-2 { box-shadow: 0 2px 8px rgb(0 0 0 / 0.3); }
+.depth-3 { box-shadow: 0 4px 16px rgb(0 0 0 / 0.35); }
+.depth-4 { box-shadow: 0 8px 32px rgb(0 0 0 / 0.4); }
+:root[data-theme="light"] .depth-1 { box-shadow: 0 1px 2px rgb(60 40 20 / 0.08); }
+:root[data-theme="light"] .depth-2 { box-shadow: 0 2px 8px rgb(60 40 20 / 0.1); }
+:root[data-theme="light"] .depth-3 { box-shadow: 0 4px 16px rgb(60 40 20 / 0.12); }
+:root[data-theme="light"] .depth-4 { box-shadow: 0 8px 32px rgb(60 40 20 / 0.16); }
 
 /* 🖱 按下涟漪（focus 增强） */
 .focus-ring:focus-visible {
-  outline: 2px solid theme('colors.vermilion.500');
+  outline: 2px solid rgb(var(--vermilion-rgb) / 1);
   outline-offset: 2px;
   transition: outline-offset 0.15s ease-out;
 }
@@ -112,14 +218,14 @@
 @layer utilities {
   .scrollbar-thin {
     scrollbar-width: thin;
-    scrollbar-color: theme('colors.ink.600') transparent;
+    scrollbar-color: rgb(var(--bg-elevated-rgb) / 1) transparent;
   }
   .scrollbar-thin::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    background-color: theme('colors.ink.600');
+    background-color: rgb(var(--bg-elevated-rgb) / 1);
     border-radius: 3px;
   }
   .scrollbar-thin::-webkit-scrollbar-track {
@@ -132,15 +238,54 @@
     background-repeat: repeat;
   }
 
-  /* 🌫 水墨渐晕（墨·朱砂 v2）—— 暗底氛围光
-     左上偏暗金暖光 + 右下偏朱砂暖光 + 中心微提亮 + 边缘暗角 */
+  /* 🌫 背景大图（墨·朱砂 v2）
+     深色主题：水墨山水大图（screen 混合）
+     浅色主题：金色鳞纹大图（青海波 Shippou，multiply 混合） */
   .ink-wash-bg {
+    position: relative;
     background:
-      radial-gradient(ellipse 700px 500px at 22% 28%, rgba(201, 165, 87, 0.10) 0%, rgba(201, 165, 87, 0.03) 40%, transparent 70%),
-      radial-gradient(ellipse 800px 600px at 80% 75%, rgba(184, 67, 58, 0.08) 0%, rgba(184, 67, 58, 0.02) 50%, transparent 75%),
-      radial-gradient(ellipse 60% 50% at 50% 45%, rgba(51, 44, 37, 0.5) 0%, transparent 60%),
-      radial-gradient(ellipse 100% 100% at 50% 50%, transparent 50%, rgba(14, 12, 10, 0.6) 100%),
-      #1a1714;
+      /* 1. 左上暗金暖光晕 */
+      radial-gradient(ellipse 700px 500px at 22% 28%, rgb(var(--gold-rgb) / 0.10) 0%, rgb(var(--gold-rgb) / 0.03) 40%, transparent 70%),
+      /* 2. 右下朱砂暖光晕 */
+      radial-gradient(ellipse 800px 600px at 80% 75%, rgb(var(--vermilion-rgb) / 0.08) 0%, rgb(var(--vermilion-rgb) / 0.02) 50%, transparent 75%),
+      /* 3. 边缘暗角 */
+      radial-gradient(ellipse 100% 100% at 50% 50%, transparent 50%, rgb(0 0 0 / 0.6) 100%),
+      /* 4. 主底色 */
+      rgb(var(--bg-surface-rgb) / 1);
+  }
+  /* 深色主题：水墨山水大图（不重复） */
+  :root[data-theme="dark"] .ink-wash-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url('/bg-ink.svg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.55;
+    mix-blend-mode: screen;
+    z-index: 0;
+  }
+  /* 浅色主题：用户提供的金色鳞纹大图（青海波，不重复） */
+  :root[data-theme="light"] .ink-wash-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url('/bg-gold.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    z-index: 0;
+  }
+  /* 浅色主题：减弱 backdrop 层（让鳞纹更明显） */
+  :root[data-theme="light"] .ink-wash-bg {
+    background:
+      radial-gradient(ellipse 700px 500px at 22% 28%, rgb(255 248 230 / 0.3) 0%, transparent 60%),
+      rgb(var(--bg-page-rgb) / 1);
   }
 
   /* 📜 宣纸纹理（墨·朱砂 v2）—— 全屏 SVG 噪点 overlay */
@@ -158,30 +303,54 @@
     mix-blend-mode: overlay;
   }
 
-  /* 🖋 朱砂印章 —— 真实盖章质感
-     - 圆形主体 + 残缺 mask + 墨晕 haze */
+  /* 🖋 朱砂印章 —— 传统方形纂刻风格
+     - 方形主体 + 不规则破损 mask + 厚边框 + 残墨飞白 */
   .vermilion-seal {
-    background: #b8433a;
-    color: #e6dcc7;
-    font-family: theme('fontFamily.serif');
+    background: rgb(var(--vermilion-rgb) / 1);
+    color: rgb(var(--text-parchment-rgb) / 1);
+    font-family: theme('fontFamily.brush');
     font-weight: 700;
     display: grid;
     place-items: center;
-    border-radius: 50%;
+    border-radius: 4px;
+    /* 外圈朱砂晕 */
     box-shadow:
-      0 0 0 8px rgba(184, 67, 58, 0.12),
-      inset 0 0 0 3px #8b2f28,
-      inset 0 0 14px rgba(0, 0, 0, 0.25);
-    mask-image: radial-gradient(circle, #000 82%, transparent 92%);
-    -webkit-mask-image: radial-gradient(circle, #000 82%, transparent 92%);
+      0 0 0 4px rgb(var(--vermilion-rgb) / 0.12),
+      0 0 0 1px rgb(var(--vermilion-3-rgb) / 0.6),
+      inset 0 0 0 3px rgb(var(--vermilion-3-rgb) / 0.6),
+      inset 0 0 14px rgb(0 0 0 / 0.25);
+    /* 不规则破损 mask（模拟盖章磨损） */
+    mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><filter id='r'><feTurbulence baseFrequency='0.6' numOctaves='2' seed='5'/><feDisplacementMap in='SourceGraphic' scale='3.5'/></filter><rect width='100' height='100' fill='white' filter='url(%23r)'/></svg>");
+    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><filter id='r'><feTurbulence baseFrequency='0.6' numOctaves='2' seed='5'/><feDisplacementMap in='SourceGraphic' scale='3.5'/></filter><rect width='100' height='100' fill='white' filter='url(%23r)'/></svg>");
     position: relative;
   }
+  :root[data-theme="light"] .vermilion-seal {
+    box-shadow:
+      0 0 0 4px rgb(var(--vermilion-rgb) / 0.08),
+      0 0 0 1px rgb(var(--vermilion-3-rgb) / 0.5),
+      inset 0 0 0 3px rgb(var(--vermilion-3-rgb) / 0.6),
+      inset 0 0 14px rgb(0 0 0 / 0.2);
+  }
+  /* 印章外圈残墨晕 */
   .vermilion-seal::before {
     content: '';
     position: absolute;
-    inset: -28px;
+    inset: -18px;
+    border-radius: 4px;
+    background: radial-gradient(circle, rgb(var(--vermilion-rgb) / 0.15) 0%, transparent 70%);
+    z-index: -1;
+  }
+  /* 印章右下角小印泥飞白 */
+  .vermilion-seal::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    right: -6px;
+    width: 6px;
+    height: 6px;
+    background: rgb(var(--vermilion-rgb) / 0.8);
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(184, 67, 58, 0.18) 0%, transparent 70%);
+    filter: blur(1px);
     z-index: -1;
   }
 
@@ -205,7 +374,7 @@
     position: absolute;
     inset: -16px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(184, 67, 58, 0.18) 0%, transparent 70%);
+    background: radial-gradient(circle, rgb(var(--vermilion-rgb) / 0.18) 0%, transparent 70%);
     animation: ink-ripple 2.4s ease-out infinite;
   }
   @keyframes ink-ripple {
@@ -224,32 +393,32 @@
   .marker-vermilion {
     width: 14px; height: 14px;
     border-radius: 50%;
-    background: #b8433a;
-    box-shadow: 0 0 0 4px rgba(184, 67, 58, 0.18), 0 0 12px rgba(184, 67, 58, 0.5);
+    background: rgb(var(--vermilion-rgb) / 1);
+    box-shadow: 0 0 0 4px rgb(var(--vermilion-rgb) / 0.18), 0 0 12px rgb(var(--vermilion-rgb) / 0.5);
   }
   /* 暗金 marker */
   .marker-gold {
     width: 14px; height: 14px;
     border-radius: 50%;
-    background: #c9a557;
-    box-shadow: 0 0 0 3px rgba(201, 165, 87, 0.15);
+    background: rgb(var(--gold-rgb) / 1);
+    box-shadow: 0 0 0 3px rgb(var(--gold-rgb) / 0.15);
   }
   /* 极淡墨 marker */
   .marker-faint {
     width: 14px; height: 14px;
     border-radius: 50%;
-    background: #6e6557;
-    box-shadow: 0 0 0 2px rgba(110, 101, 87, 0.2);
+    background: rgb(var(--text-faint-rgb) / 1);
+    box-shadow: 0 0 0 2px rgb(var(--text-faint-rgb) / 0.2);
   }
 
   /* 🔴 朱砂红文字 (强调) */
-  .text-vermilion { color: #b8433a; }
+  .text-vermilion { color: rgb(var(--vermilion-rgb) / 1); }
   /* ✨ 暗金文字 (高亮) */
-  .text-gold { color: #c9a557; }
+  .text-gold { color: rgb(var(--gold-rgb) / 1); }
   /* 🪶 暖白主文字 */
-  .text-bone { color: #e6dcc7; }
+  .text-bone { color: rgb(var(--text-primary-rgb) / 1); }
   /* 🔘 极淡墨文字 */
-  .text-faint { color: #6e6557; }
+  .text-faint { color: rgb(var(--text-faint-rgb) / 1); }
 
   /* 🖌 毛笔字（Tailwind v3 没原生 font-brush 工具类，加 alias） */
   .font-brush { font-family: theme('fontFamily.brush'); }

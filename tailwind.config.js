@@ -7,97 +7,101 @@ export default {
   theme: {
     extend: {
       colors: {
-        // === 主题色阶 ===
-        // 暖色（背景/卡片）
+        // === 主题色阶（绑定 CSS 变量，<alpha-value> 支持透明度）===
+        // 暖色（背景/卡片）— 主题感知
         parchment: {
-          50: '#fdf8f0',
-          100: '#f7eed8',
-          200: '#ecd9a8',
+          50: 'rgb(var(--text-parchment-rgb) / <alpha-value>)',
+          100: 'rgb(var(--bg-elevated-rgb) / <alpha-value>)',
+          200: 'rgb(var(--text-secondary-rgb) / <alpha-value>)',
         },
-        // 深色层次（最常用于背景/文字/边框）
+        // 深色层次（背景/文字/边框）— 主题感知
         ink: {
-          900: '#100e0b',
-          800: '#1a1714',
-          700: '#26221d',
-          600: '#332c25',
-          500: '#4a3f33',
-          400: '#6e6557',
-          300: '#9a8f7e',
-          200: '#b8ad97',
+          900: 'rgb(var(--bg-page-rgb) / <alpha-value>)',
+          800: 'rgb(var(--bg-surface-rgb) / <alpha-value>)',
+          700: 'rgb(var(--bg-card-rgb) / <alpha-value>)',
+          600: 'rgb(var(--bg-elevated-rgb) / <alpha-value>)',
+          500: 'rgb(var(--border-rgb) / <alpha-value>)',
+          400: 'rgb(var(--border-strong-rgb) / <alpha-value>)',
+          300: 'rgb(var(--text-secondary-rgb) / <alpha-value>)',
+          200: 'rgb(var(--text-secondary-rgb) / <alpha-value>)',
         },
-        // === 墨·朱砂 v2 主题色（新增）===
-        // 暖白主文字（不是 #fff 冷白）
-        bone: '#e6dcc7',
+        // === 墨·朱砂 v2 主题色（新增，主题感知）===
+        // 暖白主文字
+        bone: 'rgb(var(--text-primary-rgb) / <alpha-value>)',
         // 次要文字
-        muted: '#9a8f7e',
+        muted: 'rgb(var(--text-secondary-rgb) / <alpha-value>)',
         // 极淡墨（飞白/水印）
-        faint: '#6e6557',
-        // 朱砂红（主强调色，取代 bronze-400 作为主 CTA）
+        faint: 'rgb(var(--text-faint-rgb) / <alpha-value>)',
+        // 朱砂红（主强调色）
         vermilion: {
-          DEFAULT: '#b8433a',
-          50:  '#fbe9e7',
-          100: '#f6ccc7',
-          200: '#ec9b94',
-          300: '#df6c61',
-          400: '#c85044',
-          500: '#b8433a',
-          600: '#9a332c',
-          700: '#7a2621',
-          800: '#5a1b18',
-          soft: 'rgba(184, 67, 58, 0.18)',
-          deep: '#8b2f28',
+          DEFAULT: 'rgb(var(--vermilion-rgb) / <alpha-value>)',
+          50:  'rgb(var(--vermilion-tint-rgb) / <alpha-value>)',
+          100: 'rgb(var(--vermilion-tint-rgb) / <alpha-value>)',
+          200: 'rgb(var(--vermilion-2-rgb) / <alpha-value>)',
+          300: 'rgb(var(--vermilion-2-rgb) / <alpha-value>)',
+          400: 'rgb(var(--vermilion-2-rgb) / <alpha-value>)',
+          500: 'rgb(var(--vermilion-rgb) / <alpha-value>)',
+          600: 'rgb(var(--vermilion-3-rgb) / <alpha-value>)',
+          700: 'rgb(var(--vermilion-3-rgb) / <alpha-value>)',
+          800: 'rgb(var(--vermilion-3-rgb) / <alpha-value>)',
+          soft: 'rgb(var(--vermilion-rgb) / 0.18)',
+          deep: 'rgb(var(--vermilion-3-rgb) / <alpha-value>)',
         },
-        // 暗金（次强调色，计数、高亮）
+        // 暗金（次强调色，主题感知）
         gold: {
-          DEFAULT: '#c9a557',
-          50: '#f4ead0',
-          100: '#e8d59e',
-          200: '#d8be75',
-          300: '#cdac60',
-          400: '#c9a557',
-          500: '#b08d3e',
-          600: '#8e6f2a',
-          soft: 'rgba(201, 165, 87, 0.15)',
+          DEFAULT: 'rgb(var(--gold-rgb) / <alpha-value>)',
+          50: 'rgb(var(--gold-rgb) / <alpha-value>)',
+          100: 'rgb(var(--gold-rgb) / <alpha-value>)',
+          200: 'rgb(var(--gold-rgb) / <alpha-value>)',
+          300: 'rgb(var(--gold-rgb) / <alpha-value>)',
+          400: 'rgb(var(--gold-rgb) / <alpha-value>)',
+          500: 'rgb(var(--gold-deep-rgb) / <alpha-value>)',
+          600: 'rgb(var(--gold-deep-rgb) / <alpha-value>)',
+          soft: 'rgb(var(--gold-rgb) / 0.15)',
         },
-        // 墨色（保留 bronze 别名作 alias，避免破坏现存代码）
+        // 墨色（保留 bronze 别名 — 主题感知，颜色取自 gold）
         bronze: {
-          200: '#f0dcbf',
-          300: '#e8c997',
-          400: '#c89a5b',
-          500: '#a87a3e',
-          600: '#7e5a2a',
-          700: '#5e4320',
-          800: '#42301a',
+          200: 'rgb(var(--gold-rgb) / <alpha-value>)',
+          300: 'rgb(var(--gold-rgb) / <alpha-value>)',
+          400: 'rgb(var(--gold-rgb) / <alpha-value>)',
+          500: 'rgb(var(--gold-deep-rgb) / <alpha-value>)',
+          600: 'rgb(var(--gold-deep-rgb) / <alpha-value>)',
+          700: 'rgb(var(--gold-deep-rgb) / <alpha-value>)',
+          800: 'rgb(var(--gold-deep-rgb) / <alpha-value>)',
         },
-        // 语义色
-        success: '#5bc89a',  // 已完成、掌握
-        successDark: '#2a6e54',
-        danger: '#b85450',    // 删除、警告
-        dangerDark: '#5e2826',
-        warning: '#e8a23c',   // 警告、关键
-        info: '#5b9bc8',      // 信息、链接
-        // 语义表面（方案3：卡片/凹陷/极细线）
-        'surface-raised': '#221f19',
-        'surface-sunken': '#141210',
-        hairline: '#2f2a22',
+        // 语义色（主题感知）
+        success: 'rgb(var(--success-rgb) / <alpha-value>)',
+        successDark: 'rgb(var(--success-rgb) / <alpha-value>)',
+        danger: 'rgb(var(--danger-rgb) / <alpha-value>)',
+        dangerDark: 'rgb(var(--danger-rgb) / <alpha-value>)',
+        warning: 'rgb(var(--warning-rgb) / <alpha-value>)',
+        info: 'rgb(var(--info-rgb) / <alpha-value>)',
+        // 语义表面（主题感知）
+        'surface-raised': 'rgb(var(--bg-raised-rgb) / <alpha-value>)',
+        'surface-sunken': 'rgb(var(--bg-page-rgb) / <alpha-value>)',
+        hairline: 'rgb(var(--hairline-rgb) / <alpha-value>)',
         // 角色类别色（人物）
-        politician: '#c89a5b',   // 政治家（bronze）
-        military:   '#b85450',   // 军事家（danger）
-        thinker:    '#9b7eb6',   // 思想家
-        literati:   '#5b9bc8',   // 文人（info）
-        scientist:  '#5bc89a',   // 科学家（success）
-        reformer:    '#c8a85b',   // 改革家（warn）
-        explorer:   '#5b8fc8',   // 探险家
-        religious:  '#c89a8a',   // 宗教人物
+        politician: 'rgb(var(--politician-rgb) / <alpha-value>)',
+        military:   'rgb(var(--military-rgb) / <alpha-value>)',
+        thinker:    'rgb(var(--thinker-rgb) / <alpha-value>)',
+        literati:   'rgb(var(--literati-rgb) / <alpha-value>)',
+        scientist:  'rgb(var(--scientist-rgb) / <alpha-value>)',
+        reformer:   'rgb(var(--reformer-rgb) / <alpha-value>)',
+        explorer:   'rgb(var(--explorer-rgb) / <alpha-value>)',
+        religious:  'rgb(var(--religious-rgb) / <alpha-value>)',
       },
-      fontFamily: {
+fontFamily: {
         // === 墨·朱砂 v2 字体栈 ===
         // Serif —— 宋体（正文/标题主体）
         serif: ['"Noto Serif SC"', '"Source Han Serif SC"', '"Noto Serif CJK SC"', 'Georgia', 'serif'],
         // Sans —— 黑体（UI/按钮/标签）
-        sans: ['"Noto Sans SC"', '"Source Han Sans SC"', '"Noto Sans CJK SC"', 'system-ui', 'sans-serif'],
+        sans: ['"Noto Sans SC"',  '"PingFang SC"', '"Microsoft YaHei"', 'system-ui', 'sans-serif'],
         // Brush —— 毛笔（题款/朝代名/装饰）
         brush: ['"Ma Shan Zheng"', '"KaiTi"', '楷体', 'STKaiti', 'serif'],
+        // Classic —— 仿宋（古籍风，朝代名/品牌/章节标题）
+        classic: ['"ZCOOL XiaoWei"', '"Noto Serif SC"', '"KaiTi"', '楷体', 'STKaiti', 'serif'],
+        // Cursive —— 行书（叙事/装饰）
+        cursive: ['"Long Cang"', '"ZCOOL XiaoWei"', '"Noto Serif SC"', 'serif'],
         // Mono —— 等宽（年份/经纬度/数据）
         mono: ['"JetBrains Mono"', '"SF Mono"', 'Consolas', 'monospace'],
       },

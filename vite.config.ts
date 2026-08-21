@@ -7,6 +7,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // https://vite.dev/config/
 export default defineConfig({
+  // 部署到子路径（如 /history/）。修改后需要重新构建。
+  //   - 设为 '/'：根路径部署（默认）
+  //   - 设为 '/history/'：子路径部署，index.html 引用的资源会用 /history/assets/...
+  base: '/history/',
   plugins: [react()],
   resolve: {
     alias: {

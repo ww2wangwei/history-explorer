@@ -7,6 +7,8 @@ import './index.css'
 import gsap from 'gsap'
 import { CSSPlugin } from 'gsap/CSSPlugin'
 gsap.registerPlugin(CSSPlugin)
+// 🎨 主题：模块加载时立即初始化 <html data-theme>，避免 FOUC
+import './store/useThemeStore'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

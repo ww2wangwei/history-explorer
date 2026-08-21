@@ -6,8 +6,6 @@ import EventDetail from '@/components/DetailPanel/EventDetail'
 import EraDetail from '@/components/DetailPanel/EraDetail'
 import NotesPanel from '@/components/NotesPanel/NotesPanel'
 import SearchBar from '@/components/SearchBar'
-import TimeMachine from '@/components/TimeMachine'
-import FilterPanel from '@/components/FilterPanel'
 import QuizLauncher from '@/components/Quiz/QuizLauncher'
 import ToastHost from '@/components/ToastHost'
 import PoemMapPinCard from '@/components/Poems/PoemMapPinCard'
@@ -21,6 +19,7 @@ import { countTodayReviews } from '@/utils/cardStats'
 import { formatYear } from '@/utils/time'
 import NotesOverview from '@/components/NotesOverview'
 import TMapTest from '@/components/AmapTest'
+import EraRail from '@/components/Map/EraRail'
 import LadderPanel from '@/components/Ladder/LadderPanel'
 import Dashboard from '@/components/Dashboard'
 import AIChatPanel from '@/components/AIChatPanel'
@@ -29,6 +28,7 @@ import FlashcardsTrigger from '@/components/Flashcards/FlashcardsTrigger'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
 import { useApiKeysStore } from '@/store/useApiKeysStore'
 import { audioEngine } from '@/utils/audioEngine'
+import ThemeToggle from '@/components/ThemeToggle'
 import {
   layoutReducer,
   getInitialLayoutState,
@@ -436,25 +436,22 @@ export default function Layout() {
 
   return (
     <div className="h-screen w-screen flex flex-col bg-ink-900 text-parchment-50 ink-wash-bg overflow-hidden">
-      {/* 顶部 Header */}
-      <header
-        className="flex items-center justify-between px-6 py-2.5 border-b border-ink-600 bg-ink-800/80 backdrop-blur z-10"
-        style={{ borderBottomColor: 'rgba(110, 101, 87, 0.4)' }}
-      >
+      {/* 顶部 Header（48px 极简） */}
+      <header className="flex items-center justify-between px-4 h-12 border-b border-ink-600 bg-ink-800/80 backdrop-blur z-10" style={{ borderBottomColor: 'rgba(110, 101, 87, 0.4)' }}>
         <div className="flex items-center gap-3 flex-1 min-w-0">
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2.5 shrink-0">
             {/* 朱砂印章 logo（墨·朱砂 v2） */}
-            <div className="vermilion-seal vermilion-seal-stamped" style={{ width: 32, height: 32, fontSize: 16, transform: 'rotate(-12deg)' }}>
+            <div
+              className="vermilion-seal vermilion-seal-stamped"
+              style={{ width: 36, height: 36, fontSize: 19, transform: 'rotate(-12deg)' }}
+            >
               史
             </div>
-            <h1 className="text-lg font-serif text-bone tracking-wide">历史探索者</h1>
-            <span className="text-xs text-faint hidden lg:inline tracking-widest uppercase">History · Explorer</span>
+            <h1 className="font-brush text-bone tracking-wide">历史探索者</h1>
           </div>
           <SearchBar />
-          <TimeMachine />
-          <FilterPanel />
           {/* 视图切换按钮组 */}
-          <div className="flex rounded-lg bg-ink-700/80 border border-ink-600 overflow-hidden shrink-0">
+          <div className="flex rounded-lg bg-ink-700/80 border border-ink-600 overflow-hidden shrink-0 ml-auto">
             <button
               className={`px-2.5 py-1.5 text-xs shrink-0 whitespace-nowrap transition-colors ${
                 main.mode === 'map'
@@ -485,27 +482,29 @@ export default function Layout() {
             >
               🕸️ 图谱
             </button>
+            {/* 学习引导（核心返回入口） */}
+            <button
+              className={`px-2.5 py-1.5 shrink-0 whitespace-nowrap text-xs flex items-center gap-1.5 transition-colors ${
+                main.mode === 'home'
+                  ? 'bg-vermilion-500/30 text-vermilion-300'
+                  : 'text-ink-500 hover:text-parchment-50 hover:bg-ink-600'
+              }`}
+              onClick={() => { audioEngine.playModalClose(); dispatch({ type: 'OPEN_HOME' }) }}
+              title="返回学习引导主页"
+            >
+              🏠 引导
+            </button>
+            {/* 复习按钮（带数字徽章） */}
+            <FlashcardsTrigger
+              dueCount={dueCount}
+              todayCount={todayCount}
+              target={goalTarget}
+              active={main.mode === 'flashcards'}
+              onClick={() => dispatch({ type: 'OPEN_FLASHCARDS' })}
+            />
           </div>
-          {/* 学习引导（核心返回入口） */}
-          <button
-            className={`px-2.5 py-1.5 rounded-lg shrink-0 whitespace-nowrap text-xs flex items-center gap-1.5 transition-colors border ${
-              main.mode === 'home'
-                ? 'bg-vermilion-500/30 text-vermilion-300 border-vermilion-500/60'
-                : 'bg-ink-700/80 hover:bg-vermilion-500/30 border-ink-600 text-vermilion-300'
-            }`}
-            onClick={() => { audioEngine.playModalClose(); dispatch({ type: 'OPEN_HOME' }) }}
-            title="返回学习引导主页"
-          >
-            🏠 学习引导
-          </button>
-          {/* 复习按钮（带数字徽章） */}
-          <FlashcardsTrigger
-            dueCount={dueCount}
-            todayCount={todayCount}
-            target={goalTarget}
-            active={main.mode === 'flashcards'}
-            onClick={() => dispatch({ type: 'OPEN_FLASHCARDS' })}
-          />
+          {/* 主题切换按钮 */}
+          <ThemeToggle />
           {/* 更多菜单 */}
           <div className="relative shrink-0" ref={moreMenuRef}>
             <button
@@ -613,7 +612,11 @@ export default function Layout() {
               onEnterLadder={() => dispatch({ type: 'OPEN_LADDER' })}
             />
           ) : (
-            renderMain()
+            <div className="w-full h-full flex">
+              <div className="flex-1 min-w-0 relative">{renderMain()}</div>
+              {/* 右侧时代栏：仅地图模式显示（地图为主角，时间上下文收进侧栏） */}
+              {main.mode === 'map' && !showDetailPanel && <EraRail />}
+            </div>
           )}
         </div>
 

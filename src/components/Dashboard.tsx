@@ -21,7 +21,7 @@ import { useGoalStore } from '@/store/useGoalStore'
 import { useLearningPathStore, type PathId } from '@/store/useLearningPathStore'
 import { usePoemStore } from '@/store/usePoemStore'
 import { useQuestionsStore } from '@/store/useQuestionsStore'
-import { useCountUp } from '@/hooks/useCountUp'
+import { audioEngine } from '@/utils/audioEngine'
 import gsap from 'gsap'
 import { isDue } from '@/utils/sm2'
 import erasData from '@/data/eras.json'
@@ -42,7 +42,7 @@ interface Props {
   onEnterLadder: () => void
 }
 
-const PATHS: { id: PathId; icon: string; title: string; desc: string; color: string }[] = [
+const PATHS: { id: string; icon: string; title: string; desc: string; color: string }[] = [
   { id: 'timeline', icon: '📜', title: '朝代时间线', desc: '按时间顺序学习每个朝代', color: '#c89a5b' },
   { id: 'allFigures', icon: '👥', title: '全人物', desc: '浏览 26+ 位历史人物并与 AI 对话', color: '#9b7eb6' },
   { id: 'allWars', icon: '⚔️', title: '全战争', desc: '从武王伐纣到现代的关键战争 75 场', color: '#b85450' },
@@ -54,8 +54,27 @@ const PATHS: { id: PathId; icon: string; title: string; desc: string; color: str
   { id: 'allQuestions', icon: '💭', title: '全问题', desc: '趣味/启发/思考题，AI 一问一答逐步深挖并打分', color: '#e07b9b' },
   { id: 'allArts', icon: '🎨', title: '全艺术', desc: '60 节西方艺术课 · 从史前壁画到当代观念', color: '#e879b9' },
   { id: 'worldHistory', icon: '🌍', title: '全文明', desc: '少年世界史 161 节 · 从人类起源到现代世界', color: '#d4a85b' },
-  { id: 'review', icon: '🎯', title: '今日复习', desc: '基于 SM-2 算法的间隔复习', color: '#9bc89a' },
+  { id: 'review', icon: '🎯', title: '今日复习', desc: '基于 SM-2 算法的间隔重复', color: '#9bc89a' },
+  // 👇 特殊情况：文史天梯（自定义页，非 store 路径）
+  { id: 'ladder', icon: '🪜', title: '文史天梯', desc: '史·诗·人 三条天梯 · 学测记问 4 步闭环 · 通关可重开', color: '#b8433a' },
 ]
+
+// === 主路径（4 个核心） ===
+// 顶部 4 列大卡，朝代时间线 / 全人物 / 穿越历史 / 文史天梯
+const MAIN_PATH_IDS: string[] = ['timeline', 'allFigures', 'timeTravel', 'ladder']
+const MAIN_PATHS = PATHS.filter(p => MAIN_PATH_IDS.includes(p.id))
+
+// === 次路径（其余） ===
+const MORE_PATHS = PATHS.filter(p => !MAIN_PATH_IDS.includes(p.id))
+
+// === 文史天梯在主路径里特殊处理（无 progress） ===
+const PATH_TOTALS: Record<string, number> = {
+  allFigures: 26,
+  allPoems: 100,
+  civilizations: 15,
+  allArts: 60,
+  worldHistory: 161,
+}
 
 export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLadder }: Props) {
   const currentYear = useHistoryStore(s => s.currentYear)
@@ -78,7 +97,6 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
   const learnEra: Era | null = learnEraId ? (eras.find(e => e.id === learnEraId) ?? null) : null
   const welcomeTitleRef = useRef<HTMLDivElement | null>(null)
   const pathCardsRef = useRef<HTMLDivElement | null>(null)
-  const statCardsRef = useRef<HTMLDivElement | null>(null)
 
   const sortedEras = useMemo(
     () => eras.slice().sort((a, b) => a.startYear - b.startYear),
@@ -210,12 +228,12 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
   const learnedInTimeline = progressByPath.timeline.visitedEraIds.length
   const xrefVisitedCount = progressByPath.crossReference.visitedEraIds.length
 
-  // StatCard stagger
+  // 主路径卡片入场
   useEffect(() => {
-    if (!isActive || !statCardsRef.current) return
+    if (!isActive || !pathCardsRef.current) return
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     if (reduce) return
-    const cards = statCardsRef.current.querySelectorAll<HTMLElement>(':scope > div')
+    const cards = pathCardsRef.current.querySelectorAll<HTMLElement>(':scope > div')
     if (!cards.length) return
     gsap.from(cards, {
       opacity: 0, y: 16, scale: 0.95,
@@ -223,27 +241,71 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
     })
   }, [isActive, learnedInTimeline, xrefVisitedCount, cardsCount, dueCount])
 
+  // 主路径进度查询
+  const getPathVisited = (id: string): number => {
+    const p = progressByPath[id as PathId] ?? { visitedEraIds: [] }
+    if (id === 'allFigures') return p.visitedFigureIds?.length ?? 0
+    if (id === 'allQuestions') return Object.values(questionsProgress).filter(q => q.status === 'done').length
+    if (id === 'allPoems') return poemsFavoritesCount
+    if (id === 'civilizations') return p.visitedSectionIds?.length ?? 0
+    if (id === 'allArts') return p.visitedLessonIds?.length ?? 0
+    if (id === 'worldHistory') return p.visitedWorldLessonIds?.length ?? 0
+    return p.visitedEraIds.length
+  }
+
+  const getPathTotal = (id: string): number => {
+    if (id === 'review') return cardsCount
+    if (id === 'ladder') return 0
+    return PATH_TOTALS[id] ?? totalEras
+  }
+
   if (!isActive) return null
 
-  const goalPct = Math.min(100, Math.round((todayCount / Math.max(1, goal)) * 100))
   const totalEras = eras.length
 
   return (
     <div className="w-full h-full overflow-y-auto scrollbar-thin bg-ink-900 ink-wash-bg paper-texture vignette">
-      <div className="max-w-5xl mx-auto px-6 py-8">
-        {/* 欢迎标题 */}
-        <div ref={welcomeTitleRef} className="mb-8">
-          <h1 className="text-display font-serif text-bone mb-2 title-underline inline-block">📜 历史探索者</h1>
-          <p className="text-ink-400 text-sm leading-relaxed">
-            从 {currentYear < 0 ? `公元前${-currentYear}` : currentYear} 年开始，
+      <div className="max-w-5xl mx-auto px-6 py-10">
+        {/* === 1. 标题（极简） === */}
+        <div ref={welcomeTitleRef} className="mb-10">
+          <h1 className="text-display font-brush text-bone mb-2 title-underline inline-block tracking-wide">
+            📜 历史探索者
+          </h1>
+          <p className="text-ink-300 text-sm leading-relaxed">
+            从 {currentYear < 0 ? `公元前${-currentYear}` : currentYear} 年开始 ·
             系统地学习中国和世界的 50 个朝代 + 251 个历史事件。
           </p>
         </div>
 
-        {/* 智能推荐 */}
+        {/* === 2. 主路径（4 个核心） === */}
+        <h2 className="text-sm text-ink-300 mb-3 uppercase tracking-wider">主路径</h2>
+        <div ref={pathCardsRef} className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+          {MAIN_PATHS.map(p => (
+            <PrimaryPathCard
+              key={p.id}
+              path={p}
+              visited={getPathVisited(p.id)}
+              total={getPathTotal(p.id)}
+              onClick={() => {
+                if (p.id === 'ladder') {
+                  onEnterLadder()
+                } else if (p.id === 'timeline') {
+                  audioEngine.playModalOpen()
+                  if (recommendation) recordVisit('timeline', recommendation.eraId)
+                  setShowEraList(true)
+                } else {
+                  onEnterPath(p.id as PathId)
+                }
+              }}
+              highlight={p.id === 'ladder'}
+            />
+          ))}
+        </div>
+
+        {/* === 3. Hero CTA（当前推荐） === */}
         {recommendation && (
           <div
-            className="mb-6 p-5 rounded-lg border border-vermilion-500/40 bg-gradient-to-r from-vermilion-900/30 to-ink-800/80 cursor-pointer hover:border-vermilion-400 transition-colors shine-on-hover focus-ring depth-2"
+            className="mb-8 p-6 rounded-2xl border border-vermilion-500/40 bg-gradient-to-br from-vermilion-900/30 via-ink-800/60 to-ink-800 cursor-pointer hover:border-vermilion-400 transition-all shine-on-hover focus-ring depth-2 group"
             onClick={() => {
               selectEra(recommendation.eraId)
               recordVisit('timeline', recommendation.eraId)
@@ -265,132 +327,109 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
               }
             }}
           >
-            <div className="flex items-start gap-4">
-              <div className="text-3xl flex-shrink-0">👉</div>
+            <div className="flex items-start gap-5">
+              <div
+                className="text-5xl flex-shrink-0"
+                style={{ filter: `drop-shadow(0 0 12px ${recommendation.era.color}80)` }}
+              >
+                👉
+              </div>
               <div className="flex-1">
-                <div className="text-xs text-ink-500 mb-1">智能推荐 · 下一步</div>
-                <div className="text-lg font-serif text-vermilion-300 mb-1">
+                <div className="text-xs text-ink-300 mb-1 uppercase tracking-wider">下一步推荐</div>
+                <div className="font-brush text-2xl text-bone mb-2 group-hover:text-vermilion-300 transition-colors tracking-wide">
                   {recommendation.era.name}
-                  <span className="ml-2 text-xs text-ink-400">
-                    ({recommendation.era.startYear < 0 ? `公元前${-recommendation.era.startYear}` : recommendation.era.startYear}
+                  <span className="ml-3 text-sm text-ink-300 font-sans tabular-nums">
+                    {recommendation.era.startYear < 0 ? `BC ${-recommendation.era.startYear}` : recommendation.era.startYear}
                     {' ~ '}
-                    {recommendation.era.endYear < 0 ? `公元前${-recommendation.era.endYear}` : recommendation.era.endYear} 年)
+                    {recommendation.era.endYear < 0 ? `BC ${-recommendation.era.endYear}` : recommendation.era.endYear} 年
                   </span>
                 </div>
-                <div className="text-xs text-ink-500">{recommendation.reason}</div>
+                <div className="text-sm text-ink-400 mb-3">{recommendation.reason}</div>
+                <div className="text-xs text-vermilion-300 group-hover:translate-x-1 transition-transform">
+                  点击进入学习 →
+                </div>
               </div>
-              <div className="text-vermilion-300 text-2xl flex-shrink-0">→</div>
             </div>
           </div>
         )}
 
-        {/* 进度概览 */}
-        <div ref={statCardsRef} className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-          <StatCard icon="📜" label="已学朝代（时间线）" value={`${learnedInTimeline} / ${totalEras}`} hint={`${Math.round((learnedInTimeline / totalEras) * 100)}%`} />
-          <StatCard icon="🌍" label="已对照朝代" value={`${progressByPath.crossReference.visitedEraIds.length} / ${totalEras}`} hint={`${Math.round((progressByPath.crossReference.visitedEraIds.length / totalEras) * 100)}%`} />
-          <StatCard icon="📝" label="复习卡" value={String(cardsCount)} hint={dueCount > 0 ? `${dueCount} 待复习` : '全掌握！'} />
-          <StatCard icon="🎯" label="今日目标" value={`${todayCount} / ${goal}`} hint={`${goalPct}%`} progress={goalPct} />
-        </div>
-
-        {/* 学习路径 */}
-        <h2 className="text-sm text-ink-500 mb-3 uppercase tracking-wider">选择学习路径</h2>
-
-        {/* 文史天梯专项卡片（高亮） */}
-        <button
-          onClick={onEnterLadder}
-          className="w-full mb-4 text-left p-5 rounded-2xl border-2 border-vermilion-500/40 bg-gradient-to-br from-bronze-900/40 via-ink-800/80 to-ink-800/80 hover:border-vermilion-400 transition-all relative overflow-hidden"
-        >
-          <div className="flex items-center gap-4">
-            <div className="text-4xl">🪜</div>
-            <div className="flex-1">
-              <div className="flex items-baseline gap-2">
-                <h3 className="font-serif text-xl text-vermilion-300">文史天梯</h3>
-                <span className="text-[10px] uppercase tracking-wider text-vermilion-300/80">NEW</span>
-              </div>
-              <p className="text-sm text-parchment-200 mt-1">史·诗·人 三条天梯 · 学测记问 4 步闭环 · 通关可重开</p>
-              <div className="mt-2 flex items-center gap-4 text-xs text-ink-400">
-                <span>独立页面 · 顶部 nav 保留 · Esc 返回</span>
-              </div>
-            </div>
-            <span className="text-vermilion-300 text-3xl">→</span>
+        {/* === 4. 进度总览（一行 timeline-style 条） === */}
+        <div className="mb-8 p-4 rounded-lg bg-ink-800/40 border border-ink-700">
+          <div className="flex items-center justify-between mb-2 text-xs">
+            <span className="text-ink-500">总进度 · {Math.round((learnedInTimeline / totalEras) * 100)}%</span>
+            <span className="text-ink-500 font-mono tabular-nums">
+              {learnedInTimeline} / {totalEras} 朝代
+              {' · '}
+              {cardsCount} 复习卡
+              {' · '}
+              {todayCount} / {goal} 今日
+            </span>
           </div>
-        </button>
-
-        <div ref={pathCardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {PATHS.filter(p => p.title).map(p => {
-            const progress = progressByPath[p.id] ?? { visitedEraIds: [] }
-            const visited = p.id === 'allFigures'
-              ? (progress.visitedFigureIds?.length ?? 0)
-              : p.id === 'allPoems'
-              ? poemsFavoritesCount
-              : p.id === 'civilizations'
-              ? (progress.visitedSectionIds?.length ?? 0)
-              : p.id === 'allArts'
-              ? (progress.visitedLessonIds?.length ?? 0)
-              : p.id === 'worldHistory'
-              ? (progress.visitedWorldLessonIds?.length ?? 0)
-              : p.id === 'allQuestions'
-              ? Object.values(questionsProgress).filter(q => q.status === 'done').length
-              : progress.visitedEraIds.length
-            const total = p.id === 'allFigures'
-              ? 26
-              : p.id === 'allPoems'
-              ? 100
-              : p.id === 'civilizations'
-              ? 15
-              : p.id === 'allArts'
-              ? 60
-              : p.id === 'worldHistory'
-              ? 161
-              : p.id === 'allQuestions'
-              ? builtinQuestionList.length + customQuestionCount
-              : totalEras
-            const pPct = total > 0 ? Math.round((visited / total) * 100) : 0
-            return (
-              <button
-                key={p.id}
-                onClick={() => {
-                  if (p.id === 'timeline') {
-                    setShowEraList(true)
-                    if (recommendation) recordVisit('timeline', recommendation.eraId)
-                  } else {
-                    onEnterPath(p.id as PathId)
-                  }
-                }}
-                className="text-left p-5 rounded-lg border border-ink-600 bg-ink-800/60 hover:border-vermilion-500/40 hover:bg-ink-800 transition-all group path-card"
-                style={{ borderLeftWidth: '3px', borderLeftColor: p.color }}
-              >
-                <div className="flex items-start gap-4">
-                  <div className="text-3xl flex-shrink-0" style={{ filter: `drop-shadow(0 0 6px ${p.color}40)` }}>{p.icon}</div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between mb-1">
-                      <div className="font-serif text-base group-hover:text-vermilion-300 transition-colors" style={{ color: p.color }}>
-                        {p.title}
-                      </div>
-                      <div className="text-xs text-ink-500">{pPct}%</div>
-                    </div>
-                    <div className="text-xs text-ink-400 mb-2">{p.desc}</div>
-                    <div className="h-1 bg-ink-700 rounded-lg overflow-hidden">
-                      <div className="h-full transition-all" style={{ width: `${pPct}%`, background: p.color }} />
-                    </div>
-                  </div>
-                </div>
-              </button>
-            )
-          })}
+          <div className="relative h-2 bg-ink-700 rounded-lg overflow-hidden">
+            <div
+              className="absolute inset-y-0 left-0 bg-gradient-to-r from-vermilion-600 to-vermilion-400 transition-all duration-1000"
+              style={{ width: `${Math.round((learnedInTimeline / totalEras) * 100)}%` }}
+            />
+            {/* 朝代 tick 标记（每 10% 一刻） */}
+            {Array.from({ length: 9 }).map((_, i) => (
+              <div
+                key={i}
+                className="absolute inset-y-0 w-px bg-ink-500/30"
+                style={{ left: `${(i + 1) * 10}%` }}
+              />
+            ))}
+          </div>
+          {dueCount > 0 && (
+            <div className="text-xs text-amber-400 mt-2">
+              ⏰ {dueCount} 张卡片待复习 · <button onClick={() => onEnterPath('review')} className="underline hover:text-amber-300">立即复习</button>
+            </div>
+          )}
         </div>
 
-        {/* 快速入口 */}
-        <div className="mt-8 flex flex-wrap gap-3 text-xs text-ink-400">
-          <button onClick={onEnterMap} className="px-3 py-1.5 rounded-lg border border-ink-600 hover:border-vermilion-500/40 hover:text-vermilion-300 transition-colors">
-            🗺 进入地图（自由浏览）
+        {/* === 5. 探索更多（横滑 chips） === */}
+        <h2 className="text-sm text-ink-500 mb-3 uppercase tracking-wider">探索更多</h2>
+        <div className="flex gap-2 overflow-x-auto pb-2 mb-8 -mx-2 px-2 scrollbar-thin">
+          {MORE_PATHS.map(p => (
+            <button
+              key={p.id}
+              onClick={() => onEnterPath(p.id as PathId)}
+              className="flex-shrink-0 px-4 py-2 rounded-full border border-ink-700 bg-ink-800/60 hover:border-vermilion-500/40 hover:bg-ink-800 transition-colors group"
+              style={{ borderLeftWidth: '3px', borderLeftColor: p.color }}
+            >
+              <span className="text-base mr-1.5">{p.icon}</span>
+              <span className="font-brush text-sm text-ink-300 group-hover:text-bone transition-colors tracking-wide">{p.title}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* === 6. 快捷入口（极简） === */}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-ink-500 pt-4 border-t border-ink-700">
+          <button
+            onClick={onEnterMap}
+            className="hover:text-vermilion-300 transition-colors"
+          >
+            🗺 地图浏览
           </button>
-          <button onClick={() => setYear(0)} className="px-3 py-1.5 rounded-lg border border-ink-600 hover:border-vermilion-500/40 hover:text-vermilion-300 transition-colors">
+          <span className="text-ink-700">·</span>
+          <button
+            onClick={() => setYear(0)}
+            className="hover:text-vermilion-300 transition-colors"
+          >
             ⏳ 跳到公元 0 年
           </button>
-          <div className="px-3 py-1.5 text-ink-500">
-            快捷键 <kbd className="px-1 bg-ink-700 rounded-lg">g</kbd> 地图 · <kbd className="px-1 bg-ink-700 rounded-lg">r</kbd> 图谱
-          </div>
+          <span className="text-ink-700">·</span>
+          <button
+            onClick={() => setShowEraList(true)}
+            className="hover:text-vermilion-300 transition-colors"
+          >
+            📜 浏览全部朝代
+          </button>
+          <span className="ml-auto text-ink-600">
+            <kbd className="px-1.5 py-0.5 bg-ink-700 rounded text-ink-400 font-mono">g</kbd>
+            <span className="mx-1">地图</span>
+            <kbd className="px-1.5 py-0.5 bg-ink-700 rounded text-ink-400 font-mono">r</kbd>
+            <span className="mx-1">图谱</span>
+          </span>
         </div>
       </div>
 
@@ -409,7 +448,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           >
             <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-ink-600 px-6 py-4 flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-serif text-vermilion-300">📜 选一个朝代学习</h2>
+                <h2 className="text-xl font-brush text-vermilion-300 tracking-wide">📜 选一个朝代学习</h2>
                 <div className="text-xs text-ink-500 mt-0.5">按时间顺序排列。已学的朝代用 <span className="text-green-400">绿色</span> 标记，下一个推荐的用 <span className="text-vermilion-300">金色</span> 高亮。</div>
               </div>
               <button
@@ -455,7 +494,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
                           {isRecommended && <span className="text-vermilion-300 text-xs bg-bronze-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">👉 推荐</span>}
                           {visited && <span className="text-green-300 text-xs bg-green-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">✓ 已学</span>}
                           {!hasQuick && <span className="text-ink-400 text-xs bg-ink-900/70 backdrop-blur px-1.5 py-0.5 rounded-lg">详细</span>}
-                          <span className="text-base font-serif flex-1 truncate" style={{ color: era.color }}>
+                          <span className="text-base font-brush flex-1 truncate tracking-wide" style={{ color: era.color }}>
                             {era.name}
                           </span>
                         </div>
@@ -494,32 +533,64 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
   )
 }
 
-// ===== StatCard =====
+// ===== PrimaryPathCard =====
 
-function StatCard({ icon, label, value, hint, progress }: { icon: string; label: string; value: string; hint?: string; progress?: number }) {
-  const match = value.match(/^(\d+)(\s*\/\s*(\d+))?$/)
-  const mainRef = useCountUp(match ? Number(match[1]) : 0)
-  const totalRef = useCountUp(match && match[3] ? Number(match[3]) : 0, { delay: 0.15 })
-  const totalStr = match && match[3] ? ' / ' : ''
-  const totalEl = match && match[3] ? totalRef : null
+function PrimaryPathCard({
+  path: p,
+  visited,
+  total,
+  onClick,
+  highlight,
+}: {
+  path: { id: string; icon: string; title: string; desc: string; color: string }
+  visited: number
+  total: number
+  onClick: () => void
+  highlight?: boolean
+}) {
+  const pct = total > 0 ? Math.round((visited / total) * 100) : 0
+  const isNew = highlight
   return (
-    <div className="p-3 rounded-lg bg-ink-800/60 border border-ink-600 hover:border-vermilion-500/60 transition-colors shine-on-hover focus-ring depth-1 hover:depth-3">
-      <div className="flex items-center gap-2 mb-1">
-        <span className="text-lg">{icon}</span>
-        <div className="text-xs text-ink-500 uppercase tracking-wider truncate">{label}</div>
-      </div>
-      <div className="text-xl font-serif text-parchment-50 tabular-nums">
-        <span ref={mainRef}>0</span>
-        {match && match[3] && <><span>{totalStr}</span><span ref={totalEl!}>0</span></>}
-      </div>
-      {hint && (
-        <div className={`text-xs mt-0.5 ${progress === 100 ? 'text-green-400' : 'text-ink-500'}`}>{hint}</div>
-      )}
-      {progress !== undefined && (
-        <div className="h-1 bg-ink-700 rounded-lg overflow-hidden mt-1.5">
-          <div className="h-full bg-vermilion-500" style={{ width: `${progress}%`, transition: 'width 1.2s ease-out' }} />
+    <button
+      onClick={onClick}
+      className={`text-left p-4 rounded-lg border transition-all group path-card relative overflow-hidden ${
+        isNew
+          ? 'border-vermilion-500/50 bg-gradient-to-br from-vermilion-900/40 to-ink-800/80 hover:border-vermilion-400'
+          : 'border-ink-700 bg-ink-800/60 hover:border-vermilion-500/40 hover:bg-ink-800'
+      }`}
+    >
+      {isNew && (
+        <div className="absolute top-2 right-2 text-[10px] uppercase tracking-wider text-vermilion-300/80">
+          NEW
         </div>
       )}
-    </div>
+      <div className="text-3xl mb-2" style={{ filter: `drop-shadow(0 0 6px ${p.color}40)` }}>
+        {p.icon}
+      </div>
+      <div className="font-brush text-base mb-1 group-hover:text-vermilion-300 transition-colors tracking-wide" style={{ color: p.color }}>
+        {p.title}
+      </div>
+      <div className="text-xs text-ink-300 mb-2 line-clamp-2 leading-snug min-h-[2rem]">
+        {p.desc}
+      </div>
+      {total > 0 && (
+        <>
+          <div className="text-xs text-ink-400 tabular-nums mb-1">
+            {visited} / {total} · {pct}%
+          </div>
+          <div className="h-1 bg-ink-700 rounded-lg overflow-hidden">
+            <div
+              className="h-full transition-all"
+              style={{ width: `${pct}%`, background: p.color }}
+            />
+          </div>
+        </>
+      )}
+      {isNew && (
+        <div className="text-xs text-vermilion-300 mt-2 group-hover:translate-x-1 transition-transform">
+          进入 →
+        </div>
+      )}
+    </button>
   )
 }

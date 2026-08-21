@@ -99,53 +99,6 @@
 }
 
 /* ============================================
-   🌰 豆沙主题 (demo) — 豆沙色 #481e1c 作主色调
-   ============================================ */
-:root[data-theme="dousha"] {
-  /* 背景层：以豆沙色为主色调逐层提亮 */
-  --bg-page-rgb:    72 30 28;        /* 豆沙 #481e1c */
-  --bg-surface-rgb: 96 44 38;        /* 比豆沙稍亮 */
-  --bg-card-rgb:    124 62 50;       /* 卡片：浅一档 */
-  --bg-elevated-rgb:148 80 64;       /* 浮层：再浅 */
-  --bg-raised-rgb:  110 54 44;
-
-  /* 文字层：暖白 */
-  --text-primary-rgb: 248 232 218;   /* 暖白（豆沙底上对比度佳） */
-  --text-secondary-rgb: 218 188 162;
-  --text-faint-rgb:    175 142 116;
-  --text-parchment-rgb: 253 245 230;
-
-  /* 边框 / 分隔：偏暖 */
-  --border-rgb:     140 78 60;
-  --border-strong-rgb: 178 110 86;
-  --hairline-rgb:   96 56 46;
-
-  /* 强调色：暖金（与豆沙协调） */
-  --vermilion-rgb:  220 110 80;      /* 比朱砂更亮，适配暖底 */
-  --vermilion-2-rgb: 232 130 96;
-  --vermilion-3-rgb: 196 90 66;
-  --vermilion-tint-rgb: 240 168 144;
-  --gold-rgb:       224 178 96;      /* 浅金 */
-  --gold-deep-rgb:  196 148 64;
-
-  /* 语义色 */
-  --success-rgb:    120 200 130;
-  --danger-rgb:     232 110 90;
-  --warning-rgb:    240 180 88;
-  --info-rgb:       130 170 210;
-
-  /* 角色色（调整适配暖底） */
-  --politician-rgb: 224 178 96;
-  --military-rgb:   220 110 80;
-  --thinker-rgb:    180 142 200;
-  --literati-rgb:   130 170 210;
-  --scientist-rgb:  120 200 130;
-  --reformer-rgb:   224 178 96;
-  --explorer-rgb:   130 162 210;
-  --religious-rgb:  220 168 144;
-}
-
-/* ============================================
    全局 UI 效果  (墨·朱砂 v2)
    ============================================ */
 

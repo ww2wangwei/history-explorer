@@ -40,8 +40,11 @@ interface HistoryStore {
    * 抑制窗口时间戳（毫秒）：useJumpToMap 调用时设成 Date.now() + 1200，
    * currentYear effect 据此跳过 setCenter，避免与 mapFocusTarget effect 的飞行竞态。
    * 0 表示未抑制。
-   */
+    */
   jumpSuppressUntil: number
+
+  /** 最近一次 setYear 时间戳（ms），用于区分"拖拽中"和"单点跳转" */
+  lastSetYearAt: number
 
   // 朝代透明度（key=eraId, value=0~1）
   eraOpacities: Record<string, number>
@@ -192,6 +195,7 @@ export const useHistoryStore = create<HistoryStore>((set) => ({
   mapFocusTarget: null,
   pendingReopen: null,
   jumpSuppressUntil: 0,
+  lastSetYearAt: 0,
 
   mapCenter: _initialParams.center,
   mapZoom: _initialParams.zoom,
@@ -204,7 +208,7 @@ export const useHistoryStore = create<HistoryStore>((set) => ({
 
   setYear: (year) => set(() => {
     const clamped = Math.max(TIME_RANGE.MIN_YEAR, Math.min(TIME_RANGE.MAX_YEAR, year))
-    return { currentYear: clamped }
+    return { currentYear: clamped, lastSetYearAt: Date.now() }
   }),
 
   selectEvent: (id) => set({ selectedEventId: id }),

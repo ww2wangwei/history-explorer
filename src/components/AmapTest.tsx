@@ -473,8 +473,16 @@ export default function AmapTest() {
     }
     if (chinaToShow?.capital && !isSuppressed) {
       const [lng, lat] = wgs84ToGcj02(chinaToShow.capital)
+      // 🎯 拖拽时不要 zoom（zoom=4 太近，世界朝代图钉被裁出屏幕外）
+      //   只在"非拖拽"（点击/跳转）时才 setZoomAndCenter；拖拽用 setCenter 保留原 zoom
+      const lastSetAt = useHistoryStore.getState().lastSetYearAt
+      const isDragging = lastSetAt > 0 && (Date.now() - lastSetAt) < 200
       try {
-        map.setZoomAndCenter(4, new A.LngLat(lng, lat))
+        if (isDragging) {
+          map.setCenter(new A.LngLat(lng, lat))
+        } else {
+          map.setZoomAndCenter(4, new A.LngLat(lng, lat))
+        }
       } catch { /* ignore */ }
 
       const res = createMapMarker(map, {

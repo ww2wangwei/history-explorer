@@ -1,13 +1,13 @@
 import { create } from 'zustand'
 
-export type Theme = 'light' | 'dark'
+export type Theme = 'light' | 'dark' | 'dousha'
 
 const STORAGE_KEY = 'history-explorer:theme'
 
 function readStoredTheme(): Theme | null {
   if (typeof window === 'undefined') return null
   const v = window.localStorage.getItem(STORAGE_KEY)
-  if (v === 'light' || v === 'dark') return v
+  if (v === 'light' || v === 'dark' || v === 'dousha') return v
   return null
 }
 

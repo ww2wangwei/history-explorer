@@ -69,6 +69,19 @@ export default {
           700: 'rgb(var(--gold-deep-rgb) / <alpha-value>)',
           800: 'rgb(var(--gold-deep-rgb) / <alpha-value>)',
         },
+        // 🌰 豆沙色（固定色板 — 不跟主题切换；为未来永久固定色准备）
+        dousha: {
+          50:  '#faf3ee',  /* 米豆沙 */
+          100: '#efd9c9',
+          200: '#d9b09c',
+          300: '#bf8a72',
+          400: '#9a624c',
+          500: '#7a4232',  /* 浅豆沙 */
+          600: '#5d2e23',
+          700: '#481e1c',  /* 豆沙（主色） */
+          800: '#341713',
+          900: '#220f0d',  /* 深豆沙 */
+        },
         // 语义色（主题感知）
         success: 'rgb(var(--success-rgb) / <alpha-value>)',
         successDark: 'rgb(var(--success-rgb) / <alpha-value>)',

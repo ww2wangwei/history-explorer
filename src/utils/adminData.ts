@@ -7,7 +7,6 @@ import peopleData from '@/data/people.json'
 import eventsData from '@/data/events.json'
 import cultureData from '@/data/culture-events.json'
 import { useAdminStore } from '@/store/useAdminStore'
-import { bingImage } from '@/utils/geoImage'
 import type { HistoricalFigure, HistoricalEvent } from '@/types'
 
 // ============= 地理 =============
@@ -58,13 +57,6 @@ export function getMergedGeoFeature(id: string): GeoFeature | null {
   return getMergedGeoFeatures().find(f => f.id === id) ?? null
 }
 
-export function getEffectiveGeoImage(f: GeoFeature): string {
-  const ov = useAdminStore.getState().geoOverrides[f.id]
-  if (ov?.imageUrl) return ov.imageUrl
-  if (ov?.imageSearch) return bingImage(ov.imageSearch, 800, 450)
-  return f.imageUrl ?? ''
-}
-
 // ============= 人物 =============
 export function getMergedPeople(): HistoricalFigure[] {
   const overrides = useAdminStore.getState().peopleOverrides
@@ -108,12 +100,6 @@ export function getMergedPeople(): HistoricalFigure[] {
 
 export function getMergedPerson(id: string): HistoricalFigure | null {
   return getMergedPeople().find(p => p.id === id) ?? null
-}
-
-export function getEffectivePersonImage(p: HistoricalFigure): string | null {
-  const ov = useAdminStore.getState().peopleOverrides[p.id]
-  if (ov?.imageSearch) return bingImage(ov.imageSearch, 600, 400)
-  return null
 }
 
 // ============= 战争 =============

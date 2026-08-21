@@ -18,11 +18,6 @@ function outOfChina(lng: number, lat: number): boolean {
   return !(lng >= LON_RANGE[0] && lng <= LON_RANGE[1] && lat >= LAT_RANGE[0] && lat <= LAT_RANGE[1])
 }
 
-/** 判断点是否在中国境内（中国大陆，不含港澳台边角） */
-export function isInChina(lng: number, lat: number): boolean {
-  return !outOfChina(lng, lat)
-}
-
 // gcoord 标准公式（与 eviltransform 完全等价的官方实现）
 function _transformLat(x: number, y: number): number {
   let ret =

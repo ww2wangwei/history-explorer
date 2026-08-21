@@ -40,7 +40,7 @@ export interface AIRequestOptions {
   disableThinking?: boolean
 }
 
-export interface AIStreamOptions extends AIRequestOptions {
+interface AIStreamOptions extends AIRequestOptions {
   onDelta(delta: string): void
 }
 

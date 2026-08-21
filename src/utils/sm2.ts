@@ -20,10 +20,10 @@ import { RATING_TO_QUALITY } from '@/types/flashcards'
 const DAY_MS = 24 * 60 * 60 * 1000
 
 /** SM-2 初始难度因子 */
-export const INITIAL_EASINESS = 2.5
+const INITIAL_EASINESS = 2.5
 
 /** SM-2 EF 下限 */
-export const MIN_EASINESS = 1.3
+const MIN_EASINESS = 1.3
 
 /**
  * SM-2 算法：根据评级计算新的 card 状态
@@ -76,16 +76,6 @@ export function isDue(card: Card, now: number = Date.now()): boolean {
   return card.nextReviewAt <= now
 }
 
-/** 是否为新卡片（未复习过） */
-export function isNew(card: Card): boolean {
-  return card.repetitions === 0
-}
-
-/** 是否已掌握（间隔 ≥ 21 天） */
-export function isMastered(card: Card): boolean {
-  return card.interval >= 21
-}
-
 /** 创建一张新卡片（默认 0 间隔，立即到期可学） */
 export function createCard(target: { kind: 'era' | 'event' | 'figure'; id: string }, now: number = Date.now()): Card {
   const id = typeof crypto !== 'undefined' && 'randomUUID' in crypto
@@ -102,17 +92,4 @@ export function createCard(target: { kind: 'era' | 'event' | 'figure'; id: strin
     easiness: INITIAL_EASINESS,
     reviews: [],
   }
-}
-
-/** 距离下次复习的友好描述 */
-export function formatTimeUntilReview(card: Card, now: number = Date.now()): string {
-  const diff = card.nextReviewAt - now
-  if (diff <= 0) return '现在可复习'
-  const days = Math.floor(diff / DAY_MS)
-  if (days === 0) return '今天'
-  if (days === 1) return '明天'
-  if (days < 7) return `${days} 天后`
-  if (days < 30) return `${Math.floor(days / 7)} 周后`
-  if (days < 365) return `${Math.floor(days / 30)} 个月后`
-  return `${Math.floor(days / 365)} 年后`
 }

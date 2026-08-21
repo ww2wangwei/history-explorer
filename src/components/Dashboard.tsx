@@ -490,7 +490,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           <span className="text-xs text-ink-500 font-brush tracking-widest">竹 · 简</span>
         </div>
         {/* 竹简网格：每条 = 一片编绳竹简 */}
-        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-3 mb-8">
+        <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-3 mb-8">
           {MORE_PATHS.map(p => {
             const visited = getPathVisited(p.id)
             const total = getPathTotal(p.id)

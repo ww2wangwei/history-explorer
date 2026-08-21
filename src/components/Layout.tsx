@@ -2,30 +2,22 @@ import { useEffect, useReducer, useRef, lazy, Suspense, useMemo } from 'react'
 import { useReducedMotionGlobal } from '@/hooks/useReducedMotion'
 import WorldMap from '@/components/AmapTest' // legacy alias
 import Timeline from '@/components/Timeline/Timeline'
-import EventDetail from '@/components/DetailPanel/EventDetail'
-import EraDetail from '@/components/DetailPanel/EraDetail'
-import NotesPanel from '@/components/NotesPanel/NotesPanel'
 import SearchBar from '@/components/SearchBar'
-import QuizLauncher from '@/components/Quiz/QuizLauncher'
-import ToastHost from '@/components/ToastHost'
-import PoemMapPinCard from '@/components/Poems/PoemMapPinCard'
 import AmbientBackground from '@/components/AmbientBackground'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useNotesStore } from '@/store/useNotesStore'
 import { useCardsStore } from '@/store/useCardsStore'
 import { useGoalStore } from '@/store/useGoalStore'
-import { isDue } from '@/utils/sm2'
-import { countTodayReviews } from '@/utils/cardStats'
-import { formatYear } from '@/utils/time'
-import NotesOverview from '@/components/NotesOverview'
-import TMapTest from '@/components/AmapTest'
-import EraRail from '@/components/Map/EraRail'
-import Dashboard from '@/components/Dashboard'
-import ScenarioPlayer from '@/components/TimeTravel/ScenarioPlayer'
-import FlashcardsTrigger from '@/components/Flashcards/FlashcardsTrigger'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
 import { useApiKeysStore } from '@/store/useApiKeysStore'
 import { audioEngine } from '@/utils/audioEngine'
+import { isDue } from '@/utils/sm2'
+import { countTodayReviews } from '@/utils/cardStats'
+import { formatYear } from '@/utils/time'
+import TMapTest from '@/components/AmapTest'
+import EraRail from '@/components/Map/EraRail'
+import Dashboard from '@/components/Dashboard'
+import FlashcardsTrigger from '@/components/Flashcards/FlashcardsTrigger'
 import ThemeToggle from '@/components/ThemeToggle'
 // ❌ LadderPanel 已 lazy（line 56）
 import {
@@ -56,6 +48,15 @@ const ApiKeysSettings = lazy(() => import('@/components/Settings/ApiKeysSettings
 const LadderPanel = lazy(() => import('@/components/Ladder/LadderPanel'))
 // 🎯 性能优化：AIChatPanel + people.json/eras.json 拆出主 bundle
 const AIChatPanel = lazy(() => import('@/components/AIChatPanel'))
+// 🎯 性能优化：条件渲染的大组件（EraDetail 38KB / ScenarioPlayer 36KB）懒加载
+const EventDetail = lazy(() => import('@/components/DetailPanel/EventDetail'))
+const EraDetail = lazy(() => import('@/components/DetailPanel/EraDetail'))
+const NotesPanel = lazy(() => import('@/components/NotesPanel/NotesPanel'))
+const NotesOverview = lazy(() => import('@/components/NotesOverview'))
+const ScenarioPlayer = lazy(() => import('@/components/TimeTravel/ScenarioPlayer'))
+const PoemMapPinCard = lazy(() => import('@/components/Poems/PoemMapPinCard'))
+const QuizLauncher = lazy(() => import('@/components/Quiz/QuizLauncher'))
+const ToastHost = lazy(() => import('@/components/ToastHost'))
 
 function PageFallback() {
   return (
@@ -325,11 +326,13 @@ export default function Layout() {
         )
       case 'overview':
         return (
-          <NotesOverview
-            variant="page"
-            isActive
-            onClose={() => dispatch({ type: 'OPEN_HOME' })}
-          />
+          <Suspense fallback={<PageFallback />}>
+            <NotesOverview
+              variant="page"
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+            />
+          </Suspense>
         )
       case 'figures':
         return (
@@ -392,10 +395,12 @@ export default function Layout() {
         )
       case 'timeTravel':
         return main.scenarioId !== null ? (
-          <ScenarioPlayer
-            scenarioId={main.scenarioId}
-            onExit={() => dispatch({ type: 'EXIT_SCENARIO' })}
-          />
+          <Suspense fallback={<PageFallback />}>
+            <ScenarioPlayer
+              scenarioId={main.scenarioId}
+              onExit={() => dispatch({ type: 'EXIT_SCENARIO' })}
+            />
+          </Suspense>
         ) : (
           <Suspense fallback={<PageFallback />}>
             <TimeTravelLobby
@@ -709,11 +714,13 @@ export default function Layout() {
             </div>
 
             <div className="flex-1 overflow-hidden">
-              {showEvent && selectedEventId && <EventDetail eventId={selectedEventId} />}
-              {showEra && selectedEraId && <EraDetail eraId={selectedEraId} />}
-              {showNotes && notesTarget && (
-                <NotesPanel kind={notesTarget.kind} targetId={notesTarget.id} />
-              )}
+              <Suspense fallback={<div className="h-full flex items-center justify-center text-ink-400 animate-pulse text-sm">载入中…</div>}>
+                {showEvent && selectedEventId && <EventDetail eventId={selectedEventId} />}
+                {showEra && selectedEraId && <EraDetail eraId={selectedEraId} />}
+                {showNotes && notesTarget && (
+                  <NotesPanel kind={notesTarget.kind} targetId={notesTarget.id} />
+                )}
+              </Suspense>
             </div>
           </aside>
         )}
@@ -749,12 +756,18 @@ export default function Layout() {
       <Suspense fallback={null}>
         <AIChatPanel />
       </Suspense>
-      <QuizLauncher />
-      <ToastHost />
+      <Suspense fallback={null}>
+        <QuizLauncher />
+      </Suspense>
+      <Suspense fallback={null}>
+        <ToastHost />
+      </Suspense>
       {/* 诗词地图图钉浮层（地图模式右上角） */}
-      <PoemMapPinCard
-        onJumpToAllPoems={() => dispatch({ type: 'OPEN_POEMS' })}
-      />
+      <Suspense fallback={null}>
+        <PoemMapPinCard
+          onJumpToAllPoems={() => dispatch({ type: 'OPEN_POEMS' })}
+        />
+      </Suspense>
     </div>
   )
 }

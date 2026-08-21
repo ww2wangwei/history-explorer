@@ -481,121 +481,54 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           )}
         </div>
 
-        {/* === 5. 探索更多（横滑 chip · 迷你手卷） === */}
+        {/* === 5. 探索更多（网格 chip · 干净卡片） === */}
         <div className="flex items-center gap-4 mb-3">
           <span className="font-brush text-base text-ink-200 tracking-[0.4em]">余 · 目</span>
           <div className="flex-1">
             <CloudDivider />
           </div>
-          <span className="text-xs text-ink-500 font-brush tracking-widest">卷 · 览</span>
+          <span className="text-xs text-ink-500 font-brush tracking-widest">细 · 览</span>
         </div>
-        {/* 整段横滑装裱在一根大卷轴上 */}
-        <div
-          className="relative flex items-stretch rounded-sm overflow-x-auto pb-3 mb-8 -mx-2 px-2 scrollbar-thin snap-x"
-          style={{
-            background: 'linear-gradient(180deg, rgb(var(--bg-card-rgb) / 0.4) 0%, rgb(var(--bg-card-rgb) / 0.15) 100%)',
-            boxShadow: 'inset 0 0 0 1px rgb(var(--gold-rgb) / 0.2)',
-          }}
-        >
-          {/* 左卷头 */}
-          <div className="shrink-0 w-8 flex items-center" aria-hidden>
-            <ScrollEdge side="left" className="w-full h-32" />
-          </div>
-
-          {/* 卷中：手卷条目 */}
-          <div className="flex-1 flex items-center gap-3 px-3 min-w-0">
-            {MORE_PATHS.map(p => {
-              const visited = getPathVisited(p.id)
-              const total = getPathTotal(p.id)
-              const hasProgress = visited > 0 && total > 0
-              return (
-                <button
-                  key={p.id}
-                  onClick={() => onEnterPath(p.id as PathId)}
-                  className="group relative flex-shrink-0 snap-start transition-all hover:translate-y-[-2px] focus:outline-none"
-                  style={{ width: 156 }}
+        {/* 干净的多列网格 */}
+        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2.5 mb-8">
+          {MORE_PATHS.map(p => {
+            const visited = getPathVisited(p.id)
+            const total = getPathTotal(p.id)
+            const hasProgress = visited > 0 && total > 0
+            return (
+              <button
+                key={p.id}
+                onClick={() => onEnterPath(p.id as PathId)}
+                className="group relative px-3 py-3 rounded transition-all hover:bg-ink-700/40 focus:outline-none text-center"
+                style={{
+                  borderTop: `2px solid ${p.color}`,
+                }}
+              >
+                <div
+                  className="text-2xl mb-1.5"
+                  style={{ filter: `drop-shadow(0 0 4px ${p.color}40)` }}
                 >
-                  {/* 单条手卷：上下两端卷轴 + 中间宣纸 */}
-                  <div className="relative">
-                    {/* 上卷轴（横向） */}
-                    <div
-                      className="h-2.5 rounded-full mx-1 mb-[-1px] relative"
-                      style={{
-                        background: 'linear-gradient(180deg, rgb(var(--gold-rgb) / 1) 0%, rgb(var(--gold-deep-rgb) / 1) 50%, rgb(var(--gold-rgb) / 1) 100%)',
-                        boxShadow: '0 1px 2px rgba(0,0,0,0.4), inset 0 -1px 1px rgb(var(--border-strong-rgb) / 0.3)',
-                      }}
-                      aria-hidden
-                    >
-                      {/* 卷轴杆中线 */}
-                      <div
-                        className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px"
-                        style={{ background: 'rgb(var(--border-strong-rgb) / 0.5)' }}
-                      />
-                    </div>
-
-                    {/* 中间宣纸 */}
-                    <div
-                      className="relative px-3 py-2.5"
-                      style={{
-                        background: 'rgb(var(--bg-card-rgb) / 0.92)',
-                        borderLeft: '1px solid rgb(var(--gold-rgb) / 0.4)',
-                        borderRight: '1px solid rgb(var(--gold-rgb) / 0.4)',
-                        boxShadow: hasProgress
-                          ? 'inset 0 0 12px rgb(var(--vermilion-rgb) / 0.08)'
-                          : 'inset 0 0 12px rgb(var(--bg-page-rgb) / 0.4)',
-                      }}
-                    >
-                      <div className="flex items-center gap-2">
-                        <span
-                          className="text-xl shrink-0"
-                          style={{ filter: `drop-shadow(0 0 4px ${p.color}50)` }}
-                        >
-                          {p.icon}
-                        </span>
-                        <div className="flex-1 min-w-0">
-                          <div
-                            className="font-brush text-sm tracking-wider leading-tight truncate"
-                            style={{ color: p.color }}
-                          >
-                            {p.title}
-                          </div>
-                          <div className="text-[9px] text-ink-400 mt-0.5 tabular-nums">
-                            {hasProgress ? (
-                              <span style={{ color: 'rgb(var(--vermilion-2-rgb))' }}>
-                                {visited} / {total}
-                              </span>
-                            ) : (
-                              <span className="italic">待启程</span>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* 下卷轴 */}
-                    <div
-                      className="h-2.5 rounded-full mx-1 mt-[-1px] relative"
-                      style={{
-                        background: 'linear-gradient(180deg, rgb(var(--gold-rgb) / 1) 0%, rgb(var(--gold-deep-rgb) / 1) 50%, rgb(var(--gold-rgb) / 1) 100%)',
-                        boxShadow: '0 -1px 2px rgba(0,0,0,0.4), inset 0 1px 1px rgb(var(--border-strong-rgb) / 0.3)',
-                      }}
-                      aria-hidden
-                    >
-                      <div
-                        className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px"
-                        style={{ background: 'rgb(var(--border-strong-rgb) / 0.5)' }}
-                      />
-                    </div>
-                  </div>
-                </button>
-              )
-            })}
-          </div>
-
-          {/* 右卷头 */}
-          <div className="shrink-0 w-8 flex items-center" aria-hidden>
-            <ScrollEdge side="right" className="w-full h-32" />
-          </div>
+                  {p.icon}
+                </div>
+                <div
+                  className="font-brush text-xs tracking-wider leading-tight truncate"
+                  style={{ color: p.color }}
+                  title={p.title}
+                >
+                  {p.title}
+                </div>
+                <div className="text-[10px] text-ink-500 tabular-nums mt-1">
+                  {hasProgress ? (
+                    <span style={{ color: 'rgb(var(--vermilion-2-rgb))' }}>
+                      {visited} / {total}
+                    </span>
+                  ) : (
+                    <span className="opacity-60">—</span>
+                  )}
+                </div>
+              </button>
+            )
+          })}
         </div>
 
         {/* === 6. 快捷入口（极简） === */}

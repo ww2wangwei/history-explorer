@@ -46,66 +46,46 @@ export function ScrollEdge({ side = 'left', className = '' }: { side?: 'left' | 
   )
 }
 
-/* ========== 云纹分割线 (cloud pattern) ========== */
+/* ========== 流云分割线 (cloud pattern) — 用纯 CSS 避免 SVG 拉伸变形 ========== */
 export function CloudDivider({ className = '' }: { className?: string }) {
-  const id = useId()
   return (
-    <svg
-      viewBox="0 0 120 20"
-      preserveAspectRatio="none"
-      className={`w-full h-3 ${className}`}
-      aria-hidden
-    >
-      <defs>
-        <linearGradient id={`${id}-cloud`} x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0%" stopColor="rgb(var(--gold-rgb) / 0)" />
-          <stop offset="20%" stopColor="rgb(var(--gold-rgb) / 0.5)" />
-          <stop offset="50%" stopColor="rgb(var(--gold-rgb) / 0.8)" />
-          <stop offset="80%" stopColor="rgb(var(--gold-rgb) / 0.5)" />
-          <stop offset="100%" stopColor="rgb(var(--gold-rgb) / 0)" />
-        </linearGradient>
-      </defs>
-      {/* 中线 */}
-      <line x1="0" y1="10" x2="120" y2="10" stroke={`url(#${id}-cloud)`} strokeWidth="0.5" />
-      {/* 左侧卷云 */}
-      <path
-        d="M 8 10 Q 6 6 10 5 Q 13 4 12 8 Q 15 6 17 9 Q 19 7 21 10"
-        fill="none" stroke={`url(#${id}-cloud)`} strokeWidth="1" strokeLinecap="round"
-      />
-      {/* 右侧卷云 */}
-      <path
-        d="M 99 10 Q 101 14 105 15 Q 108 16 107 12 Q 110 14 112 11 Q 113 13 115 10"
-        fill="none" stroke={`url(#${id}-cloud)`} strokeWidth="1" strokeLinecap="round"
-      />
-      {/* 中央如意结 */}
-      <path
-        d="M 60 4 Q 55 4 55 10 Q 55 16 60 16 Q 65 16 65 10 Q 65 4 60  4 Z M 60 7 Q 62 7 62 10 Q 62 13 60 13 Q 58 13 58 10 Q 58 7 60 7 Z"
-        fill="rgb(var(--gold-rgb) / 0.85)"
-      />
-    </svg>
+    <div className={`flex items-center gap-2 ${className}`} aria-hidden>
+      <div className="flex-1 h-px" style={{ background: 'linear-gradient(90deg, transparent 0%, rgb(var(--gold-rgb) / 0.5) 50%, rgb(var(--gold-rgb) / 0.5) 100%)' }} />
+      {/* 中央如意结 (diamond + circles) */}
+      <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0">
+        <path d="M 12 3 L 21 12 L 12 21 L 3 12 Z" fill="none" stroke="rgb(var(--gold-rgb) / 0.85)" strokeWidth="1" />
+        <path d="M 12 7 L 17 12 L 12 17 L 7 12 Z" fill="rgb(var(--gold-rgb) / 0.6)" />
+        <circle cx="12" cy="12" r="2" fill="rgb(var(--bg-card-rgb) / 1)" />
+      </svg>
+      <div className="flex-1 h-px" style={{ background: 'linear-gradient(90deg, rgb(var(--gold-rgb) / 0.5) 0%, rgb(var(--gold-rgb) / 0.5) 50%, transparent 100%)' }} />
+    </div>
   )
 }
 
-/* ========== 回纹分割线 (meander / Greek key) ========== */
+/* ========== 回纹分割线 (meander / Greek key) — 用重复 ◈ 字符避免 SVG 变形 ========== */
 export function GreekKeyDivider({ className = '' }: { className?: string }) {
-  // 回纹：以 12 为基本周期，水平延展
-  const pattern = (
-    <pattern id="greek-key-pattern" x="0" y="0" width="24" height="12" patternUnits="userSpaceOnUse">
-      <path
-        d="M 0 11 L 0 1 L 6 1 L 6 5 L 3 5 L 3 8 L 6 8 L 6 11 Z M 12 1 L 18 1 L 18 5 L 21 5 L 21 8 L 18 8 L 18 11 L 12 11 Z M 9 8 L 15 8 L 15 11 L 9 11 Z"
-        fill="rgb(var(--gold-rgb) / 0.7)"
-      />
-    </pattern>
-  )
   return (
-    <svg
-      className={`w-full h-3 ${className}`}
-      preserveAspectRatio="none"
-      aria-hidden
-    >
-      <defs>{pattern}</defs>
-      <rect x="0" y="0" width="100%" height="100%" fill="url(#greek-key-pattern)" />
-    </svg>
+    <div className={`flex items-center gap-2 ${className}`} aria-hidden>
+      <div className="flex-1 h-px" style={{ background: 'linear-gradient(90deg, transparent 0%, rgb(var(--gold-rgb) / 0.4) 100%)' }} />
+      {/* 中央装饰：方框 + 内嵌文字 */}
+      <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0">
+        <rect x="2" y="2" width="20" height="20" fill="none" stroke="rgb(var(--gold-rgb) / 0.85)" strokeWidth="1" />
+        <rect x="6" y="6" width="12" height="12" fill="rgb(var(--gold-rgb) / 0.6)" />
+        <path d="M 9 12 L 11 9 L 13 12 L 11 15 Z" fill="rgb(var(--bg-card-rgb) / 1)" />
+      </svg>
+      <span
+        className="text-xs tracking-[0.4em] font-serif select-none"
+        style={{ color: 'rgb(var(--gold-rgb) / 0.6)' }}
+      >
+        卐
+      </span>
+      <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0">
+        <rect x="2" y="2" width="20" height="20" fill="none" stroke="rgb(var(--gold-rgb) / 0.85)" strokeWidth="1" />
+        <rect x="6" y="6" width="12" height="12" fill="rgb(var(--gold-rgb) / 0.6)" />
+        <path d="M 9 12 L 11 9 L 13 12 L 11 15 Z" fill="rgb(var(--bg-card-rgb) / 1)" />
+      </svg>
+      <div className="flex-1 h-px" style={{ background: 'linear-gradient(90deg, rgb(var(--gold-rgb) / 0.4) 0%, transparent 100%)' }} />
+    </div>
   )
 }
 

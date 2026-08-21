@@ -95,6 +95,15 @@ export default function AmapTest() {
   const savedViewStateRef = useRef<{ lng: number; lat: number; zoom: number; pitch: number; rotation: number } | null>(null)
 
   const currentYear = useHistoryStore(s => s.currentYear)
+  // 🎯 性能优化：marker rebuild 跟随 currentYear，但用 80ms debounce。
+  //   拖时间轴时 setYear 每帧触发（~60Hz），不 debounce 会导致
+  //   每次都 map.remove 35+ markers + 重新创建 → 卡顿。
+  //   拖动结束后 80ms 才一次性重建最终 markers。
+  const [markerYear, setMarkerYear] = useState(currentYear)
+  useEffect(() => {
+    const t = setTimeout(() => setMarkerYear(currentYear), 80)
+    return () => clearTimeout(t)
+  }, [currentYear])
   const selectEra = useHistoryStore(s => s.selectEra)
   const selectEvent = useHistoryStore(s => s.selectEvent)
   const setYear = useHistoryStore(s => s.setYear)
@@ -440,7 +449,42 @@ export default function AmapTest() {
     setInfoCard(prev => (prev?.source === 'hover' ? null : prev))
   }
 
-  // currentYear 变化：飞向都城 + 重建 markers
+  // currentYear 变化：飞向/center 都城（便宜，纯 transform，60Hz 可承受）
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    const A = (window as any).AMap
+    if (!A) return
+    const jumpSuppressUntil = useHistoryStore.getState().jumpSuppressUntil
+    if (jumpSuppressUntil > Date.now()) return
+
+    const chinaEra = getChinaEraAtYear(currentYear)
+    let chinaToShow = chinaEra
+    if (!chinaToShow) {
+      const chinaEras = eras.filter(e => e.region === 'china' && e.capital)
+      if (chinaEras.length > 0) {
+        chinaToShow = chinaEras
+          .map(e => ({ era: e, dist: Math.abs((e.startYear + e.endYear) / 2 - currentYear) }))
+          .sort((a, b) => a.dist - b.dist)[0].era
+      }
+    }
+    if (!chinaToShow?.capital) return
+
+    const [lng, lat] = wgs84ToGcj02(chinaToShow.capital)
+    // 🎯 拖拽时不要 zoom（zoom=4 太近，世界朝代图钉被裁出屏幕外）
+    //   只在"非拖拽"（点击/跳转）时才 setZoomAndCenter；拖拽用 setCenter 保留原 zoom
+    const lastSetAt = useHistoryStore.getState().lastSetYearAt
+    const isDragging = lastSetAt > 0 && (Date.now() - lastSetAt) < 200
+    try {
+      if (isDragging) {
+        map.setCenter(new A.LngLat(lng, lat))
+      } else {
+        map.setZoomAndCenter(4, new A.LngLat(lng, lat))
+      }
+    } catch { /* ignore */ }
+  }, [currentYear])
+
+  // markerYear 变化（80ms debounce）：重建 markers + labels
   useEffect(() => {
     const map = mapRef.current
     if (!map) return
@@ -457,7 +501,7 @@ export default function AmapTest() {
     eventMarkersRef.current = []
     eventLabelsRef.current = []
 
-    const chinaEra = getChinaEraAtYear(currentYear)
+    const chinaEra = getChinaEraAtYear(markerYear)
     const jumpSuppressUntil = useHistoryStore.getState().jumpSuppressUntil
     const isSuppressed = jumpSuppressUntil > Date.now()
     // 🎯 UX 修复：当前年份若没有中国朝代（pre-Qin / 1912+），
@@ -467,23 +511,12 @@ export default function AmapTest() {
       const chinaEras = eras.filter(e => e.region === 'china' && e.capital)
       if (chinaEras.length > 0) {
         chinaToShow = chinaEras
-          .map(e => ({ era: e, dist: Math.abs((e.startYear + e.endYear) / 2 - currentYear) }))
+          .map(e => ({ era: e, dist: Math.abs((e.startYear + e.endYear) / 2 - markerYear) }))
           .sort((a, b) => a.dist - b.dist)[0].era
       }
     }
     if (chinaToShow?.capital && !isSuppressed) {
       const [lng, lat] = wgs84ToGcj02(chinaToShow.capital)
-      // 🎯 拖拽时不要 zoom（zoom=4 太近，世界朝代图钉被裁出屏幕外）
-      //   只在"非拖拽"（点击/跳转）时才 setZoomAndCenter；拖拽用 setCenter 保留原 zoom
-      const lastSetAt = useHistoryStore.getState().lastSetYearAt
-      const isDragging = lastSetAt > 0 && (Date.now() - lastSetAt) < 200
-      try {
-        if (isDragging) {
-          map.setCenter(new A.LngLat(lng, lat))
-        } else {
-          map.setZoomAndCenter(4, new A.LngLat(lng, lat))
-        }
-      } catch { /* ignore */ }
 
       const res = createMapMarker(map, {
         position: [lng, lat],
@@ -506,7 +539,7 @@ export default function AmapTest() {
       }
     }
 
-    const activeEras = getActiveErasAtYear(eras, currentYear)
+    const activeEras = getActiveErasAtYear(eras, markerYear)
     // 🎯 性能/UX 修复：若当前年份无活跃朝代（如 modern era、史前时期），
     //   fallback 显示 4 个"时间最近的"朝代，避免地图完全空旷
     const worldErasToShow = activeEras.filter(e => e.region !== 'china' && e.capital).slice(0, 4)
@@ -514,7 +547,7 @@ export default function AmapTest() {
         activeEras.filter(e => e.region !== 'china' && e.capital).length === 0
           ? [...eras]
               .filter(e => e.region !== 'china' && e.capital)
-              .map(e => ({ era: e, dist: Math.abs((e.startYear + e.endYear) / 2 - currentYear) }))
+              .map(e => ({ era: e, dist: Math.abs((e.startYear + e.endYear) / 2 - markerYear) }))
               .sort((a, b) => a.dist - b.dist)
               .slice(0, 4)
               .map(x => x.era)
@@ -547,7 +580,7 @@ export default function AmapTest() {
 
     const eraEvents = events.filter(
       e => e.coordinates && e.importance >= 2 &&
-           Math.abs(e.year - currentYear) <= 50
+           Math.abs(e.year - markerYear) <= 50
     ).slice(0, 30)
     eraEvents.forEach(ev => {
       const [lng, lat] = wgs84ToGcj02(ev.coordinates!)
@@ -574,7 +607,7 @@ export default function AmapTest() {
         if (res.label) eventLabelsRef.current.push(res.label)
       }
     })
-  }, [currentYear, selectEra, selectEvent, setYear])
+  }, [markerYear, selectEra, selectEvent, setYear])
 
   // mapFocusTarget 跳转
   useEffect(() => {

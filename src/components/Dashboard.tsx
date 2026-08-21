@@ -435,17 +435,40 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         {/* === 5. 探索更多（横滑 chips） === */}
         <h2 className="text-sm text-ink-500 mb-3 uppercase tracking-wider">探索更多</h2>
         <div className="flex gap-2 overflow-x-auto pb-2 mb-8 -mx-2 px-2 scrollbar-thin">
-          {MORE_PATHS.map(p => (
-            <button
-              key={p.id}
-              onClick={() => onEnterPath(p.id as PathId)}
-              className="flex-shrink-0 px-4 py-2 rounded-full border border-ink-700 bg-ink-800/60 hover:border-vermilion-500/40 hover:bg-ink-800 transition-colors group"
-              style={{ borderLeftWidth: '3px', borderLeftColor: p.color }}
-            >
-              <span className="text-base mr-1.5">{p.icon}</span>
-              <span className="font-brush text-sm text-ink-300 group-hover:text-bone transition-colors tracking-wide">{p.title}</span>
-            </button>
-          ))}
+          {MORE_PATHS.map(p => {
+            const visited = getPathVisited(p.id)
+            const total = getPathTotal(p.id)
+            const hasProgress = visited > 0 && total > 0
+            return (
+              <button
+                key={p.id}
+                onClick={() => onEnterPath(p.id as PathId)}
+                className={`flex-shrink-0 flex items-center gap-2 pl-3 pr-3 py-2 rounded-full border transition-colors group ${
+                  hasProgress
+                    ? 'border-vermilion-500/50 bg-vermilion-tint/20 hover:bg-vermilion-tint/40'
+                    : 'border-ink-700 bg-ink-800/60 hover:border-vermilion-500/40 hover:bg-ink-800'
+                }`}
+                style={{ borderLeftWidth: '3px', borderLeftColor: p.color }}
+              >
+                <span className="text-base">{p.icon}</span>
+                <span className={`font-brush text-sm tracking-wide transition-colors ${hasProgress ? 'text-vermilion-200' : 'text-ink-300 group-hover:text-bone'}`}>
+                  {p.title}
+                </span>
+                {hasProgress && (
+                  <span
+                    className="text-[10px] tabular-nums px-1.5 py-0.5 rounded-full font-mono"
+                    style={{
+                      background: 'rgb(var(--vermilion-rgb) / 0.25)',
+                      color: 'rgb(var(--text-parchment-rgb))',
+                      border: '1px solid rgb(var(--vermilion-rgb) / 0.5)',
+                    }}
+                  >
+                    {visited} / {total}
+                  </span>
+                )}
+              </button>
+            )
+          })}
         </div>
 
         {/* === 6. 快捷入口（极简） === */}

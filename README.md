@@ -24,9 +24,39 @@
 ```bash
 npm install        # 安装依赖
 npm run dev        # 启动 dev server (http://localhost:5173)
-npm run build      # 生产构建
+npm run build      # 生产构建（生成 .gz + .br 预压缩文件）
 npm run lint       # TypeScript 类型检查
 ```
+
+### 🚄 静态资源压缩
+
+`vite build` 会同时生成 `.gz` 和 `.br` 预压缩文件。部署服务器需启用相应静态压缩：
+
+```nginx
+# nginx
+gzip_static on;
+brotli_static on;  # 需要 nginx-module-brotli 模块
+
+# 或者用动态压缩（不推荐，慢）：
+# gzip on; gzip_types text/css application/javascript ...;
+```
+
+```caddyfile
+# Caddy — 自动
+encode zstd gzip
+```
+
+```toml
+# Cloudflare Pages — 自动（无需配置）
+```
+
+主要 chunk 压缩后大小参考：
+
+| 文件 | 原始 | gzip | brotli |
+|------|-----:|-----:|-------:|
+| `index.js` (主 bundle) | 1643 KB | 588 KB | **445 KB** |
+| `LadderPanel.js` | 990 KB | 196 KB | **66 KB** |
+| `countries-50m.js` | 736 KB | 223 KB | **201 KB** |
 
 ## 📂 项目结构
 

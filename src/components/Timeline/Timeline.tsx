@@ -4,14 +4,26 @@ import { useHistoryStore, MIN_ZOOM, MAX_ZOOM, visibleYearSpan } from '@/store/us
 import { TIME_RANGE, CATEGORY_COLORS, type HistoricalEvent } from '@/types'
 import { formatYearShort } from '@/utils/time'
 import eventsData from '@/data/events.json'
+import erasData from '@/data/eras.json'
+import type { Era } from '@/types'
 
 const events = eventsData as HistoricalEvent[]
+const eras = erasData as Era[]
 
-const TIMELINE_HEIGHT = 110
+const TIMELINE_HEIGHT = 150
 const PADDING_X = 40
-const RULER_HEIGHT = 32
-const EVENTS_AREA_TOP = RULER_HEIGHT + 28
-const EVENTS_AREA_HEIGHT = 50
+const RULER_HEIGHT = 24
+// 朝代色带（中国朝代）区域 — 第 1 行
+const ERA_BAND_TOP = RULER_HEIGHT + 22
+const ERA_BAND_HEIGHT = 14
+// 世界文明色带 — 最多 WORLD_BAND_ROWS 行（甘特式分层）
+const WORLD_BAND_ROWS = 4
+const WORLD_BAND_ROW_GAP = 3
+const WORLD_BAND_HEIGHT = 11
+const WORLD_BAND_TOP = ERA_BAND_TOP + ERA_BAND_HEIGHT + 8
+// 事件区域（在世界色带之后）
+const EVENTS_AREA_TOP = WORLD_BAND_TOP + WORLD_BAND_ROWS * (WORLD_BAND_HEIGHT + WORLD_BAND_ROW_GAP) + 10
+const EVENTS_CY = EVENTS_AREA_TOP + 20
 
 export default function Timeline() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -130,6 +142,69 @@ export default function Timeline() {
     return filtered.slice().sort((a, b) => a.year - b.year)
   }, [viewMin, viewMax, yearSpan, timelineZoom, filters])
 
+  // 中国朝代色带：当前视野内的朝代（按起止年切割，只画视野部分）
+  const visibleChinaEras = useMemo(() => {
+    return eras
+      .filter(e => e.region === 'china' && e.endYear >= viewMin && e.startYear <= viewMax)
+      .sort((a, b) => a.startYear - b.startYear)
+  }, [viewMin, viewMax])
+
+  // 世界文明色带（甘特式分层）
+  // 1) 视野过宽时只保留持续时间最长的文明（避免几十个重叠爆炸）
+  // 2) 按 startYear 排序后贪心分层：每个文明放到第一个不重叠的行
+  const worldBands = useMemo(() => {
+    const candidates = eras.filter(
+      e => e.region !== 'china' && e.endYear >= viewMin && e.startYear <= viewMax
+    )
+    if (candidates.length === 0) return []
+    // 视野越宽，保留的候选越少
+    const maxCandidates = yearSpan > 3000 ? 14 : yearSpan > 1500 ? 18 : yearSpan > 700 ? 24 : 40
+    const ranked = candidates
+      .slice()
+      .sort((a, b) => (b.endYear - b.startYear) - (a.endYear - a.startYear))
+      .slice(0, maxCandidates)
+      .sort((a, b) => a.startYear - b.startYear)
+
+    const rows: { era: Era; x0: number; x1: number }[][] = []
+    for (const era of ranked) {
+      const x0 = xScale(era.startYear)
+      const x1 = xScale(era.endYear)
+      if (x1 <= PADDING_X || x0 >= width - PADDING_X) continue
+      let placed = false
+      for (let r = 0; r < rows.length && r < WORLD_BAND_ROWS; r++) {
+        const last = rows[r][rows[r].length - 1]
+        if (x0 >= last.x1 + 1) {
+          rows[r].push({ era, x0, x1 })
+          placed = true
+          break
+        }
+      }
+      if (!placed && rows.length < WORLD_BAND_ROWS) {
+        rows.push([{ era, x0, x1 }])
+      }
+    }
+    // 压平并附上行号
+    const result: { era: Era; row: number; x0: number; x1: number }[] = []
+    rows.forEach((row, r) => row.forEach(b => result.push({ era: b.era, row: r, x0: b.x0, x1: b.x1 })))
+    return result
+  }, [viewMin, viewMax, xScale, width, yearSpan])
+
+  // 高缩放时给重要事件显示标题标签（避免重叠：至少隔 64px）
+  const labeledEvents = useMemo(() => {
+    if (yearSpan > 100) return []
+    const labels: HistoricalEvent[] = []
+    let lastX = -Infinity
+    for (const ev of visibleEvents) {
+      if (ev.importance < 2) continue
+      const ex = xScale(ev.year)
+      if (ex < PADDING_X || ex > width - PADDING_X) continue
+      if (ex - lastX < 64) continue
+      labels.push(ev)
+      lastX = ex
+    }
+    return labels
+  }, [visibleEvents, xScale, width, yearSpan])
+
   // 鼠标坐标 → 年份的转换
   const clientXToYear = useCallback(
     (clientX: number): number => {
@@ -243,38 +318,38 @@ export default function Timeline() {
         onMouseDown={handleMouseDown}
         className={isDragging ? 'cursor-grabbing' : 'cursor-grab'}
       >
-        {/* 缩放信息 */}
-        <text
-          x={PADDING_X}
-          y={14}
-          fontSize="10"
-          fill="#5a5142"
-          style={{ pointerEvents: 'none', userSelect: 'none' }}
-        >
-          视图: {Math.round(viewMin)} ~ {Math.round(viewMax)} ({Math.round(yearSpan)} 年) · 缩放 {timelineZoom.toFixed(1)}×
-        </text>
-
-        {/* 当前年份大字号标注 */}
+        {/* 当前年份大字号标注（朱砂） */}
         <text
           x={currentX}
-          y={20}
+          y={16}
           textAnchor="middle"
           className="font-serif"
-          fontSize="16"
-          fill="#c89a5b"
+          fontSize="18"
+          fontWeight="bold"
+          fill="rgb(var(--vermilion-2-rgb) / 1)"
           style={{ pointerEvents: 'none', userSelect: 'none' }}
         >
           {formatYearShort(currentYear)}
         </text>
+        <text
+          x={currentX}
+          y={0}
+          textAnchor="middle"
+          fontSize="0"
+          style={{ pointerEvents: 'none' }}
+        >
+          {''}
+        </text>
 
-        {/* 主轴线 */}
+        {/* 主轴线（柔和） */}
         <line
           x1={PADDING_X}
           y1={RULER_HEIGHT}
           x2={width - PADDING_X}
           y2={RULER_HEIGHT}
-          stroke="#5a5142"
+          stroke="rgb(var(--text-faint-rgb) / 1)"
           strokeWidth={1}
+          opacity={0.7}
         />
 
         {/* 次刻度 */}
@@ -285,7 +360,7 @@ export default function Timeline() {
             y1={RULER_HEIGHT - 4}
             x2={xScale(year)}
             y2={RULER_HEIGHT}
-            stroke="#3a342a"
+            stroke="rgb(var(--bg-elevated-rgb) / 1)"
             strokeWidth={0.5}
           />
         ))}
@@ -298,15 +373,16 @@ export default function Timeline() {
               y1={RULER_HEIGHT - 10}
               x2={xScale(year)}
               y2={RULER_HEIGHT}
-              stroke="#5a5142"
+              stroke="rgb(var(--text-faint-rgb) / 1)"
               strokeWidth={1}
+              opacity={0.8}
             />
             <text
               x={xScale(year)}
-              y={RULER_HEIGHT + 14}
+              y={RULER_HEIGHT + 13}
               textAnchor="middle"
               fontSize="10"
-              fill="#5a5142"
+              fill="rgb(var(--text-secondary-rgb) / 1)"
               style={{ pointerEvents: 'none', userSelect: 'none' }}
             >
               {year < 0 ? `前${Math.abs(year)}` : year}
@@ -314,42 +390,136 @@ export default function Timeline() {
           </g>
         ))}
 
-        {/* 事件连接线（从刻度到事件点的引线） */}
+        {/* 中国朝代色带（半透明，标朝代名） */}
+        {visibleChinaEras.map(era => {
+          const x0 = Math.max(xScale(era.startYear), PADDING_X)
+          const x1 = Math.min(xScale(era.endYear), width - PADDING_X)
+          if (x1 - x0 < 3) return null
+          const showName = x1 - x0 >= 44
+          return (
+            <g key={`era-${era.id}`}>
+              <rect
+                x={x0}
+                y={ERA_BAND_TOP}
+                width={x1 - x0}
+                height={ERA_BAND_HEIGHT}
+                rx={3}
+                fill={era.color}
+                fillOpacity={0.45}
+                stroke={era.color}
+                strokeOpacity={0.85}
+                strokeWidth={0.75}
+                style={{ pointerEvents: 'none', userSelect: 'none' }}
+              />
+              {showName && (
+                <text
+                  x={x0 + 5}
+                  y={ERA_BAND_TOP + ERA_BAND_HEIGHT - 3.5}
+                  fontSize="9"
+                  fill="rgb(var(--text-primary-rgb) / 1)"
+                  style={{ pointerEvents: 'none', userSelect: 'none' }}
+                >
+                  {era.name}
+                </text>
+              )}
+            </g>
+          )
+        })}
+
+        {/* 世界文明色带（甘特式分层，最多 4 行，半透明） */}
+        {worldBands.map(({ era, row, x0, x1 }) => {
+          const cy = WORLD_BAND_TOP + row * (WORLD_BAND_HEIGHT + WORLD_BAND_ROW_GAP)
+          const clampedX0 = Math.max(x0, PADDING_X)
+          const clampedX1 = Math.min(x1, width - PADDING_X)
+          if (clampedX1 - clampedX0 < 3) return null
+          const showName = clampedX1 - clampedX0 >= 38
+          return (
+            <g key={`world-${era.id}-${row}`}>
+              <rect
+                x={clampedX0}
+                y={cy}
+                width={clampedX1 - clampedX0}
+                height={WORLD_BAND_HEIGHT}
+                rx={2}
+                fill={era.color}
+                fillOpacity={0.22}
+                stroke={era.color}
+                strokeOpacity={0.55}
+                strokeWidth={0.6}
+                style={{ pointerEvents: 'none', userSelect: 'none' }}
+              />
+              {showName && (
+                <text
+                  x={clampedX0 + 3}
+                  y={cy + WORLD_BAND_HEIGHT - 3}
+                  fontSize="8"
+                  fill="rgb(var(--text-secondary-rgb) / 1)"
+                  style={{ pointerEvents: 'none', userSelect: 'none' }}
+                >
+                  {era.name}
+                </text>
+              )}
+            </g>
+          )
+        })}
+
+        {/* 事件引线（从世界色带下方延伸到事件点） */}
         {visibleEvents.map(event => {
           const ex = xScale(event.year)
           if (ex < PADDING_X - 10 || ex > width - PADDING_X + 10) return null
+          const lineStart = WORLD_BAND_TOP + WORLD_BAND_ROWS * (WORLD_BAND_HEIGHT + WORLD_BAND_ROW_GAP) + 2
           return (
             <line
               key={`ev-line-${event.id}`}
               x1={ex}
-              y1={RULER_HEIGHT + 18}
+              y1={lineStart}
               x2={ex}
-              y2={EVENTS_AREA_TOP + 30}
+              y2={EVENTS_CY - 4}
               stroke={CATEGORY_COLORS[event.category]}
-              strokeWidth={0.6}
-              strokeOpacity={0.3}
+              strokeWidth={0.7}
+              strokeOpacity={0.35}
               style={{ pointerEvents: 'none' }}
             />
           )
         })}
 
-        {/* 事件标记点（按 importance 大小） */}
+        {/* 事件标题标签（高缩放时） */}
+        {labeledEvents.map(event => {
+          const ex = xScale(event.year)
+          return (
+            <text
+              key={`ev-label-${event.id}`}
+              x={ex}
+              y={EVENTS_CY - 7}
+              textAnchor="middle"
+              fontSize="9"
+              fill={CATEGORY_COLORS[event.category]}
+              opacity={0.9}
+              style={{ pointerEvents: 'none', userSelect: 'none' }}
+            >
+              {event.title.length > 12 ? event.title.slice(0, 12) + '…' : event.title}
+            </text>
+          )
+        })}
+
+        {/* 事件标记点（按 importance 大小，hover 放大） */}
         {visibleEvents.map(event => {
           const ex = xScale(event.year)
           if (ex < PADDING_X - 10 || ex > width - PADDING_X + 10) return null
           const r = event.importance === 3 ? 5 : event.importance === 2 ? 4 : 3
+          const cy = EVENTS_CY
           return (
             <g key={event.id}>
               <circle
                 data-role="event-marker"
                 cx={ex}
-                cy={EVENTS_AREA_TOP + 30}
+                cy={cy}
                 r={r}
                 fill={CATEGORY_COLORS[event.category]}
-                stroke="#fdf8f0"
+                stroke="rgb(var(--text-parchment-rgb) / 1)"
                 strokeWidth={1}
                 className="cursor-pointer transition-transform hover:scale-150"
-                style={{ transformOrigin: `${ex}px ${EVENTS_AREA_TOP + 30}px` }}
+                style={{ transformOrigin: `${ex}px ${cy}px` }}
                 onClick={(e) => {
                   e.stopPropagation()
                   selectEvent(event.id)
@@ -362,29 +532,37 @@ export default function Timeline() {
           )
         })}
 
-        {/* 当前年份指示线 */}
+        {/* 当前年份指示线（朱砂） */}
         <line
           x1={currentX}
-          y1={RULER_HEIGHT - 18}
+          y1={RULER_HEIGHT - 14}
           x2={currentX}
-          y2={EVENTS_AREA_TOP + 36}
-          stroke="#c89a5b"
-          strokeWidth={2}
+          y2={EVENTS_CY + 12}
+          stroke="rgb(var(--vermilion-2-rgb) / 1)"
+          strokeWidth={1.6}
+          strokeDasharray="1 0"
           style={{ pointerEvents: 'none' }}
         />
         <circle
           cx={currentX}
-          cy={RULER_HEIGHT}
-          r={4}
-          fill="#c89a5b"
+          cy={RULER_HEIGHT - 14}
+          r={3.5}
+          fill="rgb(var(--vermilion-2-rgb) / 1)"
+          style={{ pointerEvents: 'none' }}
+        />
+        <circle
+          cx={currentX}
+          cy={EVENTS_CY + 12}
+          r={3.5}
+          fill="rgb(var(--vermilion-2-rgb) / 1)"
           style={{ pointerEvents: 'none' }}
         />
       </svg>
 
-      {/* 缩放控制按钮（右下角） */}
-      <div className="absolute right-2 top-1.5 flex gap-1 z-10">
+      {/* 缩放控制按钮（右上角） */}
+      <div className="absolute right-2 top-2 flex items-center gap-1 z-10">
         <button
-          className="w-6 h-6 rounded-lg bg-ink-700/90 hover:bg-ink-600 border border-ink-600 text-vermilion-300 text-sm font-bold leading-none"
+          className="w-6 h-6 rounded-md bg-ink-700/90 hover:bg-vermilion-500/30 border border-ink-600 text-vermilion-300 text-sm font-bold leading-none transition-colors"
           onClick={zoomOut}
           title="缩小时间轴"
           aria-label="缩小时间轴"
@@ -392,7 +570,7 @@ export default function Timeline() {
           −
         </button>
         <button
-          className="w-6 h-6 rounded-lg bg-ink-700/90 hover:bg-ink-600 border border-ink-600 text-vermilion-300 text-[9px] font-bold leading-none"
+          className="w-6 h-6 rounded-md bg-ink-700/90 hover:bg-vermilion-500/30 border border-ink-600 text-vermilion-300 text-[9px] font-bold leading-none transition-colors"
           onClick={resetZoom}
           title="重置缩放"
           aria-label="重置时间轴缩放"
@@ -400,7 +578,7 @@ export default function Timeline() {
           ⟲
         </button>
         <button
-          className="w-6 h-6 rounded-lg bg-ink-700/90 hover:bg-ink-600 border border-ink-600 text-vermilion-300 text-sm font-bold leading-none"
+          className="w-6 h-6 rounded-md bg-ink-700/90 hover:bg-vermilion-500/30 border border-ink-600 text-vermilion-300 text-sm font-bold leading-none transition-colors"
           onClick={zoomIn}
           title="放大时间轴"
           aria-label="放大时间轴"
@@ -410,7 +588,7 @@ export default function Timeline() {
       </div>
 
       {/* 操作提示 */}
-      <div className="absolute right-16 top-2.5 text-[9px] text-ink-500 z-10">
+      <div className="absolute right-16 top-2.5 text-[9px] text-faint z-10 pointer-events-none">
         滚轮缩放 · 拖拽平移
       </div>
     </div>

@@ -67,7 +67,7 @@ export default function GeoFeatureFilter() {
             ? 'bg-vermilion-500 border-bronze-300 text-parchment-50'
             : 'bg-ink-900/95 border-vermilion-500/40/80 text-vermilion-300 hover:bg-ink-800 hover:border-bronze-300'
         }`}
-        style={{ top: '70px' }}
+        style={{ top: '90px' }}
       >
         🗺 图层
         {onCount + amapOnCount > 0 && (
@@ -79,7 +79,7 @@ export default function GeoFeatureFilter() {
       {open && (
         <div
           className="absolute left-2 z-50 w-72 max-h-[70vh] overflow-y-auto scrollbar-thin rounded-lg border border-vermilion-500/40 bg-ink-800/95 backdrop-blur shadow-2xl p-3"
-          style={{ top: '115px' }}
+          style={{ top: '135px' }}
           role="dialog"
           aria-label="地理要素图层"
         >

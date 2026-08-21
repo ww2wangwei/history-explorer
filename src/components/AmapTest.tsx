@@ -84,7 +84,6 @@ export default function AmapTest() {
   const eventMarkersRef = useRef<any[]>([])
   const eventLabelsRef = useRef<any[]>([])
 
-  const [status, setStatus] = useState<string>('init')
   const [error, setError] = useState<string | null>(null)
   const [mapReady, setMapReady] = useState(false)
   const [infoCard, setInfoCard] = useState<InfoCard | null>(null)
@@ -123,7 +122,7 @@ export default function AmapTest() {
       timeoutIds.push(id)
     }
 
-    setStatus('loading AMap...')
+    setError(null)
     const securityCode = getAmapSecurityCode()
     loadAmap(key, securityCode)
       .then(async () => {
@@ -143,7 +142,7 @@ export default function AmapTest() {
           container.removeChild(container.firstChild)
         }
 
-        setStatus('creating AMap.Map...')
+        setError(null)
         const initialStyle = useMapStyleStore.getState().style
         const initialMeta = STYLE_META[initialStyle]
         // 跨 viewMode 切换时保留视图状态
@@ -190,7 +189,7 @@ export default function AmapTest() {
         }, 200)
         mapRef.current = map
         ;(window as any).__amapTestMap = map
-        setStatus('AMap ready')
+        setError(null)
         setMapReady(true)
 
         // 地图任意点点击：反向地理编码 → 弹 AI 窗口介绍这块地
@@ -611,25 +610,26 @@ export default function AmapTest() {
         ref={containerRef}
         style={{ position: 'absolute', inset: 0, zIndex: 0 }}
       />
-      <div className="absolute top-2 left-2 z-10 text-xs bg-ink-800/95 px-3 py-1.5 rounded-lg border border-gold-500/40 shadow-lg">
-        <span className="text-bone font-serif tracking-wide">高德地图 AMap</span>
-        <span className="ml-2 text-parchment-100">Status: {status}</span>
-        {error && (
-          <>
-            <span className="text-red-400 ml-2">ERROR: {error}</span>
-            <button
-              onClick={() => useApiKeysStore.getState().setModalOpen(true)}
-              className="ml-2 px-2 py-0.5 rounded bg-vermilion-500 hover:bg-vermilion-600 text-bone text-[11px] font-serif"
-              title="打开 API Key 设置"
-            >
-              ⚙ 设置 Key
-            </button>
-          </>
-        )}
-        <div className="text-xs text-ink-500 mt-1">
-          当前年: <span className="text-vermilion-300 font-mono">{currentYear}</span> · 朝代: {getChinaEraAtYear(currentYear)?.name ?? '无'}
+      {/* 加载/错误状态（极简，不再显示调试 status 文本） */}
+      {!mapReady && !error && (
+        <div className="absolute top-3 left-3 z-10 px-3 py-1.5 rounded-lg bg-ink-900/85 backdrop-blur border border-vermilion-500/30 shadow-lg flex items-center gap-2 text-xs text-ink-300">
+          <span className="animate-spin inline-block w-3 h-3 border-2 border-vermilion-500 border-t-transparent rounded-full" />
+          地图加载中…
         </div>
-      </div>
+      )}
+      {error && (
+        <div className="absolute top-3 left-3 z-10 max-w-xs px-3 py-2 rounded-lg bg-ink-900/90 backdrop-blur border border-red-500/40 shadow-lg text-xs">
+          <div className="text-red-400 font-serif mb-1">⚠ 地图加载失败</div>
+          <div className="text-ink-300 leading-relaxed">{error}</div>
+          <button
+            onClick={() => useApiKeysStore.getState().setModalOpen(true)}
+            className="mt-2 px-2 py-0.5 rounded bg-vermilion-500 hover:bg-vermilion-600 text-bone text-[11px] font-serif"
+            title="打开 API Key 设置"
+          >
+            ⚙ 设置 Key
+          </button>
+        </div>
+      )}
 
       {/* 自然地理要素图层切换面板（叠加层 + AMap 自带 feature 开关） */}
       <GeoFeatureFilter />
@@ -695,8 +695,17 @@ function InfoCardView({
       }}
       onClick={e => e.stopPropagation()}
     >
-      <div className="relative bg-ink-900/95 border border-vermilion-500/40 rounded-lg shadow-2xl overflow-hidden">
-        <div className="flex items-center justify-between px-3 py-2 border-b border-vermilion-500/30">
+      <div
+        className="relative rounded-lg shadow-2xl overflow-hidden"
+        style={{
+          backgroundColor: 'rgb(26 23 20 / 0.95)',
+          border: '1px solid rgb(184 67 58 / 0.4)',
+        }}
+      >
+        <div
+          className="flex items-center justify-between px-3 py-2"
+          style={{ borderBottom: '1px solid rgb(184 67 58 / 0.3)' }}
+        >
           {card.reopenLabel ? (
             <button
               type="button"
@@ -709,12 +718,13 @@ function InfoCardView({
               <span className="ml-1 text-xs">Back</span>
             </button>
           ) : (
-            <span className="text-xs text-ink-500">📍 位置</span>
+            <span className="text-xs" style={{ color: 'rgb(154 143 126)' }}>📍 位置</span>
           )}
           <button
             type="button"
             onClick={onClose}
-            className="text-ink-400 hover:text-ink-200 text-base leading-none"
+            className="text-base leading-none hover:text-vermilion-300"
+            style={{ color: 'rgb(154 143 126)' }}
             title="关闭"
           >
             ×
@@ -731,9 +741,19 @@ function InfoCardView({
           </div>
         )}
         <div className="px-3 py-2">
-          <div className="text-sm font-medium text-parchment-100 truncate">{card.label}</div>
+          <div
+            className="text-sm font-brush truncate"
+            style={{ color: 'rgb(247 238 216)' }}
+          >
+            {card.label}
+          </div>
           {card.snippet && (
-            <div className="text-xs text-ink-300 mt-1 line-clamp-3">{card.snippet}</div>
+            <div
+              className="text-xs mt-1 line-clamp-3"
+              style={{ color: 'rgb(184 198 184)' }}
+            >
+              {card.snippet}
+            </div>
           )}
         </div>
       </div>
@@ -804,12 +824,21 @@ function GeoFeatureCardView({
       }}
       onClick={e => e.stopPropagation()}
     >
-      <div className="relative bg-ink-900/95 border border-vermilion-500/40 rounded-lg shadow-2xl overflow-hidden">
+      <div
+        className="relative rounded-lg shadow-2xl overflow-hidden"
+        style={{
+          backgroundColor: 'rgb(26 23 20 / 0.95)',
+          border: '1px solid rgb(184 67 58 / 0.4)',
+        }}
+      >
         {/* 顶部条：类型 icon + 名称 + 关闭 */}
-        <div className="flex items-center justify-between px-3 py-2 border-b border-vermilion-500/30">
+        <div
+          className="flex items-center justify-between px-3 py-2"
+          style={{ borderBottom: '1px solid rgb(184 67 58 / 0.3)' }}
+        >
           <span className="flex items-center gap-2 text-sm">
             <span className="text-base leading-none">{meta.icon}</span>
-            <span className="text-vermilion-300 font-serif">{f.name}</span>
+            <span className="text-vermilion-300 font-brush">{f.name}</span>
             <span className="text-[10px] px-1.5 py-0.5 rounded border" style={{ color: meta.color, borderColor: meta.color + '60' }}>
               {f.type}
             </span>
@@ -817,7 +846,8 @@ function GeoFeatureCardView({
           <button
             type="button"
             onClick={onClose}
-            className="text-ink-400 hover:text-ink-200 text-base leading-none"
+            className="text-base leading-none hover:text-vermilion-300"
+            style={{ color: 'rgb(154 143 126)' }}
             title="关闭"
             aria-label="关闭"
           >
@@ -840,18 +870,28 @@ function GeoFeatureCardView({
             )}
           </div>
         )}
-        {/* 简介 */}
+        {/* 简介 —— 始终深色底+浅色文字（地图浮层，不跟随主题切换） */}
         <div className="px-3 py-2 max-h-60 overflow-y-auto scrollbar-thin">
           {f.description ? (
-            <div className="text-xs text-parchment-100 leading-relaxed whitespace-pre-wrap">
+            <div
+              className="text-xs leading-relaxed whitespace-pre-wrap"
+              style={{ color: 'rgb(247 238 216)' }}
+            >
               {f.description}
             </div>
           ) : (
-            <div className="text-xs text-ink-500">（暂无简介）</div>
+            <div className="text-xs" style={{ color: 'rgb(154 143 126)' }}>（暂无简介）</div>
           )}
         </div>
         {/* 底部署名 */}
-        <div className="px-3 py-1.5 bg-ink-800/60 border-t border-ink-700 text-[10px] text-ink-500 flex items-center justify-between">
+        <div
+          className="px-3 py-1.5 text-[10px] flex items-center justify-between"
+          style={{
+            backgroundColor: 'rgb(38 34 29 / 0.6)',
+            borderTop: '1px solid rgb(51 44 37)',
+            color: 'rgb(154 143 126)',
+          }}
+        >
           <span>来源：Bing 图片搜索 + 项目数据</span>
           <span style={{ color: meta.color }}>· {f.type}</span>
         </div>

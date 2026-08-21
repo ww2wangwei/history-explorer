@@ -328,27 +328,31 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           <span className="text-xs text-ink-400 font-brush tracking-widest">错 · 落</span>
         </div>
         {/*
-          Bento 4×5（md+）13 卡全部错落：
-          ┌──────────────┬──────┬──────┐
-          │              │ 👥   │ 🎭   │ row 1
-          │   朝代 2×2   ├──────┼──────┤
-          │              │ 🪜   │ ⚔   │ row 2
-          ├──────┬───────┴──────┴──────┤
-          │ 📜诗词 │ 🗺   │ ⚖         │ row 3 (2×1)
-          │  2×1   │      │            │
-          ├──────┼──────┼──────┬──────┤
-          │ 📚   │ 💭   │ 🎨   │ 🌍   │ row 4
-          ├──────┴──────┴──────┴──────┤
-          │ 🎯 复习（横条 4×1）       │ row 5
-          └───────────────────────────┘
+          Bento 4×5（md+）13 卡全部错落 · 5 种尺寸：
+          ┌──────────────┬─────┬─────────┐
+          │              │ 👥  │ 🎭      │ row 1
+          │   朝代 2×2   ├─────┼─────────┤
+          │              │ 🪜  │ ⚔ 1×2   │ row 2
+          │              │ 1×2 ├─────────┤
+          ├─────┬────────┤     │         │
+          │ 📜  │ 🗺      │ 🪜 continue│ ⚔ continue│ row 3
+          │ 2×1 │        │         │         │
+          ├─────┼────────┼─────┼─────────┤
+          │ 📚  │ ⚖      │ 🎨   │ 🌍      │ row 4
+          ├─────┴────────┴─────┴─────────┤
+          │ 🎯 复习 4×1 全宽横条      │ row 5
+          └─────────────────────────────┘
 
-          1 个 hero (2×2)
-          1 个 wide (2×1)
-          1 个横条 (4×1)
-          10 个 normal (1×1)
+          5 种尺寸：
+          - 1 hero (2×2)：朝代时间线
+          - 1 vertical tall (1×2)：文史天梯
+          - 1 wide (2×1)：全诗词
+          - 1 wide tall (1×2)：全战争
+          - 1 全宽横条 (4×1)：今日复习
+          - 7 normal (1×1)：其余
         */}
         <div ref={pathCardsRef} className="grid grid-cols-2 md:grid-cols-4 md:grid-rows-5 gap-3 mb-10 auto-rows-fr">
-          {/* Row 1-2: hero 朝代 (2×2) + 3 normal stacked */}
+          {/* Row 1-2: hero (2×2) + 右侧 small + tall */}
           <PrimaryPathCard
             path={MAIN_PATHS[0]}
             visited={getPathVisited(MAIN_PATHS[0].id)}
@@ -364,10 +368,27 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           />
           <PrimaryPathCard path={MAIN_PATHS[1]} visited={getPathVisited(MAIN_PATHS[1].id)} total={getPathTotal(MAIN_PATHS[1].id)} size="normal" onClick={() => onEnterPath(MAIN_PATHS[1].id as PathId)} />
           <PrimaryPathCard path={MAIN_PATHS[2]} visited={getPathVisited(MAIN_PATHS[2].id)} total={getPathTotal(MAIN_PATHS[2].id)} size="normal" onClick={() => onEnterPath(MAIN_PATHS[2].id as PathId)} />
-          <PrimaryPathCard path={MAIN_PATHS[3]} visited={getPathVisited(MAIN_PATHS[3].id)} total={getPathTotal(MAIN_PATHS[3].id)} size="normal" onClick={onEnterLadder} highlight />
-          <PrimaryPathCard path={MORE_PATHS[0]} visited={getPathVisited(MORE_PATHS[0].id)} total={getPathTotal(MORE_PATHS[0].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[0].id as PathId)} />
 
-          {/* Row 3: 全诗词 wide (2×1) + 2 normal */}
+          {/* Row 2 right: 文史天梯 tall (1×2) + 全战争 tall (1×2) — 双竖卡 */}
+          <PrimaryPathCard
+            path={MAIN_PATHS[3]}
+            visited={getPathVisited(MAIN_PATHS[3].id)}
+            total={getPathTotal(MAIN_PATHS[3].id)}
+            size="tall"
+            className="md:row-span-2"
+            onClick={onEnterLadder}
+            highlight
+          />
+          <PrimaryPathCard
+            path={MORE_PATHS[0]}  /* 全战争 */
+            visited={getPathVisited(MORE_PATHS[0].id)}
+            total={getPathTotal(MORE_PATHS[0].id)}
+            size="tall"
+            className="md:row-span-2"
+            onClick={() => onEnterPath(MORE_PATHS[0].id as PathId)}
+          />
+
+          {/* Row 3: 全诗词 wide (2×1) + 2 normal（竖卡已占位 col 3-4） */}
           <PrimaryPathCard
             path={MORE_PATHS[3]}  /* 全诗词 */
             visited={getPathVisited(MORE_PATHS[3].id)}
@@ -376,22 +397,22 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
             className="md:col-span-2"
             onClick={() => onEnterPath(MORE_PATHS[3].id as PathId)}
           />
-          <PrimaryPathCard path={MORE_PATHS[1]} visited={getPathVisited(MORE_PATHS[1].id)} total={getPathTotal(MORE_PATHS[1].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[1].id as PathId)} />
-          <PrimaryPathCard path={MORE_PATHS[5]} visited={getPathVisited(MORE_PATHS[5].id)} total={getPathTotal(MORE_PATHS[5].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[5].id as PathId)} />
 
-          {/* Row 4: 4 normal (📚全地理 ⚖中西方 🎨全艺 🌍全文明) */}
+          {/* Row 4: 4 normal */}
+          <PrimaryPathCard path={MORE_PATHS[1]} visited={getPathVisited(MORE_PATHS[1].id)} total={getPathTotal(MORE_PATHS[1].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[1].id as PathId)} />
           <PrimaryPathCard path={MORE_PATHS[2]} visited={getPathVisited(MORE_PATHS[2].id)} total={getPathTotal(MORE_PATHS[2].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[2].id as PathId)} />
           <PrimaryPathCard path={MORE_PATHS[4]} visited={getPathVisited(MORE_PATHS[4].id)} total={getPathTotal(MORE_PATHS[4].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[4].id as PathId)} />
+          <PrimaryPathCard path={MORE_PATHS[5]} visited={getPathVisited(MORE_PATHS[5].id)} total={getPathTotal(MORE_PATHS[5].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[5].id as PathId)} />
+
+          {/* Row 5: 全艺术 + 全文明 + 复习 4×1 全宽 */}
           <PrimaryPathCard path={MORE_PATHS[6]} visited={getPathVisited(MORE_PATHS[6].id)} total={getPathTotal(MORE_PATHS[6].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[6].id as PathId)} />
           <PrimaryPathCard path={MORE_PATHS[7]} visited={getPathVisited(MORE_PATHS[7].id)} total={getPathTotal(MORE_PATHS[7].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[7].id as PathId)} />
-
-          {/* Row 5: 复习 (4×1) 横条 */}
           <PrimaryPathCard
             path={MORE_PATHS[8]}  /* 今日复习 */
             visited={getPathVisited(MORE_PATHS[8].id)}
             total={getPathTotal(MORE_PATHS[8].id)}
             size="normal"
-            className="md:col-span-4"
+            className="md:col-span-2"
             onClick={() => onEnterPath(MORE_PATHS[8].id as PathId)}
           />
         </div>
@@ -644,8 +665,8 @@ function PrimaryPathCard({
   highlight?: boolean
   /** 可选的卡片专属预览元素（如朝代时间线卡的小型时间线） */
   preview?: ReactNode
-  /** bento 排版：大卡（2列宽） vs 小卡（1列宽） */
-  size?: 'large' | 'normal'
+  /** bento 排版：大卡（2×2） vs 小卡（1×1） vs 竖卡（1×2） */
+  size?: 'large' | 'normal' | 'tall'
   /** 额外的 className（如 col-span/row-span） */
   className?: string
 }) {
@@ -653,6 +674,7 @@ function PrimaryPathCard({
   const isNew = highlight
   const accent = p.color
   const isLarge = size === 'large'
+  const isTall = size === 'tall'
   return (
     <button
       onClick={onClick}
@@ -668,10 +690,18 @@ function PrimaryPathCard({
       <div className="h-1 shrink-0" style={{ background: accent }} aria-hidden />
 
       {/* 主体区：左 icon + 右标题（无图片） */}
-      <div className={`flex-1 flex ${isLarge ? 'flex-col p-5 gap-3' : 'flex-row items-center gap-3 p-3'}`}>
+      <div className={`flex-1 flex ${
+          isLarge ? 'flex-col p-5 gap-3' :
+          isTall ? 'flex-col p-3 gap-2' :
+          'flex-row items-center gap-3 p-3'
+        }`}>
         {/* 左上 / 大卡顶部 icon */}
         <div
-          className={`shrink-0 flex items-center justify-center rounded-md ${isLarge ? 'w-16 h-16 text-4xl' : 'w-10 h-10 text-xl'}`}
+          className={`shrink-0 flex items-center justify-center rounded-md ${
+            isLarge ? 'w-16 h-16 text-4xl' :
+            isTall ? 'w-10 h-10 text-xl' :
+            'w-10 h-10 text-xl'
+          }`}
           style={{
             background: `linear-gradient(135deg, ${accent}33 0%, ${accent}66 100%)`,
             boxShadow: `0 0 12px ${accent}33`,
@@ -685,7 +715,11 @@ function PrimaryPathCard({
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
             <h3
-              className={`font-brush tracking-wider leading-tight truncate ${isLarge ? 'text-2xl' : 'text-sm'}`}
+              className={`font-brush tracking-wider leading-tight truncate ${
+                isLarge ? 'text-2xl' :
+                isTall ? 'text-base' :
+                'text-sm'
+              }`}
               style={{ color: accent }}
             >
               {p.title}
@@ -706,7 +740,11 @@ function PrimaryPathCard({
             )}
           </div>
 
-          <p className={`leading-relaxed mt-1 ${isLarge ? 'text-sm' : 'text-[11px] line-clamp-1'}`}
+          <p className={`leading-relaxed mt-1 ${
+               isLarge ? 'text-sm' :
+               isTall ? 'text-[11px] line-clamp-2' :
+               'text-[11px] line-clamp-1'
+             }`}
              style={{ color: 'rgb(var(--text-primary-rgb) / 0.85)' }}>
             {p.desc}
           </p>
@@ -716,7 +754,7 @@ function PrimaryPathCard({
 
           {/* 进度条 / 占位 */}
           {hasProgress(visited, total) ? (
-            <div className={isLarge ? 'mt-3' : 'mt-1.5'}>
+            <div className={isLarge ? 'mt-3' : isTall ? 'mt-1.5' : 'mt-1.5'}>
               <div className="text-[10px] tabular-nums mb-1 flex justify-between" style={{ color: 'rgb(var(--text-secondary-rgb))' }}>
                 <span>已学 {visited} / {total}</span>
                 <span>{pct}%</span>

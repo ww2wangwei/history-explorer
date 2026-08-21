@@ -253,31 +253,31 @@
       /* 4. 主底色 */
       rgb(var(--bg-surface-rgb) / 1);
   }
-  /* 深色主题：水墨山水大图（不重复） */
+  /* 深色主题：水墨山水大图（fixed 拉伸填满视口） */
   :root[data-theme="dark"] .ink-wash-bg::before {
     content: '';
-    position: absolute;
+    position: fixed;
     inset: 0;
     pointer-events: none;
     background-image: url('/bg-ink.svg');
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0.55;
     mix-blend-mode: screen;
     z-index: 0;
   }
-  /* 浅色主题：用户提供的金色鳞纹大图（青海波，不重复） */
+  /* 浅色主题：青海波鳞纹（拉伸填满整个视口，position: fixed 不随滚动） */
   :root[data-theme="light"] .ink-wash-bg::before {
     content: '';
-    position: absolute;
+    position: fixed;
     inset: 0;
     pointer-events: none;
     background-image: url('/bg-gold.jpg');
-    background-size: cover;
+    background-size: 100% 100%;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.5;
+    opacity: 0.55;
     mix-blend-mode: multiply;
     z-index: 0;
   }

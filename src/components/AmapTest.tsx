@@ -460,8 +460,19 @@ export default function AmapTest() {
     const chinaEra = getChinaEraAtYear(currentYear)
     const jumpSuppressUntil = useHistoryStore.getState().jumpSuppressUntil
     const isSuppressed = jumpSuppressUntil > Date.now()
-    if (chinaEra?.capital && !isSuppressed) {
-      const [lng, lat] = wgs84ToGcj02(chinaEra.capital)
+    // 🎯 UX 修复：当前年份若没有中国朝代（pre-Qin / 1912+），
+    //   fallback 到"时间最近"的中国朝代，避免点击中国都城闪烁消失
+    let chinaToShow = chinaEra
+    if (!chinaToShow && !isSuppressed) {
+      const chinaEras = eras.filter(e => e.region === 'china' && e.capital)
+      if (chinaEras.length > 0) {
+        chinaToShow = chinaEras
+          .map(e => ({ era: e, dist: Math.abs((e.startYear + e.endYear) / 2 - currentYear) }))
+          .sort((a, b) => a.dist - b.dist)[0].era
+      }
+    }
+    if (chinaToShow?.capital && !isSuppressed) {
+      const [lng, lat] = wgs84ToGcj02(chinaToShow.capital)
       try {
         map.setZoomAndCenter(4, new A.LngLat(lng, lat))
       } catch { /* ignore */ }
@@ -469,15 +480,15 @@ export default function AmapTest() {
       const res = createMapMarker(map, {
         position: [lng, lat],
         kind: 'chinaCapital',
-        label: chinaEra.name,
-        onClick: () => selectEra(chinaEra.id),
+        label: chinaToShow.name,
+        onClick: () => selectEra(chinaToShow.id),
         onHover: () =>
           showHoverCard(
-            `${chinaEra.name} 都城`,
+            `${chinaToShow.name} 都城`,
             lng,
             lat,
-            bingImage(fallbackKeyword(chinaEra.name, chinaEra.region), 400, 240),
-            summarizeEra(chinaEra as any),
+            bingImage(fallbackKeyword(chinaToShow.name, chinaToShow.region), 400, 240),
+            summarizeEra(chinaToShow as any),
           ),
         onHoverOut: hideHoverCard,
       })
@@ -488,7 +499,21 @@ export default function AmapTest() {
     }
 
     const activeEras = getActiveErasAtYear(eras, currentYear)
-    activeEras.filter(e => e.region !== 'china' && e.capital).slice(0, 4).forEach(era => {
+    // 🎯 性能/UX 修复：若当前年份无活跃朝代（如 modern era、史前时期），
+    //   fallback 显示 4 个"时间最近的"朝代，避免地图完全空旷
+    const worldErasToShow = activeEras.filter(e => e.region !== 'china' && e.capital).slice(0, 4)
+      .concat(
+        activeEras.filter(e => e.region !== 'china' && e.capital).length === 0
+          ? [...eras]
+              .filter(e => e.region !== 'china' && e.capital)
+              .map(e => ({ era: e, dist: Math.abs((e.startYear + e.endYear) / 2 - currentYear) }))
+              .sort((a, b) => a.dist - b.dist)
+              .slice(0, 4)
+              .map(x => x.era)
+          : []
+      )
+
+    worldErasToShow.forEach(era => {
       const [lng, lat] = wgs84ToGcj02(era.capital!)
       const res = createMapMarker(map, {
         position: [lng, lat],

@@ -167,6 +167,10 @@ export default function AmapTest() {
           draggable: true,
           scrollWheel: true,
           doubleClickZoom: true,
+          // 关闭动画：拖动时直接响应（不补间），低性能设备更流畅
+          animateEnable: false,
+          // 减少拖动时的视觉抖动
+          jogEnable: false,
           zoomControl: false,    // 用我们自定义按钮
           mapStyle: initialMeta.kind === 'amap' && initialMeta.amapStyle
             ? initialMeta.amapStyle

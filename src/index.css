@@ -111,11 +111,14 @@
 .amap-markers,
 .amap-marker,
 .amap-text {
-  transform: translate3d(0, 0, 0);
-  -webkit-transform: translate3d(0, 0, 0);
-  will-change: transform;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0) !important;
+  -webkit-transform: translate3d(0, 0, 0) !important;
+  will-change: transform !important;
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+  /* 强制独立合成层（即使 will-change 不够） */
+  isolation: isolate !important;
+  z-index: 0;
 }
 
 /* 🔆 Hover shine（扫光）—— 在任意容器加 .shine-on-hover 即可 */

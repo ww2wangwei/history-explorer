@@ -702,14 +702,21 @@ export default function AmapTest() {
     <div className="w-full h-full relative">
       <div
         ref={containerRef}
-        // 🎯 强制 GPU 合成层：避免 Chrome DevTools 关闭后拖动卡顿
-        //   （DevTools 打开时强制 GPU，关闭时退回 CPU → 容器无 transform 提示就退回 CPU 渲染）
+        // 🎯 强制 GPU 合成层（关键！DevTools 关闭时 Chrome 默认退回 CPU 渲染 → 卡）
+        //   用 4 个叠加 hint 强制开启 GPU 路径：
+        //   1. transform: translate3d(0,0,0) — 触发 3D 变换 → 必然合成层
+        //   2. willChange: 'transform' — 告诉浏览器该容器频繁 transform
+        //   3. backfaceVisibility: 'hidden' — 配合 translate3d 强制合成
+        //   4. perspective: 1000 — 创建 3D 上下文
+        //   5. contain: 'layout paint size' — 隔离重排
         style={{
           position: 'absolute',
           inset: 0,
           zIndex: 0,
-          transform: 'translateZ(0)',
+          transform: 'translate3d(0, 0, 0)',
           willChange: 'transform',
+          backfaceVisibility: 'hidden',
+          perspective: 1000,
           contain: 'layout paint size',
         }}
       />

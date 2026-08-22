@@ -44,11 +44,11 @@ export const AMAP_FEATURE_META: Record<AmapFeatureKey, { label: string; icon: st
   road:       { label: '道路',        icon: '🛣️',  defaultOn: false },  // 道路瓦片重，默认关
   building:   { label: '建筑',        icon: '🏢', defaultOn: false },  // 3D 建筑瓦片重，默认关
   water:      { label: '水域面',       icon: '🌊', defaultOn: true },
-  waterlabel: { label: '水系标注',     icon: '🏷️',  defaultOn: true },
+  waterlabel: { label: '水系标注',     icon: '🏷️',  defaultOn: false },  // 文字标注瓦片重
   land:       { label: '陆地',        icon: '🗻', defaultOn: true },
-  label:      { label: '地名标注',     icon: '🔤', defaultOn: true },
-  mask:       { label: '区域遮罩',     icon: '🎭', defaultOn: true },
-  grass:      { label: '绿地/林地',    icon: '🌳', defaultOn: true },
+  label:      { label: '地名标注',     icon: '🔤', defaultOn: false },  // 城市名瓦片重
+  mask:       { label: '区域遮罩',     icon: '🎭', defaultOn: false },  // 国境/省界遮罩，瓦片重
+  grass:      { label: '绿地/林地',    icon: '🌳', defaultOn: false },  // 绿地瓦片极多
 }
 
 const ALL_AMAP_KEYS = Object.keys(AMAP_FEATURE_META) as AmapFeatureKey[]

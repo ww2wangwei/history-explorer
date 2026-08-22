@@ -123,7 +123,7 @@ interface MapStyleState {
 export const useMapStyleStore = create<MapStyleState>()(
   persist(
     (set) => ({
-      style: 'darkblue',
+      style: 'dark',  // 之前是 darkblue（含丰富装饰，瓦片重），改用纯黑底，瓦片最少
       viewMode: '2D',
       pitch: 30,
       rotation: 0,
@@ -136,6 +136,14 @@ export const useMapStyleStore = create<MapStyleState>()(
       name: 'history-explorer-map-style:v1',
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({ style: s.style, viewMode: s.viewMode, pitch: s.pitch, rotation: s.rotation }),
+      // v2 迁移：darkblue → dark（瓦片重→轻）；normal/light → dark（同样为了减少瓦片）
+      migrate: (persisted: any, _fromVersion) => {
+        if (persisted && (persisted.style === 'darkblue' || persisted.style === 'normal' || persisted.style === 'light' || persisted.style === 'fresh' || persisted.style === 'macaron' || persisted.style === 'whitesmoke')) {
+          persisted.style = 'dark'
+        }
+        return persisted
+      },
+      version: 2,
     },
   ),
 )

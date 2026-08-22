@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ChineseOrnament — 中国传统装饰元素（SVG-only，零依赖）
  *
  * 提供可在 React 中直接复用的中国风视觉元素：
@@ -115,48 +115,6 @@ export function Seal({
       aria-label={`印章：${text}`}
     >
       {text}
-    </div>
-  )
-}
-
-/* ========== 屏风边框（屏风式装饰，可包裹任意 children） ========== */
-export function ScreenFrame({
-  children,
-  className = '',
-  borderColor,
-  cornerSeal = false,
-}: {
-  children: React.ReactNode
-  className?: string
-  /** 边框颜色，缺省用金色 */
-  borderColor?: string
-  /** 四角加小方印装饰 */
-  cornerSeal?: boolean
-}) {
-  const id = useId()
-  const color = borderColor ?? 'rgb(var(--gold-rgb) / 0.6)'
-  return (
-    <div className={`relative ${className}`}>
-      {/* 四角小印 */}
-      {cornerSeal && (
-        <>
-          <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2" style={{ borderColor: color }} />
-          <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2" style={{ borderColor: color }} />
-          <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2" style={{ borderColor: color }} />
-          <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2" style={{ borderColor: color }} />
-        </>
-      )}
-      {/* 顶部横额 */}
-      <div
-        className="absolute top-0 left-2 right-2 h-0.5"
-        style={{ background: `linear-gradient(90deg, transparent 0%, ${color} 20%, ${color} 80%, transparent 100%)` }}
-      />
-      {/* 底部横额 */}
-      <div
-        className="absolute bottom-0 left-2 right-2 h-0.5"
-        style={{ background: `linear-gradient(90deg, transparent 0%, ${color} 20%, ${color} 80%, transparent 100%)` }}
-      />
-      <div className="relative">{children}</div>
     </div>
   )
 }

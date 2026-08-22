@@ -104,13 +104,3 @@ export interface Poem {
   geoLabel?: string
 }
 
-/** 作者元数据（可选，详情弹窗用） */
-export interface AuthorMeta {
-  name: string
-  dynasty: PoemDynasty
-  /** 生卒年 */
-  life?: string
-  /** 一句话简介 */
-  shortBio: string
-}
-

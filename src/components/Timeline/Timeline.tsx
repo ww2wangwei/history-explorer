@@ -205,6 +205,41 @@ export default function Timeline() {
     return labels
   }, [visibleEvents, xScale, width, yearSpan])
 
+  // P0: 附近事件浮窗
+  // 窗口大小 = max(yearSpan * 0.15, 8)，约「视野 15%」或最少 ±8 年
+  // 这样缩放越小窗口越大（看不到细节时给更多 context），缩放越大窗口越小（聚焦当前年）
+  const nearbyWindow = Math.max(Math.round(yearSpan * 0.15), 8)
+  const nearbyEvents = useMemo(() => {
+    const y = currentYear
+    let list = events.filter(
+      e => e.year >= y - nearbyWindow && e.year <= y + nearbyWindow
+    )
+    if (filters.categories.length > 0) {
+      list = list.filter(e => filters.categories.includes(e.category))
+    }
+    if (filters.regions.length > 0) {
+      list = list.filter(e => filters.regions.includes(e.region))
+    }
+    if (filters.minImportance > 1) {
+      list = list.filter(e => e.importance >= filters.minImportance)
+    }
+    return list
+      .slice()
+      .sort((a, b) => Math.abs(a.year - y) - Math.abs(b.year - y) || b.importance - a.importance)
+  }, [currentYear, nearbyWindow, filters])
+
+  // 浮窗显示：拖动时 + 释放后 1.2s（让用户看到落点附近事件）
+  const [showPanel, setShowPanel] = useState(false)
+  useEffect(() => {
+    if (isDragging) {
+      setShowPanel(true)
+      return
+    }
+    if (!showPanel) return
+    const t = setTimeout(() => setShowPanel(false), 1200)
+    return () => clearTimeout(t)
+  }, [isDragging, showPanel])
+
   // 鼠标坐标 → 年份的转换
   const clientXToYear = useCallback(
     (clientX: number): number => {
@@ -558,6 +593,88 @@ export default function Timeline() {
           style={{ pointerEvents: 'none' }}
         />
       </svg>
+
+      {/* P0: 拖动时附近事件浮窗（绝对定位在 currentYear 上方） */}
+      {nearbyEvents.length > 0 && (
+        <div
+          className={`absolute z-20 pointer-events-none transition-opacity duration-200 ${
+            showPanel ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{
+            // 锚到 currentX，左侧不超出 4px，右侧保留 4px
+            left: Math.max(4, Math.min(width - 284, currentX - 140)),
+            // 浮在时间轴上方（容器高 150）
+            bottom: 156,
+            width: 280,
+          }}
+        >
+          <div
+            className="bg-ink-800/97 backdrop-blur border border-ink-600 rounded-md shadow-xl pointer-events-auto"
+            style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04)' }}
+          >
+            {/* 头部 */}
+            <div className="px-3 py-1.5 border-b border-ink-700 flex items-center justify-between">
+              <div className="text-[10px] text-faint font-serif tracking-wide">
+                {formatYearShort(currentYear)} 附近 · {nearbyWindow} 年
+              </div>
+              <div className="text-[10px] text-vermilion-300 font-bold">
+                {nearbyEvents.length} 事件
+              </div>
+            </div>
+
+            {/* 事件列表（按距离排序，最多 5 个） */}
+            <div className="py-1 max-h-[160px] overflow-y-auto">
+              {nearbyEvents.slice(0, 5).map(ev => {
+                const yearDelta = ev.year - currentYear
+                const deltaStr =
+                  yearDelta === 0
+                    ? '本年'
+                    : yearDelta > 0
+                    ? `+${yearDelta}年`
+                    : `${yearDelta}年`
+                return (
+                  <button
+                    key={ev.id}
+                    onClick={() => {
+                      selectEvent(ev.id)
+                      setYear(ev.year)
+                    }}
+                    className="w-full px-2.5 py-1 flex items-center gap-2 hover:bg-vermilion-500/15 transition-colors text-left group"
+                  >
+                    <span
+                      className="w-2 h-2 rounded-full shrink-0"
+                      style={{ backgroundColor: CATEGORY_COLORS[ev.category] }}
+                    />
+                    <span className="text-[11px] text-parchment flex-1 truncate group-hover:text-vermilion-200">
+                      {ev.title}
+                    </span>
+                    <span className="text-[10px] text-faint tabular-nums shrink-0">
+                      {formatYearShort(ev.year)}
+                    </span>
+                    <span
+                      className={`text-[9px] tabular-nums shrink-0 ${
+                        yearDelta === 0
+                          ? 'text-vermilion-300 font-bold'
+                          : 'text-faint'
+                      }`}
+                    >
+                      {deltaStr}
+                    </span>
+                    {ev.importance === 3 && (
+                      <span className="text-vermilion-400 text-[9px] shrink-0">★</span>
+                    )}
+                  </button>
+                )
+              })}
+              {nearbyEvents.length > 5 && (
+                <div className="px-2.5 py-1 text-[9px] text-faint text-center">
+                  还有 {nearbyEvents.length - 5} 个事件未显示…
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 缩放控制按钮（右上角） */}
       <div className="absolute right-2 top-2 flex items-center gap-1 z-10">

@@ -67,7 +67,7 @@ export default function GeoFeatureFilter() {
             ? 'bg-vermilion-500 border-bronze-300 text-parchment-50'
             : 'bg-ink-900/95 border-vermilion-500/40/80 text-vermilion-300 hover:bg-ink-800 hover:border-bronze-300'
         }`}
-        style={{ top: '90px' }}
+        style={{ top: '70px' }}
       >
         🗺 图层
         {onCount + amapOnCount > 0 && (
@@ -78,8 +78,8 @@ export default function GeoFeatureFilter() {
       {/* 面板 */}
       {open && (
         <div
-          className="absolute left-2 z-50 w-72 max-h-[70vh] overflow-y-auto scrollbar-thin rounded-lg border border-vermilion-500/40 bg-ink-800/95 backdrop-blur shadow-2xl p-3"
-          style={{ top: '135px' }}
+          className="absolute left-2 z-50 w-72 max-h-[55vh] overflow-y-auto scrollbar-thin rounded-lg border border-vermilion-500/40 bg-ink-800/95 backdrop-blur shadow-2xl p-3"
+          style={{ top: '115px' }}
           role="dialog"
           aria-label="地理要素图层"
         >
@@ -148,40 +148,6 @@ export default function GeoFeatureFilter() {
                     </label>
                   )
                 })}
-              </div>
-
-              {/* 2D / 3D 切换 */}
-              <div className="pt-2 mt-2 border-t border-ink-700">
-                <div className="text-[10px] text-ink-400 mb-1.5">视图模式</div>
-                <div className="flex gap-1">
-                  <button
-                    onClick={() => viewMode !== '2D' && setViewMode('2D')}
-                    className={`flex-1 px-2 py-1.5 text-xs rounded transition-colors ${
-                      viewMode === '2D'
-                        ? 'bg-vermilion-500 text-parchment-50 font-serif'
-                        : 'bg-ink-900 text-ink-400 hover:bg-ink-700 hover:text-parchment-50'
-                    }`}
-                    title="标准平面地图"
-                  >
-                    🗺 2D 平面
-                  </button>
-                  <button
-                    onClick={() => viewMode !== '3D' && setViewMode('3D')}
-                    className={`flex-1 px-2 py-1.5 text-xs rounded transition-colors ${
-                      viewMode === '3D'
-                        ? 'bg-vermilion-500 text-parchment-50 font-serif'
-                        : 'bg-ink-900 text-ink-400 hover:bg-ink-700 hover:text-parchment-50'
-                    }`}
-                    title="立体透视图，可俯仰/旋转（鼠标右键拖动 / Ctrl+左键拖动）"
-                  >
-                    🏔 3D 立体
-                  </button>
-                </div>
-                {viewMode === '3D' && (
-                  <div className="text-[10px] text-ink-500 mt-1.5 leading-relaxed">
-                    切换时会重建地图（保留中心/缩放）。3D 模式下右键拖动调整俯仰角，左键拖动旋转。
-                  </div>
-                )}
               </div>
 
               <div className="text-[10px] text-ink-500 mt-2 leading-relaxed pt-2 border-t border-ink-700">
@@ -290,6 +256,40 @@ export default function GeoFeatureFilter() {
               </div>
             </>
           )}
+
+          {/* 2D / 3D 切换 — 任何 tab 都可见（固定底部） */}
+          <div className="pt-2 mt-2 border-t border-ink-700">
+            <div className="text-[10px] text-ink-400 mb-1.5">视图模式</div>
+            <div className="flex gap-1">
+              <button
+                onClick={() => viewMode !== '2D' && setViewMode('2D')}
+                className={`flex-1 px-2 py-1.5 text-xs rounded transition-colors ${
+                  viewMode === '2D'
+                    ? 'bg-vermilion-500 text-parchment-50 font-serif'
+                    : 'bg-ink-900 text-ink-400 hover:bg-ink-700 hover:text-parchment-50'
+                }`}
+                title="标准平面地图"
+              >
+                🗺 2D 平面
+              </button>
+              <button
+                onClick={() => viewMode !== '3D' && setViewMode('3D')}
+                className={`flex-1 px-2 py-1.5 text-xs rounded transition-colors ${
+                  viewMode === '3D'
+                    ? 'bg-vermilion-500 text-parchment-50 font-serif'
+                    : 'bg-ink-900 text-ink-400 hover:bg-ink-700 hover:text-parchment-50'
+                }`}
+                title="立体透视图（右键拖动调俯仰角）"
+              >
+                🏔 3D 立体
+              </button>
+            </div>
+            {viewMode === '3D' && (
+              <div className="text-[10px] text-ink-500 mt-1.5 leading-relaxed">
+                切换会重建地图（保留中心/缩放）。3D 模式右键拖动调俯仰角，左键拖动旋转。
+              </div>
+            )}
+          </div>
         </div>
       )}
     </>

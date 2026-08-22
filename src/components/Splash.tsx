@@ -144,7 +144,7 @@ export default function Splash({ onDone }: Props) {
           <circle cx="30" cy="30" r="9" opacity="0.7" />
           <circle cx="48" cy="22" r="3" opacity="0.5" />
           <circle cx="20" cy="42" r="2" opacity="0.4" />
-          <path d="M 24 12 Q 18 4 12 0" stroke="#0e0c0a" stroke-width="0.9" fill="none" opacity="0.5" />
+          <path d="M 24 12 Q 18 4 12 0" stroke="#0e0c0a" strokeWidth="0.9" fill="none" opacity="0.5" />
         </g>
       </svg>
       <svg
@@ -155,7 +155,7 @@ export default function Splash({ onDone }: Props) {
         <g fill="#0e0c0a">
           <circle cx="22" cy="22" r="8" opacity="0.6" />
           <circle cx="46" cy="36" r="2.5" opacity="0.5" />
-          <path d="M 18 8 Q 12 0 8 -4" stroke="#0e0c0a" stroke-width="0.8" fill="none" opacity="0.4" />
+          <path d="M 18 8 Q 12 0 8 -4" stroke="#0e0c0a" strokeWidth="0.8" fill="none" opacity="0.4" />
         </g>
       </svg>
 

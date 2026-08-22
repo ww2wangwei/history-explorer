@@ -215,7 +215,7 @@ export default function Timeline() {
   // P0: 附近事件浮窗
   // 窗口大小 = max(yearSpan * 0.15, 8)，约「视�?15%」或最�?±8 �?
   // 这样缩放越小窗口越大（看不到细节时给更多 context），缩放越大窗口越小（聚焦当前年�?
-  const nearbyWindow = Math.max(Math.round(yearSpan * 0.15), 8)
+  const nearbyWindow = Math.min(Math.max(Math.round(yearSpan * 0.15), 8), 200)
   const nearbyEvents = useMemo(() => {
     const y = currentYear
     let list = events.filter(

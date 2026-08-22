@@ -97,7 +97,9 @@ function defaultVisible(): Record<GeoLayerKey, boolean> {
 }
 
 function defaultAmapFeatures(): AmapFeatureKey[] {
-  return [...ALL_AMAP_KEYS]
+  // 默认关闭 POI/道路/建筑 — 这些图层瓦片极重，拖动会卡
+  // 水系/陆地/标注/遮罩/绿地保留
+  return ALL_AMAP_KEYS.filter(k => AMAP_FEATURE_META[k].defaultOn)
 }
 
 export const useMapLayersStore = create<MapLayersState>()(
@@ -148,9 +150,18 @@ export const useMapLayersStore = create<MapLayersState>()(
         if (persisted && persisted.showCloud === undefined) {
           persisted.showCloud = false
         }
+        // v5: 老用户的 amapFeatures 可能含 POI/道路/建筑（极重，拖动卡），迁移时过滤掉
+        if (persisted && Array.isArray(persisted.amapFeatures)) {
+          persisted.amapFeatures = persisted.amapFeatures.filter(
+            (k: string) => {
+              const meta = (AMAP_FEATURE_META as any)[k]
+              return meta && meta.defaultOn
+            }
+          )
+        }
         return persisted
       },
-      version: 4,
+      version: 5,
     },
   ),
 )

@@ -102,6 +102,22 @@
    全局 UI 效果  (墨·朱砂 v2)
    ============================================ */
 
+/* 🎯 关键性能 hint：把 AMap 内部元素强制推到 GPU 合成层
+   解决「DevTools 打开流畅、关闭就卡」的 Chrome 启发式 GPU/CPU 决策问题
+   （外层 div 的 transform 不会传给内部 canvas，必须直接命中 AMap 元素） */
+.amap-container,
+.amap-container canvas,
+.amap-layer,
+.amap-markers,
+.amap-marker,
+.amap-text {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
 /* 🔆 Hover shine（扫光）—— 在任意容器加 .shine-on-hover 即可 */
 .shine-on-hover { position: relative; overflow: hidden; }
 .shine-on-hover::before {

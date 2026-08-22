@@ -764,7 +764,7 @@ export default function Timeline() {
             {/* 头部 */}
             <div className="px-3 py-1.5 border-b border-ink-700 flex items-center justify-between">
               <div className="text-[10px] text-ink-300 font-serif tracking-wide">
-                {formatYearShort(currentYear)} 附近 · {nearbyWindow} �?
+                {formatYearShort(currentYear)} 附近 · {nearbyWindow} 年
               </div>
               <div className="text-[10px] text-vermilion-300 font-bold">
                 {nearbyEvents.length} 事件

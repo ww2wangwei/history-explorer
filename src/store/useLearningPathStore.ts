@@ -10,7 +10,16 @@ import { persist, createJSONStorage } from 'zustand/middleware'
 import { getEras } from '@/data/sharedDataLoader'
 import type { Era } from '@/types'
 
-const eras = getEras()
+// 🎯 修复：之前 const eras = getEras() 在模块加载时执行，那时 _data 还是 EMPTY
+//   → eras 永久 []。改成函数内部按需取最新值。
+function getErasSafe(): Era[] {
+  try {
+    return getEras() ?? []
+  } catch {
+    return []
+  }
+}
+const eras = getErasSafe()
 
 export type PathId = 'timeline' | 'crossReference' | 'eraDetail' | 'review' | 'allFigures' | 'allWars' | 'allCultures' | 'allGeography' | 'allPoems' | 'civilizations' | 'allArts' | 'worldHistory' | 'timeTravel' | 'allQuestions'
 
@@ -212,12 +221,15 @@ export const useLearningPathStore = create<LearningPathState>()(
 
       recommendNext: (currentYear, lastSelectedEraId, eraSelectionHistory) => {
         const visitedTimeline = new Set(get().progressByPath.timeline?.visitedEraIds ?? [])
+        // 🎯 修复：每次调用都从 sharedDataLoader 取最新数据
+        //   （之前用模块级常量，数据未加载完时永久是 []）
+        const liveEras = getErasSafe()
 
         // 优先级 1: 用户最近撤销过 — 推荐刚才看的朝代
         if (lastSelectedEraId && eraSelectionHistory && eraSelectionHistory.length > 0) {
           const historyTraverse = eraSelectionHistory[eraSelectionHistory.length - 1]
           if (historyTraverse && historyTraverse !== lastSelectedEraId) {
-            const era = eras.find(e => e.id === historyTraverse)
+            const era = liveEras.find(e => e.id === historyTraverse)
             if (era) {
               return { eraId: historyTraverse, era, reason: '回退到你之前看过的朝代' }
             }
@@ -225,7 +237,7 @@ export const useLearningPathStore = create<LearningPathState>()(
         }
 
         // 优先级 2: 推荐当前 year 附近、没在 timeline 学过的最早朝代
-        const sorted = eras.slice().sort((a, b) => Math.abs(a.startYear - currentYear) - Math.abs(b.startYear - currentYear))
+        const sorted = liveEras.slice().sort((a, b) => Math.abs(a.startYear - currentYear) - Math.abs(b.startYear - currentYear))
         for (const era of sorted) {
           if (!visitedTimeline.has(era.id)) {
             const yrLabel = currentYear < 0 ? `公元前${-currentYear}` : currentYear

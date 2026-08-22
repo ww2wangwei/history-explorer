@@ -32,9 +32,9 @@ import { ScrollEdge, Seal, GreekKeyDivider, CloudDivider } from '@/components/ui
 
 // 🎯 性能优化：data 改用懒加载共享 loader — 不再静态 import，eras.json + events.json
 //   从主 bundle 拆出。数据未到位时 eras/events 为空数组（useCoreDataReady 检测）。
+// 🎯 修复：之前 const eras = getEras() 在模块加载时执行，那时 _data 还是 EMPTY
+//   → eras 永久 []。改用 useMemo + useCoreDataReady gate。
 import { getEras, getEvents, useCoreDataReady } from '@/data/sharedDataLoader'
-const eras = getEras()
-const events = getEvents()
 const builtinQuestionList = builtinQuestions as Question[]
 
 interface Props {
@@ -81,6 +81,9 @@ const PATH_TOTALS: Record<string, number> = {
 export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLadder }: Props) {
   // 🎯 性能优化：核心数据 (eras/events) 懒加载，未到位时显示极简 loading
   const dataReady = useCoreDataReady()
+  // 🎯 修复：dataReady 翻转时，从 sharedDataLoader 取最新数据
+  const eras = useMemo(() => (dataReady ? getEras() : []), [dataReady])
+  const events = useMemo(() => (dataReady ? getEvents() : []), [dataReady])
 
   const currentYear = useHistoryStore(s => s.currentYear)
   const setYear = useHistoryStore(s => s.setYear)

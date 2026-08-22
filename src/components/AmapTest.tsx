@@ -7,7 +7,7 @@
  *   - 用户可手动切换「山脉/河流/海洋」等叠加层（同时控制 AMap 自带的 POI 标签、
  *     水系标注等的 setFeatures 开关）。
  */
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { loadAmap } from '@/lib/amap/loader'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useMapLayersStore } from '@/store/useMapLayersStore'
@@ -19,9 +19,9 @@ import { bingImage, fallbackKeyword } from '@/utils/geoImage'
 import { summarizeEra, summarizeEvent } from '@/utils/summarize'
 import { wgs84ToGcj02 } from '@/utils/coordsTransform'
 // 🎯 性能优化：data 改用懒加载共享 loader — eras.json + events.json 从主 bundle 拆出
+// 🎯 修复：之前 const eras = getEras() 在模块加载时执行，那时 _data 还是 EMPTY → 永久缓存 []，
+//   导致 markers 永远为 0。改用函数调用 + useCoreDataReady gate。
 import { getEras, getEvents, useCoreDataReady } from '@/data/sharedDataLoader'
-const erasData = getEras()
-const eventsData = getEvents()
 import { createMapMarker } from '@/lib/amap/markers'
 import { getClampedScreenPoint } from '@/lib/amap/mapHelpers'
 import { getReopenEvent } from '@/lib/reopenRoutes'
@@ -32,10 +32,7 @@ import CloudOverlayLayer from '@/components/Map/CloudOverlayLayer'
 import type { ReopenKind } from '@/lib/reopenRoutes'
 import type { Era, HistoricalEvent } from '@/types'
 
-const eras = erasData as Era[]
-const events = eventsData as HistoricalEvent[]
-
-function getChinaEraAtYear(year: number): Era | null {
+function getChinaEraAtYear(year: number, eras: Era[]): Era | null {
   const chinaEras = eras.filter(e => e.region === 'china')
   return chinaEras.find(e => year >= e.startYear && year <= e.endYear) ?? null
 }
@@ -101,6 +98,10 @@ export default function AmapTest() {
   // React 18 自动 batching 已合并同帧内的多次 setState，
   // 不需要手动 debounce。
   const markerYear = currentYear
+  // 🎯 关键修复：数据加载状态（之前 eras/events 是模块加载时的 []，永远不变）
+  const dataReady = useCoreDataReady()
+  const eras = useMemo(() => (dataReady ? getEras() : []), [dataReady])
+  const events = useMemo(() => (dataReady ? getEvents() : []), [dataReady])
   const selectEra = useHistoryStore(s => s.selectEra)
   const selectEvent = useHistoryStore(s => s.selectEvent)
   const setYear = useHistoryStore(s => s.setYear)
@@ -455,7 +456,7 @@ export default function AmapTest() {
     const jumpSuppressUntil = useHistoryStore.getState().jumpSuppressUntil
     if (jumpSuppressUntil > Date.now()) return
 
-    const chinaEra = getChinaEraAtYear(currentYear)
+    const chinaEra = getChinaEraAtYear(currentYear, eras)
     let chinaToShow = chinaEra
     if (!chinaToShow) {
       const chinaEras = eras.filter(e => e.region === 'china' && e.capital)
@@ -487,6 +488,9 @@ export default function AmapTest() {
     if (!map) return
     const A = (window as any).AMap
     if (!A) return
+    // 🎯 关键 gate：dataReady 之前 eras/events 还是 []，跳过重建
+    //   等数据加载完，dataReady 翻转 → 重新跑这个 effect 用真实数据
+    if (!dataReady) return
 
     // 清理旧 markers + labels（关键：text 标签也要清，否则年年累积）
     try { map.remove(markersRef.current) } catch { /* ignore */ }
@@ -498,7 +502,7 @@ export default function AmapTest() {
     eventMarkersRef.current = []
     eventLabelsRef.current = []
 
-    const chinaEra = getChinaEraAtYear(markerYear)
+    const chinaEra = getChinaEraAtYear(markerYear, eras)
     const jumpSuppressUntil = useHistoryStore.getState().jumpSuppressUntil
     const isSuppressed = jumpSuppressUntil > Date.now()
     // 🎯 UX 修复：当前年份若没有中国朝代（pre-Qin / 1912+），
@@ -604,7 +608,7 @@ export default function AmapTest() {
         if (res.label) eventLabelsRef.current.push(res.label)
       }
     })
-  }, [markerYear, selectEra, selectEvent, setYear])
+  }, [markerYear, dataReady, selectEra, selectEvent, setYear])
 
   // mapFocusTarget 跳转
   useEffect(() => {

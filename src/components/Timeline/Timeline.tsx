@@ -1,16 +1,20 @@
 ﻿import { useRef, useState, useCallback, useMemo, useEffect } from 'react'
 import { scaleLinear } from 'd3-scale'
 import { useHistoryStore, MIN_ZOOM, MAX_ZOOM, visibleYearSpan } from '@/store/useHistoryStore'
-import { TIME_RANGE, CATEGORY_COLORS, type HistoricalEvent } from '@/types'
+import { TIME_RANGE, CATEGORY_COLORS, type HistoricalEvent, type EventCategory } from '@/types'
 import { formatYearShort } from '@/utils/time'
 import eventsData from '@/data/events.json'
 import erasData from '@/data/eras.json'
 import type { Era } from '@/types'
 
+// P2: 时间轴分类 chip 行
+const ALL_CATEGORIES: EventCategory[] = ['政治', '经济', '文化', '军事', '科技', '思想', '外交']
+
 const events = eventsData as HistoricalEvent[]
 const eras = erasData as Era[]
 
 const TIMELINE_HEIGHT = 178
+const CHIP_ROW_HEIGHT = 30
 const PADDING_X = 40
 const RULER_HEIGHT = 24
 // 朝代色带（中国朝代）区域 �?�?1 �?
@@ -41,6 +45,8 @@ export default function Timeline() {
     setTimelineView,
     selectEvent,
     filters,
+    toggleCategory,
+    resetFilters,
   } = useHistoryStore()
 
   // 监听容器宽度变化
@@ -351,12 +357,59 @@ export default function Timeline() {
     setTimelineView(currentYear, 1)
   }
 
+  // P2: 是否有任何分类筛选激活
+  const hasCategoryFilter = filters.categories.length > 0
+
   return (
-    <div
-      ref={containerRef}
-      className="w-full bg-ink-800/95 backdrop-blur border-t border-ink-600 select-none relative"
-      style={{ height: TIMELINE_HEIGHT }}
-    >
+    <div className="w-full bg-ink-800/95 backdrop-blur border-t border-ink-600 select-none relative">
+      {/* P2: 分类 chip 行（顶部） */}
+      <div
+        className="flex items-center gap-1 px-3 border-b border-ink-700/60"
+        style={{ height: CHIP_ROW_HEIGHT }}
+      >
+        <span className="text-[10px] text-ink-400 mr-1 shrink-0">分类</span>
+        {ALL_CATEGORIES.map(cat => {
+          const active = filters.categories.includes(cat)
+          return (
+            <button
+              key={cat}
+              onClick={() => toggleCategory(cat)}
+              className={`px-2 py-0.5 rounded-md text-[11px] border transition-all flex items-center gap-1 shrink-0 ${
+                active
+                  ? 'border-current'
+                  : 'border-ink-700 text-ink-500 hover:border-ink-500 hover:text-ink-300'
+              }`}
+              style={{
+                background: active ? `${CATEGORY_COLORS[cat]}28` : 'transparent',
+                color: active ? CATEGORY_COLORS[cat] : undefined,
+              }}
+              title={active ? `取消筛选 ${cat}` : `只看 ${cat}`}
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full"
+                style={{ backgroundColor: CATEGORY_COLORS[cat] }}
+              />
+              {cat}
+            </button>
+          )
+        })}
+        {hasCategoryFilter && (
+          <button
+            onClick={resetFilters}
+            className="ml-auto text-[10px] text-ink-400 hover:text-vermilion-300 transition-colors shrink-0"
+            title="清除所有筛选"
+          >
+            ✕ 清除
+          </button>
+        )}
+      </div>
+
+      {/* 时间轴主体 */}
+      <div
+        ref={containerRef}
+        className="w-full relative"
+        style={{ height: TIMELINE_HEIGHT }}
+      >
       <svg
         ref={svgRef}
         width={width}
@@ -624,8 +677,9 @@ export default function Timeline() {
           className="absolute z-30 pointer-events-none"
           style={{
             // 锚到 marker x，左右不超出边界
+            // bottom = TIMELINE_HEIGHT + CHIP_ROW_HEIGHT + 6 = 178 + 30 + 6
             left: Math.max(4, Math.min(width - 284, hoveredEventX - 140)),
-            bottom: 184,
+            bottom: 214,
             width: 280,
           }}
         >
@@ -696,10 +750,10 @@ export default function Timeline() {
             showPanel ? 'opacity-100' : 'opacity-0'
           }`}
           style={{
-            // 锚到 currentX，左侧不超出 4px，右侧保�?4px
+            // 锚到 currentX，左侧不超出 4px，右侧保留 4px
             left: Math.max(4, Math.min(width - 284, currentX - 140)),
-            // 浮在时间轴上方（容器�?150�?
-            bottom: 184,
+            // 浮在时间轴上方（避开 P2 chip 行 30px）
+            bottom: 214,
             width: 280,
           }}
         >
@@ -802,6 +856,7 @@ export default function Timeline() {
       {/* 操作提示 */}
       <div className="absolute right-16 top-2.5 text-[9px] text-faint z-10 pointer-events-none">
         滚轮缩放 · 拖拽平移
+      </div>
       </div>
     </div>
   )

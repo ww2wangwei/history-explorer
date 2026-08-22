@@ -23,6 +23,10 @@ export interface HistoricalEvent {
   warImpact?: string;
   /** 战争专用：发生地点/国家 */
   country?: string;
+  /** 视频：YouTube 视频 ID（11 位），用于详情面板嵌入 youtube-nocookie iframe */
+  videoId?: string;
+  /** 视频标题（可选，用于 tooltip/无障碍） */
+  videoTitle?: string;
 }
 
 // 历史人物

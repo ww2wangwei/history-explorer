@@ -108,6 +108,36 @@ export default function EventDetail({ eventId }: Props) {
         {event.description}
       </div>
 
+      {/* 📺 视频：YouTube 隐私嵌入（youtube-nocookie） */}
+      {event.videoId && (
+        <div className="mb-4">
+          <div className="text-xs text-ink-300 mb-1.5 flex items-center gap-1">
+            📺 相关视频
+            <span className="text-ink-500">·</span>
+            <span className="text-ink-500 text-[10px]">点击播放（YouTube）</span>
+          </div>
+          <div
+            className="relative w-full rounded-lg overflow-hidden border border-ink-600 bg-ink-900"
+            style={{ paddingTop: '56.25%' /* 16:9 */ }}
+          >
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src={`https://www.youtube-nocookie.com/embed/${event.videoId}?rel=0&modestbranding=1`}
+              title={event.videoTitle || event.title}
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
+          </div>
+          {event.videoTitle && (
+            <div className="text-[10px] text-ink-500 mt-1 truncate" title={event.videoTitle}>
+              {event.videoTitle}
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="flex gap-2 flex-wrap text-xs mb-4">
         <span className="px-2 py-1 rounded-lg bg-ink-700 text-ink-300 border border-ink-500/40">
           ⭐ 重要度 {event.importance}/3

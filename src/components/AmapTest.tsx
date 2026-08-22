@@ -201,6 +201,18 @@ export default function AmapTest() {
         setError(null)
         setMapReady(true)
 
+        // 🎯 Pre-warm：地图 ready 后立即触发一次轻刷新，让 AMap 在 idle 期加载首屏瓦片
+        // 避免用户拖动时 5s 冻结（第一次拖动触发大量 lazy 工作）
+        if (typeof (window as any).requestIdleCallback === 'function') {
+          ;(window as any).requestIdleCallback(() => {
+            try { map.setCenter(map.getCenter()) } catch { /* noop */ }
+          }, { timeout: 1000 })
+        } else {
+          setTimeout(() => {
+            try { map.setCenter(map.getCenter()) } catch { /* noop */ }
+          }, 500)
+        }
+
         // 地图任意点点击：反向地理编码 → 弹 AI 窗口介绍这块地
         // 必须挂在 init effect 里，否则 viewMode 切换重建后 handler 不重新挂上
         const onMapClick = (e: any) => {

@@ -18,15 +18,15 @@ const TIMELINE_HEIGHT = 178
 const CHIP_ROW_HEIGHT = 30
 const PADDING_X = 40
 const RULER_HEIGHT = 24
-// 朝代色带（中国朝代）区域 �?�?1 �?
+// 朝代色带（中国朝代）区域 — 第 1 行
 const ERA_BAND_TOP = RULER_HEIGHT + 22
 const ERA_BAND_HEIGHT = 14
-// 世界文明色带 �?最�?WORLD_BAND_ROWS 行（甘特式分层）
+// 世界文明色带 — 最多 WORLD_BAND_ROWS 行（甘特式分层）
 const WORLD_BAND_ROWS = 4
 const WORLD_BAND_ROW_GAP = 3
 const WORLD_BAND_HEIGHT = 11
 const WORLD_BAND_TOP = ERA_BAND_TOP + ERA_BAND_HEIGHT + 8
-// 事件区域（在世界色带之后�?
+// 事件区域（在世界色带之后）
 const EVENTS_AREA_TOP = WORLD_BAND_TOP + WORLD_BAND_ROWS * (WORLD_BAND_HEIGHT + WORLD_BAND_ROW_GAP) + 10
 const EVENTS_CY = EVENTS_AREA_TOP + 20
 
@@ -62,12 +62,12 @@ export default function Timeline() {
     return () => observer.disconnect()
   }, [])
 
-  // 当前可见的年份范�?
+  // 当前可见的年份范围
   const yearSpan = visibleYearSpan(timelineZoom)
   const viewMin = timelineCenterYear - yearSpan / 2
   const viewMax = timelineCenterYear + yearSpan / 2
 
-  // 年份 �?x 坐标的映�?
+  // 年份 → x 坐标的映射
   const xScale = useMemo(
     () =>
       scaleLinear()
@@ -77,7 +77,7 @@ export default function Timeline() {
     [viewMin, viewMax, width]
   )
 
-  // 计算主刻度（基于当前 zoom 级别智能选择步长�?
+  // 计算主刻度（基于当前 zoom 级别智能选择步长）
   const majorStep = useMemo(() => {
     const totalSpan = yearSpan
     if (totalSpan > 3000) return 500
@@ -92,7 +92,7 @@ export default function Timeline() {
 
   const minorStep = majorStep / 5
 
-  // 主刻度（仅在视图范围内的�?
+  // 主刻度（仅在视图范围内的）
   const majorTicks = useMemo(() => {
     const startTick = Math.ceil(viewMin / majorStep) * majorStep
     const ticks: number[] = []
@@ -104,7 +104,7 @@ export default function Timeline() {
     return ticks
   }, [viewMin, viewMax, majorStep])
 
-  // 次刻�?
+  // 次刻度
   const minorTicks = useMemo(() => {
     if (minorStep < 1) return []
     const startTick = Math.ceil(viewMin / minorStep) * minorStep
@@ -120,17 +120,17 @@ export default function Timeline() {
   // 当前年份 x 坐标
   const currentX = xScale(currentYear)
 
-  // 可见事件：根据缩放级别智能过�?+ 用户筛�?
+  // 可见事件：根据缩放级别智能过滤 + 用户筛选
   // - zoom 小（视野广）：只显示高重要度事件
-  // - zoom 大（视野窄）：显示所有事�?
-  // - 应用用户筛选条件（分类、地区、重要度�?
+  // - zoom 大（视野窄）：显示所有事件
+  // - 应用用户筛选条件（分类、地区、重要度）
   const visibleEvents = useMemo(() => {
     const tolerance = Math.min(yearSpan * 0.3, 1500)
     let filtered = events.filter(
       e => e.year >= viewMin - tolerance && e.year <= viewMax + tolerance
     )
 
-    // 应用用户筛�?
+    // 应用用户筛选
     if (filters.categories.length > 0) {
       filtered = filtered.filter(e => filters.categories.includes(e.category))
     }
@@ -158,15 +158,15 @@ export default function Timeline() {
       .sort((a, b) => a.startYear - b.startYear)
   }, [viewMin, viewMax])
 
-  // 世界文明色带（甘特式分层�?
-  // 1) 视野过宽时只保留持续时间最长的文明（避免几十个重叠爆炸�?
-  // 2) �?startYear 排序后贪心分层：每个文明放到第一个不重叠的行
+  // 世界文明色带（甘特式分层）
+  // 1) 视野过宽时只保留持续时间最长的文明（避免几十个重叠爆炸）
+  // 2) 按 startYear 排序后贪心分层：每个文明放到第一个不重叠的行
   const worldBands = useMemo(() => {
     const candidates = eras.filter(
       e => e.region !== 'china' && e.endYear >= viewMin && e.startYear <= viewMax
     )
     if (candidates.length === 0) return []
-    // 视野越宽，保留的候选越�?
+    // 视野越宽，保留的候选越少
     const maxCandidates = yearSpan > 3000 ? 14 : yearSpan > 1500 ? 18 : yearSpan > 700 ? 24 : 40
     const ranked = candidates
       .slice()
@@ -192,13 +192,13 @@ export default function Timeline() {
         rows.push([{ era, x0, x1 }])
       }
     }
-    // 压平并附上行�?
+    // 压平并附上行号
     const result: { era: Era; row: number; x0: number; x1: number }[] = []
     rows.forEach((row, r) => row.forEach(b => result.push({ era: b.era, row: r, x0: b.x0, x1: b.x1 })))
     return result
   }, [viewMin, viewMax, xScale, width, yearSpan])
 
-  // 高缩放时给重要事件显示标题标签（避免重叠：至少隔 64px�?
+  // 高缩放时给重要事件显示标题标签（避免重叠：至少隔 64px）
   const labeledEvents = useMemo(() => {
     if (yearSpan > 100) return []
     const labels: HistoricalEvent[] = []
@@ -215,8 +215,8 @@ export default function Timeline() {
   }, [visibleEvents, xScale, width, yearSpan])
 
   // P0: 附近事件浮窗
-  // 窗口大小 = max(yearSpan * 0.15, 8)，约「视�?15%」或最�?±8 �?
-  // 这样缩放越小窗口越大（看不到细节时给更多 context），缩放越大窗口越小（聚焦当前年�?
+  // 窗口大小 = max(yearSpan * 0.15, 8)，约「视野 15%」或最少 ±8 年
+  // 这样缩放越小窗口越大（看不到细节时给更多 context），缩放越大窗口越小（聚焦当前年）
   const nearbyWindow = Math.min(Math.max(Math.round(yearSpan * 0.15), 8), 200)
   const nearbyEvents = useMemo(() => {
     const y = currentYear
@@ -271,7 +271,7 @@ export default function Timeline() {
     [hoveredEvent, xScale]
   )
 
-  // 鼠标坐标 �?年份的转�?
+  // 鼠标坐标 → 年份的转换
   const clientXToYear = useCallback(
     (clientX: number): number => {
       if (!svgRef.current) return currentYear
@@ -282,7 +282,7 @@ export default function Timeline() {
     [xScale, currentYear]
   )
 
-  // 鼠标按下开始拖�?
+  // 鼠标按下开始拖拽
   const handleMouseDown = (e: React.MouseEvent) => {
     // 不响应来自事件圆点的点击
     const target = e.target as SVGElement
@@ -308,7 +308,7 @@ export default function Timeline() {
 
       // 平移视口
       setTimelineView(newCenter, timelineZoom)
-      // 跟随移动当前年份（保持点击点不动�?
+      // 跟随移动当前年份（保持点击点不动）
       setYear(Math.round(newYear))
     }
     const handleUp = () => {
@@ -328,7 +328,7 @@ export default function Timeline() {
     (e: WheelEvent) => {
       if (!svgRef.current) return
       e.preventDefault()
-      // 计算缩放因子（向上滚放大、向下滚缩小�?
+      // 计算缩放因子（向上滚放大、向下滚缩小）
       const factor = e.deltaY < 0 ? 1.2 : 1 / 1.2
       const newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, timelineZoom * factor))
       if (newZoom === timelineZoom) return
@@ -431,7 +431,7 @@ export default function Timeline() {
         onMouseDown={handleMouseDown}
         className={isDragging ? 'cursor-grabbing' : 'cursor-grab'}
       >
-        {/* 当前年份大字号标注（朱砂�?*/}
+        {/* 当前年份大字号标注（朱砂）*/}
         <text
           x={currentX}
           y={16}
@@ -454,7 +454,7 @@ export default function Timeline() {
           {''}
         </text>
 
-        {/* 主轴线（柔和�?*/}
+        {/* 主轴线（柔和）*/}
         <line
           x1={PADDING_X}
           y1={RULER_HEIGHT}
@@ -465,7 +465,7 @@ export default function Timeline() {
           opacity={0.7}
         />
 
-        {/* 次刻�?*/}
+        {/* 次刻度 */}
         {minorTicks.map(year => (
           <line
             key={`minor-${year}`}
@@ -478,7 +478,7 @@ export default function Timeline() {
           />
         ))}
 
-        {/* 主刻�?+ 标签 */}
+        {/* 主刻度 + 标签 */}
         {majorTicks.map(year => (
           <g key={`major-${year}`}>
             <line
@@ -539,7 +539,7 @@ export default function Timeline() {
           )
         })}
 
-        {/* 世界文明色带（甘特式分层，最�?4 行，半透明�?*/}
+        {/* 世界文明色带（甘特式分层，最多 4 行，半透明）*/}
         {worldBands.map(({ era, row, x0, x1 }) => {
           const cy = WORLD_BAND_TOP + row * (WORLD_BAND_HEIGHT + WORLD_BAND_ROW_GAP)
           const clampedX0 = Math.max(x0, PADDING_X)
@@ -576,7 +576,7 @@ export default function Timeline() {
           )
         })}
 
-        {/* 事件引线（从世界色带下方延伸到事件点�?*/}
+        {/* 事件引线（从世界色带下方延伸到事件点）*/}
         {visibleEvents.map(event => {
           const ex = xScale(event.year)
           if (ex < PADDING_X - 10 || ex > width - PADDING_X + 10) return null
@@ -615,7 +615,7 @@ export default function Timeline() {
           )
         })}
 
-        {/* 事件标记点（�?importance 大小，hover 放大 + 触发自定�?tooltip�?*/}
+        {/* 事件标记点（按 importance 大小，hover 放大 + 触发自定义 tooltip）*/}
         {visibleEvents.map(event => {
           const ex = xScale(event.year)
           if (ex < PADDING_X - 10 || ex > width - PADDING_X + 10) return null
@@ -625,7 +625,7 @@ export default function Timeline() {
           const displayR = isHovered ? r * 1.5 : r
           return (
             <g key={event.id}>
-              {/* 透明放大命中区（让小圆点也容�?hover�?*/}
+              {/* 透明放大命中区（让小圆点也容易 hover）*/}
               <circle
                 data-role="event-hit"
                 cx={ex}
@@ -658,7 +658,7 @@ export default function Timeline() {
           )
         })}
 
-        {/* 当前年份指示线（朱砂�?*/}
+        {/* 当前年份指示线（朱砂）*/}
         <line
           x1={currentX}
           y1={RULER_HEIGHT - 14}
@@ -685,7 +685,7 @@ export default function Timeline() {
         />
       </svg>
 
-      {/* P1: hover 事件 tooltip（绝对定位在 marker 上方�?*/}
+      {/* P1: hover 事件 tooltip（绝对定位在 marker 上方）*/}
       {hoveredEvent && (
         <div
           className="absolute z-30 pointer-events-none"
@@ -701,7 +701,7 @@ export default function Timeline() {
             className="bg-ink-800 border-2 border-ink-600 rounded-md pointer-events-auto"
             style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06)' }}
           >
-            {/* 标题�?*/}
+            {/* 标题 */}
             <div className="px-3 pt-2 pb-1.5">
               <div className="flex items-start gap-2">
                 <span
@@ -821,7 +821,7 @@ export default function Timeline() {
               </div>
             )}
 
-            {/* 事件列表（按距离排序，最�?5 个） */}
+            {/* 事件列表（按距离排序，最多 5 个） */}
             <div className="py-1 max-h-[160px] overflow-y-auto">
               {nearbyEvents.slice(0, 5).map(ev => {
                 const yearDelta = ev.year - currentYear
@@ -875,7 +875,7 @@ export default function Timeline() {
         </div>
       )}
 
-      {/* 缩放控制按钮（右上角�?*/}
+      {/* 缩放控制按钮（右上角）*/}
       <div className="absolute right-2 top-2 flex items-center gap-1 z-10">
         <button
           className="w-6 h-6 rounded-md bg-ink-700/90 hover:bg-vermilion-500/30 border border-ink-600 text-vermilion-300 text-sm font-bold leading-none transition-colors"

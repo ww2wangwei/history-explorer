@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Post-commit hook: 提醒检查时间轴拖动地图功能
+# 安装方法：git config core.hooksPath .git-hooks （或运行 node scripts/install-map-check-hook.js）
+
+echo ""
+echo "═══════════════════════════════════════════════════════"
+echo "  📌 提醒：检查时间轴拖动地图功能是否正常"
+echo "═══════════════════════════════════════════════════════"
+echo "  1. dev server 跑着：npm run dev"
+echo "  2. 浏览器登录 API key"
+echo "  3. 跑：npm run verify:map"
+echo "  4. 看 3 张截图（dist/verify-before/during/after.png）"
+echo "     都城名 + 事件圆点 持续可见 → 正常"
+echo "     拖动后地图变空 → bug 复现"
+echo ""
+echo "  (跳过检查：SKIP_MAP_CHECK=1 git commit ...)"
+echo "═══════════════════════════════════════════════════════"

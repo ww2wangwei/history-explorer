@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "tsc --noEmit",
     "validate": "node scripts/validate-data.mjs",
-    "check": "npm run validate && npm run lint"
+    "check": "npm run validate && npm run lint",
+    "verify:map": "node tests/verify-map-markers.mjs"
   },
   "dependencies": {
     "@types/d3-force": "^3.0.10",

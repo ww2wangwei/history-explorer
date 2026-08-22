@@ -20,11 +20,11 @@ export function formatYear(year: number): string {
 
 /**
  * 简短年份显示（用于空间紧凑的地方）
- * "-221" / "1644"
+ * "公元前221" / "1644"
  */
 export function formatYearShort(year: number): string {
   if (year < 0) {
-    return `前${Math.abs(year)}`
+    return `公元前${Math.abs(year)}`
   }
   if (year === 0) {
     return '元年'
@@ -33,7 +33,7 @@ export function formatYearShort(year: number): string {
 }
 
 /**
- * 计算两个年份之间的时长（用于显示"持续了 X 年"）
+ * 计算两个年份之间的时长（用于显示"持续 X 年"）
  */
 export function durationYears(startYear: number, endYear: number): number {
   return Math.abs(endYear - startYear)

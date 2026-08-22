@@ -431,7 +431,7 @@ export default function Timeline() {
               fill="rgb(var(--text-secondary-rgb) / 1)"
               style={{ pointerEvents: 'none', userSelect: 'none' }}
             >
-              {year < 0 ? `�?{Math.abs(year)}` : year}
+              {year < 0 ? `公元前${Math.abs(year)}` : year}
             </text>
           </g>
         ))}
@@ -647,7 +647,7 @@ export default function Timeline() {
                   <div className="flex items-center gap-2 mt-1 text-[10px] text-ink-300">
                     <span className="tabular-nums">
                       {hoveredEvent.year < 0
-                        ? `公元�?${Math.abs(hoveredEvent.year)}`
+                        ? `公元前 ${Math.abs(hoveredEvent.year)}`
                         : hoveredEvent.year === 0
                         ? '公元元年'
                         : `公元 ${hoveredEvent.year}`}

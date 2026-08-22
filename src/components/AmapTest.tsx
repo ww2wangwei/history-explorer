@@ -699,7 +699,16 @@ export default function AmapTest() {
     <div className="w-full h-full relative">
       <div
         ref={containerRef}
-        style={{ position: 'absolute', inset: 0, zIndex: 0 }}
+        // 🎯 强制 GPU 合成层：避免 Chrome DevTools 关闭后拖动卡顿
+        //   （DevTools 打开时强制 GPU，关闭时退回 CPU → 容器无 transform 提示就退回 CPU 渲染）
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0,
+          transform: 'translateZ(0)',
+          willChange: 'transform',
+          contain: 'layout paint size',
+        }}
       />
       {/* 加载/错误状态（极简，不再显示调试 status 文本） */}
       {!mapReady && !error && (

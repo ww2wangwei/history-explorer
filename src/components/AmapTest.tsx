@@ -582,7 +582,7 @@ export default function AmapTest() {
     const eraEvents = events.filter(
       e => e.coordinates && e.importance >= 2 &&
            Math.abs(e.year - markerYear) <= 50
-    ).slice(0, 30)
+    ).slice(0, 15)  // 减少到 15 个：viewport 内同时显示的 markers 更少，地图拖动更快
     eraEvents.forEach(ev => {
       const [lng, lat] = wgs84ToGcj02(ev.coordinates!)
       const res = createMapMarker(map, {

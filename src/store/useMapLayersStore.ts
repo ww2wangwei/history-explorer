@@ -17,8 +17,8 @@ export type GeoLayerKey =
 
 /** 用于 UI 展示的层级元数据 */
 export const LAYER_META: Record<GeoLayerKey, { type: GeoFeatureType; label: string; icon: string; defaultOn: boolean; desc: string }> = {
-  rivers:      { type: 'river',       label: '河流',    icon: '🌊', defaultOn: true,  desc: '尼罗河、长江、黄河… 文明常傍河而兴' },
-  mountains:   { type: 'mountain',    label: '山脉',    icon: '⛰️',  defaultOn: true,  desc: '喜马拉雅、阿尔卑斯、安第斯… 文明的分界与庇护' },
+  rivers:      { type: 'river',       label: '河流',    icon: '🌊', defaultOn: false, desc: '尼罗河、长江、黄河… 文明常傍河而兴' },
+  mountains:   { type: 'mountain',    label: '山脉',    icon: '⛰️',  defaultOn: false, desc: '喜马拉雅、阿尔卑斯、安第斯… 文明的分界与庇护' },
   seas:        { type: 'sea',         label: '海洋',    icon: '🌀', defaultOn: false, desc: '地中海、红海、波斯湾…' },
   lakes:       { type: 'lake',        label: '湖泊',    icon: '💧', defaultOn: false, desc: '贝加尔湖、维多利亚湖…' },
   deserts:     { type: 'desert',      label: '沙漠',    icon: '🏜️',  defaultOn: false, desc: '撒哈拉、塔克拉玛干、阿拉伯…' },
@@ -40,9 +40,9 @@ export type AmapFeatureKey =
 
 export const AMAP_FEATURE_META: Record<AmapFeatureKey, { label: string; icon: string; defaultOn: boolean }> = {
   bg:         { label: '底图背景',    icon: '🎨', defaultOn: true },
-  point:      { label: 'POI 点',       icon: '📍', defaultOn: true },
-  road:       { label: '道路',        icon: '🛣️',  defaultOn: true },
-  building:   { label: '建筑',        icon: '🏢', defaultOn: true },
+  point:      { label: 'POI 点',       icon: '📍', defaultOn: false },  // POI 极多，默认关减少 tile 渲染
+  road:       { label: '道路',        icon: '🛣️',  defaultOn: false },  // 道路瓦片重，默认关
+  building:   { label: '建筑',        icon: '🏢', defaultOn: false },  // 3D 建筑瓦片重，默认关
   water:      { label: '水域面',       icon: '🌊', defaultOn: true },
   waterlabel: { label: '水系标注',     icon: '🏷️',  defaultOn: true },
   land:       { label: '陆地',        icon: '🗻', defaultOn: true },

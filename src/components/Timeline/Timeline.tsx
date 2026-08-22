@@ -3,6 +3,7 @@ import { scaleLinear } from 'd3-scale'
 import { useHistoryStore, MIN_ZOOM, MAX_ZOOM, visibleYearSpan } from '@/store/useHistoryStore'
 import { TIME_RANGE, CATEGORY_COLORS, type HistoricalEvent, type EventCategory } from '@/types'
 import { formatYearShort } from '@/utils/time'
+import { getActiveErasAtYear } from '@/utils/geo'
 import eventsData from '@/data/events.json'
 import erasData from '@/data/eras.json'
 import type { Era } from '@/types'
@@ -44,6 +45,7 @@ export default function Timeline() {
     setYear,
     setTimelineView,
     selectEvent,
+    selectEra,
     filters,
     toggleCategory,
     resetFilters,
@@ -235,7 +237,19 @@ export default function Timeline() {
       .sort((a, b) => Math.abs(a.year - y) - Math.abs(b.year - y) || b.importance - a.importance)
   }, [currentYear, nearbyWindow, filters])
 
-  // 浮窗显示：拖动时 + 释放�?1.2s（让用户看到落点附近事件�?
+  // P3: 当前年活跃朝代（中国朝代优先 + 最多 3 个世界文明）
+  const nearbyEras = useMemo(() => {
+    const active = getActiveErasAtYear(eras, currentYear)
+    const china = active.find(e => e.region === 'china')
+    const world = active
+      .filter(e => e.region !== 'china')
+      .slice() // 不影响原数组
+      .sort((a, b) => a.startYear - b.startYear)
+      .slice(0, 3)
+    return china ? [china, ...world] : world
+  }, [currentYear])
+
+  // 浮窗显示：拖动时 + 释放后 1.2s（让用户看到落点附近事件）
   const [showPanel, setShowPanel] = useState(false)
   useEffect(() => {
     if (isDragging) {
@@ -744,7 +758,7 @@ export default function Timeline() {
       )}
 
       {/* P0: 拖动时附近事件浮窗（绝对定位在 currentYear 上方）*/}
-      {nearbyEvents.length > 0 && (
+      {(nearbyEvents.length > 0 || nearbyEras.length > 0) && (
         <div
           className={`absolute z-20 pointer-events-none transition-opacity duration-200 ${
             showPanel ? 'opacity-100' : 'opacity-0'
@@ -767,9 +781,45 @@ export default function Timeline() {
                 {formatYearShort(currentYear)} 附近 · {nearbyWindow} 年
               </div>
               <div className="text-[10px] text-vermilion-300 font-bold">
+                {nearbyEras.length > 0 && `${nearbyEras.length} 朝代 · `}
                 {nearbyEvents.length} 事件
               </div>
             </div>
+
+            {/* P3: 此刻活跃朝代 */}
+            {nearbyEras.length > 0 && (
+              <div className="px-3 py-1.5 border-b border-ink-700/60 bg-ink-900/40">
+                <div className="text-[9px] text-ink-500 mb-1 tracking-wide">此刻朝代</div>
+                <div className="flex flex-wrap gap-1">
+                  {nearbyEras.map(era => (
+                    <button
+                      key={era.id}
+                      onClick={() => {
+                        selectEra(era.id)
+                        setYear(Math.round((era.startYear + era.endYear) / 2))
+                      }}
+                      className="flex items-center gap-1 px-1.5 py-0.5 rounded border border-ink-700 hover:border-vermilion-500/50 transition-colors group"
+                      style={{ background: `${era.color}20` }}
+                      title={`${era.name} · ${era.startYear}~${era.endYear}`}
+                    >
+                      <span
+                        className="w-1.5 h-1.5 rounded-full shrink-0"
+                        style={{ backgroundColor: era.color }}
+                      />
+                      <span
+                        className="text-[10px] truncate max-w-[90px] group-hover:text-vermilion-200"
+                        style={{ color: era.color }}
+                      >
+                        {era.name}
+                      </span>
+                      <span className="text-[9px] text-ink-500 tabular-nums shrink-0">
+                        {formatYearShort(era.startYear)}-{era.endYear < 0 ? `前${-era.endYear}` : era.endYear}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* 事件列表（按距离排序，最�?5 个） */}
             <div className="py-1 max-h-[160px] overflow-y-auto">

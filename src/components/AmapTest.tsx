@@ -239,16 +239,19 @@ export default function AmapTest() {
         if ((window as any).__MAP_PERF_MONITOR__ !== false) {
           const perfEvents = ['dragstart', 'dragging', 'dragend', 'movestart', 'moving', 'moveend', 'zoomstart', 'zoom', 'zoomend']
           perfEvents.forEach(ev => {
-            const t0 = performance.now()
+            let lastT = performance.now()
             let count = 0
+            let totalDt = 0
             map.on(ev, () => {
               const now = performance.now()
-              const dt = now - t0
+              const dt = now - lastT   // 距上一次同事件的时间差（不是单事件耗时）
+              lastT = now
               count++
+              totalDt += dt
               if (ev === 'dragging' || ev === 'moving') {
-                // 高频事件：每 60 次打印一次
+                // 高频事件：每 60 次打印平均帧间隔
                 if (count % 60 === 0) {
-                  console.log(`[map-perf] ${ev}: avg ${dt.toFixed(2)}ms / event over ${count} events`)
+                  console.log(`[map-perf] ${ev}: avg ${(totalDt / count).toFixed(2)}ms / frame over ${count} frames (last 60 = ${dt.toFixed(2)}ms)`)
                 }
               } else {
                 console.log(`[map-perf] ${ev}: ${dt.toFixed(2)}ms (count=${count})`)

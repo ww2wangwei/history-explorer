@@ -609,12 +609,12 @@ export default function Timeline() {
           }}
         >
           <div
-            className="bg-ink-800/97 backdrop-blur border border-ink-600 rounded-md shadow-xl pointer-events-auto"
-            style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04)' }}
+            className="bg-ink-800 border-2 border-ink-600 rounded-md shadow-xl pointer-events-auto"
+            style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06)' }}
           >
             {/* 头部 */}
             <div className="px-3 py-1.5 border-b border-ink-700 flex items-center justify-between">
-              <div className="text-[10px] text-faint font-serif tracking-wide">
+              <div className="text-[10px] text-ink-300 font-serif tracking-wide">
                 {formatYearShort(currentYear)} 附近 · {nearbyWindow} 年
               </div>
               <div className="text-[10px] text-vermilion-300 font-bold">
@@ -648,14 +648,14 @@ export default function Timeline() {
                     <span className="text-[11px] text-parchment flex-1 truncate group-hover:text-vermilion-200">
                       {ev.title}
                     </span>
-                    <span className="text-[10px] text-faint tabular-nums shrink-0">
+                    <span className="text-[10px] text-ink-300 tabular-nums shrink-0">
                       {formatYearShort(ev.year)}
                     </span>
                     <span
                       className={`text-[9px] tabular-nums shrink-0 ${
                         yearDelta === 0
                           ? 'text-vermilion-300 font-bold'
-                          : 'text-faint'
+                          : 'text-ink-300/80'
                       }`}
                     >
                       {deltaStr}
@@ -667,7 +667,7 @@ export default function Timeline() {
                 )
               })}
               {nearbyEvents.length > 5 && (
-                <div className="px-2.5 py-1 text-[9px] text-faint text-center">
+                <div className="px-2.5 py-1 text-[9px] text-ink-300 text-center">
                   还有 {nearbyEvents.length - 5} 个事件未显示…
                 </div>
               )}

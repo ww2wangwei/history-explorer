@@ -234,6 +234,28 @@ export default function AmapTest() {
           }
         }
         map.on('click', onMapClick)
+
+        // 🎯 性能监控（拖动卡顿诊断用）：记录每个地图事件的耗时
+        if ((window as any).__MAP_PERF_MONITOR__ !== false) {
+          const perfEvents = ['dragstart', 'dragging', 'dragend', 'movestart', 'moving', 'moveend', 'zoomstart', 'zoom', 'zoomend']
+          perfEvents.forEach(ev => {
+            const t0 = performance.now()
+            let count = 0
+            map.on(ev, () => {
+              const now = performance.now()
+              const dt = now - t0
+              count++
+              if (ev === 'dragging' || ev === 'moving') {
+                // 高频事件：每 60 次打印一次
+                if (count % 60 === 0) {
+                  console.log(`[map-perf] ${ev}: avg ${dt.toFixed(2)}ms / event over ${count} events`)
+                }
+              } else {
+                console.log(`[map-perf] ${ev}: ${dt.toFixed(2)}ms (count=${count})`)
+              }
+            })
+          })
+        }
         // 让 cleanup 拿到 onMapClick 用于 off
         ;(map as any).__onMapClick = onMapClick
       })

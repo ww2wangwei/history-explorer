@@ -30,7 +30,7 @@ import GeoFeatureFilter from '@/components/Map/GeoFeatureFilter'
 import GraticuleLayer from '@/components/Map/GraticuleLayer'
 import CloudOverlayLayer from '@/components/Map/CloudOverlayLayer'
 import type { ReopenKind } from '@/lib/reopenRoutes'
-import type { Era, HistoricalEvent } from '@/types'
+import type { Era } from '@/types'
 
 function getChinaEraAtYear(year: number, eras: Era[]): Era | null {
   const chinaEras = eras.filter(e => e.region === 'china')

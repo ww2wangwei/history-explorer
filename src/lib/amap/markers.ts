@@ -8,7 +8,6 @@
  *   marker.setLabel(label) → map.add(label) 单独添加
  *   click / mouseover 事件名不变
  */
-import type { Era } from '@/types'
 import {
   DOT_SVG_EVENT,
   ICON_SIZE,

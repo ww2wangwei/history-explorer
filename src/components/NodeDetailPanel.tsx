@@ -7,7 +7,7 @@
  * - 每条关系可点击 → 切换到该节点的详情
  */
 import type { Era, HistoricalFigure } from '@/types'
-import type { Relationship, RelationshipType } from '@/data/relationships'
+import type { RelationshipType } from '@/data/relationships'
 
 interface Props {
   node: {

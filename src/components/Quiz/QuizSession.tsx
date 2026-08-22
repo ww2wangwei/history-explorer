@@ -6,7 +6,7 @@
  * - 答完一题：立即高亮对错 + 显示解释（可关闭）
  * - 全部答完：结果页（正确数/正确率/分难度统计） + 错题列表
  */
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useQuizStore } from '@/store/useQuizStore'
 import erasData from '@/data/eras.json'
 import type { QuizQuestion, Difficulty, QuizSessionResult } from '@/types/quiz'

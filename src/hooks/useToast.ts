@@ -7,7 +7,6 @@
  *   - 自动 3 秒消失，hover 暂停计时，进场 GSAP 动画
  */
 import { create } from 'zustand'
-import { useEffect } from 'react'
 import gsap from 'gsap'
 
 export type ToastVariant = 'success' | 'error' | 'warn' | 'info'

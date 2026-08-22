@@ -6,7 +6,7 @@
  * - 自动保存：600ms debounce 调 updateNote
  * - 强制 flush：卸载时、切换笔记前、关闭面板时
  */
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { Note } from '@/types/notes'
 import { useNotesStore } from '@/store/useNotesStore'
 import NotePreview from './NotePreview'

@@ -5,9 +5,9 @@
  * 用法：通过 Layout 的 case 'ladder' 渲染，onClose → dispatch OPEN_HOME。
  * 不再是 modal — 与 Dashboard、Map、Overview 等并列。
  */
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useLadderStore, type LadderId, type LadderLevel } from '@/store/useLadderStore'
-import { HISTORY_TIERS, POEM_TIERS, FIGURE_TIERS, TIERS_BY_LADDER, TIERS_BY_LADDER_ALL_CYCLES, type LadderIdCycle } from '@/data/ladders'
+import { HISTORY_TIERS, POEM_TIERS, FIGURE_TIERS, TIERS_BY_LADDER, type LadderIdCycle } from '@/data/ladders'
 import { LADDER_GUIDES, type LadderGuide } from '@/data/ladderNpcs'
 import { progression } from './ladderProgression'
 import { useAIStore } from '@/store/useAIStore'

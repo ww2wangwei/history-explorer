@@ -16,7 +16,7 @@ import { streamAI, requestAI, type AIRequestHandle } from '@/utils/aiStream'
 import { useDraggableFab } from '@/hooks/useDraggableFab'
 import erasData from '@/data/eras.json'
 import peopleData from '@/data/people.json'
-import type { Era, HistoricalEvent } from '@/types'
+import type { Era } from '@/types'
 import { audioEngine } from '@/utils/audioEngine'
 
 const eras = erasData as Era[]

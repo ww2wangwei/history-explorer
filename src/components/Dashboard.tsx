@@ -25,10 +25,10 @@ import { audioEngine } from '@/utils/audioEngine'
 import gsap from 'gsap'
 import { isDue } from '@/utils/sm2'
 import builtinQuestions from '@/data/questions.json'
-import type { Era, HistoricalEvent } from '@/types'
+import type { Era } from '@/types'
 import type { Question } from '@/types/questions'
 import EraQuickLearnModal, { type QuickEventState } from './QuickLearn/EraQuickLearnModal'
-import { ScrollEdge, Seal, GreekKeyDivider, CloudDivider } from '@/components/ui/ChineseOrnament'
+import { ScrollEdge, Seal, GreekKeyDivider } from '@/components/ui/ChineseOrnament'
 
 // 🎯 性能优化：data 改用懒加载共享 loader — 不再静态 import，eras.json + events.json
 //   从主 bundle 拆出。数据未到位时 eras/events 为空数组（useCoreDataReady 检测）。

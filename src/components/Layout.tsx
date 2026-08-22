@@ -1,6 +1,5 @@
 import { useEffect, useReducer, useRef, lazy, Suspense, useMemo } from 'react'
 import { useReducedMotionGlobal } from '@/hooks/useReducedMotion'
-import WorldMap from '@/components/AmapTest' // legacy alias
 import Timeline from '@/components/Timeline/Timeline'
 import SearchBar from '@/components/SearchBar'
 import AmbientBackground from '@/components/AmbientBackground'
@@ -25,7 +24,6 @@ import {
   getInitialLayoutState,
   shouldShowTimeline,
   pathEntryToAction,
-  isOverlayActive,
   type LayoutAction,
 } from './Layout/layoutReducer'
 

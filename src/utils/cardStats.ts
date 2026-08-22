@@ -3,7 +3,7 @@
  *
  * 用于仪表盘展示：5 个总览数字、过去 30 天每日复习量、评级分布、连续学习天数
  */
-import type { Card, Rating } from '@/types/flashcards'
+import type { Card } from '@/types/flashcards'
 import { isDue } from '@/utils/sm2'
 
 const DAY_MS = 24 * 60 * 60 * 1000

@@ -9,7 +9,7 @@
  *   - 容器用 object-contain，父元素控制尺寸（aspect-ratio 一致由调用方）
  *   - 接受 onClick prop，点击即弹 lightbox（父组件管理状态）
  */
-import { useMemo, useState, useEffect, useRef } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { geoEqualEarth, geoPath } from 'd3-geo'
 import { feature } from 'topojson-client'
 import type { Feature, FeatureCollection, Geometry } from 'geojson'

@@ -9,7 +9,7 @@
  * 填好后点保存会自动重载页面（让 AMap 用新 key）。
  */
 import { useState } from 'react'
-import { useApiKeysStore, getAmapKey, getAmapSecurityCode, getOwmApiKey } from '@/store/useApiKeysStore'
+import { useApiKeysStore, getAmapKey, getOwmApiKey } from '@/store/useApiKeysStore'
 
 interface Props {
   isOpen: boolean

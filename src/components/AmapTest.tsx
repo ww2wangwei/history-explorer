@@ -542,17 +542,10 @@ export default function AmapTest() {
     const chinaEra = getChinaEraAtYear(markerYear, eras)
     const jumpSuppressUntil = useHistoryStore.getState().jumpSuppressUntil
     const isSuppressed = jumpSuppressUntil > Date.now()
-    // 🎯 UX 修复：当前年份若没有中国朝代（pre-Qin / 1912+），
-    //   fallback 到"时间最近"的中国朝代，避免点击中国都城闪烁消失
-    let chinaToShow = chinaEra
-    if (!chinaToShow && !isSuppressed) {
-      const chinaEras = eras.filter(e => e.region === 'china' && e.capital)
-      if (chinaEras.length > 0) {
-        chinaToShow = chinaEras
-          .map(e => ({ era: e, dist: Math.abs((e.startYear + e.endYear) / 2 - markerYear) }))
-          .sort((a, b) => a.dist - b.dist)[0].era
-      }
-    }
+    // 🎯 数据准确性优先：只显示当前年**真实活跃**的中国朝代
+    //   不再 fallback 到「最近的朝代」（会导致 2022 BC 显示春秋战国等错误）
+    //   pre-Qin / 1912+ 等空档期显示「无朝代」标记，让用户清楚认知
+    const chinaToShow = chinaEra
     if (chinaToShow?.capital && !isSuppressed) {
       const [lng, lat] = wgs84ToGcj02(chinaToShow.capital)
 
@@ -578,19 +571,9 @@ export default function AmapTest() {
     }
 
     const activeEras = getActiveErasAtYear(eras, markerYear)
-    // 🎯 性能/UX 修复：若当前年份无活跃朝代（如 modern era、史前时期），
-    //   fallback 显示 4 个"时间最近的"朝代，避免地图完全空旷
+    // 🎯 数据准确性优先：只显示当前年**真实活跃**的世界朝代首都
+    //   不再 fallback 到「最近的朝代」（会导致 -2000 显示玛雅等错误）
     const worldErasToShow = activeEras.filter(e => e.region !== 'china' && e.capital).slice(0, 4)
-      .concat(
-        activeEras.filter(e => e.region !== 'china' && e.capital).length === 0
-          ? [...eras]
-              .filter(e => e.region !== 'china' && e.capital)
-              .map(e => ({ era: e, dist: Math.abs((e.startYear + e.endYear) / 2 - markerYear) }))
-              .sort((a, b) => a.dist - b.dist)
-              .slice(0, 4)
-              .map(x => x.era)
-          : []
-      )
 
     worldErasToShow.forEach(era => {
       const [lng, lat] = wgs84ToGcj02(era.capital!)

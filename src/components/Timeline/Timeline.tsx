@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useMemo, useEffect } from 'react'
+﻿import { useRef, useState, useCallback, useMemo, useEffect } from 'react'
 import { scaleLinear } from 'd3-scale'
 import { useHistoryStore, MIN_ZOOM, MAX_ZOOM, visibleYearSpan } from '@/store/useHistoryStore'
 import { TIME_RANGE, CATEGORY_COLORS, type HistoricalEvent } from '@/types'
@@ -10,18 +10,18 @@ import type { Era } from '@/types'
 const events = eventsData as HistoricalEvent[]
 const eras = erasData as Era[]
 
-const TIMELINE_HEIGHT = 150
+const TIMELINE_HEIGHT = 178
 const PADDING_X = 40
 const RULER_HEIGHT = 24
-// 朝代色带（中国朝代）区域 — 第 1 行
+// 朝代色带（中国朝代）区域 �?�?1 �?
 const ERA_BAND_TOP = RULER_HEIGHT + 22
 const ERA_BAND_HEIGHT = 14
-// 世界文明色带 — 最多 WORLD_BAND_ROWS 行（甘特式分层）
+// 世界文明色带 �?最�?WORLD_BAND_ROWS 行（甘特式分层）
 const WORLD_BAND_ROWS = 4
 const WORLD_BAND_ROW_GAP = 3
 const WORLD_BAND_HEIGHT = 11
 const WORLD_BAND_TOP = ERA_BAND_TOP + ERA_BAND_HEIGHT + 8
-// 事件区域（在世界色带之后）
+// 事件区域（在世界色带之后�?
 const EVENTS_AREA_TOP = WORLD_BAND_TOP + WORLD_BAND_ROWS * (WORLD_BAND_HEIGHT + WORLD_BAND_ROW_GAP) + 10
 const EVENTS_CY = EVENTS_AREA_TOP + 20
 
@@ -30,6 +30,7 @@ export default function Timeline() {
   const svgRef = useRef<SVGSVGElement>(null)
   const [width, setWidth] = useState(800)
   const [isDragging, setIsDragging] = useState(false)
+  const [hoveredEventId, setHoveredEventId] = useState<string | null>(null)
   const dragStartRef = useRef<{ x: number; year: number; centerYear: number } | null>(null)
 
   const {
@@ -53,12 +54,12 @@ export default function Timeline() {
     return () => observer.disconnect()
   }, [])
 
-  // 当前可见的年份范围
+  // 当前可见的年份范�?
   const yearSpan = visibleYearSpan(timelineZoom)
   const viewMin = timelineCenterYear - yearSpan / 2
   const viewMax = timelineCenterYear + yearSpan / 2
 
-  // 年份 → x 坐标的映射
+  // 年份 �?x 坐标的映�?
   const xScale = useMemo(
     () =>
       scaleLinear()
@@ -68,7 +69,7 @@ export default function Timeline() {
     [viewMin, viewMax, width]
   )
 
-  // 计算主刻度（基于当前 zoom 级别智能选择步长）
+  // 计算主刻度（基于当前 zoom 级别智能选择步长�?
   const majorStep = useMemo(() => {
     const totalSpan = yearSpan
     if (totalSpan > 3000) return 500
@@ -83,7 +84,7 @@ export default function Timeline() {
 
   const minorStep = majorStep / 5
 
-  // 主刻度（仅在视图范围内的）
+  // 主刻度（仅在视图范围内的�?
   const majorTicks = useMemo(() => {
     const startTick = Math.ceil(viewMin / majorStep) * majorStep
     const ticks: number[] = []
@@ -95,7 +96,7 @@ export default function Timeline() {
     return ticks
   }, [viewMin, viewMax, majorStep])
 
-  // 次刻度
+  // 次刻�?
   const minorTicks = useMemo(() => {
     if (minorStep < 1) return []
     const startTick = Math.ceil(viewMin / minorStep) * minorStep
@@ -111,17 +112,17 @@ export default function Timeline() {
   // 当前年份 x 坐标
   const currentX = xScale(currentYear)
 
-  // 可见事件：根据缩放级别智能过滤 + 用户筛选
+  // 可见事件：根据缩放级别智能过�?+ 用户筛�?
   // - zoom 小（视野广）：只显示高重要度事件
-  // - zoom 大（视野窄）：显示所有事件
-  // - 应用用户筛选条件（分类、地区、重要度）
+  // - zoom 大（视野窄）：显示所有事�?
+  // - 应用用户筛选条件（分类、地区、重要度�?
   const visibleEvents = useMemo(() => {
     const tolerance = Math.min(yearSpan * 0.3, 1500)
     let filtered = events.filter(
       e => e.year >= viewMin - tolerance && e.year <= viewMax + tolerance
     )
 
-    // 应用用户筛选
+    // 应用用户筛�?
     if (filters.categories.length > 0) {
       filtered = filtered.filter(e => filters.categories.includes(e.category))
     }
@@ -149,15 +150,15 @@ export default function Timeline() {
       .sort((a, b) => a.startYear - b.startYear)
   }, [viewMin, viewMax])
 
-  // 世界文明色带（甘特式分层）
-  // 1) 视野过宽时只保留持续时间最长的文明（避免几十个重叠爆炸）
-  // 2) 按 startYear 排序后贪心分层：每个文明放到第一个不重叠的行
+  // 世界文明色带（甘特式分层�?
+  // 1) 视野过宽时只保留持续时间最长的文明（避免几十个重叠爆炸�?
+  // 2) �?startYear 排序后贪心分层：每个文明放到第一个不重叠的行
   const worldBands = useMemo(() => {
     const candidates = eras.filter(
       e => e.region !== 'china' && e.endYear >= viewMin && e.startYear <= viewMax
     )
     if (candidates.length === 0) return []
-    // 视野越宽，保留的候选越少
+    // 视野越宽，保留的候选越�?
     const maxCandidates = yearSpan > 3000 ? 14 : yearSpan > 1500 ? 18 : yearSpan > 700 ? 24 : 40
     const ranked = candidates
       .slice()
@@ -183,13 +184,13 @@ export default function Timeline() {
         rows.push([{ era, x0, x1 }])
       }
     }
-    // 压平并附上行号
+    // 压平并附上行�?
     const result: { era: Era; row: number; x0: number; x1: number }[] = []
     rows.forEach((row, r) => row.forEach(b => result.push({ era: b.era, row: r, x0: b.x0, x1: b.x1 })))
     return result
   }, [viewMin, viewMax, xScale, width, yearSpan])
 
-  // 高缩放时给重要事件显示标题标签（避免重叠：至少隔 64px）
+  // 高缩放时给重要事件显示标题标签（避免重叠：至少隔 64px�?
   const labeledEvents = useMemo(() => {
     if (yearSpan > 100) return []
     const labels: HistoricalEvent[] = []
@@ -206,8 +207,8 @@ export default function Timeline() {
   }, [visibleEvents, xScale, width, yearSpan])
 
   // P0: 附近事件浮窗
-  // 窗口大小 = max(yearSpan * 0.15, 8)，约「视野 15%」或最少 ±8 年
-  // 这样缩放越小窗口越大（看不到细节时给更多 context），缩放越大窗口越小（聚焦当前年）
+  // 窗口大小 = max(yearSpan * 0.15, 8)，约「视�?15%」或最�?±8 �?
+  // 这样缩放越小窗口越大（看不到细节时给更多 context），缩放越大窗口越小（聚焦当前年�?
   const nearbyWindow = Math.max(Math.round(yearSpan * 0.15), 8)
   const nearbyEvents = useMemo(() => {
     const y = currentYear
@@ -228,7 +229,7 @@ export default function Timeline() {
       .sort((a, b) => Math.abs(a.year - y) - Math.abs(b.year - y) || b.importance - a.importance)
   }, [currentYear, nearbyWindow, filters])
 
-  // 浮窗显示：拖动时 + 释放后 1.2s（让用户看到落点附近事件）
+  // 浮窗显示：拖动时 + 释放�?1.2s（让用户看到落点附近事件�?
   const [showPanel, setShowPanel] = useState(false)
   useEffect(() => {
     if (isDragging) {
@@ -240,7 +241,17 @@ export default function Timeline() {
     return () => clearTimeout(t)
   }, [isDragging, showPanel])
 
-  // 鼠标坐标 → 年份的转换
+  // P1: hover 的事件详情（tooltip 数据源）
+  const hoveredEvent = useMemo(
+    () => (hoveredEventId ? events.find(e => e.id === hoveredEventId) || null : null),
+    [hoveredEventId]
+  )
+  const hoveredEventX = useMemo(
+    () => (hoveredEvent ? xScale(hoveredEvent.year) : 0),
+    [hoveredEvent, xScale]
+  )
+
+  // 鼠标坐标 �?年份的转�?
   const clientXToYear = useCallback(
     (clientX: number): number => {
       if (!svgRef.current) return currentYear
@@ -251,7 +262,7 @@ export default function Timeline() {
     [xScale, currentYear]
   )
 
-  // 鼠标按下开始拖拽
+  // 鼠标按下开始拖�?
   const handleMouseDown = (e: React.MouseEvent) => {
     // 不响应来自事件圆点的点击
     const target = e.target as SVGElement
@@ -277,7 +288,7 @@ export default function Timeline() {
 
       // 平移视口
       setTimelineView(newCenter, timelineZoom)
-      // 跟随移动当前年份（保持点击点不动）
+      // 跟随移动当前年份（保持点击点不动�?
       setYear(Math.round(newYear))
     }
     const handleUp = () => {
@@ -297,7 +308,7 @@ export default function Timeline() {
     (e: WheelEvent) => {
       if (!svgRef.current) return
       e.preventDefault()
-      // 计算缩放因子（向上滚放大、向下滚缩小）
+      // 计算缩放因子（向上滚放大、向下滚缩小�?
       const factor = e.deltaY < 0 ? 1.2 : 1 / 1.2
       const newZoom = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, timelineZoom * factor))
       if (newZoom === timelineZoom) return
@@ -353,7 +364,7 @@ export default function Timeline() {
         onMouseDown={handleMouseDown}
         className={isDragging ? 'cursor-grabbing' : 'cursor-grab'}
       >
-        {/* 当前年份大字号标注（朱砂） */}
+        {/* 当前年份大字号标注（朱砂�?*/}
         <text
           x={currentX}
           y={16}
@@ -376,7 +387,7 @@ export default function Timeline() {
           {''}
         </text>
 
-        {/* 主轴线（柔和） */}
+        {/* 主轴线（柔和�?*/}
         <line
           x1={PADDING_X}
           y1={RULER_HEIGHT}
@@ -387,7 +398,7 @@ export default function Timeline() {
           opacity={0.7}
         />
 
-        {/* 次刻度 */}
+        {/* 次刻�?*/}
         {minorTicks.map(year => (
           <line
             key={`minor-${year}`}
@@ -400,7 +411,7 @@ export default function Timeline() {
           />
         ))}
 
-        {/* 主刻度 + 标签 */}
+        {/* 主刻�?+ 标签 */}
         {majorTicks.map(year => (
           <g key={`major-${year}`}>
             <line
@@ -420,7 +431,7 @@ export default function Timeline() {
               fill="rgb(var(--text-secondary-rgb) / 1)"
               style={{ pointerEvents: 'none', userSelect: 'none' }}
             >
-              {year < 0 ? `前${Math.abs(year)}` : year}
+              {year < 0 ? `�?{Math.abs(year)}` : year}
             </text>
           </g>
         ))}
@@ -461,7 +472,7 @@ export default function Timeline() {
           )
         })}
 
-        {/* 世界文明色带（甘特式分层，最多 4 行，半透明） */}
+        {/* 世界文明色带（甘特式分层，最�?4 行，半透明�?*/}
         {worldBands.map(({ era, row, x0, x1 }) => {
           const cy = WORLD_BAND_TOP + row * (WORLD_BAND_HEIGHT + WORLD_BAND_ROW_GAP)
           const clampedX0 = Math.max(x0, PADDING_X)
@@ -498,7 +509,7 @@ export default function Timeline() {
           )
         })}
 
-        {/* 事件引线（从世界色带下方延伸到事件点） */}
+        {/* 事件引线（从世界色带下方延伸到事件点�?*/}
         {visibleEvents.map(event => {
           const ex = xScale(event.year)
           if (ex < PADDING_X - 10 || ex > width - PADDING_X + 10) return null
@@ -537,37 +548,50 @@ export default function Timeline() {
           )
         })}
 
-        {/* 事件标记点（按 importance 大小，hover 放大） */}
+        {/* 事件标记点（�?importance 大小，hover 放大 + 触发自定�?tooltip�?*/}
         {visibleEvents.map(event => {
           const ex = xScale(event.year)
           if (ex < PADDING_X - 10 || ex > width - PADDING_X + 10) return null
           const r = event.importance === 3 ? 5 : event.importance === 2 ? 4 : 3
           const cy = EVENTS_CY
+          const isHovered = hoveredEventId === event.id
+          const displayR = isHovered ? r * 1.5 : r
           return (
             <g key={event.id}>
+              {/* 透明放大命中区（让小圆点也容�?hover�?*/}
               <circle
-                data-role="event-marker"
+                data-role="event-hit"
                 cx={ex}
                 cy={cy}
-                r={r}
-                fill={CATEGORY_COLORS[event.category]}
-                stroke="rgb(var(--text-parchment-rgb) / 1)"
-                strokeWidth={1}
-                className="cursor-pointer transition-transform hover:scale-150"
-                style={{ transformOrigin: `${ex}px ${cy}px` }}
+                r={Math.max(8, r + 4)}
+                fill="transparent"
+                style={{ cursor: 'pointer' }}
+                onMouseEnter={() => setHoveredEventId(event.id)}
+                onMouseLeave={() => setHoveredEventId(prev => prev === event.id ? null : prev)}
                 onClick={(e) => {
                   e.stopPropagation()
                   selectEvent(event.id)
                   setYear(event.year)
                 }}
-              >
-                <title>{event.title}（{event.year < 0 ? '公元前' + Math.abs(event.year) : event.year}）</title>
-              </circle>
+              />
+              <circle
+                data-role="event-marker"
+                cx={ex}
+                cy={cy}
+                r={displayR}
+                fill={CATEGORY_COLORS[event.category]}
+                stroke="rgb(var(--text-parchment-rgb) / 1)"
+                strokeWidth={isHovered ? 2 : 1}
+                style={{
+                  transition: 'r 120ms ease-out, stroke-width 120ms ease-out',
+                  pointerEvents: 'none',
+                }}
+              />
             </g>
           )
         })}
 
-        {/* 当前年份指示线（朱砂） */}
+        {/* 当前年份指示线（朱砂�?*/}
         <line
           x1={currentX}
           y1={RULER_HEIGHT - 14}
@@ -594,17 +618,88 @@ export default function Timeline() {
         />
       </svg>
 
-      {/* P0: 拖动时附近事件浮窗（绝对定位在 currentYear 上方） */}
+      {/* P1: hover 事件 tooltip（绝对定位在 marker 上方�?*/}
+      {hoveredEvent && (
+        <div
+          className="absolute z-30 pointer-events-none"
+          style={{
+            // 锚到 marker x，左右不超出边界
+            left: Math.max(4, Math.min(width - 284, hoveredEventX - 140)),
+            bottom: 184,
+            width: 280,
+          }}
+        >
+          <div
+            className="bg-ink-800 border-2 border-ink-600 rounded-md pointer-events-auto"
+            style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.06)' }}
+          >
+            {/* 标题�?*/}
+            <div className="px-3 pt-2 pb-1.5">
+              <div className="flex items-start gap-2">
+                <span
+                  className="w-2.5 h-2.5 rounded-full shrink-0 mt-1.5"
+                  style={{ backgroundColor: CATEGORY_COLORS[hoveredEvent.category] }}
+                />
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] text-parchment font-serif font-semibold leading-tight">
+                    {hoveredEvent.title}
+                  </div>
+                  <div className="flex items-center gap-2 mt-1 text-[10px] text-ink-300">
+                    <span className="tabular-nums">
+                      {hoveredEvent.year < 0
+                        ? `公元�?${Math.abs(hoveredEvent.year)}`
+                        : hoveredEvent.year === 0
+                        ? '公元元年'
+                        : `公元 ${hoveredEvent.year}`}
+                    </span>
+                    <span>·</span>
+                    <span>{hoveredEvent.category}</span>
+                    {hoveredEvent.importance === 3 && (
+                      <>
+                        <span>·</span>
+                        <span className="text-vermilion-400">★★★</span>
+                      </>
+                    )}
+                    {hoveredEvent.importance === 2 && (
+                      <>
+                        <span>·</span>
+                        <span className="text-vermilion-300">★★</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* 描述预览 */}
+            {hoveredEvent.description && (
+              <div className="px-3 pb-2 text-[11px] text-ink-200 leading-relaxed line-clamp-3">
+                {hoveredEvent.description}
+              </div>
+            )}
+
+            {/* 点击提示 */}
+            <div className="px-3 py-1 border-t border-ink-700 text-[9px] text-ink-300 flex items-center justify-between">
+              <span>点击查看详情</span>
+              {hoveredEvent.coordinates && (
+                <span className="text-vermilion-300">📍 地图定位</span>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* P0: 拖动时附近事件浮窗（绝对定位在 currentYear 上方）*/}
       {nearbyEvents.length > 0 && (
         <div
           className={`absolute z-20 pointer-events-none transition-opacity duration-200 ${
             showPanel ? 'opacity-100' : 'opacity-0'
           }`}
           style={{
-            // 锚到 currentX，左侧不超出 4px，右侧保留 4px
+            // 锚到 currentX，左侧不超出 4px，右侧保�?4px
             left: Math.max(4, Math.min(width - 284, currentX - 140)),
-            // 浮在时间轴上方（容器高 150）
-            bottom: 156,
+            // 浮在时间轴上方（容器�?150�?
+            bottom: 184,
             width: 280,
           }}
         >
@@ -615,14 +710,14 @@ export default function Timeline() {
             {/* 头部 */}
             <div className="px-3 py-1.5 border-b border-ink-700 flex items-center justify-between">
               <div className="text-[10px] text-ink-300 font-serif tracking-wide">
-                {formatYearShort(currentYear)} 附近 · {nearbyWindow} 年
+                {formatYearShort(currentYear)} 附近 · {nearbyWindow} �?
               </div>
               <div className="text-[10px] text-vermilion-300 font-bold">
                 {nearbyEvents.length} 事件
               </div>
             </div>
 
-            {/* 事件列表（按距离排序，最多 5 个） */}
+            {/* 事件列表（按距离排序，最�?5 个） */}
             <div className="py-1 max-h-[160px] overflow-y-auto">
               {nearbyEvents.slice(0, 5).map(ev => {
                 const yearDelta = ev.year - currentYear
@@ -676,7 +771,7 @@ export default function Timeline() {
         </div>
       )}
 
-      {/* 缩放控制按钮（右上角） */}
+      {/* 缩放控制按钮（右上角�?*/}
       <div className="absolute right-2 top-2 flex items-center gap-1 z-10">
         <button
           className="w-6 h-6 rounded-md bg-ink-700/90 hover:bg-vermilion-500/30 border border-ink-600 text-vermilion-300 text-sm font-bold leading-none transition-colors"

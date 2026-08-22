@@ -90,7 +90,7 @@ export type EraRegion = 'china' | 'rome' | 'arab' | 'persia' | 'mongol' | 'brita
 
 // 时间范围常量
 export const TIME_RANGE = {
-  MIN_YEAR: -3000,    // 公元前 3000
+  MIN_YEAR: -3500,    // 公元前 3500（覆盖苏美尔城邦兴起）
   MAX_YEAR: 2025,
   DEFAULT_YEAR: 1500, // 默认定位到中后期
 } as const;

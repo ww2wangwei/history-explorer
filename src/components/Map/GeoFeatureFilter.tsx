@@ -242,7 +242,7 @@ export default function GeoFeatureFilter() {
                       <span className="text-base leading-none mt-0">{meta.icon}</span>
                       <span className="flex-1 min-w-0">
                         <span className="text-parchment-50 font-serif">{meta.label}</span>
-                        <span className="block text-[10px] text-ink-500 leading-tight">高德内部：<code className="text-ink-400">{k}</code></span>
+                        <span className="block text-[10px] text-ink-400 leading-tight mt-0.5">{meta.desc}</span>
                       </span>
                     </label>
                   )

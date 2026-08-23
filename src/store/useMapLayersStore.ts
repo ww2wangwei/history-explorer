@@ -32,23 +32,18 @@ export const LAYER_META: Record<GeoLayerKey, { type: GeoFeatureType; label: stri
 
 const ALL_KEYS = Object.keys(LAYER_META) as GeoLayerKey[]
 
-/** AMap.Map.setFeatures() 支持的 feature 类别（高德官方） */
+/** AMap.Map.setFeatures() 支持的 feature 类别（高德官方只支持这 6 个） */
 export type AmapFeatureKey =
   | 'bg' | 'point' | 'road' | 'building'
-  | 'water' | 'waterlabel' | 'land'
-  | 'label' | 'mask' | 'grass'
+  | 'water' | 'mask'
 
-export const AMAP_FEATURE_META: Record<AmapFeatureKey, { label: string; icon: string; defaultOn: boolean }> = {
-  bg:         { label: '底图背景',    icon: '🎨', defaultOn: true },
-  point:      { label: 'POI 点',       icon: '📍', defaultOn: false },  // POI 极多，默认关减少 tile 渲染
-  road:       { label: '道路',        icon: '🛣️',  defaultOn: false },  // 道路瓦片重，默认关
-  building:   { label: '建筑',        icon: '🏢', defaultOn: false },  // 3D 建筑瓦片重，默认关
-  water:      { label: '水域面',       icon: '🌊', defaultOn: true },
-  waterlabel: { label: '水系标注',     icon: '🏷️',  defaultOn: false },  // 文字标注瓦片重
-  land:       { label: '陆地',        icon: '🗻', defaultOn: true },
-  label:      { label: '地名标注',     icon: '🔤', defaultOn: false },  // 城市名瓦片重
-  mask:       { label: '区域遮罩',     icon: '🎭', defaultOn: false },  // 国境/省界遮罩，瓦片重
-  grass:      { label: '绿地/林地',    icon: '🌳', defaultOn: false },  // 绿地瓦片极多
+export const AMAP_FEATURE_META: Record<AmapFeatureKey, { label: string; icon: string; defaultOn: boolean; desc: string }> = {
+  bg:       { label: '底图背景',    icon: '🎨', defaultOn: true,  desc: '高德底图的底层瓦片（关掉全黑）' },
+  point:    { label: 'POI 点',       icon: '📍', defaultOn: false, desc: '景点/餐厅等兴趣点（极多，默认关减轻负载）' },
+  road:     { label: '道路',        icon: '🛣️',  defaultOn: false, desc: '道路网络（瓦片重，默认关减轻负载）' },
+  building: { label: '建筑',        icon: '🏢', defaultOn: false, desc: '3D 建筑（瓦片重，默认关减轻负载）' },
+  water:    { label: '水域面',       icon: '🌊', defaultOn: true,  desc: '海域/河面/湖面（关掉只剩陆地）' },
+  mask:     { label: '区域遮罩',     icon: '🎭', defaultOn: false, desc: '国境/省界遮罩（关掉跨国连成一片）' },
 }
 
 const ALL_AMAP_KEYS = Object.keys(AMAP_FEATURE_META) as AmapFeatureKey[]
@@ -161,7 +156,7 @@ export const useMapLayersStore = create<MapLayersState>()(
         }
         return persisted
       },
-      version: 5,
+      version: 6,
     },
   ),
 )

@@ -14,6 +14,7 @@ import erasData from '@/data/eras.json'
 import eventsData from '@/data/events.json'
 import peopleData from '@/data/people.json'
 import ModalShell from '@/components/ui/Modal'
+import FallbackImage from './FallbackImage'
 
 const eras = erasData as Era[]
 const allEvents = eventsData as HistoricalEvent[]
@@ -679,37 +680,21 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
     onClose()
   }
 
-  return (
+return (
     <ModalShell
       isOpen
       onClose={onClose}
       innerStyle={{ borderColor: eraColor + '60' }}
     >
-        <div className="relative w-full bg-ink-900" style={{ aspectRatio: '16/9' }}>
-          <div
-            className="absolute inset-0 flex items-center justify-center select-none"
-            style={{ background: `linear-gradient(135deg, ${eraColor}55 0%, ${eraColor}22 100%)` }}
-          >
-            <div
-              className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-serif font-bold shadow-lg"
-              style={{
-                background: `linear-gradient(135deg, ${eraColor} 0%, ${eraColor}aa 100%)`,
-                color: '#fff',
-                textShadow: '0 1px 2px rgba(0,0,0,0.4)',
-                border: '2px solid rgba(255,255,255,0.3)',
-              }}
-            >
-              {event.title.charAt(0)}
-            </div>
-          </div>
-          <img
-            src={eventImg}
-            alt={event.title}
-            className="absolute inset-0 w-full h-full object-cover z-10"
-            loading="eager"
-            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-ink-900/95 via-ink-900/30 to-transparent pointer-events-none z-10" />
+      <div className="relative w-full bg-ink-900">
+        <FallbackImage
+          src={eventImg}
+          keyword={event.title}
+          color={eraColor}
+          aspectRatio="16/9"
+          alt={event.title}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-900/95 via-ink-900/30 to-transparent pointer-events-none z-10" />
           <div className="absolute bottom-0 left-0 right-0 px-6 pt-8 pb-4 z-20">
             <div className="text-xs text-vermilion-300 mb-1 tracking-wider uppercase">
               {eraName} · {eventType} · {yearLabel}

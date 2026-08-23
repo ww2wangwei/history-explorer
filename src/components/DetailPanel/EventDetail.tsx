@@ -108,27 +108,43 @@ export default function EventDetail({ eventId }: Props) {
         {event.description}
       </div>
 
-      {/* 📺 视频：YouTube 隐私嵌入（youtube-nocookie） */}
+      {/* 📺 视频：YouTube / Bilibili 嵌入（隐私模式） */}
       {event.videoId && (
         <div className="mb-4">
           <div className="text-xs text-ink-300 mb-1.5 flex items-center gap-1">
             📺 相关视频
             <span className="text-ink-500">·</span>
-            <span className="text-ink-500 text-[10px]">点击播放（YouTube）</span>
+            <span className="text-ink-500 text-[10px]">
+              {event.videoPlatform === 'bilibili' ? '点击播放（哔哩哔哩）' : '点击播放（YouTube）'}
+            </span>
           </div>
           <div
             className="relative w-full rounded-lg overflow-hidden border border-ink-600 bg-ink-900"
-            style={{ paddingTop: '56.25%' /* 16:9 */ }}
+            style={{ paddingTop: event.videoPlatform === 'bilibili' ? '70%' : '56.25%' /* 哔哩哔哩默认更高 */ }}
           >
-            <iframe
-              className="absolute inset-0 w-full h-full"
-              src={`https://www.youtube-nocookie.com/embed/${event.videoId}?rel=0&modestbranding=1`}
-              title={event.videoTitle || event.title}
-              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="strict-origin-when-cross-origin"
-            />
+            {event.videoPlatform === 'bilibili' ? (
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src={`https://player.bilibili.com/player.html?bvid=${event.videoId}&autoplay=0&danmaku=0&high_quality=1`}
+                title={event.videoTitle || event.title}
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+                scrolling="no"
+                frameBorder="0"
+              />
+            ) : (
+              <iframe
+                className="absolute inset-0 w-full h-full"
+                src={`https://www.youtube-nocookie.com/embed/${event.videoId}?rel=0&modestbranding=1`}
+                title={event.videoTitle || event.title}
+                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            )}
           </div>
           {event.videoTitle && (
             <div className="text-[10px] text-ink-500 mt-1 truncate" title={event.videoTitle}>

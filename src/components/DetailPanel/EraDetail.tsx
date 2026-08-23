@@ -241,7 +241,7 @@ function EraDetailInner({ eraId }: Props) {
 
   return (
     <>
-    <div className="p-4 h-full overflow-y-auto scrollbar-thin">
+    <div className="p-4 flex-1 min-h-0 overflow-y-auto scrollbar-thin">
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
           <div

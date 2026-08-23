@@ -25,6 +25,10 @@ export default {
           300: 'rgb(var(--text-secondary-rgb) / <alpha-value>)',
           200: 'rgb(var(--text-secondary-rgb) / <alpha-value>)',
         },
+        // 纸色系统（light 模式 cream，dark 模式 deeper dark）
+        'paper-warm': 'rgb(var(--bg-surface-rgb) / <alpha-value>)',
+        'paper-card': 'rgb(var(--bg-card-rgb) / <alpha-value>)',
+        'paper-page': 'rgb(var(--bg-page-rgb) / <alpha-value>)',
         // === 墨·朱砂 v2 主题色（新增，主题感知）===
         // 暖白主文字
         bone: 'rgb(var(--text-primary-rgb) / <alpha-value>)',

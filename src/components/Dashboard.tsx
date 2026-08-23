@@ -28,7 +28,7 @@ import builtinQuestions from '@/data/questions.json'
 import type { Era } from '@/types'
 import type { Question } from '@/types/questions'
 import EraQuickLearnModal, { type QuickEventState } from './QuickLearn/EraQuickLearnModal'
-import { ScrollEdge, Seal, GreekKeyDivider } from '@/components/ui/ChineseOrnament'
+import { Seal, GreekKeyDivider } from '@/components/ui/ChineseOrnament'
 
 // 🎯 性能优化：data 改用懒加载共享 loader — 不再静态 import，eras.json + events.json
 //   从主 bundle 拆出。数据未到位时 eras/events 为空数组（useCoreDataReady 检测）。
@@ -446,24 +446,14 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
             }}
           >
             <div
-              className="relative flex items-stretch rounded-md overflow-hidden"
+              className="relative rounded-md overflow-hidden"
               style={{
                 background: 'rgb(var(--bg-card-rgb) / 0.6)',
                 boxShadow: '0 4px 16px rgba(0,0,0,0.3), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.3)',
               }}
             >
-              {/* 📜 左侧卷轴（装裱杆） */}
-              <div className="w-9 shrink-0 relative" aria-hidden>
-                <ScrollEdge side="left" className="w-full h-full" />
-              </div>
-
-              {/* 📜 右侧卷轴 */}
-              <div className="w-9 shrink-0 relative" aria-hidden>
-                <ScrollEdge side="right" className="w-full h-full" />
-              </div>
-
-              {/* 📜 卷轴中央展开部分 */}
-              <div className="flex-1 px-5 py-5 relative">
+              {/* 内容区 */}
+              <div className="px-5 py-5 relative">
                 {/* 顶部：题引 + 朱红印章「荐」 */}
                 <div className="flex items-start gap-4 mb-2">
                   <div className="flex-1">

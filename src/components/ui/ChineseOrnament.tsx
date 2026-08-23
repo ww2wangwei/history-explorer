@@ -11,37 +11,59 @@
  */
 import { useId } from 'react'
 
-/* ========== 卷轴两端 (rolled scroll caps) ========== */
+/* ========== 卷轴装裱 (elegant hanging scroll dowel) ========== */
+// 视觉：上下两根细木杆（装裱天杆/地杆），中央是卷起的纸卷，质感如真宣纸 + 细木纹
+// 抛弃之前"木桶"风格（粗椭圆+三道圈）——参考实物立轴：扁薄 + 纸卷叠层感
 export function ScrollEdge({ side = 'left', className = '' }: { side?: 'left' | 'right'; className?: string }) {
   const id = useId()
+  // 镜像翻转：右侧卷轴上下颠倒（视觉对称美）
+  const transform = side === 'right' ? 'scale(1, -1) translate(0, -200)' : ''
   return (
     <svg
-      viewBox="0 0 36 200"
+      viewBox="0 0 24 200"
       preserveAspectRatio="none"
       className={`shrink-0 ${className}`}
       aria-hidden
+      style={{ transform }}
     >
       <defs>
-        <linearGradient id={`${id}-scroll`} x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0%" stopColor="rgb(var(--gold-deep-rgb) / 1)" />
+        {/* 纸卷叠层（垂直细条模拟纸纹） */}
+        <linearGradient id={`${id}-paper`} x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stopColor="rgb(var(--gold-deep-rgb) / 0.85)" />
           <stop offset="50%" stopColor="rgb(var(--gold-rgb) / 1)" />
-          <stop offset="100%" stopColor="rgb(var(--gold-deep-rgb) / 1)" />
+          <stop offset="100%" stopColor="rgb(var(--gold-deep-rgb) / 0.85)" />
         </linearGradient>
+        {/* 装裱木杆（细窄，比纸卷略深） */}
+        <linearGradient id={`${id}-rod`} x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stopColor="rgb(var(--gold-deep-rgb) / 0.6)" />
+          <stop offset="50%" stopColor="rgb(var(--border-strong-rgb) / 0.85)" />
+          <stop offset="100%" stopColor="rgb(var(--gold-deep-rgb) / 0.6)" />
+        </linearGradient>
+        {/* 纸卷端面（柔和椭圆，比之前薄 60%） */}
         <radialGradient id={`${id}-cap`} cx="0.5" cy="0.5" r="0.5">
           <stop offset="0%" stopColor="rgb(var(--gold-rgb) / 1)" />
-          <stop offset="70%" stopColor="rgb(var(--gold-deep-rgb) / 1)" />
-          <stop offset="100%" stopColor="rgb(var(--border-strong-rgb) / 1)" />
+          <stop offset="80%" stopColor="rgb(var(--gold-deep-rgb) / 0.9)" />
+          <stop offset="100%" stopColor="rgb(var(--border-strong-rgb) / 0.7)" />
         </radialGradient>
       </defs>
-      {/* 上下端头圆盖 */}
-      <ellipse cx="18" cy="18" rx="16" ry="10" fill={`url(#${id}-cap)`} stroke="rgb(var(--border-strong-rgb) / 0.6)" strokeWidth="1" />
-      <ellipse cx="18" cy="182" rx="16" ry="10" fill={`url(#${id}-cap)`} stroke="rgb(var(--border-strong-rgb) / 0.6)" strokeWidth="1" />
-      {/* 中间装裱杆（卷轴） */}
-      <rect x="14" y="20" width="8" height="160" fill={`url(#${id}-scroll)`} stroke="rgb(var(--border-strong-rgb) / 0.6)" strokeWidth="0.5" />
-      {/* 杆上 3 道圈 */}
-      <line x1="14" x2="22" y1="50" y2="50" stroke="rgb(var(--border-strong-rgb) / 0.4)" strokeWidth="0.5" />
-      <line x1="14" x2="22" y1="100" y2="100" stroke="rgb(var(--border-strong-rgb) / 0.4)" strokeWidth="0.5" />
-      <line x1="14" x2="22" y1="150" y2="150" stroke="rgb(var(--border-strong-rgb) / 0.4)" strokeWidth="0.5" />
+
+      {/* 上装裱杆（细窄长条） */}
+      <rect x="2" y="2" width="20" height="6" rx="3" fill={`url(#${id}-rod)`} />
+      {/* 下装裱杆 */}
+      <rect x="2" y="192" width="20" height="6" rx="3" fill={`url(#${id}-rod)`} />
+
+      {/* 中央纸卷（扁宽 + 上下两端纸卷叠层） */}
+      <rect x="6" y="10" width="12" height="180" fill={`url(#${id}-paper)`} />
+      {/* 纸卷叠层细线（每 18px 一道，模拟卷起的纸张层） */}
+      <g opacity="0.7">
+        {[28, 46, 64, 82, 100, 118, 136, 154, 172].map(y => (
+          <line key={y} x1="6" x2="18" y1={y} y2={y} stroke="rgb(var(--gold-deep-rgb) / 0.5)" strokeWidth="0.4" />
+        ))}
+      </g>
+
+      {/* 上下两端纸卷截面（薄椭圆，端面卷起感） */}
+      <ellipse cx="12" cy="10" rx="6" ry="3" fill={`url(#${id}-cap)`} />
+      <ellipse cx="12" cy="190" rx="6" ry="3" fill={`url(#${id}-cap)`} />
     </svg>
   )
 }

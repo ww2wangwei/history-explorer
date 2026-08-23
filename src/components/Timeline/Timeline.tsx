@@ -36,7 +36,18 @@ export default function Timeline() {
   const [width, setWidth] = useState(800)
   const [isDragging, setIsDragging] = useState(false)
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null)
+  const [collapsed, setCollapsed] = useState(() => {
+    try { return localStorage.getItem('history-explorer-timeline-collapsed') === '1' } catch { return false }
+  })
   const dragStartRef = useRef<{ x: number; year: number; centerYear: number } | null>(null)
+
+  const toggleCollapsed = () => {
+    setCollapsed(c => {
+      const next = !c
+      try { localStorage.setItem('history-explorer-timeline-collapsed', next ? '1' : '0') } catch { /* noop */ }
+      return next
+    })
+  }
 
   const {
     currentYear,
@@ -416,14 +427,24 @@ export default function Timeline() {
             ✕ 清除
           </button>
         )}
+        {/* 收起/展开按钮（始终在右端） */}
+        <button
+          onClick={toggleCollapsed}
+          className={`${hasCategoryFilter ? '' : 'ml-auto'} text-[10px] text-ink-500 hover:text-vermilion-300 transition-colors shrink-0 px-1`}
+          title={collapsed ? '展开时间轴' : '收起时间轴'}
+          aria-label={collapsed ? '展开时间轴' : '收起时间轴'}
+        >
+          {collapsed ? '▲ 展开' : '▼ 收起'}
+        </button>
       </div>
 
-      {/* 时间轴主体 */}
-      <div
-        ref={containerRef}
-        className="w-full relative"
-        style={{ height: TIMELINE_HEIGHT }}
-      >
+      {/* 时间轴主体（收起时隐藏） */}
+      {!collapsed && (
+        <div
+          ref={containerRef}
+          className="w-full relative"
+          style={{ height: TIMELINE_HEIGHT }}
+        >
       <svg
         ref={svgRef}
         width={width}
@@ -908,6 +929,7 @@ export default function Timeline() {
         滚轮缩放 · 拖拽平移
       </div>
       </div>
+      )}
     </div>
   )
 }

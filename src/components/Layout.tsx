@@ -451,7 +451,7 @@ export default function Layout() {
   return (
     <div className="h-screen w-screen flex flex-col bg-ink-900 text-parchment-50 ink-wash-bg overflow-hidden">
       {/* 顶部 Header（48px 极简） */}
-      <header className="flex items-center justify-between px-4 h-12 border-b border-ink-600 bg-ink-800/80 backdrop-blur z-10" style={{ borderBottomColor: 'rgba(110, 101, 87, 0.4)' }}>
+      <header className="flex items-center justify-between px-4 h-12 border-b border-ink-400/40 bg-paper-warm/80 backdrop-blur z-10">
         <div className="flex items-center gap-3 flex-1 min-w-0">
           <div className="flex items-center gap-2.5 shrink-0">
             {/* 朱砂印章 logo（墨·朱砂 v2） */}
@@ -465,12 +465,12 @@ export default function Layout() {
           </div>
           <SearchBar />
           {/* 视图切换按钮组 */}
-          <div className="flex rounded-lg bg-ink-700/80 border border-ink-600 overflow-hidden shrink-0 ml-auto">
+          <div className="flex rounded-lg bg-paper-card/60 border border-ink-400/40 overflow-hidden shrink-0 ml-auto">
             <button
               className={`px-2.5 py-1.5 text-xs shrink-0 whitespace-nowrap transition-colors ${
                 main.mode === 'map'
                   ? 'bg-vermilion-500/30 text-vermilion-300'
-                  : 'text-ink-500 hover:text-parchment-50 hover:bg-ink-600'
+                  : 'text-ink-400 hover:text-parchment-50 hover:bg-paper-warm/80'
               }`}
               onClick={() => {
                 audioEngine.playClick()
@@ -485,7 +485,7 @@ export default function Layout() {
               className={`px-2.5 py-1.5 text-xs shrink-0 whitespace-nowrap transition-colors ${
                 main.mode === 'graph'
                   ? 'bg-vermilion-500/30 text-vermilion-300'
-                  : 'text-ink-500 hover:text-parchment-50 hover:bg-ink-600'
+                  : 'text-ink-400 hover:text-parchment-50 hover:bg-paper-warm/80'
               }`}
               onClick={() => {
                 audioEngine.playClick()
@@ -501,7 +501,7 @@ export default function Layout() {
               className={`px-2.5 py-1.5 shrink-0 whitespace-nowrap text-xs flex items-center gap-1.5 transition-colors ${
                 main.mode === 'home'
                   ? 'bg-vermilion-500/30 text-vermilion-300'
-                  : 'text-ink-500 hover:text-parchment-50 hover:bg-ink-600'
+                  : 'text-ink-400 hover:text-parchment-50 hover:bg-paper-warm/80'
               }`}
               onClick={() => { audioEngine.playModalClose(); dispatch({ type: 'OPEN_HOME' }) }}
               title="返回学习引导主页"
@@ -525,7 +525,7 @@ export default function Layout() {
               className={`px-2 py-1.5 rounded-lg whitespace-nowrap text-xs flex items-center gap-1 transition-colors border relative ${
                 ui.moreMenuOpen || main.mode === 'overview'
                   ? 'bg-vermilion-500/30 text-vermilion-300 border-vermilion-500/60'
-                  : 'bg-ink-700/80 hover:bg-ink-600 border-ink-600 text-vermilion-300'
+                  : 'bg-paper-card/70 hover:bg-paper-warm border-ink-400/40 text-vermilion-300'
               }`}
               onClick={() => { audioEngine.playClick(); dispatch({ type: 'TOGGLE_MORE_MENU' }) }}
               title="更多"

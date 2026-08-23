@@ -17,6 +17,7 @@ import { useAIStore } from '@/store/useAIStore'
 import OverviewLayout from '@/components/ui/OverviewLayout'
 import { audioEngine } from '@/utils/audioEngine'
 import { bingImage } from '@/utils/geoImage'
+import { resolveAsset } from '@/utils/asset'
 
 type TimelineEvent = { year: number; yearLabel?: string; event: string }
 
@@ -124,7 +125,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
   const coverKeyword = active.imageKeywords?.[0]
     ? active.imageKeywords[0]
     : `${active.title} ${active.keyEvents[0] ?? ''}`
-  const cover = active.infographic ?? bingImage(coverKeyword, 800, 300)
+  const cover = active.infographic ? resolveAsset(active.infographic) : bingImage(coverKeyword, 800, 300)
 
   return (
     <OverviewLayout
@@ -267,7 +268,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
                 <span>📊 课程信息图(NotebookLM)</span>
                 <button
                   onClick={() => setLightbox({
-                    url: active.infographic!,
+                    url: resolveAsset(active.infographic!),
                     caption: active.title,
                     source: `《${active.title}》 · 少年世界史信息图`,
                   })}
@@ -278,14 +279,14 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
               </div>
               <button
                 onClick={() => setLightbox({
-                  url: active.infographic!,
+                  url: resolveAsset(active.infographic!),
                   caption: active.title,
                   source: `《${active.title}》 · 少年世界史信息图`,
                 })}
                 className="block w-full rounded-lg overflow-hidden border border-amber-800/50 hover:border-amber-500/70 transition-all cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-amber-500/50"
               >
                 <img
-                  src={active.infographic}
+                  src={resolveAsset(active.infographic)}
                   alt={`${active.title} 信息图`}
                   loading="lazy"
                   className="w-full h-auto"

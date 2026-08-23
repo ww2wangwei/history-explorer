@@ -61,6 +61,7 @@ const styleEl = typeof document !== 'undefined' ? (() => {
 import scenariosData from '@/data/scenarios.json'
 import { audioEngine, pickBGMForScene, pickBGMForScenario } from '@/utils/audioEngine'
 import { bingImage } from '@/utils/geoImage'
+import { resolveAsset } from '@/utils/asset'
 import bgmLibrary from '@/data/bgmLibrary.json'
 import CharacterAvatar, { PlayerAvatar } from './CharacterAvatar'
 import { useLearningPathStore } from '@/store/useLearningPathStore'
@@ -502,6 +503,9 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
     ? bingImage(`${scenario.title} ${currentScene.image}`, 1200, 400)
     : bingImage(`${scenario.title} ${currentScene.title}`, 1200, 400)
 
+  // 场景视频路径（处理 base 配置）
+  const sceneVideo = resolveAsset(currentScene.video)
+
   return (
     <div className="w-full h-full bg-ink-900 overflow-y-auto relative">
       {/* 背景迷雾：暗色 vignette + 微弱粒子（CSS 实现） */}
@@ -544,7 +548,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
               <video
                 key={`vid-${sceneKey}`}
                 ref={setVideoEl}
-                src={currentScene.video}
+                src={sceneVideo}
                 autoPlay
                 muted
                 playsInline

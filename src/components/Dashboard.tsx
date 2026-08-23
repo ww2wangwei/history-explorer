@@ -22,6 +22,7 @@ import { useLearningPathStore, type PathId } from '@/store/useLearningPathStore'
 import { usePoemStore } from '@/store/usePoemStore'
 import { useQuestionsStore } from '@/store/useQuestionsStore'
 import { audioEngine } from '@/utils/audioEngine'
+import { formatYearShort } from '@/utils/time'
 import gsap from 'gsap'
 import { isDue } from '@/utils/sm2'
 import builtinQuestions from '@/data/questions.json'
@@ -446,58 +447,72 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
             }}
           >
             <div
-              className="relative rounded-md overflow-hidden"
+              className="relative rounded-lg overflow-hidden transition-all hover:shadow-[0_6px_24px_rgba(0,0,0,0.4)]"
               style={{
-                background: 'rgb(var(--bg-card-rgb) / 0.6)',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.3), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.3)',
+                background: 'rgb(var(--bg-card-rgb) / 0.7)',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.3), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.25)',
               }}
             >
-              {/* 内容区 */}
-              <div className="px-5 py-5 relative">
-                {/* 顶部：题引 + 朱红印章「荐」 */}
-                <div className="flex items-start gap-4 mb-2">
-                  <div className="flex-1">
-                    <div className="text-[10px] tracking-[0.4em] text-ink-400 mb-2 uppercase">
-                      启 · 学 · 之 · 荐
-                    </div>
-                    <div className="font-brush text-2xl text-bone group-hover:text-vermilion-300 transition-colors tracking-wider leading-tight">
+              {/* 左侧朝代色条（细窄，沿用整高） */}
+              <div
+                className="absolute left-0 top-0 bottom-0 w-1"
+                style={{ background: recommendation.era.color, opacity: 0.75 }}
+                aria-hidden
+              />
+
+              {/* 顶部题引条 */}
+              <div className="px-5 pt-4 pb-3 flex items-center gap-3 border-b border-gold-500/10">
+                <span
+                  className="font-serif text-[11px] tracking-[0.35em] text-gold-400/85 select-none"
+                  style={{ fontFeatureSettings: '"palt"' }}
+                >
+                  师者所荐 · 今学于此
+                </span>
+                <div className="flex-1 h-px bg-gradient-to-r from-gold-500/20 to-transparent" />
+              </div>
+
+              {/* 中部：标题 + 年份 + 理由 + 印章 */}
+              <div className="px-5 py-4 flex items-start gap-4">
+                <div className="flex-1 min-w-0">
+                  {/* 朝代名 + 年份（一行） */}
+                  <div className="flex items-baseline gap-3 mb-3 flex-wrap">
+                    <h2
+                      className="font-serif text-[26px] leading-none text-vermilion-400 group-hover:text-vermilion-300 transition-colors tracking-wide"
+                      style={{ fontWeight: 500 }}
+                    >
                       {recommendation.era.name}
-                      <span className="ml-3 text-sm text-ink-300 font-sans tabular-nums font-normal">
-                        {recommendation.era.startYear < 0 ? `BC ${-recommendation.era.startYear}` : recommendation.era.startYear}
-                        {' ~ '}
-                        {recommendation.era.endYear < 0 ? `BC ${-recommendation.era.endYear}` : recommendation.era.endYear} 年
-                      </span>
-                    </div>
+                    </h2>
+                    <span className="text-[13px] text-ink-400 tabular-nums font-light tracking-wider">
+                      {formatYearShort(recommendation.era.startYear)}
+                      <span className="mx-2 text-gold-500/50">—</span>
+                      {formatYearShort(recommendation.era.endYear)}
+                    </span>
                   </div>
-                  {/* 朱红印章 */}
-                  <Seal text="荐" size={44} rotated />
+                  {/* 理由 */}
+                  <p className="text-[13px] text-ink-300/90 leading-relaxed">
+                    {recommendation.reason}
+                  </p>
                 </div>
 
-                {/* 中部：理由 */}
-                <div className="text-sm text-ink-300 leading-relaxed mb-3 pl-1">
-                  {recommendation.reason}
+                {/* 朱红印章（不旋转，作为装饰重点） */}
+                <div className="shrink-0 -mt-1">
+                  <Seal text="荐" size={52} rotated={false} />
                 </div>
+              </div>
 
-                {/* 底部：行动提示 */}
-                <div className="flex items-center gap-2 text-xs">
-                  <span
-                    className="font-brush tracking-widest text-ink-400 group-hover:text-vermilion-300 transition-colors"
-                  >
-                    展卷而入
-                  </span>
-                  <span
-                    className="font-brush text-vermilion-300 group-hover:translate-x-2 transition-transform"
-                  >
-                    →→→
-                  </span>
-                </div>
-
-                {/* 右侧朝代色条 */}
-                <div
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-1 h-12 rounded-full"
-                  style={{ background: recommendation.era.color, opacity: 0.6 }}
-                  aria-hidden
-                />
+              {/* 底部行动提示 */}
+              <div
+                className="px-5 py-2.5 flex items-center justify-between border-t border-gold-500/10"
+                style={{ background: 'rgb(var(--bg-elevated-rgb) / 0.3)' }}
+              >
+                <span
+                  className="font-serif text-xs text-ink-400 tracking-[0.35em] group-hover:text-vermilion-400 transition-colors"
+                >
+                  展卷而入
+                </span>
+                <span className="text-vermilion-400 text-sm group-hover:translate-x-1.5 transition-transform">
+                  →
+                </span>
               </div>
             </div>
           </div>

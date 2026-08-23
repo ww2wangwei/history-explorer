@@ -637,7 +637,7 @@ export default function Layout() {
         {/* 右侧详情面板 */}
         {showDetailPanel && (
           <aside
-            className="border-l border-ink-600 bg-ink-800/95 backdrop-blur overflow-hidden flex flex-col flex-shrink-0"
+            className="border-l border-ink-600 bg-ink-800/95 backdrop-blur overflow-hidden flex flex-col flex-shrink-0 min-h-0"
             style={{ width: '480px' }}
           >
             <div className="flex items-center border-b border-ink-600 text-xs bg-ink-800">
@@ -711,7 +711,7 @@ export default function Layout() {
               </button>
             </div>
 
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 min-h-0 overflow-hidden">
               <Suspense fallback={<div className="h-full flex items-center justify-center text-ink-400 animate-pulse text-sm">载入中…</div>}>
                 {showEvent && selectedEventId && <EventDetail eventId={selectedEventId} />}
                 {showEra && selectedEraId && <EraDetail eraId={selectedEraId} />}

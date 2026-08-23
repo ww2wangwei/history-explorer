@@ -38,7 +38,10 @@
     ],
     "relatedEventIds": [
       "ev-003"
-    ]
+    ],
+    "videoId": "M21atFuLMqg",
+    "videoPlatform": "youtube",
+    "videoTitle": "3D拆解金字塔，破解建造之谜，外星人：真不是我们建的"
   },
   {
     "id": "ev-003",
@@ -96,7 +99,10 @@
       36.1
     ],
     "description": "商朝国王盘庚迁都至殷（今河南安阳），商朝也称殷商，“中国”一词最早所指。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "BV1EQa3zFENa",
+    "videoPlatform": "bilibili",
+    "videoTitle": "09盘庚迁殷：商朝稳定发展的历史转折点"
   },
   {
     "id": "ev-006",
@@ -134,7 +140,10 @@
     "importance": 2,
     "relatedEventIds": [
       "ev-008"
-    ]
+    ],
+    "videoId": "BV1pc411L7WE",
+    "videoPlatform": "bilibili",
+    "videoTitle": "大周列国志平王东迁"
   },
   {
     "id": "ev-008",
@@ -150,7 +159,10 @@
     "importance": 2,
     "relatedEventIds": [
       "ev-009"
-    ]
+    ],
+    "videoId": "BV1DXW7zVEyh",
+    "videoPlatform": "bilibili",
+    "videoTitle": "【罗马史】从狼乳到王权：罗马传说建城的故事"
   },
   {
     "id": "ev-009",
@@ -212,7 +224,10 @@
     ],
     "warBackground": "公元前 490 年波斯王大流士一世为报复雅典支持小亚细亚希腊城邦起义，率 2.5 万海军和陆军横渡爱琴海，在马拉松平原登陆，企图直取雅典。",
     "warResult": "雅典将军米提阿德斯率 1 万重装步兵（普拉提亚派 1000 人增援）在马拉松迎战波斯军。雅典军主动出击，希腊重装步兵方阵在两翼包抄中击败轻装为主的波斯军。波斯军阵亡 6400 人，希腊仅 192 人。波斯舰队被迫撤退。",
-    "warImpact": "希波战争第一次重大胜利，大幅鼓舞希腊各城邦抗波斯的信心。雅典声誉鹊起，为后来领导提洛同盟奠定基础。"
+    "warImpact": "希波战争第一次重大胜利，大幅鼓舞希腊各城邦抗波斯的信心。雅典声誉鹊起，为后来领导提洛同盟奠定基础。",
+    "videoId": "BV17aRyYwEnX",
+    "videoPlatform": "bilibili",
+    "videoTitle": "【古希腊史】希波战争：从马拉松到温泉关，希腊如何击退波斯铁骑"
   },
   {
     "id": "ev-012",
@@ -291,7 +306,10 @@
     "relatedEventIds": [
       "ev-016",
       "ev-017"
-    ]
+    ],
+    "videoId": "BV1pLjpzbEEw",
+    "videoPlatform": "bilibili",
+    "videoTitle": "“焚诗书坑儒士 祖龙一怒 伏尸百万 血流千里” 扶苏谏 始皇怒 使扶苏北监蒙恬于上郡"
   },
   {
     "id": "ev-016",
@@ -365,7 +383,10 @@
     "relatedEraId": "han-west",
     "warBackground": "西汉武帝元狩四年（前 119），匈奴单于本部仍以漠北为基地袭扰汉朝北方。霍去病、卫青各率 5 万骑兵深入漠北寻匈奴主力决战。",
     "warResult": "卫青在漠北遭遇匈奴单于本部，激战至黄昏，单于率数百骑突围西逃。霍去病军北进 2000 余里，与匈奴左贤王部决战，斩获 7 万余级，封狼居胥山（蒙古国肯特山），禅于姑衍，登临瀚海。",
-    "warImpact": "\"漠北之战\"是汉匈战争的决战。匈奴远遁，\"漠南无王庭\"，汉朝北方边患基本解除。汉武帝得以转向西域经营。"
+    "warImpact": "\"漠北之战\"是汉匈战争的决战。匈奴远遁，\"漠南无王庭\"，汉朝北方边患基本解除。汉武帝得以转向西域经营。",
+    "videoId": "BV1Tt4y1d7xp",
+    "videoPlatform": "bilibili",
+    "videoTitle": "一口气看懂汉朝漠北之战的全过程"
   },
   {
     "id": "ev-020",
@@ -395,7 +416,10 @@
       34.27
     ],
     "description": "王莽篡汉建立新朝，西汉灭亡。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "Cbo5WsZaB7U",
+    "videoPlatform": "youtube",
+    "videoTitle": "米小圈中国史2-11：王莽篡汉"
   },
   {
     "id": "ev-022",
@@ -409,7 +433,10 @@
     ],
     "description": "刘秀建立东汉，定都洛阳，开启光武中兴。",
     "importance": 2,
-    "relatedEraId": "han-east"
+    "relatedEraId": "han-east",
+    "videoId": "S2RoqOIzKsY",
+    "videoPlatform": "youtube",
+    "videoTitle": "一分钟带你了解东汉建立全过程"
   },
   {
     "id": "ev-023",
@@ -456,7 +483,10 @@
     ],
     "description": "戴克里先实行四帝共治，罗马帝国开始东西分裂。",
     "importance": 2,
-    "relatedEraId": "rome-empire"
+    "relatedEraId": "rome-empire",
+    "videoId": "dVZgBOpgVxI",
+    "videoPlatform": "youtube",
+    "videoTitle": "羅馬帝國衰亡史：是誰殺了羅馬？｜三世紀危機｜四帝共治｜羅馬帝國分裂｜民族大遷徙｜西羅馬帝國滅亡｜黑暗時代"
   },
   {
     "id": "ev-026",
@@ -518,7 +548,10 @@
       34.27
     ],
     "description": "杨坚建立隋朝，统一中国，结束南北朝分裂。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "rBUgYMj7Msk",
+    "videoPlatform": "youtube",
+    "videoTitle": "一口氣看完隋朝歷史：唐朝的上家，為何僅歷經2個皇帝就亡國？隋煬帝因何慘遭毒手？是時候揭開歷史真相了…| 床台"
   },
   {
     "id": "ev-030",
@@ -582,7 +615,10 @@
     ],
     "description": "玄奘法师从印度取经归来，翻译佛经、著《大唐西域记》。",
     "importance": 2,
-    "relatedEraId": "tang"
+    "relatedEraId": "tang",
+    "videoId": "ewNKxMbIAQs",
+    "videoPlatform": "youtube",
+    "videoTitle": "【玄奘】一口气看完玄奘的一生，隋末烽烟中的西行梦，贞观盛世里的译经魂，玄奘的一生，与初唐时代变迁紧密相连"
   },
   {
     "id": "ev-034",
@@ -633,7 +669,10 @@
     ],
     "description": "阿拔斯王朝哈里发曼苏尔建立巴格达，成为伊斯兰世界文化与学术中心。",
     "importance": 2,
-    "relatedEraId": "arab-caliphate"
+    "relatedEraId": "arab-caliphate",
+    "videoId": "-vefOiRH26U",
+    "videoPlatform": "youtube",
+    "videoTitle": "深入探索最真实的巴格达红区 停火多年后 这里发展的怎么样了？"
   },
   {
     "id": "ev-037",
@@ -649,7 +688,10 @@
     "importance": 2,
     "country": [
       "holy-roman"
-    ]
+    ],
+    "videoId": "3qH1VSraW3g",
+    "videoPlatform": "youtube",
+    "videoTitle": "查理曼 — 加冕神圣帝国的国王"
   },
   {
     "id": "ev-038",
@@ -662,7 +704,10 @@
       33.5
     ],
     "description": "朱温篡唐，建立后梁，中国再次进入分裂时期。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "kRyPIzYkG2Y",
+    "videoPlatform": "youtube",
+    "videoTitle": "【三维地图】大唐灭亡后的权力真空！三维地图推演各地藩镇的生死抉择，谁能称霸乱世？ #五代十国 #太平年"
   },
   {
     "id": "ev-039",
@@ -693,7 +738,10 @@
     ],
     "description": "北宋四川地区发行“交子”，世界上最早的纸币。",
     "importance": 2,
-    "relatedEraId": "song-north"
+    "relatedEraId": "song-north",
+    "videoId": "Xmhv63Zj8Wc",
+    "videoPlatform": "youtube",
+    "videoTitle": "宋代交子崩溃史：世界上第一种纸币是如何被玩坏的？"
   },
   {
     "id": "ev-041",
@@ -709,7 +757,10 @@
     "importance": 2,
     "warBackground": "1066 年 1 月英王爱德华（\"忏悔者\"）去世无嗣，贵族会议推选哈罗德二世为王。诺曼底公爵威廉以爱德华曾许诺其王位为由，召集大陆诸侯准备入侵。",
     "warResult": "1066 年 9 月 28 日威廉率约 7000 人在英格兰南部佩文西登陆。10 月 14 日双方在黑斯廷斯决战。哈罗德被弓箭手射中眼睛身亡，英军大败。威廉加冕为英格兰国王，史称\"征服者威廉\"。",
-    "warImpact": "英格兰的盎格鲁-撒克逊贵族体系被诺曼贵族取代，封建制度深化。法语涌入英语形成现代英语的基础。英格兰从此与欧洲大陆紧密联系，民族性格重塑。"
+    "warImpact": "英格兰的盎格鲁-撒克逊贵族体系被诺曼贵族取代，封建制度深化。法语涌入英语形成现代英语的基础。英格兰从此与欧洲大陆紧密联系，民族性格重塑。",
+    "videoId": "RN6URO6Hess",
+    "videoPlatform": "youtube",
+    "videoTitle": "諾曼王朝極簡史｜一口氣講完英國史系列｜征服者威廉｜紅毛威廉｜亨利一世｜末日審判書｜征服之戰｜英國簡史｜Papaya Crush"
   },
   {
     "id": "ev-042",
@@ -792,7 +843,10 @@
     "relatedEraId": "mongol-empire",
     "warBackground": "1235 年蒙古窝阔台大汗命各支系长子西征，由拔都（成吉思汗之孙）统帅。蒙古军已征服中亚和部分东欧，准备进一步西进。",
     "warResult": "1237-1240 年蒙古军先后攻陷梁赞、弗拉基米尔、莫斯科、基辅（罗斯诸国基本被毁），进入波兰、匈牙利、捷克。1241 年于列格尼卡战役和绍约河战役击败波兰和匈牙利联军。1242 年因大汗窝阔台死讯，蒙古军东撤参加忽里勒台大会。",
-    "warImpact": "罗斯诸国（俄罗斯前身）被毁，长期臣服于蒙古（\"金帐汗国\"统治 240 年），深刻塑造了俄罗斯的民族性格和东欧政治格局。"
+    "warImpact": "罗斯诸国（俄罗斯前身）被毁，长期臣服于蒙古（\"金帐汗国\"统治 240 年），深刻塑造了俄罗斯的民族性格和东欧政治格局。",
+    "videoId": "t6GKnuvA94A",
+    "videoPlatform": "youtube",
+    "videoTitle": "横扫欧洲！58分钟一口气看完蒙古帝国第二次西征：拔都如何踏平基辅、震慑维也纳？｜洋堂主故事汇"
   },
   {
     "id": "ev-047",
@@ -861,7 +915,10 @@
     ],
     "description": "蒙古帝国分裂为元朝及四大汗国（钦察、察合台、窝阔台、伊利汗国）。",
     "importance": 2,
-    "relatedEraId": "mongol-empire"
+    "relatedEraId": "mongol-empire",
+    "videoId": "TUnxfWS6W0Y",
+    "videoPlatform": "youtube",
+    "videoTitle": "蒙古帝国是怎么分裂的？"
   },
   {
     "id": "ev-051",
@@ -1414,7 +1471,10 @@
       36.65
     ],
     "description": "齐桓公任用管仲改革，\"九合诸侯，一匡天下\"，成为春秋首霸，确立\"尊王攘夷\"旗号。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "ZvP4yuRjl9k",
+    "videoPlatform": "youtube",
+    "videoTitle": "米小圈中国史1-13：齐桓公称霸诸侯"
   },
   {
     "id": "ev-082",
@@ -1430,7 +1490,10 @@
     "importance": 2,
     "warBackground": "春秋时期晋楚争霸。公元前 632 年晋文公重耳欲称霸中原，率军南下救援被楚国围攻的宋国。楚军主帅成得臣率楚、陈、蔡、郑、许联军北上迎击。",
     "warResult": "晋军退避三舍（兑现当年重耳流亡楚国时对楚成王的诺言），诱楚军深入。晋军利用地形优势，先以下军佐胥臣击溃楚军右翼陈、蔡军，再以上军狐毛诈败诱楚左翼追击，中军元帅先轸合围歼之。楚军大败，主帅成得臣自杀。",
-    "warImpact": "晋文公践土会盟确立霸主地位，开启晋国百年霸业。城濮之战是中国古代以弱胜强的经典战例，\"退避三舍\"成为典故。"
+    "warImpact": "晋文公践土会盟确立霸主地位，开启晋国百年霸业。城濮之战是中国古代以弱胜强的经典战例，\"退避三舍\"成为典故。",
+    "videoId": "BV1tVBuYzEsb",
+    "videoPlatform": "bilibili",
+    "videoTitle": "【春秋18】详解春秋第一战，城濮之战"
   },
   {
     "id": "ev-083",
@@ -1443,7 +1506,10 @@
       34.27
     ],
     "description": "老子（李耳，约公元前 571 年—前 471 年）骑青牛西出函谷关，应尹喜之请写下《道德经》五千言，道家学派创始人。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "469erIMNM28",
+    "videoPlatform": "youtube",
+    "videoTitle": "《#老子出关》/ Laozi Went out of Hangu Pass 山海经老子骑青牛出函谷关 只为探寻一个千年秘密！（沈保平）ENG SUB"
   },
   {
     "id": "ev-084",
@@ -1485,7 +1551,10 @@
       35.59
     ],
     "description": "孟子（约公元前 372 年—前 289 年）继承孔子学说，提出\"性善论\"\"仁政\"\"民贵君轻\"，游说列国未得行其道。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "vNhBrwhkaqU",
+    "videoPlatform": "youtube",
+    "videoTitle": "孟子周遊事蹟"
   },
   {
     "id": "ev-087",
@@ -1498,7 +1567,10 @@
       35.59
     ],
     "description": "庄子（约公元前 369 年—前 286 年）继承老子思想，主张\"齐物\"\"逍遥\"\"齐物论\"，文章瑰丽诡谲。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "BV18y4y1J7NR",
+    "videoPlatform": "bilibili",
+    "videoTitle": "《庄子·北冥有鱼》（逍遥游）"
   },
   {
     "id": "ev-088",
@@ -1546,7 +1618,10 @@
     "importance": 2,
     "warBackground": "战国末年秦王嬴政重用李斯、王翦，灭韩、赵、燕国在即。燕太子丹在秦国做人质时受辱，归国后谋划刺杀秦王以挽救燕国。",
     "warResult": "公元前 227 年荆轲携燕国督亢地图和樊於期人头入秦，借献图接近秦王。图穷匕见，荆轲抓起匕首刺向秦王未中，反被秦王砍断左腿，最终被侍卫杀死。",
-    "warImpact": "刺秦失败加速了秦灭燕的进程。公元前 226 年秦军攻陷蓟城，燕王喜逃亡辽东，公元前 222 年燕国最终灭亡。\"风萧萧兮易水寒\"成为千古绝唱。"
+    "warImpact": "刺秦失败加速了秦灭燕的进程。公元前 226 年秦军攻陷蓟城，燕王喜逃亡辽东，公元前 222 年燕国最终灭亡。\"风萧萧兮易水寒\"成为千古绝唱。",
+    "videoId": "BV1NE6CBhECt",
+    "videoPlatform": "bilibili",
+    "videoTitle": "《荆轲刺秦王》 超清中字 完整版"
   },
   {
     "id": "ev-091",
@@ -1578,7 +1653,10 @@
       30.67
     ],
     "description": "刘备于成都称帝，建立蜀汉。诸葛亮为丞相。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "_S8kRgjuS2s",
+    "videoPlatform": "youtube",
+    "videoTitle": "刘备称帝 为报关羽被害之仇 率兵七十万攻东吴《三国演义》第六十一集【CCTV电视剧】"
   },
   {
     "id": "ev-093",
@@ -1594,7 +1672,10 @@
     "importance": 2,
     "warBackground": "221 年刘备称帝后为给关羽报仇、夺回荆州，亲率 4 万蜀军伐吴。吴将陆逊以逸待劳，坚守不出。",
     "warResult": "221 年 7 月蜀军连营 700 里于夷陵（今湖北宜昌东）至秭归山区。222 年 6 月陆逊利用东南风发动火攻，蜀军大败。刘备仅率残部逃回白帝城。",
-    "warImpact": "蜀汉元气大伤，丧失大批精锐，刘备忧愤而逝。诸葛亮被迫调整战略，从此蜀汉以防守为主。三国鼎立格局基本定型。"
+    "warImpact": "蜀汉元气大伤，丧失大批精锐，刘备忧愤而逝。诸葛亮被迫调整战略，从此蜀汉以防守为主。三国鼎立格局基本定型。",
+    "videoId": "djH3KNkmKAQ",
+    "videoPlatform": "youtube",
+    "videoTitle": "【三维地图】夷陵之战，为何能与官渡之战和赤壁之战称为三国时期的三大战役？此战的具体过程究竟是怎样的？【地图里的故事】"
   },
   {
     "id": "ev-094",
@@ -1626,7 +1707,10 @@
       30.67
     ],
     "description": "魏将邓艾、钟会伐蜀，刘禅出降，蜀汉亡。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "YK3WqOMmzwU",
+    "videoPlatform": "youtube",
+    "videoTitle": "蜀漢滅亡三大禍首：諸葛亮最無奈，譙周最可恨，一言難盡是劉禪"
   },
   {
     "id": "ev-096",
@@ -1639,7 +1723,10 @@
       32.04
     ],
     "description": "晋将王濬率水军灭东吴，三国归晋。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "uLj-2xAS63Q",
+    "videoPlatform": "youtube",
+    "videoTitle": "《中国通史》E32西晋统一/司马篡魏真相：枭雄or国贼？一场政变改写三百年！"
   },
   {
     "id": "ev-097",
@@ -1652,7 +1739,10 @@
       34.62
     ],
     "description": "匈奴刘聪军攻陷洛阳，掳晋怀帝，杀王公士民三万余人，西晋名存实亡。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "v58s9txmdtU",
+    "videoPlatform": "youtube",
+    "videoTitle": "1斗米等於2兩金，人吃人，136年超級亂世的開端，永嘉之亂和五胡入中華的光影交錯《漫聊五胡十六國》第2集"
   },
   {
     "id": "ev-098",
@@ -1684,7 +1774,10 @@
       34.62
     ],
     "description": "北魏孝文帝拓跋宏迁都洛阳，全面推行汉化：改汉姓、穿汉服、说汉话、与汉族通婚，促进民族大融合。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "pCXIAuTpIwE",
+    "videoPlatform": "youtube",
+    "videoTitle": "北魏孝文帝为什么一定要汉化改革？｜御史房官方"
   },
   {
     "id": "ev-100",
@@ -1742,7 +1835,10 @@
       34.27
     ],
     "description": "隋炀帝设进士科，标志着科举制度正式建立，影响中国 1300 多年的人才选拔。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "xVbCxc9dPNI",
+    "videoPlatform": "youtube",
+    "videoTitle": "【三维地图】大明科举全流程硬核还原！穿越明朝踏上科举路，院试、乡试、会试、殿试步步进阶，你能否过关斩将问鼎状元？#历史#科举考试#状元"
   },
   {
     "id": "ev-104",
@@ -1755,7 +1851,10 @@
       34.27
     ],
     "description": "李渊在长安称帝，建立唐朝。同年宇文化及杀隋炀帝，隋朝灭亡。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "_WcdzXfo4Tc",
+    "videoPlatform": "youtube",
+    "videoTitle": "005 李渊建唐"
   },
   {
     "id": "ev-105",
@@ -1768,7 +1867,10 @@
       34.62
     ],
     "description": "朱温废唐哀帝，建立后梁，唐朝灭亡。五代十国分裂开始。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "NZyhAkJWrTw",
+    "videoPlatform": "youtube",
+    "videoTitle": "25歲造反，55歲稱帝，本是鄉野潑皮，狡詐勝過曹操，40分鐘深扒「朱溫篡唐」@FHZDN 《漫聊五代十國》第2集"
   },
   {
     "id": "ev-106",
@@ -1781,7 +1883,10 @@
       34.79
     ],
     "description": "赵匡胤在陈桥驿被黄袍加身，建立北宋，五代结束。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "pO8KA7L6RP8",
+    "videoPlatform": "youtube",
+    "videoTitle": "【太平年】赵匡胤陈桥兵变黄袍加身 | Swords into Plowshares - Clip"
   },
   {
     "id": "ev-107",
@@ -1797,7 +1902,10 @@
     "importance": 2,
     "country": [
       "france"
-    ]
+    ],
+    "videoId": "k-ErBkWqfbU",
+    "videoPlatform": "youtube",
+    "videoTitle": "三兄弟分家产怎么就割裂了整个欧洲？欧洲中世纪最大帝国的碎片命运 | 路易分土 | 神圣罗马帝 | 查理曼帝国 | 德国"
   },
   {
     "id": "ev-108",
@@ -1816,7 +1924,10 @@
     ],
     "warBackground": "1337 年英王爱德华三世宣称有权继承法国王位（其母是法王腓力四世之女），法国北部阿基坦地区长期是英国王室领地，双方矛盾激化。",
     "warResult": "1337 年 11 月英法正式开战。战争持续 116 年（中间多次停战），期间法军初期占优（克雷西战役 1346 年英军反败为胜），后期法国民族意识觉醒（贞德 1429 年解放奥尔良扭转战局），1453 年波旁战役法军胜利收复加莱，百年战争结束。",
-    "warImpact": "法国完成民族国家建构，王权加强。英格兰丧失全部法国领地，被迫转向海洋扩张（埋下后来都铎王朝和伊丽莎白时代的伏笔）。骑士制度走向没落。"
+    "warImpact": "法国完成民族国家建构，王权加强。英格兰丧失全部法国领地，被迫转向海洋扩张（埋下后来都铎王朝和伊丽莎白时代的伏笔）。骑士制度走向没落。",
+    "videoId": "nO01VsqPyDg",
+    "videoPlatform": "youtube",
+    "videoTitle": "玫瑰与百合之战 | 英法百年战争史 250分钟详解 | 百年战争（Guerre de Cent Ans，Hundred Years' War）是1337年至1453年英格兰与法兰西发生的一系列军事冲突"
   },
   {
     "id": "ev-109",
@@ -1870,7 +1981,10 @@
     "importance": 2,
     "country": [
       "france"
-    ]
+    ],
+    "videoId": "8jx64fZ2Kck",
+    "videoPlatform": "youtube",
+    "videoTitle": "「掉」頭就走的法國國王：路易十六，法國大革命期間人民砍頭砍上癮｜驚奇說 #56"
   },
   {
     "id": "ev-112",
@@ -1886,7 +2000,10 @@
     "importance": 2,
     "country": [
       "france"
-    ]
+    ],
+    "videoId": "LIPQH0xd7JY",
+    "videoPlatform": "youtube",
+    "videoTitle": "雾月政变：拿破仑如何用一场军事闹剧，终结十年法国大革命？《漫话欧洲史196》金字塔之战|尼罗河口海战|马穆鲁克|纳尔逊|第二次反法同盟|埃及远征|督政府|西耶斯|吕西安·波拿巴|圣克卢宫"
   },
   {
     "id": "ev-113",
@@ -1925,7 +2042,10 @@
     ],
     "warBackground": "1812 年拿破仑俄国境内的反法情绪日益高涨，沙皇亚历山大一世拒绝继续配合拿破仑的大陆封锁体系。拿破仑集结 60 余万大军（包括 50 多个欧洲国家军队的\"第二帝国\"）准备一举征服俄国。",
     "warResult": "俄军在库图佐夫元帅指挥下实施\"焦土战略\"，不与法军决战，主动后撤。法军占领莫斯科后发现是一座空城，物资匮乏。10 月法军被迫撤退，俄军沿途追击。严寒、饥饿和游击战使法军损失惨重，最终仅约 3 万人逃出俄国。",
-    "warImpact": "拿破仑帝国由盛转衰，间接导致次年莱比锡战役和 1814 年巴黎陷落。俄国国际地位空前提升。但俄国经济也遭受重创。"
+    "warImpact": "拿破仑帝国由盛转衰，间接导致次年莱比锡战役和 1814 年巴黎陷落。俄国国际地位空前提升。但俄国经济也遭受重创。",
+    "videoId": "6hxNRk5bVug",
+    "videoPlatform": "youtube",
+    "videoTitle": "一口气看完拿破仑远征俄国"
   },
   {
     "id": "ev-115",
@@ -1963,7 +2083,10 @@
     "importance": 2,
     "country": [
       "japan"
-    ]
+    ],
+    "videoId": "rpTJSJ58WXE",
+    "videoPlatform": "youtube",
+    "videoTitle": "平城京のまちなみ紹介～奈良時代の都のしくみ～"
   },
   {
     "id": "ev-117",
@@ -1979,7 +2102,10 @@
     "importance": 2,
     "country": [
       "japan"
-    ]
+    ],
+    "videoId": "UAeAtgqOnsk",
+    "videoPlatform": "youtube",
+    "videoTitle": "日本的历史——迁都平安京（和尚差点当皇帝）"
   },
   {
     "id": "ev-118",
@@ -2030,7 +2156,10 @@
     ],
     "warBackground": "1467 年日本室町幕府将军足利义政（\"东山文化\"推动者）无嗣退位引发的继承纠纷激化。管领畠山氏、守护大名之间矛盾交织，各地豪强趁机扩张。",
     "warResult": "应仁之乱持续 10 年（1467-1477），京都大半化为灰烬。幕府将军权威扫地，地方守护大名纷纷自立，日本进入长达近 150 年的\"战国时代\"（1467-1615）。",
-    "warImpact": "日本中央集权彻底崩溃，地方武装割据。战国时代产生织田信长、丰臣秀吉、德川家康等枭雄，为后来丰臣秀吉统一和江户幕府 265 年和平奠基。"
+    "warImpact": "日本中央集权彻底崩溃，地方武装割据。战国时代产生织田信长、丰臣秀吉、德川家康等枭雄，为后来丰臣秀吉统一和江户幕府 265 年和平奠基。",
+    "videoId": "1z8YPnj3q7Y",
+    "videoPlatform": "youtube",
+    "videoTitle": "【日本简史第十期】应仁之乱！日本战国时代序章！【周侃侃plus】"
   },
   {
     "id": "ev-121",
@@ -2065,7 +2194,10 @@
     "importance": 2,
     "country": [
       "japan"
-    ]
+    ],
+    "videoId": "kSKRbEIf7jI",
+    "videoPlatform": "youtube",
+    "videoTitle": "【走讀日本史】美國艦隊來航，「武士」時代終結：走遍幕末歷史景點，解密改變日本的關鍵十五年｜走讀歷史EP.1"
   },
   {
     "id": "ev-123",
@@ -2084,7 +2216,10 @@
     ],
     "warBackground": "1525 年蒙古帖木儿后裔巴布尔（自称蒙古血统）率 1.2 万兵力从喀布尔入侵印度，意图征服德里苏丹国。德里苏丹易卜拉欣·洛迪拥兵 10 万迎战。",
     "warResult": "1526 年 4 月 21 日在帕尼帕特平原会战。巴布尔巧妙使用火绳枪（奥斯曼技术）和机动战术（\"图尔加玛\"战车阵），打散苏丹军骑兵冲锋。易卜拉欣战死，苏丹军伤亡过万，巴布尔伤亡极小。",
-    "warImpact": "巴布尔建立莫卧儿帝国（1526-1857），印度进入\"莫卧儿时代\"，这是印度历史上最辉煌的王朝之一，标志印度教-伊斯兰文化融合的新阶段。"
+    "warImpact": "巴布尔建立莫卧儿帝国（1526-1857），印度进入\"莫卧儿时代\"，这是印度历史上最辉煌的王朝之一，标志印度教-伊斯兰文化融合的新阶段。",
+    "videoId": "AewNh4iWgyw",
+    "videoPlatform": "youtube",
+    "videoTitle": "世紀帝國II：決定版 戰役 南亞 巴布爾 第4關 帕尼帕特之戰 困難 速度：1.7（固定）"
   },
   {
     "id": "ev-124",
@@ -2100,7 +2235,10 @@
     "importance": 2,
     "country": [
       "mughal"
-    ]
+    ],
+    "videoId": "2ZHwxNvt0zk",
+    "videoPlatform": "youtube",
+    "videoTitle": "最新！巴菲特繼任者 阿貝爾 第一封致股東信：股東們請放心，波克夏帝國江山依舊穩固⋯⋯｜波克夏致股東信2026｜後巴菲特時代"
   },
   {
     "id": "ev-125",
@@ -2151,7 +2289,10 @@
     ],
     "warBackground": "1857 年英国东印度公司对印度土兵的歧视（不许触摸弹药涂有牛猪油）和传教士活动引发宗教反感，加之兼并奥德王国激起地主不满。",
     "warResult": "1857 年 5 月 10 日密拉特的土兵起义，迅速蔓延。德里、勒克瑙、坎普尔等城市先后爆发反抗。英军历时 14 个月才彻底平定起义。末代莫卧儿皇帝巴哈杜尔·沙二世被流放缅甸。",
-    "warImpact": "东印度公司被撤销（1858），英国开始直接统治印度（英属印度）。印度民族意识觉醒，为 20 世纪甘地的非暴力不合作运动埋下种子。"
+    "warImpact": "东印度公司被撤销（1858），英国开始直接统治印度（英属印度）。印度民族意识觉醒，为 20 世纪甘地的非暴力不合作运动埋下种子。",
+    "videoId": "HvCfwzgbies",
+    "videoPlatform": "youtube",
+    "videoTitle": "长期打压下的爆发，印度民族大起义，为何说是独立之战？"
   },
   {
     "id": "ev-128",
@@ -2167,7 +2308,10 @@
     "importance": 2,
     "country": [
       "persia"
-    ]
+    ],
+    "videoId": "dyhmWsMs5Pk",
+    "videoPlatform": "youtube",
+    "videoTitle": "波斯帝國：“世界帝國”開創者，卻慘遭“妖魔化”！伊朗的輝煌往事——阿契美尼德王朝"
   },
   {
     "id": "ev-129",
@@ -2249,7 +2393,10 @@
     "importance": 2,
     "country": [
       "persia"
-    ]
+    ],
+    "videoId": "9SipF3txn0g",
+    "videoPlatform": "youtube",
+    "videoTitle": "薩珊波斯：伊朗人的輝煌歷史，第二波斯帝國，拜占庭的宿敵，伊斯蘭文明之母"
   },
   {
     "id": "ev-133",
@@ -2278,7 +2425,10 @@
     "importance": 2,
     "country": [
       "persia"
-    ]
+    ],
+    "videoId": "9SipF3txn0g",
+    "videoPlatform": "youtube",
+    "videoTitle": "薩珊波斯：伊朗人的輝煌歷史，第二波斯帝國，拜占庭的宿敵，伊斯蘭文明之母"
   },
   {
     "id": "ev-135",
@@ -2313,7 +2463,10 @@
     "importance": 2,
     "country": [
       "egypt"
-    ]
+    ],
+    "videoId": "BV1BC4y1d7AZ",
+    "videoPlatform": "bilibili",
+    "videoTitle": "年轻的图坦拿到王位他要夺回属于自己的一切准备行动！《图坦卡蒙》历史上最帅法老！"
   },
   {
     "id": "ev-137",
@@ -2346,7 +2499,10 @@
     "country": [
       "greece",
       "egypt"
-    ]
+    ],
+    "videoId": "BV1bJ411Y7bb",
+    "videoPlatform": "bilibili",
+    "videoTitle": "埃及之行1-亚历山大"
   },
   {
     "id": "ev-139",
@@ -2362,7 +2518,10 @@
     "importance": 2,
     "country": [
       "rome"
-    ]
+    ],
+    "videoId": "Q1IX0n2rn2A",
+    "videoPlatform": "youtube",
+    "videoTitle": "克娄巴特拉之墓：埃及女王消失的秘密"
   },
   {
     "id": "ev-140",
@@ -2381,7 +2540,10 @@
     ],
     "warBackground": "公元前 338 年马其顿国王腓力二世野心勃勃，准备称霸希腊。雅典和底比斯结成同盟对抗马其顿扩张。",
     "warResult": "公元前 338 年 8 月喀罗尼亚平原会战。马其顿军右翼 18 岁的亚历山大率伴友骑兵直插希腊联军缝隙，击溃底比斯神圣军团；中军腓力二世击退雅典军。联军大败，希腊各邦被迫承认马其顿霸权。",
-    "warImpact": "希腊城邦独立时代结束，进入\"马其顿统治时期\"。次年腓力二世在科林斯召开全希腊会议，建立马其顿领导的希腊同盟。两年后腓力遇刺，亚历山大大帝继位，开启东征传奇。"
+    "warImpact": "希腊城邦独立时代结束，进入\"马其顿统治时期\"。次年腓力二世在科林斯召开全希腊会议，建立马其顿领导的希腊同盟。两年后腓力遇刺，亚历山大大帝继位，开启东征传奇。",
+    "videoId": "BV1MA411t7kz",
+    "videoPlatform": "bilibili",
+    "videoTitle": "底比斯圣队之殇——喀罗尼亚战役——马其顿主宰希腊"
   },
   {
     "id": "ev-141",
@@ -2420,7 +2582,10 @@
     "country": [
       "greece",
       "babylonian"
-    ]
+    ],
+    "videoId": "rbx2LwGQbMc",
+    "videoPlatform": "youtube",
+    "videoTitle": "亞歷山大大帝擊敗波斯帝國，占領世界最大城市巴比倫，蓋世功績！"
   },
   {
     "id": "ev-143",
@@ -2452,7 +2617,10 @@
     "importance": 2,
     "warBackground": "1776 年《独立宣言》发布后，独立战争持续 6 年。1781 年英军在约克镇投降后战事实际结束。",
     "warResult": "1783 年 9 月 3 日美英在巴黎签署《巴黎和约》，英国正式承认美国独立，放弃北美 13 州的宗主权；美国疆域扩展至密西西比河。",
-    "warImpact": "美国独立战争胜利开创了殖民地成功独立的先例。1787 年制宪会议、1789 年华盛顿就任首任总统。美国成为启蒙思想的实验场，深刻影响法国大革命和拉丁美洲独立运动。"
+    "warImpact": "美国独立战争胜利开创了殖民地成功独立的先例。1787 年制宪会议、1789 年华盛顿就任首任总统。美国成为启蒙思想的实验场，深刻影响法国大革命和拉丁美洲独立运动。",
+    "videoId": "CG85NgfOIVY",
+    "videoPlatform": "youtube",
+    "videoTitle": "美國獨立戰爭：人類歷史上最成功的革命！一口氣看完“燈塔國”誕生史！"
   },
   {
     "id": "ev-145",
@@ -2465,7 +2633,10 @@
       38.91
     ],
     "description": "乔治·华盛顿就任美国首任总统，开启美国宪政。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "UHiL5o4wlOc",
+    "videoPlatform": "youtube",
+    "videoTitle": "#美国总统就职典礼 #美国首都华盛顿  美国首都华盛顿现状 （一） 昔日的繁华变成如今的鬼城 让我心痛"
   },
   {
     "id": "ev-146",
@@ -2478,7 +2649,10 @@
       38.91
     ],
     "description": "杰斐逊总统以 1500 万美元从拿破仑法国购得路易斯安那，美国领土翻倍。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "Ylt9Cdip05U",
+    "videoPlatform": "youtube",
+    "videoTitle": "美国购买路易斯安那：土地不能买卖，土地没有主人"
   },
   {
     "id": "ev-147",
@@ -2567,7 +2741,10 @@
     "importance": 2,
     "warBackground": "1258 年蒙古第三次西征军由旭烈兀率领围攻阿拔斯王朝首都巴格达。末代哈里发穆斯台绥木拒绝投降，激怒蒙古军。",
     "warResult": "蒙古军使用重型投石机连续轰击城墙。2 月 10 日城墙被攻破，巴格达陷落后遭 13 天屠城。哈里发被裹在地毯里被马踩死（一说被饿死）。阿拔斯王朝立国 500 年至此终结，延续 600 年的阿拉伯帝国彻底消失。",
-    "warImpact": "伊斯兰世界政治中心从巴格达转移到开罗（马穆鲁克）。蒙古在此建立伊尔汗国，定都大不里士。中世纪伊斯兰文明的\"黄金时代\"结束。大量阿拉伯学者逃往埃及、叙利亚和印度，伊斯兰学术中心多元化。"
+    "warImpact": "伊斯兰世界政治中心从巴格达转移到开罗（马穆鲁克）。蒙古在此建立伊尔汗国，定都大不里士。中世纪伊斯兰文明的\"黄金时代\"结束。大量阿拉伯学者逃往埃及、叙利亚和印度，伊斯兰学术中心多元化。",
+    "videoId": "qZGutIQaKrw",
+    "videoPlatform": "youtube",
+    "videoTitle": "巴格达陷落！一座人间天堂的毁灭 #热门音乐🔥  #游戏  #历史  #追剧在抖音  #历史剧  #电影"
   },
   {
     "id": "ev-152",
@@ -2602,7 +2779,10 @@
     "importance": 2,
     "country": [
       "aztec"
-    ]
+    ],
+    "videoId": "76C0jzk_dqY",
+    "videoPlatform": "youtube",
+    "videoTitle": "阿兹特克帝国 | 湖中之城特诺奇蒂特兰的秘密"
   },
   {
     "id": "ev-154",
@@ -2621,7 +2801,10 @@
     ],
     "warBackground": "1519 年西班牙冒险家埃尔南·科尔特斯率 600 西班牙士兵（带火绳枪、马匹和小型大炮）登陆墨西哥东海岸。阿兹特克帝国是当时美洲最大的文明之一。",
     "warResult": "科尔特斯巧妙利用阿兹特克内部的敌对势力（如被征服的特拉斯卡拉部落）和天花疫情。1521 年 8 月 13 日西班牙军攻陷特诺奇蒂特兰，末代皇帝库奥赫特莫克被俘后遭处决。阿兹特克帝国灭亡。",
-    "warImpact": "延续 200 多年的阿兹特克文明被征服。墨西哥沦为西班牙殖民地 300 年。当地人口因战争、奴役和天花从 2500 万锐减至 200 万（数十年间）。"
+    "warImpact": "延续 200 多年的阿兹特克文明被征服。墨西哥沦为西班牙殖民地 300 年。当地人口因战争、奴役和天花从 2500 万锐减至 200 万（数十年间）。",
+    "videoId": "76C0jzk_dqY",
+    "videoPlatform": "youtube",
+    "videoTitle": "阿兹特克帝国 | 湖中之城特诺奇蒂特兰的秘密"
   },
   {
     "id": "ev-155",
@@ -2637,7 +2820,10 @@
     "importance": 2,
     "country": [
       "holy-roman"
-    ]
+    ],
+    "videoId": "4HopL6m9C7o",
+    "videoPlatform": "youtube",
+    "videoTitle": "2月2日 962年2月2日 教皇约翰十二世为东法兰克国王奥托一世加冕为皇帝"
   },
   {
     "id": "ev-156",
@@ -2653,7 +2839,10 @@
     "importance": 2,
     "country": [
       "holy-roman"
-    ]
+    ],
+    "videoId": "UQ9hJ3EEuuY",
+    "videoPlatform": "youtube",
+    "videoTitle": "18 卡诺莎之辱——松涛说史第四季（中世纪）"
   },
   {
     "id": "ev-157",
@@ -2704,7 +2893,10 @@
     ],
     "warBackground": "神圣罗马帝国内部宗教矛盾尖锐（新教 vs 天主教），加上波希米亚贵族选举新教国王引发的\"布拉格掷出窗外事件\"（1618）触发战争。",
     "warResult": "战争持续 30 年（1618-1648），从神圣罗马内战升级为欧洲主要国家（瑞典、法国、西班牙、丹麦）参与的混战。1648 年签订《威斯特伐利亚和约》：神圣罗马帝国实质性瓦解、各国获得主权、荷兰瑞士独立。",
-    "warImpact": "《威斯特伐利亚和约》奠定了现代国际关系的基础（主权国家、领土完整、不干涉内政），被视为现代国际法起源。法国成为欧洲大陆霸主；德意志地区四分五裂。"
+    "warImpact": "《威斯特伐利亚和约》奠定了现代国际关系的基础（主权国家、领土完整、不干涉内政），被视为现代国际法起源。法国成为欧洲大陆霸主；德意志地区四分五裂。",
+    "videoId": "E5ALHTA4V2w",
+    "videoPlatform": "youtube",
+    "videoTitle": "三十年戰爭：一張贖罪券，引發一場世界大戰！德意志從“贏麻”到輸慘，只需一個法蘭西……"
   },
   {
     "id": "ev-160",
@@ -2721,7 +2913,10 @@
     "country": [
       "holy-roman",
       "italy"
-    ]
+    ],
+    "videoId": "fmADkGZJ4ho",
+    "videoPlatform": "youtube",
+    "videoTitle": "神聖羅馬帝國：不征服義大利的德意志不是好羅馬！歐洲歷史上最神奇的國家……"
   },
   {
     "id": "ev-161",
@@ -2737,7 +2932,10 @@
     "importance": 2,
     "country": [
       "prussia"
-    ]
+    ],
+    "videoId": "vkUwR7X0FpI",
+    "videoPlatform": "youtube",
+    "videoTitle": "腓特烈大帝：同性戀多會當兵？當到希特勒都愛的軍事天才！Gay 國王 Dirty talk 有多開放？當 0 很痛，當攻比較好，讓老婆獨守空閨一輩子｜驚奇說 #151"
   },
   {
     "id": "ev-162",
@@ -2756,7 +2954,10 @@
     ],
     "warBackground": "18 世纪欧洲列强为争夺海外殖民地和欧洲霸权矛盾激化。1756 年奥地利和法国（百年宿敌）结盟、普鲁士和英国结盟，形成两大对立阵营。",
     "warResult": "战争在欧洲、北美、加勒比、印度和菲律宾同时进行。欧洲战场上腓特烈大帝率普鲁士军奇迹般顶住俄奥法三大强国围攻（《七年战争》被称为\"第一次世界大战\"）。海外战场上英法在北美和印度决战，英国获胜。",
-    "warImpact": "1763 年《巴黎和约》签订：法国失去整个新法兰西（加拿大）和印度。英帝国建立\"第一英帝国\"霸权，催生 13 殖民地不满引发美国独立战争。"
+    "warImpact": "1763 年《巴黎和约》签订：法国失去整个新法兰西（加拿大）和印度。英帝国建立\"第一英帝国\"霸权，催生 13 殖民地不满引发美国独立战争。",
+    "videoId": "YCPXOWY8R88",
+    "videoPlatform": "youtube",
+    "videoTitle": "一張圖看懂第零次世界大戰 七年戰爭歷史"
   },
   {
     "id": "ev-163",
@@ -2772,7 +2973,10 @@
     "importance": 2,
     "country": [
       "prussia"
-    ]
+    ],
+    "videoId": "ILrWvzmI7wY",
+    "videoPlatform": "youtube",
+    "videoTitle": "鐵血宰相｜俾斯麥，從小混混 8+9 到統一德國？他是死忠保皇派，投票、憲法才解決不了問題！還開創了健保，間接影響一二戰？｜驚奇說 #102"
   },
   {
     "id": "ev-164",
@@ -2807,7 +3011,10 @@
     ],
     "warBackground": "1864 年普鲁士和奥地利联手击败丹麦后，争夺石勒苏益格-荷尔斯泰因地区矛盾激化。俾斯麦希望通过战争将奥地利逐出德意志。",
     "warResult": "1866 年 7 月 3 日萨多瓦战役，普军凭借改进的撞针步枪和先进战术击败奥军主力。奥地利被迫退出德意志邦联，普鲁士建立北德意志邦联。",
-    "warImpact": "普鲁士成为德意志霸主，奥地利被排除。1867 年奥地利转向与匈牙利建立奥匈二元帝国。普法战争和德意志统一只差一步。"
+    "warImpact": "普鲁士成为德意志霸主，奥地利被排除。1867 年奥地利转向与匈牙利建立奥匈二元帝国。普法战争和德意志统一只差一步。",
+    "videoId": "uumeSmjiuuk",
+    "videoPlatform": "youtube",
+    "videoTitle": "普奥战争（全）百战奇谋系列 读历史就是读人心！#历史 #战争 #真实事件 #真实还原 #真实故事"
   },
   {
     "id": "ev-166",
@@ -2826,7 +3033,10 @@
     ],
     "warBackground": "1870 年西班牙王位继承问题引发普法矛盾激化。法国拿破仑三世为阻止普鲁士的扩张并提振国内支持率，7 月 19 日对普鲁士宣战。",
     "warResult": "战争开始后法军接连失利。9 月 1-2 日色当会战，麦克马洪元帅率 12 万法军被毛奇元帅的普军围歼，拿破仑三世本人和 39 名将军、10 万士兵被俘。9 月 4 日巴黎革命，第二帝国垮台成立第三共和国。1871 年 1 月 18 日普王威廉一世在凡尔赛宫加冕德意志皇帝。",
-    "warImpact": "德意志帝国统一，跻身欧洲列强。法国失去阿尔萨斯-洛林，赔款 50 亿法郎，埋下第一次世界大战的仇恨。巴黎公社起义（1871）成为国际工人运动重要事件。"
+    "warImpact": "德意志帝国统一，跻身欧洲列强。法国失去阿尔萨斯-洛林，赔款 50 亿法郎，埋下第一次世界大战的仇恨。巴黎公社起义（1871）成为国际工人运动重要事件。",
+    "videoId": "Eu3-1ngO3-0",
+    "videoPlatform": "youtube",
+    "videoTitle": "影响欧洲史进程的一场战争：普法战争｜每天听本书｜世界史｜德国｜法国"
   },
   {
     "id": "ev-167",
@@ -2861,7 +3071,10 @@
     "importance": 2,
     "country": [
       "germany"
-    ]
+    ],
+    "videoId": "ievSVHJnGH4",
+    "videoPlatform": "youtube",
+    "videoTitle": "一戰後的德國，蘇維埃領導的11月革命，卻為納粹黨的崛起提供了基礎！#歷史 #德國#一戰 #二戰歷史 #歷史 #德軍#World War I#World War II History #History"
   },
   {
     "id": "ev-170",
@@ -2877,7 +3090,10 @@
     "importance": 2,
     "warBackground": "1860 年 4 月意大利民族英雄朱塞佩·加里波第（曾参加南美解放运动和 1848 年意大利革命）率约 1000 余名\"红衫军\"志愿者从热那亚出发，远征两西西里王国。",
     "warResult": "5 月加里波第在西西里岛登陆，迅速击败腐败的两西西里军队，解放西西里。9 月进入那不勒斯，解放整个两西西里王国。10 月经投票将两西西里并入撒丁王国。",
-    "warImpact": "为意大利统一奠定基础。次年 1861 年撒丁国王维克托·伊曼纽尔二世成为意大利国王，统一大业完成（除威尼斯和罗马）。"
+    "warImpact": "为意大利统一奠定基础。次年 1861 年撒丁国王维克托·伊曼纽尔二世成为意大利国王，统一大业完成（除威尼斯和罗马）。",
+    "videoId": "kAS0DOoPPaE",
+    "videoPlatform": "youtube",
+    "videoTitle": "我们感受过在沧州50人的远征军依然可以声势浩大；在北京几千人的远征军气势雄伟；在长春距离成都最远客场雨中战斗；在泰山为球队吐槽不公平的待遇；在青岛凌晨五点起床为我们球员工作人员准备向日葵。回顾2..."
   },
   {
     "id": "ev-171",
@@ -2890,7 +3106,10 @@
       41.9
     ],
     "description": "撒丁王国改称意大利王国，维克多·伊曼纽尔二世为国王，首都都灵（后迁罗马）。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "PPmqzmV9k4I",
+    "videoPlatform": "youtube",
+    "videoTitle": "義大利統一 薩丁尼亞王國帶領義大利獨立｜小葉談世界史"
   },
   {
     "id": "ev-172",
@@ -2903,7 +3122,10 @@
       41.9
     ],
     "description": "普法战争时意大利军攻入罗马，教皇庇护九世退入梵蒂冈，意大利统一。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "NGDSn1rHNfI",
+    "videoPlatform": "youtube",
+    "videoTitle": "古典文明的摇篮如成为今天的意大利？意大利统一、分裂、复兴的两千年命运史 | 意大利"
   },
   {
     "id": "ev-173",
@@ -2916,7 +3138,10 @@
       41.9
     ],
     "description": "墨索里尼发动\"向罗马进军\"，任意大利首相，建立世界第一个法西斯政权。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "nO3LWGtoUWI",
+    "videoPlatform": "youtube",
+    "videoTitle": "墨索里尼發起了法西斯運動，歐洲大陸因此陷入黑暗，這位鐵匠之子如何徹底的摧毀民主制度  【獨裁者手冊】短片精華篇"
   },
   {
     "id": "ev-174",
@@ -2945,7 +3170,10 @@
       41.9
     ],
     "description": "公民投票废除君主制，建立意大利共和国，废除君主制。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "NGDSn1rHNfI",
+    "videoPlatform": "youtube",
+    "videoTitle": "古典文明的摇篮如成为今天的意大利？意大利统一、分裂、复兴的两千年命运史 | 意大利"
   },
   {
     "id": "ev-176",
@@ -2961,7 +3189,10 @@
     "importance": 2,
     "country": [
       "spain"
-    ]
+    ],
+    "videoId": "WmENwNvKGZA",
+    "videoPlatform": "youtube",
+    "videoTitle": "收复失地运动的终点——格拉纳达战争"
   },
   {
     "id": "ev-177",
@@ -3001,7 +3232,10 @@
     ],
     "warBackground": "1492 年哥伦布到达美洲后，西班牙殖民者陆续探索新大陆。1519 年科尔特斯率约 600 西班牙士兵（带 16 匹马、10 余门火绳枪和小型大炮）登陆墨西哥东海岸。",
     "warResult": "科尔特斯先与阿兹特克帝国的敌对部落（特拉斯卡拉人）结盟，再深入内地。1521 年通过长期围困和疫病（天花）攻陷阿兹特克首都特诺奇蒂特兰，俘虏并处死末代皇帝库奥赫特莫克。",
-    "warImpact": "阿兹特克帝国灭亡，开启西班牙美洲殖民 300 年。当地人口因战争、奴役和天花在数十年间从约 2500 万锐减至 200 万，是人类历史上最大的人口灾难之一。"
+    "warImpact": "阿兹特克帝国灭亡，开启西班牙美洲殖民 300 年。当地人口因战争、奴役和天花在数十年间从约 2500 万锐减至 200 万，是人类历史上最大的人口灾难之一。",
+    "videoId": "KLo9Y93Ggv8",
+    "videoPlatform": "youtube",
+    "videoTitle": "鲜血与黄金的终结，西班牙探险家征服阿兹特克帝国"
   },
   {
     "id": "ev-179",
@@ -3020,7 +3254,10 @@
     ],
     "warBackground": "1527 年西班牙冒险家弗朗西斯科·皮萨罗率约 180 人（包括 62 名骑兵）从巴拿马出发南征。印加帝国因天花流行（西班牙人带来的传染病）和新旧皇帝阿塔瓦尔帕、瓦斯卡尔的内战而元气大伤。",
     "warResult": "1532 年 11 月皮萨罗在卡哈马卡城邀请印加皇帝阿塔瓦尔帕赴宴，借机扣押皇帝。索要一屋黄金两屋白银作赎金（约 6 吨黄金），印加人凑齐后皮萨罗仍以\"谋反\"罪处死阿塔瓦尔帕。1533 年皮萨罗攻入印加首都库斯科，印加帝国灭亡。",
-    "warImpact": "延续 300 多年的印加帝国灭亡。安第斯山区沦为西班牙殖民地 300 年。皮萨罗以 168 人征服数百万人的帝国，是历史上最悬殊的征服之一（关键因素：马匹、火器、天花、内乱）。"
+    "warImpact": "延续 300 多年的印加帝国灭亡。安第斯山区沦为西班牙殖民地 300 年。皮萨罗以 168 人征服数百万人的帝国，是历史上最悬殊的征服之一（关键因素：马匹、火器、天花、内乱）。",
+    "videoId": "FLy4MquEisc",
+    "videoPlatform": "youtube",
+    "videoTitle": "168人滅了印加帝國 一個連打贏8萬人 西班牙人怎麼做到的? 【世紀帝國解說】"
   },
   {
     "id": "ev-180",
@@ -3036,7 +3273,10 @@
     "importance": 2,
     "country": [
       "spain"
-    ]
+    ],
+    "videoId": "5b-b65VZVJw",
+    "videoPlatform": "youtube",
+    "videoTitle": "腓力二世国王的悲剧妻子们"
   },
   {
     "id": "ev-181",
@@ -3055,7 +3295,10 @@
     ],
     "warBackground": "1588 年西班牙国王腓力二世为报复英国支持荷兰独立和海盗活动，集结\"无敌舰队\"（130 艘船、3 万人）准备入侵英格兰。",
     "warResult": "1588 年 7 月无敌舰队在英吉利海峡遭遇英国海军（德雷克指挥）火船战术和远程炮击重创。无敌舰队被迫绕行北海返航，途中遭遇风暴大部船只沉没。",
-    "warImpact": "无敌舰队覆灭标志着西班牙海上霸权开始衰落。英格兰成为新兴海上强国，开启大英帝国的崛起。"
+    "warImpact": "无敌舰队覆灭标志着西班牙海上霸权开始衰落。英格兰成为新兴海上强国，开启大英帝国的崛起。",
+    "videoId": "ZdWdw65wk94",
+    "videoPlatform": "youtube",
+    "videoTitle": "西班牙无敌舰队覆灭：西班牙被击败，英格兰威名远扬"
   },
   {
     "id": "ev-182",
@@ -3074,7 +3317,10 @@
     ],
     "warBackground": "1898 年古巴发生独立起义（独立战争），美国以保护侨民和商业利益为名介入。2 月美国战舰\"缅因号\"在哈瓦那港爆炸沉没（原因至今不明），引发美国对西班牙宣战。",
     "warResult": "7 月美陆军在圣地亚哥战役中击败西班牙舰队。8 月美军占领马尼拉。12 月签订《巴黎条约》：西班牙割让古巴（名义独立实为美国保护）、波多黎各、关岛给美国；西班牙以 2000 万美元将菲律宾卖给美国。",
-    "warImpact": "美国正式跻身世界殖民帝国行列，开启\"美西战争时代\"（1898-1902）。古巴名义独立但实际受美国控制（\"普拉特修正案\"）。菲律宾抗美战争持续至 1902 年。"
+    "warImpact": "美国正式跻身世界殖民帝国行列，开启\"美西战争时代\"（1898-1902）。古巴名义独立但实际受美国控制（\"普拉特修正案\"）。菲律宾抗美战争持续至 1902 年。",
+    "videoId": "x_pVGmI6gz0",
+    "videoPlatform": "youtube",
+    "videoTitle": "美西战争，美国获胜为什么还支付2,000万美元给西班牙？"
   },
   {
     "id": "ev-183",
@@ -3093,7 +3339,10 @@
     ],
     "warBackground": "1936 年 7 月西班牙驻摩洛哥军官佛朗哥率军发动叛乱，反对左翼共和政府。叛军得到希特勒、墨索里尼的军事援助，共和派得到苏联和国际纵队支持。",
     "warResult": "内战持续 3 年（1936-1939），约 50 万人死亡。佛朗哥军队得到德意大规模军事干预（\"秃鹰军团\"），共和派内部矛盾激化。1939 年 4 月 1 日佛朗哥宣布胜利，建立独裁政权。",
-    "warImpact": "西班牙内战成为二战前国际政治分裂的预演。毕加索创作《格尔尼卡》抗议德军轰炸小镇。佛朗哥政权持续至 1975 年其去世。"
+    "warImpact": "西班牙内战成为二战前国际政治分裂的预演。毕加索创作《格尔尼卡》抗议德军轰炸小镇。佛朗哥政权持续至 1975 年其去世。",
+    "videoId": "mBkL9c5IWe8",
+    "videoPlatform": "youtube",
+    "videoTitle": "西班牙内戰：一個國家的悲劇與新世界的預演"
   },
   {
     "id": "ev-184",
@@ -3109,7 +3358,10 @@
     "importance": 2,
     "country": [
       "netherlands"
-    ]
+    ],
+    "videoId": "C39e3vIkcfU",
+    "videoPlatform": "youtube",
+    "videoTitle": "蘋果微軟退三步，改變全世界的企業「東印度公司」是如何崛起？｜【英雄故事書】EP98"
   },
   {
     "id": "ev-185",
@@ -3125,7 +3377,10 @@
     "importance": 2,
     "country": [
       "netherlands"
-    ]
+    ],
+    "videoId": "eMFSv9AsjyY",
+    "videoPlatform": "youtube",
+    "videoTitle": "世界第一支股票，如何讓人口150萬“歐洲小國”成為世界中心？|世界第一所股票交易所|荷蘭阿姆斯特丹證券交易所|Euronext Amsterdam|VOC"
   },
   {
     "id": "ev-186",
@@ -3160,7 +3415,10 @@
     ],
     "warBackground": "1202 年教皇英诺森三世发动第四次十字军东征，目标是夺回被穆斯林控制的耶路撒冷。威尼斯商人提供船只运输十字军。",
     "warResult": "因十字军无力支付船只费用，威尼斯总督恩里科·丹多洛说服十字军改去攻打扎拉城（威尼斯的商业对手）抵债。1204 年十字军因拜占庭废帝阿历克塞二世之子请求帮助而转向君士坦丁堡，最终在利益诱惑下攻陷这座基督教首都，屠城 3 日，洗劫大量文物。",
-    "warImpact": "拜占庭帝国遭受毁灭性打击，虽后来复国但再未恢复元气。威尼斯获得大量希腊艺术珍品和爱琴海、爱奥尼亚海上贸易站。\"十字军劫掠基督徒首都\"成为基督教史上的耻辱。"
+    "warImpact": "拜占庭帝国遭受毁灭性打击，虽后来复国但再未恢复元气。威尼斯获得大量希腊艺术珍品和爱琴海、爱奥尼亚海上贸易站。\"十字军劫掠基督徒首都\"成为基督教史上的耻辱。",
+    "videoId": "pO_6WghQe9I",
+    "videoPlatform": "youtube",
+    "videoTitle": "中世纪大惨案：第四次十字军 1204君士坦丁堡的沦陷【老喵教授】"
   },
   {
     "id": "ev-188",
@@ -3202,7 +3460,10 @@
     "importance": 2,
     "country": [
       "mongol"
-    ]
+    ],
+    "videoId": "6649iUVpUCI",
+    "videoPlatform": "youtube",
+    "videoTitle": "非洲馬裡帝國獅子國王——《鬆迪亞塔·凱塔傳》【帝國時代2決定版：戰役背後的故事】"
   },
   {
     "id": "ev-191",
@@ -3218,7 +3479,10 @@
     "importance": 2,
     "country": [
       "mali-empire"
-    ]
+    ],
+    "videoId": "2c_F83_OYDI",
+    "videoPlatform": "youtube",
+    "videoTitle": "世界上最富有的人——穆萨一世 - Jessica Smith"
   },
   {
     "id": "ev-192",
@@ -3247,7 +3511,10 @@
     "importance": 2,
     "country": [
       "spain"
-    ]
+    ],
+    "videoId": "ZxPLomkbIqA",
+    "videoPlatform": "youtube",
+    "videoTitle": "這座海島以溫泉療養而聞名，僅有幾萬人口，每年卻吸引600萬遊客，意大利伊斯基亞島，Ischia，Italy's most beautiful island"
   },
   {
     "id": "ev-194",
@@ -3263,7 +3530,10 @@
     "importance": 2,
     "country": [
       "songhai-empire"
-    ]
+    ],
+    "videoId": "kDnol1x1kv4",
+    "videoPlatform": "youtube",
+    "videoTitle": "桑海帝国：西非最后一个本土大帝国的陨落"
   },
   {
     "id": "ev-195",
@@ -3282,7 +3552,10 @@
     ],
     "warBackground": "1895 年意大利军队在总理克里斯皮的扩张主义政策下入侵埃塞俄比亚。孟尼利克二世皇帝率领埃军坚决抵抗。",
     "warResult": "1896 年 3 月 1 日阿杜瓦战役爆发，埃军以约 8 万人对抗意军 1.7 万人。埃军凭借地形优势、庞大军队和后膛枪，重创意军，击杀意军主帅和数千士兵。",
-    "warImpact": "阿杜瓦战役是非洲近代历史上最重大的军事胜利之一。埃塞俄比亚成为唯一未被殖民的非洲国家。《亚的斯亚贝巴条约》承认埃独立。意大利总理克里斯皮下台。"
+    "warImpact": "阿杜瓦战役是非洲近代历史上最重大的军事胜利之一。埃塞俄比亚成为唯一未被殖民的非洲国家。《亚的斯亚贝巴条约》承认埃独立。意大利总理克里斯皮下台。",
+    "videoId": "tHA3zg7Ekfc",
+    "videoPlatform": "youtube",
+    "videoTitle": "阿杜瓦战役的英语怎么读"
   },
   {
     "id": "ev-196",
@@ -3298,7 +3571,10 @@
     "importance": 2,
     "country": [
       "ethiopia"
-    ]
+    ],
+    "videoId": "8VT8Ppl6ikc",
+    "videoPlatform": "youtube",
+    "videoTitle": "衣索比亞基督教：7個令人驚嘆的事實，埃塞俄比亚 ｜神話探索 MythDiscovery"
   },
   {
     "id": "ev-197",
@@ -3327,7 +3603,10 @@
     "importance": 2,
     "country": [
       "khmer-empire"
-    ]
+    ],
+    "videoId": "KVk3BmV4PxI",
+    "videoPlatform": "youtube",
+    "videoTitle": "【文明6】 高棉帝國阇耶跋摩七世 - 苦难告终"
   },
   {
     "id": "ev-199",
@@ -3378,7 +3657,10 @@
     ],
     "warBackground": "1277 年元朝在云南设行省后，忽必烈派遣使者要求缅甸蒲甘王朝纳贡，遭拒绝。1279 年南宋灭亡后，元朝腾出手来对付东南亚。",
     "warResult": "1287 年元朝派脱欢率云南、蒙古军队 4 万侵入缅甸，攻陷蒲甘城。蒲甘国王那罗梯诃波帝投降，沦为元朝附属。缅甸进入\"掸族统治\"时代，蒲甘王朝名存实亡。",
-    "warImpact": "蒲甘王朝是缅甸的第一个统一王朝，建造了数千佛塔（蒲甘佛塔群至今仍存）。其衰落使缅甸陷入数百年分裂。"
+    "warImpact": "蒲甘王朝是缅甸的第一个统一王朝，建造了数千佛塔（蒲甘佛塔群至今仍存）。其衰落使缅甸陷入数百年分裂。",
+    "videoId": "COqas4hA7ww",
+    "videoPlatform": "youtube",
+    "videoTitle": "緬甸古城蒲甘　名列《世界遺產名錄》 | 蘋果新聞網"
   },
   {
     "id": "ev-202",
@@ -3394,7 +3676,10 @@
     "importance": 2,
     "country": [
       "japan"
-    ]
+    ],
+    "videoId": "r5fRn7JFKZ0",
+    "videoPlatform": "youtube",
+    "videoTitle": "三佛齐与满者伯夷是如何称霸南洋的？爪哇海洋帝国的前世今生 | 印尼"
   },
   {
     "id": "ev-203",
@@ -3423,7 +3708,10 @@
     "importance": 2,
     "country": [
       "inca"
-    ]
+    ],
+    "videoId": "gvhdbAqPJ2M",
+    "videoPlatform": "youtube",
+    "videoTitle": "印加帝国的起源｜他们如何在高山上耕种并建立帝国"
   },
   {
     "id": "ev-205",
@@ -3496,7 +3784,10 @@
     "importance": 2,
     "country": [
       "aztec"
-    ]
+    ],
+    "videoId": "lUJGA84bfvc",
+    "videoPlatform": "youtube",
+    "videoTitle": "一支視頻說清阿茲特克文明，阿茲特克是古代墨西哥的文化舞臺上最後出現的一個角色（第一個是奧爾美加文明，接下來是瑪雅文明），他們創造了輝煌的阿茲特克文明。"
   },
   {
     "id": "ev-209",
@@ -3512,7 +3803,10 @@
     "importance": 2,
     "country": [
       "inca"
-    ]
+    ],
+    "videoId": "FLy4MquEisc",
+    "videoPlatform": "youtube",
+    "videoTitle": "168人滅了印加帝國 一個連打贏8萬人 西班牙人怎麼做到的? 【世紀帝國解說】"
   },
   {
     "id": "ev-210",
@@ -3528,7 +3822,10 @@
     "importance": 2,
     "country": [
       "rome"
-    ]
+    ],
+    "videoId": "BV1DR4y1e7TR",
+    "videoPlatform": "bilibili",
+    "videoTitle": "这座被称为东南佛国的寺院供奉着佛陀释迦牟尼的真身舍利，寺院免费开放，斋饭免费吃还有十几个菜#佛教文化 #寺庙 #阿育王寺"
   },
   {
     "id": "ev-211",
@@ -3544,7 +3841,10 @@
     "importance": 2,
     "country": [
       "rome"
-    ]
+    ],
+    "videoId": "zOX_ly4FNEg",
+    "videoPlatform": "youtube",
+    "videoTitle": "10分鐘悟透 阿育王——從征戰殺伐到皈依三寶的驚天轉變，一位帝王的懺悔如何改變了整個佛教的命運"
   },
   {
     "id": "ev-212",
@@ -3586,7 +3886,10 @@
     "importance": 2,
     "country": [
       "rome"
-    ]
+    ],
+    "videoId": "sz_L5Abqo3Q",
+    "videoPlatform": "youtube",
+    "videoTitle": "008 玄奘西行"
   },
   {
     "id": "ev-215",
@@ -3628,7 +3931,10 @@
     "importance": 2,
     "country": [
       "mughal"
-    ]
+    ],
+    "videoId": "QeFlp0blz2E",
+    "videoPlatform": "youtube",
+    "videoTitle": "消逝的帝国之莫卧儿帝国"
   },
   {
     "id": "ev-218",
@@ -3644,7 +3950,10 @@
     "importance": 2,
     "country": [
       "france"
-    ]
+    ],
+    "videoId": "whKw6NEzN8o",
+    "videoPlatform": "youtube",
+    "videoTitle": "英國、德國、法國、義呆利曾是同一個國家!? 歐洲是怎麼誕生的? 【15分鐘了解四大強國歷史】"
   },
   {
     "id": "ev-219",
@@ -3695,7 +4004,10 @@
     "importance": 2,
     "country": [
       "us"
-    ]
+    ],
+    "videoId": "XBbVp7RWRrM",
+    "videoPlatform": "youtube",
+    "videoTitle": "不用怀疑经济大萧条已经来了||很多人已经处在大萧条之中了"
   },
   {
     "id": "ev-223",
@@ -3708,7 +4020,10 @@
       38.91
     ],
     "description": "富兰克林·罗斯福就任美国第 32 任总统，推行\"新政\"应对大萧条，确立现代国家干预经济模式。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "XM_0InlxDWk",
+    "videoPlatform": "youtube",
+    "videoTitle": "【老笛】被严重高估的罗斯福新政，都包含哪些黑暗料理？"
   },
   {
     "id": "ev-224",
@@ -3790,7 +4105,10 @@
     "importance": 2,
     "country": [
       "britain"
-    ]
+    ],
+    "videoId": "GqaF3eMdjCI",
+    "videoPlatform": "youtube",
+    "videoTitle": "动画演绎印度独立的百年历史"
   },
   {
     "id": "ev-228",
@@ -3819,7 +4137,10 @@
       28.57
     ],
     "description": "美国阿波罗 11 号登月，阿姆斯特朗成为第一个登上月球的人类。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "BmlUbCD9G2I",
+    "videoPlatform": "youtube",
+    "videoTitle": "中美登月竞赛谁能抢得先机？｜阿尔忒弥斯2号｜重返月球｜阿姆斯特朗｜杨利伟｜嫦娥计划｜NASA｜王局拍案 20260402"
   },
   {
     "id": "ev-230",
@@ -3835,7 +4156,10 @@
     "importance": 2,
     "country": [
       "britain"
-    ]
+    ],
+    "videoId": "Hz-r5dK_d-4",
+    "videoPlatform": "youtube",
+    "videoTitle": "查理·蒙格 最經典的演講：論基本的、普世的智慧"
   },
   {
     "id": "ev-231",
@@ -3854,7 +4178,10 @@
     ],
     "warBackground": "1095 年教皇乌尔班二世在克莱蒙会议上号召收复圣地耶路撒冷。1096 年由农民和骑士组成的十字军出发。",
     "warResult": "1099 年 7 月 15 日十字军经过 3 年艰苦行军，攻陷耶路撒冷。屠城 3 日，屠杀穆斯林和犹太人。建立耶路撒冷王国（持续至 1187 年）和几个十字军国家。",
-    "warImpact": "十字军东征开启了基督教与伊斯兰世界近 200 年的冲突。耶路撒冷王国存在近 100 年（1099-1187），最终被萨拉丁收复。"
+    "warImpact": "十字军东征开启了基督教与伊斯兰世界近 200 年的冲突。耶路撒冷王国存在近 100 年（1099-1187），最终被萨拉丁收复。",
+    "videoId": "RsIEjlQkkQk",
+    "videoPlatform": "youtube",
+    "videoTitle": "十字军就那么点人，为什么能在中东横行？ #历史 #十字军东征 #耶路撒冷 #圣殿骑士 #塞尔柱帝国"
   },
   {
     "id": "ev-232",
@@ -3870,7 +4197,10 @@
     "importance": 2,
     "country": [
       "ottoman"
-    ]
+    ],
+    "videoId": "hDuLUMBIog4",
+    "videoPlatform": "youtube",
+    "videoTitle": "一口氣看完十字軍東征簡史！"
   },
   {
     "id": "ev-233",
@@ -3889,7 +4219,10 @@
     ],
     "warBackground": "1328 年法国查理四世去世无嗣，英王爱德华三世作为法王腓力四世外孙宣称有权继承法国王位。腓力六世抢先加冕，引发两国矛盾激化。",
     "warResult": "1337 年 11 月英王爱德华三世对法宣战。战争爆发初期法军占优，但 1346 年克雷西战役英军长弓兵大败法军骑士（\"法兰西骑士无法抵挡英格兰长弓\"）。",
-    "warImpact": "百年战争持续 116 年，是欧洲中世纪最长战争。法国民族意识觉醒，贞德于 1429 年解放奥尔良扭转战局，1453 年法军收复加莱。"
+    "warImpact": "百年战争持续 116 年，是欧洲中世纪最长战争。法国民族意识觉醒，贞德于 1429 年解放奥尔良扭转战局，1453 年法军收复加莱。",
+    "videoId": "nO01VsqPyDg",
+    "videoPlatform": "youtube",
+    "videoTitle": "玫瑰与百合之战 | 英法百年战争史 250分钟详解 | 百年战争（Guerre de Cent Ans，Hundred Years' War）是1337年至1453年英格兰与法兰西发生的一系列军事冲突"
   },
   {
     "id": "ev-234",
@@ -3905,7 +4238,10 @@
     "importance": 2,
     "country": [
       "italy"
-    ]
+    ],
+    "videoId": "LeGswkxxbVs",
+    "videoPlatform": "youtube",
+    "videoTitle": "【李永乐老师】鼠疫是如何传染的？黑死病从未远离人类！"
   },
   {
     "id": "ev-235",
@@ -3921,7 +4257,10 @@
     "importance": 2,
     "country": [
       "spain"
-    ]
+    ],
+    "videoId": "YLMoH124E6E",
+    "videoPlatform": "youtube",
+    "videoTitle": "一张图看懂西班牙收复失地运动 ##抖音知识年终大赏 #历史 #地图 #欧洲"
   },
   {
     "id": "ev-236",
@@ -3975,7 +4314,10 @@
     "importance": 2,
     "country": [
       "britain"
-    ]
+    ],
+    "videoId": "hdB2qK6QIXg",
+    "videoPlatform": "youtube",
+    "videoTitle": "科學史上的大謊言 ▶ 瓦特沒有發明蒸汽機 憑什麼代表工業革命?"
   },
   {
     "id": "ev-239",
@@ -3991,7 +4333,10 @@
     "importance": 2,
     "warBackground": "明代嘉靖年间（1522-1566）日本海盗（\"倭寇\"）勾结中国沿海商人、海盗，在东南沿海烧杀抢掠。旧明军\"兵不识将\"腐败无能，倭患日益严重。",
     "warResult": "1556 年戚继光调浙江，先招募义乌矿工组建新军\"戚家军\"，创立鸳鸯阵法（12 人小组长短兵器配合）。1561 年台州九战九捷，1562 年福建横屿大捷，1564 年广东潮州平倭。倭患基本平息。",
-    "warImpact": "戚家军是中国古代精兵的代表。戚继光著《纪效新书》《练兵实纪》，是中国军事史重要著作。戚继光后调北方练兵，主持修筑蓟镇长城。"
+    "warImpact": "戚家军是中国古代精兵的代表。戚继光著《纪效新书》《练兵实纪》，是中国军事史重要著作。戚继光后调北方练兵，主持修筑蓟镇长城。",
+    "videoId": "Q0WNj1bsnp0",
+    "videoPlatform": "youtube",
+    "videoTitle": "【中国古代史】116 戚继光抗倭"
   },
   {
     "id": "ev-240",
@@ -4020,7 +4365,10 @@
       39.9
     ],
     "description": "中俄签订《尼布楚条约》，从法律上肯定黑龙江和乌苏里江流域包括库页岛在内的广大地区属于中国。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "y3NCm2PMs2s",
+    "videoPlatform": "youtube",
+    "videoTitle": "俄国曾经侵占了中国多少领土？沙俄的起源及扩张；尼布楚条约是否为不平等条约；俄罗斯还在纪念瑷珲条约？因为什么左宗棠抬棺西征？俄罗斯与日本对东北的竞逐；外蒙古独立；俄罗斯对侵略是否反省？"
   },
   {
     "id": "ev-242",
@@ -4049,7 +4397,10 @@
       23.16
     ],
     "description": "洪秀全在广西金田起义，建号太平天国，定都天京（南京）。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "nRr0wOxUbyo",
+    "videoPlatform": "youtube",
+    "videoTitle": "太平天國（合集）| 全網最詳細講解太平天國"
   },
   {
     "id": "ev-244",
@@ -4065,7 +4416,10 @@
     "importance": 2,
     "warBackground": "1860 年第二次鸦片战争中英法联军攻入北京，咸丰帝逃往热河。联军占领北京后野蛮劫掠。",
     "warResult": "1860 年 10 月 6-18 日英法联军洗劫圆明园，抢劫所有能搬动的珍宝（包括《女史箴图》、大量瓷器书画、青铜器等），为毁灭证据于 10 月 18-19 日由米启尔将军下令纵火焚烧。这座\"万园之园\"化为灰烬。",
-    "warImpact": "中国园林艺术的巅峰之作被毁，大量珍贵文物永久流失海外。同时签订《北京条约》，中国半殖民地化进一步加深。"
+    "warImpact": "中国园林艺术的巅峰之作被毁，大量珍贵文物永久流失海外。同时签订《北京条约》，中国半殖民地化进一步加深。",
+    "videoId": "8CaKnz1ROWA",
+    "videoPlatform": "youtube",
+    "videoTitle": "学校没告诉你的真相：火烧圆明园真是国耻？不过是爱新觉罗家失去的乐园。 | 英法联军 | 八国联军 | 鸦片战争 | 圆明园劫掠 | 满清末年 | 咸丰皇帝 | 西方列强 | 国家文物 | 老周横眉"
   },
   {
     "id": "ev-245",
@@ -4081,7 +4435,10 @@
     "importance": 2,
     "warBackground": "1894 年朝鲜东学党起义，朝鲜请求清政府出兵协助平乱。日本借机也派兵入朝，并突击丰岛海面护送清兵的\"高升号\"，击沉清军运兵船。8 月 1 日中日双方正式宣战。",
     "warResult": "9 月平壤之战清军溃败。9 月 17 日黄海海战北洋水师\"致远舰\"管带邓世昌等殉国。10 月日军渡过鸭绿江攻入中国东北。1895 年 2 月威海卫之战北洋水师全军覆没。",
-    "warImpact": "1895 年 4 月《马关条约》签订：中国割让台湾、澎湖列岛、辽东半岛，赔款 2 亿两白银。甲午战争彻底击碎洋务运动，开启了民族救亡运动（戊戌变法、辛亥革命）的序幕。"
+    "warImpact": "1895 年 4 月《马关条约》签订：中国割让台湾、澎湖列岛、辽东半岛，赔款 2 亿两白银。甲午战争彻底击碎洋务运动，开启了民族救亡运动（戊戌变法、辛亥革命）的序幕。",
+    "videoId": "XCVGmeretIM",
+    "videoPlatform": "youtube",
+    "videoTitle": "甲午戰爭（合集）5小時無刪減 | 全網最詳細講解甲午戰爭"
   },
   {
     "id": "ev-246",
@@ -4094,7 +4451,10 @@
       39.9
     ],
     "description": "康有为、梁启超推动戊戌变法，103 天后被慈禧太后镇压，谭嗣同等\"六君子\"就义。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "BloAEIjmpe8",
+    "videoPlatform": "youtube",
+    "videoTitle": "戊戌變法（合集）| 2小時帶你看懂戊戌變法"
   },
   {
     "id": "ev-247",
@@ -4110,7 +4470,10 @@
     "importance": 2,
     "warBackground": "1900 年义和团运动在山东兴起并蔓延至直隶、京津，声称\"扶清灭洋\"。慈禧试图利用义和团对外宣战，围攻北京东交民巷使馆区。",
     "warResult": "1900 年 6 月英、法、德、俄、美、日、意、奥八国组成联军（最初 2 万，后增兵至 10 万）从大沽口登陆，先后攻占天津、北京。8 月 14 日攻陷北京，慈禧携光绪帝西逃。联军在北京烧杀抢掠。",
-    "warImpact": "1901 年 9 月《辛丑条约》签订：中国赔款白银 4.5 亿两（按当时 4.5 亿人口，每人 1 两），拆除大沽炮台、禁止华北科举考试、设使馆区驻军。中国彻底沦为半殖民地。"
+    "warImpact": "1901 年 9 月《辛丑条约》签订：中国赔款白银 4.5 亿两（按当时 4.5 亿人口，每人 1 两），拆除大沽炮台、禁止华北科举考试、设使馆区驻军。中国彻底沦为半殖民地。",
+    "videoId": "c-aGFCZpzK0",
+    "videoPlatform": "youtube",
+    "videoTitle": "【二大爷】战狼劫国：八国联军起兵真相（上）"
   },
   {
     "id": "ev-248",
@@ -4123,7 +4486,10 @@
       39.9
     ],
     "description": "巴黎和会外交失败引发五四运动，工人阶级走上历史舞台，马克思主义在中国传播。",
-    "importance": 2
+    "importance": 2,
+    "videoId": "nc4jRhmX76U",
+    "videoPlatform": "youtube",
+    "videoTitle": "3分钟了解五四运动的原因、过程、评价……丨与新文化运动的关系和相互作用丨时鲜话题"
   },
   {
     "id": "ev-249",
@@ -4228,7 +4594,10 @@
       31.26
     ],
     "description": "世界最早的史诗之一，记载大洪水传说",
-    "importance": 2
+    "importance": 2,
+    "videoId": "BV1rQJW6WEV7",
+    "videoPlatform": "bilibili",
+    "videoTitle": "有史以来最早被记录下来的故事 | 吉尔伽美什史诗 - Mysteries of Mythology _ 25-09-26"
   },
   {
     "id": "ev-akkad-1",
@@ -4273,7 +4642,10 @@
       35.47
     ],
     "description": "建立职业常备军，亚述帝国进入鼎盛期",
-    "importance": 2
+    "importance": 2,
+    "videoId": "BV1S3411b7Er",
+    "videoPlatform": "bilibili",
+    "videoTitle": "世界史部分：亚述帝国的强盛（下）（提格拉特帕拉沙尔三世改变了对被征服地区的政策）"
   },
   {
     "id": "ev-assyria-2",
@@ -4343,7 +4715,10 @@
       33.27
     ],
     "description": "腓尼基商人建立地中海贸易网络",
-    "importance": 2
+    "importance": 2,
+    "videoId": "BV1Lf8k6ZEbB",
+    "videoPlatform": "bilibili",
+    "videoTitle": "大周列国志资源贸易系统资源战力系统详细讲解"
   },
   {
     "id": "ev-hittite-1",
@@ -4425,7 +4800,10 @@
     ],
     "description": "迈锡尼人统治爱琴海，发展线形文字B",
     "importance": 2,
-    "relatedEraId": "minoan"
+    "relatedEraId": "minoan",
+    "videoId": "bC1_oi7FO4Q",
+    "videoPlatform": "youtube",
+    "videoTitle": "世界历史【高清版】-09 克里特·迈锡尼文明(共100集)"
   },
   {
     "id": "ev-minoan-3",
@@ -4442,7 +4820,10 @@
     "warBackground": "公元前 1200 年左右，多种原因（人口压力、海上民族入侵、内乱）导致希腊迈锡尼文明崩溃。",
     "warResult": "多里安人从北方侵入希腊，迈锡尼宫殿被毁、线性文字 B 失传、爱琴海贸易网络瓦解。希腊本土进入约 400 年的\"黑暗时代\"（约公元前 1200-800）。",
     "warImpact": "希腊文明一度倒退，但爱奥尼亚地区的希腊人保持文化并建立殖民地。到公元前 800 年希腊城邦制度兴起，开启古典希腊文明。",
-    "relatedEraId": "minoan"
+    "relatedEraId": "minoan",
+    "videoId": "BV1rL411g7a4",
+    "videoPlatform": "bilibili",
+    "videoTitle": "世界史部分：多利亚人的迁徙与迈锡尼文明的灭亡（希腊文明进入黑暗时代）"
   },
   {
     "id": "ev-greece-1",
@@ -4455,7 +4836,10 @@
       37.64
     ],
     "description": "在奥林匹亚举行，希腊城邦共同的体育盛会",
-    "importance": 2
+    "importance": 2,
+    "videoId": "BV1mb4y1z7mr",
+    "videoPlatform": "bilibili",
+    "videoTitle": "古希腊时期的奥林匹克运动会"
   },
   {
     "id": "ev-greece-2",
@@ -4532,7 +4916,10 @@
       36.86
     ],
     "description": "推罗移民在北非建立贸易城邦",
-    "importance": 2
+    "importance": 2,
+    "videoId": "BV15y4y1D7rj",
+    "videoPlatform": "bilibili",
+    "videoTitle": "世界史8——腓尼基人——天生的航海家和商人"
   },
   {
     "id": "ev-carthage-2",
@@ -4548,7 +4935,10 @@
     "importance": 2,
     "warBackground": "公元前 264 年罗马与迦太基为争夺西西里岛爆发冲突。迦太基是北非腓尼基人建立的商业强国，垄断地中海西部贸易；罗马则是新兴的意大利半岛强国。",
     "warResult": "战争持续 23 年（公元前 264-241），历经海战、陆战和西西里、科西嘉、撒丁岛争夺。罗马建造舰队击败迦太基海军，公元前 241 年迦太基求和，割让西西里岛并支付巨额赔款。",
-    "warImpact": "罗马获得第一块海外行省，跻身海上强国。迦太基虽败但实力犹存，埋下第二次布匿战争的伏笔。从此罗马走上地中海扩张之路。"
+    "warImpact": "罗马获得第一块海外行省，跻身海上强国。迦太基虽败但实力犹存，埋下第二次布匿战争的伏笔。从此罗马走上地中海扩张之路。",
+    "videoId": "BV1ec1pY6Egp",
+    "videoPlatform": "bilibili",
+    "videoTitle": "第一次布匿战争"
   },
   {
     "id": "ev-carthage-3",
@@ -4675,7 +5065,10 @@
       17.48
     ],
     "description": "玛雅古典期最辉煌城邦之一",
-    "importance": 2
+    "importance": 2,
+    "videoId": "b_0jxcRtwE4",
+    "videoPlatform": "youtube",
+    "videoTitle": "航拍玛雅古城#maya"
   },
   {
     "id": "ev-maya-3",
@@ -4742,7 +5135,10 @@
       43.32
     ],
     "description": "伊特鲁里亚王统治罗马，开启罗马王国时代",
-    "importance": 2
+    "importance": 2,
+    "videoId": "BV1ch9XBHEhS",
+    "videoPlatform": "bilibili",
+    "videoTitle": "伊特鲁里亚鼩鼱，新陈代谢最快的哺乳动物 #动物世界 #伊特鲁里亚鼩鼱 #动物的迷惑行为"
   },
   {
     "id": "ev-rome-1",
@@ -4828,6 +5224,9 @@
       36.1
     ],
     "description": "迁都至殷（今安阳），商朝稳定",
-    "importance": 2
+    "importance": 2,
+    "videoId": "BV1LT411s7zw",
+    "videoPlatform": "bilibili",
+    "videoTitle": "史上最牛的搬迁——盘庚迁殷"
   }
 ]

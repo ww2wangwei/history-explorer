@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useCardsStore } from '@/store/useCardsStore'
 import { useJumpToMap } from '@/hooks/useJumpToMap'
@@ -9,6 +9,7 @@ import { CATEGORY_COLORS, type HistoricalEvent, type Era } from '@/types'
 import eventsData from '@/data/events.json'
 import erasData from '@/data/eras.json'
 import { audioEngine } from '@/utils/audioEngine'
+import VideoEmbed from './VideoEmbed'
 
 const events = eventsData as HistoricalEvent[]
 const eras = erasData as Era[]
@@ -59,7 +60,6 @@ export default function EventDetail({ eventId }: Props) {
       .slice(0, 3)
   }, [event])
 
-  // 聚焦到事件地点
   const focusOnMap = () => {
     if (!event) return
     if (!event.coordinates) return
@@ -108,7 +108,7 @@ export default function EventDetail({ eventId }: Props) {
         {event.description}
       </div>
 
-      {/* 📺 视频：YouTube / Bilibili 嵌入（隐私模式） */}
+      {/* 📺 视频：YouTube / Bilibili 嵌入（click-to-load 节省带宽） */}
       {event.videoId && (
         <div className="mb-4">
           <div className="text-xs text-ink-300 mb-1.5 flex items-center gap-1">
@@ -118,39 +118,7 @@ export default function EventDetail({ eventId }: Props) {
               {event.videoPlatform === 'bilibili' ? '点击播放（哔哩哔哩）' : '点击播放（YouTube）'}
             </span>
           </div>
-          <div
-            className="relative w-full rounded-lg overflow-hidden border border-ink-600 bg-ink-900"
-            style={{ paddingTop: event.videoPlatform === 'bilibili' ? '70%' : '56.25%' /* 哔哩哔哩默认更高 */ }}
-          >
-            {event.videoPlatform === 'bilibili' ? (
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src={`https://player.bilibili.com/player.html?bvid=${event.videoId}&autoplay=0&danmaku=0&high_quality=1`}
-                title={event.videoTitle || event.title}
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="strict-origin-when-cross-origin"
-                scrolling="no"
-                frameBorder="0"
-              />
-            ) : (
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src={`https://www.youtube-nocookie.com/embed/${event.videoId}?rel=0&modestbranding=1`}
-                title={event.videoTitle || event.title}
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="strict-origin-when-cross-origin"
-              />
-            )}
-          </div>
-          {event.videoTitle && (
-            <div className="text-[10px] text-ink-500 mt-1 truncate" title={event.videoTitle}>
-              {event.videoTitle}
-            </div>
-          )}
+          <VideoEmbed event={event} />
         </div>
       )}
 

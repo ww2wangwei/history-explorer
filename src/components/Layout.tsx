@@ -731,11 +731,6 @@ export default function Layout() {
         </footer>
       )}
 
-      {/* 键盘快捷键提示 */}
-      <div className="fixed bottom-1 right-2 z-50 px-2 py-1 rounded-lg bg-ink-800/90 border border-ink-600 text-xs text-ink-500 leading-relaxed pointer-events-none opacity-70 hover:opacity-100 transition-opacity">
-        <kbd className="px-1 bg-ink-700 rounded-lg">←</kbd>/<kbd className="px-1 bg-ink-700 rounded-lg">→</kbd> 年份 · <kbd className="px-1 bg-ink-700 rounded-lg">Esc</kbd> 关闭/回退 · <kbd className="px-1 bg-ink-700 rounded-lg">u</kbd> 回退朝代 · <kbd className="px-1 bg-ink-700 rounded-lg">g</kbd> 地图 · <kbd className="px-1 bg-ink-700 rounded-lg">r</kbd> 图谱 · <kbd className="px-1 bg-ink-700 rounded-lg">f</kbd> 复习 · <kbd className="px-1 bg-ink-700 rounded-lg">Cmd+K</kbd>/<kbd className="px-1 bg-ink-700 rounded-lg">?</kbd> AI 问
-      </div>
-
       {/* 学习目标设置浮层 */}
       <Suspense fallback={null}>
         <GoalSettings

@@ -11,7 +11,10 @@ import { useState } from 'react'
 import {
   useMapLayersStore,
   LAYER_META,
+  AMAP_FEATURE_META,
+  AMAP_FEATURE_KEYS_FOR_UI,
   type GeoLayerKey,
+  type AmapFeatureKey,
 } from '@/store/useMapLayersStore'
 import {
   useMapStyleStore,
@@ -23,7 +26,7 @@ import { LAYER_KEYS_FOR_UI } from './GeoFeatureLayer'
 
 export default function GeoFeatureFilter() {
   const [open, setOpen] = useState(false)
-  const [tab, setTab] = useState<'style' | 'custom'>('style')
+  const [tab, setTab] = useState<'style' | 'custom' | 'amap'>('style')
 
   const visible = useMapLayersStore(s => s.visible)
   const showLabels = useMapLayersStore(s => s.showLabels)
@@ -32,6 +35,12 @@ export default function GeoFeatureFilter() {
   const showAll = useMapLayersStore(s => s.showAll)
   const hideAll = useMapLayersStore(s => s.hideAll)
   const resetDefault = useMapLayersStore(s => s.resetDefault)
+
+  const amapFeatures = useMapLayersStore(s => s.amapFeatures)
+  const toggleAmap = useMapLayersStore(s => s.toggleAmap)
+  const amapShowAll = useMapLayersStore(s => s.amapShowAll)
+  const amapHideAll = useMapLayersStore(s => s.amapHideAll)
+  const amapResetDefault = useMapLayersStore(s => s.amapResetDefault)
 
   const showGraticule = useMapLayersStore(s => s.showGraticule)
   const toggleGraticule = useMapLayersStore(s => s.toggleGraticule)
@@ -45,13 +54,14 @@ export default function GeoFeatureFilter() {
   const setViewMode = useMapStyleStore(s => s.setViewMode)
 
   const onCount = (LAYER_KEYS_FOR_UI as GeoLayerKey[]).filter(k => visible[k]).length
+  const amapOnCount = amapFeatures.length
 
   return (
     <>
       {/* 浮动按钮 — 紧贴左上角 T.Map 面板正下方 */}
       <button
         onClick={() => setOpen(o => !o)}
-        title="图层（底图样式 + 自定义叠加）"
+        title="图层（底图样式 + 自定义叠加 + AMap 自带 feature）"
         className={`absolute left-2 z-50 px-3 py-2 rounded-lg border-2 shadow-2xl text-sm font-serif flex items-center gap-1.5 transition-all backdrop-blur ${
           open
             ? 'bg-vermilion-500 border-bronze-300 text-parchment-50'
@@ -60,8 +70,8 @@ export default function GeoFeatureFilter() {
         style={{ top: '70px' }}
       >
         🗺 图层
-        {onCount > 0 && (
-          <span className="text-[11px] px-1.5 py-0.5 rounded bg-bronze-500 text-ink-900 font-serif font-bold">{onCount}</span>
+        {onCount + amapOnCount > 0 && (
+          <span className="text-[11px] px-1.5 py-0.5 rounded bg-bronze-500 text-ink-900 font-serif font-bold">{onCount + amapOnCount}</span>
         )}
       </button>
 
@@ -100,6 +110,14 @@ export default function GeoFeatureFilter() {
             >
               叠加层 <span className="text-[10px] opacity-70">({onCount})</span>
             </button>
+            <button
+              onClick={() => setTab('amap')}
+              className={`flex-1 px-2 py-1.5 transition-colors ${
+                tab === 'amap' ? 'bg-vermilion-700/40 text-vermilion-200' : 'text-ink-400 hover:text-parchment-50'
+              }`}
+            >
+              底图要素 <span className="text-[10px] opacity-70">({amapOnCount})</span>
+            </button>
           </div>
 
           {tab === 'style' ? (
@@ -136,7 +154,7 @@ export default function GeoFeatureFilter() {
                 💡 高德原生样式是抽象政治底图；「地形图（ArcGIS）」和「世界卫星（ArcGIS）」是真实地形/卫星图。
               </div>
             </>
-          ) : (
+          ) : tab === 'custom' ? (
             <>
               <label className="flex items-center gap-2 text-xs text-parchment-50 cursor-pointer mb-2 select-none">
                 <input
@@ -169,30 +187,6 @@ export default function GeoFeatureFilter() {
                 })}
               </div>
 
-              {/* 经纬网 + 云图 — 简单开关 */}
-              <div className="border-t border-ink-700 mt-1 pt-2 space-y-1">
-                <label className="flex items-center gap-2 text-xs text-parchment-50 cursor-pointer select-none px-1.5 py-1 rounded hover:bg-ink-700/40 transition-colors">
-                  <input
-                    type="checkbox"
-                    checked={showGraticule}
-                    onChange={toggleGraticule}
-                    className="accent-vermilion-500"
-                  />
-                  <span className="text-base leading-none">🌐</span>
-                  <span className="font-serif">显示经纬网</span>
-                </label>
-                <label className="flex items-center gap-2 text-xs text-parchment-50 cursor-pointer select-none px-1.5 py-1 rounded hover:bg-ink-700/40 transition-colors">
-                  <input
-                    type="checkbox"
-                    checked={showCloud}
-                    onChange={toggleCloud}
-                    className="accent-vermilion-500"
-                  />
-                  <span className="text-base leading-none">⛅</span>
-                  <span className="font-serif">实时云图</span>
-                </label>
-              </div>
-
               <div className="flex items-center gap-1.5 pt-2 border-t border-ink-700 text-[10px]">
                 <button onClick={showAll} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-vermilion-500/40 hover:text-vermilion-300">全开</button>
                 <button onClick={hideAll} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-vermilion-500/40 hover:text-vermilion-300">全关</button>
@@ -201,6 +195,64 @@ export default function GeoFeatureFilter() {
 
               <div className="text-[10px] text-ink-500 mt-2 leading-relaxed">
                 💡 叠加层 = 我们额外画的线/面（蓝色河道、棕色山脉等）。
+              </div>
+            </>
+          ) : (
+            <>
+              <label className="flex items-center gap-2 text-xs text-parchment-50 cursor-pointer mb-2 select-none px-1.5 py-1.5 rounded hover:bg-ink-700/40 transition-colors">
+                <input
+                  type="checkbox"
+                  checked={showGraticule}
+                  onChange={toggleGraticule}
+                  className="accent-vermilion-500"
+                />
+                <span className="text-base leading-none">🌐</span>
+                <span className="font-serif">显示经纬网</span>
+                <span className="text-[10px] text-ink-400 ml-1">（每 30° 主线 / 10° 副线）</span>
+              </label>
+
+              <label className="flex items-center gap-2 text-xs text-parchment-50 cursor-pointer mb-2 select-none px-1.5 py-1.5 rounded hover:bg-ink-700/40 transition-colors">
+                <input
+                  type="checkbox"
+                  checked={showCloud}
+                  onChange={toggleCloud}
+                  className="accent-vermilion-500"
+                />
+                <span className="text-base leading-none">⛅</span>
+                <span className="font-serif">实时云图</span>
+                <span className="text-[10px] text-ink-400 ml-1">（OpenWeatherMap，10 分钟更新）</span>
+              </label>
+
+              <div className="space-y-1.5 mb-2">
+                {AMAP_FEATURE_KEYS_FOR_UI.map(k => {
+                  const meta = AMAP_FEATURE_META[k]
+                  const checked = amapFeatures.includes(k)
+                  return (
+                    <label key={k} className="flex items-start gap-2 text-xs cursor-pointer hover:bg-ink-700/40 px-1.5 py-1 rounded transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={() => toggleAmap(k)}
+                        className="accent-vermilion-500 mt-0.5"
+                      />
+                      <span className="text-base leading-none mt-0">{meta.icon}</span>
+                      <span className="flex-1 min-w-0">
+                        <span className="text-parchment-50 font-serif">{meta.label}</span>
+                        <span className="block text-[10px] text-ink-500 leading-tight">高德内部：<code className="text-ink-400">{k}</code></span>
+                      </span>
+                    </label>
+                  )
+                })}
+              </div>
+
+              <div className="flex items-center gap-1.5 pt-2 border-t border-ink-700 text-[10px]">
+                <button onClick={amapShowAll} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-vermilion-500/40 hover:text-vermilion-300">全开</button>
+                <button onClick={amapHideAll} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-vermilion-500/40 hover:text-vermilion-300">全关</button>
+                <button onClick={amapResetDefault} className="px-2 py-1 rounded border border-ink-600 text-ink-300 hover:border-vermilion-500/40 hover:text-vermilion-300 ml-auto">恢复默认</button>
+              </div>
+
+              <div className="text-[10px] text-ink-500 mt-2 leading-relaxed">
+                💡 底图要素 = 高德地图自带的 POI、道路、水系标注等。「水系标注」关掉后高德的"长江""黄河"文字会消失（叠加层里仍有）。
               </div>
             </>
           )}

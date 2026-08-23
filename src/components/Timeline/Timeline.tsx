@@ -375,10 +375,10 @@ export default function Timeline() {
   const hasCategoryFilter = filters.categories.length > 0
 
   return (
-    <div className="w-full bg-ink-800/95 backdrop-blur border-t border-ink-600 select-none relative">
+    <div className="w-full bg-paper-warm/85 backdrop-blur border-t border-ink-400/60 select-none relative">
       {/* P2: 分类 chip 行（顶部） */}
       <div
-        className="flex items-center gap-1 px-3 border-b border-ink-700/60"
+        className="flex items-center gap-1 px-3 border-b border-ink-400/40"
         style={{ height: CHIP_ROW_HEIGHT }}
       >
         <span className="text-[10px] text-ink-400 mr-1 shrink-0">分类</span>

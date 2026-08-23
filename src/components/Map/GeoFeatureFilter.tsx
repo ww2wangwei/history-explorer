@@ -67,7 +67,7 @@ export default function GeoFeatureFilter() {
             ? 'bg-vermilion-500 border-bronze-300 text-parchment-50'
             : 'bg-ink-900/95 border-vermilion-500/40/80 text-vermilion-300 hover:bg-ink-800 hover:border-bronze-300'
         }`}
-        style={{ top: '70px' }}
+        style={{ top: '10px' }}
       >
         🗺 图层
         {onCount + amapOnCount > 0 && (
@@ -78,12 +78,13 @@ export default function GeoFeatureFilter() {
       {/* 面板 */}
       {open && (
         <div
-          className="absolute left-2 z-50 w-72 max-h-[55vh] overflow-y-auto scrollbar-thin rounded-lg border border-vermilion-500/40 bg-ink-800/95 backdrop-blur shadow-2xl p-3"
-          style={{ top: '115px' }}
+          className="absolute left-2 z-50 w-72 max-h-[55vh] flex flex-col rounded-lg border border-vermilion-500/40 bg-ink-800/95 backdrop-blur shadow-2xl"
+          style={{ top: '55px' }}
           role="dialog"
           aria-label="地理要素图层"
         >
-          <div className="flex items-center justify-between mb-2">
+          {/* 头部（固定） */}
+          <div className="flex items-center justify-between p-3 pb-2 border-b border-ink-700 shrink-0">
             <div className="text-sm font-serif text-vermilion-300">🗺 地图图层</div>
             <button
               onClick={() => setOpen(false)}
@@ -93,7 +94,7 @@ export default function GeoFeatureFilter() {
           </div>
 
           {/* Tab 切换 */}
-          <div className="flex rounded-lg bg-ink-900/60 border border-ink-700 overflow-hidden text-xs mb-3">
+          <div className="flex rounded-lg bg-ink-900/60 border border-ink-700 overflow-hidden text-xs m-3 mb-0 shrink-0">
             <button
               onClick={() => setTab('style')}
               className={`flex-1 px-2 py-1.5 transition-colors ${
@@ -119,6 +120,9 @@ export default function GeoFeatureFilter() {
               底图要素 <span className="text-[10px] opacity-70">({amapOnCount})</span>
             </button>
           </div>
+
+          {/* Tab 内容区（可滚动） */}
+          <div className="overflow-y-auto scrollbar-thin p-3 flex-1 min-h-0">
 
           {tab === 'style' ? (
             <>
@@ -257,8 +261,10 @@ export default function GeoFeatureFilter() {
             </>
           )}
 
-          {/* 2D / 3D 切换 — 任何 tab 都可见（固定底部） */}
-          <div className="pt-2 mt-2 border-t border-ink-700">
+          </div>{/* /Tab 内容滚动区 */}
+
+          {/* 2D / 3D 切换 — 任何 tab 都可见（固定底部，不滚动） */}
+          <div className="p-3 pt-2 border-t border-ink-700 shrink-0">
             <div className="text-[10px] text-ink-400 mb-1.5">视图模式</div>
             <div className="flex gap-1">
               <button

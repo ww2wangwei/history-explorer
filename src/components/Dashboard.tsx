@@ -30,6 +30,7 @@ import type { Era } from '@/types'
 import type { Question } from '@/types/questions'
 import EraQuickLearnModal, { type QuickEventState } from './QuickLearn/EraQuickLearnModal'
 import { Seal, GreekKeyDivider } from '@/components/ui/ChineseOrnament'
+import SectionPreview from './Dashboard/SectionPreview'
 
 // 🎯 性能优化：data 改用懒加载共享 loader — 不再静态 import，eras.json + events.json
 //   从主 bundle 拆出。数据未到位时 eras/events 为空数组（useCoreDataReady 检测）。
@@ -323,7 +324,9 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           </p>
         </div>
 
-        {/* === 2. 学习路径（13 卡 · MotionSites 风格 · 垂直堆叠 + 大预览） === */}
+        {/* === 2. 学习路径（13 卡 · 混合布局） === */}
+        {/* 头部 — 朝代时间线 + 全人物（横向 hero 大卡，重点推荐） */}
+        {/* 中部 — 其余 11 个（2 列 grid，纵向紧凑） */}
         <div className="flex items-center gap-4 mb-3">
           <span className="font-brush text-lg text-bone tracking-[0.4em]">学习路径</span>
           <div className="flex-1">
@@ -332,7 +335,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           <span className="text-xs text-ink-400 font-brush tracking-widest">13 板块</span>
         </div>
         <div ref={pathCardsRef} className="flex flex-col gap-3 mb-6">
-          {/* 朝代时间线（特殊：带 TimelinePreview） */}
+          {/* 朝代时间线（hero 大卡 · 带 TimelinePreview） */}
           <MotionsitesCard
             path={MAIN_PATHS[0]}
             visited={getPathVisited(MAIN_PATHS[0].id)}
@@ -344,21 +347,25 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
             }}
             preview={<TimelinePreview eras={eras} visitedIds={visitedSet} />}
           />
-          {/* 全人物 + 穿越历史 */}
-          <MotionsitesCard path={MAIN_PATHS[1]} visited={getPathVisited(MAIN_PATHS[1].id)} total={getPathTotal(MAIN_PATHS[1].id)} onClick={() => onEnterPath(MAIN_PATHS[1].id as PathId)} />
-          <MotionsitesCard path={MAIN_PATHS[2]} visited={getPathVisited(MAIN_PATHS[2].id)} total={getPathTotal(MAIN_PATHS[2].id)} onClick={() => onEnterPath(MAIN_PATHS[2].id as PathId)} />
-          {/* 文史天梯 */}
-          <MotionsitesCard path={MAIN_PATHS[3]} visited={0} total={0} onClick={onEnterLadder} highlight />
-          {/* 其余 9 个 */}
-          {MORE_PATHS.map(p => (
-            <MotionsitesCard
-              key={p.id}
-              path={p}
-              visited={getPathVisited(p.id)}
-              total={getPathTotal(p.id)}
-              onClick={() => onEnterPath(p.id as PathId)}
-            />
-          ))}
+          {/* 全人物 + 穿越历史（hero 横排） */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <MotionsitesCard path={MAIN_PATHS[1]} visited={getPathVisited(MAIN_PATHS[1].id)} total={getPathTotal(MAIN_PATHS[1].id)} variant="grid" onClick={() => onEnterPath(MAIN_PATHS[1].id as PathId)} />
+            <MotionsitesCard path={MAIN_PATHS[2]} visited={getPathVisited(MAIN_PATHS[2].id)} total={getPathTotal(MAIN_PATHS[2].id)} variant="grid" onClick={() => onEnterPath(MAIN_PATHS[2].id as PathId)} />
+          </div>
+          {/* 其余 10 个 — 2 列 grid（纵向紧凑 · Wabi-Sabi 风格） */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <MotionsitesCard path={MAIN_PATHS[3]} visited={0} total={0} variant="grid" onClick={onEnterLadder} highlight />
+            {MORE_PATHS.map(p => (
+              <MotionsitesCard
+                key={p.id}
+                path={p}
+                visited={getPathVisited(p.id)}
+                total={getPathTotal(p.id)}
+                variant="grid"
+                onClick={() => onEnterPath(p.id as PathId)}
+              />
+            ))}
+          </div>
         </div>
 
         {/* === 3. Hero CTA（当前推荐 · 卷轴式） === */}
@@ -595,8 +602,10 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
 }
 
 // ===== MotionsitesCard =====
-// 灵感：motionsites.ai 的 wide preview cards
-// 设计：每个板块一个宽矩形卡，左侧大预览 + 右侧文字（标题/分类/简介/CTA）
+// 灵感：motionsites.ai 的 wide preview cards + awwwards Wabi-Sabi 项目页
+// 设计：每个板块一个矩形卡
+//   - variant='hero' (默认)：横向，左预览 + 右文字（重点推荐）
+//   - variant='grid'：纵向，上预览 + 下文字（2-col grid 紧凑展示）
 function MotionsitesCard({
   path: p,
   visited,
@@ -604,6 +613,7 @@ function MotionsitesCard({
   onClick,
   highlight,
   preview,
+  variant = 'hero',
 }: {
   path: { id: string; icon: string; title: string; desc: string; color: string }
   visited: number
@@ -611,16 +621,23 @@ function MotionsitesCard({
   onClick: () => void
   highlight?: boolean
   preview?: ReactNode
+  variant?: 'hero' | 'grid'
 }) {
   const pct = total > 0 ? Math.round((visited / total) * 100) : 0
   const accent = p.color
   // 选 1-2 个汉字作为大字
   const heroChar = p.title.replace(/[^一-鿿]/g, '').slice(0, 2) || p.icon
+  // grid 模式无 preview 时使用 SectionPreview（内嵌 SVG）
+  const previewEl = preview ?? (variant === 'grid' ? <SectionPreview sectionId={p.id} color={accent} /> : null)
+
+  const isGrid = variant === 'grid'
 
   return (
     <button
       onClick={onClick}
-      className={`group relative overflow-hidden rounded-xl transition-all hover:translate-y-[-2px] focus:outline-none w-full text-left flex ${highlight ? 'ring-1 ring-vermilion-500/60' : ''}`}
+      className={`group relative overflow-hidden rounded-xl transition-all hover:translate-y-[-2px] focus:outline-none w-full text-left flex ${
+        isGrid ? 'flex-col' : 'flex'
+      } ${highlight ? 'ring-1 ring-vermilion-500/60' : ''}`}
       style={{
         background: 'rgb(var(--bg-card-rgb) / 0.85)',
         boxShadow: highlight
@@ -628,29 +645,32 @@ function MotionsitesCard({
           : '0 4px 16px rgba(0,0,0,0.3), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.25)',
       }}
     >
-      {/* 左侧预览区 — 占 35% 宽 */}
+      {/* 预览区：hero=左 40%（横），grid=顶部 100%（纵） */}
       <div
-        className="relative w-2/5 shrink-0 overflow-hidden"
+        className={`relative overflow-hidden shrink-0 ${isGrid ? 'w-full' : 'w-2/5'}`}
         style={{
           background: `linear-gradient(135deg, ${accent}66 0%, ${accent}22 100%)`,
-          minHeight: 140,
+          minHeight: isGrid ? 110 : 140,
+          aspectRatio: isGrid ? '16/9' : undefined,
         }}
       >
         {/* 装饰：左上角小色块 */}
         <div className="absolute top-2 left-2 z-10 flex items-center gap-1">
-          <span className="text-xl">{p.icon}</span>
+          <span className={isGrid ? 'text-base' : 'text-xl'}>{p.icon}</span>
           {visited > 0 && pct > 0 && (
             <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-vermilion-500/80 text-bone font-bold">
               {pct}%
             </span>
           )}
         </div>
-        {/* 预览内容 */}
-        {preview || (
+        {/* 预览内容（自定义 or SectionPreview） */}
+        {previewEl ? (
+          <div className="absolute inset-0">{previewEl}</div>
+        ) : (
           <div className="absolute inset-0 flex items-center justify-center">
             <div
               className="font-brush font-bold text-bone select-none"
-              style={{ fontSize: 64, lineHeight: 1, opacity: 0.92, textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}
+              style={{ fontSize: isGrid ? 48 : 64, lineHeight: 1, opacity: 0.92, textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}
             >
               {heroChar}
             </div>
@@ -663,26 +683,26 @@ function MotionsitesCard({
           </div>
         )}
       </div>
-      {/* 右侧文字区 — 占 65% 宽 */}
-      <div className="flex-1 min-w-0 p-4 flex flex-col justify-between">
+      {/* 文字区 */}
+      <div className={`flex-1 min-w-0 flex flex-col justify-between ${isGrid ? 'p-3' : 'p-4'}`}>
         <div>
-          <div className="flex items-center gap-2 mb-1.5">
-            <h3 className="font-serif text-lg text-bone tracking-wide truncate">{p.title}</h3>
+          <div className="flex items-center gap-2 mb-1">
+            <h3 className={`font-serif tracking-wide truncate ${isGrid ? 'text-sm' : 'text-lg'} text-bone`}>{p.title}</h3>
             {highlight && (
               <span className="text-[9px] px-1.5 py-0.5 rounded bg-vermilion-500/30 border border-vermilion-500/50 text-vermilion-300 font-bold tracking-wider shrink-0">NEW</span>
             )}
           </div>
-          <p className="text-[11px] text-ink-300 leading-relaxed line-clamp-2">{p.desc}</p>
+          <p className={`${isGrid ? 'text-[10px] line-clamp-1' : 'text-[11px] line-clamp-2'} text-ink-300 leading-relaxed`}>{p.desc}</p>
         </div>
-        <div className="flex items-center justify-between mt-2">
-          <span className="text-[10px] text-ink-500 tabular-nums">
+        <div className="flex items-center justify-between mt-1.5">
+          <span className="text-[9px] text-ink-500 tabular-nums">
             {total > 0 ? `${visited} / ${total}` : '无限探索'}
           </span>
           <span
-            className="font-serif text-xs tracking-widest transition-colors"
+            className="font-serif text-[10px] tracking-widest transition-colors"
             style={{ color: accent }}
           >
-            立即进入 →
+            进入 →
           </span>
         </div>
       </div>

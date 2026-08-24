@@ -16,7 +16,7 @@ const eras = erasData as Era[]
 
 const TIMELINE_HEIGHT = 178
 const CHIP_ROW_HEIGHT = 30
-const PADDING_X = 40
+const PADDING_X = 0
 const RULER_HEIGHT = 24
 // 朝代色带（中国朝代）区域 — 第 1 行
 const ERA_BAND_TOP = RULER_HEIGHT + 22

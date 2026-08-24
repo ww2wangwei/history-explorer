@@ -323,46 +323,20 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           </p>
         </div>
 
-        {/* === 2. 学习路径（13 卡真 bento · 大小错落 · 4×5 网格） === */}
+        {/* === 2. 学习路径（13 卡 · MotionSites 风格 · 垂直堆叠 + 大预览） === */}
         <div className="flex items-center gap-4 mb-3">
           <span className="font-brush text-lg text-bone tracking-[0.4em]">学习路径</span>
           <div className="flex-1">
             <GreekKeyDivider />
           </div>
-          <span className="text-xs text-ink-400 font-brush tracking-widest">错 · 落</span>
+          <span className="text-xs text-ink-400 font-brush tracking-widest">13 板块</span>
         </div>
-        {/*
-          Bento 4×5（md+）13 卡全部错落 · 5 种尺寸：
-          ┌──────────────┬─────┬─────────┐
-          │              │ 👥  │ 🎭      │ row 1
-          │   朝代 2×2   ├─────┼─────────┤
-          │              │ 🪜  │ ⚔ 1×2   │ row 2
-          │              │ 1×2 ├─────────┤
-          ├─────┬────────┤     │         │
-          │ 📜  │ 🗺      │ 🪜 continue│ ⚔ continue│ row 3
-          │ 2×1 │        │         │         │
-          ├─────┼────────┼─────┼─────────┤
-          │ 📚  │ ⚖      │ 🎨   │ 🌍      │ row 4
-          ├─────┴────────┴─────┴─────────┤
-          │ 🎯 复习 4×1 全宽横条      │ row 5
-          └─────────────────────────────┘
-
-          5 种尺寸：
-          - 1 hero (2×2)：朝代时间线
-          - 1 vertical tall (1×2)：文史天梯
-          - 1 wide (2×1)：全诗词
-          - 1 wide tall (1×2)：全战争
-          - 1 全宽横条 (4×1)：今日复习
-          - 7 normal (1×1)：其余
-        */}
-        <div ref={pathCardsRef} className="grid grid-cols-2 md:grid-cols-4 md:grid-rows-5 gap-2 mb-6 auto-rows-fr">
-          {/* Row 1-2: hero (2×2) + 右侧 small + tall */}
-          <PrimaryPathCard
+        <div ref={pathCardsRef} className="flex flex-col gap-3 mb-6">
+          {/* 朝代时间线（特殊：带 TimelinePreview） */}
+          <MotionsitesCard
             path={MAIN_PATHS[0]}
             visited={getPathVisited(MAIN_PATHS[0].id)}
             total={getPathTotal(MAIN_PATHS[0].id)}
-            size="large"
-            className="md:col-span-2 md:row-span-2"
             onClick={() => {
               audioEngine.playModalOpen()
               if (recommendation) recordVisit('timeline', recommendation.eraId)
@@ -370,55 +344,21 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
             }}
             preview={<TimelinePreview eras={eras} visitedIds={visitedSet} />}
           />
-          <PrimaryPathCard path={MAIN_PATHS[1]} visited={getPathVisited(MAIN_PATHS[1].id)} total={getPathTotal(MAIN_PATHS[1].id)} size="normal" onClick={() => onEnterPath(MAIN_PATHS[1].id as PathId)} />
-          <PrimaryPathCard path={MAIN_PATHS[2]} visited={getPathVisited(MAIN_PATHS[2].id)} total={getPathTotal(MAIN_PATHS[2].id)} size="normal" onClick={() => onEnterPath(MAIN_PATHS[2].id as PathId)} />
-
-          {/* Row 2 right: 文史天梯 tall (1×2) + 全战争 tall (1×2) — 双竖卡 */}
-          <PrimaryPathCard
-            path={MAIN_PATHS[3]}
-            visited={getPathVisited(MAIN_PATHS[3].id)}
-            total={getPathTotal(MAIN_PATHS[3].id)}
-            size="tall"
-            className="md:row-span-2"
-            onClick={onEnterLadder}
-            highlight
-          />
-          <PrimaryPathCard
-            path={MORE_PATHS[0]}  /* 全战争 */
-            visited={getPathVisited(MORE_PATHS[0].id)}
-            total={getPathTotal(MORE_PATHS[0].id)}
-            size="tall"
-            className="md:row-span-2"
-            onClick={() => onEnterPath(MORE_PATHS[0].id as PathId)}
-          />
-
-          {/* Row 3: 全诗词 wide (2×1) + 2 normal（竖卡已占位 col 3-4） */}
-          <PrimaryPathCard
-            path={MORE_PATHS[3]}  /* 全诗词 */
-            visited={getPathVisited(MORE_PATHS[3].id)}
-            total={getPathTotal(MORE_PATHS[3].id)}
-            size="normal"
-            className="md:col-span-2"
-            onClick={() => onEnterPath(MORE_PATHS[3].id as PathId)}
-          />
-
-          {/* Row 4: 4 normal */}
-          <PrimaryPathCard path={MORE_PATHS[1]} visited={getPathVisited(MORE_PATHS[1].id)} total={getPathTotal(MORE_PATHS[1].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[1].id as PathId)} />
-          <PrimaryPathCard path={MORE_PATHS[2]} visited={getPathVisited(MORE_PATHS[2].id)} total={getPathTotal(MORE_PATHS[2].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[2].id as PathId)} />
-          <PrimaryPathCard path={MORE_PATHS[4]} visited={getPathVisited(MORE_PATHS[4].id)} total={getPathTotal(MORE_PATHS[4].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[4].id as PathId)} />
-          <PrimaryPathCard path={MORE_PATHS[5]} visited={getPathVisited(MORE_PATHS[5].id)} total={getPathTotal(MORE_PATHS[5].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[5].id as PathId)} />
-
-          {/* Row 5: 全艺术 + 全文明 + 复习 4×1 全宽 */}
-          <PrimaryPathCard path={MORE_PATHS[6]} visited={getPathVisited(MORE_PATHS[6].id)} total={getPathTotal(MORE_PATHS[6].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[6].id as PathId)} />
-          <PrimaryPathCard path={MORE_PATHS[7]} visited={getPathVisited(MORE_PATHS[7].id)} total={getPathTotal(MORE_PATHS[7].id)} size="normal" onClick={() => onEnterPath(MORE_PATHS[7].id as PathId)} />
-          <PrimaryPathCard
-            path={MORE_PATHS[8]}  /* 今日复习 */
-            visited={getPathVisited(MORE_PATHS[8].id)}
-            total={getPathTotal(MORE_PATHS[8].id)}
-            size="normal"
-            className="md:col-span-2"
-            onClick={() => onEnterPath(MORE_PATHS[8].id as PathId)}
-          />
+          {/* 全人物 + 穿越历史 */}
+          <MotionsitesCard path={MAIN_PATHS[1]} visited={getPathVisited(MAIN_PATHS[1].id)} total={getPathTotal(MAIN_PATHS[1].id)} onClick={() => onEnterPath(MAIN_PATHS[1].id as PathId)} />
+          <MotionsitesCard path={MAIN_PATHS[2]} visited={getPathVisited(MAIN_PATHS[2].id)} total={getPathTotal(MAIN_PATHS[2].id)} onClick={() => onEnterPath(MAIN_PATHS[2].id as PathId)} />
+          {/* 文史天梯 */}
+          <MotionsitesCard path={MAIN_PATHS[3]} visited={0} total={0} onClick={onEnterLadder} highlight />
+          {/* 其余 9 个 */}
+          {MORE_PATHS.map(p => (
+            <MotionsitesCard
+              key={p.id}
+              path={p}
+              visited={getPathVisited(p.id)}
+              total={getPathTotal(p.id)}
+              onClick={() => onEnterPath(p.id as PathId)}
+            />
+          ))}
         </div>
 
         {/* === 3. Hero CTA（当前推荐 · 卷轴式） === */}
@@ -651,6 +591,102 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         nextEra={nextLearnEra}
       />
     </div>
+  )
+}
+
+// ===== MotionsitesCard =====
+// 灵感：motionsites.ai 的 wide preview cards
+// 设计：每个板块一个宽矩形卡，左侧大预览 + 右侧文字（标题/分类/简介/CTA）
+function MotionsitesCard({
+  path: p,
+  visited,
+  total,
+  onClick,
+  highlight,
+  preview,
+}: {
+  path: { id: string; icon: string; title: string; desc: string; color: string }
+  visited: number
+  total: number
+  onClick: () => void
+  highlight?: boolean
+  preview?: ReactNode
+}) {
+  const pct = total > 0 ? Math.round((visited / total) * 100) : 0
+  const accent = p.color
+  // 选 1-2 个汉字作为大字
+  const heroChar = p.title.replace(/[^一-鿿]/g, '').slice(0, 2) || p.icon
+
+  return (
+    <button
+      onClick={onClick}
+      className={`group relative overflow-hidden rounded-xl transition-all hover:translate-y-[-2px] focus:outline-none w-full text-left flex ${highlight ? 'ring-1 ring-vermilion-500/60' : ''}`}
+      style={{
+        background: 'rgb(var(--bg-card-rgb) / 0.85)',
+        boxShadow: highlight
+          ? '0 6px 24px rgba(0,0,0,0.4), 0 0 0 1px rgb(var(--vermilion-rgb) / 0.5), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.4)'
+          : '0 4px 16px rgba(0,0,0,0.3), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.25)',
+      }}
+    >
+      {/* 左侧预览区 — 占 35% 宽 */}
+      <div
+        className="relative w-2/5 shrink-0 overflow-hidden"
+        style={{
+          background: `linear-gradient(135deg, ${accent}66 0%, ${accent}22 100%)`,
+          minHeight: 140,
+        }}
+      >
+        {/* 装饰：左上角小色块 */}
+        <div className="absolute top-2 left-2 z-10 flex items-center gap-1">
+          <span className="text-xl">{p.icon}</span>
+          {visited > 0 && pct > 0 && (
+            <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-vermilion-500/80 text-bone font-bold">
+              {pct}%
+            </span>
+          )}
+        </div>
+        {/* 预览内容 */}
+        {preview || (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div
+              className="font-brush font-bold text-bone select-none"
+              style={{ fontSize: 64, lineHeight: 1, opacity: 0.92, textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}
+            >
+              {heroChar}
+            </div>
+          </div>
+        )}
+        {/* 底部进度条 */}
+        {total > 0 && pct > 0 && (
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-ink-900/40">
+            <div className="h-full transition-all duration-500" style={{ width: `${pct}%`, background: accent }} />
+          </div>
+        )}
+      </div>
+      {/* 右侧文字区 — 占 65% 宽 */}
+      <div className="flex-1 min-w-0 p-4 flex flex-col justify-between">
+        <div>
+          <div className="flex items-center gap-2 mb-1.5">
+            <h3 className="font-serif text-lg text-bone tracking-wide truncate">{p.title}</h3>
+            {highlight && (
+              <span className="text-[9px] px-1.5 py-0.5 rounded bg-vermilion-500/30 border border-vermilion-500/50 text-vermilion-300 font-bold tracking-wider shrink-0">NEW</span>
+            )}
+          </div>
+          <p className="text-[11px] text-ink-300 leading-relaxed line-clamp-2">{p.desc}</p>
+        </div>
+        <div className="flex items-center justify-between mt-2">
+          <span className="text-[10px] text-ink-500 tabular-nums">
+            {total > 0 ? `${visited} / ${total}` : '无限探索'}
+          </span>
+          <span
+            className="font-serif text-xs tracking-widest transition-colors"
+            style={{ color: accent }}
+          >
+            立即进入 →
+          </span>
+        </div>
+      </div>
+    </button>
   )
 }
 

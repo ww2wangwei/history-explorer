@@ -3,6 +3,7 @@ import { useReducedMotionGlobal } from '@/hooks/useReducedMotion'
 import Timeline from '@/components/Timeline/Timeline'
 import SearchBar from '@/components/SearchBar'
 import AmbientBackground from '@/components/AmbientBackground'
+import InkFlowField from '@/components/InkFlowField'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useNotesStore } from '@/store/useNotesStore'
 import { useCardsStore } from '@/store/useCardsStore'
@@ -605,6 +606,8 @@ export default function Layout() {
 
       {/* AmbientBackground 动态背景 */}
       <AmbientBackground />
+      {/* InkFlowField 鼠标墨流场（鼠标移动留下墨色轨迹）*/}
+      <InkFlowField />
 
       {/* 中间：主区域 + 详情面板 */}
       <main className="flex-1 min-h-0 flex relative overflow-hidden">

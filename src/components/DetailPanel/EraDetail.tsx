@@ -15,6 +15,7 @@ import eventsData from '@/data/events.json'
 import peopleData from '@/data/people.json'
 import ModalShell from '@/components/ui/Modal'
 import FallbackImage from './FallbackImage'
+import BrushReveal from './BrushReveal'
 
 const eras = erasData as Era[]
 const allEvents = eventsData as HistoricalEvent[]
@@ -681,6 +682,7 @@ function QuickEventDetail({ event, eraName, eraColor, onClose }: {
   }
 
 return (
+    <BrushReveal direction="right" duration={650}>
     <ModalShell
       isOpen
       onClose={onClose}
@@ -764,5 +766,6 @@ return (
           </div>
         </div>
     </ModalShell>
+    </BrushReveal>
   )
 }

@@ -345,21 +345,21 @@ export default function SectionPreview({ sectionId, color }: Props) {
         backgroundImage: `url('/sections/bg/${sectionId}.jpg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        filter: 'grayscale(0.4) blur(1px)',
+        filter: 'grayscale(0.15)',
         transform: 'scale(1.05)',
-        opacity: 0.75,
+        opacity: 1,
       }}
     >
-      {/* 暗色渐变叠加（保证文字可读） */}
+      {/* 暗色渐变叠加（保证文字可读 + 章节色调） */}
       <div
         className="absolute inset-0"
         style={{
-          background: `linear-gradient(135deg, ${color}55 0%, ${color}22 60%, rgba(15,14,12,0.6) 100%)`,
+          background: `linear-gradient(135deg, ${color}33 0%, ${color}11 50%, rgba(15,14,12,0.25) 100%)`,
           mixBlendMode: 'multiply',
         }}
       />
-      {/* 顶部底部微暗化（强化纹理） */}
-      <div className="absolute inset-0 bg-gradient-to-b from-ink-900/30 via-transparent to-ink-900/40" />
+      {/* 底部暗化（强化标题区对比度） */}
+      <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-ink-900/85 via-ink-900/30 to-transparent" />
     </div>
   )
 }

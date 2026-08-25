@@ -338,20 +338,28 @@ function TimelineSmallPreview({ color }: { color: string }) {
 }
 
 export default function SectionPreview({ sectionId, color }: Props) {
-  switch (sectionId) {
-    case 'timeline':     return <TimelineSmallPreview color={color} />
-    case 'allFigures':   return <FiguresPreview color={color} />
-    case 'allWars':      return <WarsPreview color={color} />
-    case 'allCultures':  return <CulturesPreview color={color} />
-    case 'allGeography': return <GeographyPreview color={color} />
-    case 'allPoems':     return <PoemsPreview color={color} />
-    case 'civilizations':return <CivilizationsPreview color={color} />
-    case 'timeTravel':   return <TimeTravelPreview color={color} />
-    case 'allQuestions': return <QuestionsPreview color={color} />
-    case 'allArts':      return <ArtsPreview color={color} />
-    case 'worldHistory': return <WorldHistoryPreview color={color} />
-    case 'review':       return <ReviewPreview color={color} />
-    case 'ladder':       return <LadderPreview color={color} />
-    default:            return null
-  }
+  return (
+    <div
+      className="absolute inset-0 overflow-hidden"
+      style={{
+        backgroundImage: `url('/sections/bg/${sectionId}.jpg')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        filter: 'grayscale(0.4) blur(1px)',
+        transform: 'scale(1.05)',
+        opacity: 0.75,
+      }}
+    >
+      {/* 暗色渐变叠加（保证文字可读） */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(135deg, ${color}55 0%, ${color}22 60%, rgba(15,14,12,0.6) 100%)`,
+          mixBlendMode: 'multiply',
+        }}
+      />
+      {/* 顶部底部微暗化（强化纹理） */}
+      <div className="absolute inset-0 bg-gradient-to-b from-ink-900/30 via-transparent to-ink-900/40" />
+    </div>
+  )
 }

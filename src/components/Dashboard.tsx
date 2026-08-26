@@ -30,7 +30,6 @@ import type { Era } from '@/types'
 import type { Question } from '@/types/questions'
 import EraQuickLearnModal, { type QuickEventState } from './QuickLearn/EraQuickLearnModal'
 import { Seal, GreekKeyDivider } from '@/components/ui/ChineseOrnament'
-import SectionPreview from './Dashboard/SectionPreview'
 
 // 🎯 性能优化：data 改用懒加载共享 loader — 不再静态 import，eras.json + events.json
 //   从主 bundle 拆出。数据未到位时 eras/events 为空数组（useCoreDataReady 检测）。
@@ -54,13 +53,13 @@ const PATHS: { id: string; icon: string; title: string; desc: string; color: str
   { id: 'allGeography', icon: '🗺️', title: '全地理', desc: '自然地理特征 + 疆域变迁', color: '#5bc89a', imageKeyword: 'world map historical geography' },
   { id: 'allPoems', icon: '📜', title: '全诗词', desc: '100 首最有名的唐诗宋词，含注解、注音、白话翻译', color: '#c89a8a', imageKeyword: 'chinese poetry scroll ink' },
   { id: 'civilizations', icon: '⚖️', title: '中西方文明大对比', desc: '15 节对比，看清两种截然不同的历史路径', color: '#d4a85b', imageKeyword: 'east west civilization contrast' },
-  { id: 'timeTravel', icon: '🎭', title: '穿越历史', desc: '化身历史人物，在关键节点做选择', color: '#9b7eb6', imageKeyword: 'time travel ancient china' },
+  { id: 'timeTravel', icon: '🎭', title: '穿越历史', desc: '化身历史人物，在关键节点做选择', color: '#9b7eb6', imageKeyword: 'classical chinese painting historical figures court scene' },
   { id: 'allQuestions', icon: '💭', title: '全问题', desc: '趣味/启发/思考题，AI 一问一答逐步深挖并打分', color: '#e07b9b', imageKeyword: 'philosophical question thinking' },
   { id: 'allArts', icon: '🎨', title: '全艺术', desc: '60 节西方艺术课 · 从史前壁画到当代观念', color: '#e879b9', imageKeyword: 'ancient art painting gallery' },
   { id: 'worldHistory', icon: '🌍', title: '全文明', desc: '少年世界史 161 节 · 从人类起源到现代世界', color: '#d4a85b', imageKeyword: 'world civilization ruins' },
-  { id: 'review', icon: '🎯', title: '今日复习', desc: '基于 SM-2 算法的间隔重复', color: '#9bc89a', imageKeyword: 'study review notebook open book' },
+  { id: 'review', icon: '🎯', title: '今日复习', desc: '基于 SM-2 算法的间隔重复', color: '#9bc89a', imageKeyword: 'ancient scrolls scholar desk library candle' },
   // 👇 特殊情况：文史天梯（自定义页，非 store 路径）
-  { id: 'ladder', icon: '🪜', title: '文史天梯', desc: '史·诗·人 三条天梯 · 学测记问 4 步闭环 · 通关可重开', color: '#b8433a', imageKeyword: 'literature ladder temple steps' },
+  { id: 'ladder', icon: '🪜', title: '文史天梯', desc: '史·诗·人 三条天梯 · 学测记问 4 步闭环 · 通关可重开', color: '#b8433a', imageKeyword: 'ancient stone temple stairs scholarly' },
 ]
 
 // === 主路径（4 个核心） ===
@@ -335,7 +334,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           <span className="text-xs text-ink-400 font-brush tracking-widest">13 板块</span>
         </div>
         <div ref={pathCardsRef} className="flex flex-col gap-3 mb-6">
-          {/* 朝代时间线（hero 大卡 · 带 TimelinePreview） */}
+          {/* 朝代时间线（hero 大卡） */}
           <MotionsitesCard
             path={MAIN_PATHS[0]}
             visited={getPathVisited(MAIN_PATHS[0].id)}
@@ -345,7 +344,6 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
               if (recommendation) recordVisit('timeline', recommendation.eraId)
               setShowEraList(true)
             }}
-            preview={<TimelinePreview eras={eras} visitedIds={visitedSet} />}
           />
           {/* 全人物 + 穿越历史（hero 横排） */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -612,25 +610,22 @@ function MotionsitesCard({
   total,
   onClick,
   highlight,
-  preview,
   variant = 'hero',
 }: {
-  path: { id: string; icon: string; title: string; desc: string; color: string }
+  path: { id: string; icon: string; title: string; desc: string; color: string; imageKeyword: string }
   visited: number
   total: number
   onClick: () => void
   highlight?: boolean
-  preview?: ReactNode
   variant?: 'hero' | 'grid'
 }) {
   const pct = total > 0 ? Math.round((visited / total) * 100) : 0
   const accent = p.color
-  // 选 1-2 个汉字作为大字
-  const heroChar = p.title.replace(/[^一-鿿]/g, '').slice(0, 2) || p.icon
-  // grid 模式无 preview 时使用 SectionPreview（内嵌 SVG）
-  const previewEl = preview ?? (variant === 'grid' ? <SectionPreview sectionId={p.id} color={accent} /> : null)
 
   const isGrid = variant === 'grid'
+  // 13 个板块共用 Bing CDN 图（主区 800×450、次区 grid 400×220）
+  const bgW = isGrid ? 400 : 800
+  const bgH = isGrid ? 220 : 450
 
   return (
     <button
@@ -650,10 +645,22 @@ function MotionsitesCard({
         className={`relative overflow-hidden shrink-0 ${isGrid ? 'w-full' : 'w-2/5'}`}
         style={{
           background: `linear-gradient(135deg, ${accent}66 0%, ${accent}22 100%)`,
+          backgroundImage: `url(${bingImage(p.imageKeyword, bgW, bgH)})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
           minHeight: isGrid ? 110 : 140,
           aspectRatio: isGrid ? '16/9' : undefined,
         }}
       >
+        {/* 暗色蒙版（保证顶部百分比 / 底部进度条可读） */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.12) 35%, rgba(0,0,0,0.55) 100%)',
+          }}
+        />
         {/* 装饰：左上角小色块 */}
         <div className="absolute top-2 left-2 z-10 flex items-center gap-1">
           <span className={isGrid ? 'text-base' : 'text-xl'}>{p.icon}</span>
@@ -663,19 +670,6 @@ function MotionsitesCard({
             </span>
           )}
         </div>
-        {/* 预览内容（自定义 or SectionPreview） */}
-        {previewEl ? (
-          <div className="absolute inset-0">{previewEl}</div>
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div
-              className="font-brush font-bold text-bone select-none"
-              style={{ fontSize: isGrid ? 48 : 64, lineHeight: 1, opacity: 0.92, textShadow: '0 2px 8px rgba(0,0,0,0.4)' }}
-            >
-              {heroChar}
-            </div>
-          </div>
-        )}
         {/* 底部进度条 */}
         {total > 0 && pct > 0 && (
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-ink-900/40">
@@ -905,56 +899,6 @@ function ProgressEraDots({ eras, visitedIds }: { eras: Era[]; visitedIds: Set<st
           </div>
         )
       })}
-    </div>
-  )
-}
-
-// ===== 朝代时间线迷你预览 =====
-// 用 SVG 显示一条压缩时间线（BC 2200 → 2100）+ 67 个朝代点 + 4 个关键年标
-// 不依赖任何动效，纯粹视觉信息
-function TimelinePreview({ eras, visitedIds }: { eras: Era[]; visitedIds: Set<string> }) {
-  const MIN_YEAR = -2200
-  const MAX_YEAR = 2100
-  const SPAN = MAX_YEAR - MIN_YEAR
-  const KEY_YEARS: { year: number; label: string }[] = [
-    { year: -221, label: '秦' },
-    { year: 0,    label: '公元' },
-    { year: 1279, label: '宋末' },
-    { year: 1912, label: '民国' },
-  ]
-  const xFor = (y: number) => ((y - MIN_YEAR) / SPAN) * 200
-
-  return (
-    <div className="mb-2">
-      <svg viewBox="0 0 200 28" className="w-full h-7" preserveAspectRatio="none">
-        {/* 朱砂主线 */}
-        <line x1="0" y1="14" x2="200" y2="14"
-          stroke="rgb(var(--vermilion-rgb))" strokeWidth="1" opacity="0.5" />
-        {/* 朝代点 */}
-        {eras.map(e => {
-          const x = xFor(e.startYear)
-          const isVisited = visitedIds.has(e.id)
-          const isChina = e.region === 'china'
-          return (
-            <circle key={e.id}
-              cx={x} cy="14" r={isChina ? 1.3 : 1}
-              fill={isVisited ? 'rgb(74 222 128)' : isChina ? 'rgb(var(--vermilion-rgb))' : 'rgb(var(--text-faint-rgb))'}
-              opacity={isVisited ? 0.95 : 0.6}
-            />
-          )
-        })}
-        {/* 关键年标 */}
-        {KEY_YEARS.map(k => (
-          <g key={k.year}>
-            <line x1={xFor(k.year)} y1="20" x2={xFor(k.year)} y2="26"
-              stroke="rgb(var(--gold-rgb))" strokeWidth="0.5" opacity="0.6" />
-            <text x={xFor(k.year)} y="11" textAnchor="middle" fontSize="5"
-              fill="rgb(var(--text-faint-rgb))" fontFamily="serif">
-              {k.label}
-            </text>
-          </g>
-        ))}
-      </svg>
     </div>
   )
 }

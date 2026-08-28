@@ -979,12 +979,11 @@ export default function MapGlobeView({ eras, events, onSelectEra }: Props) {
   const [isAiGenerating, setIsAiGenerating] = useState(false)
   const aiGeneratingRef = useRef(false)
 
-  // 处理地球仪背景点击：获取经纬度并调用 AI 生成信息卡片
-  const handleGlobeClick = useCallback(async (coords: { lat: number; lng: number }, event: MouseEvent) => {
-    const lat = coords.lat
-    const lng = coords.lng
-    // 避免重复点击
-    if (isAiGenerating || aiGeneratingRef.current) return
+  // 处理地球仪点击（左键 / 右键）：获取经纬度并调用 AI 生成位置问答
+  // 抽成共享函数，左键与右键共用，避免重复逻辑
+  const askAIAboutLocation = useCallback(async (lat: number, lng: number) => {
+    // 避免重复点击（用 ref 而非 state，确保提取为独立回调后仍是实时值）
+    if (aiGeneratingRef.current) return
     aiGeneratingRef.current = true
     setIsAiGenerating(true)
 
@@ -1086,13 +1085,24 @@ export default function MapGlobeView({ eras, events, onSelectEra }: Props) {
       }
       setIsAiGenerating(false)
     }
-  }, [isAiGenerating])
+  }, [])
+
+  // 左键点击：拖拽误触防护已由 OrbitControls 的 click 事件处理
+  const handleGlobeClick = useCallback((coords: { lat: number; lng: number }) => {
+    askAIAboutLocation(coords.lat, coords.lng)
+  }, [askAIAboutLocation])
+
+  // 右键点击：与左键共用同一逻辑（默认右键为 pan，快速右键不拖拽即触发 AI）
+  const handleGlobeRightClick = useCallback((coords: { lat: number; lng: number }) => {
+    askAIAboutLocation(coords.lat, coords.lng)
+  }, [askAIAboutLocation])
 
   return (
     <div
       ref={containerRef}
       className="relative w-full h-full bg-ink-900"
       style={{ pointerEvents: 'auto', touchAction: 'none' }}
+      onContextMenu={(e) => e.preventDefault()}
     >
       <Globe
         ref={globeEl}
@@ -1407,6 +1417,7 @@ export default function MapGlobeView({ eras, events, onSelectEra }: Props) {
 
         objectRotation={() => null}
         onGlobeClick={handleGlobeClick}
+        onGlobeRightClick={handleGlobeRightClick}
       />
 
       {/* AI 加载中遮罩：点击地球后显示在屏幕中央 */}

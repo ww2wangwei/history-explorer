@@ -132,7 +132,7 @@ export default function GoalSettings({ isOpen, onClose }: Props) {
 
           {/* 当前默认提示 */}
           {storeTarget === DEFAULT_TARGET && (
-            <div className="text-xs text-ink-600">
+            <div className="text-xs text-ink-400">
               💡 默认目标为 5 张/天。可根据自己节奏调整。
             </div>
           )}

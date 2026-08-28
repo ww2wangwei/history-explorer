@@ -37,7 +37,7 @@ export default function NotesOverviewStats({ notes, onExport, onImport }: Props)
         <span className="text-vermilion-300 text-lg font-serif tabular-nums">{notes.length}</span>
         <span className="text-ink-500">条</span>
       </div>
-      <span className="text-ink-600">·</span>
+      <span className="text-ink-400">·</span>
       <div className="flex items-baseline gap-1.5">
         <span className="text-ink-500">朝代</span>
         <span className="text-parchment-50 tabular-nums">{eraCount}</span>
@@ -47,11 +47,11 @@ export default function NotesOverviewStats({ notes, onExport, onImport }: Props)
         <span className="text-parchment-50 tabular-nums">{eventCount}</span>
       </div>
       {topTargets.length > 0 && (
-        <span className="text-ink-600">·</span>
+        <span className="text-ink-400">·</span>
       )}
       {topTargets.slice(0, 3).map((t, i) => (
         <span key={t.id} className="text-ink-500">
-          {i > 0 && <span className="text-ink-600 mx-1">/</span>}
+          {i > 0 && <span className="text-ink-400 mx-1">/</span>}
           <span className="text-parchment-100">{t.kind === 'era' ? '朝代' : '事件'}</span>
           <span className="ml-0.5 text-ink-500">×{t.count}</span>
         </span>

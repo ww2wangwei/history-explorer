@@ -1,13 +1,8 @@
 /**
  * TerritoryMapThumb — 朝代/帝国地图缩略图
  *
- * 优先级：
- *   1. geoSvg（真实 Wikimedia 地图）→ <img> 渲染
- *   2. geojson（手画多边形）→ d3-geo + world-atlas 渲染 SVG
- *
- * 统一外观：
- *   - 容器用 object-contain，父元素控制尺寸（aspect-ratio 一致由调用方）
- *   - 接受 onClick prop，点击即弹 lightbox（父组件管理状态）
+ * 基于 GeoJSON（手画多边形）→ d3-geo + world-atlas 渲染 SVG。
+ * 统一外观：SVG 宽度 100%、高度 auto（viewBox 固定 16:9），父元素用 aspect-ratio 控制尺寸。
  */
 import { useMemo, useState, useEffect } from 'react'
 import { geoEqualEarth, geoPath } from 'd3-geo'
@@ -15,16 +10,12 @@ import { feature } from 'topojson-client'
 import type { Feature, FeatureCollection, Geometry } from 'geojson'
 
 interface Props {
-  /** 真实 Wikimedia 地图（PNG/SVG 直链）— 优先于 GeoJSON */
-  geoSvg?: string | null
-  /** 朝代/帝国 GeoJSON（fallback 用） */
+  /** 朝代/帝国 GeoJSON */
   geojson?: FeatureCollection | null
-  width?: number | string
-  height?: number | string
+  width?: number
+  height?: number
   fallbackColor?: string
   className?: string
-  /** 点击图片回调 — 通常触发 lightbox */
-  onClick?: () => void
   alt?: string
 }
 
@@ -63,53 +54,29 @@ function getWorldGeo(): Promise<FeatureCollection | null> {
 }
 
 export default function TerritoryMapThumb({
-  geoSvg,
   geojson,
-  width,
-  height,
+  width = 400,
+  height = 225,
   fallbackColor = '#5b9bc8',
   className = '',
-  onClick,
   alt = '疆域图',
 }: Props) {
-  const inner = geoSvg
-    ? (
-      <img
-        src={geoSvg}
-        alt={alt}
-        loading="lazy"
-        style={{ width: width as any, height: height as any, objectFit: 'cover' }}
-        className={`block ${className}`}
-      />
-    )
-    : (
-      <GeoJsonSvg
-        geojson={geojson}
-        width={width as number ?? 400}
-        height={height as number ?? 225}
-        fallbackColor={fallbackColor}
-      />
-    )
-
-  if (onClick) {
-    return (
-      <button
-        onClick={onClick}
-        className={`block w-full h-full cursor-zoom-in ${className}`}
-        style={{ background: '#0a1820' }}
-        aria-label={`放大查看 ${alt}`}
-      >
-        {inner}
-      </button>
-    )
-  }
-  return inner
+  return (
+    <GeoJsonSvg
+      geojson={geojson}
+      width={width}
+      height={height}
+      fallbackColor={fallbackColor}
+      className={className}
+      alt={alt}
+    />
+  )
 }
 
 /** 当有 geojson 时画一个紧凑 SVG（无外部图片时 fallback） */
 function GeoJsonSvg({
-  geojson, width = 400, height = 225, fallbackColor,
-}: { geojson?: FeatureCollection | null; width?: number; height?: number; fallbackColor?: string }) {
+  geojson, width = 400, height = 225, fallbackColor, className = '', alt,
+}: { geojson?: FeatureCollection | null; width?: number; height?: number; fallbackColor?: string; className?: string; alt?: string }) {
   const [worldGeo, setWorldGeo] = useState<FeatureCollection | null>(null)
   useEffect(() => { getWorldGeo().then(g => { if (g) setWorldGeo(g) }) }, [])
   const { worldPaths, empirePaths, empireColor } = useMemo(() => {
@@ -132,11 +99,12 @@ function GeoJsonSvg({
   return (
     <svg
       viewBox={`0 0 ${width} ${height}`}
-      width={width}
-      height={height}
-      className={`block ${worldGeo ? '' : 'bg-ink-900/30'}`}
-      style={{ width, height, objectFit: 'cover', backgroundColor: '#0a1820' }}
-      preserveAspectRatio="xMidYMid slice"
+      width="100%"
+      height="auto"
+      role="img"
+      aria-label={alt}
+      className={`block w-full ${className}`}
+      preserveAspectRatio="xMidYMid meet"
     >
       <style>{`
         .empire-path { animation: empire-fade 0.8s ease-out 0.2s both; }

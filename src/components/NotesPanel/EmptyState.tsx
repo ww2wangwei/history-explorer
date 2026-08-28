@@ -23,13 +23,13 @@ export default function EmptyState({ kind, onCreate }: Props) {
           <>
             比如：政治制度 / 重要事件 / 衰亡原因 / 文化成就
             <br />
-            <span className="text-ink-600">（一个朝代可建多条独立笔记）</span>
+            <span className="text-ink-400">（一个朝代可建多条独立笔记）</span>
           </>
         ) : (
           <>
             这条事件对你有什么启发？当时的背景是什么？
             <br />
-            <span className="text-ink-600">（支持 Markdown + 任务列表）</span>
+            <span className="text-ink-400">（支持 Markdown + 任务列表）</span>
           </>
         )}
       </div>

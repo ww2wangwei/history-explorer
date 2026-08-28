@@ -253,7 +253,7 @@ export default function EraRail() {
                   value={query}
                   onChange={e => setQuery(e.target.value)}
                   placeholder="搜索朝代…"
-                  className="w-full px-2 py-1 text-xs bg-ink-900 border border-ink-600 rounded focus:outline-none focus:border-vermilion-500/60 placeholder:text-ink-600"
+                  className="w-full px-2 py-1 text-xs bg-ink-900 border border-ink-600 rounded focus:outline-none focus:border-vermilion-500/60 placeholder:text-ink-400"
                 />
               </div>
               <div className="overflow-y-auto scrollbar-thin">

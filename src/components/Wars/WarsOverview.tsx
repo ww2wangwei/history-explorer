@@ -250,7 +250,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
                           {n.title}{i < Math.min(2, mw.nodes.length - 1) ? '、' : ''}
                         </span>
                       ))}
-                      {mw.nodes.length > 3 && <span className="text-ink-600"> 等</span>}
+                      {mw.nodes.length > 3 && <span className="text-ink-400"> 等</span>}
                     </div>
                     {/* 进入专题详情按钮 */}
                     <button

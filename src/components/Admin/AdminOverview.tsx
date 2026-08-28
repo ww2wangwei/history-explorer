@@ -43,7 +43,7 @@ export default function AdminOverview({ onTabChange }: Props) {
               状态：{isDirty ? '🟡 有未保存改动（已自动存到 localStorage）' : '🟢 已同步'}
             </div>
             {lastModified && (
-              <div className="text-xs text-ink-600 mt-1">
+              <div className="text-xs text-ink-400 mt-1">
                 最近修改：{new Date(lastModified).toLocaleString('zh-CN')}
               </div>
             )}

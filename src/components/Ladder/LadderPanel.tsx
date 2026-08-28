@@ -371,7 +371,7 @@ function LadderMapView({
                     ? 'bg-vermilion-500 text-parchment-50'
                     : unlocked
                     ? 'bg-ink-700 text-parchment-100 hover:bg-ink-600'
-                    : 'bg-ink-800/40 text-ink-600 cursor-not-allowed'
+                    : 'bg-ink-800/40 text-ink-400 cursor-not-allowed'
                 }`}
               >
                 难度 {cyc}
@@ -444,7 +444,7 @@ function LadderMapView({
               >
                 <span className={`w-10 h-10 rounded-full flex items-center justify-center font-serif text-lg ${
                   locked
-                    ? 'bg-ink-800 text-ink-600'
+                    ? 'bg-ink-800 text-ink-400'
                     : done
                     ? 'bg-bronze-500 text-ink-900'
                     : isCurrent
@@ -515,7 +515,7 @@ function LevelView({
               >
                 {['学', '测', '记', '问'][i]}
               </button>
-              {i < 3 && <span className="text-ink-600">·</span>}
+              {i < 3 && <span className="text-ink-400">·</span>}
             </div>
           ))}
         </div>

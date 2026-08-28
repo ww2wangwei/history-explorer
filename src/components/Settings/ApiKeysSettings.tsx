@@ -173,7 +173,7 @@ export default function ApiKeysSettings({ isOpen, onClose }: Props) {
           <button
             onClick={clear}
             disabled={!storedAmapKey && !storedAmapCode && !storedOwmKey}
-            className="text-xs text-red-400 hover:text-red-300 disabled:text-ink-600 disabled:cursor-not-allowed px-2 py-1.5"
+            className="text-xs text-red-400 hover:text-red-300 disabled:text-ink-400 disabled:cursor-not-allowed px-2 py-1.5"
           >
             清除已保存的 key
           </button>

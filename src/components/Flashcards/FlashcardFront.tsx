@@ -55,7 +55,7 @@ export default function FlashcardFront({ targetName, targetKind, missing, emoji,
         💡 显示答案
       </button>
 
-      <div className="mt-8 text-xs text-ink-600">回忆后点击显示答案</div>
+      <div className="mt-8 text-xs text-ink-400">回忆后点击显示答案</div>
     </div>
   )
 }

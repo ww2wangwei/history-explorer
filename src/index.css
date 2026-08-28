@@ -20,13 +20,13 @@
 
   /* 文字层 */
   --text-primary-rgb:230 220 199;   /* bone #e6dcc7 */
-  --text-secondary-rgb:154 143 126; /* muted #9a8f7e */
-  --text-faint-rgb: 110 101 87;     /* faint #6e6557 */
+  --text-secondary-rgb:166 154 137; /* muted #a69a89（提亮：深底对比 ~6.6:1） */
+  --text-faint-rgb: 142 130 112;    /* faint #8e8270（提亮：深底对比 ~5.2:1，原 #6e6557 仅 3.4:1） */
   --text-parchment-rgb:253 248 240; /* parchment-50 #fdf8f0 */
 
-  /* 边框 / 分隔 */
-  --border-rgb:     74 63 51;       /* ink-500 #4a3f33 */
-  --border-strong-rgb:110 101 87;   /* faint */
+  /* 边框 / 分隔（同时被 text-ink-400 / text-ink-500 复用，已提亮以保证文字可读；边框多用 /40 /60 alpha 仍克制） */
+  --border-rgb:     132 120 103;    /* ink-500 #847867（提亮：原 #4a3f33 作文字几乎不可见，现 ~4.5:1） */
+  --border-strong-rgb:152 140 121;  /* ink-400 #988c79（提亮：原 #6e6557 仅 3.4:1，现 ~5.7:1） */
   --hairline-rgb:   47 42 34;       /* hairline #2f2a22 */
 
   /* 强调色 */

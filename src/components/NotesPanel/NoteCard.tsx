@@ -34,7 +34,7 @@ export default function NoteCard({ note, onEdit, onDelete }: Props) {
           <div className="text-xs text-ink-500 mt-1 line-clamp-2 leading-relaxed">
             {excerpt}
           </div>
-          <div className="text-xs text-ink-600 mt-1.5">
+          <div className="text-xs text-ink-400 mt-1.5">
             {formatRelativeTime(note.updatedAt)}
           </div>
         </div>

@@ -470,7 +470,7 @@ const simLinksRef = useRef<GraphLink[]>([])
         ) : (
           <div className="text-ink-300 text-xs text-center py-8">
             点击或悬停节点查看角色详情<br />
-            <span className="text-ink-600 text-[10px] mt-2 block">滚轮缩放 · 拖动背景平移 · 拖动节点固定位置</span>
+            <span className="text-ink-400 text-[10px] mt-2 block">滚轮缩放 · 拖动背景平移 · 拖动节点固定位置</span>
           </div>
         )}
       </aside>

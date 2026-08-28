@@ -340,7 +340,7 @@ function EndingsAtlas({ scenarioEndings, onClose }: { scenarioEndings: Record<st
                         {isUnlocked ? (
                           <p className="text-ink-300 leading-relaxed line-clamp-3">{ending.text}</p>
                         ) : (
-                          <p className="text-ink-600 italic">未解锁</p>
+                          <p className="text-ink-400 italic">未解锁</p>
                         )}
                       </div>
                     )

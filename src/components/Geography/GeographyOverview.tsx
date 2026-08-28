@@ -12,7 +12,6 @@ import { OCEAN_LABELS } from '@/data/oceans'
 import erasData from '@/data/eras.json'
 import MiniMap from '@/components/Figures/MiniMap'
 import TerritoryMapThumb from './TerritoryMapThumb'
-import GeoImageLightbox from './GeoImageLightbox'
 import OverviewLayout from '@/components/ui/OverviewLayout'
 import { useStaggerEntrance } from '@/hooks/useStaggerEntrance'
 import { useJumpToMap } from '@/hooks/useJumpToMap'
@@ -43,8 +42,6 @@ interface TerritoryFile {
   id: string
   /** GeoJSON 文件名（与 id 不一定一致。例如 id='han-west' 但 GeoJSON 文件叫 'han.geojson'） */
   geoFile?: string
-  /** 真实历史疆域图（PNG/SVG，自托管 + Wikimedia 公共 CC）— 优先级高于 GeoJSON */
-  geoSvg?: string
   region: 'china' | 'world'
   label: string
   /** 鼎盛期（用于卡片标题显示） */
@@ -56,26 +53,26 @@ interface TerritoryFile {
 }
 
 const TERRITORY_FILES: TerritoryFile[] = [
-  // 中国朝代（按时间顺序）
-  { id: 'qin',          region: 'china', label: '中国', peakYear: -210, shortDesc: '首次大一统：统一文字、度量衡、车轨',            fallbackColor: '#d4a44a', geoSvg: '/geo/china/qin.png' },
+  // 中国朝代（按时间顺序）— 全部用 GeoJSON 渲染（见 public/geo/china/*.geojson）
   // 注意：eras.json 中只有 han-west（西汉）/han-east（东汉），但 GeoJSON 文件叫 han.geojson
   // 用 id='han-west' 触发中文显示（eras.find 会找到），用 geoFile='han' 找对的 GeoJSON
-  { id: 'han-west',     region: 'china', geoFile: 'han', label: '中国', peakYear: 1, shortDesc: '北击匈奴、通西域，丝绸之路开通',          fallbackColor: '#c69a5b', geoSvg: '/geo/china/han.png' },
-  { id: 'tang',         region: 'china', label: '中国', peakYear: 710,  shortDesc: '东亚文化中心版图达极盛',                       fallbackColor: '#e07a3a', geoSvg: '/geo/china/tang.png' },
-  // song.geojson（北宋/南宋合并版图）— 同 han 用 song-north id + geoFile='song' 文件映射
-  { id: 'song-north',   region: 'china', geoFile: 'song', label: '中国', peakYear: 1080, shortDesc: '北方收缩，但经济文化达到巅峰',         fallbackColor: '#7e8ec1', geoSvg: '/geo/china/ming.png' },
-  { id: 'yuan',         region: 'china', label: '中国', peakYear: 1280, shortDesc: '蒙古大帝国下的中国，行省制',                  fallbackColor: '#a04a8a', geoSvg: '/geo/china/qing.png' },
-  { id: 'ming',         region: 'china', label: '中国', peakYear: 1420, shortDesc: '永乐迁都北京，七下西洋',                       fallbackColor: '#c8584a', geoSvg: '/geo/china/ming.png' },
-  { id: 'qing',         region: 'china', label: '中国', peakYear: 1780, shortDesc: '极盛期版图北抵西伯利亚、南括中印半岛',         fallbackColor: '#3e9a76', geoSvg: '/geo/china/qing.png' },
-  // 世界帝国
-  { id: 'rome-republic',region: 'world', label: '世界', peakYear: -50,  shortDesc: '罗马共和国击败迦太基，地中海西部霸主',          fallbackColor: '#a8473e', geoSvg: '/geo/world/rome-republic.png' },
-  { id: 'rome-empire',  region: 'world', label: '世界', peakYear: 117,  shortDesc: '图拉真鼎盛期：版图含达契亚、亚美尼亚',         fallbackColor: '#a8473e', geoSvg: '/geo/world/roman-empire.png' },
-  { id: 'byzantine',    region: 'world', label: '世界', peakYear: 555,  shortDesc: '查士丁尼复兴：收复意大利、北非西部',            fallbackColor: '#5d3a8a', geoSvg: '/geo/world/byzantine.png' },
+  { id: 'qin',          region: 'china', label: '中国', peakYear: -210, shortDesc: '首次大一统：统一文字、度量衡、车轨',            fallbackColor: '#d4a44a' },
+  { id: 'han-west',     region: 'china', geoFile: 'han', label: '中国', peakYear: 1, shortDesc: '北击匈奴、通西域，丝绸之路开通',          fallbackColor: '#c69a5b' },
+  { id: 'tang',         region: 'china', label: '中国', peakYear: 710,  shortDesc: '东亚文化中心版图达极盛',                       fallbackColor: '#e07a3a' },
+  // song.geojson（北宋/南宋合并版图）— 用 song-north id + geoFile='song' 文件映射
+  { id: 'song-north',   region: 'china', geoFile: 'song', label: '中国', peakYear: 1080, shortDesc: '北方收缩，但经济文化达到巅峰',         fallbackColor: '#7e8ec1' },
+  { id: 'yuan',         region: 'china', geoFile: 'yuan', label: '中国', peakYear: 1280, shortDesc: '蒙古大帝国下的中国，行省制',                  fallbackColor: '#a04a8a' },
+  { id: 'ming',         region: 'china', label: '中国', peakYear: 1420, shortDesc: '永乐迁都北京，七下西洋',                       fallbackColor: '#c8584a' },
+  { id: 'qing',         region: 'china', label: '中国', peakYear: 1780, shortDesc: '极盛期版图北抵西伯利亚、南括中印半岛',         fallbackColor: '#3e9a76' },
+  // 世界帝国（见 public/geo/world/eras/*.geojson）
+  { id: 'rome-republic',region: 'world', label: '世界', peakYear: -50,  shortDesc: '罗马共和国击败迦太基，地中海西部霸主',          fallbackColor: '#a8473e' },
+  { id: 'rome-empire',  region: 'world', label: '世界', peakYear: 117,  shortDesc: '图拉真鼎盛期：版图含达契亚、亚美尼亚',         fallbackColor: '#a8473e' },
+  { id: 'byzantine',    region: 'world', label: '世界', peakYear: 555,  shortDesc: '查士丁尼复兴：收复意大利、北非西部',            fallbackColor: '#5d3a8a' },
   { id: 'arab-caliphate', region: 'world', label: '世界', peakYear: 850, shortDesc: '阿拔斯王朝：横跨伊比利亚至中亚',                fallbackColor: '#2c8a4a' },
   { id: 'persia-safavid', region: 'world', label: '世界', peakYear: 1620, shortDesc: '波斯黄金时代，萨法维中兴',                       fallbackColor: '#8a3a3a' },
   { id: 'ottoman',      region: 'world', label: '世界', peakYear: 1580, shortDesc: '横跨欧亚非三洲，苏莱曼大帝',                  fallbackColor: '#3a8a5a' },
-  { id: 'mongol-empire',region: 'world', label: '世界', peakYear: 1290, shortDesc: '人类史上最大陆上帝国',                            fallbackColor: '#5a3a2a', geoSvg: '/geo/world/mongol-empire.png' },
-  { id: 'british-empire', region: 'world', label: '世界', peakYear: 1900, shortDesc: '号称"日不落"，全球海洋霸主',                    fallbackColor: '#b04838' },
+  { id: 'mongol-empire',region: 'world', label: '世界', peakYear: 1290, shortDesc: '人类史上最大陆上帝国',                            fallbackColor: '#5a3a2a' },
+  { id: 'british-empire', region: 'world', label: '世界', peakYear: 1900, shortDesc: '号称"日不落"，全球海洋霸主（示意边界）',            fallbackColor: '#b04838' },
 ]
 
 const FEATURE_LABELS: Record<GeoFeatureType, { icon: string; label: string; color: string }> = {
@@ -108,9 +105,8 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
   }, [])
   const [selectedFeature, setSelectedFeature] = useState<GeoFeature | null>(null)
   const [selectedTerritory, setSelectedTerritory] = useState<{ id: string; region: 'china' | 'world'; era?: Era } | null>(null)
-  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null)
-  const [lightboxAlt, setLightboxAlt] = useState('')
   
+
   // 🎯 pendingReopen → 从地图 Back 恢复详情
   // 用 setTimeout 推迟消费，避免 Strict Mode 双挂载 race
   useEffect(() => {
@@ -200,9 +196,8 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
       toLoad.map(async f => {
         // 用 f.geoFile ?? f.id 兼容 id 与文件名不一致的情况（如 han-west → han.geojson）
         const fileStem = f.geoFile ?? f.id
-        const path = f.region === 'china'
-          ? `public/geo/china/${fileStem}.geojson`
-          : `public/geo/world/eras/${fileStem}.geojson`
+        // 注意：base 是 /history/，public/ 下的资源要用 import.meta.env.BASE_URL 前缀
+        const path = `${import.meta.env.BASE_URL}geo/${f.region === 'china' ? 'china' : 'world/eras'}/${fileStem}.geojson`
         try {
           const res = await fetch(path)
           if (!res.ok) return { id: f.id, data: null }
@@ -304,55 +299,60 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
               <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5 flex items-center gap-2">
                 📅 疆域变迁时间轴
                 <span className="text-ink-400">（BC 1500 ~ AD 2100，共 {TERRITORY_FILES.length} 个朝代/帝国）</span>
-                <span className="text-ink-600 ml-auto">点击色块 ⬇ 跳转</span>
+                <span className="text-ink-400 ml-auto">点击色块 ⬇ 跳转</span>
               </div>
-              <div ref={timelineBarsRef} className="relative w-full h-20 bg-ink-900/40 rounded-lg border border-ink-700 overflow-hidden">
-                {/* 刻度线 + 年份标签（BC 1500, BC 1000, BC 500, AD 0, 500, 1000, 1500, 2000） */}
-                <div className="absolute inset-x-2 top-1/2 h-px bg-ink-600" />
-                {[-1500, -1000, -500, 0, 500, 1000, 1500, 2000].map(y => {
-                  const x = ((y - TIMELINE_MIN) / TIMELINE_RANGE) * 100
-                  return (
-                    <div
-                      key={y}
-                      className="absolute top-0 bottom-0 flex flex-col justify-center items-center pointer-events-none"
-                      style={{ left: `${x}%` }}
-                    >
-                      <div className="w-px h-3 bg-ink-500" />
-                      <div className="text-[9px] text-ink-500 tabular-nums mt-1">
+              <div ref={timelineBarsRef} className="space-y-1.5">
+                {/* 年份刻度行 */}
+                <div className="relative w-full h-4">
+                  {[-1500, -1000, -500, 0, 500, 1000, 1500, 2000].map(y => {
+                    const x = ((y - TIMELINE_MIN) / TIMELINE_RANGE) * 100
+                    return (
+                      <div key={y} className="absolute top-0 -translate-x-1/2 text-[9px] text-ink-400 tabular-nums pointer-events-none" style={{ left: `${x}%` }}>
                         {y < 0 ? `${-y} BC` : y}
                       </div>
-                    </div>
-                  )
-                })}
-                {/* 朝代色块（中国一层 + 世界一层） */}
-                {TERRITORY_FILES.map(f => {
-                  const era = eras.find(e => e.id === f.id)
-                  const startYear = era?.startYear ?? 0
-                  const endYear = era?.endYear ?? 0
-                  const startX = Math.max(0, ((startYear - TIMELINE_MIN) / TIMELINE_RANGE) * 100)
-                  const endX = Math.min(100, ((endYear - TIMELINE_MIN) / TIMELINE_RANGE) * 100)
-                  const isChina = f.region === 'china'
-                  const color = era?.color || '#888'
-                  return (
-                    <button
-                      key={f.id}
-                      onClick={() => scrollToTerritory(f.id)}
-                      title={`${era?.name ?? f.id} (${startYear < 0 ? -startYear + ' BC' : startYear} ~ ${endYear < 0 ? -endYear + ' BC' : endYear})`}
-                      className="absolute h-3 rounded-sm hover:opacity-100 hover:scale-y-150 hover:z-10 transition-all opacity-80 group"
-                      style={{
-                        left: `${startX}%`,
-                        width: `${Math.max(endX - startX, 0.5)}%`,
-                        top: isChina ? '50%' : '62%',
-                        background: color,
-                        borderTop: `1px solid ${color}`,
-                      }}
-                    >
-                      <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] whitespace-nowrap text-ink-300 opacity-0 group-hover:opacity-100 pointer-events-none">
-                        {era?.name ?? f.id}
-                      </span>
-                    </button>
-                  )
-                })}
+                    )
+                  })}
+                </div>
+                {/* 🇨🇳 中国朝代 lane */}
+                <div className="relative w-full h-9 bg-ink-900/40 rounded-lg border border-ink-700 overflow-hidden">
+                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-emerald-300/80 pointer-events-none z-0">🇨🇳</span>
+                  {TERRITORY_FILES.filter(f => f.region === 'china').map(f => {
+                    const era = eras.find(e => e.id === f.id)
+                    const sy = era?.startYear ?? 0
+                    const ey = era?.endYear ?? 0
+                    const s = Math.max(0, (sy - TIMELINE_MIN) / TIMELINE_RANGE * 100)
+                    const e = Math.min(100, (ey - TIMELINE_MIN) / TIMELINE_RANGE * 100)
+                    const color = era?.color || '#888'
+                    return (
+                      <button key={f.id} onClick={() => scrollToTerritory(f.id)}
+                        title={`${era?.name ?? f.id} (${sy < 0 ? -sy + ' BC' : sy} ~ ${ey < 0 ? -ey + ' BC' : ey})`}
+                        className="absolute h-3 rounded-sm hover:opacity-100 hover:scale-y-150 hover:z-10 transition-all opacity-80 group"
+                        style={{ left: `${s}%`, width: `${Math.max(e - s, 0.5)}%`, top: '33%', background: color, borderTop: `1px solid ${color}` }}>
+                        <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] whitespace-nowrap text-ink-300 opacity-0 group-hover:opacity-100 pointer-events-none">{era?.name ?? f.id}</span>
+                      </button>
+                    )
+                  })}
+                </div>
+                {/* 🌍 世界帝国 lane */}
+                <div className="relative w-full h-9 bg-ink-900/40 rounded-lg border border-ink-700 overflow-hidden">
+                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-blue-300/80 pointer-events-none z-0">🌍</span>
+                  {TERRITORY_FILES.filter(f => f.region === 'world').map(f => {
+                    const era = eras.find(e => e.id === f.id)
+                    const sy = era?.startYear ?? 0
+                    const ey = era?.endYear ?? 0
+                    const s = Math.max(0, (sy - TIMELINE_MIN) / TIMELINE_RANGE * 100)
+                    const e = Math.min(100, (ey - TIMELINE_MIN) / TIMELINE_RANGE * 100)
+                    const color = era?.color || '#888'
+                    return (
+                      <button key={f.id} onClick={() => scrollToTerritory(f.id)}
+                        title={`${era?.name ?? f.id} (${sy < 0 ? -sy + ' BC' : sy} ~ ${ey < 0 ? -ey + ' BC' : ey})`}
+                        className="absolute h-3 rounded-sm hover:opacity-100 hover:scale-y-150 hover:z-10 transition-all opacity-80 group"
+                        style={{ left: `${s}%`, width: `${Math.max(e - s, 0.5)}%`, top: '33%', background: color, borderTop: `1px solid ${color}` }}>
+                        <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] whitespace-nowrap text-ink-300 opacity-0 group-hover:opacity-100 pointer-events-none">{era?.name ?? f.id}</span>
+                      </button>
+                    )
+                  })}
+                </div>
               </div>
               <div className="text-xs text-ink-500 mt-1 flex gap-3">
                 <span><span className="inline-block w-3 h-2 align-middle bg-emerald-400/80 mr-1" />中国朝代</span>
@@ -516,27 +516,19 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                     onClick={() => setSelectedTerritory({ id: f.id, region: f.region, era })}
                   >
                     {/* 上下两层：上半部 SVG 全盛期地图 + 浮动信息，下半部简要介绍 */}
-                    <div className="relative w-full" style={{ aspectRatio: '16/9', background: '#0a1820' }}>
-                      {/* SVG 全盛期地图（如果有 GeoJSON） */}
-                      {geojson || f.geoSvg ? (
+                    <div className="relative w-full bg-ink-900/40" style={{ aspectRatio: '16/9' }}>
+                      {/* SVG 全盛期地图（基于 GeoJSON 渲染） */}
+                      {geojson ? (
                         <TerritoryMapThumb
-                          geojson={geojson ?? undefined}
-                          geoSvg={f.geoSvg}
+                          geojson={geojson}
                           fallbackColor={eraColor}
                           className="w-full h-full"
                           alt={`${f.id} 疆域图`}
-                          onClick={() => {
-                            if (f.geoSvg) {
-                              setLightboxSrc(f.geoSvg)
-                              setLightboxAlt(`${f.id} 疆域图`)
-                            }
-                            // GeoJSON fallback 留 detail dialog 看
-                          }}
                         />
                       ) : (
-                        /* 占位/loading 状态 */
+                        /* 占位：暂无边界数据（GeoJSON 加载失败或不存在） */
                         <div className="absolute inset-0 flex items-center justify-center text-ink-500 text-xs">
-                          <span className="opacity-60">⏳ 地图加载中...</span>
+                          <span className="opacity-60">暂无边界数据</span>
                         </div>
                       )}
                       {/* 顶部渐变（保护标题）+ 顶部朝代色徽章 */}
@@ -558,7 +550,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                     {/* 文字信息 */}
                     <div className="p-3">
                       <div className="flex items-baseline justify-between gap-2 mb-1">
-                        <span className="text-base font-serif group-hover:text-emerald-300 transition-colors" style={{ color: eraColor }}>
+                        <span className="text-base font-serif group-hover:text-emerald-300 transition-colors">
                           {era?.name ?? f.id}
                         </span>
                         {era && (
@@ -733,27 +725,18 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
             </div>
             <div className="p-6 space-y-4 text-sm">
               {/* 🗺️ 大疆域地图（弹窗专用 — 用户实际最关心的视图） */}
-              {territoryGeojsons[selectedTerritory.id] && (
+              {territoryGeojsons[selectedTerritory.id] ? (
                 <div className="rounded-lg overflow-hidden border border-emerald-700/40 bg-ink-900/40">
                   <TerritoryMapThumb
                     geojson={territoryGeojsons[selectedTerritory.id]}
-                    geoSvg={TERRITORY_FILES.find(f => f.id === selectedTerritory.id)?.geoSvg}
                     fallbackColor={TERRITORY_FILES.find(f => f.id === selectedTerritory.id)?.fallbackColor ?? selectedTerritory.era?.color ?? '#5b9bc8'}
                     className="w-full h-auto"
                     alt={`${selectedTerritory.id} 详细疆域图`}
-                    onClick={() => {
-                      const tg = TERRITORY_FILES.find(f => f.id === selectedTerritory.id)
-                      if (tg?.geoSvg) {
-                        setLightboxSrc(tg.geoSvg)
-                        setLightboxAlt(`${tg.id} 详细疆域图`)
-                      }
-                    }}
                   />
                 </div>
-              )}
-              {!territoryGeojsons[selectedTerritory.id] && (
+              ) : (
                 <div className="h-32 flex items-center justify-center text-xs text-ink-500 bg-ink-900/30 rounded">
-                  ⏳ 地图加载中…
+                  暂无边界数据
                 </div>
               )}
 
@@ -868,7 +851,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
               <div>
                 <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">🗺️ 数据源</div>
                 <div className="text-xs text-ink-400 font-mono break-all">
-                  public/geo/{selectedTerritory.region === 'china' ? 'china' : 'world/eras'}/{selectedTerritory.id}.geojson
+                  geo/{selectedTerritory.region === 'china' ? 'china' : 'world/eras'}/{TERRITORY_FILES.find(f => f.id === selectedTerritory.id)?.geoFile ?? selectedTerritory.id}.geojson
                 </div>
               </div>
               <div className="text-xs text-ink-500 italic pt-2 border-t border-ink-700">
@@ -879,13 +862,6 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
         </div>
       )}
 
-      {/* 全屏放大查看单张地图 */}
-      <GeoImageLightbox
-        src={lightboxSrc}
-        alt={lightboxAlt}
-        open={!!lightboxSrc}
-        onClose={() => setLightboxSrc(null)}
-      />
       </>
     </OverviewLayout>
   )

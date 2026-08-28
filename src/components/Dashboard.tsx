@@ -303,8 +303,8 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
             📜 历史探索者
           </h1>
           <p className="text-ink-300 text-xs leading-relaxed">
-            从 {currentYear < 0 ? `公元前${-currentYear}` : currentYear} 年开始 ·
-            系统地学习中国和世界的 50 个朝代 + 251 个历史事件。
+            当前定位 {currentYear < 0 ? `公元前${-currentYear}` : currentYear} 年 ·
+            系统梳理中国与世界 50 个朝代 + 251 个历史事件的时空脉络。
           </p>
         </div>
 
@@ -488,7 +488,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           >
             📜 浏览全部朝代
           </button>
-          <span className="ml-auto text-ink-600">
+          <span className="ml-auto text-ink-400">
             <kbd className="px-1.5 py-0.5 bg-ink-700 rounded text-ink-400 font-mono">g</kbd>
             <span className="mx-1">地图</span>
             <kbd className="px-1.5 py-0.5 bg-ink-700 rounded text-ink-400 font-mono">r</kbd>

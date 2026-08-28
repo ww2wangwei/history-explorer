@@ -282,7 +282,7 @@ export default function ArtsOverview({ isActive, onClose }: Props) {
             <div className="p-5 rounded-lg bg-ink-800/80 border border-ink-700">
               <div className="text-xs text-ink-500 uppercase tracking-wider mb-3 flex items-center justify-between">
                 <span>🖼️ 代表画作(点击放大)</span>
-                <span className="text-ink-600 normal-case">{active.keyWorks.length} 件</span>
+                <span className="text-ink-400 normal-case">{active.keyWorks.length} 件</span>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                 {active.keyWorks.map((work, i) => {

@@ -70,7 +70,7 @@ export default function AdminLayout({ tab, onTabChange, children }: Props) {
             {overridesCount} 项编辑 · {isDirty ? '🟡 有未保存改动' : '🟢 已同步'}
           </div>
           {lastModified && (
-            <div className="text-[9px] text-ink-600 mt-0.5">
+            <div className="text-[9px] text-ink-400 mt-0.5">
               最近修改：{new Date(lastModified).toLocaleString('zh-CN')}
             </div>
           )}

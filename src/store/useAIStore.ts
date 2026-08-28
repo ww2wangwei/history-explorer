@@ -70,6 +70,11 @@ interface AIState {
   contextPersonId: string | null
   /** 当前活跃 thread 的 persona 角色设定（覆盖默认 SYSTEM_PROMPT） */
   personaSystemPrompt: string | null
+  /**
+   * 待显示的错误（外部触发，比如地图/地球仪点击时检测到缺 API key）
+   * 一次性：AIChatPanel 读后会立刻清空
+   */
+  pendingError: string | null
 
   // Actions
   setApiKey: (key: string) => void
@@ -83,6 +88,8 @@ interface AIState {
   addMessage: (threadId: string, msg: AIMessage) => void
   updateMessage: (threadId: string, messageId: string, patch: Partial<AIMessage> | ((m: AIMessage) => Partial<AIMessage>)) => void
   deleteThread: (threadId: string) => void
+  /** 设置待显示的错误（外部模块如 MapGlobeView / AmapTest 触发） */
+  setPendingError: (error: string | null) => void
   setActiveThread: (id: string | null) => void
 }
 
@@ -98,6 +105,7 @@ export const useAIStore = create<AIState>()(
       contextEventId: null,
       contextPersonId: null,
       personaSystemPrompt: null,
+      pendingError: null,
 
       setApiKey: (key) => set({ apiKey: key.trim() || null }),
       setApiConfig: (cfg) => set((s) => ({ apiConfig: { ...s.apiConfig, ...cfg } })),
@@ -111,6 +119,7 @@ export const useAIStore = create<AIState>()(
           contextPersonId: personId === undefined ? null : personId,
         }),
       setPersonaPrompt: (prompt) => set({ personaSystemPrompt: prompt }),
+      setPendingError: (error) => set({ pendingError: error }),
       newThread: (title) => {
         const id = `thr-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`
         set((s) => ({

@@ -210,6 +210,14 @@ export default function AmapTest() {
           const lat = e?.lnglat?.getLat?.() ?? e?.lnglat?.lat
           if (typeof lng !== 'number' || typeof lat !== 'number') return
 
+          // 检查 AI API key：缺失时在 AI 窗口友好提示
+          const { apiKey, setPendingError, openPanel } = useAIStore.getState()
+          if (!apiKey) {
+            setPendingError('请先在右上"设置"中输入你的 API key')
+            openPanel()
+            return
+          }
+
           // 防止重复点击：用组件级 ref 而不是闭包 let，
           // 避免 init effect 重跑时新闭包的 let 归零导致漏锁
           if (mapClickLockRef.current) return

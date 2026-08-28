@@ -126,12 +126,14 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
     contextEventId,
     contextPersonId,
     personaSystemPrompt,
+    pendingError,
   } = useAIStore()
   const setPersonaPrompt = useAIStore(s => s.setPersonaPrompt)
   const aiSetContext = useAIStore(s => s.setContext)
   const openPanel = useAIStore(s => s.openPanel)
   const closePanel = useAIStore(s => s.closePanel)
   const togglePanel = useAIStore(s => s.togglePanel)
+  const setPendingError = useAIStore(s => s.setPendingError)
   const setApiKey = useAIStore(s => s.setApiKey)
 
   // 当前对话关联人物的学习上下文（用于在头部显示"AI 知道"）
@@ -158,6 +160,15 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
   }, [selectedEraId, aiSetContext])
 
   // 启动时检查 sessionStorage 是否有"待发送的问题"（PersonDetailDialog 提问建议桥接）
+  useEffect(() => {
+    // 显示外部模块（地图/地球仪点击）通过 store 传入的 pendingError
+    // 显示后立刻清空，避免下次面板打开又出现
+    if (pendingError) {
+      setError(pendingError)
+      setPendingError(null)
+    }
+  }, [pendingError, setPendingError])
+
   useEffect(() => {
     const pending = sessionStorage.getItem('history-explorer-pending-question')
     if (pending) {

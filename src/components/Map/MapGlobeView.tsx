@@ -989,11 +989,13 @@ export default function MapGlobeView({ eras, events, onSelectEra }: Props) {
     setIsAiGenerating(true)
 
     // 创建新的 AI 会话线程
-    const { newThread, addMessage, openPanel, setActiveThread } = useAIStore.getState()
+    const { newThread, addMessage, openPanel, setActiveThread, setPendingError } = useAIStore.getState()
     const { apiKey } = useAIStore.getState()
 
     if (!apiKey) {
-      console.warn('[globe] 未配置 API Key，无法生成位置信息')
+      // 在 AI 窗口里显示友好错误提示（而不是只在 console.warn）
+      setPendingError('请先在右上"设置"中输入你的 API key')
+      openPanel()
       aiGeneratingRef.current = false
       setIsAiGenerating(false)
       return

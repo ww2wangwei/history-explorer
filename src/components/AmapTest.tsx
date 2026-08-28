@@ -65,6 +65,8 @@ export default function AmapTest() {
   const mapRef = useRef<any>(null)
   const customTileLayerRef = useRef<any>(null)  // 自定义 TileLayer（如 OpenTopoMap）
   const markersRef = useRef<any[]>([])
+  // 跨 init effect 重跑的全局点击锁：解决 onMapClick 闭包内 let isMapClickProcessing 在地图重建时归零的问题
+  const mapClickLockRef = useRef(false)
   const labelsRef = useRef<any[]>([])
   const eventMarkersRef = useRef<any[]>([])
   const eventLabelsRef = useRef<any[]>([])
@@ -203,23 +205,23 @@ export default function AmapTest() {
 
         // 地图任意点点击：反向地理编码 → 弹 AI 窗口介绍这块地
         // 必须挂在 init effect 里，否则 viewMode 切换重建后 handler 不重新挂上
-        let isMapClickProcessing = false
         const onMapClick = (e: any) => {
           const lng = e?.lnglat?.getLng?.() ?? e?.lnglat?.lng
           const lat = e?.lnglat?.getLat?.() ?? e?.lnglat?.lat
           if (typeof lng !== 'number' || typeof lat !== 'number') return
 
-          // 防止重复点击（AI 还在响应时禁用地图点击）
-          if (isMapClickProcessing) return
-          isMapClickProcessing = true
-          // 短暂显示加载状态（200ms 后解锁，给 reverse geocode 时间）
-          setTimeout(() => { isMapClickProcessing = false }, 2000)
+          // 防止重复点击：用组件级 ref 而不是闭包 let，
+          // 避免 init effect 重跑时新闭包的 let 归零导致漏锁
+          if (mapClickLockRef.current) return
+          mapClickLockRef.current = true
+          // 2 秒后解锁（覆盖正常 reverse geocode + AI 响应时长）
+          setTimeout(() => { mapClickLockRef.current = false }, 2000)
 
           const ask = (region: string) => {
             const prompt = `我点击了地图上的一个位置（经度 ${lng.toFixed(2)}°，纬度 ${lat.toFixed(2)}°${region ? `，约位于${region}` : ''}）。请介绍这个地区的地理与历史背景：它属于哪个朝代/文明？这里曾经发生过哪些重要历史事件？相关的著名人物？不要使用 markdown 表格。`
             sessionStorage.setItem('history-explorer-pending-auto-question', prompt)
             useAIStore.getState().openPanel()
-            isMapClickProcessing = false
+            mapClickLockRef.current = false
           }
 
           if (A.Geocoder) {

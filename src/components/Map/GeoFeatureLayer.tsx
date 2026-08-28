@@ -9,14 +9,14 @@
  */
 import {
   RIVERS, MOUNTAINS, SEAS, LAKES, DESERTS, PLAINS,
-  PENINSULAS, STRAITS, WATERFALLS, REGIONS, CONTINENTS,
-  type GeoFeature,
+  PENINSULAS, STRAITS,
+  type GeoFeature, type GeoFeatureType,
 } from '@/data/geographic-features'
 import type { GeoLayerKey } from '@/store/useMapLayersStore'
 import { wgs84ToGcj02, wgs84ToGcj02Path } from '@/utils/coordsTransform'
 
 /** 每种 type 的视觉风格（保留与原版一致） */
-const STYLE: Record<string, {
+type StyleRow = {
   stroke?: string
   strokeWeight?: number
   fill?: string
@@ -26,18 +26,16 @@ const STYLE: Record<string, {
   isPolygon?: boolean
   labelColor?: string
   marker?: string
-}> = {
-  river:      { stroke: '#5fb0d8', strokeWeight: 3,   strokeOpacity: 0.95, labelColor: '#a3d8ec' },
-  mountain:   { stroke: '#c8997a', strokeWeight: 3,   strokeOpacity: 0.9,  strokeDasharray: '6,4', labelColor: '#e8c39a', marker: 'mountain' },
-  sea:        { fill: '#3a6e9e', fillOpacity: 0.18,   stroke: '#5fb0d8', strokeWeight: 1.5, strokeOpacity: 0.6,  isPolygon: true, labelColor: '#bcd9eb' },
-  lake:       { fill: '#4a90b8', fillOpacity: 0.55,   stroke: '#5fb0d8', strokeWeight: 1.5, strokeOpacity: 0.85, isPolygon: true, labelColor: '#bcd9eb' },
-  desert:     { fill: '#c89a5b', fillOpacity: 0.18,   stroke: '#d4a85b', strokeWeight: 1,   strokeOpacity: 0.5,  strokeDasharray: '8,5', isPolygon: true, labelColor: '#e8c39a' },
-  plain:      { fill: '#9bbf73', fillOpacity: 0.22,   stroke: '#a3bf85', strokeWeight: 1,   strokeOpacity: 0.5,  isPolygon: true, labelColor: '#c8dfa3' },
-  peninsula:  { fill: '#8a7855', fillOpacity: 0.12,   stroke: '#c8a570', strokeWeight: 1,   strokeOpacity: 0.6,  isPolygon: true, labelColor: '#e8c39a' },
-  strait:     { stroke: '#5fb0d8', strokeWeight: 2,   strokeOpacity: 0.85, strokeDasharray: '4,3', labelColor: '#a3d8ec' },
-  waterfall:  { stroke: '#5fb0d8', strokeWeight: 2,   strokeOpacity: 0.9,  labelColor: '#a3d8ec' },
-  region:     { fill: '#c8553d', fillOpacity: 0.10,   stroke: '#c8553d', strokeWeight: 1,   strokeOpacity: 0.5,  isPolygon: true, labelColor: '#e88871' },
-  continent:  { labelColor: '#a89a82' },
+}
+const STYLE: Record<GeoFeatureType, StyleRow> = {
+  river:      { stroke: '#3ddcff', strokeWeight: 3,   strokeOpacity: 1.0,  labelColor: '#ffe9a8' },
+  mountain:   { stroke: '#ffb27a', strokeWeight: 3,   strokeOpacity: 1.0,  strokeDasharray: '6,4', labelColor: '#ffd9a8', marker: 'mountain' },
+  sea:        { fill: '#2a78c8', fillOpacity: 0.38,   stroke: '#3ddcff', strokeWeight: 2,   strokeOpacity: 1.0,  isPolygon: true, labelColor: '#bce8ff' },
+  lake:       { fill: '#1a6db8', fillOpacity: 0.62,   stroke: '#3ddcff', strokeWeight: 2,   strokeOpacity: 1.0,  isPolygon: true, labelColor: '#bce8ff' },
+  desert:     { fill: '#d4a85b', fillOpacity: 0.35,   stroke: '#ffb27a', strokeWeight: 2,   strokeOpacity: 1.0,  isPolygon: true, labelColor: '#ffd9a8' },
+  plain:      { fill: '#7bbf5a', fillOpacity: 0.35,   stroke: '#a3d885', strokeWeight: 2,   strokeOpacity: 1.0,  isPolygon: true, labelColor: '#c8ffa3' },
+  peninsula:  { fill: '#a08555', fillOpacity: 0.32,   stroke: '#e8c39a', strokeWeight: 2,   strokeOpacity: 1.0,  isPolygon: true, labelColor: '#ffd9a8' },
+  strait:     { stroke: '#3ddcff', strokeWeight: 2.5, strokeOpacity: 1.0,  strokeDasharray: '4,3', labelColor: '#bce8ff' },
 }
 
 const COLLECTION: Record<GeoLayerKey, GeoFeature[]> = {
@@ -49,9 +47,6 @@ const COLLECTION: Record<GeoLayerKey, GeoFeature[]> = {
   plains:      PLAINS,
   peninsulas:  PENINSULAS,
   straits:     STRAITS,
-  waterfalls:  WATERFALLS,
-  regions:     REGIONS,
-  continents:  CONTINENTS,
 }
 
 const ALL_KEYS = Object.keys(COLLECTION) as GeoLayerKey[]

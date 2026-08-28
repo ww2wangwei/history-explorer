@@ -44,6 +44,7 @@ export type MainView =
   | { mode: 'timeTravel'; scenarioId: string | null }           // 穿越历史（null = 大厅）
   | { mode: 'questions' }                                       // 全问题
   | { mode: 'ladder' }                                          // 文史天梯
+  | { mode: 'mythologies' }                                     // 全神话
 
 /** Layout 整体 UI 状态（局部） */
 export interface LayoutUIState {
@@ -71,6 +72,7 @@ export type LayoutAction =
   | { type: 'OPEN_TIME_TRAVEL' }
   | { type: 'OPEN_QUESTIONS' }
   | { type: 'OPEN_LADDER' }
+  | { type: 'OPEN_MYTHOLOGIES' }
   | { type: 'START_SCENARIO'; scenarioId: string }
   | { type: 'EXIT_SCENARIO' }           // 回到 timeTravel lobby
   | { type: 'LEAVE_OVERLAY' }           // 从任何非 home 状态回到 home
@@ -154,6 +156,9 @@ export function layoutReducer(state: LayoutUIState, action: LayoutAction): Layou
     case 'OPEN_LADDER':
       return { ...state, main: { mode: 'ladder' } }
 
+    case 'OPEN_MYTHOLOGIES':
+      return { ...state, main: { mode: 'mythologies' } }
+
     case 'START_SCENARIO':
       // 进入 play 模式（无论当前 state 如何都强制进 play）
       return { ...state, main: { mode: 'timeTravel', scenarioId: action.scenarioId } }
@@ -209,6 +214,7 @@ export function isOverlayActive(main: MainView): boolean {
       || main.mode === 'timeTravel'
       || main.mode === 'questions'
       || main.mode === 'ladder'
+      || main.mode === 'mythologies'
 }
 
 /** 时间轴显示条件：只在地图模式显示 */
@@ -245,6 +251,8 @@ export function pathEntryToAction(
       return { type: 'OPEN_TIME_TRAVEL' }
     case 'allQuestions':
       return { type: 'OPEN_QUESTIONS' }
+    case 'allMythologies':
+      return { type: 'OPEN_MYTHOLOGIES' }
     case 'timeline':
     default:
       // timeline 路径不进覆盖层；由 Dashboard 自己处理（弹出朝代列表）

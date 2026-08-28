@@ -21,7 +21,7 @@ function getErasSafe(): Era[] {
 }
 const eras = getErasSafe()
 
-export type PathId = 'timeline' | 'crossReference' | 'eraDetail' | 'review' | 'allFigures' | 'allWars' | 'allCultures' | 'allGeography' | 'allPoems' | 'civilizations' | 'allArts' | 'worldHistory' | 'timeTravel' | 'allQuestions'
+export type PathId = 'timeline' | 'crossReference' | 'eraDetail' | 'review' | 'allFigures' | 'allWars' | 'allCultures' | 'allGeography' | 'allPoems' | 'civilizations' | 'allArts' | 'worldHistory' | 'timeTravel' | 'allQuestions' | 'allMythologies'
 
 export interface PathProgress {
   visitedEraIds: string[]
@@ -47,6 +47,10 @@ export interface PathProgress {
   completedScenarios?: string[]
   /** scenarioId → endingId[] （多结局支持） */
   scenarioEndings?: Record<string, string[]>
+  /** 仅 allMythologies 路径使用：已查看的神话 id 列表 */
+  visitedMythIds?: string[]
+  /** 仅 allMythologies 路径使用：最近查看的神话 */
+  lastVisitedMythId?: string | null
 }
 
 interface LearningPathState {
@@ -66,6 +70,8 @@ interface LearningPathState {
   markArtVisited: (lessonId: string) => void
   /** 全文明（少年世界史）：标记某节已读 */
   markWorldHistoryVisited: (lessonId: string) => void
+  /** 全神话：标记某条已读 */
+  markMythVisited: (mythId: string) => void
   recordExit: () => void
   /** 获取某路径已学朝代 */
   getVisitedEras: (path: PathId) => string[]
@@ -96,6 +102,7 @@ export const useLearningPathStore = create<LearningPathState>()(
         worldHistory: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedWorldLessonIds: [], lastVisitedWorldLessonId: null },
         timeTravel: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, completedScenarios: [], scenarioEndings: {} },
         allQuestions: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
+        allMythologies: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedMythIds: [], lastVisitedMythId: null },
       }
       return {
       progressByPath: defaultProgress,
@@ -215,6 +222,26 @@ export const useLearningPathStore = create<LearningPathState>()(
           }
         }),
 
+      markMythVisited: (mythId) =>
+        set(s => {
+          const cur = s.progressByPath.allMythologies ?? defaultProgress.allMythologies
+          const visited = cur.visitedMythIds?.includes(mythId)
+            ? cur.visitedMythIds ?? []
+            : [...(cur.visitedMythIds ?? []), mythId]
+          return {
+            progressByPath: {
+              ...s.progressByPath,
+              allMythologies: {
+                ...cur,
+                visitedMythIds: visited,
+                lastVisitedMythId: mythId,
+                lastVisitedAt: Date.now(),
+              },
+            },
+            lastViewedAt: Date.now(),
+          }
+        }),
+
       recordExit: () => set({ lastViewedAt: Date.now() }),
 
       getVisitedEras: (path) => get().progressByPath[path]?.visitedEraIds ?? [],
@@ -275,6 +302,7 @@ export const useLearningPathStore = create<LearningPathState>()(
           worldHistory: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedWorldLessonIds: [], lastVisitedWorldLessonId: null },
           timeTravel: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, completedScenarios: [], scenarioEndings: {} },
           allQuestions: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
+          allMythologies: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedMythIds: [], lastVisitedMythId: null },
         }
         if (persistedState.progressByPath) {
           for (const key of Object.keys(mergedProgress) as PathId[]) {

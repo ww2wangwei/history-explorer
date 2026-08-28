@@ -401,6 +401,12 @@
     100% { transform: scale(1.6); opacity: 0; }
   }
 
+  /* 🌐 地球仪 AI 加载脉冲（点击地球等待 AI 响应时使用） */
+  @keyframes globePulse {
+    0%, 100% { transform: scale(1); opacity: 0.85; box-shadow: 0 0 0 0 rgba(200,154,91,0.5); }
+    50%      { transform: scale(1.25); opacity: 1; box-shadow: 0 0 0 8px rgba(200,154,91,0); }
+  }
+
   /* ✒️ 笔触状边线（毛笔毛糙感）—— 用在 border-bottom / 时间轴 */
   .brush-stroke {
     border-radius: 50%;

@@ -7,7 +7,7 @@
  *    B. 自定义叠加层（11 个 GeoFeature：山脉/河流/海洋/沙漠…）
  *    C. AMap 自带 feature 类别（10 类：POI/道路/水系标注/绿地/建筑…）
  */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   useMapLayersStore,
   LAYER_META,
@@ -28,6 +28,14 @@ export default function GeoFeatureFilter() {
   const [open, setOpen] = useState(false)
   const [tab, setTab] = useState<'style' | 'custom' | 'amap'>('style')
 
+  const viewMode = useMapStyleStore(s => s.viewMode)
+  const setViewMode = useMapStyleStore(s => s.setViewMode)
+
+  // 地球仪模式只显示"叠加层" tab，强制切换过去
+  useEffect(() => {
+    if (viewMode === 'globe' && tab !== 'custom') setTab('custom')
+  }, [viewMode, tab])
+
   const visible = useMapLayersStore(s => s.visible)
   const showLabels = useMapLayersStore(s => s.showLabels)
   const toggle = useMapLayersStore(s => s.toggle)
@@ -47,11 +55,13 @@ export default function GeoFeatureFilter() {
 
   const showCloud = useMapLayersStore(s => s.showCloud)
   const toggleCloud = useMapLayersStore(s => s.toggleCloud)
+  const showOsmPois = useMapLayersStore(s => s.showOsmPois)
+  const toggleOsmPois = useMapLayersStore(s => s.toggleOsmPois)
+  const showDayNight = useMapLayersStore(s => s.showDayNight)
+  const toggleDayNight = useMapLayersStore(s => s.toggleDayNight)
 
   const mapStyle = useMapStyleStore(s => s.style)
   const setMapStyle = useMapStyleStore(s => s.setStyle)
-  const viewMode = useMapStyleStore(s => s.viewMode)
-  const setViewMode = useMapStyleStore(s => s.setViewMode)
 
   const onCount = (LAYER_KEYS_FOR_UI as GeoLayerKey[]).filter(k => visible[k]).length
   const amapOnCount = amapFeatures.length
@@ -95,14 +105,16 @@ export default function GeoFeatureFilter() {
 
           {/* Tab 切换 */}
           <div className="flex rounded-lg bg-paper-card/60 border border-ink-400/40 overflow-hidden text-xs m-3 mb-0 shrink-0">
-            <button
-              onClick={() => setTab('style')}
-              className={`flex-1 px-2 py-1.5 transition-colors ${
-                tab === 'style' ? 'bg-vermilion-700/40 text-vermilion-200' : 'text-ink-400 hover:text-parchment-50'
-              }`}
-            >
-              底图样式
-            </button>
+            {viewMode !== 'globe' && (
+              <button
+                onClick={() => setTab('style')}
+                className={`flex-1 px-2 py-1.5 transition-colors ${
+                  tab === 'style' ? 'bg-vermilion-700/40 text-vermilion-200' : 'text-ink-400 hover:text-parchment-50'
+                }`}
+              >
+                底图样式
+              </button>
+            )}
             <button
               onClick={() => setTab('custom')}
               className={`flex-1 px-2 py-1.5 transition-colors ${
@@ -111,14 +123,16 @@ export default function GeoFeatureFilter() {
             >
               叠加层 <span className="text-[10px] opacity-70">({onCount})</span>
             </button>
-            <button
-              onClick={() => setTab('amap')}
-              className={`flex-1 px-2 py-1.5 transition-colors ${
-                tab === 'amap' ? 'bg-vermilion-700/40 text-vermilion-200' : 'text-ink-400 hover:text-parchment-50'
-              }`}
-            >
-              底图要素 <span className="text-[10px] opacity-70">({amapOnCount})</span>
-            </button>
+            {viewMode !== 'globe' && (
+              <button
+                onClick={() => setTab('amap')}
+                className={`flex-1 px-2 py-1.5 transition-colors ${
+                  tab === 'amap' ? 'bg-vermilion-700/40 text-vermilion-200' : 'text-ink-400 hover:text-parchment-50'
+                }`}
+              >
+                底图要素 <span className="text-[10px] opacity-70">({amapOnCount})</span>
+              </button>
+            )}
           </div>
 
           {/* Tab 内容区（可滚动） */}
@@ -160,6 +174,46 @@ export default function GeoFeatureFilter() {
             </>
           ) : tab === 'custom' ? (
             <>
+              {/* 地球仪专用：内置精选 POI（古都/历史遗址，无网络依赖） */}
+              {viewMode === 'globe' && (
+                <>
+                  <div className="mb-3 pb-3 border-b border-ink-400/40">
+                    <label className="flex items-start gap-2 text-xs cursor-pointer hover:bg-paper-card/80 px-1.5 py-1 rounded transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={showOsmPois}
+                        onChange={toggleOsmPois}
+                        className="accent-vermilion-500 mt-0.5"
+                      />
+                      <span className="text-base leading-none mt-0">📍</span>
+                      <span className="flex-1 min-w-0">
+                        <span className="text-parchment-50 font-serif">历史地点</span>
+                        <span className="block text-[10px] text-ink-400/80 leading-tight mt-0.5">
+                          古都 / 历史遗址 / 著名城市（项目内置数据集）
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                  <div className="mb-3 pb-3 border-b border-ink-400/40">
+                    <label className="flex items-start gap-2 text-xs cursor-pointer hover:bg-paper-card/80 px-1.5 py-1 rounded transition-colors">
+                      <input
+                        type="checkbox"
+                        checked={showDayNight}
+                        onChange={toggleDayNight}
+                        className="accent-vermilion-500 mt-0.5"
+                      />
+                      <span className="text-base leading-none mt-0">🌓</span>
+                      <span className="flex-1 min-w-0">
+                        <span className="text-parchment-50 font-serif">昼夜光照</span>
+                        <span className="block text-[10px] text-ink-400/80 leading-tight mt-0.5">
+                          模拟太阳运行，投射动态阴影
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                </>
+              )}
+
               <label className="flex items-center gap-2 text-xs text-parchment-50 cursor-pointer mb-2 select-none">
                 <input
                   type="checkbox"
@@ -183,8 +237,8 @@ export default function GeoFeatureFilter() {
                       />
                       <span className="text-base leading-none mt-0">{meta.icon}</span>
                       <span className="flex-1 min-w-0">
-                        <span className="text-parchment-50 font-serif">{meta.label}</span>
-                        {meta.desc && <span className="block text-[10px] text-ink-400/80 leading-tight mt-0.5">{meta.desc}</span>}
+<span className="text-parchment-50 font-serif">{meta.label}</span>
+                        {viewMode !== 'globe' && <span className="block text-[10px] text-ink-400/80 leading-tight mt-0.5">{meta.desc}</span>}
                       </span>
                     </label>
                   )
@@ -263,7 +317,7 @@ export default function GeoFeatureFilter() {
 
           </div>{/* /Tab 内容滚动区 */}
 
-          {/* 2D / 3D 切换 — 任何 tab 都可见（固定底部，不滚动） */}
+          {/* 2D / 3D / 地球仪 切换 — 任何 tab 都可见（固定底部，不滚动） */}
           <div className="p-3 pt-2 border-t border-ink-400/40 shrink-0">
             <div className="text-[10px] text-ink-400 mb-1.5">视图模式</div>
             <div className="flex gap-1">
@@ -276,7 +330,7 @@ export default function GeoFeatureFilter() {
                 }`}
                 title="标准平面地图"
               >
-                🗺 2D 平面
+                🗺 2D
               </button>
               <button
                 onClick={() => viewMode !== '3D' && setViewMode('3D')}
@@ -287,12 +341,28 @@ export default function GeoFeatureFilter() {
                 }`}
                 title="立体透视图（右键拖动调俯仰角）"
               >
-                🏔 3D 立体
+                🏔 3D
+              </button>
+              <button
+                onClick={() => viewMode !== 'globe' && setViewMode('globe')}
+                className={`flex-1 px-2 py-1.5 text-xs rounded transition-colors ${
+                  viewMode === 'globe'
+                    ? 'bg-vermilion-500 text-parchment-50 font-serif'
+                    : 'bg-paper-card/60 text-ink-300 hover:bg-paper-warm hover:text-parchment-50'
+                }`}
+                title="3D 地球仪（朝代都城 + 事件点）"
+              >
+                🌐 地球仪
               </button>
             </div>
             {viewMode === '3D' && (
               <div className="text-[10px] text-ink-500 mt-1.5 leading-relaxed">
                 切换会重建地图（保留中心/缩放）。3D 模式右键拖动调俯仰角，左键拖动旋转。
+              </div>
+            )}
+            {viewMode === 'globe' && (
+              <div className="text-[10px] text-ink-500 mt-1.5 leading-relaxed">
+                拖动旋转 · 滚轮缩放 · 悬停/点击图钉或地物查看。
               </div>
             )}
           </div>

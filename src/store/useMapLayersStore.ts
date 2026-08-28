@@ -12,22 +12,18 @@ import type { GeoFeatureType } from '@/data/geographic-features'
 
 export type GeoLayerKey =
   | 'rivers' | 'mountains' | 'seas' | 'lakes' | 'deserts'
-  | 'plains' | 'peninsulas' | 'straits' | 'waterfalls' | 'regions'
-  | 'continents'
+  | 'plains' | 'peninsulas' | 'straits'
 
 /** 用于 UI 展示的层级元数据 */
 export const LAYER_META: Record<GeoLayerKey, { type: GeoFeatureType; label: string; icon: string; defaultOn: boolean; desc: string }> = {
-  rivers:      { type: 'river',       label: '河流',    icon: '🌊', defaultOn: false, desc: '尼罗河、长江、黄河… 文明常傍河而兴' },
-  mountains:   { type: 'mountain',    label: '山脉',    icon: '⛰️',  defaultOn: false, desc: '喜马拉雅、阿尔卑斯、安第斯… 文明的分界与庇护' },
-  seas:        { type: 'sea',         label: '海洋',    icon: '🌀', defaultOn: false, desc: '地中海、红海、波斯湾…' },
-  lakes:       { type: 'lake',        label: '湖泊',    icon: '💧', defaultOn: false, desc: '贝加尔湖、维多利亚湖…' },
+  rivers:      { type: 'river',       label: '河流',    icon: '🌊', defaultOn: true,  desc: '尼罗河、长江、黄河… 文明常傍河而兴' },
+  mountains:   { type: 'mountain',    label: '山脉',    icon: '⛰️',  defaultOn: true,  desc: '喜马拉雅、阿尔卑斯、安第斯… 文明的分界与庇护' },
+  seas:        { type: 'sea',         label: '海洋',    icon: '🌀', defaultOn: true,  desc: '地中海、红海、波斯湾…' },
+  lakes:       { type: 'lake',        label: '湖泊',    icon: '💧', defaultOn: true,  desc: '贝加尔湖、维多利亚湖…' },
   deserts:     { type: 'desert',      label: '沙漠',    icon: '🏜️',  defaultOn: false, desc: '撒哈拉、塔克拉玛干、阿拉伯…' },
   plains:      { type: 'plain',       label: '平原',    icon: '🌾', defaultOn: false, desc: '恒河、两河、尼罗河、北中国平原…' },
-  peninsulas:  { type: 'peninsula',   label: '半岛',    icon: '📍', defaultOn: false, desc: '阿拉伯、印度、中南、伊比利亚…' },
-  straits:     { type: 'strait',      label: '海峡',    icon: '↔️',  defaultOn: false, desc: '直布罗陀、霍尔木兹、白令…' },
-  waterfalls:  { type: 'waterfall',   label: '瀑布',    icon: '🪨',  defaultOn: false, desc: '' },
-  regions:     { type: 'region',      label: '区域',    icon: '🗺', defaultOn: false, desc: '' },
-  continents:  { type: 'continent',   label: '大洲名',  icon: '🌐', defaultOn: false, desc: '亚洲、欧洲… 仅显示名称标签' },
+  peninsulas:  { type: 'peninsula',   label: '半岛',    icon: '📍', defaultOn: true,  desc: '阿拉伯、印度、中南、伊比利亚…' },
+  straits:     { type: 'strait',      label: '海峡',    icon: '↔️',  defaultOn: true,  desc: '直布罗陀、霍尔木兹、白令…' },
 }
 
 const ALL_KEYS = Object.keys(LAYER_META) as GeoLayerKey[]
@@ -60,6 +56,10 @@ interface MapLayersState {
   showGraticule: boolean
   /** 实时云图可见性 */
   showCloud: boolean
+  /** 地球仪：OSM POI 点（historic/tourism/heritage/place）可见性 */
+  showOsmPois: boolean
+  /** 地球仪：昼夜光照 */
+  showDayNight: boolean
 
   /** 切换单个自定义图层 */
   toggle: (key: GeoLayerKey) => void
@@ -83,6 +83,10 @@ interface MapLayersState {
   toggleGraticule: () => void
   /** 切换实时云图 */
   toggleCloud: () => void
+  /** 切换 OSM POI 显示（地球仪模式） */
+  toggleOsmPois: () => void
+  /** 切换昼夜光照 */
+  toggleDayNight: () => void
 }
 
 function defaultVisible(): Record<GeoLayerKey, boolean> {
@@ -105,6 +109,8 @@ export const useMapLayersStore = create<MapLayersState>()(
       amapFeatures: defaultAmapFeatures(),
       showGraticule: false,
       showCloud: false,
+      showOsmPois: true,
+      showDayNight: false,
 
       toggle: (key) => set(s => ({ visible: { ...s.visible, [key]: !s.visible[key] } })),
       toggleLabels: () => set(s => ({ showLabels: !s.showLabels })),
@@ -123,6 +129,8 @@ export const useMapLayersStore = create<MapLayersState>()(
 
       toggleGraticule: () => set(s => ({ showGraticule: !s.showGraticule })),
       toggleCloud: () => set(s => ({ showCloud: !s.showCloud })),
+      toggleOsmPois: () => set(s => ({ showOsmPois: !s.showOsmPois })),
+      toggleDayNight: () => set(s => ({ showDayNight: !s.showDayNight })),
     }),
     {
       name: 'history-explorer-map-layers:v1',
@@ -133,6 +141,8 @@ export const useMapLayersStore = create<MapLayersState>()(
         amapFeatures: s.amapFeatures,
         showGraticule: s.showGraticule,
         showCloud: s.showCloud,
+        showOsmPois: s.showOsmPois,
+        showDayNight: s.showDayNight,
       }),
       // 老用户没有 amapFeatures 字段 → 给默认；老用户没有 showGraticule → 给 false
       migrate: (persisted: any, _fromVersion) => {
@@ -145,6 +155,14 @@ export const useMapLayersStore = create<MapLayersState>()(
         if (persisted && persisted.showCloud === undefined) {
           persisted.showCloud = false
         }
+        // v8: OSM 开关字段（旧用户没有 → 默认 true）
+        if (persisted && persisted.showOsmPois === undefined) {
+          persisted.showOsmPois = true
+        }
+        // v10: showDayNight 字段（旧用户没有 → 默认 false）
+        if (persisted && persisted.showDayNight === undefined) {
+          persisted.showDayNight = false
+        }
         // v5: 老用户的 amapFeatures 可能含 POI/道路/建筑（极重，拖动卡），迁移时过滤掉
         if (persisted && Array.isArray(persisted.amapFeatures)) {
           persisted.amapFeatures = persisted.amapFeatures.filter(
@@ -154,9 +172,28 @@ export const useMapLayersStore = create<MapLayersState>()(
             }
           )
         }
+        // v7: 取消"大洲名/海洋/河流/山脉"默认开启，恢复全 false
+        // 老用户的 visible 在 v6 时被重置为新默认（部分 true），这里再清空
+        if (persisted && persisted.visible) {
+          persisted.visible = defaultVisible()
+        }
+        // v14: 删除了 continents/waterfalls/regions 三种类型；
+        //   同时把 rivers/mountains/seas/lakes/peninsulas/straits 的 defaultOn 改为 true
+        //   已存在的用户若 visible 含已删字段 → 清理；缺新默认 → 用新 defaultOn 补全
+        if (persisted && persisted.visible && typeof persisted.visible === 'object') {
+          const merged: Record<string, boolean> = {}
+          for (const k of ALL_KEYS) {
+            if (typeof persisted.visible[k] === 'boolean') {
+              merged[k] = persisted.visible[k]
+            } else {
+              merged[k] = LAYER_META[k].defaultOn
+            }
+          }
+          persisted.visible = merged
+        }
         return persisted
       },
-      version: 6,
+      version: 14,
     },
   ),
 )

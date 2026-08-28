@@ -12,7 +12,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 interface Props {
   children: ReactNode
   /** 笔刷方向（默认 left-to-right） */
-  direction?: 'left' | 'right' | 'top' | 'bottom'
+  direction?: 'left' | 'right' | 'top' | 'bottom' | 'up' | 'down'
   /** 动画时长（ms）默认 700 */
   duration?: number
   /** 延迟（ms），用于多个元素顺序揭示 */

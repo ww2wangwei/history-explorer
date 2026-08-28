@@ -11,7 +11,6 @@ import type { HistoricalFigure, HistoricalEvent } from '@/types'
 
 // ============= 地理 =============
 export const ALL_GEO_FEATURES_FLAT: GeoFeature[] = [
-  ...ALL_GEO_FEATURES.continents,
   ...ALL_GEO_FEATURES.seas,
   ...ALL_GEO_FEATURES.lakes,
   ...ALL_GEO_FEATURES.rivers,
@@ -20,8 +19,6 @@ export const ALL_GEO_FEATURES_FLAT: GeoFeature[] = [
   ...ALL_GEO_FEATURES.plains,
   ...ALL_GEO_FEATURES.peninsulas,
   ...ALL_GEO_FEATURES.straits,
-  ...ALL_GEO_FEATURES.waterfalls,
-  ...ALL_GEO_FEATURES.regions,
 ]
 
 export function getMergedGeoFeatures(): GeoFeature[] {
@@ -164,11 +161,10 @@ export function getMergedCultures(): CultureEvent[] {
 }
 
 export const GEO_TYPE_OPTIONS: GeoFeatureType[] = [
-  'continent', 'sea', 'lake', 'river', 'mountain', 'desert', 'plain', 'peninsula', 'strait', 'waterfall', 'region',
+  'sea', 'lake', 'river', 'mountain', 'desert', 'plain', 'peninsula', 'strait',
 ]
 
 export const GEO_TYPE_LABELS: Record<GeoFeatureType, string> = {
-  continent: '🌏 大洲',
   sea: '🌊 海洋/海湾',
   lake: '🪞 湖泊',
   river: '🏞️ 河流',
@@ -177,6 +173,4 @@ export const GEO_TYPE_LABELS: Record<GeoFeatureType, string> = {
   plain: '🌾 平原',
   peninsula: '🔻 半岛',
   strait: '↔️ 海峡',
-  waterfall: '💦 瀑布',
-  region: '🗺️ 区域',
 }

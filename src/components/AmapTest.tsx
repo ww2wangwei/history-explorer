@@ -18,6 +18,7 @@ import { getActiveErasAtYear } from '@/utils/geo'
 import { bingImage, fallbackKeyword } from '@/utils/geoImage'
 import { summarizeEra, summarizeEvent } from '@/utils/summarize'
 import { wgs84ToGcj02 } from '@/utils/coordsTransform'
+import { flyToAMap } from '@/utils/mapAnimation'
 // 🎯 性能优化：data 改用懒加载共享 loader — eras.json + events.json 从主 bundle 拆出
 // 🎯 修复：之前 const eras = getEras() 在模块加载时执行，那时 _data 还是 EMPTY → 永久缓存 []，
 //   导致 markers 永远为 0。改用函数调用 + useCoreDataReady gate。
@@ -29,6 +30,8 @@ import { renderGeoFeatures } from '@/components/Map/GeoFeatureLayer'
 import GeoFeatureFilter from '@/components/Map/GeoFeatureFilter'
 import GraticuleLayer from '@/components/Map/GraticuleLayer'
 import CloudOverlayLayer from '@/components/Map/CloudOverlayLayer'
+import MapGlobeView from '@/components/Map/MapGlobeView'
+import SharedInfoCardView, { type InfoCardData } from '@/components/Map/InfoCardView'
 import type { ReopenKind } from '@/lib/reopenRoutes'
 import type { Era } from '@/types'
 
@@ -37,25 +40,8 @@ function getChinaEraAtYear(year: number, eras: Era[]): Era | null {
   return chinaEras.find(e => year >= e.startYear && year <= e.endYear) ?? null
 }
 
-interface InfoCard {
-  label: string
-  snippet: string
-  coverImageUrl: string
-  lng: number
-  lat: number
-  screenX: number
-  screenY: number
+interface InfoCard extends InfoCardData {
   source?: 'hover' | 'jump'
-  reopenLabel?: string
-  reopenKind?: ReopenKind
-  reopenEraId?: string
-  reopenEventYear?: number
-  reopenFeatureId?: string
-  reopenTerritoryId?: string
-  reopenTerritoryRegion?: 'china' | 'world'
-  reopenWarId?: string
-  reopenMwKey?: string
-  reopenNodeIndex?: string | number
 }
 
 /** 用户点击自然地理要素时弹出的详情卡片（与 InfoCardView 同结构） */
@@ -115,6 +101,8 @@ export default function AmapTest() {
 
   // 初始化 AMap（viewMode 变化时重建）
   useEffect(() => {
+    // 地球仪模式：跳过 AMap 初始化，由 MapGlobeView 渲染
+    if (viewMode === 'globe') return
     const key = getAmapKey()
     if (!key || !containerRef.current) {
       setError('未配置高德地图 Key。可在右上"更多"菜单 → 🔑 API Keys 中填写，或在 .env 设置 VITE_AMAP_KEY。')
@@ -215,15 +203,23 @@ export default function AmapTest() {
 
         // 地图任意点点击：反向地理编码 → 弹 AI 窗口介绍这块地
         // 必须挂在 init effect 里，否则 viewMode 切换重建后 handler 不重新挂上
+        let isMapClickProcessing = false
         const onMapClick = (e: any) => {
           const lng = e?.lnglat?.getLng?.() ?? e?.lnglat?.lng
           const lat = e?.lnglat?.getLat?.() ?? e?.lnglat?.lat
           if (typeof lng !== 'number' || typeof lat !== 'number') return
 
+          // 防止重复点击（AI 还在响应时禁用地图点击）
+          if (isMapClickProcessing) return
+          isMapClickProcessing = true
+          // 短暂显示加载状态（200ms 后解锁，给 reverse geocode 时间）
+          setTimeout(() => { isMapClickProcessing = false }, 2000)
+
           const ask = (region: string) => {
             const prompt = `我点击了地图上的一个位置（经度 ${lng.toFixed(2)}°，纬度 ${lat.toFixed(2)}°${region ? `，约位于${region}` : ''}）。请介绍这个地区的地理与历史背景：它属于哪个朝代/文明？这里曾经发生过哪些重要历史事件？相关的著名人物？不要使用 markdown 表格。`
             sessionStorage.setItem('history-explorer-pending-auto-question', prompt)
             useAIStore.getState().openPanel()
+            isMapClickProcessing = false
           }
 
           if (A.Geocoder) {
@@ -641,14 +637,10 @@ export default function AmapTest() {
       mapFocusTarget as any
     const [lng, lat] = wgs84ToGcj02(center)
 
-    try { map.resize?.() } catch { /* noop */ }
-    try {
-      map.setZoomAndCenter(zoom, new A.LngLat(lng, lat))
-    } catch { /* ignore */ }
-
-    if (!label) return
+    let cancelled = false
 
     const placeCard = (useCenter: boolean) => {
+      if (cancelled) return
       const w = containerRef.current?.clientWidth ?? 0
       const h = containerRef.current?.clientHeight ?? 0
       const padding = 24
@@ -675,23 +667,50 @@ export default function AmapTest() {
       } as InfoCard)
     }
 
-    placeCard(true)
-
-    let cancelled = false
     const onViewChange = () => {
       if (cancelled) return
       placeCard(false)
     }
-    map.on('dragend', onViewChange)
-    map.on('zoomend', onViewChange)
+
+    const flyAndPlace = async () => {
+      try { map.resize?.() } catch { /* noop */ }
+      try {
+        await flyToAMap(map, { lng, lat, altitude: zoom, duration: 800, ease: 'power2.out' })
+      } catch { /* ignore */ }
+      if (cancelled) return
+
+      placeCard(true)
+
+      // 实时跟随：拖拽/缩放过程中每帧触发
+      map.on('move', onViewChange)
+      map.on('zoom', onViewChange)
+      // 兼容：结束时也触发一次（保险）
+      map.on('dragend', onViewChange)
+      map.on('zoomend', onViewChange)
+    }
+
+    flyAndPlace()
 
     return () => {
       cancelled = true
+      map.off('move', onViewChange)
+      map.off('zoom', onViewChange)
       map.off('dragend', onViewChange)
       map.off('zoomend', onViewChange)
       // click handler 在 init effect 里挂，这里不再重复
     }
   }, [mapFocusTarget, mapReady])
+
+  // 地球仪模式：渲染 react-globe.gl 球体视图（不创建 AMap 实例）
+  if (viewMode === 'globe') {
+    return (
+      <div className="w-full h-full relative">
+        <MapGlobeView eras={eras} events={events} onSelectEra={selectEra} />
+        {/* GeoFeatureFilter 提供图层/视图切换控件（球面模式下大部分控件禁用） */}
+        <GeoFeatureFilter />
+      </div>
+    )
+  }
 
   return (
     <div className="w-full h-full relative">
@@ -750,7 +769,7 @@ export default function AmapTest() {
       />
 
       {infoCard && (
-        <InfoCardView
+        <SharedInfoCardView
           card={infoCard}
           onClose={() => {
             setInfoCard(null)
@@ -777,107 +796,6 @@ export default function AmapTest() {
   )
 }
 
-function InfoCardView({
-  card,
-  onClose,
-  onBack,
-}: {
-  card: InfoCard
-  onClose: () => void
-  onBack: () => void
-}) {
-  const [imgFailed, setImgFailed] = useState(false)
-  return (
-    <div
-      data-testid="amap-info-card"
-      className="absolute z-20 pointer-events-auto"
-      style={{
-        left: card.screenX,
-        top: card.screenY,
-        transform: 'translate(-50%, calc(-100% - 14px))',
-        width: '280px',
-        maxWidth: 'calc(100vw - 32px)',
-      }}
-      onClick={e => e.stopPropagation()}
-    >
-      <div
-        className="relative rounded-lg shadow-2xl overflow-hidden"
-        style={{
-          backgroundColor: 'rgb(26 23 20 / 0.95)',
-          border: '1px solid rgb(184 67 58 / 0.4)',
-        }}
-      >
-        <div
-          className="flex items-center justify-between px-3 py-2"
-          style={{ borderBottom: '1px solid rgb(184 67 58 / 0.3)' }}
-        >
-          {card.reopenLabel ? (
-            <button
-              type="button"
-              onClick={onBack}
-              className="flex items-center text-vermilion-300 hover:text-vermilion-200 text-sm"
-              title="返回"
-              aria-label="返回"
-            >
-              <span className="leading-none">←</span>
-              <span className="ml-1 text-xs">Back</span>
-            </button>
-          ) : (
-            <span className="text-xs" style={{ color: 'rgb(154 143 126)' }}>📍 位置</span>
-          )}
-          <button
-            type="button"
-            onClick={onClose}
-            className="text-base leading-none hover:text-vermilion-300"
-            style={{ color: 'rgb(154 143 126)' }}
-            title="关闭"
-          >
-            ×
-          </button>
-        </div>
-        {card.coverImageUrl && !imgFailed && (
-          <div className="relative w-full" style={{ aspectRatio: '16 / 9' }}>
-            <img
-              src={card.coverImageUrl}
-              alt={card.label}
-              onError={() => setImgFailed(true)}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          </div>
-        )}
-        <div className="px-3 py-2">
-          <div
-            className="text-sm font-brush truncate"
-            style={{ color: 'rgb(247 238 216)' }}
-          >
-            {card.label}
-          </div>
-          {card.snippet && (
-            <div
-              className="text-xs mt-1 line-clamp-3"
-              style={{ color: 'rgb(184 198 184)' }}
-            >
-              {card.snippet}
-            </div>
-          )}
-        </div>
-      </div>
-      <div
-        aria-hidden
-        className="absolute left-1/2 -translate-x-1/2"
-        style={{
-          top: '100%',
-          marginTop: '-1px',
-          width: 0, height: 0,
-          borderLeft: '8px solid transparent',
-          borderRight: '8px solid transparent',
-          borderTop: '8px solid rgba(30, 28, 24, 0.95)',
-          filter: 'drop-shadow(0 1px 0 rgba(201, 154, 91, 0.5))',
-        }}
-      />
-    </div>
-  )
-}
 
 /**
  * GeoFeatureCardView — 自然地理要素详情卡（与 InfoCardView 同结构、同风格）

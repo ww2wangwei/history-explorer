@@ -104,8 +104,8 @@ export const STYLE_KEYS_FOR_UI: MapStyleKey[] = [
   'satellite', 'topo-arcgis', 'world-imagery',
 ]
 
-/** 2D/3D 视图模式（3D 模式由 viewMode: '3D' 启用，AMap 需要在地图创建时指定，无法动态切换） */
-export type MapViewMode = '2D' | '3D'
+/** 视图模式：2D 平面 / 3D 立体（高德 3D）/ globe 地球仪（react-globe.gl） */
+export type MapViewMode = '2D' | '3D' | 'globe'
 
 interface MapStyleState {
   style: MapStyleKey
@@ -114,28 +114,33 @@ interface MapStyleState {
   pitch: number
   /** 3D 模式下的旋转角（0=正北，顺时针） */
   rotation: number
+  /** 地球仪视角：{ 经度, 纬度, 距离 } — lat/lng 是观察点，altitude 是相机距离（默认 2.5） */
+  globePointOfView: { lat: number; lng: number; altitude: number } | null
   setStyle: (k: MapStyleKey) => void
   setViewMode: (m: MapViewMode) => void
   setPitch: (p: number) => void
   setRotation: (r: number) => void
+  setGlobePointOfView: (p: { lat: number; lng: number; altitude: number } | null) => void
 }
 
 export const useMapStyleStore = create<MapStyleState>()(
   persist(
     (set) => ({
-      style: 'dark',  // 之前是 darkblue（含丰富装饰，瓦片重），改用纯黑底，瓦片最少
+      style: 'dark',
       viewMode: '2D',
       pitch: 30,
       rotation: 0,
+      globePointOfView: null,
       setStyle: (k) => set({ style: k }),
       setViewMode: (m) => set({ viewMode: m }),
       setPitch: (p) => set({ pitch: p }),
       setRotation: (r) => set({ rotation: r }),
+      setGlobePointOfView: (p) => set({ globePointOfView: p }),
     }),
     {
       name: 'history-explorer-map-style:v1',
       storage: createJSONStorage(() => localStorage),
-      partialize: (s) => ({ style: s.style, viewMode: s.viewMode, pitch: s.pitch, rotation: s.rotation }),
+      partialize: (s) => ({ style: s.style, viewMode: s.viewMode, pitch: s.pitch, rotation: s.rotation, globePointOfView: s.globePointOfView }),
       // v2 迁移：darkblue → dark（瓦片重→轻）；normal/light → dark（同样为了减少瓦片）
       migrate: (persisted: any, _fromVersion) => {
         if (persisted && (persisted.style === 'darkblue' || persisted.style === 'normal' || persisted.style === 'light' || persisted.style === 'fresh' || persisted.style === 'macaron' || persisted.style === 'whitesmoke')) {

@@ -33,14 +33,16 @@ interface HistoryStore {
   mapCenter: [number, number]
   mapZoom: number
 
-  // 地图聚焦目标（详情面板点击"聚焦地图"时设置）
+// 地图聚焦目标（详情面板点击"聚焦地图"时设置）
   mapFocusTarget: { center: [number, number]; zoom: number; label?: string; coverImageUrl?: string; snippet?: string } | null
+  // 地球仪视角（用于 URL 分享）
+  globePOV: { lat: number; lng: number; altitude: number } | null
 
   /**
    * 抑制窗口时间戳（毫秒）：useJumpToMap 调用时设成 Date.now() + 1200，
    * currentYear effect 据此跳过 setCenter，避免与 mapFocusTarget effect 的飞行竞态。
    * 0 表示未抑制。
-    */
+   */
   jumpSuppressUntil: number
 
   /** 最近一次 setYear 时间戳（ms），用于区分"拖拽中"和"单点跳转" */
@@ -101,6 +103,8 @@ interface HistoryStore {
     | { kind: 'poem'; poemId: string }
     | null
   setPendingReopen: (target: HistoryStore['pendingReopen']) => void
+  // URL 同步
+  syncGlobePOVToURL: (pov: { lat: number; lng: number; altitude: number } | null) => void
 }
 
 export const MIN_ZOOM = 0.5
@@ -127,6 +131,7 @@ function clampCenter(center: number, zoom: number): number {
 function getInitialParams(): {
   year: number; zoom: number; viewMode: 'map' | 'graph'; selectedEraId: string | null;
   center: [number, number];
+  globePOV: { lat: number; lng: number; altitude: number } | null;
 } {
   const defaults = {
     year: TIME_RANGE.DEFAULT_YEAR,
@@ -134,6 +139,7 @@ function getInitialParams(): {
     viewMode: 'map' as 'map' | 'graph',
     selectedEraId: null as string | null,
     center: [0, 20] as [number, number],
+    globePOV: null as { lat: number; lng: number; altitude: number } | null,
   }
   try {
     if (typeof window === 'undefined' || !window.location) return defaults
@@ -142,7 +148,8 @@ function getInitialParams(): {
     const zoomParam = params.get('zoom')
     const viewParam = params.get('view')
     const eraParam = params.get('era')
-    const result: { year: number; zoom: number; viewMode: 'map' | 'graph'; selectedEraId: string | null; center: [number, number] } = { ...defaults }
+    const globeParam = params.get('globe')
+    const result: { year: number; zoom: number; viewMode: 'map' | 'graph'; selectedEraId: string | null; center: [number, number]; globePOV: { lat: number; lng: number; altitude: number } | null } = { ...defaults }
     if (yearParam) {
       const y = parseInt(yearParam, 10)
       if (!isNaN(y)) {
@@ -160,6 +167,12 @@ function getInitialParams(): {
     }
     if (eraParam) {
       result.selectedEraId = eraParam
+    }
+    if (globeParam) {
+      const [lat, lng, altitude] = globeParam.split(',').map(parseFloat)
+      if (!isNaN(lat) && !isNaN(lng) && !isNaN(altitude)) {
+        result.globePOV = { lat, lng, altitude }
+      }
     }
     // ?focus=lng,lat,zoom 调试用：同时设 mapCenter/mapZoom
     const focusParam = params.get('focus')
@@ -193,6 +206,7 @@ export const useHistoryStore = create<HistoryStore>((set) => ({
   },
 
   mapFocusTarget: null,
+  globePOV: _initialParams.globePOV,
   pendingReopen: null,
   jumpSuppressUntil: 0,
   lastSetYearAt: 0,
@@ -288,6 +302,19 @@ export const useHistoryStore = create<HistoryStore>((set) => ({
   setDetailView: (v) => set({ detailView: v }),
 
   setPendingReopen: (target) => set({ pendingReopen: target }),
+
+  syncGlobePOVToURL: (pov) => {
+    if (typeof window === 'undefined') return
+    const params = new URLSearchParams(window.location.search)
+    if (pov) {
+      params.set('globe', `${pov.lat},${pov.lng},${pov.altitude}`)
+    } else {
+      params.delete('globe')
+    }
+    const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`
+    window.history.replaceState(null, '', newUrl)
+    set({ globePOV: pov })
+  },
 
   setMapPosition: (pos) => set({ mapCenter: pos.center, mapZoom: pos.zoom }),
   setMapZoom: (zoom) => set({ mapZoom: zoom }),

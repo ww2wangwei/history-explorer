@@ -86,13 +86,12 @@ export function useLearningContext(eraIds: string[], focusFigureId?: string): Le
   const cards = useCardsStore(s => s.cards)
   const visitedEraIds = useLearningPathStore(s => s.progressByPath.timeline.visitedEraIds)
   const visitedFigureIds = useLearningPathStore(s => s.progressByPath.allFigures.visitedFigureIds ?? [])
-
-  // 数据未加载完时返回空 context（首次几毫秒）
-  if (!_data) return EMPTY_CONTEXT
-
-  const { people, eras } = _data
+  const data = _data
 
   return useMemo(() => {
+    // 数据未加载完时返回空 context（首次几毫秒）
+    if (!data) return EMPTY_CONTEXT
+    const { people, eras } = data
     // 1. 找到相关朝代
     const relatedEras = eraIds
       .map(id => eras.find(e => e.id === id))
@@ -340,13 +339,13 @@ export function useAllLearningContexts(): Record<string, LearningContext> {
   const cards = useCardsStore(s => s.cards)
   const visitedEraIds = useLearningPathStore(s => s.progressByPath.timeline.visitedEraIds)
   const visitedFigureIds = useLearningPathStore(s => s.progressByPath.allFigures.visitedFigureIds ?? [])
-
-  // 数据未加载完时返回空 map（避免 30+ 人物 hooks 第一次渲染时拿不到数据）
-  if (!_data) return EMPTY_CONTEXT_MAP
-
-  const { people, eras } = _data
+  const data = _data
 
   return useMemo(() => {
+    // 数据未加载完时返回空 map（避免 30+ 人物 hooks 第一次渲染时拿不到数据）
+    if (!data) return EMPTY_CONTEXT_MAP
+    const { people, eras } = data
+
     const map: Record<string, LearningContext> = {}
     people.forEach(person => {
       // 直接复用上面 useLearningContext 的逻辑（内联避免循环依赖）

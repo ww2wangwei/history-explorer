@@ -591,8 +591,12 @@ function QuizStep({
     if (q.kind === 'single') return a === q.correctIndex
     if (q.kind === 'match') {
       if (!Array.isArray(a)) return false
-      const correctPairs = (q.pairs ?? []).map(p => `${p.left}->${p.right}`)
-      return JSON.stringify(a) === JSON.stringify(correctPairs)
+      // 用户答案 a 是按"每行右项"位置顺序填的左边选项值（即 a[i] 对应右项 q.pairs[i].right）
+      // correctPairs 是 [left->right] 字符串数组，要按下标把 a[i] 与 q.pairs[i].right 配对
+      const pairs = q.pairs ?? []
+      if (a.length !== pairs.length) return false
+      const correctPairs = pairs.map((p, i) => `${a[i]}->${p.right}`)
+      return JSON.stringify(correctPairs) === JSON.stringify(pairs.map(p => `${p.left}->${p.right}`))
     }
     if (q.kind === 'order') {
       if (!Array.isArray(a)) return false

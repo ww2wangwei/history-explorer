@@ -22,7 +22,6 @@ import type { Era } from '@/types'
 const eras = erasData as Era[]
 
 const ALL_FEATURES: GeoFeature[] = [
-  ...ALL_GEO_FEATURES.continents,
   ...ALL_GEO_FEATURES.seas,
   ...ALL_GEO_FEATURES.lakes,
   ...ALL_GEO_FEATURES.rivers,
@@ -31,8 +30,6 @@ const ALL_FEATURES: GeoFeature[] = [
   ...ALL_GEO_FEATURES.plains,
   ...ALL_GEO_FEATURES.peninsulas,
   ...ALL_GEO_FEATURES.straits,
-  ...ALL_GEO_FEATURES.waterfalls,
-  ...ALL_GEO_FEATURES.regions,
 ]
 
 interface Props {
@@ -82,7 +79,6 @@ const TERRITORY_FILES: TerritoryFile[] = [
 ]
 
 const FEATURE_LABELS: Record<GeoFeatureType, { icon: string; label: string; color: string }> = {
-  continent: { icon: '🌏', label: '大洲', color: '#9bc89a' },
   sea: { icon: '🌊', label: '海洋/海湾', color: '#5b9bc8' },
   lake: { icon: '🪞', label: '湖泊', color: '#6abab6' },
   river: { icon: '🏞️', label: '河流', color: '#5bc8c8' },
@@ -91,8 +87,6 @@ const FEATURE_LABELS: Record<GeoFeatureType, { icon: string; label: string; colo
   plain: { icon: '🌾', label: '平原', color: '#9bc89a' },
   peninsula: { icon: '🔻', label: '半岛', color: '#b88a6a' },
   strait: { icon: '↔️', label: '海峡', color: '#8a9aba' },
-  waterfall: { icon: '💦', label: '瀑布', color: '#6abab6' },
-  region: { icon: '🗺️', label: '区域', color: '#9b7eb6' },
 }
 
 const FEATURE_LABELS_BY_ID: Record<GeoFeatureType, { icon: string; label: string; color: string }> = FEATURE_LABELS

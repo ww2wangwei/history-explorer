@@ -42,6 +42,7 @@ const CivilizationsOverview = lazy(() => import('@/components/Civilizations/Civi
 const QuestionsOverview = lazy(() => import('@/components/Questions/QuestionsOverview'))
 const ArtsOverview = lazy(() => import('@/components/Arts/ArtsOverview'))
 const WorldHistoryOverview = lazy(() => import('@/components/WorldHistory/WorldHistoryOverview'))
+const MythologiesOverview = lazy(() => import('@/components/Mythologies/MythologiesOverview'))
 const ApiKeysSettings = lazy(() => import('@/components/Settings/ApiKeysSettings'))
 // 🎯 性能优化：LadderPanel + ladders.ts(1MB) 拆出主 bundle
 const LadderPanel = lazy(() => import('@/components/Ladder/LadderPanel'))
@@ -442,6 +443,15 @@ export default function Layout() {
             />
           </Suspense>
         )
+      case 'mythologies':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <MythologiesOverview
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+            />
+          </Suspense>
+        )
     }
   }
 
@@ -714,7 +724,7 @@ export default function Layout() {
               </button>
             </div>
 
-            <div className="flex-1 min-h-0 overflow-hidden">
+            <div className="flex-1 min-h-0 overflow-y-auto">
               <Suspense fallback={<div className="h-full flex items-center justify-center text-ink-400 animate-pulse text-sm">载入中…</div>}>
                 {showEvent && selectedEventId && <EventDetail eventId={selectedEventId} />}
                 {showEra && selectedEraId && <EraDetail eraId={selectedEraId} />}

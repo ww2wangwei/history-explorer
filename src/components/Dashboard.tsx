@@ -45,21 +45,37 @@ interface Props {
   onEnterLadder: () => void
 }
 
-const PATHS: { id: string; icon: string; title: string; desc: string; color: string; imageKeyword: string }[] = [
-  { id: 'timeline', icon: '📜', title: '朝代时间线', desc: '按时间顺序学习每个朝代', color: '#c89a5b', imageKeyword: 'chinese dynasty scroll timeline' },
-  { id: 'allFigures', icon: '👥', title: '全人物', desc: '浏览 26+ 位历史人物并与 AI 对话', color: '#9b7eb6', imageKeyword: 'historical figure portrait painting' },
-  { id: 'allWars', icon: '⚔️', title: '全战争', desc: '从武王伐纣到现代的关键战争 75 场', color: '#b85450', imageKeyword: 'ancient war battlefield painting' },
-  { id: 'allCultures', icon: '📚', title: '全文化', desc: '思想家、文学家、宗教人物的代表作品', color: '#5b9bc8', imageKeyword: 'ancient culture calligraphy' },
-  { id: 'allGeography', icon: '🗺️', title: '全地理', desc: '自然地理特征 + 疆域变迁', color: '#5bc89a', imageKeyword: 'world map historical geography' },
-  { id: 'allPoems', icon: '📜', title: '全诗词', desc: '100 首最有名的唐诗宋词，含注解、注音、白话翻译', color: '#c89a8a', imageKeyword: 'chinese poetry scroll ink' },
-  { id: 'civilizations', icon: '⚖️', title: '中西方文明大对比', desc: '15 节对比，看清两种截然不同的历史路径', color: '#d4a85b', imageKeyword: 'east west civilization contrast' },
-  { id: 'timeTravel', icon: '🎭', title: '穿越历史', desc: '化身历史人物，在关键节点做选择', color: '#9b7eb6', imageKeyword: 'classical chinese painting historical figures court scene' },
-  { id: 'allQuestions', icon: '💭', title: '全问题', desc: '趣味/启发/思考题，AI 一问一答逐步深挖并打分', color: '#e07b9b', imageKeyword: 'philosophical question thinking' },
-  { id: 'allArts', icon: '🎨', title: '全艺术', desc: '60 节西方艺术课 · 从史前壁画到当代观念', color: '#e879b9', imageKeyword: 'ancient art painting gallery' },
-  { id: 'worldHistory', icon: '🌍', title: '全文明', desc: '少年世界史 161 节 · 从人类起源到现代世界', color: '#d4a85b', imageKeyword: 'world civilization ruins' },
-  { id: 'review', icon: '🎯', title: '今日复习', desc: '基于 SM-2 算法的间隔重复', color: '#9bc89a', imageKeyword: 'ancient scrolls scholar desk library candle' },
+const PATHS: { id: string; icon: string; title: string; desc: string; color: string; imageKeyword: string; imageUrl?: string }[] = [
+  // 高清图全部来自 Wikimedia Commons（公共版权）
+  { id: 'timeline', icon: '📜', title: '朝代时间线', desc: '按时间顺序学习每个朝代', color: '#c89a5b', imageKeyword: 'chinese dynasty scroll timeline',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/8e/A_Thousand_Li_of_Rivers_and_Mountains_part.jpg' }, // 千里江山图（北宋·王希孟）
+  { id: 'allFigures', icon: '👥', title: '全人物', desc: '浏览 26+ 位历史人物并与 AI 对话', color: '#9b7eb6', imageKeyword: 'historical figure portrait painting',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Yan_Liben._Thirteen_Emperors_Scroll%2C_detail._Boston_MFA.jpg' }, // 历代帝王图（唐·阎立本）
+  { id: 'allWars', icon: '⚔️', title: '全战争', desc: '从武王伐纣到现代的关键战争 75 场', color: '#b85450', imageKeyword: 'ancient war battlefield painting',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Jan_Matejko%2C_Bitwa_pod_Grunwaldem.jpg/1280px-Jan_Matejko%2C_Bitwa_pod_Grunwaldem.jpg' }, // 格伦瓦德之战（Matejko）
+  { id: 'allCultures', icon: '📚', title: '全文化', desc: '思想家、文学家、宗教人物的代表作品', color: '#5b9bc8', imageKeyword: 'ancient culture calligraphy',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/1e/XingshuLantingxv.jpg' }, // 兰亭集序（东晋·王羲之）
+  { id: 'allGeography', icon: '🗺️', title: '全地理', desc: '自然地理特征 + 疆域变迁', color: '#5bc89a', imageKeyword: 'world map historical geography',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/%E6%98%AD%E9%99%B5%E5%85%AD%E9%AA%8F-%E8%A5%BF%E5%AE%89%E7%A2%91%E6%9E%97%E7%9F%B3%E5%88%BB%E8%89%BA%E6%9C%AF%E5%AE%A4_2023-09-29_01.jpg/1280px-%E6%98%AD%E9%99%B5%E5%85%AD%E9%AA%8F-%E8%A5%BF%E5%AE%89%E7%A2%91%E6%9E%97%E7%9F%B3%E5%88%BB%E8%89%BA%E6%9C%AF%E5%AE%A4_2023-09-29_01.jpg' }, // 昭陵六骏（唐·石刻）
+  { id: 'allPoems', icon: '📜', title: '全诗词', desc: '100 首最有名的唐诗宋词，含注解、注音、白话翻译', color: '#c89a8a', imageKeyword: 'chinese poetry scroll ink',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/%E5%90%8D%E7%BB%98%E9%9B%86%E7%8F%8D%E5%86%8C_1_%E5%8D%97%E5%AE%8B_%E4%BD%9A%E5%90%8D_%E6%91%B9%E6%99%8B%E9%A1%BE%E6%81%BA%E4%B9%8B%E6%B4%9B%E7%A5%9E%E5%9B%BE.jpg/1280px-%E5%90%8D%E7%BB%98%E9%9B%86%E7%8F%8D%E5%86%8C_1_%E5%8D%97%E5%AE%8B_%E4%BD%9A%E5%90%8D_%E6%91%B9%E6%99%8B%E9%A1%BE%E6%81%BA%E4%B9%8B%E6%B4%9B%E7%A5%9E%E5%9B%BE.jpg' }, // 洛神赋图（南宋·摹顾恺之）
+  { id: 'civilizations', icon: '⚖️', title: '中西方文明大对比', desc: '15 节对比，看清两种截然不同的历史路径', color: '#d4a85b', imageKeyword: 'east west civilization contrast',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/The_Forbidden_City_-_View_from_Coal_Hill.jpg/1280px-The_Forbidden_City_-_View_from_Coal_Hill.jpg' }, // 故宫俯瞰（景山视角）
+  { id: 'timeTravel', icon: '🎭', title: '穿越历史', desc: '化身历史人物，在关键节点做选择', color: '#9b7eb6', imageKeyword: 'classical chinese painting historical figures court scene',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Gu_Hongzhong%27s_Night_Revels%2C_Detail_1.jpg/1280px-Gu_Hongzhong%27s_Night_Revels%2C_Detail_1.jpg' }, // 韩熙载夜宴图（五代·顾闳中）
+  { id: 'allQuestions', icon: '💭', title: '全问题', desc: '趣味/启发/思考题，AI 一问一答逐步深挖并打分', color: '#e07b9b', imageKeyword: 'philosophical question thinking',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg/1280px-%22The_School_of_Athens%22_by_Raffaello_Sanzio_da_Urbino.jpg' }, // 雅典学院（Raphael）
+  { id: 'allArts', icon: '🎨', title: '全艺术', desc: '60 节西方艺术课 · 从史前壁画到当代观念', color: '#e879b9', imageKeyword: 'ancient art painting gallery',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg/1280px-Sandro_Botticelli_-_La_nascita_di_Venere_-_Google_Art_Project_-_edited.jpg' }, // 维纳斯的诞生（Botticelli）
+  { id: 'allMythologies', icon: '🔱', title: '全神话', desc: '7 大文明 · 78 篇神话 · 角色图谱串起神祇家族', color: '#a07050', imageKeyword: 'greek mythology marble statue gods',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Laoco%C3%B6n_and_his_sons_group.jpg/1280px-Laoco%C3%B6n_and_his_sons_group.jpg' }, // 拉奥孔群像
+  { id: 'worldHistory', icon: '🌍', title: '全文明', desc: '少年世界史 161 节 · 从人类起源到现代世界', color: '#d4a85b', imageKeyword: 'world civilization ruins',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/88/51714-Terracota-Army.jpg' }, // 兵马俑一号坑
+  { id: 'review', icon: '🎯', title: '今日复习', desc: '基于 SM-2 算法的间隔重复', color: '#9bc89a', imageKeyword: 'ancient scrolls scholar desk library candle',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d6/Rembrandt_-_The_Philosopher_in_Meditation.jpg' }, // 沉思的哲学家（Rembrandt）
   // 👇 特殊情况：文史天梯（自定义页，非 store 路径）
-  { id: 'ladder', icon: '🪜', title: '文史天梯', desc: '史·诗·人 三条天梯 · 学测记问 4 步闭环 · 通关可重开', color: '#b8433a', imageKeyword: 'ancient stone temple stairs scholarly' },
+  { id: 'ladder', icon: '🪜', title: '文史天梯', desc: '史·诗·人 三条天梯 · 学测记问 4 步闭环 · 通关可重开', color: '#b8433a', imageKeyword: 'ancient stone temple stairs scholarly',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Skylight%2C_chandelier_and_stairs%2C_Ashmolean_Museum%2C_Oxford.jpg' }, // 阿什莫林博物馆天梯（喻登阶）
 ]
 
 // === 主路径（4 个核心） ===
@@ -76,6 +92,7 @@ const PATH_TOTALS: Record<string, number> = {
   allPoems: 100,
   civilizations: 15,
   allArts: 60,
+  allMythologies: 78,
   worldHistory: 161,
 }
 
@@ -105,7 +122,6 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
 
   const learnEra: Era | null = learnEraId ? (eras.find(e => e.id === learnEraId) ?? null) : null
   const welcomeTitleRef = useRef<HTMLDivElement | null>(null)
-  const pathCardsRef = useRef<HTMLDivElement | null>(null)
 
   const sortedEras = useMemo(
     () => eras.slice().sort((a, b) => a.startYear - b.startYear),
@@ -176,28 +192,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
     if (learnEra) recordVisit('timeline', learnEra.id)
   }
 
-  // GSAP hover: 学习路径卡片
-  useEffect(() => {
-    if (!pathCardsRef.current) return
-    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    if (reduce) return
-    const container = pathCardsRef.current
-    const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>('.path-card')
-      gsap.from(cards, { opacity: 0, y: 24, duration: 0.55, stagger: 0.07, ease: 'power3.out' })
-      cards.forEach(card => {
-        const enter = () => gsap.to(card, { y: -4, scale: 1.02, duration: 0.25, ease: 'power2.out' })
-        const leave = () => gsap.to(card, { y: 0, scale: 1, duration: 0.3, ease: 'power2.out' })
-        card.addEventListener('mouseenter', enter)
-        card.addEventListener('mouseleave', leave)
-        return () => {
-          card.removeEventListener('mouseenter', enter)
-          card.removeEventListener('mouseleave', leave)
-        }
-      })
-    }, container)
-    return () => ctx.revert()
-  }, [])
+  // 🎯 弧形画廊的 hover 由 ArcCard 内部 CSS transition 处理，旧的 grid hover 已移除
 
   // GSAP fly-in: 欢迎标题
   useEffect(() => {
@@ -262,18 +257,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
   const learnedInTimeline = progressByPath.timeline.visitedEraIds.length
   const xrefVisitedCount = progressByPath.crossReference.visitedEraIds.length
 
-  // 主路径卡片入场
-  useEffect(() => {
-    if (!isActive || !pathCardsRef.current) return
-    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    if (reduce) return
-    const cards = pathCardsRef.current.querySelectorAll<HTMLElement>(':scope > div')
-    if (!cards.length) return
-    gsap.from(cards, {
-      opacity: 0, y: 16, scale: 0.95,
-      duration: 0.45, stagger: 0.08, ease: 'back.out(1.2)',
-    })
-  }, [isActive, learnedInTimeline, xrefVisitedCount, cardsCount, dueCount])
+  // 🎯 弧形画廊入场动画已迁到 ArcGallery 组件内
 
   // 主路径进度查询
   const getPathVisited = (id: string): number => {
@@ -283,6 +267,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
     if (id === 'allPoems') return poemsFavoritesCount
     if (id === 'civilizations') return p.visitedSectionIds?.length ?? 0
     if (id === 'allArts') return p.visitedLessonIds?.length ?? 0
+    if (id === 'allMythologies') return p.visitedMythIds?.length ?? 0
     if (id === 'worldHistory') return p.visitedWorldLessonIds?.length ?? 0
     return p.visitedEraIds.length
   }
@@ -323,9 +308,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           </p>
         </div>
 
-        {/* === 2. 学习路径（13 卡 · 混合布局） === */}
-        {/* 头部 — 朝代时间线 + 全人物（横向 hero 大卡，重点推荐） */}
-        {/* 中部 — 其余 11 个（2 列 grid，纵向紧凑） */}
+        {/* === 2. 学习路径（13 卡 · 3 列行网格 · motionsites 风） === */}
         <div className="flex items-center gap-4 mb-3">
           <span className="font-brush text-lg text-bone tracking-[0.4em]">学习路径</span>
           <div className="flex-1">
@@ -333,38 +316,19 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           </div>
           <span className="text-xs text-ink-400 font-brush tracking-widest">13 板块</span>
         </div>
-        <div ref={pathCardsRef} className="flex flex-col gap-3 mb-6">
-          {/* 朝代时间线（hero 大卡） */}
-          <MotionsitesCard
-            path={MAIN_PATHS[0]}
-            visited={getPathVisited(MAIN_PATHS[0].id)}
-            total={getPathTotal(MAIN_PATHS[0].id)}
-            onClick={() => {
-              audioEngine.playModalOpen()
-              if (recommendation) recordVisit('timeline', recommendation.eraId)
-              setShowEraList(true)
-            }}
-          />
-          {/* 全人物 + 穿越历史（hero 横排） */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <MotionsitesCard path={MAIN_PATHS[1]} visited={getPathVisited(MAIN_PATHS[1].id)} total={getPathTotal(MAIN_PATHS[1].id)} variant="grid" onClick={() => onEnterPath(MAIN_PATHS[1].id as PathId)} />
-            <MotionsitesCard path={MAIN_PATHS[2]} visited={getPathVisited(MAIN_PATHS[2].id)} total={getPathTotal(MAIN_PATHS[2].id)} variant="grid" onClick={() => onEnterPath(MAIN_PATHS[2].id as PathId)} />
-          </div>
-          {/* 其余 10 个 — 2 列 grid（纵向紧凑 · Wabi-Sabi 风格） */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <MotionsitesCard path={MAIN_PATHS[3]} visited={0} total={0} variant="grid" onClick={onEnterLadder} highlight />
-            {MORE_PATHS.map(p => (
-              <MotionsitesCard
-                key={p.id}
-                path={p}
-                visited={getPathVisited(p.id)}
-                total={getPathTotal(p.id)}
-                variant="grid"
-                onClick={() => onEnterPath(p.id as PathId)}
-              />
-            ))}
-          </div>
-        </div>
+        <FilmstripGallery
+          paths={PATHS}
+          getVisited={getPathVisited}
+          getTotal={getPathTotal}
+          onEnterPath={onEnterPath}
+          onEnterLadder={onEnterLadder}
+          onOpenEraList={() => {
+            audioEngine.playModalOpen()
+            if (recommendation) recordVisit('timeline', recommendation.eraId)
+            setShowEraList(true)
+          }}
+          newPathId="ladder"
+        />
 
         {/* === 3. Hero CTA（当前推荐 · 卷轴式） === */}
         {recommendation && (
@@ -612,7 +576,7 @@ function MotionsitesCard({
   highlight,
   variant = 'hero',
 }: {
-  path: { id: string; icon: string; title: string; desc: string; color: string; imageKeyword: string }
+  path: { id: string; icon: string; title: string; desc: string; color: string; imageKeyword: string; imageUrl?: string }
   visited: number
   total: number
   onClick: () => void
@@ -704,6 +668,102 @@ function MotionsitesCard({
   )
 }
 
+// ===== PathScrollCard =====
+// 行形全宽卡 — 灵感：motionsites.ai 的横排 row cards
+// 3 列 grid 中每张卡撑满列宽，landscape 16:9（行形状），图片铺满、文字浮于左下
+function PathScrollCard({
+  path: p,
+  visited,
+  total,
+  onClick,
+  highlight,
+}: {
+  path: { id: string; icon: string; title: string; desc: string; color: string; imageKeyword: string; imageUrl?: string }
+  visited: number
+  total: number
+  onClick: () => void
+  highlight?: boolean
+}) {
+  const pct = total > 0 ? Math.round((visited / total) * 100) : 0
+  const accent = p.color
+  return (
+    <button
+      onClick={onClick}
+      className={`group relative block w-full overflow-hidden rounded-xl text-left transition-all hover:-translate-y-0.5 focus:outline-none ${
+        highlight ? 'ring-1 ring-vermilion-500/60' : ''
+      }`}
+      style={{
+        aspectRatio: '16 / 9',
+        background: 'rgb(var(--bg-card-rgb) / 0.85)',
+        boxShadow: highlight
+          ? '0 6px 24px rgba(0,0,0,0.4), 0 0 0 1px rgb(var(--vermilion-rgb) / 0.5), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.4)'
+          : '0 4px 16px rgba(0,0,0,0.35), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.25)',
+      }}
+      aria-label={`${p.title} — ${p.desc}`}
+    >
+      {/* 背景图 */}
+      <div
+        aria-hidden
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+        style={{ backgroundImage: `url(${bingImage(p.imageKeyword, 800, 450)})` }}
+      />
+      {/* 暗色蒙版：底部深 + 顶部轻，保证文字可读 */}
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            'linear-gradient(180deg, rgba(0,0,0,0.20) 0%, rgba(0,0,0,0.05) 35%, rgba(0,0,0,0.80) 100%)',
+        }}
+      />
+      {/* 顶部：icon + NEW 徽章 / 进度百分比 */}
+      <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10">
+        <span className="text-xl drop-shadow">{p.icon}</span>
+        <div className="flex items-center gap-1">
+          {highlight && (
+            <span className="text-[9px] px-1.5 py-0.5 rounded bg-vermilion-500/90 text-bone font-bold tracking-wider">
+              NEW
+            </span>
+          )}
+          {visited > 0 && pct > 0 && (
+            <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-vermilion-500/85 text-bone font-bold backdrop-blur">
+              {pct}%
+            </span>
+          )}
+        </div>
+      </div>
+      {/* 底部：标题 + 描述 + 进度条 */}
+      <div className="absolute bottom-0 left-0 right-0 p-3 z-10">
+        <h3 className="font-serif text-sm text-bone tracking-wide truncate mb-0.5 drop-shadow">
+          {p.title}
+        </h3>
+        <p className="text-[10px] text-bone/75 leading-snug line-clamp-2 mb-1.5 drop-shadow">
+          {p.desc}
+        </p>
+        {total > 0 && pct > 0 && (
+          <div className="h-0.5 bg-bone/15 overflow-hidden rounded-full">
+            <div
+              className="h-full transition-all duration-500"
+              style={{ width: `${pct}%`, background: accent }}
+            />
+          </div>
+        )}
+        <div className="flex items-center justify-between mt-1.5">
+          <span className="text-[9px] text-bone/60 tabular-nums">
+            {total > 0 ? `${visited} / ${total}` : '无限探索'}
+          </span>
+          <span
+            className="font-serif text-[10px] tracking-widest transition-transform group-hover:translate-x-0.5"
+            style={{ color: accent }}
+          >
+            进入 →
+          </span>
+        </div>
+      </div>
+    </button>
+  )
+}
+
 // ===== PrimaryPathCard =====
 
 function PrimaryPathCard({
@@ -716,7 +776,7 @@ function PrimaryPathCard({
   size = 'normal',
   className = '',
 }: {
-  path: { id: string; icon: string; title: string; desc: string; color: string; imageKeyword: string }
+  path: { id: string; icon: string; title: string; desc: string; color: string; imageKeyword: string; imageUrl?: string }
   visited: number
   total: number
   onClick: () => void
@@ -965,3 +1025,225 @@ const EraButton = memo(function EraButton({
     </button>
   )
 })
+
+// ===== FilmstripGallery =====
+// Filmstrip 横向画廊（rolandomolalia.com 风）：
+// - 默认每张卡极窄（~52px 竖向条），竖排标题 + 进度条可见
+// - hover 时该卡平滑展开到 ~420px，显示完整背景图 + 标题 + 描述 + CTA
+// - 鼠标离开整排回到默认（首个卡为活动态）
+// - 点击直接进入对应路径
+function FilmstripGallery({
+  paths,
+  getVisited,
+  getTotal,
+  onEnterPath,
+  onEnterLadder,
+  onOpenEraList,
+  newPathId,
+}: {
+  paths: { id: string; icon: string; title: string; desc: string; color: string; imageKeyword: string; imageUrl?: string }[]
+  getVisited: (id: string) => number
+  getTotal: (id: string) => number
+  onEnterPath: (id: PathId) => void
+  onEnterLadder: () => void
+  onOpenEraList: () => void
+  newPathId?: string
+}) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [activeId, setActiveId] = useState<string | null>(paths[0]?.id ?? null)
+
+  // 入场：所有卡从下方淡入
+  useEffect(() => {
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (reduce) return
+    const cards = containerRef.current?.querySelectorAll<HTMLElement>(':scope > button')
+    if (!cards || !cards.length) return
+    gsap.from(cards, {
+      opacity: 0,
+      y: 24,
+      scale: 0.94,
+      duration: 0.55,
+      stagger: 0.03,
+      ease: 'power3.out',
+    })
+  }, [])
+
+  const handleClick = (id: string) => {
+    if (id === 'ladder') onEnterLadder()
+    else if (id === 'timeline') onOpenEraList()
+    else onEnterPath(id as PathId)
+  }
+
+  return (
+    <div className="relative -mx-6 px-6 mb-6">
+      {/* 左右淡出蒙版 */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-r from-ink-900 to-transparent" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-l from-ink-900 to-transparent" />
+
+      <div
+        ref={containerRef}
+        className="flex items-stretch gap-1.5 h-[400px] overflow-x-auto overflow-y-hidden scrollbar-thin"
+        onMouseLeave={() => setActiveId(paths[0]?.id ?? null)}
+      >
+        {paths.map((p) => {
+          const isActive = activeId === p.id
+          const visited = getVisited(p.id)
+          const total = getTotal(p.id)
+          const pct = total > 0 ? Math.round((visited / total) * 100) : 0
+          const isNew = p.id === newPathId
+          return (
+            <button
+              key={p.id}
+              onMouseEnter={() => setActiveId(p.id)}
+              onClick={() => handleClick(p.id)}
+              className="group relative shrink-0 h-full rounded-xl overflow-hidden text-left focus:outline-none"
+              style={{
+                width: isActive ? 'min(420px, 45vw)' : '52px',
+                transition:
+                  'width 0.65s cubic-bezier(0.2, 0.8, 0.3, 1), box-shadow 0.5s ease',
+                background: 'rgb(var(--bg-card-rgb) / 0.85)',
+                boxShadow: isActive
+                  ? '0 12px 32px rgba(0,0,0,0.5), 0 0 0 1px rgb(var(--gold-rgb) / 0.5)'
+                  : '0 4px 12px rgba(0,0,0,0.35), inset 0 0 0 1px rgb(var(--gold-rgb) / 0.2)',
+              }}
+              aria-label={`${p.title} — ${p.desc}`}
+            >
+              {/* 背景图（激活态轻微放大） */}
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(${p.imageUrl ?? bingImage(p.imageKeyword, 480, 480)})`,
+                  transform: isActive ? 'scale(1.05)' : 'scale(1.2)',
+                  transition: 'transform 0.7s ease',
+                }}
+              />
+              {/* 暗色蒙版（顶轻底重；激活态更深以便文字可读） */}
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background: isActive
+                    ? 'linear-gradient(180deg, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.88) 100%)'
+                    : 'linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.70) 100%)',
+                  transition: 'background 0.5s ease',
+                }}
+              />
+
+              {/* 收起态：朱砂印章 + 竖排衬底文字 + 进度 */}
+              {!isActive && (
+                <div className="absolute inset-0 flex flex-col items-center justify-between py-3 z-10 pointer-events-none">
+                  {/* 顶部：朱砂小印章（首字，旋转 -8°） */}
+                  <div
+                    className="w-7 h-7 flex items-center justify-center rounded-[1px] font-brush shrink-0"
+                    style={{
+                      background: p.color,
+                      color: '#fdf8f0',
+                      fontSize: '15px',
+                      fontWeight: 700,
+                      lineHeight: 1,
+                      transform: 'rotate(-8deg)',
+                      boxShadow:
+                        '0 2px 4px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.18)',
+                    }}
+                    aria-hidden
+                  >
+                    {p.title.charAt(0)}
+                  </div>
+
+                  {/* 中部：竖排全名（深色 backdrop 保证双主题可读） */}
+                  <div className="flex-1 flex items-center justify-center w-full py-3">
+                    <span
+                      className="font-serif text-[10px] tracking-[0.3em] whitespace-nowrap rounded-sm"
+                      style={{
+                        writingMode: 'vertical-rl',
+                        color: '#fdf8f0',
+                        background: 'rgba(14, 12, 10, 0.5)',
+                        backdropFilter: 'blur(4px)',
+                        WebkitBackdropFilter: 'blur(4px)',
+                        paddingBlock: '6px',
+                        paddingInline: '3px',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.35)',
+                      }}
+                    >
+                      {p.title}
+                    </span>
+                  </div>
+
+                  {/* 底部：进度条 / 计数 */}
+                  {visited > 0 && pct > 0 ? (
+                    <div
+                      className="relative w-1 h-12 rounded-full overflow-hidden shrink-0"
+                      style={{ background: 'rgba(253, 248, 240, 0.22)' }}
+                    >
+                      <div
+                        className="absolute bottom-0 left-0 right-0 rounded-full"
+                        style={{ height: `${pct}%`, background: p.color }}
+                      />
+                    </div>
+                  ) : (
+                    <span
+                      className="text-[8px] tabular-nums shrink-0"
+                      style={{
+                        color: '#fdf8f0',
+                        textShadow: '0 1px 2px rgba(0,0,0,0.7)',
+                      }}
+                    >
+                      {total > 0 ? `0/${total}` : '∞'}
+                    </span>
+                  )}
+                </div>
+              )}
+
+              {/* 展开态：完整内容 */}
+              {isActive && (
+                <div className="absolute inset-0 p-5 flex flex-col justify-between z-10 text-bone">
+                  {/* 顶部：图标 + 徽章 */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-2xl drop-shadow">{p.icon}</span>
+                    <div className="flex items-center gap-1">
+                      {isNew && (
+                        <span className="text-[9px] px-1.5 py-0.5 rounded bg-vermilion-500/90 text-bone font-bold tracking-wider">
+                          NEW
+                        </span>
+                      )}
+                      {visited > 0 && pct > 0 && (
+                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-vermilion-500/85 text-bone font-bold backdrop-blur">
+                          {pct}%
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* 底部：标题 + 描述 + 进度 + CTA */}
+                  <div>
+                    <h3 className="font-serif text-2xl text-bone tracking-wide mb-2 drop-shadow">
+                      {p.title}
+                    </h3>
+                    <p className="text-xs text-bone/85 leading-relaxed line-clamp-3 mb-3 drop-shadow">
+                      {p.desc}
+                    </p>
+                    {total > 0 && pct > 0 && (
+                      <div className="h-0.5 bg-bone/15 overflow-hidden rounded-full mb-2">
+                        <div
+                          className="h-full transition-all duration-500"
+                          style={{ width: `${pct}%`, background: p.color }}
+                        />
+                      </div>
+                    )}
+                    <div className="flex items-center justify-between text-[10px] text-bone/70 tracking-widest">
+                      <span className="tabular-nums">
+                        {total > 0 ? `${visited} / ${total}` : '无限探索'}
+                      </span>
+                      <span className="font-serif">点击进入 →</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}

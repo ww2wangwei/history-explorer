@@ -253,6 +253,29 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
   const TIMELINE_MAX = 2100
   const TIMELINE_RANGE = TIMELINE_MAX - TIMELINE_MIN
 
+  // 按文明分组：每行一个文明，行内按朝代/时期分色块
+  const civGroups = useMemo(() => {
+    const map = new Map<string, { key: string; label: string; flag: string; items: TerritoryFile[] }>()
+    const startOf = (f: TerritoryFile) => eras.find(e => e.id === f.id)?.startYear ?? 0
+    TERRITORY_FILES.forEach(f => {
+      const era = eras.find(e => e.id === f.id)
+      let key: string, label: string, flag: string
+      if (f.region === 'china') { key = 'china'; label = '中国'; flag = '🇨🇳' }
+      else if (f.id === 'rome-republic' || f.id === 'rome-empire') { key = 'rome'; label = '罗马'; flag = '🏛️' }
+      else { key = f.id; label = era?.name ?? f.id; flag = '🌍' }
+      if (!map.has(key)) map.set(key, { key, label, flag, items: [] })
+      map.get(key)!.items.push(f)
+    })
+    const groups = Array.from(map.values())
+    groups.forEach(g => g.items.sort((a, b) => startOf(a) - startOf(b)))
+    groups.sort((a, b) => {
+      if (a.key === 'china') return -1
+      if (b.key === 'china') return 1
+      return Math.min(...a.items.map(startOf)) - Math.min(...b.items.map(startOf))
+    })
+    return groups
+  }, [])
+
   /** 滚动到指定朝代卡片 — 用 'start' 让目标卡片滚到 sticky header 下方，避免被遮挡 */
   const scrollToTerritory = (id: string) => {
     const el = cardRefs.current[id]
@@ -301,7 +324,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                 <span className="text-ink-400">（BC 1500 ~ AD 2100，共 {TERRITORY_FILES.length} 个朝代/帝国）</span>
                 <span className="text-ink-400 ml-auto">点击色块 ⬇ 跳转</span>
               </div>
-              <div ref={timelineBarsRef} className="space-y-1.5">
+              <div ref={timelineBarsRef} className="space-y-1">
                 {/* 年份刻度行 */}
                 <div className="relative w-full h-4">
                   {[-1500, -1000, -500, 0, 500, 1000, 1500, 2000].map(y => {
@@ -313,50 +336,42 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                     )
                   })}
                 </div>
-                {/* 🇨🇳 中国朝代 lane */}
-                <div className="relative w-full h-9 bg-ink-900/40 rounded-lg border border-ink-700 overflow-hidden">
-                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-emerald-300/80 pointer-events-none z-0">🇨🇳</span>
-                  {TERRITORY_FILES.filter(f => f.region === 'china').map(f => {
-                    const era = eras.find(e => e.id === f.id)
-                    const sy = era?.startYear ?? 0
-                    const ey = era?.endYear ?? 0
-                    const s = Math.max(0, (sy - TIMELINE_MIN) / TIMELINE_RANGE * 100)
-                    const e = Math.min(100, (ey - TIMELINE_MIN) / TIMELINE_RANGE * 100)
-                    const color = era?.color || '#888'
-                    return (
-                      <button key={f.id} onClick={() => scrollToTerritory(f.id)}
-                        title={`${era?.name ?? f.id} (${sy < 0 ? -sy + ' BC' : sy} ~ ${ey < 0 ? -ey + ' BC' : ey})`}
-                        className="absolute h-3 rounded-sm hover:opacity-100 hover:scale-y-150 hover:z-10 transition-all opacity-80 group"
-                        style={{ left: `${s}%`, width: `${Math.max(e - s, 0.5)}%`, top: '33%', background: color, borderTop: `1px solid ${color}` }}>
-                        <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] whitespace-nowrap text-ink-300 opacity-0 group-hover:opacity-100 pointer-events-none">{era?.name ?? f.id}</span>
-                      </button>
-                    )
-                  })}
-                </div>
-                {/* 🌍 世界帝国 lane */}
-                <div className="relative w-full h-9 bg-ink-900/40 rounded-lg border border-ink-700 overflow-hidden">
-                  <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-blue-300/80 pointer-events-none z-0">🌍</span>
-                  {TERRITORY_FILES.filter(f => f.region === 'world').map(f => {
-                    const era = eras.find(e => e.id === f.id)
-                    const sy = era?.startYear ?? 0
-                    const ey = era?.endYear ?? 0
-                    const s = Math.max(0, (sy - TIMELINE_MIN) / TIMELINE_RANGE * 100)
-                    const e = Math.min(100, (ey - TIMELINE_MIN) / TIMELINE_RANGE * 100)
-                    const color = era?.color || '#888'
-                    return (
-                      <button key={f.id} onClick={() => scrollToTerritory(f.id)}
-                        title={`${era?.name ?? f.id} (${sy < 0 ? -sy + ' BC' : sy} ~ ${ey < 0 ? -ey + ' BC' : ey})`}
-                        className="absolute h-3 rounded-sm hover:opacity-100 hover:scale-y-150 hover:z-10 transition-all opacity-80 group"
-                        style={{ left: `${s}%`, width: `${Math.max(e - s, 0.5)}%`, top: '33%', background: color, borderTop: `1px solid ${color}` }}>
-                        <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] whitespace-nowrap text-ink-300 opacity-0 group-hover:opacity-100 pointer-events-none">{era?.name ?? f.id}</span>
-                      </button>
-                    )
-                  })}
-                </div>
+                {/* 每个文明一行，行内按朝代/时期分色块 */}
+                {civGroups.map(g => (
+                  <div key={g.key} className="flex items-center gap-2">
+                    <div className="w-24 shrink-0 flex items-center gap-1 text-[11px] text-ink-300 truncate" title={g.label}>
+                      <span className="shrink-0">{g.flag}</span>
+                      <span className="truncate">{g.label}</span>
+                    </div>
+                    <div className="relative flex-1 h-6 bg-ink-900/40 rounded border border-ink-700">
+                      {g.items.map(f => {
+                        const era = eras.find(e => e.id === f.id)
+                        const sy = era?.startYear ?? 0
+                        const ey = era?.endYear ?? 0
+                        const s = Math.max(0, (sy - TIMELINE_MIN) / TIMELINE_RANGE * 100)
+                        const e = Math.min(100, (ey - TIMELINE_MIN) / TIMELINE_RANGE * 100)
+                        const w = Math.max(e - s, 0.5)
+                        const color = f.fallbackColor || era?.color || '#888'
+                        const wide = w >= 4
+                        return (
+                          <button key={f.id} onClick={() => scrollToTerritory(f.id)}
+                            title={`${era?.name ?? f.id}（${sy < 0 ? -sy + ' BC' : sy} ~ ${ey < 0 ? -ey + ' BC' : ey}）`}
+                            className="absolute top-1/2 -translate-y-1/2 h-3.5 rounded-sm opacity-90 hover:opacity-100 hover:ring-2 hover:ring-white/70 hover:z-10 transition-all group"
+                            style={{ left: `${s}%`, width: `${w}%`, minWidth: '10px', background: color, borderTop: `1px solid ${color}` }}>
+                            {wide && (
+                              <span className="absolute inset-0 flex items-center justify-center text-[8px] leading-none text-white/90 font-medium truncate px-0.5 pointer-events-none">{era?.name ?? f.id}</span>
+                            )}
+                            <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 text-[9px] whitespace-nowrap text-ink-200 opacity-0 group-hover:opacity-100 pointer-events-none">{era?.name ?? f.id}</span>
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </div>
+                ))}
               </div>
-              <div className="text-xs text-ink-500 mt-1 flex gap-3">
-                <span><span className="inline-block w-3 h-2 align-middle bg-emerald-400/80 mr-1" />中国朝代</span>
-                <span><span className="inline-block w-3 h-2 align-middle bg-blue-400/80 mr-1" />世界帝国</span>
+              <div className="text-xs text-ink-500 mt-1 flex items-center gap-3">
+                <span>每行一个文明 · 行内色块 = 不同时期的疆域</span>
+                <span className="ml-auto">点击色块 ⬇ 跳转</span>
               </div>
             </div>
           )}
@@ -511,7 +526,7 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
                       borderLeftWidth: '3px',
                       borderLeftColor: eraColor,
                       // 给滚动留 sticky header 位置 ~ 280px（标题 + Tab + 时间轴 + 标签）
-                      scrollMarginTop: '280px',
+                      scrollMarginTop: '320px',
                     }}
                     onClick={() => setSelectedTerritory({ id: f.id, region: f.region, era })}
                   >

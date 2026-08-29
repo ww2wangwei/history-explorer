@@ -298,6 +298,21 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
 
   return (
     <div className="w-full h-full overflow-y-auto scrollbar-thin bg-ink-900 ink-wash-bg paper-texture vignette">
+      {/* Filmstrip 横向全屏（绕过 max-w-5xl 居中容器） */}
+      <FilmstripGallery
+        paths={PATHS}
+        getVisited={getPathVisited}
+        getTotal={getPathTotal}
+        onEnterPath={onEnterPath}
+        onEnterLadder={onEnterLadder}
+        onOpenEraList={() => {
+          audioEngine.playModalOpen()
+          if (recommendation) recordVisit('timeline', recommendation.eraId)
+          setShowEraList(true)
+        }}
+        newPathId="ladder"
+      />
+
       <div className="max-w-5xl mx-auto px-6 py-4">
         {/* === 1. 标题（极简） === */}
         <div ref={welcomeTitleRef} className="mb-4">
@@ -318,19 +333,6 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           </div>
           <span className="text-xs text-ink-400 font-brush tracking-widest">14 板块</span>
         </div>
-        <FilmstripGallery
-          paths={PATHS}
-          getVisited={getPathVisited}
-          getTotal={getPathTotal}
-          onEnterPath={onEnterPath}
-          onEnterLadder={onEnterLadder}
-          onOpenEraList={() => {
-            audioEngine.playModalOpen()
-            if (recommendation) recordVisit('timeline', recommendation.eraId)
-            setShowEraList(true)
-          }}
-          newPathId="ladder"
-        />
 
         {/* === 3. Hero CTA（当前推荐 · 卷轴式） === */}
         {recommendation && (
@@ -1077,14 +1079,14 @@ function FilmstripGallery({
   }
 
   return (
-    <div className="relative -mx-6 px-6 mb-6">
-      {/* 左右淡出蒙版 */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-r from-ink-900 to-transparent" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-l from-ink-900 to-transparent" />
+    <div className="relative mb-6 w-full">
+      {/* 左右淡出蒙版 — 仅在溢出时显示（hover 时通过 :hover 显示提示箭头） */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-r from-ink-900 to-transparent opacity-0 group-hover/strip:opacity-100 transition-opacity" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none bg-gradient-to-l from-ink-900 to-transparent opacity-0 group-hover/strip:opacity-100 transition-opacity" />
 
       <div
         ref={containerRef}
-        className="flex items-stretch gap-1.5 h-[400px] overflow-x-auto overflow-y-hidden scrollbar-thin"
+        className="group/strip flex items-stretch gap-1.5 h-[400px] w-full"
         onMouseLeave={() => setActiveId(paths[0]?.id ?? null)}
       >
         {paths.map((p) => {
@@ -1098,11 +1100,15 @@ function FilmstripGallery({
               key={p.id}
               onMouseEnter={() => setActiveId(p.id)}
               onClick={() => handleClick(p.id)}
-              className="group relative shrink-0 h-full rounded-xl overflow-hidden text-left focus:outline-none"
+              className="group relative h-full rounded-xl overflow-hidden text-left focus:outline-none"
               style={{
-                width: isActive ? 'min(420px, 45vw)' : '52px',
+                // ⚡ 默认态：flex:1 1 0（自动均分父容器宽度），14 张卡全可见
+                // 激活态：固定 ~38vw 让位，活动卡大、其余小
+                flex: isActive ? '0 0 auto' : '1 1 0',
+                width: isActive ? 'min(420px, 38vw)' : undefined,
+                minWidth: isActive ? 'min(420px, 38vw)' : '56px',
                 transition:
-                  'width 0.65s cubic-bezier(0.2, 0.8, 0.3, 1), box-shadow 0.5s ease',
+                  'flex 0.65s cubic-bezier(0.2, 0.8, 0.3, 1), width 0.65s cubic-bezier(0.2, 0.8, 0.3, 1), box-shadow 0.5s ease, min-width 0.65s ease',
                 background: 'rgb(var(--bg-card-rgb) / 0.85)',
                 boxShadow: isActive
                   ? '0 12px 32px rgba(0,0,0,0.5), 0 0 0 1px rgb(var(--gold-rgb) / 0.5)'

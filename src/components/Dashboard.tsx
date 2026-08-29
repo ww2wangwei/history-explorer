@@ -298,7 +298,29 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
 
   return (
     <div className="w-full h-full overflow-y-auto scrollbar-thin bg-ink-900 ink-wash-bg paper-texture vignette">
-      {/* Filmstrip 横向全屏（绕过 max-w-5xl 居中容器） */}
+      <div className="max-w-5xl mx-auto px-6 py-4">
+        {/* === 1. 标题（极简） === */}
+        <div ref={welcomeTitleRef} className="mb-4">
+          <h1 className="text-2xl font-brush text-bone mb-1 tracking-wide inline-block">
+            📜 历史探索者
+          </h1>
+          <p className="text-ink-300 text-xs leading-relaxed">
+            当前定位 {currentYear < 0 ? `公元前${-currentYear}` : currentYear} 年 ·
+            系统梳理中国与世界 50 个朝代 + 251 个历史事件的时空脉络。
+          </p>
+        </div>
+
+        {/* === 2. 学习路径（14 卡 · 3 列行网格 · motionsites 风） === */}
+        <div className="flex items-center gap-4 mb-3">
+          <span className="font-brush text-lg text-bone tracking-[0.4em]">学习路径</span>
+          <div className="flex-1">
+            <GreekKeyDivider />
+          </div>
+          <span className="text-xs text-ink-400 font-brush tracking-widest">14 板块</span>
+        </div>
+      </div>
+
+      {/* Filmstrip 横向全屏（紧跟"学习路径"标题下方，绕过 max-w-5xl 居中容器） */}
       <FilmstripGallery
         paths={PATHS}
         getVisited={getPathVisited}
@@ -314,26 +336,6 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
       />
 
       <div className="max-w-5xl mx-auto px-6 py-4">
-        {/* === 1. 标题（极简） === */}
-        <div ref={welcomeTitleRef} className="mb-4">
-          <h1 className="text-2xl font-brush text-bone mb-1 tracking-wide inline-block">
-            📜 历史探索者
-          </h1>
-          <p className="text-ink-300 text-xs leading-relaxed">
-            当前定位 {currentYear < 0 ? `公元前${-currentYear}` : currentYear} 年 ·
-            系统梳理中国与世界 50 个朝代 + 251 个历史事件的时空脉络。
-          </p>
-        </div>
-
-        {/* === 2. 学习路径（13 卡 · 3 列行网格 · motionsites 风） === */}
-        <div className="flex items-center gap-4 mb-3">
-          <span className="font-brush text-lg text-bone tracking-[0.4em]">学习路径</span>
-          <div className="flex-1">
-            <GreekKeyDivider />
-          </div>
-          <span className="text-xs text-ink-400 font-brush tracking-widest">14 板块</span>
-        </div>
-
         {/* === 3. Hero CTA（当前推荐 · 卷轴式） === */}
         {recommendation && (
           <div

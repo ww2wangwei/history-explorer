@@ -335,7 +335,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         newPathId="ladder"
       />
 
-      <div className="max-w-5xl mx-auto px-6 py-4">
+      <div className="px-4 sm:px-8 py-4">
         {/* === 3. Hero CTA（当前推荐 · 卷轴式） === */}
         {recommendation && (
           <div

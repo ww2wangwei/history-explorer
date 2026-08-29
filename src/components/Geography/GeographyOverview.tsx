@@ -5,23 +5,48 @@
  *   - 🏛️ 疆域变迁：来自 public/geo/world/eras/*.geojson + public/geo/china/*.geojson
  *     + 顶部全史时间轴 + 每张卡 SVG 缩略图
  */
-import { useEffect, useMemo, useRef, useState, memo } from 'react'
+import { useEffect, useMemo, useRef, useState, memo, Suspense, lazy, useCallback } from 'react'
 import gsap from 'gsap'
 import { ALL_GEO_FEATURES, type GeoFeature, type GeoFeatureType } from '@/data/geographic-features'
 import { OCEAN_LABELS } from '@/data/oceans'
 import erasData from '@/data/eras.json'
 import MiniMap from '@/components/Figures/MiniMap'
-import TerritoryMapThumb, { type LabelPoint } from './TerritoryMapThumb'
+import TerritoryMapThumb from './TerritoryMapThumb'
 import MarkdownText from './MarkdownText'
 import OverviewLayout from '@/components/ui/OverviewLayout'
-import { TERRITORY_PROVINCES, getProvincesForTerritory, type Province } from '@/data/china-provinces'
-import { EMPIRE_COUNTRIES, COUNTRIES, getCountriesForEmpire } from '@/data/empire-countries'
+import { TERRITORY_FILES, type TerritoryFile } from '@/data/territory-files'
+import { PROVINCES_BY_ID, COUNTRIES_BY_ID, ERA_CENTERS } from '@/data/era-centers'
 import { useStaggerEntrance } from '@/hooks/useStaggerEntrance'
 import { useJumpToMap } from '@/hooks/useJumpToMap'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import type { Era } from '@/types'
 
+/**
+ * 🪶 详情弹窗按需加载：把整个 TerritoryDetailModal（含 react-simple-maps,
+ * react-markdown, remark-gfm 等重依赖）打成独立 chunk。
+ * 点击瞬间：先显示外壳（带骨架内容），下一帧 chunk 加载完替换为完整弹窗。
+ * 用户感知：弹窗"立刻打开"，重内容稍后到位。
+ */
+const TerritoryDetailModal = lazy(() => import('./TerritoryDetailModal'))
+
 const eras = erasData as Era[]
+
+/**
+ * ⚡ 模块级查找表 — 让 TerritoryCard 的 props 完全稳定。
+ *
+ * 之前每次点击朝代触发 selectedTerritory 变化时，GeographyOverview 整树 reconcile，
+ * 24 张卡的 memo 因 props 引用变化而失效，全部重新执行 TerritoryMapThumb 的 useMemo。
+ * 即使 path 缓存让 d3-geo 计算 = 0ms，浏览器还是要 reconcile 6500+ 个 <path> 的 d 属性。
+ *
+ * 现在把 f / era 派生数据放到模块级 Map，TerritoryCard 只接收 territoryId + onClick 两个
+ * 稳定 props。点击瞬间其他 23 张卡完全跳过 React 渲染。
+ */
+const TERRITORY_FILES_BY_ID: Record<string, TerritoryFile> = {}
+const ERA_BY_ID: Record<string, Era | undefined> = {}
+for (const f of TERRITORY_FILES) {
+  TERRITORY_FILES_BY_ID[f.id] = f
+  ERA_BY_ID[f.id] = eras.find(e => e.id === f.id)
+}
 
 const ALL_FEATURES: GeoFeature[] = [
   ...ALL_GEO_FEATURES.seas,
@@ -40,52 +65,6 @@ interface Props {
 }
 
 type Tab = 'nature' | 'territory'
-
-interface TerritoryFile {
-  id: string
-  /** GeoJSON 文件名（与 id 不一定一致。例如 id='han-west' 但 GeoJSON 文件叫 'han.geojson'） */
-  geoFile?: string
-  region: 'china' | 'world'
-  label: string
-  /** 鼎盛期（用于卡片标题显示） */
-  peakYear?: number
-  /** 卡片显示的简短描述 */
-  shortDesc?: string
-  /** 疆域主色（高对比，避免 era.color 太暗看不见） */
-  fallbackColor?: string
-}
-
-const TERRITORY_FILES: TerritoryFile[] = [
-  // 中国朝代（按时间顺序）— 全部用 GeoJSON 渲染（见 public/geo/china/*.geojson）
-  // 没有专门 geojson 的朝代用 geoFile 指向最接近的现有文件
-  { id: 'spring-autumn', region: 'china', geoFile: 'qin',   label: '中国', peakYear: -500, shortDesc: '春秋战国：百家争鸣，礼崩乐坏',         fallbackColor: '#a07030' },
-  { id: 'qin',          region: 'china', label: '中国', peakYear: -210, shortDesc: '首次大一统：统一文字、度量衡、车轨',            fallbackColor: '#d4a44a' },
-  { id: 'han-west',     region: 'china', geoFile: 'han',   label: '中国', peakYear: 1, shortDesc: '北击匈奴、通西域，丝绸之路开通',          fallbackColor: '#c69a5b' },
-  { id: 'han-east',     region: 'china', geoFile: 'han',   label: '中国', peakYear: 120, shortDesc: '东汉：光武中兴，班超通西域',                fallbackColor: '#b88a4b' },
-  { id: 'three-kingdoms', region: 'china', geoFile: 'han', label: '中国', peakYear: 250, shortDesc: '三国鼎立：魏蜀吴争霸',                          fallbackColor: '#a67a3b' },
-  { id: 'jin-west',     region: 'china', geoFile: 'han',   label: '中国', peakYear: 290, shortDesc: '西晋：短暂统一，八王之乱',                  fallbackColor: '#9b6a2b' },
-  { id: 'southern-northern', region: 'china', geoFile: 'tang', label: '中国', peakYear: 500, shortDesc: '南北朝：南北对峙，文化交融',                fallbackColor: '#8a5a1b' },
-  { id: 'sui',          region: 'china', geoFile: 'tang',  label: '中国', peakYear: 600, shortDesc: '隋朝：结束分裂，开皇之治，大运河',           fallbackColor: '#d47020' },
-  { id: 'tang',         region: 'china', label: '中国', peakYear: 710,  shortDesc: '东亚文化中心版图达极盛',                       fallbackColor: '#e07a3a' },
-  { id: 'five-dynasties', region: 'china', geoFile: 'tang', label: '中国', peakYear: 940, shortDesc: '五代十国：分裂割据',                            fallbackColor: '#c66020' },
-  { id: 'song-north',   region: 'china', geoFile: 'song',  label: '中国', peakYear: 1080, shortDesc: '北方收缩，但经济文化达到巅峰',         fallbackColor: '#7e8ec1' },
-  { id: 'song-south',   region: 'china', geoFile: 'song',  label: '中国', peakYear: 1200, shortDesc: '南宋：偏安江南，经济重心南移',                fallbackColor: '#6e7eb1' },
-  { id: 'yuan',         region: 'china', geoFile: 'yuan',  label: '中国', peakYear: 1280, shortDesc: '蒙古大帝国下的中国，行省制',                  fallbackColor: '#a04a8a' },
-  { id: 'ming',         region: 'china', label: '中国', peakYear: 1420, shortDesc: '永乐迁都北京，七下西洋',                       fallbackColor: '#c8584a' },
-  { id: 'qing',         region: 'china', label: '中国', peakYear: 1780, shortDesc: '极盛期版图北抵西伯利亚、南括中印半岛',         fallbackColor: '#3e9a76' },
-  // 世界帝国（见 public/geo/world/eras/*.geojson）
-  { id: 'achaemenid',   region: 'world', geoFile: 'persia-safavid', label: '世界', peakYear: -500, shortDesc: '波斯阿契美尼德帝国：从爱琴海到印度河',  fallbackColor: '#9a4a3a' },
-  { id: 'macedonia-empire', region: 'world', geoFile: 'rome-empire', label: '世界', peakYear: -325, shortDesc: '亚历山大大帝帝国：希腊至印度',                fallbackColor: '#8a5a2a' },
-  { id: 'rome-republic',region: 'world', label: '世界', peakYear: -50,  shortDesc: '罗马共和国击败迦太基，地中海西部霸主',          fallbackColor: '#a8473e' },
-  { id: 'rome-empire',  region: 'world', label: '世界', peakYear: 117,  shortDesc: '图拉真鼎盛期：版图含达契亚、亚美尼亚',         fallbackColor: '#a8473e' },
-  { id: 'byzantine',    region: 'world', label: '世界', peakYear: 555,  shortDesc: '查士丁尼复兴：收复意大利、北非西部',            fallbackColor: '#5d3a8a' },
-  { id: 'arab-caliphate', region: 'world', label: '世界', peakYear: 850, shortDesc: '阿拔斯王朝：横跨伊比利亚至中亚',                fallbackColor: '#2c8a4a' },
-  { id: 'mongol-empire',region: 'world', label: '世界', peakYear: 1290, shortDesc: '人类史上最大陆上帝国',                            fallbackColor: '#5a3a2a' },
-  { id: 'ottoman',      region: 'world', label: '世界', peakYear: 1580, shortDesc: '横跨欧亚非三洲，苏莱曼大帝',                  fallbackColor: '#3a8a5a' },
-  { id: 'persia-safavid', region: 'world', label: '世界', peakYear: 1620, shortDesc: '波斯黄金时代，萨法维中兴',                       fallbackColor: '#8a3a3a' },
-  { id: 'mughal',       region: 'world', geoFile: 'arab-caliphate', label: '世界', peakYear: 1700, shortDesc: '莫卧儿帝国：印度次大陆',                          fallbackColor: '#a87a3a' },
-  { id: 'british-empire', region: 'world', label: '世界', peakYear: 1900, shortDesc: '号称"日不落"，全球海洋霸主（示意边界）',            fallbackColor: '#b04838' },
-]
 
 const FEATURE_LABELS: Record<GeoFeatureType, { icon: string; label: string; color: string }> = {
   sea: { icon: '🌊', label: '海洋/海湾', color: '#5b9bc8' },
@@ -160,58 +139,128 @@ export default function GeographyOverview({ isActive, onClose }: Props) {
     }, 0)
     return () => clearTimeout(timer)
   }, [isActive])
-  // 各朝代加载的 GeoJSON（key = `${id}`，value = FeatureCollection）
-  const [territoryGeojsons, setTerritoryGeojsons] = useState<Record<string, any>>({})
-  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({})
+  // 各朝代加载的 GeoJSON（key = `${id}`，value = FeatureCollection）— 移到 store
+  // 让每张卡用 selector 单独订阅该 id，未变化的 23 张卡完全跳过 React 渲染。
+  // 之前用 React useState 时，所有卡片都共享一个 state，每次 setState 触发 24 张卡 memo 失效。
+  const setTerritoryGeojson = useHistoryStore(s => s.setTerritoryGeojson)
+  const territoryGeojsons = useHistoryStore(s => s.territoryGeojsons)
 
   const setYear = useHistoryStore(s => s.setYear)
   const jumpToMap = useJumpToMap()
 
-// 朝代/文明的近似中心坐标（用于疆域弹窗的缩略图）—— 模块级常量，避免每次渲染重建
-const ERA_CENTERS: Record<string, [number, number]> = {
-    'qin': [108.94, 34.34], 'han': [108.94, 34.34], 'tang': [108.94, 34.34],
-    'song': [114.3, 30.6], 'yuan': [116.4, 39.9], 'ming': [116.4, 39.9], 'qing': [116.4, 39.9],
-    'spring-autumn': [108.94, 34.34], 'han-east': [112, 34], 'three-kingdoms': [112, 32],
-    'jin-west': [112, 33], 'southern-northern': [113, 33], 'sui': [113, 34],
-    'five-dynasties': [114, 33], 'song-south': [120, 30],
-    'rome-republic': [12.5, 41.9], 'rome-empire': [12.5, 41.9],
-    'byzantine': [28.98, 41.01], 'arab-caliphate': [44.42, 32.54],
-    'ottoman': [28.98, 41.01], 'mongol-empire': [106.92, 47.92],
-    'persia-safavid': [51.42, 35.69], 'british-empire': [-0.13, 51.51],
-    'achaemenid': [51.42, 35.69], 'macedonia-empire': [25, 38], 'mughal': [78, 27],
-}
+  // 📌 ref 保存最新 selectedTerritory — 让 useCallback 内能读最新值
+  const lastSelectedTerritoryRef = useRef<{ id: string; region: 'china' | 'world'; era?: Era } | null>(null)
+  useEffect(() => { lastSelectedTerritoryRef.current = selectedTerritory }, [selectedTerritory])
 
-// 模块级：每个朝代/帝国对应的省份/国家列表（一次计算，永不重算）
-const PROVINCES_BY_ID: Record<string, Province[]> = {}
-const COUNTRIES_BY_ID: Record<string, LabelPoint[]> = {}
-for (const f of TERRITORY_FILES) {
-    PROVINCES_BY_ID[f.id] = f.region === 'china' ? getProvincesForTerritory(f.id) : []
-    COUNTRIES_BY_ID[f.id] = f.region === 'world' ? getCountriesForEmpire(f.id) : []
+  // ⚡ 稳定引用 — 让所有 TerritoryCard 的 onClick prop 引用不变化
+  const handleCardClick = useCallback((id: string) => {
+    const f = TERRITORY_FILES_BY_ID[id]
+    if (!f) return
+    setSelectedTerritory({ id: f.id, region: f.region, era: ERA_BY_ID[id] })
+  }, [])
+
+  // ⚡ 稳定引用 — 让弹窗 props 不变化，避免 memo 失效触发 1.7MB SVG 重渲
+  const handleCloseModal = useCallback(() => setSelectedTerritory(null), [])
+  const handleJumpFromModal = useCallback((center: [number, number], year: number, label: string) => {
+    const last = lastSelectedTerritoryRef.current
+    if (last) {
+      jumpToMap(center, label, 4, {
+        reopenLabel: label,
+        territoryId: last.id,
+        territoryRegion: last.region,
+      })
+    } else {
+      jumpToMap(center, label, 4)
+    }
+    setYear(year)
+    setSelectedTerritory(null)
+  }, [jumpToMap, setYear])
+
+// 朝代/文明的近似中心坐标（用于疆域弹窗的缩略图）—— 模块级常量，避免每次渲染重建
+// （已抽到 @/data/era-centers 共享给 TerritoryDetailModal）
+
+/**
+ * 🪶 TerritoryModalShell — 弹窗外壳（Suspense fallback）
+ *
+ * 性能考量：点击朝代卡时，TerritoryDetailModal 是 lazy 加载（独立 chunk）。
+ * 在 chunk 下载 + 解析完成前，Suspense 会显示这个 fallback。
+ * 它只渲染一个浅骨架（标题+关闭按钮+一个色带），整树只有几十个节点，
+ * 渲染耗时 < 5ms。用户感知"弹窗立刻打开"，重内容随后到位。
+ */
+interface TerritoryModalShellProps {
+  territoryId: string
+  era?: Era
+  onClose: () => void
+}
+function TerritoryModalShell({ territoryId, era, onClose }: TerritoryModalShellProps) {
+  const tf = TERRITORY_FILES.find(f => f.id === territoryId)
+  const fallbackColor = tf?.fallbackColor ?? era?.color ?? '#5b9bc8'
+  const title = era?.name ?? territoryId
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-hidden bg-ink-800 rounded-lg border border-emerald-700/40 shadow-2xl"
+        role="dialog"
+        aria-modal="true"
+        aria-label="疆域详情（加载中）"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="h-2 rounded-t-lg" style={{ background: fallbackColor }} />
+        <div className="px-6 py-4 border-b border-emerald-700/30 flex items-center justify-between">
+          <div>
+            <div className="text-xs text-ink-300 mb-1">🏛️ 疆域变迁 · 加载中…</div>
+            <h3 className="text-xl font-serif text-emerald-300">{title}</h3>
+          </div>
+          <button
+            onClick={onClose}
+            className="text-ink-300 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700"
+          >
+            ×
+          </button>
+        </div>
+        <div className="p-6 space-y-3 animate-pulse">
+          <div className="h-4 bg-ink-700/50 rounded w-full" />
+          <div className="h-4 bg-ink-700/50 rounded w-5/6" />
+          <div className="h-4 bg-ink-700/50 rounded w-3/4" />
+        </div>
+      </div>
+    </div>
+  )
 }
 
 // 单张朝代卡片，React.memo 包裹：上层 state（如 timelineCollapsed）变化时不重渲染整张卡
+//
+// ⚡ 性能关键：所有 props 必须是稳定引用！
+// - territoryId: string（父组件 map 时模板字符串，稳定）
+// - onClick: useCallback 包装的稳定函数
+// 卡片内部从模块级 Map + zustand selector 取数据，selectedTerritory 变化时其他 23 张卡完全跳过。
 interface TerritoryCardProps {
-  f: TerritoryFile
-  era: any
-  geojson: any
-  eraColor: string
-  onClick: () => void
-  onMountRef: (el: HTMLDivElement | null) => void
+  territoryId: string
+  onClick: (id: string) => void
 }
-function TerritoryCardInner({ f, era, geojson, eraColor, onClick, onMountRef }: TerritoryCardProps) {
+function TerritoryCardInner({ territoryId, onClick }: TerritoryCardProps) {
+  // ⚡ 闭包内派生所有需要的数据（避免 props 引用变化）
+  const f = TERRITORY_FILES_BY_ID[territoryId]
+  const era = ERA_BY_ID[territoryId]
+  // ⚡ selector 只订阅该 id 的 geojson；其他卡片的 geojson 变化不会触发本卡 re-render
+  const geojson = useHistoryStore((s) => s.territoryGeojsons[territoryId])
+  const eraColor = f.fallbackColor ?? era?.color ?? '#888'
   const peakLabel = f.peakYear != null
     ? (f.peakYear < 0 ? `BC ${-f.peakYear}` : `${f.peakYear}`)
     : null
   return (
     <div
-      ref={onMountRef}
+      id={`territory-card-${territoryId}`}
       className="text-left rounded-lg overflow-hidden border border-ink-600 bg-ink-800/60 hover:border-emerald-500/60 hover:bg-ink-700/60 transition-all group cursor-pointer"
       style={{
         borderLeftWidth: '3px',
         borderLeftColor: eraColor,
         scrollMarginTop: '320px',
       }}
-      onClick={onClick}
+      onClick={() => onClick(territoryId)}
     >
       <div className="relative w-full bg-ink-900/40" style={{ aspectRatio: '16/9' }}>
         {geojson ? (
@@ -223,6 +272,7 @@ function TerritoryCardInner({ f, era, geojson, eraColor, onClick, onMountRef }: 
             center={ERA_CENTERS[f.id]}
             label={era?.name ?? f.id}
             provinces={f.region === 'china' ? PROVINCES_BY_ID[f.id] : COUNTRIES_BY_ID[f.id]}
+            cacheId={`${f.id}-thumb`}
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-ink-300 text-xs">
@@ -360,7 +410,7 @@ const NatureCard = memo(NatureCardInner)
     return () => { gsap.killTweensOf(bars) }
   }, [tab])
 
-  // 切换到疆域变迁 tab 时，批量加载所有 GeoJSON
+  // 切换到疆域变迁 tab 时，批量加载所有 GeoJSON（写入 store，让单卡片订阅）
   useEffect(() => {
     if (tab !== 'territory') return
     const toLoad = TERRITORY_FILES.filter(f => !territoryGeojsons[f.id])
@@ -383,13 +433,22 @@ const NatureCard = memo(NatureCardInner)
       })
     ).then(results => {
       if (cancelled) return
-      setTerritoryGeojsons(prev => {
-        const next = { ...prev }
-        for (const r of results) if (r.data) next[r.id] = r.data
-        return next
-      })
+      // ⚡ 写入 store，每个 id 单独 setState，只有订阅该 id 的卡片 re-render
+      for (const r of results) if (r.data) setTerritoryGeojson(r.id, r.data)
     })
     return () => { cancelled = true }
+  }, [tab])
+
+  // 🌍 预加载世界底图（world-atlas 50m）— 切到 territory tab 就启动，避免点开弹窗时
+  // 才下载 + 解析 + 触发几十次 d3-geo projection 导致首帧卡顿。
+  // 注意：TerritoryMapThumb 模块内已缓存 promise，这里只是提前发起 import。
+  // 导入动态 chunk 会在浏览器空闲时执行，本身不阻塞渲染。
+  useEffect(() => {
+    if (tab !== 'territory') return
+    // 触发 promise，不 await；保留返回值引用让浏览器能继续调度微任务
+    import('world-atlas/countries-50m.json').catch(() => {
+      /* 静默失败：TerritoryMapThumb 内部有兜底逻辑 */
+    })
   }, [tab])
 
   useEffect(() => {
@@ -452,7 +511,7 @@ const NatureCard = memo(NatureCardInner)
 
   /** 滚动到指定朝代卡片 — 用 'start' 让目标卡片滚到 sticky header 下方，避免被遮挡 */
   const scrollToTerritory = (id: string) => {
-    const el = cardRefs.current[id]
+    const el = document.getElementById(`territory-card-${id}`)
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
@@ -640,24 +699,15 @@ const NatureCard = memo(NatureCardInner)
               ))}
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3">
-              {TERRITORY_FILES.filter(f => territoryRegion === 'all' || f.region === territoryRegion).map(f => {
-                const era = eras.find(e => e.id === f.id)
-                const geojson = territoryGeojsons[f.id]
-                // 优先用人工精选的高对比 fallbackColor（如秦朝 era.color=#3a3a3a 太暗看不见），
-                // 其次 era.color，最后兜底 #888
-                const eraColor = f.fallbackColor ?? era?.color ?? '#888'
-                return (
-                  <TerritoryCard
-                    key={f.id}
-                    f={f}
-                    era={era}
-                    geojson={geojson}
-                    eraColor={eraColor}
-                    onClick={() => setSelectedTerritory({ id: f.id, region: f.region, era })}
-                    onMountRef={(el) => { cardRefs.current[f.id] = el }}
-                  />
-                )
-              })}
+              {TERRITORY_FILES.filter(f => territoryRegion === 'all' || f.region === territoryRegion).map(f => (
+                // ⚡ TerritoryCard 只接 territoryId + onClick 两个稳定 props。
+                // 卡片内部用 selector 订阅自己的 geojson，未变化的 23 张卡完全跳过渲染。
+                <TerritoryCard
+                  key={f.id}
+                  territoryId={f.id}
+                  onClick={handleCardClick}
+                />
+              ))}
             </div>
           </>
         )}
@@ -771,221 +821,22 @@ const NatureCard = memo(NatureCardInner)
         </div>
       )}
 
-      {/* 疆域详情弹窗 */}
+      {/* 疆域详情弹窗 — lazy 加载，点击瞬间先显示外壳骨架，chunk 到位后替换 */}
       {selectedTerritory && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-ink-900/85 backdrop-blur p-4"
-          onClick={() => setSelectedTerritory(null)}
-        >
-          <div
-            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto scrollbar-thin bg-ink-800 rounded-lg border border-emerald-700/40 shadow-2xl"
-            role="dialog"
-            aria-modal="true"
-            aria-label="地理详情"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* 朝代色带 */}
-            {selectedTerritory.era && (
-              <div
-                className="h-2 rounded-t-lg"
-                style={{
-                  background: TERRITORY_FILES.find(f => f.id === selectedTerritory.id)?.fallbackColor ?? selectedTerritory.era.color,
-                }}
-              />
-            )}
-
-            <div className="px-6 py-4 border-b border-emerald-700/30 flex items-center justify-between">
-              <div>
-                <div className="text-xs text-ink-300 mb-1">
-                  🏛️ 疆域变迁 · {selectedTerritory.region === 'china' ? '🇨🇳 中国' : '🌍 世界'}
-                </div>
-                <h3 className="text-xl font-serif text-emerald-300">
-                  {selectedTerritory.era?.name ?? selectedTerritory.id}
-                </h3>
-                {selectedTerritory.era && (
-                  <div className="text-xs text-ink-400 mt-0.5 tabular-nums">
-                    {selectedTerritory.era.startYear < 0 ? `BC ${-selectedTerritory.era.startYear}` : selectedTerritory.era.startYear} ~ {selectedTerritory.era.endYear < 0 ? `BC ${-selectedTerritory.era.endYear}` : selectedTerritory.era.endYear}
-                  </div>
-                )}
-              </div>
-              <button
-                onClick={() => setSelectedTerritory(null)}
-                className="text-ink-300 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700"
-              >
-                ×
-              </button>
-            </div>
-            <div className="p-6 space-y-4 text-sm">
-              {/* 🗺️ 大疆域地图（弹窗专用 — 用户实际最关心的视图） */}
-              {territoryGeojsons[selectedTerritory.id] ? (
-                <div className="rounded-lg overflow-hidden border border-emerald-700/40 bg-ink-900/40">
-                  <TerritoryMapThumb
-                    geojson={territoryGeojsons[selectedTerritory.id]}
-                    fallbackColor={TERRITORY_FILES.find(f => f.id === selectedTerritory.id)?.fallbackColor ?? selectedTerritory.era?.color ?? '#5b9bc8'}
-                    className="w-full h-auto"
-                    alt={`${selectedTerritory.id} 详细疆域图`}
-                    center={ERA_CENTERS[selectedTerritory.id]}
-                    label={selectedTerritory.era?.name ?? selectedTerritory.id}
-                    provinces={selectedTerritory.region === 'china' ? PROVINCES_BY_ID[selectedTerritory.id] : COUNTRIES_BY_ID[selectedTerritory.id]}
-                  />
-                </div>
-              ) : (
-                <div className="h-32 flex items-center justify-center text-xs text-ink-300 bg-ink-900/30 rounded">
-                  暂无边界数据
-                </div>
-              )}
-
-              {/* 一句话概述 */}
-              {selectedTerritory.era?.shortDesc && (
-                <div className="text-parchment-50 leading-relaxed italic border-l-2 border-emerald-500/50 pl-3">
-                  <MarkdownText content={selectedTerritory.era.shortDesc} />
-                </div>
-              )}
-
-              {/* 完整介绍 */}
-              {selectedTerritory.era?.description && (
-                <div>
-                  <div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">📜 详细介绍</div>
-                  <div className="text-parchment-50 leading-relaxed">
-                    <MarkdownText content={selectedTerritory.era.description} />
-                  </div>
-                </div>
-              )}
-
-              {/* 核心要点 */}
-              {selectedTerritory.era?.keyPoints && selectedTerritory.era.keyPoints.length > 0 && (
-                <div>
-                  <div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">🎯 核心要点</div>
-                  <ul className="space-y-1">
-                    {selectedTerritory.era.keyPoints.map((kp, i) => (
-                        <li key={i} className="flex items-start gap-2 text-parchment-50">
-                          <span className="text-emerald-400 mt-0.5">•</span>
-                          <span><MarkdownText content={kp} /></span>
-                        </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {/* 关键事件 */}
-              {selectedTerritory.era?.quickEvents && selectedTerritory.era.quickEvents.length > 0 && (
-                <div>
-                  <div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">⚡ 关键事件</div>
-                  <div className="space-y-2">
-                    {selectedTerritory.era.quickEvents.map((ev, i) => (
-                      <div key={i} className="flex gap-3 items-start">
-                        <div className="text-xs text-emerald-300 tabular-nums whitespace-nowrap mt-0.5">
-                          {ev.year < 0 ? `BC ${-ev.year}` : ev.year}
-                        </div>
-                        <div>
-                          <div className="text-parchment-50"><MarkdownText content={ev.title} /></div>
-                          <div className="text-[11px] text-ink-300 mt-0.5"><MarkdownText content={ev.desc} /></div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* 历史意义 */}
-              {selectedTerritory.era?.legacy && (
-                <div>
-                  <div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">🌟 历史意义</div>
-                  <div className="text-parchment-50 leading-relaxed">
-                    <MarkdownText content={selectedTerritory.era.legacy} />
-                  </div>
-                </div>
-              )}
-
-              {/* 对应现代省份/地区（中国朝代时） */}
-              {selectedTerritory.region === 'china' && TERRITORY_PROVINCES[selectedTerritory.id] && (
-                <div>
-                  <div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">📍 对应现代省/地区</div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {TERRITORY_PROVINCES[selectedTerritory.id].map(name => (
-                      <span key={name} className="text-xs px-2 py-0.5 rounded bg-ink-800 border border-ink-600 text-parchment-200">
-                        {name}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* 对应覆盖的现代国家（世界帝国时） */}
-              {selectedTerritory.region === 'world' && EMPIRE_COUNTRIES[selectedTerritory.id] && (
-                <div>
-                  <div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">🌍 对应覆盖的现代国家</div>
-                  <div className="flex flex-wrap gap-1.5">
-                    {EMPIRE_COUNTRIES[selectedTerritory.id].map(name => {
-                      const cn = COUNTRIES[name]?.name ?? name
-                      return (
-                        <span key={name} className="text-xs px-2 py-0.5 rounded bg-ink-800 border border-ink-600 text-parchment-200">
-                          {cn}
-                        </span>
-                      )
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {/* 疆域缩略地图 */}
-              <div>
-                <div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">🗺️ 都城/中心位置</div>
-                {(() => {
-                  const center = ERA_CENTERS[selectedTerritory.id] ?? (
-                    selectedTerritory.region === 'china' ? [108.94, 34.34] : [0, 30]
-                  ) as [number, number]
-                  const title = selectedTerritory.era?.name ?? selectedTerritory.id
-                  const year = selectedTerritory.era
-                    ? Math.round((selectedTerritory.era.startYear + selectedTerritory.era.endYear) / 2)
-                    : 0
-                  return (
-                    <>
-                      <MiniMap
-                        focusNode={{
-                          title,
-                          year,
-                          location: title,
-                          importance: 3,
-                          coordinates: center,
-                        }}
-                        allNodes={[{
-                          title,
-                          year,
-                          location: title,
-                          importance: 3,
-                          coordinates: center,
-                        }]}
-                        onJumpToMap={() => {
-                          jumpToMap(center, title, 4, {
-                            reopenLabel: title,
-                            territoryId: selectedTerritory.id,
-                            territoryRegion: selectedTerritory.region,
-                          })
-                          setYear(year)
-                          setSelectedTerritory(null)
-                        }}
-                      />
-                      <div className="text-xs text-ink-400 tabular-nums mt-2">
-                        经度 {center[0].toFixed(2)}°, 纬度 {center[1].toFixed(2)}°
-                      </div>
-                    </>
-                  )
-                })()}
-              </div>
-
-              <div>
-                <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">🗺️ 数据源</div>
-                <div className="text-xs text-ink-400 font-mono break-all">
-                  geo/{selectedTerritory.region === 'china' ? 'china' : 'world/eras'}/{TERRITORY_FILES.find(f => f.id === selectedTerritory.id)?.geoFile ?? selectedTerritory.id}.geojson
-                </div>
-              </div>
-              <div className="text-xs text-ink-300 italic pt-2 border-t border-ink-700">
-                💡 在主地图视图（顶栏"🗺️ 地图"）点击该朝代查看疆域渲染
-              </div>
-            </div>
-          </div>
-        </div>
+        <Suspense fallback={<TerritoryModalShell
+          territoryId={selectedTerritory.id}
+          era={selectedTerritory.era}
+          onClose={handleCloseModal}
+        />}>
+          <TerritoryDetailModal
+            territoryId={selectedTerritory.id}
+            region={selectedTerritory.region}
+            era={selectedTerritory.era}
+            geojson={territoryGeojsons[selectedTerritory.id]}
+            onClose={handleCloseModal}
+            onJumpToMap={handleJumpFromModal}
+          />
+        </Suspense>
       )}
 
       </>

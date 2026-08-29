@@ -30,6 +30,8 @@ interface Props {
   label?: string
   /** 中国朝代时叠加的省/地区标签点（省会坐标+名），仅 empire bbox 范围内的显示 */
   provinces?: LabelPoint[]
+  /** 朝代/帝国 id（用于 path 缓存；同一 id 不同尺寸会分别缓存） */
+  cacheId?: string
 }
 
 /** GeoJSON bbox 计算 */
@@ -79,6 +81,58 @@ function getWorldGeo(): Promise<FeatureCollection | null> {
   return worldPromise
 }
 
+/**
+ * 🗄️ 模块级 path 缓存 — 解决"点开弹窗卡顿"的根因。
+ *
+ * 每次点击朝代时 React 重渲 → TerritoryMapThumb 的 useMemo 会因为 props 引用变化
+ * 重新跑 d3-geo fitExtent + 几十次 geoPath(f)。
+ * 但实际上：
+ *   - 同一 empire 的 geojson 内容是不变的（一次 fetch 后存进 state）
+ *   - 缩略图 width/height 都是默认值（400×225）
+ *   - 弹窗里 width/height 也是稳定的（600×338）
+ *   - worldGeo 一旦加载完，引用永远不变
+ *   - center/provinces 由模块级常量提供，引用稳定
+ *
+ * 因此 projection + path 字符串完全可以缓存。命中后整个 useMemo 的 d3 计算 = 0ms。
+ *
+ * Cache key 设计：用每个朝代 id + 世界底图标记 + 尺寸 + center。
+ * 调用方传入 stableId（朝代 id，如 'qin'），避免对 geojson 做内容哈希（要遍历几千个坐标点）。
+ */
+type CacheKey = string
+interface CacheEntry {
+  worldPaths: string[]
+  empirePaths: string[]
+  empireColor: string
+  continentLabels: { name: string; x: number; y: number }[]
+  centerPt: { x: number; y: number } | null
+  labelPt: { x: number; y: number } | null
+  provincePts: { name: string; x: number; y: number }[]
+  bbox: [[number, number], [number, number]] | null
+}
+const projectionCache = new Map<CacheKey, CacheEntry>()
+const MAX_CACHE = 96
+
+/** 朝代 geojson 引用计数缓存（保证重复调用 getOrCompute 时直接命中） */
+function buildCacheKey(
+  stableId: string | undefined,
+  hasWorld: boolean,
+  width: number,
+  height: number,
+  center: [number, number] | undefined,
+  provincesCount: number,
+  fallbackColor: string,
+): CacheKey {
+  return [
+    stableId ?? '__noId__',
+    hasWorld ? 'W' : 'nW',
+    width,
+    height,
+    center ? `${center[0].toFixed(3)},${center[1].toFixed(3)}` : '',
+    provincesCount,
+    fallbackColor,
+  ].join('|')
+}
+
 function TerritoryMapThumbInner({
   geojson,
   width = 400,
@@ -89,6 +143,8 @@ function TerritoryMapThumbInner({
   center,
   label,
   provinces,
+  /** 朝代/帝国 id，作为 path 缓存的稳定 key。传入同一 id 时命中缓存，跳过 d3-geo。 */
+  cacheId,
 }: Props) {
   return (
     <GeoJsonSvg
@@ -101,6 +157,7 @@ function TerritoryMapThumbInner({
       center={center}
       label={label}
       provinces={provinces}
+      cacheId={cacheId}
     />
   )
 }
@@ -112,7 +169,7 @@ export default TerritoryMapThumb
 /** 当有 geojson 时画一个紧凑 SVG（无外部图片时 fallback） */
 function GeoJsonSvg({
   geojson, width = 400, height = 225, fallbackColor, className = '', alt,
-  center, label, provinces,
+  center, label, provinces, cacheId,
 }: {
   geojson?: FeatureCollection | null
   width?: number
@@ -123,10 +180,35 @@ function GeoJsonSvg({
   center?: [number, number]
   label?: string
   provinces?: LabelPoint[]
+  cacheId?: string
 }) {
   const [worldGeo, setWorldGeo] = useState<FeatureCollection | null>(null)
   useEffect(() => { getWorldGeo().then(g => { if (g) setWorldGeo(g) }) }, [])
+  // ⚡ cache key: 用 cacheId（朝代 id）而不是 geojson 引用，引用稳定性无关
+  const cacheKey = buildCacheKey(
+    cacheId,
+    !!worldGeo,
+    width,
+    height,
+    center,
+    provinces?.length ?? 0,
+    fallbackColor ?? '',
+  )
   const { worldPaths, empirePaths, empireColor, continentLabels, centerPt, labelPt, provincePts } = useMemo(() => {
+    // ⚡ 命中缓存：直接拿 path 字符串，0ms
+    const cached = projectionCache.get(cacheKey)
+    if (cached) {
+      return {
+        worldPaths: cached.worldPaths,
+        empirePaths: cached.empirePaths,
+        empireColor: cached.empireColor,
+        continentLabels: cached.continentLabels,
+        centerPt: cached.centerPt,
+        labelPt: cached.labelPt,
+        provincePts: cached.provincePts,
+      }
+    }
+
     const features = (geojson?.features || []) as Feature<Geometry, any>[]
     const color = fallbackColor || (features[0]?.properties?.color as string) || '#5b9bc8'
     const bbox = computeBbox(features)
@@ -170,17 +252,31 @@ function GeoJsonSvg({
     const pPts: { name: string; x: number; y: number }[] = []
     if (provinces) {
       for (const p of provinces) {
-        // 不做 bbox 过滤，让所有传入的省份/国家都显示。
-// 理由：精细 geojson 的 bbox 可能略小于"应涵盖"范围（如栅格化后边缘缩进），
-// 过滤反而会把朝代应涵盖的省份（如越南/蒙古）挡在地图外。投影后的点若不在画面内会被自然裁掉。
-        // if (p.lon < bbox[0][0] || p.lat < bbox[0][1] || p.lon > bbox[1][0] || p.lat > bbox[1][1]) continue
         const pp = projection([p.lon, p.lat])
         if (pp && isFinite(pp[0]) && isFinite(pp[1])) pPts.push({ name: p.name, x: pp[0], y: pp[1] })
       }
     }
 
+    // 💾 写入缓存（容量上限保护）
+    if (projectionCache.size >= MAX_CACHE) {
+      // 删除最早插入的（Map 保插入顺序）
+      const firstKey = projectionCache.keys().next().value
+      if (firstKey !== undefined) projectionCache.delete(firstKey)
+    }
+    projectionCache.set(cacheKey, {
+      worldPaths: wPaths,
+      empirePaths: ePaths,
+      empireColor: color,
+      continentLabels: labels,
+      centerPt: cPt,
+      labelPt: lPt,
+      provincePts: pPts,
+      bbox,
+    })
+
     return { worldPaths: wPaths, empirePaths: ePaths, empireColor: color, continentLabels: labels, centerPt: cPt, labelPt: lPt, provincePts: pPts }
-  }, [geojson, width, height, fallbackColor, worldGeo, center, provinces])
+    // ⚡ 把 cacheKey 放第一位，命中时其他依赖项即便引用变化也无所谓
+  }, [cacheKey, geojson, worldGeo, width, height, fallbackColor, center, provinces])
 
   // 根据 empire 颜色亮度挑文字颜色（dark bg → light text）
   const textColor = '#e6dcc7' // bone

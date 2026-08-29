@@ -51,6 +51,11 @@ interface HistoryStore {
   // 朝代透明度（key=eraId, value=0~1）
   eraOpacities: Record<string, number>
 
+  // 🗺️ 疆域变迁：所有朝代的 GeoJSON（key=territoryId）— 放 store 让单卡片订阅
+  // 用 selector 订阅特定 id 后，只有该卡片 re-render，其他 23 张完全跳过。
+  territoryGeojsons: Record<string, any>
+  setTerritoryGeojson: (id: string, data: any) => void
+
   // 视图模式：地图 vs 关系图谱
   viewMode: 'map' | 'graph'
 
@@ -217,6 +222,8 @@ export const useHistoryStore = create<HistoryStore>((set) => ({
   eraOpacities: {},
   eraSelectionHistory: [],
 
+  territoryGeojsons: {},
+
   viewMode: _initialParams.viewMode,
   detailView: 'event',
 
@@ -296,6 +303,12 @@ export const useHistoryStore = create<HistoryStore>((set) => ({
   })),
 
   resetEraOpacities: () => set({ eraOpacities: {} }),
+
+  // 单朝代 GeoJSON 写入 — 只触发订阅了该 id 的组件 re-render
+  setTerritoryGeojson: (id, data) => set((s) => {
+    if (s.territoryGeojsons[id]) return s  // 已存在就不动（保持引用稳定）
+    return { territoryGeojsons: { ...s.territoryGeojsons, [id]: data } }
+  }),
 
   setViewMode: (mode) => set({ viewMode: mode }),
 

@@ -1,5 +1,6 @@
 // 中国省/直辖/自治区 省会坐标（粗略）
 // 朝代弹窗会在地图上叠加该朝代涵盖的省份圆点+名称
+import { HISTORICAL_CAPITALS, type HistoricalCapital } from './historical-capitals'
 export type Province = { name: string; lon: number; lat: number }
 
 export const CHINA_PROVINCES: Province[] = [
@@ -46,6 +47,31 @@ function baseName(s: string): string {
   return s.replace(/(北部|南部|东部|西部|中部|大部|部分)/g, '').trim()
 }
 
+/**
+ * 朝代 id → TERRITORY_PROVINCES 键的 fallback 映射。
+ *
+ * TERRITORY_PROVINCES 只存了 7 个聚合 key（qin/han/tang/song/yuan/ming/qing），
+ * 但 TERRITORY_FILES 里有 15 个中国朝代。剩余 8 个朝代（spring-autumn、han-*、
+ * three-kingdoms、jin-west、southern-northern、sui、five-dynasties、song-*）
+ * 用最近似的聚合 key 兜底。
+ *
+ * 注：这是临时近似，后续要按史实精细化每个朝代的省份列表。
+ */
+const TERRITORY_FALLBACK: Record<string, string> = {
+  'spring-autumn': 'qin',     // 春秋战国诸侯林立，疆域近似秦统一前的核心区
+  'han-west': 'han',
+  'han-east': 'han',
+  'three-kingdoms': 'han',    // 三国基本在汉末十三州内
+  'jin-west': 'han',          // 西晋接东汉，疆域相近
+  'southern-northern': 'han', // 南北朝对峙，南方沿用汉末范围
+  'sui': 'tang',              // 隋接唐前夕，疆域相似
+  'five-dynasties': 'tang',   // 五代十国沿用唐末
+  'song-north': 'song',       // 北宋
+  'song-south': 'song',       // 南宋
+}
+
+// 世界帝国 fallback 在 empire-countries.ts 的 EMPIRE_FALLBACK 中定义
+
 /** 朝代对应的现代省份/地区（基于谭其骧《中国历史地图集》粗略对应） */
 export const TERRITORY_PROVINCES: Record<string, string[]> = {
   qin: ['河北', '山西', '辽宁', '山东', '河南', '江苏北部', '安徽北部', '湖北', '陕西', '甘肃东南', '宁夏', '四川东部', '重庆', '湖南北部'],
@@ -57,9 +83,19 @@ export const TERRITORY_PROVINCES: Record<string, string[]> = {
   qing: ['北京', '天津', '河北', '山西', '内蒙古', '辽宁', '吉林', '黑龙江', '山东', '河南', '江苏', '安徽', '浙江', '福建', '江西', '湖北', '湖南', '广东', '广西', '海南', '陕西', '甘肃', '宁夏', '青海', '新疆', '四川', '重庆', '贵州', '云南', '西藏', '台湾', '蒙古'],
 }
 
-/** 朝代对应省会（含方位修饰词保留在 chip 显示上） */
+/** 朝代对应省会（含方位修饰词保留在 chip 显示上）
+ * 早期朝代（春战国、三国等）改用历史都邑（HistoricalCapital），结构兼容 Province
+ */
 export function getProvincesForTerritory(id: string): Province[] {
-  const names = TERRITORY_PROVINCES[id]
+  // 🏛️ 优先：早期朝代（春战国、三国等）没有"现代省份"概念，用历史都邑标注
+  const capitals: HistoricalCapital[] | undefined = HISTORICAL_CAPITALS[id]
+  if (capitals) return capitals as unknown as Province[]
+
+  // ⚡ fallback: id 找不到时尝试 TERRITORY_FALLBACK 映射的聚合 key
+  let names = TERRITORY_PROVINCES[id]
+  if (!names && TERRITORY_FALLBACK[id]) {
+    names = TERRITORY_PROVINCES[TERRITORY_FALLBACK[id]]
+  }
   if (!names) return []
   // 用 baseName 匹配 CHINA_PROVINCES（去方位词），但 chip 显示保留原名
   const seen = new Set<string>()

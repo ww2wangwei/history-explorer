@@ -8,6 +8,7 @@ export type CountryPoint = { name: string; en: string; lon: number; lat: number 
 // 数据来源：world-atlas countries-50m.json（每个国家用 bbox 中心近似）
 export const COUNTRIES: Record<string, CountryPoint> = {
   'Algeria': { name: '阿尔及利亚', en: 'Algeria', lon: 1.66, lat: 28.03 },
+  'Afghanistan': { name: '阿富汗', en: 'Afghanistan', lon: 67.71, lat: 33.94 },
   'Angola': { name: '安哥拉', en: 'Angola', lon: 17.57, lat: -11.2 },
   'Argentina': { name: '阿根廷', en: 'Argentina', lon: -63.62, lat: -38.42 },
   'Armenia': { name: '亚美尼亚', en: 'Armenia', lon: 44.92, lat: 40.07 },
@@ -417,11 +418,32 @@ export const EMPIRE_COUNTRIES: Record<string, string[]> = {
     'Yemen',
     'Oman',
   ],
+  // 莫卧儿帝国（AD 1526-1858，鼎盛期 1700）— 印度次大陆
+  // 注：与 british-empire 是不同历史时期、覆盖区域完全不同，不应共用 fallback
+  mughal: [
+    'India',
+    'Pakistan',
+    'Bangladesh',
+    'Nepal',
+    'Bhutan',
+    'Sri Lanka',
+    'Afghanistan',
+    // 鼎盛期短暂覆盖部分中亚
+    'Tajikistan',
+  ],
 }
 
 /** 给定帝国 id，返回 LabelPoint[]（用于在地图上叠加国家点 + 名字） */
 export function getCountriesForEmpire(id: string): LabelPoint[] {
-  const names = EMPIRE_COUNTRIES[id]
+  let names = EMPIRE_COUNTRIES[id]
+  // ⚡ fallback: 没数据的帝国用近似帝国的国家列表
+  if (!names) {
+    const FALLBACK: Record<string, string> = {
+      'achaemenid': 'persia-safavid',  // 波斯地区
+      'macedonia-empire': 'rome-empire',  // 地中海东岸（亚历山大继承希腊-埃及-波斯）
+    }
+    if (FALLBACK[id]) names = EMPIRE_COUNTRIES[FALLBACK[id]]
+  }
   if (!names) return []
   const out: LabelPoint[] = []
   for (const n of names) {

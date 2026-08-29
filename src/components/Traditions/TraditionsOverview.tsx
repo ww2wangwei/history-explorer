@@ -6,6 +6,7 @@
  *
  * 数据：src/data/traditions.ts（TRADITIONS, TRADITION_CATEGORIES, TraditionCategory）
  */
+import { bingImage } from '@/utils/geoImage'
 import { useEffect, useMemo, useState } from 'react'
 import OverviewLayout from '@/components/ui/OverviewLayout'
 import OverviewSearch from '@/components/ui/OverviewSearch'
@@ -112,25 +113,44 @@ export default function TraditionsOverview({ isActive, onClose }: Props) {
             return (
               <div
                 key={t.id}
-                className="text-left rounded-lg overflow-hidden border border-ink-600 bg-ink-800/60 hover:border-emerald-500/60 hover:bg-ink-700/60 transition-all group"
+                className="relative rounded-lg overflow-hidden border border-ink-600 bg-ink-800/60 hover:border-emerald-500/60 transition-all group min-h-[180px]"
                 style={{ borderLeftWidth: '3px', borderLeftColor: meta.color }}
               >
-                {t.imageUrl && (
-                  <div className="relative w-full bg-ink-900" style={{ aspectRatio: '16/9' }}>
-                    <img src={t.imageUrl} alt={t.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-ink-900/85 via-transparent to-ink-900/40 pointer-events-none" />
-                  </div>
-                )}
-                <div className="p-3">
+                {/* 背景图：优先 imageUrl，否则用 bingImage(imageKeyword ?? title) */}
+                <img
+                  src={t.imageUrl ?? bingImage(t.imageKeyword ?? `${t.title} ${t.era ?? ''} Chinese tradition`, 800, 450)}
+                  alt={t.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  loading="lazy"
+                />
+                {/* 暗色蒙版：顶部轻、底部重，保证文字可读 */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 35%, rgba(0,0,0,0.85) 100%)',
+                  }}
+                />
+                {/* 顶部子分类徽章 */}
+                <div className="absolute top-2 left-2 z-10">
+                  <span
+                    className="text-xs px-2 py-0.5 rounded font-medium backdrop-blur"
+                    style={{ background: meta.color + '30', color: '#fdf8f0', border: `1px solid ${meta.color}80` }}
+                  >
+                    {meta.icon} {meta.label}
+                  </span>
+                </div>
+                {/* 底部文字：叠加在背景渐变上 */}
+                <div className="absolute bottom-0 left-0 right-0 p-3 z-10 text-bone">
                   <div className="flex items-baseline justify-between gap-2 mb-1">
-                    <span className="text-base font-serif group-hover:text-emerald-300 transition-colors">
-                      {meta.icon} {t.title}
+                    <span className="text-base font-serif group-hover:text-emerald-300 transition-colors drop-shadow">
+                      {t.title}
                     </span>
                     {t.era && (
-                      <span className="text-xs text-ink-300 tabular-nums shrink-0">{t.era}</span>
+                      <span className="text-xs text-bone/80 tabular-nums shrink-0 drop-shadow">{t.era}</span>
                     )}
                   </div>
-                  <div className="text-xs text-ink-300 leading-relaxed line-clamp-3">{t.summary}</div>
+                  <div className="text-xs text-bone/85 leading-relaxed line-clamp-2 drop-shadow">{t.summary}</div>
                 </div>
               </div>
             )

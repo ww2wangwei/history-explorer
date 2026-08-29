@@ -563,7 +563,7 @@ export default function Layout() {
                   role="menuitem"
                 >
                   <span>📒 我的笔记</span>
-                  {notesCount > 0 && <span className="text-ink-500">{notesCount}</span>}
+                  {notesCount > 0 && <span className="text-ink-300">{notesCount}</span>}
                 </button>
                 <button
                   className="w-full text-left px-3 py-2 text-xs text-parchment-50 hover:bg-ink-700 flex items-center justify-between gap-2 transition-colors"
@@ -575,7 +575,7 @@ export default function Layout() {
                   role="menuitem"
                 >
                   <span>🎯 每日目标</span>
-                  <span className="text-ink-500">{goalTarget}</span>
+                  <span className="text-ink-300">{goalTarget}</span>
                 </button>
                 <button
                   className="w-full text-left px-3 py-2 text-xs text-parchment-50 hover:bg-ink-700 flex items-center gap-2 transition-colors border-t border-ink-700 mt-1 pt-2"
@@ -587,7 +587,7 @@ export default function Layout() {
                   role="menuitem"
                 >
                   <span>🔑 API Keys</span>
-                  <span className="text-ink-500 text-[10px]">
+                  <span className="text-ink-300 text-[10px]">
                     {useApiKeysStore.getState().amapKey ? '已设置' : '未配置'}
                   </span>
                 </button>
@@ -609,7 +609,7 @@ export default function Layout() {
             )}
           </div>
         </div>
-        <div className="text-sm font-serif text-ink-500 shrink-0 ml-3">
+        <div className="text-sm font-serif text-ink-300 shrink-0 ml-3">
           当前：<span className="text-vermilion-300 text-base ml-1.5">{formatYear(currentYear)}</span>
         </div>
       </header>
@@ -660,7 +660,7 @@ export default function Layout() {
                     className={`flex-1 px-3 py-2.5 border-r border-ink-600 transition-colors ${
                       detailView === 'event'
                         ? 'bg-vermilion-500/30 text-vermilion-300 border-b-2 border-vermilion-500'
-                        : 'text-ink-500 hover:bg-ink-700 hover:text-parchment-50'
+                        : 'text-ink-300 hover:bg-ink-700 hover:text-parchment-50'
                     }`}
                     onClick={() => setDetailView('event')}
                   >
@@ -670,7 +670,7 @@ export default function Layout() {
                     className={`flex-1 px-3 py-2.5 border-r border-ink-600 transition-colors ${
                       detailView === 'era'
                         ? 'bg-vermilion-500/30 text-vermilion-300 border-b-2 border-vermilion-500'
-                        : 'text-ink-500 hover:bg-ink-700 hover:text-parchment-50'
+                        : 'text-ink-300 hover:bg-ink-700 hover:text-parchment-50'
                     }`}
                     onClick={() => setDetailView('era')}
                   >
@@ -680,7 +680,7 @@ export default function Layout() {
                     className={`flex-1 px-3 py-2.5 border-r border-ink-600 transition-colors ${
                       detailView === 'notes'
                         ? 'bg-vermilion-500/30 text-vermilion-300 border-b-2 border-vermilion-500'
-                        : 'text-ink-500 hover:bg-ink-700 hover:text-parchment-50'
+                        : 'text-ink-300 hover:bg-ink-700 hover:text-parchment-50'
                     }`}
                     onClick={() => setDetailView('notes')}
                   >
@@ -693,7 +693,7 @@ export default function Layout() {
                     className={`flex-1 px-3 py-2.5 border-r border-ink-600 transition-colors ${
                       detailView !== 'notes'
                         ? 'bg-vermilion-500/30 text-vermilion-300 border-b-2 border-vermilion-500'
-                        : 'text-ink-500 hover:bg-ink-700 hover:text-parchment-50'
+                        : 'text-ink-300 hover:bg-ink-700 hover:text-parchment-50'
                     }`}
                     onClick={() => setDetailView(selectedEventId ? 'event' : 'era')}
                   >
@@ -703,7 +703,7 @@ export default function Layout() {
                     className={`flex-1 px-3 py-2.5 border-r border-ink-600 transition-colors ${
                       detailView === 'notes'
                         ? 'bg-vermilion-500/30 text-vermilion-300 border-b-2 border-vermilion-500'
-                        : 'text-ink-500 hover:bg-ink-700 hover:text-parchment-50'
+                        : 'text-ink-300 hover:bg-ink-700 hover:text-parchment-50'
                     }`}
                     onClick={() => setDetailView('notes')}
                   >
@@ -712,7 +712,7 @@ export default function Layout() {
                 </>
               )}
               <button
-                className="px-3 py-2.5 text-ink-500 hover:text-parchment-50 hover:bg-red-900/40 text-base transition-colors"
+                className="px-3 py-2.5 text-ink-300 hover:text-parchment-50 hover:bg-red-900/40 text-base transition-colors"
                 onClick={() => {
                   selectEvent(null)
                   selectEra(null)

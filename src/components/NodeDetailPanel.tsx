@@ -55,7 +55,7 @@ export default function NodeDetailPanel({ node, relations, onSelectNode, onClose
             <div className="text-sm font-serif text-vermilion-300 truncate">
               {node.era?.name ?? node.figure?.name ?? node.id}
             </div>
-            <div className="text-xs text-ink-500 mt-0.5">
+            <div className="text-xs text-ink-300 mt-0.5">
               {node.era && (
                 <>
                   {node.era.startYear < 0 ? `BC ${-node.era.startYear}` : node.era.startYear} ~{' '}
@@ -69,7 +69,7 @@ export default function NodeDetailPanel({ node, relations, onSelectNode, onClose
           </div>
           <button
             onClick={onClose}
-            className="text-ink-500 hover:text-parchment-50 w-6 h-6 flex items-center justify-center rounded text-base leading-none"
+            className="text-ink-300 hover:text-parchment-50 w-6 h-6 flex items-center justify-center rounded text-base leading-none"
             title="关闭"
             aria-label="关闭"
           >×</button>
@@ -84,11 +84,11 @@ export default function NodeDetailPanel({ node, relations, onSelectNode, onClose
 
       {/* 关系列表 */}
       <div className="flex-1 overflow-y-auto scrollbar-thin">
-        <div className="px-4 py-2 text-xs text-ink-500 uppercase tracking-wider border-b border-ink-700">
+        <div className="px-4 py-2 text-xs text-ink-300 uppercase tracking-wider border-b border-ink-700">
           🔗 关联关系（{relations.length}）
         </div>
         {relations.length === 0 && (
-          <div className="px-4 py-6 text-center text-xs text-ink-500">
+          <div className="px-4 py-6 text-center text-xs text-ink-300">
             没有关联关系
           </div>
         )}
@@ -101,7 +101,7 @@ export default function NodeDetailPanel({ node, relations, onSelectNode, onClose
               <div className="px-4 py-1.5 text-xs flex items-center gap-2" style={{ color: meta.color }}>
                 <span>{meta.icon}</span>
                 <span className="font-medium">{meta.label}</span>
-                <span className="text-ink-500">({group.length})</span>
+                <span className="text-ink-300">({group.length})</span>
               </div>
               {group.map((r, i) => (
                 <button
@@ -112,18 +112,18 @@ export default function NodeDetailPanel({ node, relations, onSelectNode, onClose
                 >
                   <span className="text-base flex-shrink-0">{r.other.emoji ?? '📍'}</span>
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm text-parchment-100 truncate group-hover:text-vermilion-300 transition-colors">
+                    <div className="text-sm text-parchment-50 truncate group-hover:text-vermilion-300 transition-colors">
                       {r.direction === 'in' && '← '}
                       {r.other.name}
                       {r.direction === 'out' && ' →'}
                     </div>
                     {r.label && (
-                      <div className="text-xs text-ink-500 truncate">
+                      <div className="text-xs text-ink-300 truncate">
                         {r.label}
                       </div>
                     )}
                   </div>
-                  <span className="text-ink-500 group-hover:text-vermilion-300 text-base">›</span>
+                  <span className="text-ink-300 group-hover:text-vermilion-300 text-base">›</span>
                 </button>
               ))}
             </div>

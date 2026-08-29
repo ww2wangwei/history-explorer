@@ -75,7 +75,7 @@ export default function ApiKeysSettings({ isOpen, onClose }: Props) {
           <h2 className="text-sm font-serif text-vermilion-300">🔑 第三方 API Key 设置</h2>
           <button
             onClick={onClose}
-            className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-7 h-7 flex items-center justify-center rounded-lg hover:bg-ink-700"
+            className="text-ink-300 hover:text-parchment-50 text-xl leading-none w-7 h-7 flex items-center justify-center rounded-lg hover:bg-ink-700"
             aria-label="关闭"
           >
             ×
@@ -92,7 +92,7 @@ export default function ApiKeysSettings({ isOpen, onClose }: Props) {
           <div className="space-y-2 border border-ink-600 rounded-lg p-3 bg-ink-900/30">
             <div className="flex items-center justify-between">
               <div className="text-sm text-parchment-50 font-serif">🗺 高德地图 (AMap) Key</div>
-              <div className="text-[10px] text-ink-500">
+              <div className="text-[10px] text-ink-300">
                 {currentAmapKey ? (
                   <span className="text-emerald-400">✓ 已设置（用户）</span>
                 ) : usingEnvFallback ? (
@@ -133,7 +133,7 @@ export default function ApiKeysSettings({ isOpen, onClose }: Props) {
           <div className="space-y-2 border border-ink-600 rounded-lg p-3 bg-ink-900/30">
             <div className="flex items-center justify-between">
               <div className="text-sm text-parchment-50 font-serif">☁ 实时云图 (OpenWeatherMap) Key</div>
-              <div className="text-[10px] text-ink-500">
+              <div className="text-[10px] text-ink-300">
                 {currentOwmKey ? (
                   <span className="text-emerald-400">✓ 已设置（用户）</span>
                 ) : usingOwmEnvFallback ? (
@@ -162,7 +162,7 @@ export default function ApiKeysSettings({ isOpen, onClose }: Props) {
           </div>
 
           {/* --- 提示 --- */}
-          <div className="text-[11px] text-ink-500 leading-relaxed border-t border-ink-700 pt-3">
+          <div className="text-[11px] text-ink-300 leading-relaxed border-t border-ink-700 pt-3">
             <strong className="text-ink-400">注意：</strong>填好后保存会自动刷新页面以加载新 key。
             如果在浏览器里访问 GitHub Pages 等公开域名，需要在高德后台把域名加白名单。
           </div>
@@ -187,7 +187,7 @@ export default function ApiKeysSettings({ isOpen, onClose }: Props) {
             <button
               onClick={save}
               disabled={!amapKeyInput.trim() && !amapCodeInput.trim()}
-              className="px-3 py-1.5 text-xs bg-vermilion-500 hover:bg-vermilion-600 disabled:bg-ink-700 disabled:text-ink-500 text-parchment-50 rounded-lg font-serif"
+              className="px-3 py-1.5 text-xs bg-vermilion-500 hover:bg-vermilion-600 disabled:bg-ink-700 disabled:text-ink-300 text-parchment-50 rounded-lg font-serif"
             >
               {saved ? '✓ 已保存，刷新中…' : '保存并刷新'}
             </button>

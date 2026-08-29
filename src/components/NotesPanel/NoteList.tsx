@@ -18,7 +18,7 @@ export default function NoteList({ notes, onCreate, onEdit, onDelete }: Props) {
     <div className="flex flex-col h-full">
       {/* 顶部：新建按钮 + 计数 */}
       <div className="flex items-center justify-between px-3 py-2 border-b border-ink-600 text-xs">
-        <span className="text-ink-500">
+        <span className="text-ink-300">
           共 <span className="text-vermilion-300">{notes.length}</span> 条笔记
         </span>
         <button

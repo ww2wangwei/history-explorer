@@ -31,7 +31,7 @@ export default function PoemBGMControls() {
       </button>
 
       <div className="flex items-center gap-2 min-w-[160px] flex-1 max-w-[260px]">
-        <span className="text-ink-500 text-xs select-none">🔊</span>
+        <span className="text-ink-300 text-xs select-none">🔊</span>
         <input
           type="range"
           min={0}
@@ -46,7 +46,7 @@ export default function PoemBGMControls() {
         <span className="text-[10px] text-ink-400 tabular-nums w-9 text-right">{volume}%</span>
       </div>
 
-      <span className="text-[10px] text-ink-500 italic shrink-0">
+      <span className="text-[10px] text-ink-300 italic shrink-0">
         doubao AI 古风纯音乐 · 循环 · 自动记忆
       </span>
     </div>

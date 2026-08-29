@@ -19,7 +19,7 @@ export default function NotesOverviewHeader({ onClose }: Props) {
       </h2>
       <button
         onClick={onClose}
-        className="shrink-0 text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700 transition-colors"
+        className="shrink-0 text-ink-300 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700 transition-colors"
         title="关闭 (ESC)"
         aria-label="关闭"
       >

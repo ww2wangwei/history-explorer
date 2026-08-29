@@ -25,12 +25,12 @@ function OneStat({ def, value, color }: { def: StatDef; value: number; color: st
   return (
     <div className="flex-1 min-w-0">
       <div className="flex items-center justify-between text-xs mb-1">
-        <span className="text-parchment-100 flex items-center gap-1">
+        <span className="text-parchment-50 flex items-center gap-1">
           <span>{def.emoji}</span>
           <span className="font-serif">{def.name}</span>
         </span>
         <span
-          className={`tabular-nums font-serif ${danger ? 'text-danger' : high ? 'text-vermilion-300' : 'text-parchment-100'}`}
+          className={`tabular-nums font-serif ${danger ? 'text-danger' : high ? 'text-vermilion-300' : 'text-parchment-50'}`}
         >
           {value} / {def.max}
         </span>

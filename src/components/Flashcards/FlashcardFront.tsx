@@ -23,7 +23,7 @@ const KIND_LABEL = {
 export default function FlashcardFront({ targetName, targetKind, missing, emoji, onShowAnswer }: Props) {
   return (
     <div className="flex-1 flex flex-col items-center justify-center px-8 py-12">
-      <div className="text-xs text-ink-500 mb-4 uppercase tracking-wider">
+      <div className="text-xs text-ink-300 mb-4 uppercase tracking-wider">
         {KIND_LABEL[targetKind]} · 正面
       </div>
 
@@ -43,7 +43,7 @@ export default function FlashcardFront({ targetName, targetKind, missing, emoji,
       </div>
 
       {targetKind === 'figure' && (
-        <div className="text-xs text-ink-500 mb-6 text-center max-w-md">
+        <div className="text-xs text-ink-300 mb-6 text-center max-w-md">
           回忆：这个人是谁？做过什么？所属朝代？
         </div>
       )}

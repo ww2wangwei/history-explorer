@@ -163,7 +163,7 @@ export default function FiguresOverview({ isActive, onClose, initialPersonId }: 
                   : 'bg-ink-700/60 text-ink-400 border-ink-600 hover:text-parchment-50'
               }`}
             >
-              全部 <span className="text-ink-500 ml-1">({people.length})</span>
+              全部 <span className="text-ink-300 ml-1">({people.length})</span>
             </button>
             {(Object.keys(CATEGORY_LABEL) as FigureCategory[]).map(cat => {
               const count = people.filter(p => p.category === cat).length
@@ -181,7 +181,7 @@ export default function FiguresOverview({ isActive, onClose, initialPersonId }: 
                   style={category === cat ? { background: meta.color + '30', color: meta.color } : undefined}
                   title={meta.label}
                 >
-                  {meta.icon} {meta.label} <span className="text-ink-500 ml-1">({count})</span>
+                  {meta.icon} {meta.label} <span className="text-ink-300 ml-1">({count})</span>
                 </button>
               )
             })}

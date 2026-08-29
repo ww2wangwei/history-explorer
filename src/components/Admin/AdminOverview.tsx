@@ -39,7 +39,7 @@ export default function AdminOverview({ onTabChange }: Props) {
             <div className="text-sm text-parchment-50 mb-1">
               总编辑数：<span className="text-2xl font-serif text-vermilion-300">{total}</span>
             </div>
-            <div className="text-xs text-ink-500">
+            <div className="text-xs text-ink-300">
               状态：{isDirty ? '🟡 有未保存改动（已自动存到 localStorage）' : '🟢 已同步'}
             </div>
             {lastModified && (
@@ -85,7 +85,7 @@ function StatCard({ icon, label, count, color, onClick }: { icon: string; label:
         <span className="text-xs text-ink-400">{label}</span>
       </div>
       <div className="text-2xl font-serif" style={{ color }}>{count}</div>
-      <div className="text-xs text-ink-500 mt-1">点击编辑 →</div>
+      <div className="text-xs text-ink-300 mt-1">点击编辑 →</div>
     </button>
   )
 }

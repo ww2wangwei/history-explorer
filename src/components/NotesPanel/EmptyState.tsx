@@ -18,7 +18,7 @@ export default function EmptyState({ kind, onCreate }: Props) {
       <div className="text-sm text-ink-300 mb-2 font-serif">
         这里还没有笔记
       </div>
-      <div className="text-xs text-ink-500 mb-5 leading-relaxed max-w-[280px]">
+      <div className="text-xs text-ink-300 mb-5 leading-relaxed max-w-[280px]">
         {isEra ? (
           <>
             比如：政治制度 / 重要事件 / 衰亡原因 / 文化成就

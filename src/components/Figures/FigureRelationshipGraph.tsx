@@ -436,14 +436,14 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
               🕸️ 人物关系网
               <span className="text-sm text-parchment-50 font-serif">· {focusFigure.name}</span>
             </h2>
-            <div className="text-xs text-ink-500 mt-0.5">
+            <div className="text-xs text-ink-300 mt-0.5">
               中心人物 + {nodes.length - 1} 位相关人物 · {links.length} 条关系 ·
               拖动节点 / 滚轮缩放 / 点击空白平移 / 点击其他人物切换焦点
             </div>
           </div>
           <button
             onClick={onClose}
-            className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700"
+            className="text-ink-300 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700"
             title="关闭 (ESC)"
             aria-label="关闭"
           >
@@ -453,7 +453,7 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
 
         {/* 图例（左下） */}
         <div className="absolute bottom-3 left-3 z-20 bg-ink-800/90 backdrop-blur border border-ink-600 rounded-lg px-3 py-2 text-xs space-y-1">
-          <div className="text-ink-500 uppercase tracking-wider mb-1">关系类型</div>
+          <div className="text-ink-300 uppercase tracking-wider mb-1">关系类型</div>
           {(Object.keys(RELATION_STYLE) as RelationType[]).map(t => (
             <div key={t} className="flex items-center gap-2 text-parchment-50">
               <svg width="20" height="6">
@@ -463,7 +463,7 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
                   strokeDasharray={RELATION_STYLE[t].dash} />
               </svg>
               <span>{RELATION_STYLE[t].label}</span>
-              <span className="text-ink-500">({typeCounts[t]})</span>
+              <span className="text-ink-300">({typeCounts[t]})</span>
             </div>
           ))}
         </div>
@@ -621,7 +621,7 @@ export default function FigureRelationshipGraph({ focusFigureId, onClose, onSwit
                   <div className="text-xs text-ink-400">{fig.role}</div>
                 </div>
               </div>
-              <div className="text-xs text-ink-500 italic">点击切换为焦点</div>
+              <div className="text-xs text-ink-300 italic">点击切换为焦点</div>
             </div>
           )
         })()}

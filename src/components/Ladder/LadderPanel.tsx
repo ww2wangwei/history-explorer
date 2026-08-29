@@ -180,7 +180,7 @@ export default function LadderPanel({ onClose }: Props) {
             className="text-xs text-ink-400 hover:text-vermilion-300 mb-1"
           >← 返回 Dashboard</button>
           <h1 className="font-serif text-2xl text-vermilion-300">🪜 文史天梯</h1>
-          <p className="text-xs text-ink-500 mt-0.5">史 · 诗 · 人 三条天梯 · 学 / 测 / 记 / 问 四步闭环</p>
+          <p className="text-xs text-ink-300 mt-0.5">史 · 诗 · 人 三条天梯 · 学 / 测 / 记 / 问 四步闭环</p>
         </div>
         <div className="flex gap-2">
           <button
@@ -190,7 +190,7 @@ export default function LadderPanel({ onClose }: Props) {
           >🏆 全景画卷</button>
           <button
             onClick={() => { audioEngine.playModalClose(); onClose() }}
-            className="px-3 py-1.5 rounded-lg bg-ink-700 hover:bg-ink-600 text-parchment-100 text-sm"
+            className="px-3 py-1.5 rounded-lg bg-ink-700 hover:bg-ink-600 text-parchment-50 text-sm"
             title="Esc"
           >关闭</button>
         </div>
@@ -207,7 +207,7 @@ export default function LadderPanel({ onClose }: Props) {
               className="font-serif text-3xl sm:text-4xl"
               style={{ color: prog.cur.color }}
             >Lv {prog.cur.level}</span>
-            <span className="font-serif text-base sm:text-lg text-parchment-100">{prog.cur.name}</span>
+            <span className="font-serif text-base sm:text-lg text-parchment-50">{prog.cur.name}</span>
           </div>
           <div className="flex-1 min-w-0">
             <div className="h-2 rounded-full bg-ink-800 overflow-hidden">
@@ -283,12 +283,12 @@ export default function LadderPanel({ onClose }: Props) {
                   <div className="mt-1 h-1.5 rounded-full bg-ink-700 overflow-hidden">
                     <div className="h-full bg-bronze-500" style={{ width: total ? `${(done / total) * 100}%` : '0%' }} />
                   </div>
-                  <div className="mt-2 text-xs text-ink-500">XP {cyc.xp}</div>
+                  <div className="mt-2 text-xs text-ink-300">XP {cyc.xp}</div>
                 </button>
               )
             })}
           </div>
-          <p className="mt-4 text-xs text-ink-500">
+          <p className="mt-4 text-xs text-ink-300">
             * MVP 仅展示史天梯前 4 关，其余故事在后续阶段批量接入。诗 / 人天梯的关卡数据可在后续 sprint 由脚本从 poems.json / people.json 生成。
           </p>
         </section>
@@ -352,7 +352,7 @@ function LadderMapView({
           <h1 className="font-serif text-2xl text-vermilion-300">
             {ladder === 'history' ? '史天梯' : ladder === 'poem' ? '诗天梯' : '人天梯'}
           </h1>
-          <p className="text-xs text-ink-500 mt-0.5">本难度进度：{completedIds.length} / {sorted.length} · XP {xp}</p>
+          <p className="text-xs text-ink-300 mt-0.5">本难度进度：{completedIds.length} / {sorted.length} · XP {xp}</p>
         </div>
         {/* Cycle Selector */}
         <div className="flex flex-wrap items-center gap-2">
@@ -370,7 +370,7 @@ function LadderMapView({
                   isActive
                     ? 'bg-vermilion-500 text-parchment-50'
                     : unlocked
-                    ? 'bg-ink-700 text-parchment-100 hover:bg-ink-600'
+                    ? 'bg-ink-700 text-parchment-50 hover:bg-ink-600'
                     : 'bg-ink-800/40 text-ink-400 cursor-not-allowed'
                 }`}
               >
@@ -409,7 +409,7 @@ function LadderMapView({
           </div>
           <span className="text-xs text-ink-400 tabular-nums">XP {totalXp}</span>
           {levelNextName && (
-            <span className="text-xs text-ink-500">→ <span style={{ color: levelColor }}>{levelNextName}</span> 差 {levelXpToNext}</span>
+            <span className="text-xs text-ink-300">→ <span style={{ color: levelColor }}>{levelNextName}</span> 差 {levelXpToNext}</span>
           )}
         </div>
 
@@ -449,12 +449,12 @@ function LadderMapView({
                     ? 'bg-bronze-500 text-ink-900'
                     : isCurrent
                     ? 'bg-bronze-700 text-vermilion-300'
-                    : 'bg-ink-700 text-ink-500'
+                    : 'bg-ink-700 text-ink-300'
                 }`}>
                   {locked ? '🔒' : done ? '✓' : i + 1}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <h3 className={`font-serif text-base truncate ${locked ? 'text-ink-500' : 'text-parchment-50'}`}>{t.study.title}</h3>
+                  <h3 className={`font-serif text-base truncate ${locked ? 'text-ink-300' : 'text-parchment-50'}`}>{t.study.title}</h3>
                   <p className="text-xs text-ink-400 truncate">
                     {locked ? '需先通关上一关' : `${t.entityId} · ${t.quiz.length} 道题`}
                   </p>
@@ -510,7 +510,7 @@ function LevelView({
                 className={`px-3 py-1.5 rounded-full border ${
                   step === s
                     ? 'border-vermilion-500/40 bg-bronze-700/30 text-vermilion-300'
-                    : 'border-ink-700 text-ink-500'
+                    : 'border-ink-700 text-ink-300'
                 }`}
               >
                 {['学', '测', '记', '问'][i]}
@@ -523,7 +523,7 @@ function LevelView({
         {step === 'study' && (
           <section className="rounded-2xl border border-ink-700 bg-ink-800/80 p-6 space-y-4">
             <h2 className="font-serif text-2xl text-vermilion-300">{level.study.title}</h2>
-            <p className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
+            <p className="text-sm text-parchment-50 leading-relaxed whitespace-pre-line">
               {level.study.summary}
             </p>
             <button onClick={onAdvance} className="w-full py-3 rounded-xl bg-vermilion-500 hover:bg-vermilion-600 text-parchment-50 font-medium">
@@ -548,7 +548,7 @@ function LevelView({
               value={noteDraft || level.notes.templateBody}
               onChange={(e) => saveNoteDraft(e.target.value)}
               rows={14}
-              className="w-full rounded-xl bg-ink-900 border border-ink-700 px-4 py-3 text-sm text-parchment-100 leading-relaxed font-mono"
+              className="w-full rounded-xl bg-ink-900 border border-ink-700 px-4 py-3 text-sm text-parchment-50 leading-relaxed font-mono"
             />
             <button onClick={onAdvance} className="w-full py-3 rounded-xl bg-vermilion-500 hover:bg-vermilion-600 text-parchment-50 font-medium">
               记完 → 去提问
@@ -623,7 +623,7 @@ function QuizStep({
         const ok = isCorrect(q, idx)
         return (
           <div key={idx} className="rounded-xl border border-ink-700 bg-ink-900/40 p-4 space-y-3">
-            <p className="text-sm text-parchment-100 font-medium">{idx + 1}. {q.prompt ?? (q.kind === 'match' ? '匹配左右项' : '排出正确顺序')}</p>
+            <p className="text-sm text-parchment-50 font-medium">{idx + 1}. {q.prompt ?? (q.kind === 'match' ? '匹配左右项' : '排出正确顺序')}</p>
             {q.kind === 'single' && (
               <div className="grid sm:grid-cols-2 gap-2">
                 {q.options?.map((opt, i) => {
@@ -637,7 +637,7 @@ function QuizStep({
                       className={`text-left rounded-lg border px-3 py-2 text-sm transition-all ${
                         isRight ? 'border-green-500 bg-green-900/30 text-green-200'
                         : isWrong ? 'border-red-500 bg-red-900/30 text-red-200'
-                        : chosen ? 'border-vermilion-500/40 bg-bronze-700/20 text-parchment-100'
+                        : chosen ? 'border-vermilion-500/40 bg-bronze-700/20 text-parchment-50'
                         : 'border-ink-600 text-ink-300 hover:border-ink-500'
                       }`}
                     >
@@ -659,7 +659,7 @@ function QuizStep({
                         arr[i] = e.target.value
                         setAnswers(a => ({ ...a, [idx]: arr }))
                       }}
-                      className="rounded-lg bg-ink-800 border border-ink-600 px-2 py-1 text-sm text-parchment-100"
+                      className="rounded-lg bg-ink-800 border border-ink-600 px-2 py-1 text-sm text-parchment-50"
                     >
                       <option value="">— 选 —</option>
                       {q.pairs!.map((rp, j) => (
@@ -667,7 +667,7 @@ function QuizStep({
                       ))}
                     </select>
                     <span className="text-vermilion-300">↔</span>
-                    <span className="text-parchment-100">{p.right}</span>
+                    <span className="text-parchment-50">{p.right}</span>
                   </div>
                 ))}
               </div>
@@ -679,7 +679,7 @@ function QuizStep({
                   {(answers[idx] as string[] | undefined ?? q.items.map(it => it.id)).map((id, i) => {
                     const it = q.items!.find(x => x.id === id)!
                     return (
-                      <li key={`${id}-${i}`} className="flex items-center gap-2 rounded-lg bg-ink-800 px-3 py-1.5 text-sm text-parchment-100">
+                      <li key={`${id}-${i}`} className="flex items-center gap-2 rounded-lg bg-ink-800 px-3 py-1.5 text-sm text-parchment-50">
                         <span className="w-5 h-5 rounded-full bg-bronze-700 text-vermilion-300 flex items-center justify-center text-xs">{i + 1}</span>
                         <span>{it.label}</span>
                       </li>
@@ -789,7 +789,7 @@ function AskStep({
             >
               <div className="flex items-baseline gap-2">
                 <span className="font-serif text-lg text-parchment-50">{npc.name}</span>
-                <span className="text-xs text-ink-500">{npc.era}</span>
+                <span className="text-xs text-ink-300">{npc.era}</span>
                 <span className="text-xs text-vermilion-300">[{npc.tag}]</span>
                 {isGuide && <span className="text-[10px] uppercase tracking-wider text-vermilion-300 ml-1">通识向导</span>}
               </div>
@@ -807,7 +807,7 @@ function AskStep({
               <span key={i} className="text-xs rounded-full bg-ink-700/60 border border-ink-600 px-2.5 py-1 text-ink-300">{s}</span>
             ))}
           </div>
-          <p className="text-xs text-ink-500">↗ AIChatPanel 已打开，可直接对话。本关可关闭 Panel 回到这里。</p>
+          <p className="text-xs text-ink-300">↗ AIChatPanel 已打开，可直接对话。本关可关闭 Panel 回到这里。</p>
         </div>
       )}
 
@@ -874,7 +874,7 @@ function AchievementView({ ladders, prog, totalXp, onBack }: {
         <div>
           <button onClick={onBack} className="text-xs text-ink-400 hover:text-vermilion-300 mb-1">← 返回天梯</button>
           <h1 className="font-serif text-2xl text-vermilion-300">🏆 全景画卷</h1>
-          <p className="text-xs text-ink-500 mt-0.5">关卡 {totalCompleted} / {totalLevels} · 总 XP {totalXp}</p>
+          <p className="text-xs text-ink-300 mt-0.5">关卡 {totalCompleted} / {totalLevels} · 总 XP {totalXp}</p>
         </div>
       </header>
 
@@ -896,7 +896,7 @@ function AchievementView({ ladders, prog, totalXp, onBack }: {
           </div>
           <div className="text-right">
             <div className="font-serif text-3xl text-vermilion-300 tabular-nums">{totalXp}</div>
-            <div className="text-xs text-ink-500">总 XP</div>
+            <div className="text-xs text-ink-300">总 XP</div>
           </div>
         </section>
 
@@ -909,7 +909,7 @@ function AchievementView({ ladders, prog, totalXp, onBack }: {
               const isDone = r.done === r.total && r.total > 0
               return (
                 <div key={i} className="flex items-center gap-3">
-                  <span className="font-serif text-sm text-parchment-100 w-32 truncate">{r.label}</span>
+                  <span className="font-serif text-sm text-parchment-50 w-32 truncate">{r.label}</span>
                   <div className="flex-1 h-2 rounded-full bg-ink-700 overflow-hidden">
                     <div
                       className="h-full transition-all duration-500"

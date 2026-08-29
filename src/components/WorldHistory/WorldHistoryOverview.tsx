@@ -143,7 +143,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
       {/* 顶部 intro 卡片 */}
       <div className="mb-5 p-4 rounded-lg bg-gradient-to-br from-amber-950/30 to-ink-800 border border-amber-700/40">
         <div className="text-xs text-amber-300 uppercase tracking-wider mb-2">🌐 课程导言</div>
-        <p className="text-sm text-parchment-100 leading-relaxed">{intro}</p>
+        <p className="text-sm text-parchment-50 leading-relaxed">{intro}</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6">
@@ -156,7 +156,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
             onChange={e => setQuery(e.target.value)}
             className="w-full px-3 py-2 rounded-lg bg-ink-700 border border-ink-600 text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-amber-500"
           />
-          <div className="text-xs text-ink-500 px-1">
+          <div className="text-xs text-ink-300 px-1">
             {filtered.length} / {lessons.length} 节
           </div>
           <div className="space-y-1 max-h-[70vh] overflow-y-auto scrollbar-thin pr-1">
@@ -179,7 +179,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
                 >
                   <div className="flex items-start gap-2">
                     <div className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-serif ${
-                      isActive ? 'bg-amber-500 text-ink-900' : isVisited ? 'bg-emerald-700/40 text-emerald-300' : 'bg-ink-700 text-ink-500'
+                      isActive ? 'bg-amber-500 text-ink-900' : isVisited ? 'bg-emerald-700/40 text-emerald-300' : 'bg-ink-700 text-ink-300'
                     }`}>
                       {isVisited && !isActive ? '✓' : lessons.findIndex(x => x.id === l.id) + 1}
                     </div>
@@ -188,7 +188,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
                         {GROUP_META[l.group].label}
                       </div>
                       <div className="text-sm font-serif leading-snug">{l.title}</div>
-                      <div className="text-xs text-ink-500 mt-0.5">{l.era}</div>
+                      <div className="text-xs text-ink-300 mt-0.5">{l.era}</div>
                     </div>
                   </div>
                 </button>
@@ -226,7 +226,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
                   第 {activeIdx + 1} 节 · {GROUP_META[active.group].label} · {active.era}
                 </div>
                 <h2 className="text-2xl font-serif text-parchment-50 mb-2">{active.title}</h2>
-                <p className="text-sm text-parchment-100 leading-relaxed">{active.summary}</p>
+                <p className="text-sm text-parchment-50 leading-relaxed">{active.summary}</p>
               </div>
             </div>
           </div>
@@ -240,7 +240,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
               </div>
               <ul className="space-y-1">
                 {active.keyFigures.map((f, i) => (
-                  <li key={i} className="text-sm text-parchment-100 leading-relaxed">
+                  <li key={i} className="text-sm text-parchment-50 leading-relaxed">
                     · {f}
                   </li>
                 ))}
@@ -253,7 +253,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
               </div>
               <ul className="space-y-1">
                 {active.keyEvents.map((w, i) => (
-                  <li key={i} className="text-sm text-parchment-100 leading-relaxed">
+                  <li key={i} className="text-sm text-parchment-50 leading-relaxed">
                     · {w}
                   </li>
                 ))}
@@ -297,7 +297,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
                   }}
                 />
               </button>
-              <div className="text-xs text-ink-500 mt-2 italic">
+              <div className="text-xs text-ink-300 mt-2 italic">
                 * 由 NotebookLM 基于本课内容自动生成的图文信息图
               </div>
             </div>
@@ -306,7 +306,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
           {/* 代表场景图(可点击放大) */}
           {active.imageKeywords && active.imageKeywords.length > 0 && (
             <div className="p-5 rounded-lg bg-ink-800/80 border border-ink-700">
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-3 flex items-center justify-between">
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-3 flex items-center justify-between">
                 <span>🌄 代表场景(点击放大)</span>
                 <span className="text-ink-400 normal-case">{active.imageKeywords.length} 幅</span>
               </div>
@@ -350,7 +350,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
                   )
                 })}
               </div>
-              <div className="text-xs text-ink-500 mt-3 italic">
+              <div className="text-xs text-ink-300 mt-3 italic">
                 * 配图由 Bing 搜索(英文关键词),点击放大查看
               </div>
             </div>
@@ -383,7 +383,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
                 <div className="mt-3 text-center">
                   <div className="text-base font-serif text-parchment-50">{lightbox.caption}</div>
                   <div className="text-xs text-ink-400 mt-1">来源:{lightbox.source}</div>
-                  <div className="text-xs text-ink-500 mt-2">点击背景或按 ESC 关闭</div>
+                  <div className="text-xs text-ink-300 mt-2">点击背景或按 ESC 关闭</div>
                 </div>
                 <button
                   onClick={() => setLightbox(null)}
@@ -398,10 +398,10 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
 
           {/* 关键要点 */}
           <div className="p-5 rounded-lg bg-ink-800/80 border border-ink-700">
-            <div className="text-xs text-ink-500 uppercase tracking-wider mb-3">📌 关键要点</div>
+            <div className="text-xs text-ink-300 uppercase tracking-wider mb-3">📌 关键要点</div>
             <ul className="space-y-2">
               {active.keyPoints.map((kp, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-sm text-parchment-100 leading-relaxed">
+                <li key={i} className="flex items-start gap-2.5 text-sm text-parchment-50 leading-relaxed">
                   <span className="mt-0.5 shrink-0" style={{ color: groupColor }}>▸</span>
                   <span>{kp}</span>
                 </li>
@@ -412,7 +412,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
           {/* 关键时间线 */}
           {active.timeline && active.timeline.length > 0 && (
             <div className="p-5 rounded-lg bg-ink-800/80 border border-ink-700">
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-3">⏳ 关键时间线</div>
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-3">⏳ 关键时间线</div>
               <ol className="relative border-l-2 ml-2 space-y-3" style={{ borderColor: `${groupColor}66` }}>
                 {active.timeline.map((t, i) => (
                   <li key={i} className="pl-5 relative">
@@ -424,7 +424,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
                       <span className="text-xs font-mono shrink-0 tabular-nums" style={{ color: groupColor }}>
                         {t.yearLabel || (t.year < 0 ? `公元前 ${-t.year}` : t.year)}
                       </span>
-                      <span className="text-sm text-parchment-100 leading-relaxed">{t.event}</span>
+                      <span className="text-sm text-parchment-50 leading-relaxed">{t.event}</span>
                     </div>
                   </li>
                 ))}
@@ -435,7 +435,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
           {/* 历史意义 */}
           <div className="p-5 rounded-lg bg-gradient-to-br from-emerald-950/30 to-ink-800 border border-emerald-700/40">
             <div className="text-xs text-emerald-400 uppercase tracking-wider mb-3">🌍 历史意义</div>
-            <p className="text-sm text-parchment-100 leading-relaxed">{active.significance}</p>
+            <p className="text-sm text-parchment-50 leading-relaxed">{active.significance}</p>
           </div>
 
           {/* 课程笔记全文(来自 NotebookLM 抽取) */}
@@ -443,10 +443,10 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
             <details className="group rounded-lg bg-ink-800/80 border border-amber-700/40 overflow-hidden">
               <summary className="cursor-pointer select-none px-5 py-3 text-xs text-amber-300 uppercase tracking-wider hover:bg-ink-700/40 transition-colors flex items-center justify-between">
                 <span>📖 课程笔记全文(来自 NotebookLM)</span>
-                <span className="text-ink-500 group-open:rotate-90 transition-transform">▶</span>
+                <span className="text-ink-300 group-open:rotate-90 transition-transform">▶</span>
               </summary>
               <div className="px-5 pb-5 pt-2 border-t border-ink-700/60">
-                <pre className="text-sm text-parchment-100 leading-relaxed whitespace-pre-wrap font-sans">
+                <pre className="text-sm text-parchment-50 leading-relaxed whitespace-pre-wrap font-sans">
                   {active.fullText}
                 </pre>
               </div>

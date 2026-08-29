@@ -161,7 +161,7 @@ export default function Splash({ onDone }: Props) {
 
       {/* 右下角提示：按任意键跳过 */}
       <div
-        className="absolute bottom-6 right-8 font-serif text-ink-500 text-xs tracking-wider"
+        className="absolute bottom-6 right-8 font-serif text-ink-300 text-xs tracking-wider"
         style={{
           opacity: phase === 'bloom' ? 0.5 : 0,
           transition: 'opacity 0.6s ease-out 1s',

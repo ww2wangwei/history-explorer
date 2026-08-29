@@ -75,7 +75,7 @@ export default function PeopleAdmin() {
               {deletedFeatures.map(p => (
                 <button key={p.id} onClick={() => setSelectedId(p.id)} className={`w-full text-left p-2 border-b border-ink-800 hover:bg-ink-800/60 ${selectedId === p.id ? 'bg-bronze-900/20 border-l-2 border-l-bronze-500' : ''}`}>
                   <div className="flex items-center gap-2"><span className="text-base">🚫</span><span className="text-sm text-parchment-50 line-through opacity-60 truncate flex-1">{p.name}</span></div>
-                  <div className="text-xs text-ink-500 truncate mt-0.5">{p.id}</div>
+                  <div className="text-xs text-ink-300 truncate mt-0.5">{p.id}</div>
                 </button>
               ))}
             </>
@@ -93,16 +93,16 @@ export default function PeopleAdmin() {
                     {isNew && <span className="text-[9px] text-emerald-400 bg-emerald-900/30 px-1 rounded-lg">新</span>}
                     {!isNew && edited && <span className="text-[9px] text-amber-400 bg-amber-900/30 px-1 rounded-lg">已编辑</span>}
                   </div>
-                  <div className="text-xs text-ink-500 truncate mt-0.5">{p.role}</div>
+                  <div className="text-xs text-ink-300 truncate mt-0.5">{p.role}</div>
                 </button>
               )
             })
           )}
-          {filtered.length === 0 && !showDeleted && <div className="p-4 text-center text-ink-500 text-sm">无匹配</div>}
+          {filtered.length === 0 && !showDeleted && <div className="p-4 text-center text-ink-300 text-sm">无匹配</div>}
         </div>
       </div>
       <div className="flex-1 overflow-y-auto">
-        {selected ? <PersonEditForm key={selected.id} person={selected} /> : <div className="p-8 text-center text-ink-500">← 选择左侧条目（共 {merged.length} 人）</div>}
+        {selected ? <PersonEditForm key={selected.id} person={selected} /> : <div className="p-8 text-center text-ink-300">← 选择左侧条目（共 {merged.length} 人）</div>}
       </div>
     </div>
   )
@@ -157,13 +157,13 @@ function PersonEditForm({ person }: { person: HistoricalFigure }) {
     <div className="p-6 max-w-3xl space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-xs text-ink-500 uppercase tracking-wider flex items-center gap-2">
+          <div className="text-xs text-ink-300 uppercase tracking-wider flex items-center gap-2">
             <span>编辑人物</span>
             {isNew && <span className="text-emerald-400 bg-emerald-900/30 px-1.5 rounded-lg">🆕 新建</span>}
             {isDeleted && <span className="text-red-400 bg-red-900/30 px-1.5 rounded-lg">🚫 已删除</span>}
           </div>
           <h2 className="text-2xl font-serif text-vermilion-300 mt-1">{person.name}</h2>
-          <code className="text-xs text-ink-500">id: {person.id}</code>
+          <code className="text-xs text-ink-300">id: {person.id}</code>
         </div>
         <div className="flex gap-2">
           {isDeleted ? (
@@ -195,7 +195,7 @@ function PersonEditForm({ person }: { person: HistoricalFigure }) {
       </Field>
       <Field label="介绍描述">
         <textarea value={description} onChange={e => setDescription(e.target.value)} rows={8} className={inputCls + ' font-sans leading-relaxed'} />
-        <div className="text-xs text-ink-500 mt-1">{description.length} 字</div>
+        <div className="text-xs text-ink-300 mt-1">{description.length} 字</div>
       </Field>
       <Field label="图片">
         <div className="space-y-2">
@@ -213,5 +213,5 @@ function PersonEditForm({ person }: { person: HistoricalFigure }) {
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div><div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">{label}</div>{children}</div>
+  return <div><div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">{label}</div>{children}</div>
 }

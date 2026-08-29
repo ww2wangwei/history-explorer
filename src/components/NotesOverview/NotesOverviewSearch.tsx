@@ -18,7 +18,7 @@ export default function NotesOverviewSearch({ value, onChange }: Props) {
 
   return (
     <div className="relative">
-      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-500 text-sm pointer-events-none">
+      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-300 text-sm pointer-events-none">
         🔍
       </span>
       <input
@@ -32,7 +32,7 @@ export default function NotesOverviewSearch({ value, onChange }: Props) {
       {value && (
         <button
           onClick={() => onChange('')}
-          className="absolute right-2 top-1/2 -translate-y-1/2 text-ink-500 hover:text-parchment-50 w-6 h-6 flex items-center justify-center rounded-lg transition-colors"
+          className="absolute right-2 top-1/2 -translate-y-1/2 text-ink-300 hover:text-parchment-50 w-6 h-6 flex items-center justify-center rounded-lg transition-colors"
           title="清空搜索"
           aria-label="清空搜索"
         >

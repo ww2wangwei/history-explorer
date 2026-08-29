@@ -73,7 +73,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
             <LobbyVolumeControl />
             <button
               onClick={onClose}
-              className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700"
+              className="text-ink-300 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700"
               title="返回 (ESC)"
               aria-label="返回"
             >×</button>
@@ -125,14 +125,14 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
               </button>
             ))}
           </div>
-          <span className="text-xs text-ink-500 ml-auto">
+          <span className="text-xs text-ink-300 ml-auto">
             {filteredScenarios.length} / {scenarios.length} 个剧本
           </span>
         </div>
 
         {/* 剧本列表 */}
         {filteredScenarios.length === 0 ? (
-          <div className="text-center text-ink-500 py-12">没有匹配的剧本</div>
+          <div className="text-center text-ink-300 py-12">没有匹配的剧本</div>
         ) : (
         <div className="space-y-4">
           {filteredScenarios.map(sc => {
@@ -161,13 +161,13 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
                       <h2 className="text-2xl font-serif text-parchment-50">{sc.title}</h2>
                       {completed && <span className="text-xs px-2 py-0.5 rounded-lg bg-emerald-700/40 text-emerald-300 border border-emerald-600/50">✓ 已通关</span>}
-                      <span className="text-xs text-ink-500">· {sc.era} · {sc.year} 年 · {sc.location}</span>
+                      <span className="text-xs text-ink-300">· {sc.era} · {sc.year} 年 · {sc.location}</span>
                     </div>
                     <div className="text-sm text-vermilion-300 mb-2">{sc.subtitle}</div>
                     <p className="text-sm text-ink-300 leading-relaxed mb-3">{sc.background}</p>
                     {myEnding && (
                       <div className="mb-3 p-2 rounded-lg bg-ink-900/60 border border-bronze-700/30 text-xs">
-                        <span className="text-ink-500">上次结局：</span>
+                        <span className="text-ink-300">上次结局：</span>
                         <span className="text-vermilion-300 font-serif">{myEnding.title}</span>
                       </div>
                     )}
@@ -175,7 +175,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
                     {totalEndings > 0 && (
                       <div className="mb-3">
                         <div className="flex items-center justify-between text-xs mb-1">
-                          <span className="text-ink-500">结局解锁</span>
+                          <span className="text-ink-300">结局解锁</span>
                           <span className={unlockedCount === totalEndings ? 'text-emerald-400 font-serif' : 'text-vermilion-300'}>
                             {unlockedCount} / {totalEndings}
                           </span>
@@ -214,7 +214,7 @@ export default function TimeTravelLobby({ isActive, onClose, onStart }: Props) {
                       >
                         {completed ? '🔁 再玩一次' : '▶ 穿越开始'}
                       </button>
-                      <div className="text-xs text-ink-500">
+                      <div className="text-xs text-ink-300">
                         {sc.scenes.length} 个场景 · {sc.endings.length} 种结局
                       </div>
                     </div>
@@ -299,7 +299,7 @@ function EndingsAtlas({ scenarioEndings, onClose }: { scenarioEndings: Record<st
               （{Math.round((unlockedEndings / totalEndings) * 100)}%）
             </p>
           </div>
-          <button onClick={onClose} className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700">×</button>
+          <button onClick={onClose} className="text-ink-300 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700">×</button>
         </div>
 
         <div className="p-6 space-y-6">
@@ -333,7 +333,7 @@ function EndingsAtlas({ scenarioEndings, onClose }: { scenarioEndings: Record<st
                       >
                         <div className="flex items-center gap-2 mb-1">
                           <span className="text-base">{isUnlocked ? (ending.isWin ? '🏆' : '💀') : '❓'}</span>
-                          <span className={`font-serif ${isUnlocked ? 'text-parchment-50' : 'text-ink-500'}`}>
+                          <span className={`font-serif ${isUnlocked ? 'text-parchment-50' : 'text-ink-300'}`}>
                             {isUnlocked ? ending.title : '???'}
                           </span>
                         </div>

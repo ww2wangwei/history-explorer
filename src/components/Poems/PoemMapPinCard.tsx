@@ -68,7 +68,7 @@ export default function PoemMapPinCard({ onJumpToAllPoems }: Props) {
             <div className="font-serif text-base text-parchment-50 drop-shadow truncate">
               《{poem.title}》
             </div>
-            <div className="text-xs text-parchment-100/85 mt-0.5">
+            <div className="text-xs text-parchment-50/85 mt-0.5">
               {poem.author} · {poem.dynasty}
             </div>
           </div>
@@ -92,14 +92,14 @@ export default function PoemMapPinCard({ onJumpToAllPoems }: Props) {
           >
             📍 创作地
           </span>
-          <span className="text-parchment-100">{poem.geoLabel ?? '未知'}</span>
+          <span className="text-parchment-50">{poem.geoLabel ?? '未知'}</span>
           {poem.geo && (
-            <span className="text-ink-500 ml-1.5 tabular-nums">
+            <span className="text-ink-300 ml-1.5 tabular-nums">
               [{poem.geo[0].toFixed(2)}, {poem.geo[1].toFixed(2)}]
             </span>
           )}
         </div>
-        <div className="text-xs text-parchment-100/90 leading-relaxed line-clamp-5">
+        <div className="text-xs text-parchment-50/90 leading-relaxed line-clamp-5">
           {poem.background}
         </div>
       </div>

@@ -41,7 +41,7 @@ export default function StatsOverview({
           className="px-3 py-3 rounded-lg bg-ink-700/40 border border-ink-600 text-center"
         >
           <div className={`text-2xl font-serif tabular-nums ${stat.color}`}>{stat.value}</div>
-          <div className="text-xs text-ink-500 mt-1">{stat.label}</div>
+          <div className="text-xs text-ink-300 mt-1">{stat.label}</div>
         </div>
       ))}
     </div>

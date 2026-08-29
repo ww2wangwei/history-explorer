@@ -485,7 +485,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                     setPersonaPrompt(null)
                     aiSetContext(contextEraId, contextEventId, null)
                   }}
-                  className="text-ink-500 hover:text-parchment-50 text-base shrink-0"
+                  className="text-ink-300 hover:text-parchment-50 text-base shrink-0"
                   title="退出角色扮演"
                   aria-label="退出角色扮演"
                 >
@@ -513,7 +513,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
               <span className="text-xl">🤖</span>
               <div>
                 <div className="text-sm font-serif text-vermilion-300">历史问答助手</div>
-                <div className="text-xs text-ink-500">
+                <div className="text-xs text-ink-300">
                   {apiKey ? '✓ API key 已配置' : '⚠ 需要 API key'}
                 </div>
               </div>
@@ -532,7 +532,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
               </button>
               <button
                 onClick={closePanel}
-                className="text-ink-500 hover:text-parchment-50 text-xl leading-none"
+                className="text-ink-300 hover:text-parchment-50 text-xl leading-none"
                 title="关闭"
                 aria-label="关闭"
               >
@@ -627,7 +627,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   className="accent-vermilion-500"
                 />
                 <span>禁用 AI 思考模式</span>
-                <span className="text-ink-500">（MiniMax / DeepSeek 等模型关闭 &lt;thinking&gt; 块，推荐打开）</span>
+                <span className="text-ink-300">（MiniMax / DeepSeek 等模型关闭 &lt;thinking&gt; 块，推荐打开）</span>
               </label>
             </div>
           )}
@@ -653,7 +653,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   onClick={() => {
                     if (confirm(`删除对话"${t.title}"?`)) deleteThread(t.id)
                   }}
-                  className="text-xs px-1.5 py-1 text-ink-500 hover:text-red-400"
+                  className="text-xs px-1.5 py-1 text-ink-300 hover:text-red-400"
                   title="删除此对话"
                   aria-label="删除此对话"
                 >
@@ -686,7 +686,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
           {/* 消息列表 */}
           <div className="flex-1 overflow-y-auto p-3 space-y-3 scrollbar-thin">
             {!activeThread && (
-              <div className="text-center text-ink-500 text-xs py-8">
+              <div className="text-center text-ink-300 text-xs py-8">
                 问任何历史问题 — 比如：
                 <div className="mt-2 text-ink-400">
                   • 唐朝为什么衰落？
@@ -725,7 +725,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                     : 'bg-ink-700/40 mr-8'
                 }`}
               >
-                <div className="text-xs text-ink-500 mb-1 flex items-center gap-1">
+                <div className="text-xs text-ink-300 mb-1 flex items-center gap-1">
                   {personForMsg && (
                     <span className="text-base" title={`正在与 ${personForMsg.name} 对话`}>
                       {personForMsg.emoji || '👤'}
@@ -774,7 +774,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                   </div>
                 )}
                 {m.loading && (
-                  <div className="text-xs text-ink-500 mt-1 animate-pulse">▍ 正在输入...</div>
+                  <div className="text-xs text-ink-300 mt-1 animate-pulse">▍ 正在输入...</div>
                 )}
                 {m.error && (
                   <div className="text-xs text-red-400 mt-1">⚠ {m.error}</div>
@@ -824,7 +824,7 @@ export default function AIChatPanel({ showFab = true, fabPosition = 'bottom-righ
                 </button>
               </div>
             )}
-            <div className="text-xs text-ink-500 mt-1">
+            <div className="text-xs text-ink-300 mt-1">
               Enter 发送，Shift+Enter 换行
             </div>
           </div>

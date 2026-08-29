@@ -31,7 +31,7 @@ export default function NoteCard({ note, onEdit, onDelete }: Props) {
           <div className="font-serif text-sm text-parchment-50 truncate">
             {title}
           </div>
-          <div className="text-xs text-ink-500 mt-1 line-clamp-2 leading-relaxed">
+          <div className="text-xs text-ink-300 mt-1 line-clamp-2 leading-relaxed">
             {excerpt}
           </div>
           <div className="text-xs text-ink-400 mt-1.5">
@@ -45,7 +45,7 @@ export default function NoteCard({ note, onEdit, onDelete }: Props) {
               onDelete(note.id)
             }
           }}
-          className="opacity-0 group-hover:opacity-100 px-2 py-1 text-ink-500 hover:text-red-400 hover:bg-red-900/30 rounded-lg text-xs transition-all"
+          className="opacity-0 group-hover:opacity-100 px-2 py-1 text-ink-300 hover:text-red-400 hover:bg-red-900/30 rounded-lg text-xs transition-all"
           aria-label="删除笔记"
           title="删除"
         >

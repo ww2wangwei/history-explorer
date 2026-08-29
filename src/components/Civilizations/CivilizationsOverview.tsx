@@ -136,7 +136,7 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
             onChange={e => setQuery(e.target.value)}
             className="w-full px-3 py-2 rounded-lg bg-ink-700 border border-ink-600 text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-vermilion-500/40"
           />
-          <div className="text-xs text-ink-500 px-1">
+          <div className="text-xs text-ink-300 px-1">
             {filtered.length} / {sections.length} 节
           </div>
           <div className="space-y-1 max-h-[70vh] overflow-y-auto scrollbar-thin pr-1">
@@ -157,12 +157,12 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
                 >
                   <div className="flex items-start gap-2">
                     <div className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-serif ${
-                      isActive ? 'bg-bronze-500 text-ink-900' : isVisited ? 'bg-emerald-700/40 text-emerald-300' : 'bg-ink-700 text-ink-500'
+                      isActive ? 'bg-bronze-500 text-ink-900' : isVisited ? 'bg-emerald-700/40 text-emerald-300' : 'bg-ink-700 text-ink-300'
                     }`}>
                       {isVisited && !isActive ? '✓' : idx + 1}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="text-xs text-ink-500 mb-0.5">{s.topic}</div>
+                      <div className="text-xs text-ink-300 mb-0.5">{s.topic}</div>
                       <div className="text-sm font-serif leading-snug">{s.title}</div>
                     </div>
                   </div>
@@ -188,7 +188,7 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
               第 {sections.findIndex(s => s.id === active.id) + 1} 节 · {active.topic}
             </div>
             <h2 className="text-2xl font-serif text-parchment-50 mb-3">{active.title}</h2>
-            <p className="text-base text-parchment-100 leading-relaxed">{active.summary}</p>
+            <p className="text-base text-parchment-50 leading-relaxed">{active.summary}</p>
           </div>
 
           {/* 中西对比 + 要点 */}
@@ -198,31 +198,31 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
                 <span className="text-xl">🏯</span>
                 <span className="text-sm font-serif text-red-300">东方 · 中国</span>
               </div>
-              <p className="text-sm text-parchment-100 leading-relaxed">{active.east}</p>
+              <p className="text-sm text-parchment-50 leading-relaxed">{active.east}</p>
             </div>
             <div className="p-4 rounded-lg border border-blue-700/40 bg-blue-950/20">
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-xl">🏛️</span>
                 <span className="text-sm font-serif text-blue-300">西方 · 欧洲</span>
               </div>
-              <p className="text-sm text-parchment-100 leading-relaxed">{active.west}</p>
+              <p className="text-sm text-parchment-50 leading-relaxed">{active.west}</p>
             </div>
           </div>
 
           {/* 背景引入 */}
           {active.background && (
             <div className="p-5 rounded-lg bg-ink-800/80 border border-ink-700">
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-3">📜 背景引入</div>
-              <p className="text-sm text-parchment-100 leading-relaxed">{active.background}</p>
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-3">📜 背景引入</div>
+              <p className="text-sm text-parchment-50 leading-relaxed">{active.background}</p>
             </div>
           )}
 
           {/* 关键要点 */}
           <div className="p-5 rounded-lg bg-ink-800/80 border border-ink-700">
-            <div className="text-xs text-ink-500 uppercase tracking-wider mb-3">📌 关键要点</div>
+            <div className="text-xs text-ink-300 uppercase tracking-wider mb-3">📌 关键要点</div>
             <ul className="space-y-2">
               {active.keyPoints.map((kp, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-sm text-parchment-100 leading-relaxed">
+                <li key={i} className="flex items-start gap-2.5 text-sm text-parchment-50 leading-relaxed">
                   <span className="text-vermilion-300 mt-0.5 shrink-0">▸</span>
                   <span>{kp}</span>
                 </li>
@@ -233,7 +233,7 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
           {/* 关键时间线 */}
           {active.timeline && active.timeline.length > 0 && (
             <div className="p-5 rounded-lg bg-ink-800/80 border border-ink-700">
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-3">⏳ 关键时间线</div>
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-3">⏳ 关键时间线</div>
               <ol className="relative border-l-2 border-bronze-700/40 ml-2 space-y-3">
                 {active.timeline.map((t, i) => (
                   <li key={i} className="pl-5 relative">
@@ -242,7 +242,7 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
                       <span className="text-xs font-mono text-vermilion-300 shrink-0 tabular-nums">
                         {t.year < 0 ? `公元前 ${-t.year}` : t.year}
                       </span>
-                      <span className="text-sm text-parchment-100 leading-relaxed">{t.event}</span>
+                      <span className="text-sm text-parchment-50 leading-relaxed">{t.event}</span>
                     </div>
                   </li>
                 ))}
@@ -253,7 +253,7 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
           {/* 关键人物 */}
           {active.figures && active.figures.length > 0 && (
             <div className="p-5 rounded-lg bg-ink-800/80 border border-ink-700">
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-3">👤 关键人物</div>
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-3">👤 关键人物</div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {active.figures.map((f, i) => (
                   <div key={i} className="flex items-start gap-2">
@@ -272,7 +272,7 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
           {active.modernRelevance && (
             <div className="p-5 rounded-lg bg-gradient-to-br from-emerald-950/30 to-ink-800 border border-emerald-700/40">
               <div className="text-xs text-emerald-400 uppercase tracking-wider mb-3">🌍 现代意义</div>
-              <p className="text-sm text-parchment-100 leading-relaxed">{active.modernRelevance}</p>
+              <p className="text-sm text-parchment-50 leading-relaxed">{active.modernRelevance}</p>
             </div>
           )}
 
@@ -282,7 +282,7 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
               <div className="text-xs text-purple-400 uppercase tracking-wider mb-3">💭 思考问题</div>
               <ul className="space-y-2">
                 {active.questions.map((q, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm text-parchment-100 leading-relaxed">
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-parchment-50 leading-relaxed">
                     <span className="text-purple-400 mt-0.5 shrink-0 font-serif">?</span>
                     <span>{q}</span>
                   </li>
@@ -295,7 +295,7 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
           {active.content && (
             <div className="p-5 rounded-lg bg-ink-800/80 border border-amber-700/40">
               <div className="text-xs text-amber-400 uppercase tracking-wider mb-3">📜 完整原文(选自 NotebookLM 对话)</div>
-              <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-wrap font-serif">
+              <div className="text-sm text-parchment-50 leading-relaxed whitespace-pre-wrap font-serif">
                 {active.content}
               </div>
             </div>

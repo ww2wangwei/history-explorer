@@ -139,7 +139,7 @@ export default function QuizManager({ open, onClose }: Props) {
             {mode !== 'list' && (
               <button onClick={() => switchMode('list')} className="text-xs text-ink-300 px-2 py-1 rounded-lg hover:bg-ink-700">← 返回</button>
             )}
-            <button onClick={onClose} className="text-ink-500 hover:text-parchment-50 text-xl leading-none">×</button>
+            <button onClick={onClose} className="text-ink-300 hover:text-parchment-50 text-xl leading-none">×</button>
           </div>
         </div>
 
@@ -179,19 +179,19 @@ export default function QuizManager({ open, onClose }: Props) {
               )}
 
               <div>
-                <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">已批准题目 · {Object.keys(questions).length}</div>
+                <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">已批准题目 · {Object.keys(questions).length}</div>
                 {Object.keys(questions).length === 0 ? (
-                  <div className="text-center text-ink-500 text-sm py-4">题库为空，先添加题目</div>
+                  <div className="text-center text-ink-300 text-sm py-4">题库为空，先添加题目</div>
                 ) : (
                   <div className="space-y-1.5 max-h-96 overflow-y-auto">
                     {Object.values(questions).map(q => (
                       <div key={q.id} className="p-2 rounded-lg bg-ink-700/30 border border-ink-600/40 flex items-start gap-2">
-                        <span className="text-xs text-ink-500 whitespace-nowrap pt-0.5">{q.difficulty}★</span>
+                        <span className="text-xs text-ink-300 whitespace-nowrap pt-0.5">{q.difficulty}★</span>
                         <div className="flex-1 min-w-0">
                           <div className="text-xs text-parchment-50 truncate">{q.prompt}</div>
-                          <div className="text-xs text-ink-500 truncate">答：{['A', 'B', 'C', 'D'][q.answer]}. {q.options[q.answer]}</div>
+                          <div className="text-xs text-ink-300 truncate">答：{['A', 'B', 'C', 'D'][q.answer]}. {q.options[q.answer]}</div>
                         </div>
-                        <button onClick={() => removeQuestion(q.id)} className="text-xs text-ink-500 hover:text-red-400">删</button>
+                        <button onClick={() => removeQuestion(q.id)} className="text-xs text-ink-300 hover:text-red-400">删</button>
                       </div>
                     ))}
                   </div>
@@ -203,7 +203,7 @@ export default function QuizManager({ open, onClose }: Props) {
           {mode === 'add' && (
             <div className="space-y-3">
               <div>
-                <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">难度</div>
+                <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">难度</div>
                 <div className="flex gap-1">
                   {([1, 2, 3, 4, 5] as const).map(d => (
                     <button
@@ -221,7 +221,7 @@ export default function QuizManager({ open, onClose }: Props) {
                 </div>
               </div>
               <div>
-                <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">关联朝代（可选）</div>
+                <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">关联朝代（可选）</div>
                 <select
                   value={form.eraId}
                   onChange={(e) => setForm({ ...form, eraId: e.target.value })}
@@ -232,7 +232,7 @@ export default function QuizManager({ open, onClose }: Props) {
                 </select>
               </div>
               <div>
-                <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">题目</div>
+                <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">题目</div>
                 <textarea
                   value={form.prompt}
                   onChange={(e) => setForm({ ...form, prompt: e.target.value })}
@@ -242,7 +242,7 @@ export default function QuizManager({ open, onClose }: Props) {
                 />
               </div>
               <div className="space-y-1">
-                <div className="text-xs text-ink-500 uppercase tracking-wider">4 个选项（标记正确答案）</div>
+                <div className="text-xs text-ink-300 uppercase tracking-wider">4 个选项（标记正确答案）</div>
                 {form.options.map((opt, i) => (
                   <div key={i} className="flex gap-1">
                     <button
@@ -266,7 +266,7 @@ export default function QuizManager({ open, onClose }: Props) {
                 ))}
               </div>
               <div>
-                <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">解释（可选）</div>
+                <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">解释（可选）</div>
                 <textarea
                   value={form.explanation}
                   onChange={(e) => setForm({ ...form, explanation: e.target.value })}
@@ -287,7 +287,7 @@ export default function QuizManager({ open, onClose }: Props) {
           {mode === 'ai' && (
             <div className="space-y-3">
               <div>
-                <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">朝代</div>
+                <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">朝代</div>
                 <select
                   value={aiForm.eraId}
                   onChange={(e) => setAiForm({ ...aiForm, eraId: e.target.value })}
@@ -297,7 +297,7 @@ export default function QuizManager({ open, onClose }: Props) {
                 </select>
               </div>
               <div>
-                <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">难度</div>
+                <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">难度</div>
                 <div className="flex gap-1">
                   {([1, 2, 3, 4, 5] as const).map(d => (
                     <button
@@ -315,7 +315,7 @@ export default function QuizManager({ open, onClose }: Props) {
                 </div>
               </div>
               <div>
-                <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">题目数量</div>
+                <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">题目数量</div>
                 <input
                   type="number"
                   min={1}
@@ -345,7 +345,7 @@ function PendingItem({ q, onApprove, onReject }: { q: QuizQuestion; onApprove: (
   return (
     <div className="p-3 rounded-lg bg-amber-900/10 border border-amber-700/30">
       <div className="text-xs text-parchment-50 mb-1">{q.prompt}</div>
-      <div className="text-xs text-ink-500 mb-2">
+      <div className="text-xs text-ink-300 mb-2">
         {q.difficulty}★ · {['A', 'B', 'C', 'D'][q.answer]}. {q.options[q.answer]}
       </div>
       <div className="flex gap-1">

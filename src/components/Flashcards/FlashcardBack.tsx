@@ -53,7 +53,7 @@ export default function FlashcardBack({
     <div className="flex-1 flex flex-col px-8 py-6 min-h-0">
       {/* 顶部：目标名 + 当前间隔 */}
       <div className="text-center mb-4 flex-shrink-0">
-        <div className="text-xs text-ink-500 mb-1 uppercase tracking-wider">
+        <div className="text-xs text-ink-300 mb-1 uppercase tracking-wider">
           {KIND_LABEL[targetKind]} · 背面
         </div>
         {targetKind === 'figure' && emoji && (
@@ -64,20 +64,20 @@ export default function FlashcardBack({
           <div className="text-xs text-ink-400 mt-1">{subtitle}</div>
         )}
         {meta && (
-          <div className="text-xs text-ink-500 mt-0.5">{meta}</div>
+          <div className="text-xs text-ink-300 mt-0.5">{meta}</div>
         )}
       </div>
 
       {/* 描述区 */}
       <div className="flex-1 overflow-y-auto scrollbar-thin px-2 py-4 mb-4">
-        <div className="text-base text-parchment-100 leading-relaxed whitespace-pre-wrap">
+        <div className="text-base text-parchment-50 leading-relaxed whitespace-pre-wrap">
           {description}
         </div>
       </div>
 
       {/* 评级按钮：4 档 */}
       <div className="flex-shrink-0">
-        <div className="text-xs text-ink-500 mb-2 text-center">回想得如何？</div>
+        <div className="text-xs text-ink-300 mb-2 text-center">回想得如何？</div>
         <div className="grid grid-cols-4 gap-2">
           {RATING_CONFIG.map(cfg => {
             const nextDays = previewIntervals[cfg.key]

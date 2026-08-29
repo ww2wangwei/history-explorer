@@ -78,7 +78,7 @@ export default function VideoEmbed({ event }: Props) {
         )}
       </div>
       {videoTitle && (
-        <div className="text-[10px] text-ink-500 mt-1 truncate" title={videoTitle}>
+        <div className="text-[10px] text-ink-300 mt-1 truncate" title={videoTitle}>
           {videoTitle}
         </div>
       )}

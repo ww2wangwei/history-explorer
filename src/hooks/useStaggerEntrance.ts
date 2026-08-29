@@ -31,7 +31,7 @@ export function useStaggerEntrance(
   deps: unknown[],
   options: Options = {},
 ) {
-  const { y = 14, scale = 0.96, duration = 0.4, each = 0.025 } = options
+  const { y = 14, scale = 0.96, duration = 0.35, each = 0.02 } = options
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -39,6 +39,8 @@ export function useStaggerEntrance(
     if (reduce) return
     const cards = containerRef.current.querySelectorAll<HTMLElement>(cardSelector)
     if (!cards.length) return
+    // 清理之前残留的 tween，防止多次触发时动画冲突
+    gsap.killTweensOf(cards)
     gsap.from(cards, {
       opacity: 0,
       y,
@@ -47,6 +49,7 @@ export function useStaggerEntrance(
       stagger: { each, grid: 'auto', from: 'start' },
       ease: 'power2.out',
     })
+    return () => { gsap.killTweensOf(cards) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 }

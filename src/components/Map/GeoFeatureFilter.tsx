@@ -98,7 +98,7 @@ export default function GeoFeatureFilter() {
             <div className="text-sm font-serif text-vermilion-300">🗺 地图图层</div>
             <button
               onClick={() => setOpen(false)}
-              className="text-ink-500 hover:text-parchment-50 text-base leading-none"
+              className="text-ink-300 hover:text-parchment-50 text-base leading-none"
               aria-label="关闭"
             >×</button>
           </div>
@@ -168,7 +168,7 @@ export default function GeoFeatureFilter() {
                 })}
               </div>
 
-              <div className="text-[10px] text-ink-500 mt-2 leading-relaxed pt-2 border-t border-ink-400/40">
+              <div className="text-[10px] text-ink-300 mt-2 leading-relaxed pt-2 border-t border-ink-400/40">
                 💡 高德原生样式是抽象政治底图；「地形图（ArcGIS）」和「世界卫星（ArcGIS）」是真实地形/卫星图。
               </div>
             </>
@@ -251,7 +251,7 @@ export default function GeoFeatureFilter() {
                 <button onClick={resetDefault} className="px-2 py-1 rounded border border-ink-400/40 text-ink-300 hover:border-vermilion-500/40 hover:text-vermilion-300 ml-auto">恢复默认</button>
               </div>
 
-              <div className="text-[10px] text-ink-500 mt-2 leading-relaxed">
+              <div className="text-[10px] text-ink-300 mt-2 leading-relaxed">
                 💡 叠加层 = 我们额外画的线/面（蓝色河道、棕色山脉等）。
               </div>
             </>
@@ -309,7 +309,7 @@ export default function GeoFeatureFilter() {
                 <button onClick={amapResetDefault} className="px-2 py-1 rounded border border-ink-400/40 text-ink-300 hover:border-vermilion-500/40 hover:text-vermilion-300 ml-auto">恢复默认</button>
               </div>
 
-              <div className="text-[10px] text-ink-500 mt-2 leading-relaxed">
+              <div className="text-[10px] text-ink-300 mt-2 leading-relaxed">
                 💡 底图要素 = 高德地图自带的 POI、道路、水系标注等。「水系标注」关掉后高德的"长江""黄河"文字会消失（叠加层里仍有）。
               </div>
             </>
@@ -356,12 +356,12 @@ export default function GeoFeatureFilter() {
               </button>
             </div>
             {viewMode === '3D' && (
-              <div className="text-[10px] text-ink-500 mt-1.5 leading-relaxed">
+              <div className="text-[10px] text-ink-300 mt-1.5 leading-relaxed">
                 切换会重建地图（保留中心/缩放）。3D 模式右键拖动调俯仰角，左键拖动旋转。
               </div>
             )}
             {viewMode === 'globe' && (
-              <div className="text-[10px] text-ink-500 mt-1.5 leading-relaxed">
+              <div className="text-[10px] text-ink-300 mt-1.5 leading-relaxed">
                 拖动旋转 · 滚轮缩放 · 悬停/点击图钉或地物查看。
               </div>
             )}

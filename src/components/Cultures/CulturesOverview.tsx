@@ -331,7 +331,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                         >
                           {catMeta.icon}
                         </span>
-                        <span className="text-xs text-ink-500 tabular-nums">{yearLabel}</span>
+                        <span className="text-xs text-ink-300 tabular-nums">{yearLabel}</span>
                         {ev.importance === 3 && <span className="text-amber-400 text-xs">⭐ 关键</span>}
                         <span
                           className="text-[9px] px-1.5 py-0.5 rounded-lg"
@@ -339,7 +339,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                         >
                           {ev.category}
                         </span>
-                        <span className="text-[9px] text-ink-500">📍 {ev.region}</span>
+                        <span className="text-[9px] text-ink-300">📍 {ev.region}</span>
                       </div>
                       <div className="text-sm font-serif text-parchment-50 mb-1 truncate">{ev.title}</div>
                       <div className="text-[11px] text-ink-300 line-clamp-2 leading-relaxed">{ev.description}</div>
@@ -408,14 +408,14 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
 
             <div className="p-6 space-y-4">
               <div>
-                <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">📜 详细介绍</div>
-                <div className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
+                <div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">📜 详细介绍</div>
+                <div className="text-sm text-parchment-50 leading-relaxed whitespace-pre-line">
                   {selectedEvent.description}
                 </div>
               </div>
 
               <div>
-                <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
+                <div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">🗺️ 位置</div>
                 <MiniMap
                   focusNode={{
                     title: selectedEvent.title,

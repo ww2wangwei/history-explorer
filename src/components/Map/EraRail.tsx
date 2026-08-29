@@ -264,7 +264,7 @@ export default function EraRail() {
                     className="w-full text-left px-3 py-1.5 text-xs text-ink-200 hover:bg-ink-700 transition-colors flex items-center justify-between"
                   >
                     <span style={{ color: era.color }}>{era.name}</span>
-                    <span className="text-[10px] text-ink-500 tabular-nums">
+                    <span className="text-[10px] text-ink-300 tabular-nums">
                       {formatYearShort(era.startYear)}~{formatYearShort(era.endYear)}
                     </span>
                   </button>
@@ -287,7 +287,7 @@ export default function EraRail() {
           </button>
           {filterOpen && (
             <div className="absolute bottom-full right-0 mb-1 w-64 max-h-80 overflow-y-auto scrollbar-thin rounded-lg border border-ink-600 bg-ink-800 shadow-2xl z-50 p-3">
-              <div className="text-xs text-ink-500 mb-2">分类</div>
+              <div className="text-xs text-ink-300 mb-2">分类</div>
               <div className="flex flex-wrap gap-1 mb-3">
                 {ALL_CATEGORIES.map(cat => {
                   const active = filters.categories.includes(cat)
@@ -296,7 +296,7 @@ export default function EraRail() {
                       key={cat}
                       onClick={() => toggleCategory(cat)}
                       className={`px-2 py-0.5 rounded-lg text-xs border transition-all ${
-                        active ? 'border-current' : 'border-ink-600 text-ink-500 hover:border-ink-500'
+                        active ? 'border-current' : 'border-ink-600 text-ink-300 hover:border-ink-500'
                       }`}
                       style={{
                         background: active ? `${CATEGORY_COLORS[cat]}30` : 'transparent',
@@ -309,7 +309,7 @@ export default function EraRail() {
                 })}
               </div>
 
-              <div className="text-xs text-ink-500 mb-2">地区</div>
+              <div className="text-xs text-ink-300 mb-2">地区</div>
               <div className="flex flex-wrap gap-1 mb-3">
                 {ALL_REGIONS.map(region => {
                   const active = filters.regions.includes(region)
@@ -320,7 +320,7 @@ export default function EraRail() {
                       className={`px-2 py-0.5 rounded-lg text-xs border transition-all ${
                         active
                           ? 'bg-vermilion-500/30 border-vermilion-500/60 text-vermilion-300'
-                          : 'border-ink-600 text-ink-500 hover:border-ink-500'
+                          : 'border-ink-600 text-ink-300 hover:border-ink-500'
                       }`}
                     >
                       {REGION_LABELS[region]}
@@ -329,7 +329,7 @@ export default function EraRail() {
                 })}
               </div>
 
-              <div className="text-xs text-ink-500 mb-2">重要度</div>
+              <div className="text-xs text-ink-300 mb-2">重要度</div>
               <div className="flex gap-1 mb-3">
                 {[1, 2, 3].map(level => (
                   <button
@@ -338,7 +338,7 @@ export default function EraRail() {
                     className={`flex-1 px-2 py-1 rounded-lg text-xs border transition-all ${
                       filters.minImportance === level
                         ? 'bg-vermilion-500/30 border-vermilion-500/60 text-vermilion-300'
-                        : 'border-ink-600 text-ink-500 hover:border-ink-500'
+                        : 'border-ink-600 text-ink-300 hover:border-ink-500'
                     }`}
                   >
                     {level === 1 ? '全部' : level === 2 ? '中等+' : '最重要'}

@@ -119,10 +119,10 @@ export default function GeoAdmin() {
                     <span className="text-base">🚫</span>
                     <span className="text-sm text-parchment-50 truncate flex-1 line-through opacity-60">{f.name}</span>
                   </div>
-                  <div className="text-xs text-ink-500 truncate mt-0.5">{(f as any).id}</div>
+                  <div className="text-xs text-ink-300 truncate mt-0.5">{(f as any).id}</div>
                 </button>
               ))}
-              {deletedFeatures.length === 0 && <div className="p-4 text-center text-ink-500 text-sm">没有已删除条目</div>}
+              {deletedFeatures.length === 0 && <div className="p-4 text-center text-ink-300 text-sm">没有已删除条目</div>}
             </>
           ) : (
             <>
@@ -143,14 +143,14 @@ export default function GeoAdmin() {
                       {isNew && <span className="text-[9px] text-emerald-400 bg-emerald-900/30 px-1 rounded-lg">新</span>}
                       {!isNew && edited && <span className="text-[9px] text-amber-400 bg-amber-900/30 px-1 rounded-lg">已编辑</span>}
                     </div>
-                    <div className="text-xs text-ink-500 truncate mt-0.5">
+                    <div className="text-xs text-ink-300 truncate mt-0.5">
                       {f.id} · {f.labelPos[0].toFixed(1)}, {f.labelPos[1].toFixed(1)}
                     </div>
                   </button>
                 )
               })}
               {filtered.length === 0 && (
-                <div className="p-4 text-center text-ink-500 text-sm">无匹配条目</div>
+                <div className="p-4 text-center text-ink-300 text-sm">无匹配条目</div>
               )}
             </>
           )}
@@ -162,7 +162,7 @@ export default function GeoAdmin() {
         {selected ? (
           <GeoEditForm key={selected.id} feature={selected} />
         ) : (
-          <div className="p-8 text-center text-ink-500">
+          <div className="p-8 text-center text-ink-300">
             ← 选择左侧条目进行编辑<br/>
             <span className="text-xs">共 {merged.length} 条，已编辑 {Object.keys(overrides).length} 条</span>
           </div>
@@ -258,13 +258,13 @@ function GeoEditForm({ feature }: { feature: GeoFeature }) {
     <div className="p-6 max-w-3xl space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-xs text-ink-500 uppercase tracking-wider flex items-center gap-2">
+          <div className="text-xs text-ink-300 uppercase tracking-wider flex items-center gap-2">
             <span>编辑地理条目</span>
             {isNew && <span className="text-emerald-400 bg-emerald-900/30 px-1.5 rounded-lg">🆕 新建</span>}
             {isDeleted && <span className="text-red-400 bg-red-900/30 px-1.5 rounded-lg">🚫 已删除</span>}
           </div>
           <h2 className="text-2xl font-serif text-vermilion-300 mt-1">{feature.name}</h2>
-          <code className="text-xs text-ink-500">id: {feature.id}</code>
+          <code className="text-xs text-ink-300">id: {feature.id}</code>
         </div>
         <div className="flex gap-2">
           {isDeleted ? (
@@ -340,24 +340,24 @@ function GeoEditForm({ feature }: { feature: GeoFeature }) {
           rows={6}
           className={inputCls + ' font-sans leading-relaxed'}
         />
-        <div className="text-xs text-ink-500 mt-1">{description.length} 字</div>
+        <div className="text-xs text-ink-300 mt-1">{description.length} 字</div>
       </Field>
 
       {/* 图片 */}
       <Field label="图片">
         <div className="space-y-2">
           <div>
-            <div className="text-xs text-ink-500 mb-1">搜索关键词（推荐 · 英文更准）</div>
+            <div className="text-xs text-ink-300 mb-1">搜索关键词（推荐 · 英文更准）</div>
             <input value={imageSearch} onChange={e => setImageSearch(e.target.value)} placeholder="如：nile river egypt" className={inputCls} />
-            <div className="text-xs text-ink-500 mt-0.5">留空表示不改图片</div>
+            <div className="text-xs text-ink-300 mt-0.5">留空表示不改图片</div>
           </div>
           <div>
-            <div className="text-xs text-ink-500 mb-1">或：直接 URL</div>
+            <div className="text-xs text-ink-300 mb-1">或：直接 URL</div>
             <input value={imageUrl} onChange={e => setImageUrl(e.target.value)} placeholder="https://..." className={inputCls + ' font-mono text-xs'} />
           </div>
           {previewUrl && (
             <div className="mt-2 rounded-lg border border-ink-600 overflow-hidden">
-              <div className="text-xs text-ink-500 bg-ink-800 px-2 py-1">预览</div>
+              <div className="text-xs text-ink-300 bg-ink-800 px-2 py-1">预览</div>
               <img src={previewUrl} alt={feature.name} className="w-full" />
             </div>
           )}
@@ -385,7 +385,7 @@ const inputCls = 'w-full px-3 py-1.5 text-sm bg-ink-800 border border-ink-600 ro
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">{label}</div>
+      <div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">{label}</div>
       {children}
     </div>
   )

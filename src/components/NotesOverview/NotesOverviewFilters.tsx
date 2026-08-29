@@ -44,7 +44,7 @@ export default function NotesOverviewFilters({
             className={`flex-1 px-3 py-1 text-xs rounded-lg transition-colors ${
               kind === opt.value
                 ? 'bg-vermilion-500/40 text-vermilion-300 border border-vermilion-500/60'
-                : 'bg-ink-700/60 text-ink-500 hover:bg-ink-700 hover:text-parchment-50 border border-ink-600'
+                : 'bg-ink-700/60 text-ink-300 hover:bg-ink-700 hover:text-parchment-50 border border-ink-600'
             }`}
           >
             {opt.label}
@@ -55,7 +55,7 @@ export default function NotesOverviewFilters({
       {/* target 下拉（仅 kind 选中后显示） */}
       {showTarget && (
         <div className="flex items-center gap-2">
-          <span className="text-xs text-ink-500 shrink-0">
+          <span className="text-xs text-ink-300 shrink-0">
             {kind === 'era' ? '朝代：' : '事件：'}
           </span>
           <select

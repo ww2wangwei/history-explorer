@@ -144,7 +144,7 @@ export default function QuizSession({ open, onClose, onManage }: Props) {
             <button onClick={onManage} className="text-xs text-ink-400 hover:text-vermilion-300 px-2 py-1 rounded-lg hover:bg-ink-700">
               管理
             </button>
-            <button onClick={onClose} className="text-ink-500 hover:text-parchment-50 text-xl leading-none">×</button>
+            <button onClick={onClose} className="text-ink-300 hover:text-parchment-50 text-xl leading-none">×</button>
           </div>
         </div>
 
@@ -210,14 +210,14 @@ function ConfigPanel({ onStart, questionCount, difficulty, setDifficulty, count,
         <div className="text-center text-ink-400 py-8">
           <div className="text-3xl mb-2">📝</div>
           <div className="text-sm">题库为空</div>
-          <div className="text-xs mt-1 text-ink-500">
+          <div className="text-xs mt-1 text-ink-300">
             点击右上"管理"添加题目，或用 AI 自动出题
           </div>
         </div>
       ) : (
         <>
           <div>
-            <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">难度等级</div>
+            <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">难度等级</div>
             <div className="grid grid-cols-3 gap-2">
               {([1, 2, 3, 4, 5, 'mixed'] as const).map(d => (
                 <button
@@ -235,7 +235,7 @@ function ConfigPanel({ onStart, questionCount, difficulty, setDifficulty, count,
             </div>
           </div>
           <div>
-            <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">题目数量</div>
+            <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">题目数量</div>
             <div className="flex gap-2">
               {[5, 10, 20, 30].map(n => (
                 <button
@@ -282,7 +282,7 @@ function PlayingPanel({ q, selected, showExplain, handleSelect, handleNext, isLa
   const isCorrect = selected === q.answer
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 text-xs text-ink-500">
+      <div className="flex items-center gap-2 text-xs text-ink-300">
         <span>{DIFFICULTY_LABELS[q.difficulty]}</span>
         {era && (
           <>
@@ -310,7 +310,7 @@ function PlayingPanel({ q, selected, showExplain, handleSelect, handleNext, isLa
               onClick={() => handleSelect(i)}
               className={`w-full text-left px-4 py-3 rounded-lg text-sm transition-colors ${cls} disabled:cursor-default`}
             >
-              <span className="inline-block w-6 text-ink-500 mr-2">{['A', 'B', 'C', 'D'][i]}.</span>
+              <span className="inline-block w-6 text-ink-300 mr-2">{['A', 'B', 'C', 'D'][i]}.</span>
               {opt}
             </button>
           )
@@ -355,7 +355,7 @@ function ResultPanel({ total, correct, byDiff, wrongIds, questions, onClose, onR
       </div>
 
       <div className="space-y-1.5">
-        <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">分难度</div>
+        <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">分难度</div>
         {([1, 2, 3, 4, 5] as const).map(d => {
           const stat = byDiff[d]
           if (!stat || stat.total === 0) return null
@@ -374,7 +374,7 @@ function ResultPanel({ total, correct, byDiff, wrongIds, questions, onClose, onR
 
       {wrongIds.length > 0 && (
         <div>
-          <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">错题（点击再次学习）</div>
+          <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">错题（点击再次学习）</div>
           <div className="space-y-1.5 max-h-40 overflow-y-auto">
             {wrongIds.map(id => {
               const q = questions[id]
@@ -382,7 +382,7 @@ function ResultPanel({ total, correct, byDiff, wrongIds, questions, onClose, onR
               return (
                 <div key={id} className="p-2 rounded-lg bg-red-900/10 border border-red-700/30 text-[11px]">
                   <div className="text-parchment-50 mb-1">{q.prompt}</div>
-                  <div className="text-ink-500">正确：{['A', 'B', 'C', 'D'][q.answer]}</div>
+                  <div className="text-ink-300">正确：{['A', 'B', 'C', 'D'][q.answer]}</div>
                 </div>
               )
             })}

@@ -22,14 +22,14 @@ interface Props {
 export default function NotePreview({ content }: Props) {
   if (!content.trim()) {
     return (
-      <div className="text-ink-500 italic text-sm py-4 text-center">
+      <div className="text-ink-300 italic text-sm py-4 text-center">
         （无内容）
       </div>
     )
   }
 
   return (
-    <div className="note-preview text-parchment-100 text-sm leading-relaxed">
+    <div className="note-preview text-parchment-50 text-sm leading-relaxed">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
@@ -126,7 +126,7 @@ export default function NotePreview({ content }: Props) {
           td: ({ node: _node, ...props }) => (
             <td
               {...props}
-              className="border border-ink-600 px-2 py-1 text-parchment-100"
+              className="border border-ink-600 px-2 py-1 text-parchment-50"
             />
           ),
           hr: ({ node: _node, ...props }) => (

@@ -402,7 +402,7 @@ export default function Timeline() {
               className={`px-2 py-0.5 rounded-md text-[11px] border transition-all flex items-center gap-1 shrink-0 ${
                 active
                   ? 'border-current'
-                  : 'border-ink-700 text-ink-500 hover:border-ink-500 hover:text-ink-300'
+                  : 'border-ink-700 text-ink-300 hover:border-ink-500 hover:text-ink-300'
               }`}
               style={{
                 background: active ? `${CATEGORY_COLORS[cat]}28` : 'transparent',
@@ -430,7 +430,7 @@ export default function Timeline() {
         {/* 收起/展开按钮（始终在右端） */}
         <button
           onClick={toggleCollapsed}
-          className={`${hasCategoryFilter ? '' : 'ml-auto'} text-[10px] text-ink-500 hover:text-vermilion-300 transition-colors shrink-0 px-1`}
+          className={`${hasCategoryFilter ? '' : 'ml-auto'} text-[10px] text-ink-300 hover:text-vermilion-300 transition-colors shrink-0 px-1`}
           title={collapsed ? '展开时间轴' : '收起时间轴'}
           aria-label={collapsed ? '展开时间轴' : '收起时间轴'}
         >
@@ -810,7 +810,7 @@ export default function Timeline() {
             {/* P3: 此刻活跃朝代 */}
             {nearbyEras.length > 0 && (
               <div className="px-3 py-1.5 border-b border-ink-700/60 bg-ink-900/40">
-                <div className="text-[9px] text-ink-500 mb-1 tracking-wide">此刻朝代</div>
+                <div className="text-[9px] text-ink-300 mb-1 tracking-wide">此刻朝代</div>
                 <div className="flex flex-wrap gap-1">
                   {nearbyEras.map(era => (
                     <button
@@ -833,7 +833,7 @@ export default function Timeline() {
                       >
                         {era.name}
                       </span>
-                      <span className="text-[9px] text-ink-500 tabular-nums shrink-0">
+                      <span className="text-[9px] text-ink-300 tabular-nums shrink-0">
                         {formatYearShort(era.startYear)}-{era.endYear < 0 ? `前${-era.endYear}` : era.endYear}
                       </span>
                     </button>

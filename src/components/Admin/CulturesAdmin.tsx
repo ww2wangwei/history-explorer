@@ -74,21 +74,21 @@ export default function CulturesAdmin() {
                 <button key={c.id} onClick={() => setSelectedId(c.id)}
                   className={`w-full text-left p-2 border-b border-ink-800 hover:bg-ink-800/60 ${selectedId === c.id ? 'bg-bronze-900/20 border-l-2 border-l-bronze-500' : ''}`}>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-ink-500 tabular-nums">{c.year < 0 ? `BC ${-c.year}` : c.year}</span>
+                    <span className="text-xs text-ink-300 tabular-nums">{c.year < 0 ? `BC ${-c.year}` : c.year}</span>
                     <span className="text-sm text-parchment-50 truncate flex-1">{c.title}</span>
                     {isNew && <span className="text-[9px] text-emerald-400 bg-emerald-900/30 px-1 rounded-lg">新</span>}
                     {!isNew && edited && <span className="text-[9px] text-amber-400 bg-amber-900/30 px-1 rounded-lg">已编辑</span>}
                   </div>
-                  <div className="text-xs text-ink-500 truncate">{c.category} · {c.region}</div>
+                  <div className="text-xs text-ink-300 truncate">{c.category} · {c.region}</div>
                 </button>
               )
             })
           )}
-          {filtered.length === 0 && !showDeleted && <div className="p-4 text-center text-ink-500 text-sm">无匹配</div>}
+          {filtered.length === 0 && !showDeleted && <div className="p-4 text-center text-ink-300 text-sm">无匹配</div>}
         </div>
       </div>
       <div className="flex-1 overflow-y-auto">
-        {selected ? <CultureEditForm key={selected.id} culture={selected} /> : <div className="p-8 text-center text-ink-500">← 选择左侧条目（共 {merged.length} 条）</div>}
+        {selected ? <CultureEditForm key={selected.id} culture={selected} /> : <div className="p-8 text-center text-ink-300">← 选择左侧条目（共 {merged.length} 条）</div>}
       </div>
     </div>
   )
@@ -145,13 +145,13 @@ function CultureEditForm({ culture }: { culture: CultureEvent }) {
     <div className="p-6 max-w-3xl space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-xs text-ink-500 uppercase tracking-wider flex items-center gap-2">
+          <div className="text-xs text-ink-300 uppercase tracking-wider flex items-center gap-2">
             <span>编辑文化内容</span>
             {isNew && <span className="text-emerald-400 bg-emerald-900/30 px-1.5 rounded-lg">🆕 新建</span>}
             {isDeleted && <span className="text-red-400 bg-red-900/30 px-1.5 rounded-lg">🚫 已删除</span>}
           </div>
           <h2 className="text-2xl font-serif text-vermilion-300 mt-1">{culture.title}</h2>
-          <code className="text-xs text-ink-500">id: {culture.id}</code>
+          <code className="text-xs text-ink-300">id: {culture.id}</code>
         </div>
         <div className="flex gap-2">
           {isDeleted ? (
@@ -177,7 +177,7 @@ function CultureEditForm({ culture }: { culture: CultureEvent }) {
       </Field>
       <Field label="地区"><input value={region} onChange={e => setRegion(e.target.value)} className={inputCls} /></Field>
       <Field label="经纬度"><div className="flex gap-2"><input type="number" step="0.01" value={lng} onChange={e => setLng(parseFloat(e.target.value))} placeholder="经度" className={inputCls + ' flex-1'} /><input type="number" step="0.01" value={lat} onChange={e => setLat(parseFloat(e.target.value))} placeholder="纬度" className={inputCls + ' flex-1'} /></div></Field>
-      <Field label="介绍描述"><textarea value={description} onChange={e => setDescription(e.target.value)} rows={8} className={inputCls + ' font-sans leading-relaxed'} /><div className="text-xs text-ink-500 mt-1">{description.length} 字</div></Field>
+      <Field label="介绍描述"><textarea value={description} onChange={e => setDescription(e.target.value)} rows={8} className={inputCls + ' font-sans leading-relaxed'} /><div className="text-xs text-ink-300 mt-1">{description.length} 字</div></Field>
       <Field label="图片"><div className="space-y-2"><input value={imageSearch} onChange={e => setImageSearch(e.target.value)} placeholder="英文搜索词" className={inputCls} />{previewUrl && <div className="rounded-lg border border-ink-600 overflow-hidden"><img src={previewUrl} alt={culture.title} className="w-full" /></div>}</div></Field>
 
       <div className="pt-3 border-t border-ink-700 flex gap-2">
@@ -189,5 +189,5 @@ function CultureEditForm({ culture }: { culture: CultureEvent }) {
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div><div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">{label}</div>{children}</div>
+  return <div><div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">{label}</div>{children}</div>
 }

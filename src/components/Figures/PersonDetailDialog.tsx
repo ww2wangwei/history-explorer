@@ -117,7 +117,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
 
         {/* 头部 sticky 标题区 */}
         <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-vermilion-500/30 px-6 py-3 flex items-center justify-between">
-          <div className="text-xs text-ink-500 uppercase tracking-wider">👤 人物详情</div>
+          <div className="text-xs text-ink-300 uppercase tracking-wider">👤 人物详情</div>
         </div>
 
         {/* 内容 */}
@@ -125,7 +125,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
           {/* 生卒年 */}
           {lifespan && (
             <div>
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">📅 生卒年</div>
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📅 生卒年</div>
               <div className="text-sm text-parchment-50 font-serif">{lifespan}</div>
             </div>
           )}
@@ -133,7 +133,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
           {/* 所属朝代 */}
           {eraList.length > 0 && (
             <div>
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">🏛️ 所属朝代</div>
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">🏛️ 所属朝代</div>
               <div className="flex flex-wrap gap-1.5">
                 {eraList.map(e => (
                   <span
@@ -150,14 +150,14 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
 
           {/* 简介 */}
           <div>
-            <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">📜 简介</div>
+            <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📜 简介</div>
             <div className="text-sm text-parchment-50 leading-relaxed">{person.description}</div>
           </div>
 
           {/* 代表作品（文化人物用） */}
           {person.culturalWorks && person.culturalWorks.length > 0 && (
             <div>
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-1">
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">
                 📖 代表作品（{person.culturalWorks.length}）
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -199,7 +199,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
               className="w-full flex items-center justify-between text-left text-xs text-purple-300/80 hover:text-purple-200 transition-colors py-1"
             >
               <span>💡 不知道问什么？试试这些</span>
-              <span className="text-ink-500">{showSuggestions ? '▲' : '▼'}</span>
+              <span className="text-ink-300">{showSuggestions ? '▲' : '▼'}</span>
             </button>
             {showSuggestions && (
               <div className="mt-1 space-y-1.5">
@@ -207,7 +207,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
                   <button
                     key={i}
                     onClick={() => handleStartChatWith(q)}
-                    className="w-full text-left px-3 py-2 rounded-lg bg-purple-950/30 hover:bg-purple-900/50 border border-purple-800/40 hover:border-purple-600/60 text-xs text-parchment-100 transition-colors"
+                    className="w-full text-left px-3 py-2 rounded-lg bg-purple-950/30 hover:bg-purple-900/50 border border-purple-800/40 hover:border-purple-600/60 text-xs text-parchment-50 transition-colors"
                     title="点击直接以这个问题开始对话"
                   >
                     {q}

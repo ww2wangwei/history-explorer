@@ -74,21 +74,21 @@ export default function WarsAdmin() {
                 <button key={w.id} onClick={() => setSelectedId(w.id)}
                   className={`w-full text-left p-2 border-b border-ink-800 hover:bg-ink-800/60 ${selectedId === w.id ? 'bg-bronze-900/20 border-l-2 border-l-bronze-500' : ''}`}>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-ink-500 tabular-nums">{w.year < 0 ? `BC ${-w.year}` : w.year}</span>
+                    <span className="text-xs text-ink-300 tabular-nums">{w.year < 0 ? `BC ${-w.year}` : w.year}</span>
                     <span className="text-sm text-parchment-50 truncate flex-1">{w.title}</span>
                     {isNew && <span className="text-[9px] text-emerald-400 bg-emerald-900/30 px-1 rounded-lg">新</span>}
                     {!isNew && edited && <span className="text-[9px] text-amber-400 bg-amber-900/30 px-1 rounded-lg">已编辑</span>}
                   </div>
-                  <div className="text-xs text-ink-500 truncate">{w.region === 'china' ? '🇨🇳 中国' : '🌍 世界'}</div>
+                  <div className="text-xs text-ink-300 truncate">{w.region === 'china' ? '🇨🇳 中国' : '🌍 世界'}</div>
                 </button>
               )
             })
           )}
-          {filtered.length === 0 && !showDeleted && <div className="p-4 text-center text-ink-500 text-sm">无匹配</div>}
+          {filtered.length === 0 && !showDeleted && <div className="p-4 text-center text-ink-300 text-sm">无匹配</div>}
         </div>
       </div>
       <div className="flex-1 overflow-y-auto">
-        {selected ? <WarEditForm key={selected.id} war={selected} /> : <div className="p-8 text-center text-ink-500">← 选择左侧条目（共 {wars.length} 场战争）</div>}
+        {selected ? <WarEditForm key={selected.id} war={selected} /> : <div className="p-8 text-center text-ink-300">← 选择左侧条目（共 {wars.length} 场战争）</div>}
       </div>
     </div>
   )
@@ -139,13 +139,13 @@ function WarEditForm({ war }: { war: HistoricalEvent }) {
     <div className="p-6 max-w-3xl space-y-4">
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-xs text-ink-500 uppercase tracking-wider flex items-center gap-2">
+          <div className="text-xs text-ink-300 uppercase tracking-wider flex items-center gap-2">
             <span>编辑战争事件</span>
             {isNew && <span className="text-emerald-400 bg-emerald-900/30 px-1.5 rounded-lg">🆕 新建</span>}
             {isDeleted && <span className="text-red-400 bg-red-900/30 px-1.5 rounded-lg">🚫 已删除</span>}
           </div>
           <h2 className="text-2xl font-serif text-vermilion-300 mt-1">{war.title}</h2>
-          <code className="text-xs text-ink-500">id: {war.id}</code>
+          <code className="text-xs text-ink-300">id: {war.id}</code>
         </div>
         <div className="flex gap-2">
           {isDeleted ? (
@@ -165,7 +165,7 @@ function WarEditForm({ war }: { war: HistoricalEvent }) {
       <Field label="标题"><input value={title} onChange={e => setTitle(e.target.value)} className={inputCls} /></Field>
       <Field label="年代（负数=BC）"><input type="number" value={year} onChange={e => setYear(parseInt(e.target.value) || 0)} className={inputCls} /></Field>
       <Field label="经纬度"><div className="flex gap-2"><input type="number" step="0.01" value={lng} onChange={e => setLng(parseFloat(e.target.value))} placeholder="经度" className={inputCls + ' flex-1'} /><input type="number" step="0.01" value={lat} onChange={e => setLat(parseFloat(e.target.value))} placeholder="纬度" className={inputCls + ' flex-1'} /></div></Field>
-      <Field label="描述"><textarea value={description} onChange={e => setDescription(e.target.value)} rows={8} className={inputCls + ' font-sans leading-relaxed'} /><div className="text-xs text-ink-500 mt-1">{description.length} 字</div></Field>
+      <Field label="描述"><textarea value={description} onChange={e => setDescription(e.target.value)} rows={8} className={inputCls + ' font-sans leading-relaxed'} /><div className="text-xs text-ink-300 mt-1">{description.length} 字</div></Field>
       <Field label="图片"><div className="space-y-2"><input value={imageSearch} onChange={e => setImageSearch(e.target.value)} placeholder="英文搜索词（如 battle of waterloo）" className={inputCls} />{previewUrl && <div className="rounded-lg border border-ink-600 overflow-hidden"><img src={previewUrl} alt={war.title} className="w-full" /></div>}</div></Field>
 
       <div className="pt-3 border-t border-ink-700 flex gap-2">
@@ -177,5 +177,5 @@ function WarEditForm({ war }: { war: HistoricalEvent }) {
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <div><div className="text-xs text-ink-500 uppercase tracking-wider mb-1.5">{label}</div>{children}</div>
+  return <div><div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">{label}</div>{children}</div>
 }

@@ -135,7 +135,7 @@ export default function PersonCard({ person, visited, onClick, className = '' }:
           <span className="text-sm font-serif text-parchment-50 truncate flex-1">{person.name}</span>
           {visited && <span className="text-[9px] text-green-400">✓</span>}
         </div>
-        <div className="text-xs text-ink-500 truncate">
+        <div className="text-xs text-ink-300 truncate">
           {years ? years : person.role.slice(0, 30)}
         </div>
         <div className="flex flex-wrap gap-1 mt-0.5">
@@ -149,7 +149,7 @@ export default function PersonCard({ person, visited, onClick, className = '' }:
             </span>
           ))}
           {eraNames.length > 2 && (
-            <span className="text-[9px] text-ink-500">+{eraNames.length - 2}</span>
+            <span className="text-[9px] text-ink-300">+{eraNames.length - 2}</span>
           )}
         </div>
       </div>

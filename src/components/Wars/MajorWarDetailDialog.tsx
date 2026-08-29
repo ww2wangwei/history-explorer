@@ -77,15 +77,15 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
 
         {/* 导语 */}
         <div className="p-6 pb-3">
-          <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">📜 战争总览</div>
-          <div className="text-sm text-parchment-100 leading-relaxed">{mw.summary}</div>
+          <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">📜 战争总览</div>
+          <div className="text-sm text-parchment-50 leading-relaxed">{mw.summary}</div>
         </div>
 
         {/* 节点时间线 */}
         <div className="px-6 pb-6">
-          <div className="text-xs text-ink-500 uppercase tracking-wider mb-3">⚔️ 关键节点事件（{mw.nodes.length}）</div>
+          <div className="text-xs text-ink-300 uppercase tracking-wider mb-3">⚔️ 关键节点事件（{mw.nodes.length}）</div>
           {mw.nodes.length === 0 ? (
-            <div className="text-xs text-ink-500 italic">（暂无节点）</div>
+            <div className="text-xs text-ink-300 italic">（暂无节点）</div>
           ) : (
             <div className="relative pl-5">
               {/* 时间线竖线 */}
@@ -105,7 +105,7 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
                           <span className="text-xs text-red-300 tabular-nums font-serif">{yearLabel}</span>
                           {node.importance === 3 && <span className="text-amber-400 text-xs">⭐ 关键</span>}
                           {node.location && (
-                            <span className="text-xs text-ink-500">📍 {node.location}</span>
+                            <span className="text-xs text-ink-300">📍 {node.location}</span>
                           )}
                           {(node.coordinates || lookupLocationStrict(node.location)) && (
                             <button

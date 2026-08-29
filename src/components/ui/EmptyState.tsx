@@ -32,7 +32,7 @@ export default function EmptyState({
       <div className="text-6xl mb-3 inline-block opacity-70">{emoji}</div>
       <div className="text-sm text-parchment-200 mb-1">{title}</div>
       {hint && (
-        <div className="text-xs text-ink-500 mb-3">{hint}</div>
+        <div className="text-xs text-ink-300 mb-3">{hint}</div>
       )}
       {actionLabel && onAction && (
         <button

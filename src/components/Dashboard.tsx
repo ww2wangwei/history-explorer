@@ -430,10 +430,10 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         {/* === 4. 进度总览（一行 timeline-style 条） === */}
         <div className="mb-8 p-4 rounded-lg bg-ink-800/40 border border-ink-700">
           <div className="flex items-center justify-between mb-2 text-xs">
-            <span className="text-ink-500">
+            <span className="text-ink-300">
               总进度 · {totalEras > 0 ? `${Math.round((learnedInTimeline / totalEras) * 100)}%` : '未开始'}
             </span>
-            <span className="text-ink-500 font-mono tabular-nums">
+            <span className="text-ink-300 font-mono tabular-nums">
               {learnedInTimeline} / {totalEras} 朝代
               {' · '}
               {cardsCount} 复习卡
@@ -467,7 +467,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         {/* === 5. 已合并到「学习路径」section（上方），删除旧的独立余·目 section === */}
 
         {/* === 6. 快捷入口（极简） === */}
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-ink-500 pt-4 border-t border-ink-700">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-ink-300 pt-4 border-t border-ink-700">
           <button
             onClick={onEnterMap}
             className="hover:text-vermilion-300 transition-colors"
@@ -513,10 +513,10 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
             <div className="sticky top-0 z-10 bg-ink-800/95 backdrop-blur border-b border-ink-600 px-6 py-4 flex items-center justify-between">
               <div>
                 <h2 className="text-xl font-brush text-vermilion-300 tracking-wide">📜 选一个朝代学习</h2>
-                <div className="text-xs text-ink-500 mt-0.5">按时间顺序排列。已学的朝代用 <span className="text-green-400">绿色</span> 标记，下一个推荐的用 <span className="text-vermilion-300">金色</span> 高亮。</div>
+                <div className="text-xs text-ink-300 mt-0.5">按时间顺序排列。已学的朝代用 <span className="text-green-400">绿色</span> 标记，下一个推荐的用 <span className="text-vermilion-300">金色</span> 高亮。</div>
               </div>
               <button
-                className="text-ink-500 hover:text-parchment-50 text-2xl leading-none"
+                className="text-ink-300 hover:text-parchment-50 text-2xl leading-none"
                 onClick={() => setShowEraList(false)}
                 title="关闭 (Esc)"
                 aria-label="关闭"
@@ -653,7 +653,7 @@ function MotionsitesCard({
           <p className={`${isGrid ? 'text-[10px] line-clamp-1' : 'text-[11px] line-clamp-2'} text-ink-300 leading-relaxed`}>{p.desc}</p>
         </div>
         <div className="flex items-center justify-between mt-1.5">
-          <span className="text-[9px] text-ink-500 tabular-nums">
+          <span className="text-[9px] text-ink-300 tabular-nums">
             {total > 0 ? `${visited} / ${total}` : '无限探索'}
           </span>
           <span

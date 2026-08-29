@@ -64,7 +64,7 @@ export default function StatsDashboard({ onClose }: Props) {
             </h2>
             <button
               onClick={onClose}
-              className="px-2 py-1 text-ink-500 hover:text-parchment-50 hover:bg-red-900/30 rounded-lg transition-colors text-base"
+              className="px-2 py-1 text-ink-300 hover:text-parchment-50 hover:bg-red-900/30 rounded-lg transition-colors text-base"
               title="关闭 (ESC)"
               aria-label="关闭"
             >
@@ -76,7 +76,7 @@ export default function StatsDashboard({ onClose }: Props) {
           <div className="px-6 py-5 space-y-6">
             {/* 总览 */}
             <section>
-              <h3 className="text-xs text-ink-500 mb-2">总览</h3>
+              <h3 className="text-xs text-ink-300 mb-2">总览</h3>
               <StatsOverview
                 totalCards={stats.totalCards}
                 dueCount={stats.dueCount}
@@ -88,7 +88,7 @@ export default function StatsDashboard({ onClose }: Props) {
 
             {/* 30 天复习量 */}
             <section>
-              <h3 className="text-xs text-ink-500 mb-2">过去 30 天复习量</h3>
+              <h3 className="text-xs text-ink-300 mb-2">过去 30 天复习量</h3>
               <div className="px-2 py-3 bg-ink-700/20 rounded-lg border border-ink-600">
                 <StatsDailyChart dailyReviews={stats.dailyReviews} />
               </div>
@@ -96,7 +96,7 @@ export default function StatsDashboard({ onClose }: Props) {
 
             {/* 评级分布 */}
             <section>
-              <h3 className="text-xs text-ink-500 mb-2">评级分布</h3>
+              <h3 className="text-xs text-ink-300 mb-2">评级分布</h3>
               <div className="px-2 py-3 bg-ink-700/20 rounded-lg border border-ink-600">
                 <StatsRatingChart counts={stats.ratingCounts} />
               </div>

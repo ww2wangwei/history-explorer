@@ -260,7 +260,7 @@ export default function GraphAdmin() {
         <div className="flex-1 overflow-y-auto">
           {search ? (
             searchResults.length === 0 ? (
-              <div className="p-4 text-center text-ink-500 text-sm">无匹配</div>
+              <div className="p-4 text-center text-ink-300 text-sm">无匹配</div>
             ) : (
               searchResults.map(p => (
                 <button
@@ -295,7 +295,7 @@ export default function GraphAdmin() {
           <>
             <div className="p-3 border-b border-ink-700 flex items-center justify-between">
               <div>
-                <div className="text-xs text-ink-500 uppercase tracking-wider">焦点人物</div>
+                <div className="text-xs text-ink-300 uppercase tracking-wider">焦点人物</div>
                 <h2 className="text-lg font-serif text-purple-300 flex items-center gap-2">
                   <span>{focusFigure.emoji || '👤'}</span>
                   {focusFigure.name}
@@ -424,7 +424,7 @@ export default function GraphAdmin() {
             </div>
           </>
         ) : (
-          <div className="flex-1 flex items-center justify-center text-ink-500">
+          <div className="flex-1 flex items-center justify-center text-ink-300">
             ← 左侧选择焦点人物
           </div>
         )}
@@ -433,12 +433,12 @@ export default function GraphAdmin() {
       {/* 右：关系列表 */}
       <div className="w-80 flex-shrink-0 border-l border-ink-700 flex flex-col">
         <div className="p-3 border-b border-ink-700">
-          <div className="text-xs text-ink-500 uppercase tracking-wider">直接关系</div>
+          <div className="text-xs text-ink-300 uppercase tracking-wider">直接关系</div>
           <div className="text-xs text-ink-400 mt-0.5">{focusFigure?.name} → {directRelations.length} 人</div>
         </div>
         <div className="flex-1 overflow-y-auto">
           {directRelations.length === 0 ? (
-            <div className="p-4 text-center text-ink-500 text-xs">
+            <div className="p-4 text-center text-ink-300 text-xs">
               还没有关系。<br/>
               在中间图谱里<strong>拖节点到另一节点</strong>来创建。
             </div>
@@ -452,7 +452,7 @@ export default function GraphAdmin() {
                     <span className="text-base">{r.target.emoji || '👤'}</span>
                     <div className="flex-1 min-w-0">
                       <div className="text-sm text-parchment-50 truncate">{r.target.name}</div>
-                      <div className="text-xs text-ink-500" style={{ color: style.color }}>{style.icon} {style.label}</div>
+                      <div className="text-xs text-ink-300" style={{ color: style.color }}>{style.icon} {style.label}</div>
                     </div>
                     <button
                       onClick={() => setDelRel({ source: focusFigure!.id, target: r.targetId, name: focusFigure!.name + ' — ' + r.target!.name })}
@@ -482,7 +482,7 @@ export default function GraphAdmin() {
                   <span>{s.emoji || '👤'}</span>
                   <span className="text-parchment-50">{s.name}</span>
                 </div>
-                <div className="text-xs text-ink-500 mb-1.5">↓ 类型 ↓</div>
+                <div className="text-xs text-ink-300 mb-1.5">↓ 类型 ↓</div>
                 <div className="flex items-center gap-2">
                   <span>{t.emoji || '👤'}</span>
                   <span className="text-parchment-50">{t.name}</span>
@@ -518,7 +518,7 @@ export default function GraphAdmin() {
         <div className="fixed inset-0 z-[80] flex items-center justify-center bg-ink-900/85 backdrop-blur p-4" onClick={() => setDelRel(null)}>
           <div className="bg-ink-800 rounded-lg border border-red-500/40 p-6 w-96" onClick={e => e.stopPropagation()}>
             <h3 className="text-lg font-serif text-red-300 mb-3">🗑️ 删除关系</h3>
-            <p className="text-sm text-parchment-100 mb-4">
+            <p className="text-sm text-parchment-50 mb-4">
               确定删除关系：<br/>
               <span className="font-serif text-red-200">{delRel.name}</span>
             </p>

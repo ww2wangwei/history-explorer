@@ -254,10 +254,10 @@ export default function PoemsOverview({ isActive, onClose }: Props) {
                       >
                         {poem.category}
                       </span>
-                      <span className="text-[9px] text-ink-500">{poem.dynasty}</span>
+                      <span className="text-[9px] text-ink-300">{poem.dynasty}</span>
                       {fav && <span className="text-amber-400 text-xs" title="已收藏">⭐</span>}
                     </div>
-                    <div className="text-sm text-parchment-100 line-clamp-2 leading-snug italic">
+                    <div className="text-sm text-parchment-50 line-clamp-2 leading-snug italic">
                       「{poem.lines[0]}」
                     </div>
                   </div>

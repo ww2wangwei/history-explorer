@@ -54,9 +54,9 @@ export default function FigureNodeDetailPanel({ node, relations, onSelectNode, o
           <span className="text-2xl flex-shrink-0">{fig.emoji || '👤'}</span>
           <div className="flex-1 min-w-0">
             <div className="text-sm font-serif text-purple-300 truncate">{fig.name}</div>
-            <div className="text-xs text-ink-500 mt-0.5 truncate">{fig.role}</div>
+            <div className="text-xs text-ink-300 mt-0.5 truncate">{fig.role}</div>
             {fig.birthYear !== undefined && fig.deathYear !== undefined && (
-              <div className="text-xs text-ink-500 tabular-nums">
+              <div className="text-xs text-ink-300 tabular-nums">
                 {fig.birthYear < 0 ? `BC ${-fig.birthYear}` : fig.birthYear} ~{' '}
                 {fig.deathYear < 0 ? `BC ${-fig.deathYear}` : fig.deathYear}
               </div>
@@ -64,7 +64,7 @@ export default function FigureNodeDetailPanel({ node, relations, onSelectNode, o
           </div>
           <button
             onClick={onClose}
-            className="text-ink-500 hover:text-parchment-50 w-6 h-6 flex items-center justify-center rounded text-base leading-none"
+            className="text-ink-300 hover:text-parchment-50 w-6 h-6 flex items-center justify-center rounded text-base leading-none"
             title="关闭"
             aria-label="关闭"
           >×</button>
@@ -77,11 +77,11 @@ export default function FigureNodeDetailPanel({ node, relations, onSelectNode, o
       </div>
 
       <div className="flex-1 overflow-y-auto scrollbar-thin">
-        <div className="px-4 py-2 text-xs text-ink-500 uppercase tracking-wider border-b border-ink-700">
+        <div className="px-4 py-2 text-xs text-ink-300 uppercase tracking-wider border-b border-ink-700">
           👥 关联人物（{relations.length}）
         </div>
         {relations.length === 0 && (
-          <div className="px-4 py-6 text-center text-xs text-ink-500">
+          <div className="px-4 py-6 text-center text-xs text-ink-300">
             没有关联人物
           </div>
         )}
@@ -94,7 +94,7 @@ export default function FigureNodeDetailPanel({ node, relations, onSelectNode, o
               <div className="px-4 py-1.5 text-xs flex items-center gap-2" style={{ color: meta.color }}>
                 <span>{meta.icon}</span>
                 <span className="font-medium">{meta.label}</span>
-                <span className="text-ink-500">({group.length})</span>
+                <span className="text-ink-300">({group.length})</span>
               </div>
               {group.map((r, i) => (
                 <button
@@ -105,14 +105,14 @@ export default function FigureNodeDetailPanel({ node, relations, onSelectNode, o
                 >
                   <span className="text-base flex-shrink-0">{r.other.emoji ?? '👤'}</span>
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm text-parchment-100 truncate group-hover:text-purple-300 transition-colors">
+                    <div className="text-sm text-parchment-50 truncate group-hover:text-purple-300 transition-colors">
                       {r.other.name}
                     </div>
-                    <div className="text-xs text-ink-500 truncate">
+                    <div className="text-xs text-ink-300 truncate">
                       {r.other.role}{r.other.eraNames ? ` · ${r.other.eraNames}` : ''}
                     </div>
                   </div>
-                  <span className="text-ink-500 group-hover:text-purple-400 text-base">›</span>
+                  <span className="text-ink-300 group-hover:text-purple-400 text-base">›</span>
                 </button>
               ))}
             </div>

@@ -897,7 +897,7 @@ function GeoFeatureCardView({
               className="absolute inset-0 w-full h-full object-cover"
             />
             {f.imageCredit && (
-              <div className="absolute bottom-1 right-1 text-[9px] text-parchment-100/70 bg-ink-900/60 px-1 rounded">
+              <div className="absolute bottom-1 right-1 text-[9px] text-parchment-50/70 bg-ink-900/60 px-1 rounded">
                 {f.imageCredit}
               </div>
             )}

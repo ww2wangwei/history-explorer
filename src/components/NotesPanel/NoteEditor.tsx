@@ -153,7 +153,7 @@ export default function NoteEditor({ note, onClose, onDelete }: Props) {
             className={`px-2.5 py-1 rounded-lg transition-colors ${
               mode === 'write'
                 ? 'bg-vermilion-500/40 text-vermilion-300'
-                : 'text-ink-500 hover:bg-ink-700 hover:text-parchment-50'
+                : 'text-ink-300 hover:bg-ink-700 hover:text-parchment-50'
             }`}
           >
             ✏️ 写作
@@ -163,7 +163,7 @@ export default function NoteEditor({ note, onClose, onDelete }: Props) {
             className={`px-2.5 py-1 rounded-lg transition-colors ${
               mode === 'preview'
                 ? 'bg-vermilion-500/40 text-vermilion-300'
-                : 'text-ink-500 hover:bg-ink-700 hover:text-parchment-50'
+                : 'text-ink-300 hover:bg-ink-700 hover:text-parchment-50'
             }`}
           >
             👁️ 预览
@@ -180,14 +180,14 @@ export default function NoteEditor({ note, onClose, onDelete }: Props) {
         </div>
         <div className="flex items-center gap-2">
           {savedAt && (
-            <span className="text-xs text-ink-500">
+            <span className="text-xs text-ink-300">
               ✓ 已保存 · {formatRelativeTime(savedAt)}
             </span>
           )}
           {noteId && (
             <button
               onClick={handleDelete}
-              className="px-2 py-1 text-ink-500 hover:text-red-400 hover:bg-red-900/30 rounded-lg transition-colors"
+              className="px-2 py-1 text-ink-300 hover:text-red-400 hover:bg-red-900/30 rounded-lg transition-colors"
               title="删除笔记"
               aria-label="删除笔记"
             >
@@ -254,7 +254,7 @@ export default function NoteEditor({ note, onClose, onDelete }: Props) {
       </div>
 
       {/* 底部状态栏 */}
-      <div className="px-3 py-1.5 border-t border-ink-600 text-xs text-ink-500 flex justify-between">
+      <div className="px-3 py-1.5 border-t border-ink-600 text-xs text-ink-300 flex justify-between">
         <span>{draft.content.length} 字</span>
         <span>Markdown · GFM</span>
       </div>

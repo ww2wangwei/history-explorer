@@ -95,7 +95,7 @@ export default function QuestionsOverview({ isActive, onClose }: Props) {
             <button
               onClick={onClose}
               disabled={!!active || genOpen}
-              className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700"
+              className="text-ink-300 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700"
               title="返回 (ESC)"
               aria-label="返回"
             >×</button>
@@ -132,12 +132,12 @@ export default function QuestionsOverview({ isActive, onClose }: Props) {
             value={regionFilter}
             onChange={v => setRegionFilter(v)}
           />
-          <span className="text-xs text-ink-500 ml-auto">{filtered.length} / {allQuestions.length} 道题</span>
+          <span className="text-xs text-ink-300 ml-auto">{filtered.length} / {allQuestions.length} 道题</span>
         </div>
 
         {/* 题目列表 */}
         {filtered.length === 0 ? (
-          <div className="text-center text-ink-500 py-12">没有匹配的题目，换一个筛选条件试试。</div>
+          <div className="text-center text-ink-300 py-12">没有匹配的题目，换一个筛选条件试试。</div>
         ) : (
           <div className="space-y-3">
             {filtered.map(q => {
@@ -314,7 +314,7 @@ function GenerateQuestionModal({ apiKey, onClose, onGenerate }: {
       >
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-xl font-serif text-purple-300">✨ AI 出题</h2>
-          <button onClick={onClose} className="text-ink-500 hover:text-parchment-50 text-lg leading-none" aria-label="关闭">×</button>
+          <button onClick={onClose} className="text-ink-300 hover:text-parchment-50 text-lg leading-none" aria-label="关闭">×</button>
         </div>
 
         <label className="block text-xs text-ink-400 mb-1">题材方向（可留空，例如：唐末藩镇 / 罗马衰亡 / 工业革命）</label>

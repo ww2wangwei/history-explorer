@@ -166,7 +166,7 @@ export default function MiniMap({ focusNode, allNodes, onJumpToMap, onSwitchNode
 
   if (!focusPos) {
     return (
-      <div className="text-xs text-ink-500 italic p-3 bg-ink-700/30 rounded-lg">
+      <div className="text-xs text-ink-300 italic p-3 bg-ink-700/30 rounded-lg">
         （该节点无位置信息：{focusNode.location}）
       </div>
     )

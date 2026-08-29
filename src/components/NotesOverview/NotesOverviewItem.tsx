@@ -95,12 +95,12 @@ export default function NotesOverviewItem({
           <span className="opacity-60">· {kindLabel}</span>
         </button>
         <div className="flex items-center gap-1">
-          <span className="text-xs text-ink-500">
+          <span className="text-xs text-ink-300">
             {formatRelativeTime(note.updatedAt)}
           </span>
           <button
             onClick={handleDelete}
-            className="opacity-0 group-hover:opacity-100 px-1.5 py-0.5 text-ink-500 hover:text-red-400 hover:bg-red-900/30 rounded-lg text-xs transition-all"
+            className="opacity-0 group-hover:opacity-100 px-1.5 py-0.5 text-ink-300 hover:text-red-400 hover:bg-red-900/30 rounded-lg text-xs transition-all"
             aria-label="删除笔记"
             title="删除笔记"
           >
@@ -122,7 +122,7 @@ export default function NotesOverviewItem({
 
       {/* 摘要（compact 模式下隐藏） */}
       {!compact && (
-        <div className="text-xs text-ink-500 line-clamp-2 leading-relaxed">
+        <div className="text-xs text-ink-300 line-clamp-2 leading-relaxed">
           {highlightText(excerpt, query)}
         </div>
       )}

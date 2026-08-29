@@ -43,7 +43,7 @@ export default function SearchBar() {
           onBlur={() => setTimeout(() => setIsOpen(false), 200)}
           className="w-full px-3 py-1.5 pl-8 rounded-lg bg-ink-700 border border-ink-600 text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-vermilion-500/40"
         />
-        <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-ink-500 text-sm">
+        <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-ink-300 text-sm">
           🔍
         </span>
       </div>
@@ -73,7 +73,7 @@ export default function SearchBar() {
                     </span>
                     <span className="truncate">{result.title}</span>
                   </span>
-                  <span className="text-xs text-ink-500 font-serif shrink-0">
+                  <span className="text-xs text-ink-300 font-serif shrink-0">
                     {result.year !== undefined && (
                       <>
                         {result.year < 0 ? `前${Math.abs(result.year)}` : result.year}
@@ -85,7 +85,7 @@ export default function SearchBar() {
                   </span>
                 </div>
                 {result.subtitle && (
-                  <div className="text-[11px] text-ink-500 ml-12 truncate">{result.subtitle}</div>
+                  <div className="text-[11px] text-ink-300 ml-12 truncate">{result.subtitle}</div>
                 )}
               </button>
             )
@@ -95,7 +95,7 @@ export default function SearchBar() {
 
       {/* 空结果提示 */}
       {isOpen && query.trim() && results.length === 0 && (
-        <div className="absolute top-full left-0 right-0 mt-1 px-3 py-2 bg-ink-800 border border-ink-600 rounded-lg text-xs text-ink-500 z-50 flex items-center justify-between">
+        <div className="absolute top-full left-0 right-0 mt-1 px-3 py-2 bg-ink-800 border border-ink-600 rounded-lg text-xs text-ink-300 z-50 flex items-center justify-between">
           <span>没有匹配结果</span>
           {durationMs !== null && <span className="text-ink-700">· {durationMs}ms</span>}
         </div>

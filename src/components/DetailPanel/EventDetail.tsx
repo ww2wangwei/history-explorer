@@ -113,8 +113,8 @@ export default function EventDetail({ eventId }: Props) {
         <div className="mb-4">
           <div className="text-xs text-ink-300 mb-1.5 flex items-center gap-1">
             📺 相关视频
-            <span className="text-ink-500">·</span>
-            <span className="text-ink-500 text-[10px]">
+            <span className="text-ink-300">·</span>
+            <span className="text-ink-300 text-[10px]">
               {event.videoPlatform === 'bilibili' ? '点击播放（哔哩哔哩）' : '点击播放（YouTube）'}
             </span>
           </div>

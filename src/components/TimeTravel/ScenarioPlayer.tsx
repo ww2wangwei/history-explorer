@@ -519,10 +519,10 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
         {/* 顶部：进度 + 退出 */}
         <div className="mb-4 flex items-center justify-between">
           <div>
-            <div className="text-xs text-ink-500 uppercase tracking-wider">{scenario.era} · {scenario.year}年 · {scenario.location}</div>
+            <div className="text-xs text-ink-300 uppercase tracking-wider">{scenario.era} · {scenario.year}年 · {scenario.location}</div>
             <h1 className="text-lg font-serif" style={{ color: scenario.color }}>{scenario.title}</h1>
           </div>
-          <button onClick={onExit} className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700">×</button>
+          <button onClick={onExit} className="text-ink-300 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700">×</button>
         </div>
 
         {/* 进度条 */}
@@ -589,7 +589,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
         <div key={`player-${sceneKey}`} className="mb-4 flex items-center gap-3" style={{ animation: 'scene-fade-in 0.5s ease-out' }}>
           <PlayerAvatar name={playerName} color={scenario.color} size={56} />
           <div className="flex-1 min-w-0">
-            <div className="text-xs text-ink-500 uppercase tracking-wider">你正扮演</div>
+            <div className="text-xs text-ink-300 uppercase tracking-wider">你正扮演</div>
             <div className="text-sm font-serif" style={{ color: scenario.color }}>{playerName}</div>
           </div>
           <VolumeControl />
@@ -602,7 +602,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
         </div>
 
         {/* 场景文字 */}
-        <div key={`text-${sceneKey}`} className="mb-6 p-5 rounded-lg bg-ink-800/80 border border-ink-700 text-base text-parchment-100 leading-relaxed font-serif" style={{ animation: 'scene-slide-up 0.6s ease-out 0.2s both' }}>
+        <div key={`text-${sceneKey}`} className="mb-6 p-5 rounded-lg bg-ink-800/80 border border-ink-700 text-base text-parchment-50 leading-relaxed font-serif" style={{ animation: 'scene-slide-up 0.6s ease-out 0.2s both' }}>
           {currentScene.text}
         </div>
 
@@ -638,7 +638,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
         {/* 选项 */}
         {!outcomeText && (
           <div className="space-y-2">
-            <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">你的选择</div>
+            <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">你的选择</div>
             {currentScene.choices.map(c => (
               <button
                 key={c.id}
@@ -673,7 +673,7 @@ export default function ScenarioPlayer({ scenarioId, onExit }: Props) {
             <CharacterAvatar name={currentScene.npcName} size={48} />
             <div className="flex-1 min-w-0">
               <div className="text-xs text-vermilion-400 uppercase tracking-wider mb-2">📜 {currentScene.npcName} 说</div>
-              <div className="text-sm text-parchment-100 italic leading-relaxed font-serif mb-3">{currentScene.npcClosing}</div>
+              <div className="text-sm text-parchment-50 italic leading-relaxed font-serif mb-3">{currentScene.npcClosing}</div>
               <button
                 onClick={handleNpcClosing}
                 className="px-3 py-1.5 rounded-lg bg-purple-700/40 hover:bg-purple-600/60 border border-purple-500/50 text-purple-200 text-xs"
@@ -844,23 +844,23 @@ function EndingView({ scenario, ending, onExit, onReplay }: {
         {/* 顶部 */}
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <div className="text-xs text-ink-500 uppercase tracking-wider">剧本结束</div>
+            <div className="text-xs text-ink-300 uppercase tracking-wider">剧本结束</div>
             <h1 className="text-lg font-serif" style={{ color: scenario.color }}>{scenario.title}</h1>
           </div>
-          <button onClick={onExit} className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700">×</button>
+          <button onClick={onExit} className="text-ink-300 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700">×</button>
         </div>
 
         {/* 结局标题 */}
         <div className="mb-6 p-6 rounded-lg text-center" style={{ background: ending.isWin ? 'linear-gradient(135deg, #5bc89a30 0%, transparent 100%)' : 'linear-gradient(135deg, #b8545030 0%, transparent 100%)' }}>
           <div className="text-5xl mb-3">{ending.isWin ? '🏆' : '💀'}</div>
           <h2 className="text-3xl font-serif text-parchment-50 mb-3">{ending.title}</h2>
-          <p className="text-base text-parchment-100 leading-relaxed font-serif max-w-xl mx-auto">{ending.text}</p>
+          <p className="text-base text-parchment-50 leading-relaxed font-serif max-w-xl mx-auto">{ending.text}</p>
         </div>
 
         {/* 历史真相 */}
         <div className="mb-6 p-5 rounded-lg bg-amber-900/20 border border-amber-700/40">
           <div className="text-xs text-amber-400 uppercase tracking-wider mb-2">📜 真实历史</div>
-          <p className="text-sm text-parchment-100 leading-relaxed">{ending.historicalReality}</p>
+          <p className="text-sm text-parchment-50 leading-relaxed">{ending.historicalReality}</p>
         </div>
 
         {/* 启示 */}
@@ -868,7 +868,7 @@ function EndingView({ scenario, ending, onExit, onReplay }: {
           <div className="text-xs text-purple-300 uppercase tracking-wider mb-2">💡 启示</div>
           <ul className="space-y-1.5">
             {ending.lessons.map((lesson, i) => (
-              <li key={i} className="text-sm text-parchment-100 flex items-start gap-2">
+              <li key={i} className="text-sm text-parchment-50 flex items-start gap-2">
                 <span className="text-purple-400">▸</span>
                 <span>{lesson}</span>
               </li>

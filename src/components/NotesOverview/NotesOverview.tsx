@@ -200,7 +200,7 @@ export default function NotesOverview({ variant, isOpen, isActive, onClose }: Pr
       <div className="flex items-center gap-2">
         <button
           onClick={() => setSearchOpen(o => !o)}
-          className="text-xs text-ink-500 hover:text-vermilion-300 px-1"
+          className="text-xs text-ink-300 hover:text-vermilion-300 px-1"
           title={searchOpen ? '收起搜索区' : '展开搜索区'}
         >
           {searchOpen ? '▼' : '▶'} {searchOpen ? '收起搜索' : (query.trim() ? `搜索词: ${query}` : '展开搜索')}

@@ -175,7 +175,7 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
 
         {/* 图片 attribution（CC-PD / 公共领域合规） */}
         {poem.image && (
-          <div className="px-6 py-2 border-b border-ink-700 text-[10px] text-ink-500 flex items-center gap-1.5 flex-wrap">
+          <div className="px-6 py-2 border-b border-ink-700 text-[10px] text-ink-300 flex items-center gap-1.5 flex-wrap">
             <span className="opacity-70">🎨 画面：</span>
             <a
               href={poem.image.pageUrl || '#'}
@@ -198,8 +198,8 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
         {/* 元信息条 */}
         <div className="flex items-center gap-2 px-6 py-3 border-b border-ink-700 text-xs flex-wrap">
           <span className="font-serif text-base text-vermilion-300 truncate">{poem.title}</span>
-          <span className="text-ink-500">·</span>
-          <span className="text-parchment-100">{poem.author}</span>
+          <span className="text-ink-300">·</span>
+          <span className="text-parchment-50">{poem.author}</span>
           <span
             className="text-[9px] px-1.5 py-0.5 rounded"
             style={{ background: catColor + '20', color: catColor }}
@@ -207,18 +207,18 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
             {poem.category}
           </span>
           <span className="text-[9px] px-1.5 py-0.5 rounded bg-ink-700/60 text-ink-400">{poem.dynasty}</span>
-          <span className="ml-auto text-ink-500 truncate">{poem.source}</span>
+          <span className="ml-auto text-ink-300 truncate">{poem.source}</span>
         </div>
 
         {/* 主体 */}
         <div className="px-6 py-5 space-y-5">
           {/* 原文（带拼音 + 注解） */}
           <section>
-            <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">📖 原文（点击下方疑难词可高亮）</div>
+            <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">📖 原文（点击下方疑难词可高亮）</div>
             <div className="bg-ink-900/40 rounded-lg p-4 leading-[2.6] text-lg poem-text">
               {poem.lines.map((line, i) => (
                 <div key={i} className="poem-line mb-1.5">
-                  <span className="poem-line-num mr-2 text-[10px] text-ink-500 align-middle">{i + 1}</span>
+                  <span className="poem-line-num mr-2 text-[10px] text-ink-300 align-middle">{i + 1}</span>
                   {renderLineWithPinyin(line, poem.pinyin[i], highlightChars, i * 100)}
                   <div className="ml-7 mt-0.5 text-xs text-ink-300 italic leading-snug">
                     {poem.annotations[i]}
@@ -231,7 +231,7 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
           {/* 疑难词 */}
           {poem.glossary.length > 0 && (
             <section>
-              <div className="text-xs text-ink-500 uppercase tracking-wider mb-2">📚 疑难词解释</div>
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">📚 疑难词解释</div>
               <div className="flex flex-wrap gap-2">
                 {poem.glossary.map(g => {
                   const active = activeTerm === g.term
@@ -242,7 +242,7 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
                       className={`group flex flex-col items-start text-left px-3 py-1.5 rounded-lg border text-xs transition-colors max-w-full ${
                         active
                           ? 'bg-amber-600/30 border-amber-400/70 text-amber-100'
-                          : 'bg-ink-700/40 border-ink-600 text-parchment-100 hover:bg-ink-700 hover:border-vermilion-500/40'
+                          : 'bg-ink-700/40 border-ink-600 text-parchment-50 hover:bg-ink-700 hover:border-vermilion-500/40'
                       }`}
                       title="点击在原文中高亮"
                     >
@@ -250,7 +250,7 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
                         <span className="font-serif text-sm" style={{ color: active ? '#f0c878' : accentColor }}>
                           {g.term}
                         </span>
-                        <span className="text-[10px] text-ink-500 font-mono">{g.pinyin}</span>
+                        <span className="text-[10px] text-ink-300 font-mono">{g.pinyin}</span>
                       </div>
                       <span className="text-[11px] text-ink-300 mt-0.5 leading-snug">{g.def}</span>
                     </button>
@@ -260,7 +260,7 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
               {activeTerm && (
                 <button
                   onClick={() => setActiveTerm(null)}
-                  className="mt-2 text-xs text-ink-500 hover:text-vermilion-300 transition-colors"
+                  className="mt-2 text-xs text-ink-300 hover:text-vermilion-300 transition-colors"
                 >
                   ✕ 取消高亮
                 </button>
@@ -270,7 +270,7 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
 
           {/* 🎵 详情页古风背景音乐（doubao AI 纯音乐循环） */}
           <section>
-            <div className="text-xs text-ink-500 uppercase tracking-wider mb-2 flex items-center gap-2">
+            <div className="text-xs text-ink-300 uppercase tracking-wider mb-2 flex items-center gap-2">
               🎵 古风音乐
             </div>
             <PoemBGMControls />
@@ -278,10 +278,10 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
 
           {/* 我的白话翻译 */}
           <section>
-            <div className="text-xs text-ink-500 uppercase tracking-wider mb-2 flex items-center justify-between">
+            <div className="text-xs text-ink-300 uppercase tracking-wider mb-2 flex items-center justify-between">
               <span>✍ 我的白话翻译</span>
               {savedAt && (
-                <span className="text-[10px] text-ink-500 normal-case">
+                <span className="text-[10px] text-ink-300 normal-case">
                   ✓ 已保存 · {formatRelativeTime(savedAt)}
                 </span>
               )}
@@ -294,9 +294,9 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
 可以用现代汉语的口语表达，比如：
 "明亮的月光洒在床前，抬头望月，低头就想起远方的故乡。"`}
               rows={5}
-              className="w-full px-3 py-2 bg-ink-700/60 border border-ink-600 rounded-lg text-sm text-parchment-100 placeholder-ink-500 leading-relaxed resize-y focus:outline-none focus:border-vermilion-500/40 font-serif"
+              className="w-full px-3 py-2 bg-ink-700/60 border border-ink-600 rounded-lg text-sm text-parchment-50 placeholder-ink-500 leading-relaxed resize-y focus:outline-none focus:border-vermilion-500/40 font-serif"
             />
-            <div className="flex justify-between text-[10px] text-ink-500 mt-1 px-1">
+            <div className="flex justify-between text-[10px] text-ink-300 mt-1 px-1">
               <span>输入会自动保存到本地</span>
               <span>{translationDraft.length} 字</span>
             </div>
@@ -305,7 +305,7 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
           {/* 创作背景 + 地图跳转 */}
           <section>
             <div className="flex items-center justify-between mb-2">
-              <div className="text-xs text-ink-500 uppercase tracking-wider">📜 创作背景</div>
+              <div className="text-xs text-ink-300 uppercase tracking-wider">📜 创作背景</div>
               {poem.geo ? (
                 <button
                   onClick={() => {
@@ -327,13 +327,13 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
                   🗺️ 在地图上查看 · {poem.geoLabel || poem.title}
                 </button>
               ) : (
-                <span className="text-[10px] text-ink-500">📍 暂无地理信息</span>
+                <span className="text-[10px] text-ink-300">📍 暂无地理信息</span>
               )}
             </div>
-            <p className="text-sm text-parchment-100 leading-relaxed whitespace-pre-line">
+            <p className="text-sm text-parchment-50 leading-relaxed whitespace-pre-line">
               {poem.background}
             </p>
-            <div className="text-[10px] text-ink-500 mt-2">出处 · {poem.source}</div>
+            <div className="text-[10px] text-ink-300 mt-2">出处 · {poem.source}</div>
           </section>
         </div>
       </div>

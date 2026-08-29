@@ -66,7 +66,7 @@ export default function AdminLayout({ tab, onTabChange, children }: Props) {
           <div className="text-lg font-serif text-vermilion-300 flex items-center gap-2">
             ⚙️ 后台管理
           </div>
-          <div className="text-xs text-ink-500 mt-1">
+          <div className="text-xs text-ink-300 mt-1">
             {overridesCount} 项编辑 · {isDirty ? '🟡 有未保存改动' : '🟢 已同步'}
           </div>
           {lastModified && (

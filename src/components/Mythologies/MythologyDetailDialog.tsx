@@ -91,7 +91,7 @@ export default function MythologyDetailDialog({ myth, onClose, onJumpToGraph }: 
           {/* 摘要 */}
           <div>
                           <div className="text-[10px] text-ink-300 uppercase tracking-wider mb-2">摘要</div>
-            <p className="text-sm text-parchment-100 leading-relaxed whitespace-pre-wrap">
+            <p className="text-sm text-parchment-50 leading-relaxed whitespace-pre-wrap">
               {myth.summary}
             </p>
           </div>

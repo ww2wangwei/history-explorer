@@ -40,7 +40,7 @@ export default function FlashcardsComplete({
       <div className="flex-1 flex flex-col items-center justify-center text-center px-8 py-12 overflow-y-auto scrollbar-thin">
         <div className="text-5xl mb-4">🎉</div>
         <div className="text-xl font-serif text-vermilion-300 mb-2">本场复习完成！</div>
-        <div className="text-sm text-ink-500 mb-8">所有待复习卡片已学完，下次复习时间已自动更新</div>
+        <div className="text-sm text-ink-300 mb-8">所有待复习卡片已学完，下次复习时间已自动更新</div>
 
         {/* 目标达成激励 */}
         {goalReached && (
@@ -85,11 +85,11 @@ export default function FlashcardsComplete({
         {/* 统计卡片 */}
         <div className="grid grid-cols-2 gap-4 max-w-sm w-full mb-8">
           <div className="px-4 py-3 rounded-lg bg-ink-700/40 border border-ink-600">
-            <div className="text-xs text-ink-500 mb-1">复习数量</div>
+            <div className="text-xs text-ink-300 mb-1">复习数量</div>
             <div className="text-2xl font-serif text-parchment-50">{totalReviewed}</div>
           </div>
           <div className="px-4 py-3 rounded-lg bg-ink-700/40 border border-ink-600">
-            <div className="text-xs text-ink-500 mb-1">掌握率</div>
+            <div className="text-xs text-ink-300 mb-1">掌握率</div>
             <div className="text-2xl font-serif text-vermilion-300">{masteredRate}%</div>
           </div>
           <div className="px-4 py-3 rounded-lg bg-red-900/20 border border-red-700/40">

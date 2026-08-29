@@ -27,7 +27,7 @@ export default function StatsRatingChart({ counts }: Props) {
 
   if (total === 0) {
     return (
-      <div className="text-center text-sm text-ink-500 py-6">暂无复习记录</div>
+      <div className="text-center text-sm text-ink-300 py-6">暂无复习记录</div>
     )
   }
 
@@ -55,7 +55,7 @@ export default function StatsRatingChart({ counts }: Props) {
             {/* 数字 + 百分比 */}
             <div className="w-24 text-right tabular-nums">
               <span className="text-parchment-50">{count}</span>
-              <span className="text-ink-500 text-xs ml-1">({percent}%)</span>
+              <span className="text-ink-300 text-xs ml-1">({percent}%)</span>
             </div>
           </div>
         )

@@ -67,12 +67,12 @@ export default function OverviewLayout({
                 {title}
               </h2>
               {subtitle && (
-                <p className="text-xs text-ink-500 mt-1">{subtitle}</p>
+                <p className="text-xs text-ink-300 mt-1">{subtitle}</p>
               )}
             </div>
             <button
               onClick={onClose}
-              className="shrink-0 text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700 transition-colors"
+              className="shrink-0 text-ink-300 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700 transition-colors"
               title="返回 (ESC)"
               aria-label="关闭"
             >

@@ -283,7 +283,7 @@ export default function QuestionSession({ question, onClose, onSaved }: Props) {
           </div>
           <button
             onClick={() => !streaming && onClose()}
-            className="text-ink-500 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700"
+            className="text-ink-300 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg hover:bg-ink-700"
             aria-label="关闭"
           >×</button>
         </div>
@@ -295,7 +295,7 @@ export default function QuestionSession({ question, onClose, onSaved }: Props) {
             <div className="text-sm text-parchment-50 leading-relaxed whitespace-pre-wrap">{question.opening}</div>
             {question.hints.length > 0 && (
               <div className="mt-2 flex flex-wrap gap-1.5">
-                <span className="text-xs text-ink-500">切入点：</span>
+                <span className="text-xs text-ink-300">切入点：</span>
                 {question.hints.map((h, i) => (
                   <span key={i} className="text-[11px] px-1.5 py-0.5 rounded bg-ink-800 text-ink-300 border border-ink-600">{h}</span>
                 ))}
@@ -311,7 +311,7 @@ export default function QuestionSession({ question, onClose, onSaved }: Props) {
                 m.role === 'user' ? 'bg-vermilion-900/30 ml-8 border border-bronze-800/30' : 'bg-ink-700/40 mr-4'
               }`}
             >
-              <div className="text-xs text-ink-500 mb-1">
+              <div className="text-xs text-ink-300 mb-1">
                 {m.role === 'user' ? '👤 你的回答' : '🤖 AI 追问'}
               </div>
               <div className="text-xs leading-relaxed whitespace-pre-wrap">

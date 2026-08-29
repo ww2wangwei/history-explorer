@@ -76,6 +76,8 @@ const PATHS: { id: string; icon: string; title: string; desc: string; color: str
   // 👇 特殊情况：文史天梯（自定义页，非 store 路径）
   { id: 'ladder', icon: '🪜', title: '文史天梯', desc: '史·诗·人 三条天梯 · 学测记问 4 步闭环 · 通关可重开', color: '#b8433a', imageKeyword: 'ancient stone temple stairs scholarly',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Skylight%2C_chandelier_and_stairs%2C_Ashmolean_Museum%2C_Oxford.jpg' }, // 阿什莫林博物馆天梯（喻登阶）
+  { id: 'allTraditions', icon: '🪷', title: '全传统', desc: '12 子分类 · 中国人的历史、家、神话、哲学、文字、文学、艺术、历法节气、礼仪制度、衣食住行、科技', color: '#d4856a', imageKeyword: 'chinese tradition culture scroll painting',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Zhang_Yimou%2C_Jiang_Wen_and_Zhang_Ziyi_-_Beijing_Opera.jpg/1280px-Zhang_Yimou%2C_Jiang_Wen_and_Zhang_Ziyi_-_Beijing_Opera.jpg' }, // 京剧（暂用，待换更贴切图）
 ]
 
 // === 主路径（4 个核心） ===
@@ -314,7 +316,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           <div className="flex-1">
             <GreekKeyDivider />
           </div>
-          <span className="text-xs text-ink-400 font-brush tracking-widest">13 板块</span>
+          <span className="text-xs text-ink-400 font-brush tracking-widest">14 板块</span>
         </div>
         <FilmstripGallery
           paths={PATHS}

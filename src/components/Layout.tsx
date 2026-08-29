@@ -43,6 +43,7 @@ const QuestionsOverview = lazy(() => import('@/components/Questions/QuestionsOve
 const ArtsOverview = lazy(() => import('@/components/Arts/ArtsOverview'))
 const WorldHistoryOverview = lazy(() => import('@/components/WorldHistory/WorldHistoryOverview'))
 const MythologiesOverview = lazy(() => import('@/components/Mythologies/MythologiesOverview'))
+const TraditionsOverview = lazy(() => import('@/components/Traditions/TraditionsOverview'))
 const ApiKeysSettings = lazy(() => import('@/components/Settings/ApiKeysSettings'))
 // 🎯 性能优化：LadderPanel + ladders.ts(1MB) 拆出主 bundle
 const LadderPanel = lazy(() => import('@/components/Ladder/LadderPanel'))
@@ -447,6 +448,15 @@ export default function Layout() {
         return (
           <Suspense fallback={<PageFallback />}>
             <MythologiesOverview
+              isActive
+              onClose={() => dispatch({ type: 'OPEN_HOME' })}
+            />
+          </Suspense>
+        )
+      case 'traditions':
+        return (
+          <Suspense fallback={<PageFallback />}>
+            <TraditionsOverview
               isActive
               onClose={() => dispatch({ type: 'OPEN_HOME' })}
             />

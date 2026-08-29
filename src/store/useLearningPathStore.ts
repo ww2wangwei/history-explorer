@@ -21,7 +21,7 @@ function getErasSafe(): Era[] {
 }
 const eras = getErasSafe()
 
-export type PathId = 'timeline' | 'crossReference' | 'eraDetail' | 'review' | 'allFigures' | 'allWars' | 'allCultures' | 'allGeography' | 'allPoems' | 'civilizations' | 'allArts' | 'worldHistory' | 'timeTravel' | 'allQuestions' | 'allMythologies'
+export type PathId = 'timeline' | 'crossReference' | 'eraDetail' | 'review' | 'allFigures' | 'allWars' | 'allCultures' | 'allGeography' | 'allPoems' | 'civilizations' | 'allArts' | 'worldHistory' | 'timeTravel' | 'allQuestions' | 'allMythologies' | 'allTraditions'
 
 export interface PathProgress {
   visitedEraIds: string[]
@@ -103,6 +103,7 @@ export const useLearningPathStore = create<LearningPathState>()(
         timeTravel: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, completedScenarios: [], scenarioEndings: {} },
         allQuestions: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
         allMythologies: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedMythIds: [], lastVisitedMythId: null },
+        allTraditions: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
       }
       return {
       progressByPath: defaultProgress,
@@ -303,6 +304,7 @@ export const useLearningPathStore = create<LearningPathState>()(
           timeTravel: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, completedScenarios: [], scenarioEndings: {} },
           allQuestions: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
           allMythologies: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null, visitedMythIds: [], lastVisitedMythId: null },
+          allTraditions: { visitedEraIds: [], lastVisitedEraId: null, lastVisitedAt: null },
         }
         if (persistedState.progressByPath) {
           for (const key of Object.keys(mergedProgress) as PathId[]) {

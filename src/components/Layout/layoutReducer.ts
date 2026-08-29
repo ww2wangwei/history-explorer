@@ -45,6 +45,7 @@ export type MainView =
   | { mode: 'questions' }                                       // 全问题
   | { mode: 'ladder' }                                          // 文史天梯
   | { mode: 'mythologies' }                                     // 全神话
+  | { mode: 'traditions' }                                      // 全传统
 
 /** Layout 整体 UI 状态（局部） */
 export interface LayoutUIState {
@@ -73,6 +74,7 @@ export type LayoutAction =
   | { type: 'OPEN_QUESTIONS' }
   | { type: 'OPEN_LADDER' }
   | { type: 'OPEN_MYTHOLOGIES' }
+  | { type: 'OPEN_TRADITIONS' }
   | { type: 'START_SCENARIO'; scenarioId: string }
   | { type: 'EXIT_SCENARIO' }           // 回到 timeTravel lobby
   | { type: 'LEAVE_OVERLAY' }           // 从任何非 home 状态回到 home
@@ -158,6 +160,9 @@ export function layoutReducer(state: LayoutUIState, action: LayoutAction): Layou
 
     case 'OPEN_MYTHOLOGIES':
       return { ...state, main: { mode: 'mythologies' } }
+
+    case 'OPEN_TRADITIONS':
+      return { ...state, main: { mode: 'traditions' } }
 
     case 'START_SCENARIO':
       // 进入 play 模式（无论当前 state 如何都强制进 play）
@@ -253,6 +258,8 @@ export function pathEntryToAction(
       return { type: 'OPEN_QUESTIONS' }
     case 'allMythologies':
       return { type: 'OPEN_MYTHOLOGIES' }
+    case 'allTraditions':
+      return { type: 'OPEN_TRADITIONS' }
     case 'timeline':
     default:
       // timeline 路径不进覆盖层；由 Dashboard 自己处理（弹出朝代列表）

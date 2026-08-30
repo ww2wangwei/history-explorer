@@ -4,9 +4,9 @@
  * 流程:
  *   1. 进入 Dashboard
  *   2. 点 "全传统" Filmstrip 卡 → TraditionsOverview
- *   3. 默认 "全部" 视图, 数卡片总数 (期望 = 166)
+ *   3. 默认 "全部" 视图, 数卡片总数 (期望 = 194)
  *   4. 点 "🐉 神话 (30)" chip 筛选
- *   5. 数 myth 卡片数 (期望 = 27)
+ *   5. 数 myth 卡片数 (期望 = 28)
  *   6. 验证 myth 卡片标题含 5 个关键神话人物 (伏羲/黄帝/玉皇大帝/共工/西王母)
  *
  * 实测期望 (per plan .hermes/plans/2026-08-29_184000-myth-31.md):
@@ -42,8 +42,8 @@ async function main() {
   const totalCards = await page.evaluate(() => {
     return document.querySelectorAll('[style*="border-left-width"]').length
   })
-  console.log(`[3] 默认"全部"视图卡片数: ${totalCards} (期望 = 166)`)
-  const totalCardsOk = totalCards === 166
+  console.log(`[3] 默认"全部"视图卡片数: ${totalCards} (期望 = 194)`)
+  const totalCardsOk = totalCards === 194
 
   // 步骤 4: 点 "🐉 神话 (30)" chip 筛选
   // chip 按钮: 含 "🐉" + "神话" + "(数字)"
@@ -66,8 +66,8 @@ async function main() {
   const mythCards = await page.evaluate(() => {
     return document.querySelectorAll('[style*="border-left-width"]').length
   })
-  console.log(`[5] myth 子分类卡片数: ${mythCards} (期望 = 27)`)
-  const mythCardsOk = mythCards === 27
+  console.log(`[5] myth 子分类卡片数: ${mythCards} (期望 = 28)`)
+  const mythCardsOk = mythCards === 28
 
   // 步骤 6: 验证 myth 卡片标题含 5 个关键神话人物
   // 标题在 <span class="text-base font-serif ...">{t.title}</span>
@@ -99,7 +99,7 @@ async function main() {
   // 汇总
   console.log('\n=== 验收结果 ===')
   const checks = [
-    { name: '默认全部视图卡片数 = 122', pass: totalCardsOk, actual: totalCards },
+    { name: '默认全部视图卡片数 = 194', pass: totalCardsOk, actual: totalCards },
     { name: 'myth 子分类卡片数 = 30',   pass: mythCardsOk,  actual: mythCards },
     { name: '5 关键词 (伏羲/黄帝/玉皇大帝/共工/西王母) 全匹配', pass: keywordsOk, actual: `${foundKeywords.length}/${keywords.length}` },
   ]

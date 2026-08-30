@@ -17,8 +17,8 @@
 import { chromium } from 'playwright'
 
 const BASE = 'http://localhost:5173/history/'
-const EXPECTED_TOTAL = 166
-const EXPECTED_REGION = 30
+const EXPECTED_TOTAL = 194
+const EXPECTED_REGION = 31
 const KEYWORDS = ['燕赵', '齐鲁', '岭南', '巴蜀', '三秦', '吴越']
 
 async function main() {

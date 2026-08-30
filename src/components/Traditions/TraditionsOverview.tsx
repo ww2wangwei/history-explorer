@@ -2,7 +2,7 @@
  * TraditionsOverview — 全传统全屏浏览页
  *
  * 12 个子分类 chip + 全部卡片网格。子分类筛选 + 关键词搜索。
- * 一期只做"浏览入口"，不做详情弹窗（与 ArtsOverview 一致风格）。
+ * 点击卡片 → TraditionDetailDialog 详情弹窗。
  *
  * 数据：src/data/traditions.ts（TRADITIONS, TRADITION_CATEGORIES, TraditionCategory）
  */
@@ -11,10 +11,12 @@ import { useEffect, useMemo, useState } from 'react'
 import OverviewLayout from '@/components/ui/OverviewLayout'
 import OverviewSearch from '@/components/ui/OverviewSearch'
 import EmptyState from '@/components/ui/EmptyState'
+import TraditionDetailDialog from './TraditionDetailDialog'
 import {
   TRADITIONS,
   TRADITION_CATEGORIES,
   type TraditionCategory,
+  type TraditionItem,
 } from '@/data/traditions'
 
 interface Props {
@@ -40,6 +42,7 @@ const CATEGORY_META: Record<TraditionCategory, { icon: string; label: string; co
 export default function TraditionsOverview({ isActive, onClose }: Props) {
   const [activeCat, setActiveCat] = useState<TraditionCategory | 'all'>('all')
   const [query, setQuery] = useState('')
+  const [selectedId, setSelectedId] = useState<string | null>(null)
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -55,15 +58,29 @@ export default function TraditionsOverview({ isActive, onClose }: Props) {
     })
   }, [activeCat, query])
 
-  // ESC 关闭
+  const selected: TraditionItem | null = useMemo(
+    () => TRADITIONS.find(t => t.id === selectedId) ?? null,
+    [selectedId]
+  )
+
+  // 同子分类下的邻居，用于上一条/下一条
+  const neighbours: TraditionItem[] = useMemo(() => {
+    if (!selected) return []
+    if (activeCat === 'all') return TRADITIONS
+    return TRADITIONS.filter(t => t.category === activeCat)
+  }, [selected, activeCat])
+
+  // ESC 关闭整个全屏组件（在弹窗未打开时由弹窗自身处理 ESC）
   useEffect(() => {
     if (!isActive) return
     const handler = (e: KeyboardEvent) => {
+      // 弹窗打开时由 ModalShell e.stopPropagation() 接管 ESC；这里不响应
+      if (selectedId) return
       if (e.key === 'Escape') { e.stopPropagation(); onClose() }
     }
     window.addEventListener('keydown', handler, true)
     return () => window.removeEventListener('keydown', handler, true)
-  }, [isActive, onClose])
+  }, [isActive, onClose, selectedId])
 
   return (
     <OverviewLayout
@@ -111,9 +128,12 @@ export default function TraditionsOverview({ isActive, onClose }: Props) {
           {filtered.map(t => {
             const meta = CATEGORY_META[t.category]
             return (
-              <div
+              <button
                 key={t.id}
-                className="relative rounded-lg overflow-hidden border border-ink-600 bg-ink-800/60 hover:border-emerald-500/60 transition-all group min-h-[180px]"
+                type="button"
+                onClick={() => setSelectedId(t.id)}
+                aria-label={`查看 ${t.title} 的详细内容`}
+                className="text-left relative rounded-lg overflow-hidden border border-ink-600 bg-ink-800/60 hover:border-emerald-500/80 hover:shadow-lg hover:scale-[1.01] transition-all group min-h-[180px] cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500/60"
                 style={{ borderLeftWidth: '3px', borderLeftColor: meta.color }}
               >
                 {/* 背景图：优先 imageUrl，否则用 bingImage(imageKeyword ?? title) */}
@@ -152,11 +172,19 @@ export default function TraditionsOverview({ isActive, onClose }: Props) {
                   </div>
                   <div className="text-xs text-bone/85 leading-relaxed line-clamp-2 drop-shadow">{t.summary}</div>
                 </div>
-              </div>
+              </button>
             )
           })}
         </div>
       )}
+
+      {/* 详情弹窗：点击卡片触发，点击相关条目切换 */}
+      <TraditionDetailDialog
+        tradition={selected}
+        onClose={() => setSelectedId(null)}
+        onSelect={(id) => setSelectedId(id)}
+        neighbours={neighbours}
+      />
     </OverviewLayout>
   )
 }

@@ -5,7 +5,7 @@
  *   1. 进入 Dashboard (http://localhost:5173/history/)
  *   2. 跳过开场动画 (Space)
  *   3. 点 Filmstrip 中的 "全传统" 卡 → TraditionsOverview
- *   4. 默认 "全部" 视图, 数卡片总数 (期望 = 98: 33 history + 3 family + 30 region + ... + 4 tech)
+ *   4. 默认 "全部" 视图, 数卡片总数 (期望 = 98: 33 history + 30 region + ... + 4 tech (3 family 已删除))
  *   5. 点 "🏔️ 地域文化 (30)" chip
  *   6. 数地域文化卡片数 (期望 = 30)
  *   7. 验证 6 个地域关键词匹配 (燕赵/齐鲁/岭南/巴蜀/三秦/吴越)
@@ -17,7 +17,7 @@
 import { chromium } from 'playwright'
 
 const BASE = 'http://localhost:5173/history/'
-const EXPECTED_TOTAL = 98
+const EXPECTED_TOTAL = 95
 const EXPECTED_REGION = 30
 const KEYWORDS = ['燕赵', '齐鲁', '岭南', '巴蜀', '三秦', '吴越']
 

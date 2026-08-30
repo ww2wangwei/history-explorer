@@ -1,27 +1,28 @@
 /**
  * traditions.ts — 中国传统条目数据
  *
- * 13 个子分类（与用户的"全传统"板块一一对应）：
+ * 12 个子分类（与用户的"全传统"板块列表一一对应）：
  *  - history 子分类 33 条（3 综合主题 + 30 朝代，按《半小时漫画中国史》目录）
- *  - 其他 12 子分类各 3-4 条（哲学/科技各 4，geography-regional 30 条地域文化，其余 3）
+ *  - geography-regional 子分类 30 条（按"中国人的家"目录）
+ *  - 其他 9 子分类各 3-4 条（philosophy / tech 各 4，其余 3）
  *  - 总计 98 条种子数据
  *
  * 字段：
  *  - id: kebab-case slug
  *  - category: TraditionCategory（见下）
  *  - title: 中文标题
- *  - summary: 50-100 字中文摘要
+ *  - summary: 40-100 字中文摘要
  *  - era: 主要朝代/年代范围（可选）
  *  - figure: 关键人物（可选）
  *  - imageKeyword: Bing 检索关键词（可选）
  *  - imageUrl: 公共版权图片 URL（可选，Wikimedia Commons 优先）
+ *  - fullContent?: 详版（100-200 字，弹窗用）
  */
 
 /** 12 个传统子分类（与用户的"全传统"板块列表一一对应） */
 export const TRADITION_CATEGORIES = [
   'history',    // 中国人的历史
-  'family',     // 中国人的家
-  'geography-regional', // 地域文化
+  'geography-regional', // 中国人的家（地域文化）
   'myth',       // 中国人的神话
   'philosophy', // 中国人的哲学
   'script',     // 中国人的文字
@@ -84,10 +85,6 @@ export const TRADITIONS: TraditionItem[] = [
   { id: 'tr-history-ming', category: 'history', title: '明朝', summary: '古怪皇帝一箩筐 — 朱元璋废丞相、郑和下西洋、崇祯自缢。', era: 'AD 1368-1644', figure: '朱元璋 / 张居正', imageKeyword: 'ming dynasty forbidden city zheng he', fullContent: '1368 年朱元璋建立明朝，废除丞相、设内阁，锦衣卫监控百官，洪武朝杀功臣十余万。朱棣靖难之役后迁都北京，派郑和七下西洋（1405-1433），最远抵达非洲东岸。明朝中后期皇帝多怠政（万历 28 年不上朝）、宦官专权（魏忠贤、刘瑾），东林党争消耗国力。张居正改革"一条鞭法"短暂续命，但万历三大征耗尽国库。1644 年李自成攻入北京，崇祯帝自缢煤山，明朝亡。' },
   { id: 'tr-history-nvzhen', category: 'history', title: '女真人入主中原', summary: '女真人从哪儿来？ — 建州女真崛起，建立后金→清。', era: 'AD 1616-1644', figure: '努尔哈赤', imageKeyword: 'jurchen manchu qing dynasty nuzhen', fullContent: '女真是满族的前身，起源于东北长白山地区，先后臣服于辽、金、明。明朝设建州卫管辖女真各部。1583 年努尔哈赤以"十三副遗甲"起兵，统一女真各部，1616 年建立后金，1636 年皇太极改国号为大清。女真（满洲）推行八旗制度，创满文，降服漠南蒙古。林丹汗败亡后，皇太极得以全力攻明。' },
   { id: 'tr-history-qing', category: 'history', title: '清朝', summary: '全面"打补丁"的王朝 — 康乾盛世后鸦片战争、戊戌变法、辛亥革命。', era: 'AD 1644-1912', figure: '康熙 / 雍正 / 乾隆', imageKeyword: 'qing dynasty forbidden city kangxi qianlong', fullContent: '1644 年清军入关，经康雍乾三朝达到"康乾盛世" — 疆域空前（1300 万平方公里）、人口破 4 亿、收复台湾、册封达赖班禅。但盛世之下危机四伏：文字狱钳制思想、八旗子弟腐化、闭关锁国。1840 年鸦片战争打开国门，此后太平天国、甲午战争、戊戌变法、辛亥革命接连不断。1912 年溥仪退位，中国两千多年帝制终结。清朝是中华帝国向近代民族国家转型的关键过渡期。' },
-  // family (3)
-  { id: 'tr-family-1', category: 'family', title: '宗法制度', summary: '嫡长子继承、大宗小宗、家谱世系——以血缘为骨架的政治伦理。', era: '西周 ~ 清' },
-  { id: 'tr-family-2', category: 'family', title: '宗祠与族田', summary: '聚族而居，祠堂祭祀，族田助学——宗族自治的物质基础。', era: '宋 ~ 清' },
-  { id: 'tr-family-3', category: 'family', title: '婚丧礼俗', summary: '六礼（纳采、问名、纳吉、纳征、请期、亲迎）与丧服五等——人生礼仪的礼仪传统。', era: '先秦 ~ 当代' },
   // myth (3)
   { id: 'tr-myth-1', category: 'myth', title: '盘古开天', summary: '天地混沌如鸡子，盘古生其中；一日九变，神于天，圣于地。', era: '上古神话' },
   { id: 'tr-myth-2', category: 'myth', title: '女娲造人', summary: '女娲黄土造人、炼石补天——母系社会的女神崇拜与灾难叙事。', era: '上古神话' },

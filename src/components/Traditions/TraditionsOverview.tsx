@@ -24,7 +24,6 @@ interface Props {
 
 const CATEGORY_META: Record<TraditionCategory, { icon: string; label: string; color: string }> = {
   history:    { icon: '📜', label: '历史',     color: '#c89a5b' },
-  family:     { icon: '👪', label: '家',       color: '#d4856a' },
   'geography-regional': { icon: '🏔️', label: '地域文化', color: '#5b9bc8' },
   myth:       { icon: '🐉', label: '神话',     color: '#a07050' },
   philosophy: { icon: '☯️', label: '哲学',     color: '#9b7eb6' },

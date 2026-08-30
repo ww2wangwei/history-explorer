@@ -4,8 +4,8 @@
 import { chromium } from 'playwright'
 
 const BASE = 'http://localhost:5173/history/'
-const EXPECTED_TOTAL = 175
-const EXPECTED_SCRIPT = 31
+const EXPECTED_TOTAL = 166
+const EXPECTED_SCRIPT = 28
 const KEYWORDS = ['仓颉', '篆书', '隶书', '文房四宝', '三字经']
 
 const browser = await chromium.launch({ headless: true })

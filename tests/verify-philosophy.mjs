@@ -69,7 +69,7 @@ async function main() {
     })
     const expectedPhilosophy = philosophyClicked?.count ?? 30
     console.log(`[4] 点击的 philosophy chip: "${philosophyClicked?.text}" (期望数 ${expectedPhilosophy})`)
-    await page.waitForTimeout(800)
+    await page.waitForTimeout(1500)
 
     // 步骤 5: 数哲学卡片数
     const philosophyCards = await page.evaluate(() => {

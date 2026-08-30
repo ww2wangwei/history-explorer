@@ -17,7 +17,7 @@
 import { chromium } from 'playwright'
 
 const BASE = 'http://localhost:5173/history/'
-const EXPECTED_TOTAL = 95
+const EXPECTED_TOTAL = 166
 const EXPECTED_REGION = 30
 const KEYWORDS = ['燕赵', '齐鲁', '岭南', '巴蜀', '三秦', '吴越']
 

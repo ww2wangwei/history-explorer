@@ -52,9 +52,6 @@ export interface TraditionItem {
 /** 种子数据：每类 3-4 条，共 41 条（按史实） */
 export const TRADITIONS: TraditionItem[] = [
   // history (4)
-  { id: 'tr-history-2', category: 'history', title: '秦汉大一统', summary: '首次大一统：书同文、车同轨、行同伦；汉承秦制，独尊儒术。', era: 'BC 221 ~ AD 220' },
-  { id: 'tr-history-3', category: 'history', title: '唐宋盛世', summary: '唐代开放包容，宋代文治天下；科举成熟、商业繁荣、文化达顶峰。', era: 'AD 618 ~ AD 1279' },
-  { id: 'tr-history-4', category: 'history', title: '明清转型', summary: '明清专制强化、科举僵化、商品经济萌芽、西方叩关——传统社会走向近代。', era: 'AD 1368 ~ AD 1912' },
   { id: 'tr-history-intro', category: 'history', title: '引子', summary: '8000 多年前的"擀面杖" — 远古人类最早的研磨工具，文明从一块磨石开始。', era: '8000 BC 前', imageKeyword: 'ancient grinding stone tool neolithic china', fullContent: '在新石器时代早期，生活在黄河流域的先民已经学会用石头研磨谷物。这根看似普通的"擀面杖"，实则是人类从采集走向定居、从狩猎迈向农耕的关键工具。它意味着人类开始改造自然、储存食物，也为后来陶器与农业的诞生埋下伏笔。这是最朴素的文明起点。' },
   { id: 'tr-history-yanying', category: 'history', title: '炎黄子孙', summary: '为什么我们都是炎黄子孙？传说中两个部落联盟奠定了华夏族群基础。', era: '约 BC 5000', figure: '炎帝 / 黄帝', imageKeyword: 'yan di huang di tribal legends china', fullContent: '传说炎帝（神农氏）尝百草、发明农业，黄帝轩辕氏造车舟、创文字。两个部落联盟在黄河中上游崛起，经过阪泉之战、涿鹿之战后融合为一。蚩尤部落战败后部分融入华夏。九黎、三苗、羌、狄等族群也在这一时期与华夏互动。"炎黄子孙"自此成为中华民族的集体记忆。' },
   { id: 'tr-history-dongyi', category: 'history', title: '东夷人', summary: '6500 多年前的"山东人" — 东部沿海的史前文化先民，与海岱文明密切相关。', era: '约 BC 4500', imageKeyword: 'dongyi tribal culture shandong neolithic', fullContent: '东夷是华夏东部沿海及黄河下游地区众多部落的统称，以山东大汶口文化、龙山文化为代表。他们制作精美的黑陶和蛋壳陶，掌握了玉器加工技术。传说中太昊、少昊、舜、皋陶、伯益等都出自东夷。东夷与华夏经过长期战争与融合，最终成为中华文明的多元源头之一。' },
@@ -86,9 +83,6 @@ export const TRADITIONS: TraditionItem[] = [
   { id: 'tr-history-nvzhen', category: 'history', title: '女真人入主中原', summary: '女真人从哪儿来？ — 建州女真崛起，建立后金→清。', era: 'AD 1616-1644', figure: '努尔哈赤', imageKeyword: 'jurchen manchu qing dynasty nuzhen', fullContent: '女真是满族的前身，起源于东北长白山地区，先后臣服于辽、金、明。明朝设建州卫管辖女真各部。1583 年努尔哈赤以"十三副遗甲"起兵，统一女真各部，1616 年建立后金，1636 年皇太极改国号为大清。女真（满洲）推行八旗制度，创满文，降服漠南蒙古。林丹汗败亡后，皇太极得以全力攻明。' },
   { id: 'tr-history-qing', category: 'history', title: '清朝', summary: '全面"打补丁"的王朝 — 康乾盛世后鸦片战争、戊戌变法、辛亥革命。', era: 'AD 1644-1912', figure: '康熙 / 雍正 / 乾隆', imageKeyword: 'qing dynasty forbidden city kangxi qianlong', fullContent: '1644 年清军入关，经康雍乾三朝达到"康乾盛世" — 疆域空前（1300 万平方公里）、人口破 4 亿、收复台湾、册封达赖班禅。但盛世之下危机四伏：文字狱钳制思想、八旗子弟腐化、闭关锁国。1840 年鸦片战争打开国门，此后太平天国、甲午战争、戊戌变法、辛亥革命接连不断。1912 年溥仪退位，中国两千多年帝制终结。清朝是中华帝国向近代民族国家转型的关键过渡期。' },
   // myth (3)
-  { id: 'tr-myth-1', category: 'myth', title: '盘古开天', summary: '天地混沌如鸡子，盘古生其中；一日九变，神于天，圣于地。', era: '上古神话' },
-  { id: 'tr-myth-2', category: 'myth', title: '女娲造人', summary: '女娲黄土造人、炼石补天——母系社会的女神崇拜与灾难叙事。', era: '上古神话' },
-  { id: 'tr-myth-3', category: 'myth', title: '三皇五帝', summary: '伏羲画卦、神农尝百草、黄帝战蚩尤——文明初祖的传说谱系。', era: '上古神话' },
   { id: 'tr-myth-intro', category: 'myth', title: '引子：神话来了！', summary: '神话是远古先民对世界的好奇与想象，是中国最早的"故事"。', era: '亘古', imageKeyword: 'chinese mythology intro ancient', fullContent: '神话不是凭空捏造，而是远古先民对天地万物最原始的探索。从盘古开天到女娲造人，从大禹治水到夸父逐日，中国神话承载着中华文明最初的宇宙观与世界观。这些故事既是文学，也是历史，更是哲学。' },
   { id: 'tr-myth-hunyin', category: 'myth', title: '混沌说和阴阳说', summary: '混沌初开，鸡子化生——可可爱爱和奇奇怪怪的创世神话。', era: '上古', imageKeyword: 'chaos yinyang chinese creation myth', fullContent: '《三五历纪》记"天地混沌如鸡子，盘古生其中"——这是混沌说。另一支《淮南子》讲阴阳二气化生万物，太阳为阳，月亮为阴，阴阳交感化生四时五行。两种创世说并存，前者具体可爱，后者抽象深刻。' },
   { id: 'tr-myth-gongzhu', category: 'myth', title: '水神共工和火神祝融', summary: '水神与火神的争斗，撞断不周山引发大洪水。', era: '上古', imageKeyword: 'gonggong zhurong water fire god', fullContent: '共工是水神，司雨泽；祝融是火神，掌光明。两人大战于不周山，共工怒触不周山（撑天之柱），天倾西北，地不满东南，于是女娲炼五色石补天，斩龟足立四极。这场战争解释了中国的山川地势。' },
@@ -147,9 +141,6 @@ export const TRADITIONS: TraditionItem[] = [
   { id: 'tr-phil-zhuxi', category: 'philosophy', title: '朱熹的"性即理"', summary: '性者，心之所具之理——你和一朵小花，有共通的道理！', era: 'AD 1130-1200', imageKeyword: 'zhuxi zhu xi neo confucianism', fullContent: '朱熹南宋理学集大成者，徽州婺源人。"性即理"——人的本性就是宇宙之理在人身上的具体体现。理在物为"物理"，理在人为"性理"。"格物致知"——穷究事物之理。"存天理，灭人欲"——朱熹把二程理学系统化，编注《四书章句集注》，成为元明清七百年科举标准。"你和一朵小花有共通的道理"——万物一理。' },
   { id: 'tr-phil-wangyangming', category: 'philosophy', title: '王阳明的"心学"', summary: '心即理，知行合一——如何面对人生？这是一场心的"试炼"！', era: 'AD 1472-1529', imageKeyword: 'wang yangming xinxue mind learning', fullContent: '王守仁，世称阳明先生，浙江余姚人，明代心学集大成者。"心即理"——天理不在外物，而在吾心；"知行合一"——知而不行即是未知；"致良知"——人人都有的内在道德判断。"破山中贼易，破心中贼难"——外贼易除，内贼难破。"如何面对人生？这是一场心的"试炼""——阳明心学是中国哲学的高峰，至今影响东亚。' },
   // script (3)
-  { id: 'tr-script-1', category: 'script', title: '甲骨文', summary: '商代契刻于龟甲兽骨——中国最早的成熟文字，也是汉字的源头。', era: '商' },
-  { id: 'tr-script-2', category: 'script', title: '篆隶楷行草', summary: '从篆书到草书，汉字五体的演变折射书写工具与审美变迁。', era: '秦 ~ 当代' },
-  { id: 'tr-script-3', category: 'script', title: '汉字简化', summary: '20 世纪推广简化字——千年汉字传统与现代普及的张力。', era: '近现代' },
 { id: 'tr-script-intro', category: 'script', title: '引子：文字的诞生', summary: '文字的诞生是人类文明跃迁的标志——从口耳相传到刻写传世。', era: '亘古', imageKeyword: 'invention of writing chinese characters', fullContent: '文字的诞生使人类摆脱了时空限制——口耳相传会被遗忘，但刻写的文字可以传之千古。从结绳记事到图画文字，从甲骨刻辞到今日电子文本，每一次媒介革命都是人类文明的跃迁。中国汉字是世界上唯一延续三千年的表意文字系统，是活的文化遗产。' },
   { id: 'tr-script-cangjie', category: 'script', title: '那个造字的人仓颉', summary: '仓颉是个文字整理专家——传说造字天雨粟鬼夜哭。', era: '上古', imageKeyword: 'cangjie chinese character creator', fullContent: '仓颉黄帝史官，相传造字。《淮南子》记仓颉造字"天雨粟，鬼夜哭"——天地震动，连鬼神都惊动了。仓颉可能不是一个人的发明，而是上古文字整理者的代表——他搜集、整理、规范了黄帝时代已有的图画符号，使之系统化。' },
   { id: 'tr-script-pictograph', category: 'script', title: '汉字的前身是图画', summary: '我们的老祖宗都是灵魂画手——图画文字到表意符号。', era: 'BC 5000 ~', imageKeyword: 'pictograph chinese origin', fullContent: '半坡陶符（BC 5000 前后）、大汶口陶文（BC 2500 前后）是最早的图画文字。河南贾湖刻符、陕西半坡陶符都是汉字的远祖。这些"灵魂画手"画的不是写实，而是表意的符号——日画成○、月画成🌙、山画成⿱。图画文字演变为表意符号，是汉字的源头。' },

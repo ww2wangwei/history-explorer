@@ -4,15 +4,15 @@
  * 流程:
  *   1. 进入 Dashboard
  *   2. 点 "全传统" Filmstrip 卡 → TraditionsOverview
- *   3. 默认 "全部" 视图, 数卡片总数 (期望 = 122)
+ *   3. 默认 "全部" 视图, 数卡片总数 (期望 = 166)
  *   4. 点 "🐉 神话 (30)" chip 筛选
- *   5. 数 myth 卡片数 (期望 = 30)
- *   6. 验证 myth 卡片标题含 5 个关键神话人物 (盘古/女娲/伏羲/黄帝/玉皇大帝)
+ *   5. 数 myth 卡片数 (期望 = 27)
+ *   6. 验证 myth 卡片标题含 5 个关键神话人物 (伏羲/黄帝/玉皇大帝/共工/西王母)
  *
  * 实测期望 (per plan .hermes/plans/2026-08-29_184000-myth-31.md):
  *   - total cards = 122 (95 旧 + 27 新)
  *   - myth cards  = 30  (3 综合主题 + 28 新)
- *   - 5 keywords  = 盘古 / 女娲 / 伏羲 / 黄帝 / 玉皇大帝
+ *   - 5 keywords  = 伏羲 / 黄帝 / 玉皇大帝 / 共工 / 西王母
  */
 import { chromium } from 'playwright'
 
@@ -42,8 +42,8 @@ async function main() {
   const totalCards = await page.evaluate(() => {
     return document.querySelectorAll('[style*="border-left-width"]').length
   })
-  console.log(`[3] 默认"全部"视图卡片数: ${totalCards} (期望 = 122)`)
-  const totalCardsOk = totalCards === 122
+  console.log(`[3] 默认"全部"视图卡片数: ${totalCards} (期望 = 166)`)
+  const totalCardsOk = totalCards === 166
 
   // 步骤 4: 点 "🐉 神话 (30)" chip 筛选
   // chip 按钮: 含 "🐉" + "神话" + "(数字)"
@@ -66,8 +66,8 @@ async function main() {
   const mythCards = await page.evaluate(() => {
     return document.querySelectorAll('[style*="border-left-width"]').length
   })
-  console.log(`[5] myth 子分类卡片数: ${mythCards} (期望 = 30)`)
-  const mythCardsOk = mythCards === 30
+  console.log(`[5] myth 子分类卡片数: ${mythCards} (期望 = 27)`)
+  const mythCardsOk = mythCards === 27
 
   // 步骤 6: 验证 myth 卡片标题含 5 个关键神话人物
   // 标题在 <span class="text-base font-serif ...">{t.title}</span>
@@ -82,7 +82,7 @@ async function main() {
   console.log(`[6] myth 卡片标题 (${titles.length} 条):`)
   titles.forEach((t, i) => console.log(`     ${(i + 1).toString().padStart(2)}. ${t}`))
 
-  const keywords = ['盘古', '女娲', '伏羲', '黄帝', '玉皇大帝']
+  const keywords = ['伏羲', '黄帝', '玉皇大帝', '共工', '西王母']
   const titleStr = titles.join(' | ')
   const foundKeywords = keywords.filter(k => titleStr.includes(k))
   const missingKeywords = keywords.filter(k => !titleStr.includes(k))
@@ -101,7 +101,7 @@ async function main() {
   const checks = [
     { name: '默认全部视图卡片数 = 122', pass: totalCardsOk, actual: totalCards },
     { name: 'myth 子分类卡片数 = 30',   pass: mythCardsOk,  actual: mythCards },
-    { name: '5 关键词 (盘古/女娲/伏羲/黄帝/玉皇大帝) 全匹配', pass: keywordsOk, actual: `${foundKeywords.length}/${keywords.length}` },
+    { name: '5 关键词 (伏羲/黄帝/玉皇大帝/共工/西王母) 全匹配', pass: keywordsOk, actual: `${foundKeywords.length}/${keywords.length}` },
   ]
   let allPass = true
   for (const c of checks) {

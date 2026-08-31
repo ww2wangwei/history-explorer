@@ -190,10 +190,10 @@ export default function LadderPanel({ onClose }: Props) {
           >🏆 全景画卷</button>
           <button
             onClick={() => { audioEngine.playModalClose(); onClose() }}
-            className="absolute top-3 right-3 z-20 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
-            title="关闭 (ESC)"
+            className="px-3 py-1.5 rounded-lg bg-ink-700 hover:bg-ink-600 text-parchment-50 text-sm"
+            title="关闭 (Esc)"
             aria-label="关闭"
-          >×</button>
+          >关闭</button>
         </div>
       </header>
 

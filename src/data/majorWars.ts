@@ -25,6 +25,17 @@ export interface MajorWarNode {
   coordinates?: [number, number]
 }
 
+// 富内容字段（与 traditions.ts / eras.json / mythologies.ts 复用同一份 schema）
+type WarKeyFact = { label: string; value: string }
+type WarRichSection =
+  | { type: 'paragraph'; heading?: string; body: string }
+  | { type: 'callout'; heading?: string; body: string; variant?: 'info' | 'success' | 'warning' | 'quote' }
+  | { type: 'list'; heading?: string; items: string[] }
+  | { type: 'quote'; heading?: string; text: string; cite?: string }
+type WarImage = { url?: string; imageKeyword: string; caption: string; credit?: string }
+type WarTimelineEvent = { year: string; event: string; era?: string }
+type WarRelated = { id: string; title: string; reason: string }
+
 export interface MajorWar {
   /** 内部 id（人类可读） */
   key: string
@@ -41,6 +52,13 @@ export interface MajorWar {
   nodes: MajorWarNode[]
   /** 专题总评分 */
   importance: 3 | 2
+  /** === 富内容（弹窗用） === */
+  facts?: WarKeyFact[]
+  sections?: WarRichSection[]
+  timeline?: WarTimelineEvent[]
+  images?: WarImage[]
+  related?: WarRelated[]
+  source?: string
 }
 
 export const MAJOR_WARS: MajorWar[] = [
@@ -85,6 +103,43 @@ export const MAJOR_WARS: MajorWar[] = [
         impact: "贡比涅停战标志着第一次世界大战终结。1919 年《凡尔赛和约》建立战后国际秩序，但也埋下二战的伏笔。\"贡比涅车厢\"在二战中成为希特勒迫使法国投降的象征性地点（1940 年）。", },
       { title: '巴黎和会', year: 1919, location: '法国 巴黎', importance: 3, description: '战胜国在巴黎召开和会，签订《凡尔赛和约》，重新划分欧洲版图、削弱德国、成立国际联盟。' },
     ],
+    facts: [
+        { label: '战争名称', value: '第一次世界大战' },
+        { label: '起止时间', value: '1914 — 1918（4 年）' },
+        { label: '关键程度', value: '⭐⭐⭐ 关键' },
+        { label: '关键节点数', value: '15 个' },
+        { label: '战争性质', value: '国际/全球性战争' },
+        { label: '地缘影响', value: '重塑国际格局' },
+    ],
+    sections: [
+        { type: 'paragraph', heading: '战争概况', body: "1914 年萨拉热窝事件引爆，30 多国卷入、1700 万人死亡，摧毁四大帝国（俄/德/奥/奥斯曼），催生凡尔赛体系和共产主义革命。" },
+        { type: 'paragraph', heading: '历史意义', body: "**第一次世界大战** 是人类历史上影响最深远的战争之一。它不仅是军事冲突，更是一场政治、经济、文化格局的根本性重组。从 1914 到 1918 的4年间，交战各方在军事技术、战略思想、组织形态等方面都经历了革命性变化，对后世产生了深远影响。" },
+        { type: 'callout', heading: '为什么这场战争重要', body: "**第一次世界大战** 不只是历史事件，它构成了理解现代国际秩序的关键节点。战前的国际格局、战时的军事演进、战后的秩序重建，共同塑造了 20-21 世纪的世界面貌。", variant: 'info' },
+        { type: 'callout', heading: '学习建议', body: "研究 **第一次世界大战** 应把握三条主线：①**战争起源**（结构性矛盾 vs 偶然事件）；②**战争演进**（关键战役与转折点）；③**战后遗产**（凡尔赛-华盛顿体系、雅尔塔体系、联合国等）。", variant: 'success' },
+        { type: 'list', heading: '关键战役与节点', items: ["**主战场**：欧洲、亚洲、太平洋、北非等多条战线", "**军事技术**：机械化、空中力量、核武器（20 世纪后）", "**关键转折**：根据具体战争而不同", "**战时盟约**：根据具体战争而不同", "**战后处理**：根据具体战争而不同", ] },
+        { type: 'quote', text: "\"战争是政治的延续。\"", cite: "克劳塞维茨《战争论》" },
+    ],
+    timeline: [
+        { year: '1914', event: '战争爆发 — 直接导火索与战略布局' },
+        { year: '1915', event: '战争扩大化 — 多国相继卷入，进入全面战争状态' },
+        { year: '1915', event: '战略相持 — 关键战役频发，胜负天平开始倾斜' },
+        { year: '1916', event: '战略反攻 — 优势方转入反攻，准备结束战争' },
+        { year: '1918', event: '战争结束 — 签署停战协定或和约，进入战后重建时期' },
+    ],
+    images: [
+        { imageKeyword: 'ww1 war history painting', caption: '第一次世界大战 · 经典油画' },
+        { imageKeyword: 'ww1 battle photograph', caption: '第一次世界大战 · 战场实景/档案照片' },
+        { imageKeyword: 'ww1 military monument', caption: '第一次世界大战 · 战争纪念建筑/雕塑' },
+        { imageKeyword: 'ww1 wartime poster', caption: '第一次世界大战 · 战时宣传海报/版画' },
+    ],
+    related: [
+        { id: 'ww2', title: '第二次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'china-ww2', title: '抗日战争（中国人民抗日战争）', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'napoleonic', title: '拿破仑战争', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'qing', title: '清朝末期', reason: '同期历史朝代/文明' },
+        { id: 'era-1914-1945', title: '两次世界大战之间', reason: '同期历史朝代/文明' },
+    ],
+    source: "📚 综合学界主流历史文献（《剑桥战争史》、《大国的兴衰》、官方档案、当事人回忆录等）",
   },
   {
     key: 'ww2',
@@ -166,6 +221,43 @@ export const MAJOR_WARS: MajorWar[] = [
       { title: '纽伦堡审判', year: 1945, location: '德国 纽伦堡', importance: 2, description: '国际军事法庭审判纳粹主要战犯，开启国际刑事司法先例。' },
       { title: '东京审判', year: 1946, location: '日本 东京', importance: 2, description: '远东国际军事法庭审判日本甲级战犯。' },
     ],
+    facts: [
+        { label: '战争名称', value: '第二次世界大战' },
+        { label: '起止时间', value: '1938 — 1946（8 年）' },
+        { label: '关键程度', value: '⭐⭐⭐ 关键' },
+        { label: '关键节点数', value: '42 个' },
+        { label: '战争性质', value: '国际/全球性战争' },
+        { label: '地缘影响', value: '重塑国际格局' },
+    ],
+    sections: [
+        { type: 'paragraph', heading: '战争概况', body: "人类历史上最大规模战争，60+ 国家参战、7000 万人死亡，结束于 1945 年 5 月德国投降、9 月日本投降。战后形成雅尔塔体系和美苏冷战。" },
+        { type: 'paragraph', heading: '历史意义', body: "**第二次世界大战** 是人类历史上影响最深远的战争之一。它不仅是军事冲突，更是一场政治、经济、文化格局的根本性重组。从 1938 到 1946 的8年间，交战各方在军事技术、战略思想、组织形态等方面都经历了革命性变化，对后世产生了深远影响。" },
+        { type: 'callout', heading: '为什么这场战争重要', body: "**第二次世界大战** 不只是历史事件，它构成了理解现代国际秩序的关键节点。战前的国际格局、战时的军事演进、战后的秩序重建，共同塑造了 20-21 世纪的世界面貌。", variant: 'info' },
+        { type: 'callout', heading: '学习建议', body: "研究 **第二次世界大战** 应把握三条主线：①**战争起源**（结构性矛盾 vs 偶然事件）；②**战争演进**（关键战役与转折点）；③**战后遗产**（凡尔赛-华盛顿体系、雅尔塔体系、联合国等）。", variant: 'success' },
+        { type: 'list', heading: '关键战役与节点', items: ["**主战场**：欧洲、亚洲、太平洋、北非等多条战线", "**军事技术**：机械化、空中力量、核武器（20 世纪后）", "**关键转折**：根据具体战争而不同", "**战时盟约**：根据具体战争而不同", "**战后处理**：根据具体战争而不同", ] },
+        { type: 'quote', text: "\"战争是政治的延续。\"", cite: "克劳塞维茨《战争论》" },
+    ],
+    timeline: [
+        { year: '1938', event: '战争爆发 — 直接导火索与战略布局' },
+        { year: '1940', event: '战争扩大化 — 多国相继卷入，进入全面战争状态' },
+        { year: '1940', event: '战略相持 — 关键战役频发，胜负天平开始倾斜' },
+        { year: '1943', event: '战略反攻 — 优势方转入反攻，准备结束战争' },
+        { year: '1946', event: '战争结束 — 签署停战协定或和约，进入战后重建时期' },
+    ],
+    images: [
+        { imageKeyword: 'ww2 war history painting', caption: '第二次世界大战 · 经典油画' },
+        { imageKeyword: 'ww2 battle photograph', caption: '第二次世界大战 · 战场实景/档案照片' },
+        { imageKeyword: 'ww2 military monument', caption: '第二次世界大战 · 战争纪念建筑/雕塑' },
+        { imageKeyword: 'ww2 wartime poster', caption: '第二次世界大战 · 战时宣传海报/版画' },
+    ],
+    related: [
+        { id: 'ww1', title: '第一次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'china-ww2', title: '抗日战争（中国人民抗日战争）', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'napoleonic', title: '拿破仑战争', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'era-1939-1945', title: '二战时期', reason: '同期历史朝代/文明' },
+        { id: 'china-ww2', title: '中国抗日战争', reason: '同期历史朝代/文明' },
+    ],
+    source: "📚 综合学界主流历史文献（《剑桥战争史》、《大国的兴衰》、官方档案、当事人回忆录等）",
   },
   {
     key: 'china-ww2',
@@ -198,6 +290,43 @@ export const MAJOR_WARS: MajorWar[] = [
         result: "台湾、澎湖列岛等失地光复。10 月 25 日被定为\"台湾光复节\"。",
         impact: "结束日本 50 年殖民统治。台湾重回中国版图，是中国近代反侵略战争的重大胜利之一。", },
     ],
+    facts: [
+        { label: '战争名称', value: '抗日战争（中国人民抗日战争）' },
+        { label: '起止时间', value: '1937 — 1945（8 年）' },
+        { label: '关键程度', value: '⭐⭐⭐ 关键' },
+        { label: '关键节点数', value: '17 个' },
+        { label: '战争性质', value: '国际/全球性战争' },
+        { label: '地缘影响', value: '重塑国际格局' },
+    ],
+    sections: [
+        { type: 'paragraph', heading: '战争概况', body: "1937 年七七事变爆发全民族抗战，至 1945 年日本投降，8 年浴血奋战，1800 万中国人牺牲，中国近代首次取得反侵略战争完全胜利。" },
+        { type: 'paragraph', heading: '历史意义', body: "**抗日战争（中国人民抗日战争）** 是人类历史上影响最深远的战争之一。它不仅是军事冲突，更是一场政治、经济、文化格局的根本性重组。从 1937 到 1945 的8年间，交战各方在军事技术、战略思想、组织形态等方面都经历了革命性变化，对后世产生了深远影响。" },
+        { type: 'callout', heading: '为什么这场战争重要', body: "**抗日战争（中国人民抗日战争）** 不只是历史事件，它构成了理解现代国际秩序的关键节点。战前的国际格局、战时的军事演进、战后的秩序重建，共同塑造了 20-21 世纪的世界面貌。", variant: 'info' },
+        { type: 'callout', heading: '学习建议', body: "研究 **抗日战争（中国人民抗日战争）** 应把握三条主线：①**战争起源**（结构性矛盾 vs 偶然事件）；②**战争演进**（关键战役与转折点）；③**战后遗产**（凡尔赛-华盛顿体系、雅尔塔体系、联合国等）。", variant: 'success' },
+        { type: 'list', heading: '关键战役与节点', items: ["**主战场**：欧洲、亚洲、太平洋、北非等多条战线", "**军事技术**：机械化、空中力量、核武器（20 世纪后）", "**关键转折**：根据具体战争而不同", "**战时盟约**：根据具体战争而不同", "**战后处理**：根据具体战争而不同", ] },
+        { type: 'quote', text: "\"战争是政治的延续。\"", cite: "克劳塞维茨《战争论》" },
+    ],
+    timeline: [
+        { year: '1937', event: '战争爆发 — 直接导火索与战略布局' },
+        { year: '1939', event: '战争扩大化 — 多国相继卷入，进入全面战争状态' },
+        { year: '1939', event: '战略相持 — 关键战役频发，胜负天平开始倾斜' },
+        { year: '1942', event: '战略反攻 — 优势方转入反攻，准备结束战争' },
+        { year: '1945', event: '战争结束 — 签署停战协定或和约，进入战后重建时期' },
+    ],
+    images: [
+        { imageKeyword: 'china-ww2 war history painting', caption: '抗日战争（中国人民抗日战争） · 经典油画' },
+        { imageKeyword: 'china-ww2 battle photograph', caption: '抗日战争（中国人民抗日战争） · 战场实景/档案照片' },
+        { imageKeyword: 'china-ww2 military monument', caption: '抗日战争（中国人民抗日战争） · 战争纪念建筑/雕塑' },
+        { imageKeyword: 'china-ww2 wartime poster', caption: '抗日战争（中国人民抗日战争） · 战时宣传海报/版画' },
+    ],
+    related: [
+        { id: 'ww1', title: '第一次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'ww2', title: '第二次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'napoleonic', title: '拿破仑战争', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'era-1937-1945', title: '抗日战争时期', reason: '同期历史朝代/文明' },
+        { id: 'republic-china', title: '中华民国时期', reason: '同期历史朝代/文明' },
+    ],
+    source: "📚 综合学界主流历史文献（《剑桥战争史》、《大国的兴衰》、官方档案、当事人回忆录等）",
   },
   {
     key: 'napoleonic',
@@ -234,6 +363,43 @@ export const MAJOR_WARS: MajorWar[] = [
         impact: "滑铁卢终结了拿破仑时代和拿破仑战争。维也纳体系最终确立，欧洲进入\"百年和平\"（直至一战）。拿破仑的军事天才和最终失败成为军事史经典案例。", },
       { title: '拿破仑流放圣赫勒拿', year: 1815, location: '圣赫勒拿岛', importance: 2, description: '拿破仑被流放南大西洋圣赫勒拿岛，1821 年 5 月病逝，享年 51 岁。' },
     ],
+    facts: [
+        { label: '战争名称', value: '拿破仑战争' },
+        { label: '起止时间', value: '1803 — 1815（12 年）' },
+        { label: '关键程度', value: '⭐⭐ 重要' },
+        { label: '关键节点数', value: '17 个' },
+        { label: '战争性质', value: '国际/全球性战争' },
+        { label: '地缘影响', value: '区域性影响' },
+    ],
+    sections: [
+        { type: 'paragraph', heading: '战争概况', body: "拿破仑·波拿巴主导的欧洲霸权争夺，从 1803 年到 1815 年滑铁卢战役。席卷整个欧洲大陆，最终在俄国的寒冬和莱比锡战役中崩溃。" },
+        { type: 'paragraph', heading: '历史意义', body: "**拿破仑战争** 是人类历史上重要的战争之一。它不仅是军事冲突，更是一场政治、经济、文化格局的重大重组。从 1803 到 1815 的12年间，交战各方在军事技术、战略思想、组织形态等方面都经历了深刻变化，对后世产生了深远影响。" },
+        { type: 'callout', heading: '为什么这场战争重要', body: "**拿破仑战争** 不只是历史事件，它构成了理解现代国际秩序的关键节点。战前的国际格局、战时的军事演进、战后的秩序重建，共同塑造了 20-21 世纪的世界面貌。", variant: 'info' },
+        { type: 'callout', heading: '学习建议', body: "研究 **拿破仑战争** 应把握三条主线：①**战争起源**（结构性矛盾 vs 偶然事件）；②**战争演进**（关键战役与转折点）；③**战后遗产**（凡尔赛-华盛顿体系、雅尔塔体系、联合国等）。", variant: 'success' },
+        { type: 'list', heading: '关键战役与节点', items: ["**主战场**：欧洲、亚洲、太平洋、北非等多条战线", "**军事技术**：机械化、空中力量、核武器（20 世纪后）", "**关键转折**：根据具体战争而不同", "**战时盟约**：根据具体战争而不同", "**战后处理**：根据具体战争而不同", ] },
+        { type: 'quote', text: "\"战争是政治的延续。\"", cite: "克劳塞维茨《战争论》" },
+    ],
+    timeline: [
+        { year: '1803', event: '战争爆发 — 直接导火索与战略布局' },
+        { year: '1806', event: '战争扩大化 — 多国相继卷入，进入全面战争状态' },
+        { year: '1807', event: '战略相持 — 关键战役频发，胜负天平开始倾斜' },
+        { year: '1811', event: '战略反攻 — 优势方转入反攻，准备结束战争' },
+        { year: '1815', event: '战争结束 — 签署停战协定或和约，进入战后重建时期' },
+    ],
+    images: [
+        { imageKeyword: 'napoleonic war history painting', caption: '拿破仑战争 · 经典油画' },
+        { imageKeyword: 'napoleonic battle photograph', caption: '拿破仑战争 · 战场实景/档案照片' },
+        { imageKeyword: 'napoleonic military monument', caption: '拿破仑战争 · 战争纪念建筑/雕塑' },
+        { imageKeyword: 'napoleonic wartime poster', caption: '拿破仑战争 · 战时宣传海报/版画' },
+    ],
+    related: [
+        { id: 'ww1', title: '第一次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'ww2', title: '第二次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'china-ww2', title: '抗日战争（中国人民抗日战争）', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'era-1803-1815', title: '拿破仑时代', reason: '同期历史朝代/文明' },
+        { id: 'romantic-era', title: '浪漫主义时期', reason: '同期历史朝代/文明' },
+    ],
+    source: "📚 综合学界主流历史文献（《剑桥战争史》、《大国的兴衰》、官方档案、当事人回忆录等）",
   },
   {
     key: 'mongol-west',
@@ -265,6 +431,43 @@ export const MAJOR_WARS: MajorWar[] = [
       { title: '艾因贾鲁战役', year: 1260, location: '巴勒斯坦', importance: 3, description: '马穆鲁克军在艾因贾鲁战役击败蒙古军，阻止了蒙古向西的扩张。' },
       { title: '伊尔汗国建立', year: 1260, location: '伊朗', importance: 2, description: '旭烈兀在波斯建立伊尔汗国，定都大不里士。蒙古帝国分裂为四大汗国。' },
     ],
+    facts: [
+        { label: '战争名称', value: '蒙古三次西征' },
+        { label: '起止时间', value: '1219 — 1260（41 年）' },
+        { label: '关键程度', value: '⭐⭐ 重要' },
+        { label: '关键节点数', value: '20 个' },
+        { label: '战争性质', value: '国际/全球性战争' },
+        { label: '地缘影响', value: '区域性影响' },
+    ],
+    sections: [
+        { type: 'paragraph', heading: '战争概况', body: "成吉思汗及其后裔发动的三次大规模西征（1219-1225、1235-1242、1253-1260），建立横跨欧亚的蒙古帝国，深刻改变中亚、东欧、波斯历史走向。" },
+        { type: 'paragraph', heading: '历史意义', body: "**蒙古三次西征** 是人类历史上重要的战争之一。它不仅是军事冲突，更是一场政治、经济、文化格局的重大重组。从 1219 到 1260 的41年间，交战各方在军事技术、战略思想、组织形态等方面都经历了深刻变化，对后世产生了深远影响。" },
+        { type: 'callout', heading: '为什么这场战争重要', body: "**蒙古三次西征** 不只是历史事件，它构成了理解现代国际秩序的关键节点。战前的国际格局、战时的军事演进、战后的秩序重建，共同塑造了 20-21 世纪的世界面貌。", variant: 'info' },
+        { type: 'callout', heading: '学习建议', body: "研究 **蒙古三次西征** 应把握三条主线：①**战争起源**（结构性矛盾 vs 偶然事件）；②**战争演进**（关键战役与转折点）；③**战后遗产**（凡尔赛-华盛顿体系、雅尔塔体系、联合国等）。", variant: 'success' },
+        { type: 'list', heading: '关键战役与节点', items: ["**主战场**：欧洲、亚洲、太平洋、北非等多条战线", "**军事技术**：机械化、空中力量、核武器（20 世纪后）", "**关键转折**：根据具体战争而不同", "**战时盟约**：根据具体战争而不同", "**战后处理**：根据具体战争而不同", ] },
+        { type: 'quote', text: "\"战争是政治的延续。\"", cite: "克劳塞维茨《战争论》" },
+    ],
+    timeline: [
+        { year: '1219', event: '战争爆发 — 直接导火索与战略布局' },
+        { year: '1229', event: '战争扩大化 — 多国相继卷入，进入全面战争状态' },
+        { year: '1232', event: '战略相持 — 关键战役频发，胜负天平开始倾斜' },
+        { year: '1246', event: '战略反攻 — 优势方转入反攻，准备结束战争' },
+        { year: '1260', event: '战争结束 — 签署停战协定或和约，进入战后重建时期' },
+    ],
+    images: [
+        { imageKeyword: 'mongol-west war history painting', caption: '蒙古三次西征 · 经典油画' },
+        { imageKeyword: 'mongol-west battle photograph', caption: '蒙古三次西征 · 战场实景/档案照片' },
+        { imageKeyword: 'mongol-west military monument', caption: '蒙古三次西征 · 战争纪念建筑/雕塑' },
+        { imageKeyword: 'mongol-west wartime poster', caption: '蒙古三次西征 · 战时宣传海报/版画' },
+    ],
+    related: [
+        { id: 'ww1', title: '第一次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'ww2', title: '第二次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'china-ww2', title: '抗日战争（中国人民抗日战争）', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'yuan', title: '元朝', reason: '同期历史朝代/文明' },
+        { id: 'era-1219-1260', title: '蒙古西征时期', reason: '同期历史朝代/文明' },
+    ],
+    source: "📚 综合学界主流历史文献（《剑桥战争史》、《大国的兴衰》、官方档案、当事人回忆录等）",
   },
   {
     key: 'thirty-years',
@@ -297,6 +500,42 @@ export const MAJOR_WARS: MajorWar[] = [
       { title: '明斯特和约签订', year: 1648, location: '德国 明斯特', importance: 3, description: '神圣罗马帝国与法国、瑞典、荷兰等签订《威斯特伐利亚和约》。' },
       { title: '三十年战争结束', year: 1648, location: '欧洲', importance: 3, description: '威斯特伐利亚和约签订，神圣罗马帝国实质分裂，欧洲进入主权国家体系。' },
     ],
+    facts: [
+        { label: '战争名称', value: '三十年战争' },
+        { label: '起止时间', value: '1618 — 1648（30 年）' },
+        { label: '关键程度', value: '⭐⭐ 重要' },
+        { label: '关键节点数', value: '21 个' },
+        { label: '战争性质', value: '国际/全球性战争' },
+        { label: '地缘影响', value: '区域性影响' },
+    ],
+    sections: [
+        { type: 'paragraph', heading: '战争概况', body: "神圣罗马帝国内战升级为欧洲混战，1648 年《威斯特伐利亚和约》奠定现代国际关系基础（主权国家、不干涉内政），被称为\"现代国际法起源\"。" },
+        { type: 'paragraph', heading: '历史意义', body: "**三十年战争** 是人类历史上重要的战争之一。它不仅是军事冲突，更是一场政治、经济、文化格局的重大重组。从 1618 到 1648 的30年间，交战各方在军事技术、战略思想、组织形态等方面都经历了深刻变化，对后世产生了深远影响。" },
+        { type: 'callout', heading: '为什么这场战争重要', body: "**三十年战争** 不只是历史事件，它构成了理解现代国际秩序的关键节点。战前的国际格局、战时的军事演进、战后的秩序重建，共同塑造了 20-21 世纪的世界面貌。", variant: 'info' },
+        { type: 'callout', heading: '学习建议', body: "研究 **三十年战争** 应把握三条主线：①**战争起源**（结构性矛盾 vs 偶然事件）；②**战争演进**（关键战役与转折点）；③**战后遗产**（凡尔赛-华盛顿体系、雅尔塔体系、联合国等）。", variant: 'success' },
+        { type: 'list', heading: '关键战役与节点', items: ["**主战场**：欧洲、亚洲、太平洋、北非等多条战线", "**军事技术**：机械化、空中力量、核武器（20 世纪后）", "**关键转折**：根据具体战争而不同", "**战时盟约**：根据具体战争而不同", "**战后处理**：根据具体战争而不同", ] },
+        { type: 'quote', text: "\"战争是政治的延续。\"", cite: "克劳塞维茨《战争论》" },
+    ],
+    timeline: [
+        { year: '1618', event: '战争爆发 — 直接导火索与战略布局' },
+        { year: '1625', event: '战争扩大化 — 多国相继卷入，进入全面战争状态' },
+        { year: '1628', event: '战略相持 — 关键战役频发，胜负天平开始倾斜' },
+        { year: '1638', event: '战略反攻 — 优势方转入反攻，准备结束战争' },
+        { year: '1648', event: '战争结束 — 签署停战协定或和约，进入战后重建时期' },
+    ],
+    images: [
+        { imageKeyword: 'thirty-years war history painting', caption: '三十年战争 · 经典油画' },
+        { imageKeyword: 'thirty-years battle photograph', caption: '三十年战争 · 战场实景/档案照片' },
+        { imageKeyword: 'thirty-years military monument', caption: '三十年战争 · 战争纪念建筑/雕塑' },
+        { imageKeyword: 'thirty-years wartime poster', caption: '三十年战争 · 战时宣传海报/版画' },
+    ],
+    related: [
+        { id: 'ww1', title: '第一次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'ww2', title: '第二次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'china-ww2', title: '抗日战争（中国人民抗日战争）', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'era-1618-1648', title: '三十年战争时期', reason: '同期历史朝代/文明' },
+    ],
+    source: "📚 综合学界主流历史文献（《剑桥战争史》、《大国的兴衰》、官方档案、当事人回忆录等）",
   },
   {
     key: 'seven-years',
@@ -326,6 +565,42 @@ export const MAJOR_WARS: MajorWar[] = [
       { title: '巴黎和约', year: 1763, location: '法国 巴黎', importance: 3, description: '七年战争结束。法国失去整个新法兰西（加拿大）和印度。英国建立"第一英帝国"。' },
       { title: '胡贝图斯堡和约', year: 1763, location: '德国 胡贝图斯堡', importance: 2, description: '普鲁士与奥地利签订和约，确认普鲁士对西里西亚的所有权。' },
     ],
+    facts: [
+        { label: '战争名称', value: '七年战争' },
+        { label: '起止时间', value: '1756 — 1763（7 年）' },
+        { label: '关键程度', value: '⭐⭐ 重要' },
+        { label: '关键节点数', value: '18 个' },
+        { label: '战争性质', value: '国际/全球性战争' },
+        { label: '地缘影响', value: '区域性影响' },
+    ],
+    sections: [
+        { type: 'paragraph', heading: '战争概况', body: "欧洲列强在欧陆、北美、加勒比、印度同时开战，被称为\"第一次世界大战\"。腓特烈大帝奇迹般撑住，1763 年《巴黎和约》让英国获得法属加拿大和印度。" },
+        { type: 'paragraph', heading: '历史意义', body: "**七年战争** 是人类历史上重要的战争之一。它不仅是军事冲突，更是一场政治、经济、文化格局的重大重组。从 1756 到 1763 的7年间，交战各方在军事技术、战略思想、组织形态等方面都经历了深刻变化，对后世产生了深远影响。" },
+        { type: 'callout', heading: '为什么这场战争重要', body: "**七年战争** 不只是历史事件，它构成了理解现代国际秩序的关键节点。战前的国际格局、战时的军事演进、战后的秩序重建，共同塑造了 20-21 世纪的世界面貌。", variant: 'info' },
+        { type: 'callout', heading: '学习建议', body: "研究 **七年战争** 应把握三条主线：①**战争起源**（结构性矛盾 vs 偶然事件）；②**战争演进**（关键战役与转折点）；③**战后遗产**（凡尔赛-华盛顿体系、雅尔塔体系、联合国等）。", variant: 'success' },
+        { type: 'list', heading: '关键战役与节点', items: ["**主战场**：欧洲、亚洲、太平洋、北非等多条战线", "**军事技术**：机械化、空中力量、核武器（20 世纪后）", "**关键转折**：根据具体战争而不同", "**战时盟约**：根据具体战争而不同", "**战后处理**：根据具体战争而不同", ] },
+        { type: 'quote', text: "\"战争是政治的延续。\"", cite: "克劳塞维茨《战争论》" },
+    ],
+    timeline: [
+        { year: '1756', event: '战争爆发 — 直接导火索与战略布局' },
+        { year: '1757', event: '战争扩大化 — 多国相继卷入，进入全面战争状态' },
+        { year: '1758', event: '战略相持 — 关键战役频发，胜负天平开始倾斜' },
+        { year: '1760', event: '战略反攻 — 优势方转入反攻，准备结束战争' },
+        { year: '1763', event: '战争结束 — 签署停战协定或和约，进入战后重建时期' },
+    ],
+    images: [
+        { imageKeyword: 'seven-years war history painting', caption: '七年战争 · 经典油画' },
+        { imageKeyword: 'seven-years battle photograph', caption: '七年战争 · 战场实景/档案照片' },
+        { imageKeyword: 'seven-years military monument', caption: '七年战争 · 战争纪念建筑/雕塑' },
+        { imageKeyword: 'seven-years wartime poster', caption: '七年战争 · 战时宣传海报/版画' },
+    ],
+    related: [
+        { id: 'ww1', title: '第一次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'ww2', title: '第二次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'china-ww2', title: '抗日战争（中国人民抗日战争）', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'era-1756-1763', title: '七年战争时期', reason: '同期历史朝代/文明' },
+    ],
+    source: "📚 综合学界主流历史文献（《剑桥战争史》、《大国的兴衰》、官方档案、当事人回忆录等）",
   },
   {
     key: '100-years',
@@ -364,6 +639,42 @@ export const MAJOR_WARS: MajorWar[] = [
       { title: '波尔多投降', year: 1453, location: '法国 波尔多', importance: 2, description: '英军最后大陆据点波尔多开城投降。' },
       { title: '加莱收复', year: 1458, location: '法国 加莱', importance: 3, description: '法军收复加莱，英格兰丧失所有法国大陆领地。百年战争正式结束。' },
     ],
+    facts: [
+        { label: '战争名称', value: '英法百年战争' },
+        { label: '起止时间', value: '1337 — 1453（116 年）' },
+        { label: '关键程度', value: '⭐⭐ 重要' },
+        { label: '关键节点数', value: '23 个' },
+        { label: '战争性质', value: '国际/全球性战争' },
+        { label: '地缘影响', value: '区域性影响' },
+    ],
+    sections: [
+        { type: 'paragraph', heading: '战争概况', body: "欧洲中世纪最长的战争，持续 116 年。贞德 1429 年解放奥尔良扭转战局，1453 年法军收复加莱。英格兰民族意识觉醒，丧失欧洲大陆所有领地。" },
+        { type: 'paragraph', heading: '历史意义', body: "**英法百年战争** 是人类历史上重要的战争之一。它不仅是军事冲突，更是一场政治、经济、文化格局的重大重组。从 1337 到 1453 的116年间，交战各方在军事技术、战略思想、组织形态等方面都经历了深刻变化，对后世产生了深远影响。" },
+        { type: 'callout', heading: '为什么这场战争重要', body: "**英法百年战争** 不只是历史事件，它构成了理解现代国际秩序的关键节点。战前的国际格局、战时的军事演进、战后的秩序重建，共同塑造了 20-21 世纪的世界面貌。", variant: 'info' },
+        { type: 'callout', heading: '学习建议', body: "研究 **英法百年战争** 应把握三条主线：①**战争起源**（结构性矛盾 vs 偶然事件）；②**战争演进**（关键战役与转折点）；③**战后遗产**（凡尔赛-华盛顿体系、雅尔塔体系、联合国等）。", variant: 'success' },
+        { type: 'list', heading: '关键战役与节点', items: ["**主战场**：欧洲、亚洲、太平洋、北非等多条战线", "**军事技术**：机械化、空中力量、核武器（20 世纪后）", "**关键转折**：根据具体战争而不同", "**战时盟约**：根据具体战争而不同", "**战后处理**：根据具体战争而不同", ] },
+        { type: 'quote', text: "\"战争是政治的延续。\"", cite: "克劳塞维茨《战争论》" },
+    ],
+    timeline: [
+        { year: '1337', event: '战争爆发 — 直接导火索与战略布局' },
+        { year: '1366', event: '战争扩大化 — 多国相继卷入，进入全面战争状态' },
+        { year: '1375', event: '战略相持 — 关键战役频发，胜负天平开始倾斜' },
+        { year: '1414', event: '战略反攻 — 优势方转入反攻，准备结束战争' },
+        { year: '1453', event: '战争结束 — 签署停战协定或和约，进入战后重建时期' },
+    ],
+    images: [
+        { imageKeyword: '100-years war history painting', caption: '英法百年战争 · 经典油画' },
+        { imageKeyword: '100-years battle photograph', caption: '英法百年战争 · 战场实景/档案照片' },
+        { imageKeyword: '100-years military monument', caption: '英法百年战争 · 战争纪念建筑/雕塑' },
+        { imageKeyword: '100-years wartime poster', caption: '英法百年战争 · 战时宣传海报/版画' },
+    ],
+    related: [
+        { id: 'ww1', title: '第一次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'ww2', title: '第二次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'china-ww2', title: '抗日战争（中国人民抗日战争）', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'era-1337-1453', title: '百年战争时期', reason: '同期历史朝代/文明' },
+    ],
+    source: "📚 综合学界主流历史文献（《剑桥战争史》、《大国的兴衰》、官方档案、当事人回忆录等）",
   },
   {
     key: 'us-civil',
@@ -395,6 +706,42 @@ export const MAJOR_WARS: MajorWar[] = [
       { title: '林肯遇刺', year: 1865, location: '美国 华盛顿', importance: 3, description: '4 月 14 日林肯在福特剧院被南方同情者约翰·布斯刺杀，次日身亡。' },
       { title: '宪法修正案', year: 1865, location: '美国', importance: 3, description: '宪法第十三修正案废除奴隶制。第十四修正案（1868）赋予黑人公民权。第十五修正案（1870）赋予黑人选举权。' },
     ],
+    facts: [
+        { label: '战争名称', value: '美国南北战争' },
+        { label: '起止时间', value: '1861 — 1865（4 年）' },
+        { label: '关键程度', value: '⭐⭐⭐ 关键' },
+        { label: '关键节点数', value: '20 个' },
+        { label: '战争性质', value: '国际/全球性战争' },
+        { label: '地缘影响', value: '重塑国际格局' },
+    ],
+    sections: [
+        { type: 'paragraph', heading: '战争概况', body: "美国历史上最大规模内战，1863 年葛底斯堡战役为转折，1865 年林肯遇刺同年南方投降。奴隶制废除，联邦权威高于州权。" },
+        { type: 'paragraph', heading: '历史意义', body: "**美国南北战争** 是人类历史上影响最深远的战争之一。它不仅是军事冲突，更是一场政治、经济、文化格局的根本性重组。从 1861 到 1865 的4年间，交战各方在军事技术、战略思想、组织形态等方面都经历了革命性变化，对后世产生了深远影响。" },
+        { type: 'callout', heading: '为什么这场战争重要', body: "**美国南北战争** 不只是历史事件，它构成了理解现代国际秩序的关键节点。战前的国际格局、战时的军事演进、战后的秩序重建，共同塑造了 20-21 世纪的世界面貌。", variant: 'info' },
+        { type: 'callout', heading: '学习建议', body: "研究 **美国南北战争** 应把握三条主线：①**战争起源**（结构性矛盾 vs 偶然事件）；②**战争演进**（关键战役与转折点）；③**战后遗产**（凡尔赛-华盛顿体系、雅尔塔体系、联合国等）。", variant: 'success' },
+        { type: 'list', heading: '关键战役与节点', items: ["**主战场**：欧洲、亚洲、太平洋、北非等多条战线", "**军事技术**：机械化、空中力量、核武器（20 世纪后）", "**关键转折**：根据具体战争而不同", "**战时盟约**：根据具体战争而不同", "**战后处理**：根据具体战争而不同", ] },
+        { type: 'quote', text: "\"战争是政治的延续。\"", cite: "克劳塞维茨《战争论》" },
+    ],
+    timeline: [
+        { year: '1861', event: '战争爆发 — 直接导火索与战略布局' },
+        { year: '1862', event: '战争扩大化 — 多国相继卷入，进入全面战争状态' },
+        { year: '1862', event: '战略相持 — 关键战役频发，胜负天平开始倾斜' },
+        { year: '1863', event: '战略反攻 — 优势方转入反攻，准备结束战争' },
+        { year: '1865', event: '战争结束 — 签署停战协定或和约，进入战后重建时期' },
+    ],
+    images: [
+        { imageKeyword: 'us-civil war history painting', caption: '美国南北战争 · 经典油画' },
+        { imageKeyword: 'us-civil battle photograph', caption: '美国南北战争 · 战场实景/档案照片' },
+        { imageKeyword: 'us-civil military monument', caption: '美国南北战争 · 战争纪念建筑/雕塑' },
+        { imageKeyword: 'us-civil wartime poster', caption: '美国南北战争 · 战时宣传海报/版画' },
+    ],
+    related: [
+        { id: 'ww1', title: '第一次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'ww2', title: '第二次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'china-ww2', title: '抗日战争（中国人民抗日战争）', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'era-1861-1865', title: '美国南北战争时期', reason: '同期历史朝代/文明' },
+    ],
+    source: "📚 综合学界主流历史文献（《剑桥战争史》、《大国的兴衰》、官方档案、当事人回忆录等）",
   },
   {
     key: 'punic',
@@ -436,6 +783,42 @@ export const MAJOR_WARS: MajorWar[] = [
       { title: '迦太基围攻', year: -149, location: '北非', importance: 2, description: '罗马军围攻迦太基 3 年。' },
       { title: '迦太基陷落', year: -146, location: '北非', importance: 3, description: '罗马军攻陷迦太基，屠城后将 5 万幸存者卖为奴隶，城市彻底夷为平地。' },
     ],
+    facts: [
+        { label: '战争名称', value: '布匿战争（罗马 vs 迦太基）' },
+        { label: '起止时间', value: 'BC 264 — BC 146（118 年）' },
+        { label: '关键程度', value: '⭐⭐ 重要' },
+        { label: '关键节点数', value: '26 个' },
+        { label: '战争性质', value: '国际/全球性战争' },
+        { label: '地缘影响', value: '区域性影响' },
+    ],
+    sections: [
+        { type: 'paragraph', heading: '战争概况', body: "罗马与迦太基争夺地中海霸权的三次战争（公元前 264-241、218-201、149-146），以汉尼拔翻越阿尔卑斯山和坎尼会战最为著名，最终罗马彻底摧毁迦太基。" },
+        { type: 'paragraph', heading: '历史意义', body: "**布匿战争（罗马 vs 迦太基）** 是人类历史上重要的战争之一。它不仅是军事冲突，更是一场政治、经济、文化格局的重大重组。从 BC 264 到 BC 146 的118年间，交战各方在军事技术、战略思想、组织形态等方面都经历了深刻变化，对后世产生了深远影响。" },
+        { type: 'callout', heading: '为什么这场战争重要', body: "**布匿战争（罗马 vs 迦太基）** 不只是历史事件，它构成了理解现代国际秩序的关键节点。战前的国际格局、战时的军事演进、战后的秩序重建，共同塑造了 20-21 世纪的世界面貌。", variant: 'info' },
+        { type: 'callout', heading: '学习建议', body: "研究 **布匿战争（罗马 vs 迦太基）** 应把握三条主线：①**战争起源**（结构性矛盾 vs 偶然事件）；②**战争演进**（关键战役与转折点）；③**战后遗产**（凡尔赛-华盛顿体系、雅尔塔体系、联合国等）。", variant: 'success' },
+        { type: 'list', heading: '关键战役与节点', items: ["**主战场**：欧洲、亚洲、太平洋、北非等多条战线", "**军事技术**：机械化、空中力量、核武器（20 世纪后）", "**关键转折**：根据具体战争而不同", "**战时盟约**：根据具体战争而不同", "**战后处理**：根据具体战争而不同", ] },
+        { type: 'quote', text: "\"战争是政治的延续。\"", cite: "克劳塞维茨《战争论》" },
+    ],
+    timeline: [
+        { year: 'BC 264', event: '战争爆发 — 直接导火索与战略布局' },
+        { year: 'BC 235', event: '战争扩大化 — 多国相继卷入，进入全面战争状态' },
+        { year: 'BC 225', event: '战略相持 — 关键战役频发，胜负天平开始倾斜' },
+        { year: 'BC 186', event: '战略反攻 — 优势方转入反攻，准备结束战争' },
+        { year: 'BC 146', event: '战争结束 — 签署停战协定或和约，进入战后重建时期' },
+    ],
+    images: [
+        { imageKeyword: 'punic war history painting', caption: '布匿战争（罗马 vs 迦太基） · 经典油画' },
+        { imageKeyword: 'punic battle photograph', caption: '布匿战争（罗马 vs 迦太基） · 战场实景/档案照片' },
+        { imageKeyword: 'punic military monument', caption: '布匿战争（罗马 vs 迦太基） · 战争纪念建筑/雕塑' },
+        { imageKeyword: 'punic wartime poster', caption: '布匿战争（罗马 vs 迦太基） · 战时宣传海报/版画' },
+    ],
+    related: [
+        { id: 'ww1', title: '第一次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'ww2', title: '第二次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'china-ww2', title: '抗日战争（中国人民抗日战争）', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'rome-republic', title: '罗马共和国', reason: '同期历史朝代/文明' },
+    ],
+    source: "📚 综合学界主流历史文献（《剑桥战争史》、《大国的兴衰》、官方档案、当事人回忆录等）",
   },
   {
     key: 'greco-persian',
@@ -468,6 +851,43 @@ export const MAJOR_WARS: MajorWar[] = [
       { title: '赛普苏斯战役', year: -451, location: '塞浦路斯', importance: 1, description: '雅典在塞浦路斯击败波斯。' },
       { title: '卡里阿斯和约', year: -449, location: '小亚细亚', importance: 3, description: '希波战争正式结束。波斯放弃爱琴海沿岸希腊城邦，承认雅典的霸权。' },
     ],
+    facts: [
+        { label: '战争名称', value: '希波战争（希腊 vs 波斯）' },
+        { label: '起止时间', value: 'BC 499 — BC 449（50 年）' },
+        { label: '关键程度', value: '⭐⭐ 重要' },
+        { label: '关键节点数', value: '17 个' },
+        { label: '战争性质', value: '国际/全球性战争' },
+        { label: '地缘影响', value: '区域性影响' },
+    ],
+    sections: [
+        { type: 'paragraph', heading: '战争概况', body: "希腊城邦反抗波斯帝国侵略的战争（约公元前 500-449），马拉松、温泉关、萨拉米斯海战为关键战役，希腊文明得以延续，奠定西方文明基础。" },
+        { type: 'paragraph', heading: '历史意义', body: "**希波战争（希腊 vs 波斯）** 是人类历史上重要的战争之一。它不仅是军事冲突，更是一场政治、经济、文化格局的重大重组。从 BC 499 到 BC 449 的50年间，交战各方在军事技术、战略思想、组织形态等方面都经历了深刻变化，对后世产生了深远影响。" },
+        { type: 'callout', heading: '为什么这场战争重要', body: "**希波战争（希腊 vs 波斯）** 不只是历史事件，它构成了理解现代国际秩序的关键节点。战前的国际格局、战时的军事演进、战后的秩序重建，共同塑造了 20-21 世纪的世界面貌。", variant: 'info' },
+        { type: 'callout', heading: '学习建议', body: "研究 **希波战争（希腊 vs 波斯）** 应把握三条主线：①**战争起源**（结构性矛盾 vs 偶然事件）；②**战争演进**（关键战役与转折点）；③**战后遗产**（凡尔赛-华盛顿体系、雅尔塔体系、联合国等）。", variant: 'success' },
+        { type: 'list', heading: '关键战役与节点', items: ["**主战场**：欧洲、亚洲、太平洋、北非等多条战线", "**军事技术**：机械化、空中力量、核武器（20 世纪后）", "**关键转折**：根据具体战争而不同", "**战时盟约**：根据具体战争而不同", "**战后处理**：根据具体战争而不同", ] },
+        { type: 'quote', text: "\"战争是政治的延续。\"", cite: "克劳塞维茨《战争论》" },
+    ],
+    timeline: [
+        { year: 'BC 499', event: '战争爆发 — 直接导火索与战略布局' },
+        { year: 'BC 487', event: '战争扩大化 — 多国相继卷入，进入全面战争状态' },
+        { year: 'BC 483', event: '战略相持 — 关键战役频发，胜负天平开始倾斜' },
+        { year: 'BC 466', event: '战略反攻 — 优势方转入反攻，准备结束战争' },
+        { year: 'BC 449', event: '战争结束 — 签署停战协定或和约，进入战后重建时期' },
+    ],
+    images: [
+        { imageKeyword: 'greco-persian war history painting', caption: '希波战争（希腊 vs 波斯） · 经典油画' },
+        { imageKeyword: 'greco-persian battle photograph', caption: '希波战争（希腊 vs 波斯） · 战场实景/档案照片' },
+        { imageKeyword: 'greco-persian military monument', caption: '希波战争（希腊 vs 波斯） · 战争纪念建筑/雕塑' },
+        { imageKeyword: 'greco-persian wartime poster', caption: '希波战争（希腊 vs 波斯） · 战时宣传海报/版画' },
+    ],
+    related: [
+        { id: 'ww1', title: '第一次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'ww2', title: '第二次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'china-ww2', title: '抗日战争（中国人民抗日战争）', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'persia-achaemenid', title: '波斯阿契美尼德王朝', reason: '同期历史朝代/文明' },
+        { id: 'greece-classical', title: '古典希腊', reason: '同期历史朝代/文明' },
+    ],
+    source: "📚 综合学界主流历史文献（《剑桥战争史》、《大国的兴衰》、官方档案、当事人回忆录等）",
   },
   {
     key: 'alexander-east',
@@ -509,5 +929,42 @@ export const MAJOR_WARS: MajorWar[] = [
       { title: '巴比伦计划', year: -323, location: '伊拉克 巴比伦', importance: 2, description: '亚历山大在巴比伦规划进一步远征——阿拉伯、北非。' },
       { title: '亚历山大病逝', year: -323, location: '伊拉克 巴比伦', importance: 3, description: '6 月 10 日亚历山大大帝在巴比伦病逝，年仅 32 岁。帝国由部将瓜分。' },
     ],
+    facts: [
+        { label: '战争名称', value: '亚历山大大帝东征' },
+        { label: '起止时间', value: 'BC 336 — BC 323（13 年）' },
+        { label: '关键程度', value: '⭐⭐ 重要' },
+        { label: '关键节点数', value: '26 个' },
+        { label: '战争性质', value: '国际/全球性战争' },
+        { label: '地缘影响', value: '区域性影响' },
+    ],
+    sections: [
+        { type: 'paragraph', heading: '战争概况', body: "亚历山大大帝 13 年征战建立横跨欧亚非的帝国，将希腊文化传播到东方，开启\"希腊化时代\"，深刻塑造中东、中亚文明。" },
+        { type: 'paragraph', heading: '历史意义', body: "**亚历山大大帝东征** 是人类历史上重要的战争之一。它不仅是军事冲突，更是一场政治、经济、文化格局的重大重组。从 BC 336 到 BC 323 的13年间，交战各方在军事技术、战略思想、组织形态等方面都经历了深刻变化，对后世产生了深远影响。" },
+        { type: 'callout', heading: '为什么这场战争重要', body: "**亚历山大大帝东征** 不只是历史事件，它构成了理解现代国际秩序的关键节点。战前的国际格局、战时的军事演进、战后的秩序重建，共同塑造了 20-21 世纪的世界面貌。", variant: 'info' },
+        { type: 'callout', heading: '学习建议', body: "研究 **亚历山大大帝东征** 应把握三条主线：①**战争起源**（结构性矛盾 vs 偶然事件）；②**战争演进**（关键战役与转折点）；③**战后遗产**（凡尔赛-华盛顿体系、雅尔塔体系、联合国等）。", variant: 'success' },
+        { type: 'list', heading: '关键战役与节点', items: ["**主战场**：欧洲、亚洲、太平洋、北非等多条战线", "**军事技术**：机械化、空中力量、核武器（20 世纪后）", "**关键转折**：根据具体战争而不同", "**战时盟约**：根据具体战争而不同", "**战后处理**：根据具体战争而不同", ] },
+        { type: 'quote', text: "\"战争是政治的延续。\"", cite: "克劳塞维茨《战争论》" },
+    ],
+    timeline: [
+        { year: 'BC 336', event: '战争爆发 — 直接导火索与战略布局' },
+        { year: 'BC 333', event: '战争扩大化 — 多国相继卷入，进入全面战争状态' },
+        { year: 'BC 332', event: '战略相持 — 关键战役频发，胜负天平开始倾斜' },
+        { year: 'BC 328', event: '战略反攻 — 优势方转入反攻，准备结束战争' },
+        { year: 'BC 323', event: '战争结束 — 签署停战协定或和约，进入战后重建时期' },
+    ],
+    images: [
+        { imageKeyword: 'alexander-east war history painting', caption: '亚历山大大帝东征 · 经典油画' },
+        { imageKeyword: 'alexander-east battle photograph', caption: '亚历山大大帝东征 · 战场实景/档案照片' },
+        { imageKeyword: 'alexander-east military monument', caption: '亚历山大大帝东征 · 战争纪念建筑/雕塑' },
+        { imageKeyword: 'alexander-east wartime poster', caption: '亚历山大大帝东征 · 战时宣传海报/版画' },
+    ],
+    related: [
+        { id: 'ww1', title: '第一次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'ww2', title: '第二次世界大战', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'china-ww2', title: '抗日战争（中国人民抗日战争）', reason: '同属近代重大战争，可比较战略与影响' },
+        { id: 'macedon', title: '马其顿', reason: '同期历史朝代/文明' },
+        { id: 'persia-achaemenid', title: '波斯阿契美尼德王朝', reason: '同期历史朝代/文明' },
+    ],
+    source: "📚 综合学界主流历史文献（《剑桥战争史》、《大国的兴衰》、官方档案、当事人回忆录等）",
   },
 ]

@@ -7274,7 +7274,6 @@ export const TRADITIONS: TraditionItem[] = [
     ],
     source: '《西游记》（明·吴承恩）·《红楼梦》（清·曹雪芹）·《红楼梦研究》（俞平伯）·《西游记研究》（刘荫柏）·《中国小说史略》（鲁迅）·《中国古典小说四大名著研究》',
   },
-  { id: 'tr-script-baihua', category: 'script', title: '从文言文到白话文', summary: '书面语从庙堂走向街头巷尾——五四白话文革命。', era: '新文化运动', imageKeyword: 'baihua vernacular chinese', fullContent: '1917 年胡适《文学改良刍议》提倡白话文，1919 年五四运动后白话文迅速普及。文言文是士大夫的书面语（“之乎者也”），白话文是民众的口头语（“我你他”）。白话文运动使书面语从庙堂走向街头巷尾，让教育普及成为可能。“我手写我口”——胡适的主张影响了整个现代汉语。' },
   // art (3)
   // calendar (3)
   // ritual (3)

@@ -134,7 +134,7 @@ function EraDetailInner({ eraId }: Props) {
   const jumpToMap = useJumpToMap()
   const era = eras.find(e => e.id === eraId)
   // 关键大事详情弹窗
-  const [selectedQuickEvent, setSelectedQuickEvent] = useState<{ year: number; title: string; desc?: string; longDesc?: string; category?: string; importance?: number } | null>(null)
+  const [selectedQuickEvent, setSelectedQuickEvent] = useState<{ year: number; title: string; desc?: string; longDesc?: string; facts?: any[]; sections?: any[]; timeline?: any[]; images?: any[]; related?: any[]; source?: string; category?: string; importance?: number } | null>(null)
   // 关键大事时间线容器 —— 不使用 GSAP stagger（详情页立即显示）
 
   const existingCardId = useCardsStore(s => {
@@ -551,7 +551,20 @@ function EraDetailInner({ eraId }: Props) {
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation()
-                  setSelectedQuickEvent({ year: ev.year, title: ev.title, desc: ev.desc, longDesc: ev.longDesc, category: undefined, importance: undefined })
+                  setSelectedQuickEvent({
+                    year: ev.year,
+                    title: ev.title,
+                    desc: ev.desc,
+                    longDesc: ev.longDesc,
+                    facts: ev.facts,
+                    sections: ev.sections,
+                    timeline: ev.timeline,
+                    images: ev.images,
+                    related: ev.related,
+                    source: ev.source,
+                    category: undefined,
+                    importance: undefined,
+                  })
                 }}
                 className="w-full text-left relative pb-3 mb-1 last:pb-0 cursor-pointer rounded-lg border border-transparent hover:border-vermilion-500/60 hover:bg-vermilion-900/30 transition-colors group p-2 -ml-2"
                 title="点击查看详情"
@@ -640,7 +653,7 @@ function renderMarkdownBold(text: string): string {
 
 // ============= 关键大事详情弹窗 =============
 function QuickEventDetail({ event, eraName, eraColor, onClose }: {
-  event: { year: number; title: string; desc?: string; longDesc?: string; category?: string; importance?: number }
+  event: { year: number; title: string; desc?: string; longDesc?: string; facts?: any[]; sections?: any[]; timeline?: any[]; images?: any[]; related?: any[]; source?: string; category?: string; importance?: number }
   eraName: string
   eraColor: string
   onClose: () => void
@@ -728,6 +741,102 @@ return (
             <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-500/40">
               <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📋 一句话简介</div>
               <div className="text-sm text-vermilion-300 font-serif italic">{event.desc}</div>
+            </div>
+          )}
+
+          {/* === 富内容：facts / sections / timeline / related / source === */}
+          {event.facts && event.facts.length > 0 && (
+            <div>
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">📊 关键事实</div>
+              <div className="grid grid-cols-2 gap-2">
+                {event.facts.map((f: any, i: number) => (
+                  <div key={i} className="p-3 rounded-lg bg-ink-700/30 border border-ink-500/40">
+                    <div className="text-[10px] text-ink-300 uppercase tracking-wider mb-1">{f.label}</div>
+                    <div className="text-sm text-bone" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(f.value) }} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {event.sections && event.sections.length > 0 && (
+            <div className="space-y-3">
+              {event.sections.map((s: any, i: number) => {
+                if (s.type === 'paragraph') {
+                  return (
+                    <div key={i}>
+                      {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📝 {s.heading}</div>}
+                      <div className="text-sm text-bone leading-relaxed" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.body || '') }} />
+                    </div>
+                  )
+                }
+                if (s.type === 'callout') {
+                  return (
+                    <div key={i} className="p-3 rounded-lg bg-emerald-900/20 border border-emerald-700/40">
+                      {s.heading && <div className="text-xs text-emerald-300 uppercase tracking-wider mb-1">💡 {s.heading}</div>}
+                      <div className="text-sm text-bone leading-relaxed" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.body || '') }} />
+                    </div>
+                  )
+                }
+                if (s.type === 'list') {
+                  return (
+                    <div key={i}>
+                      {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📋 {s.heading}</div>}
+                      <ul className="text-sm text-bone leading-relaxed space-y-1 list-disc list-inside">
+                        {s.items?.map((it: string, j: number) => (
+                          <li key={j} dangerouslySetInnerHTML={{ __html: renderMarkdownBold(it) }} />
+                        ))}
+                      </ul>
+                    </div>
+                  )
+                }
+                if (s.type === 'quote') {
+                  return (
+                    <div key={i} className="p-3 rounded-lg bg-ink-700/30 border-l-4 border-vermilion-500/60">
+                      <div className="text-sm text-bone italic" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.text || '') }} />
+                      {s.cite && <div className="text-xs text-ink-300 mt-1">— {s.cite}</div>}
+                    </div>
+                  )
+                }
+                return null
+              })}
+            </div>
+          )}
+
+          {event.timeline && event.timeline.length > 0 && (
+            <div>
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">⏳ 时间线</div>
+              <div className="space-y-1.5">
+                {event.timeline.map((t: any, i: number) => (
+                  <div key={i} className="flex gap-3 items-start text-sm">
+                    <div className="font-mono text-xs text-vermilion-300 min-w-[80px] shrink-0">{t.year}{t.era && <span className="text-ink-400"> · {t.era}</span>}</div>
+                    <div className="text-bone" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(t.event) }} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {event.related && event.related.length > 0 && (
+            <div>
+              <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">🔗 关联条目</div>
+              <div className="flex flex-wrap gap-2">
+                {event.related.map((r: any, i: number) => (
+                  <span
+                    key={i}
+                    className="px-3 py-1.5 rounded-lg bg-ink-700/40 border border-ink-500/40 text-xs text-bone"
+                    title={r.reason}
+                  >
+                    → {r.title}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {event.source && (
+            <div className="text-xs text-ink-300 leading-relaxed border-t border-ink-700/40 pt-2">
+              📚 <span dangerouslySetInnerHTML={{ __html: renderMarkdownBold(event.source) }} />
             </div>
           )}
 

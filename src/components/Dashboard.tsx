@@ -31,6 +31,8 @@ import type { Question } from '@/types/questions'
 import EraQuickLearnModal, { type QuickEventState } from './QuickLearn/EraQuickLearnModal'
 import { Seal, GreekKeyDivider } from '@/components/ui/ChineseOrnament'
 import ThoughtsOverview from '@/components/Thoughts/ThoughtsOverview'
+import TechnologyOverview from '@/components/Technology/TechnologyOverview'
+import ReligionOverview from '@/components/Religion/ReligionOverview'
 
 // 🎯 性能优化：data 改用懒加载共享 loader — 不再静态 import，eras.json + events.json
 //   从主 bundle 拆出。数据未到位时 eras/events 为空数组（useCoreDataReady 检测）。
@@ -79,6 +81,8 @@ const PATHS: { id: string; icon: string; title: string; desc: string; color: str
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Skylight%2C_chandelier_and_stairs%2C_Ashmolean_Museum%2C_Oxford.jpg' }, // 阿什莫林博物馆天梯（喻登阶）
   { id: 'allTraditions', icon: '🪷', title: '全传统', desc: '12 子分类 · 中国人的历史、家、神话、哲学、文字、文学、艺术、历法节气、礼仪制度、衣食住行、科技', color: '#d4856a', imageKeyword: 'chinese tradition ink painting calligraphy' },
   { id: 'allThoughts', icon: '💡', title: '全思想', desc: '集中收集整理全人类的思想精华 · 老子·孔子·苏格拉底·柏拉图·佛陀·更多', color: '#9b7eb6', imageKeyword: 'philosophy ancient greek thinker meditation candle' },
+  { id: 'allTechnology', icon: '⚙️', title: '全科技', desc: '整理人类发展至今最具影响力的科技创新 · 火·农业·文字·纸·印刷·蒸汽·电力·互联网', color: '#d4a85b', imageKeyword: 'invention technology gears industry innovation' },
+  { id: 'allReligion', icon: '🛕', title: '全宗教', desc: '详细整理从古至今的重要宗教 · 基督教·伊斯兰教·佛教·印度教·犹太教·道教·儒教·锡克教·耆那教·巴哈伊', color: '#5b9bc8', imageKeyword: 'religion temple worship spiritual' },
 ]
 
 // === 主路径（4 个核心） ===
@@ -123,6 +127,8 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
   const jumpToMap = useJumpToMap()
   const [showEraList, setShowEraList] = useState(false)
   const [showThoughts, setShowThoughts] = useState(false)
+  const [showTechnology, setShowTechnology] = useState(false)
+  const [showReligion, setShowReligion] = useState(false)
 
   const learnEra: Era | null = learnEraId ? (eras.find(e => e.id === learnEraId) ?? null) : null
   const welcomeTitleRef = useRef<HTMLDivElement | null>(null)
@@ -318,7 +324,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           <div className="flex-1">
             <GreekKeyDivider />
           </div>
-          <span className="text-xs text-ink-400 font-brush tracking-widest">15 板块</span>
+          <span className="text-xs text-ink-400 font-brush tracking-widest">17 板块</span>
         </div>
       </div>
 
@@ -337,6 +343,14 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         onOpenThoughts={() => {
           audioEngine.playModalOpen()
           setShowThoughts(true)
+        }}
+        onOpenTechnology={() => {
+          audioEngine.playModalOpen()
+          setShowTechnology(true)
+        }}
+        onOpenReligion={() => {
+          audioEngine.playModalOpen()
+          setShowReligion(true)
         }}
         newPathId="ladder"
       />
@@ -579,6 +593,22 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         <ThoughtsOverview
           isActive={showThoughts}
           onClose={() => { audioEngine.playModalClose(); setShowThoughts(false) }}
+        />
+      )}
+
+      {/* ⚙️ 全科技 Modal */}
+      {showTechnology && (
+        <TechnologyOverview
+          isActive={showTechnology}
+          onClose={() => { audioEngine.playModalClose(); setShowTechnology(false) }}
+        />
+      )}
+
+      {/* 🛕 全宗教 Modal */}
+      {showReligion && (
+        <ReligionOverview
+          isActive={showReligion}
+          onClose={() => { audioEngine.playModalClose(); setShowReligion(false) }}
         />
       )}
     </div>
@@ -1062,6 +1092,8 @@ function FilmstripGallery({
   onEnterLadder,
   onOpenEraList,
   onOpenThoughts,
+  onOpenTechnology,
+  onOpenReligion,
   newPathId,
 }: {
   paths: { id: string; icon: string; title: string; desc: string; color: string; imageKeyword: string; imageUrl?: string }[]
@@ -1071,6 +1103,8 @@ function FilmstripGallery({
   onEnterLadder: () => void
   onOpenEraList: () => void
   onOpenThoughts?: () => void
+  onOpenTechnology?: () => void
+  onOpenReligion?: () => void
   newPathId?: string
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -1096,6 +1130,8 @@ function FilmstripGallery({
     if (id === 'ladder') onEnterLadder()
     else if (id === 'timeline') onOpenEraList()
     else if (id === 'allThoughts') onOpenThoughts?.()
+    else if (id === 'allTechnology') onOpenTechnology?.()
+    else if (id === 'allReligion') onOpenReligion?.()
     else onEnterPath(id as PathId)
   }
 

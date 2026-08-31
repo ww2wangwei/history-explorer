@@ -24,11 +24,26 @@ type Section = {
   east: string
   west: string
   keyPoints: string[]
-  timeline?: Array<{ year: number; event: string }>
+  timeline?: Array<{ year: number; event: string; era?: string }>
   figures?: Array<{ name: string; role: string }>
   modernRelevance?: string
   questions?: string[]
   content?: string
+  /** 富内容字段 - 与其他 overview 板块对齐 */
+  facts?: Array<{ label: string; value: string }>
+  sections?: Array<{
+    type: 'paragraph' | 'callout' | 'list' | 'quote'
+    heading?: string
+    body?: string
+    variant?: string
+    items?: string[]
+    text?: string
+    cite?: string
+  }>
+  timelineRich?: Array<{ year: string; era?: string; event: string }>
+  images?: Array<{ imageKeyword: string; caption: string; credit?: string }>
+  related?: Array<{ id: string; title: string; reason: string }>
+  source?: string
 }
 
 const sections = (comparisonData as { sections: Section[] }).sections

@@ -87,3 +87,14 @@ public/scenes/*.mp4
 
 # 项目状态快照(个人笔记,不入版本,含本地路径)
 STATE.md
+
+# Hermes scratch 临时数据 + 工具脚本 (不入版本控制)
+.hermes/scratch/*.json
+.hermes/scratch/*.pkl
+.hermes/scratch/*.py
+.hermes/scratch/__pycache__/
+.hermes/scratch/ov_final/
+.hermes/scratch/overview_enrich/
+.hermes/scratch/tradition_patches/
+.hermes/scratch/build_*.py
+.hermes/scratch/*.txt

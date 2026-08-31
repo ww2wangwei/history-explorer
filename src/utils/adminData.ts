@@ -134,7 +134,7 @@ export interface CultureEvent {
 
 export function getMergedCultures(): CultureEvent[] {
   const overrides = useAdminStore.getState().cultureOverrides
-  const base = cultureData as CultureEvent[]
+  const base = cultureData as unknown as CultureEvent[]
   const merged: CultureEvent[] = base
     .map(c => {
       const ov = overrides[c.id]

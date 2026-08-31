@@ -25,7 +25,7 @@ import type { Era, HistoricalFigure } from '@/types'
 
 const people = peopleData as HistoricalFigure[]
 const eras = erasData as Era[]
-const cultureEvents = cultureEventsData as Array<{
+const cultureEvents = cultureEventsData as unknown as Array<{
   id: string
   title: string
   year: number

@@ -1,8 +1,5 @@
 /**
  * allReligion.ts — 全宗教数据
- *
- * 详细整理从古至今的重要宗教
- * 覆盖亚伯拉罕一神教、印度本土宗教、中国本土宗教、新兴宗教
  */
 import type { KeyFact, RichSection, TimelineEvent, TraditionImage, RelatedItem } from '@/types'
 
@@ -1649,6 +1646,1337 @@ export const RELIGIONS: Religion[] = [
       }
     ],
     "source": "《亚格达斯经》·《伊甘经》·《巴哈欧拉的呼召》"
+  },
+  {
+    "id": "rel-zoroastrianism",
+    "name": "琐罗亚斯德教",
+    "westernName": "Zoroastrianism",
+    "category": "古波斯宗教",
+    "era": "约 BC 1500 至今",
+    "region": "波斯",
+    "founder": "琐罗亚斯德（传说）",
+    "summary": "最古老的一神教之一，影响了犹太教、基督教和伊斯兰教。核心：善神阿胡拉·马兹达 vs 恶神安格拉·曼纽，光明战胜黑暗。",
+    "facts": [
+      {
+        "label": "信徒",
+        "value": "**约 10-20 万（全球，主要是帕西人）**"
+      },
+      {
+        "label": "起源",
+        "value": "**约 BC 1500 波斯**"
+      },
+      {
+        "label": "创始人",
+        "value": "**琐罗亚斯德**"
+      },
+      {
+        "label": "核心经典",
+        "value": "**《阿维斯塔》**"
+      },
+      {
+        "label": "核心教义",
+        "value": "**善恶二元论 · 光明战胜黑暗**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响犹太教/基督教/伊斯兰教**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "波斯帝国的国教",
+        "body": "琐罗亚斯德教由先知琐罗亚斯德（Zoroaster，约 BC 1500—1000）在波斯创立。教义核心是善神阿胡拉·马兹达（Ahura Mazda，智慧之主）vs 恶神安格拉·曼纽（Angra Mainyu）——光明与黑暗的二元论。人类在善恶之战中要站在光明一边。BC 6 世纪，阿契美尼德帝国（大流士一世）将琐罗亚斯德教定为国教。3-7 世纪萨珊波斯时期，琐罗亚斯德教仍是主流。公元 8 世纪后，阿拉伯人征服波斯，琐罗亚斯德教被伊斯兰教取代。"
+      },
+      {
+        "type": "callout",
+        "heading": "琐罗亚斯德教的影响",
+        "body": "琐罗亚斯德教对后世宗教影响巨大：① 善恶二元论——影响了基督教的天使/恶魔、伊斯兰教的吉哈德概念；② 天启观念——神向先知（琐罗亚斯德）启示真理；③ 末日审判——世界末日时善战胜恶，死者复活；④ 影响波斯的文学艺术——菲尔多西《列王纪》；⑤ 帕西人在印度保存了琐罗亚斯德教。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**善思、善言、善行**——琐罗亚斯德教三大原则。",
+        "cite": "《阿维斯塔》"
+      },
+      {
+        "type": "quote",
+        "text": "**最终，光明将战胜黑暗**。",
+        "cite": "琐罗亚斯德教"
+      },
+      {
+        "type": "list",
+        "heading": "琐罗亚斯德教核心教义",
+        "items": [
+          "善神阿胡拉·马兹达",
+          "恶神安格拉·曼纽",
+          "善思/善言/善行",
+          "末日审判",
+          "天界/地狱"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1500",
+        "era": "波斯",
+        "event": "琐罗亚斯德传说"
+      },
+      {
+        "year": "BC 6 世纪",
+        "era": "阿契美尼德",
+        "event": "**琐罗亚斯德教成为国教**"
+      },
+      {
+        "year": "BC 330",
+        "era": "亚历山大大帝",
+        "event": "波斯帝国灭亡"
+      },
+      {
+        "year": "AD 224",
+        "era": "萨珊波斯",
+        "event": "琐罗亚斯德教复兴"
+      },
+      {
+        "year": "AD 651",
+        "era": "阿拉伯征服",
+        "event": "伊斯兰教取代琐罗亚斯德教"
+      },
+      {
+        "year": "AD 8 世纪",
+        "era": "帕西人",
+        "event": "帕西人迁往印度保存信仰"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Persepolis ancient Persia Achaemenid",
+        "caption": "波斯波利斯",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Faravahar Zoroastrian symbol",
+        "caption": "法拉瓦尔（琐罗亚斯德符号）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Zoroastrian fire temple Iran",
+        "caption": "琐罗亚斯德圣火庙",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-islam",
+        "title": "伊斯兰教",
+        "reason": "取代琐罗亚斯德教"
+      },
+      {
+        "id": "rel-judaism",
+        "title": "犹太教",
+        "reason": "受琐罗亚斯德教影响"
+      },
+      {
+        "id": "rel-christianity",
+        "title": "基督教",
+        "reason": "受琐罗亚斯德教影响"
+      }
+    ],
+    "source": "《阿维斯塔》·《帕西人》（帕尔坦·达尔拉 2005）"
+  },
+  {
+    "id": "rel-shinto",
+    "name": "神道教",
+    "westernName": "Shinto",
+    "category": "东亚宗教",
+    "era": "约 BC 500 至今",
+    "region": "日本",
+    "summary": "日本本土宗教，已有 2000 多年历史。核心：万物有灵（800 万神）、自然崇拜、祖先崇拜。神道与佛教共同构成日本精神双翼。",
+    "facts": [
+      {
+        "label": "信徒",
+        "value": "**约 1 亿（日本人多自称）**"
+      },
+      {
+        "label": "起源",
+        "value": "**约 BC 500 日本**"
+      },
+      {
+        "label": "创始人",
+        "value": "**无（自然产生的本土宗教）**"
+      },
+      {
+        "label": "核心经典",
+        "value": "**《古事记》《日本书纪》**"
+      },
+      {
+        "label": "核心教义",
+        "value": "**万物有灵 · 自然崇拜 · 祖先崇拜**"
+      },
+      {
+        "label": "影响",
+        "value": "**日本文化、动漫、礼仪**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "神道——日本之道",
+        "body": "神道教（神道 = 神之道）起源于日本古代绳文时代，与稻作文化一起诞生。公元前 6 世纪起逐渐体系化。核心是万物有灵——山河草木皆有神灵（800 万神）。天照大神（太阳女神）是皇室的祖先。神道没有创始人，没有经典，没有教义系统，是自然产生的本土宗教。明治维新（1868）后，神道成为日本国家神道，战后被废除。"
+      },
+      {
+        "type": "callout",
+        "heading": "神道核心信仰",
+        "body": "① 800 万神（八百万神）——山、川、树、雷、风都有神；② 天照大神——太阳女神、皇室祖先；③ 自然崇拜——富士山、御岳；④ 祖先崇拜——敬奉去世的亲人；⑤ 鸟居与神社——神道圣地的标志；⑥ 神道与佛教融合——日本多数人同时信神道和佛教（神佛习合）。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**敬畏自然，因为自然有神**——神道核心。",
+        "cite": "神道格言"
+      },
+      {
+        "type": "list",
+        "heading": "神道要素",
+        "items": [
+          "800 万神",
+          "天照大神",
+          "鸟居",
+          "神社",
+          "自然崇拜",
+          "祖先崇拜"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 500",
+        "era": "绳文/弥生",
+        "event": "神道雏形"
+      },
+      {
+        "year": "AD 6 世纪",
+        "era": "佛教传入",
+        "event": "神佛习合开始"
+      },
+      {
+        "year": "AD 710",
+        "era": "奈良",
+        "event": "伊势神宫建立"
+      },
+      {
+        "year": "AD 1868",
+        "era": "明治维新",
+        "event": "**国家神道建立**"
+      },
+      {
+        "year": "AD 1945",
+        "era": "战后",
+        "event": "国家神道废除"
+      },
+      {
+        "year": "AD 2023",
+        "era": "现代",
+        "event": "神道仍是日本主流宗教之一"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Torii gate Itsukushima Shrine Japan",
+        "caption": "严岛神社大鸟居",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Mount Fuji Japan sacred",
+        "caption": "富士山——神道圣山",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Ise Jingu shrine Japan",
+        "caption": "伊势神宫——天照大神",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Shinto purification washing",
+        "caption": "神道祓禊",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-buddhism",
+        "title": "佛教",
+        "reason": "神佛习合"
+      },
+      {
+        "id": "rel-hinduism",
+        "title": "印度教",
+        "reason": "亚洲宗教"
+      },
+      {
+        "id": "th-xuanzang",
+        "title": "玄奘",
+        "reason": "唐代高僧"
+      }
+    ],
+    "source": "《古事记》·《日本书纪》·《神道史》（山泰幸）"
+  },
+  {
+    "id": "rel-theosophy",
+    "name": "神智学",
+    "westernName": "Theosophy",
+    "category": "新兴宗教",
+    "era": "AD 1875",
+    "region": "美国 / 印度",
+    "founder": "海伦娜·布拉瓦茨基",
+    "summary": "1875 年由海伦娜·布拉瓦茨基创立的新兴宗教运动，综合东西方神秘主义，影响了新纪元运动和某些佛教、瑜伽传统。",
+    "facts": [
+      {
+        "label": "起源",
+        "value": "**AD 1875 美国纽约**"
+      },
+      {
+        "label": "创始人",
+        "value": "**海伦娜·布拉瓦茨基（1831—1891）**"
+      },
+      {
+        "label": "核心理念",
+        "value": "**普世宗教 · 古代智慧 · 通神论**"
+      },
+      {
+        "label": "影响",
+        "value": "**新纪元运动 / 瑜伽西传 / 印度教复兴**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "神智学：古代智慧的复兴",
+        "body": "1875 年 11 月 17 日，俄国贵族海伦娜·布拉瓦茨基（Helena Blavatsky）和亨利·奥尔科特在纽约创立神智学会（Theosophical Society）。神智学融合了佛教、印度教、基督教、卡巴拉神秘主义、希腊密教思想，认为：① 所有宗教都有同一个真理；② 存在一个古代的智慧传统（Ancient Wisdom）；③ 通神（theosophia = god-wisdom）是人类可以达到的最高境界。"
+      },
+      {
+        "type": "callout",
+        "heading": "神智学的影响",
+        "body": "神智学对后世影响巨大：① 印度教复兴——通过神智会，印度教、佛教的经典传入西方；② 瑜伽西传——克里希那穆提等瑜伽大师赴美；③ 新纪元运动——20 世纪 60 年代新纪元运动直接受神智学影响；④ 独立印度——神智会的 Annie Besant 支持印度独立；⑤ 通灵会、神智社、Anthroposophy（人智学，Rudolf Steiner 创立）等。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**所有宗教都是同一真理的不同表达**——神智学核心信念。",
+        "cite": "海伦娜·布拉瓦茨基"
+      },
+      {
+        "type": "list",
+        "heading": "神智学的影响",
+        "items": [
+          "印度教复兴",
+          "瑜伽西传",
+          "新纪元运动",
+          "神智会",
+          "通灵会"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1831",
+        "era": "俄国",
+        "event": "海伦娜·布拉瓦茨基诞生"
+      },
+      {
+        "year": "AD 1875",
+        "era": "纽约",
+        "event": "**神智学会成立**"
+      },
+      {
+        "year": "AD 1882",
+        "era": "印度",
+        "event": "神智会总部迁至印度阿迪亚尔"
+      },
+      {
+        "year": "AD 1907",
+        "era": "印度",
+        "event": "安妮·贝赞特任神智会主席"
+      },
+      {
+        "year": "AD 1907",
+        "era": "印度",
+        "event": "克里希那穆提被挖掘"
+      },
+      {
+        "year": "AD 1947",
+        "era": "印度",
+        "event": "印度独立——神智会支持"
+      },
+      {
+        "year": "AD 2023",
+        "era": "全球",
+        "event": "神智学会仍有全球分会"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Blavatsky Theosophical Society",
+        "caption": "布拉瓦茨基与神智学会",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Theosophical Society Adyar India",
+        "caption": "神智学会阿迪亚尔总部",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Krishnamurti Theosophy",
+        "caption": "克里希那穆提",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-hinduism",
+        "title": "印度教",
+        "reason": "影响复兴"
+      },
+      {
+        "id": "rel-buddhism",
+        "title": "佛教",
+        "reason": "影响西传"
+      },
+      {
+        "id": "th-blavatsky",
+        "title": "海伦娜",
+        "reason": "创始人"
+      }
+    ],
+    "source": "《揭开启示》（布拉瓦茨基 1888）·《神智学史》（安东尼娅·布里福德）"
+  },
+  {
+    "id": "rel-manichaeism",
+    "name": "摩尼教",
+    "westernName": "Manichaeism",
+    "category": "古代宗教",
+    "era": "AD 3-15世纪",
+    "region": "波斯（起源）→ 亚欧非",
+    "founder": "摩尼",
+    "summary": "3 世纪由摩尼在波斯创立的二元宗教，综合基督教、琐罗亚斯德教、佛教思想。曾在亚欧非广泛传播，13 世纪后式微。",
+    "facts": [
+      {
+        "label": "起源",
+        "value": "**AD 3 世纪波斯**"
+      },
+      {
+        "label": "创始人",
+        "value": "**摩尼（216—277）**"
+      },
+      {
+        "label": "核心经典",
+        "value": "**《沙卜拉干》**"
+      },
+      {
+        "label": "核心教义",
+        "value": "**善恶二元论 · 光明与黑暗**"
+      },
+      {
+        "label": "历史",
+        "value": "**曾传遍亚欧非**"
+      },
+      {
+        "label": "衰落",
+        "value": "**13-14 世纪被伊斯兰教取代**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "摩尼的光明与黑暗之战",
+        "body": "摩尼教由摩尼（Mani，216—277）于 3 世纪在波斯创立。摩尼教是综合性的宗教：① 采纳琐罗亚斯德教的善恶二元论（光明之神 vs 黑暗之神）；② 采纳基督教的耶稣、末世论；③ 采纳佛教的禁欲、轮回。核心是宇宙的善恶之战——光明与黑暗之子的解放。摩尼教曾传遍波斯、罗马帝国、中国唐朝（回鹘）。13 世纪后被伊斯兰教取代。"
+      },
+      {
+        "type": "callout",
+        "heading": "摩尼教的世界影响",
+        "body": "摩尼教虽然衰落，但其影响深远：① 影响了基督教的诺斯底派；② 影响了中亚的景教、回鹘摩尼教；③ 在中国唐朝，回鹘汗国信仰摩尼教（明教），《倚天屠龙记》提及的明教就是摩尼教；④ 影响了一些中世纪异端；⑤ 启发了一些神秘主义传统。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**光明之子被囚禁在物质中——人类的使命是解放光明**。",
+        "cite": "摩尼教"
+      },
+      {
+        "type": "list",
+        "heading": "摩尼教的核心",
+        "items": [
+          "善恶二元论",
+          "光明之神 vs 黑暗之神",
+          "世界三大宗教的融合",
+          "禁欲主义",
+          "末日审判"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 216",
+        "era": "波斯",
+        "event": "摩尼诞生"
+      },
+      {
+        "year": "AD 240",
+        "era": "波斯",
+        "event": "**摩尼创立摩尼教**"
+      },
+      {
+        "year": "AD 277",
+        "era": "波斯",
+        "event": "**摩尼被萨珊国王处死**"
+      },
+      {
+        "year": "AD 5 世纪",
+        "era": "中亚",
+        "event": "摩尼教传播到中亚"
+      },
+      {
+        "year": "AD 8 世纪",
+        "era": "唐朝",
+        "event": "**摩尼教传入中国（明教）**"
+      },
+      {
+        "year": "AD 840",
+        "era": "回鹘",
+        "event": "回鹘汗国信仰摩尼教"
+      },
+      {
+        "year": "AD 13-14 世纪",
+        "era": "蒙古",
+        "event": "摩尼教衰落"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Mani prophet founder",
+        "caption": "摩尼——摩尼教创始人",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Manichaean art illumination",
+        "caption": "摩尼教细密画",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Uighur Manichaean scripture",
+        "caption": "回鹘摩尼教文献",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-zoroastrianism",
+        "title": "琐罗亚斯德教",
+        "reason": "受其影响"
+      },
+      {
+        "id": "rel-christianity",
+        "title": "基督教",
+        "reason": "受其影响"
+      },
+      {
+        "id": "rel-buddhism",
+        "title": "佛教",
+        "reason": "受其影响"
+      }
+    ],
+    "source": "《摩尼教》（克里斯托弗·特雷弗·林赛 2007）"
+  },
+  {
+    "id": "rel-norse",
+    "name": "北欧神话 / 异教",
+    "westernName": "Norse Heathenry",
+    "category": "古代宗教",
+    "era": "约 BC 2000-AD 1100（古典）/ 1970s 复兴",
+    "region": "北欧 / 冰岛",
+    "summary": "北欧维京人、日耳曼人原始宗教。崇拜奥丁、托尔、雷神等神族。世界树 Yggdrasil 连接九界，末日预言 Ragnarök。",
+    "facts": [
+      {
+        "label": "信徒（古典）",
+        "value": "**整个北欧/日耳曼民族**"
+      },
+      {
+        "label": "信徒（现代复兴）",
+        "value": "**约 1-3 万**"
+      },
+      {
+        "label": "起源",
+        "value": "**约 BC 2000 日耳曼**"
+      },
+      {
+        "label": "核心经典",
+        "value": "**《埃达》《萨迦》**"
+      },
+      {
+        "label": "核心教义",
+        "value": "**命运 · 荣耀 · 末日 Ragnarök**"
+      },
+      {
+        "label": "复兴",
+        "value": "**1970s 冰岛、新世纪异教运动**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "维京人的诸神黄昏",
+        "body": "北欧神话是在北欧（挪威、瑞典、丹麦、冰岛）和日耳曼地区流传的异教信仰，公元前 2000 年到公元 1100 年（维京时代结束）。核心是诸神族——阿萨神族（主神奥丁 Thor、Frigg、Balder 等）和华纳神族（Freyr、Freyja、Njord）。世界树 Yggdrasil 连接 9 个世界（Asgard、Midgard、Hel、Jotunheim 等）。最戏剧性的是诸神黄昏（Ragnarök）——诸神与巨人最终之战，世界毁灭，重生。公元 8-11 世纪北欧基督教化，异教受迫害。"
+      },
+      {
+        "type": "callout",
+        "heading": "北欧神话的影响",
+        "body": "北欧神话对现代文化影响巨大：① 星期三（Wednesday）= Woden's day = 奥丁之日；② 星期五（Friday）= Freyja's day = 爱神之日；③ 托尔（雷神）→ Marvel 雷神；④ 洛基（诡计之神）→ 反派神；⑤ 维京人传奇 → 《指环王》托尔金。1970s 起，新异教运动（Ásatrú）在冰岛和全球复兴。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**诸神黄昏之后，世界将重生**。",
+        "cite": "北欧神话"
+      },
+      {
+        "type": "list",
+        "heading": "北欧神族",
+        "items": [
+          "阿萨神族（奥丁、托尔、洛基）",
+          "华纳神族（弗雷、芙蕾雅）",
+          "巨人族（耶梦加得、米德加尔德）",
+          "世界树 Yggdrasil",
+          "诸神黄昏 Ragnarök"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 2000",
+        "era": "日耳曼",
+        "event": "日耳曼异教起源"
+      },
+      {
+        "year": "AD 793",
+        "era": "维京时代",
+        "event": "维京人袭击林迪斯法恩"
+      },
+      {
+        "year": "AD 986",
+        "era": "冰岛",
+        "event": "冰岛议会接受基督教"
+      },
+      {
+        "year": "AD 1000",
+        "era": "冰岛",
+        "event": "冰岛正式基督教化"
+      },
+      {
+        "year": "AD 1100",
+        "era": "北欧",
+        "event": "维京时代结束"
+      },
+      {
+        "year": "AD 1972",
+        "era": "冰岛",
+        "event": "**Ásatrúarfélagið 成立（北欧异教复兴）**"
+      },
+      {
+        "year": "AD 2023",
+        "era": "全球",
+        "event": "全球 1-3 万信徒"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Odin Norse god Allfather",
+        "caption": "奥丁——阿萨神族之主",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Thor hammer Mjolnir Norse",
+        "caption": "托尔与雷神之锤",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Yggdrasil Norse mythology world tree",
+        "caption": "世界树 Yggdrasil",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Viking ship Norse art",
+        "caption": "维京船",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-judaism",
+        "title": "犹太教",
+        "reason": "基督教对比"
+      },
+      {
+        "id": "rel-christianity",
+        "title": "基督教",
+        "reason": "取代北欧异教"
+      },
+      {
+        "id": "rel-islam",
+        "title": "伊斯兰教",
+        "reason": "一神教对比"
+      }
+    ],
+    "source": "《埃达》（诗体埃达、散文埃达）·《萨迦》（冰岛）·《北欧神话》（茅盾）"
+  },
+  {
+    "id": "rel-rome",
+    "name": "罗马多神教",
+    "westernName": "Roman Polytheism",
+    "category": "古代宗教",
+    "era": "约 BC 753-AD 476",
+    "region": "罗马",
+    "summary": "古罗马国家宗教，崇拜朱庇特（天神）、朱诺（天后）、密涅瓦（智慧）等。公元 392 年被基督教罗马皇帝狄奥多西一世禁止。",
+    "facts": [
+      {
+        "label": "时期",
+        "value": "**BC 753-AD 476（罗马城邦→帝国）**"
+      },
+      {
+        "label": "核心神祇",
+        "value": "**朱庇特/朱诺/密涅瓦/玛尔斯/维纳斯**"
+      },
+      {
+        "label": "核心经典",
+        "value": "**无固定经典，依赖口传传统**"
+      },
+      {
+        "label": "核心教义",
+        "value": "**Pax Romana · 宗教与国家合一**"
+      },
+      {
+        "label": "衰落",
+        "value": "**AD 392 被狄奥多西一世禁止**"
+      },
+      {
+        "label": "影响",
+        "value": "**现代法律的源头 + 拉丁语**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "罗马众神的兴衰",
+        "body": "罗马多神教起源于罗马城邦（传说 BC 753 年由罗慕路斯建立）。它有繁杂的神祇体系：① 12 主神（Dii Consentes）——朱庇特（Jupiter，天神）、朱诺（天后）、密涅瓦（智慧）、玛尔斯（战争）、维纳斯（爱）、阿波罗（光明）、狄安娜（月亮）、墨丘利（商业）、伏尔甘（火）、谷神刻瑞斯、海神尼普顿、维斯塔（灶火）；② 数百位次要神祇——每个家庭、行业都有保护神；③ 重视祭祀和占卜。共和国和帝国时期，多神教是国教，与国家权力紧密相连。"
+      },
+      {
+        "type": "callout",
+        "heading": "罗马多神教的衰落",
+        "body": "罗马多神教衰落过程：① BC 6-2 世纪——希腊文化传入，罗马人接纳希腊神祇；② AD 30-300——基督教在罗马帝国传播；③ AD 313——《米兰敕令》——君士坦丁使基督教合法；④ AD 380——《狄奥多西敕令》——基督教成为国教；⑤ AD 392——狄奥多西一世禁止异教祭祀，多神教结束。200 年内，多神教从国教到非法。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**Pax Romana（罗马和平）——多神教时代的最高成就**。",
+        "cite": "罗马史"
+      },
+      {
+        "type": "list",
+        "heading": "罗马多神教要素",
+        "items": [
+          "12 主神",
+          "祭祀与占卜",
+          "占卜官（Augurs）",
+          "宗教与国家合一",
+          "家庭神（家神、祖先）"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 753",
+        "era": "罗马传说",
+        "event": "罗马城建立"
+      },
+      {
+        "year": "BC 509",
+        "era": "罗马共和国",
+        "event": "共和国建立"
+      },
+      {
+        "year": "BC 27",
+        "era": "罗马帝国",
+        "event": "奥古斯都建立帝制"
+      },
+      {
+        "year": "AD 117",
+        "era": "罗马帝国",
+        "event": "图拉真帝国巅峰"
+      },
+      {
+        "year": "AD 313",
+        "era": "君士坦丁",
+        "event": "**《米兰敕令》——基督教合法**"
+      },
+      {
+        "year": "AD 380",
+        "era": "狄奥多西",
+        "event": "**基督教成为国教**"
+      },
+      {
+        "year": "AD 392",
+        "era": "狄奥多西",
+        "event": "**禁止异教祭祀**"
+      },
+      {
+        "year": "AD 476",
+        "era": "西罗马帝国",
+        "event": "西罗马帝国灭亡"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Pantheon Rome ancient temple",
+        "caption": "万神殿——罗马",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Jupiter Roman god statue",
+        "caption": "朱庇特雕像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Roman Forum ancient",
+        "caption": "罗马广场",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-christianity",
+        "title": "基督教",
+        "reason": "取代罗马多神教"
+      },
+      {
+        "id": "rel-norse",
+        "title": "北欧神话",
+        "reason": "古代欧洲宗教"
+      },
+      {
+        "id": "th-augustine",
+        "title": "奥古斯丁",
+        "reason": "基督教神学家"
+      }
+    ],
+    "source": "《罗马宗教史》（玛丽·比尔）·《罗马帝国衰亡史》（吉本）"
+  },
+  {
+    "id": "rel-kejawen",
+    "name": "爪哇文化 / 印度尼西亚传统信仰",
+    "westernName": "Javanism / Indonesian Folk Religion",
+    "category": "东亚宗教",
+    "era": "约 BC 500 至今",
+    "region": "印度尼西亚",
+    "summary": "印度尼西亚本土宗教——爪哇文化综合印度教、佛教、伊斯兰教与本土精灵崇拜。目前约 10% 印尼人仍主要信奉。",
+    "facts": [
+      {
+        "label": "信徒",
+        "value": "**约 2500 万**"
+      },
+      {
+        "label": "起源",
+        "value": "**约 BC 500 印度尼西亚**"
+      },
+      {
+        "label": "核心理念",
+        "value": "**和谐 · 神秘主义 · 与自然合一**"
+      },
+      {
+        "label": "影响",
+        "value": "**印尼传统艺术与文化**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "爪哇文化的和谐观",
+        "body": "印度尼西亚是一个多宗教国家（约 87% 伊斯兰教、10% 基督教、3% 印度教、1% 佛教），但有约 2500 万印尼人仍主要信奉本土传统——爪哇文化（Javanism）和巽他传统（Sundanese）。爪哇文化综合了：① 印度教（湿婆、毗湿奴崇拜）；② 佛教（密宗）；③ 本土精灵崇拜；④ 后受伊斯兰教神秘主义（Sufism）影响。核心是「和谐」（rukun）——与自然、社会、上帝保持平衡。"
+      },
+      {
+        "type": "callout",
+        "heading": "爪哇文化的特点",
+        "body": "爪哇文化特点：① 与自然和谐——山、河、树都有神；② 神秘主义——内观、自省；③ 艺术与文化——皮影戏、蜡染、舞蹈；④ 爪哇历法（28 天周）；⑤ 与伊斯兰教融合——许多印尼穆斯林同时也举行本土仪式。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**和谐是爪哇最高的价值观**——Rukun。",
+        "cite": "爪哇格言"
+      },
+      {
+        "type": "list",
+        "heading": "爪哇文化的要素",
+        "items": [
+          "与自然和谐",
+          "神秘主义",
+          "印度教/佛教/伊斯兰融合",
+          "皮影戏",
+          "蜡染艺术"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 500",
+        "era": "印尼",
+        "event": "印尼原始信仰"
+      },
+      {
+        "year": "BC 4 世纪",
+        "era": "印尼",
+        "event": "**印度文化传入**"
+      },
+      {
+        "year": "AD 7 世纪",
+        "era": "印尼",
+        "event": "印度教国家兴盛"
+      },
+      {
+        "year": "AD 8 世纪",
+        "era": "印尼",
+        "event": "**佛教婆罗浮屠建成**"
+      },
+      {
+        "year": "AD 13-15 世纪",
+        "era": "印尼",
+        "event": "伊斯兰教传入"
+      },
+      {
+        "year": "AD 16-17 世纪",
+        "era": "印尼",
+        "event": "荷兰殖民"
+      },
+      {
+        "year": "AD 1945",
+        "era": "印尼",
+        "event": "印尼独立"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Borobudur temple Java Buddhist",
+        "caption": "婆罗浮屠——佛教",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Prambanan temple Hindu Java",
+        "caption": "普兰巴南——印度教",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Wayang Kulit Javanese shadow puppet",
+        "caption": "爪哇皮影戏",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-hinduism",
+        "title": "印度教",
+        "reason": "印尼印度教国家"
+      },
+      {
+        "id": "rel-buddhism",
+        "title": "佛教",
+        "reason": "印尼佛教文化"
+      },
+      {
+        "id": "rel-islam",
+        "title": "伊斯兰教",
+        "reason": "印尼主要宗教"
+      }
+    ],
+    "source": "《爪哇文化》（罗伯特·厄尔）·《印尼传统宗教》（罗比·博库伊）"
+  },
+  {
+    "id": "rel-soka",
+    "name": "创价学会",
+    "westernName": "Soka Gakkai International",
+    "category": "东亚宗教",
+    "era": "AD 1930",
+    "region": "日本",
+    "founder": "牧口常三郎 / 户田城圣",
+    "summary": "1930 年日本创立的佛教新兴运动，强调「人间革命」（个人转变）。全球信徒约 1100 万。",
+    "facts": [
+      {
+        "label": "信徒",
+        "value": "**约 1100 万**"
+      },
+      {
+        "label": "起源",
+        "value": "**AD 1930 日本**"
+      },
+      {
+        "label": "创始人",
+        "value": "**牧口常三郎 / 户田城圣**"
+      },
+      {
+        "label": "经典",
+        "value": "**日莲大圣人御书集**"
+      },
+      {
+        "label": "教义",
+        "value": "**人间革命 · 南无妙法莲华经**"
+      },
+      {
+        "label": "影响",
+        "value": "**池田大作对话文化 · 世界和平运动**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "创价学会——人间革命",
+        "body": "创价学会（Soka Gakkai = 「创造价值」学会）由日本教育家牧口常三郎和户田城圣于 1930 年创立。它是日莲正宗佛教的一个分支，强调：① 唱念「南无妙法莲华经」可以获得内在的幸福；② 「人间革命」（个人转变）是社会变革的前提；③ 通过对话和交流促进和平。第三任会长池田大作（1928—2023）与多国领导人对话（与汤因比对话等），推动世界和平。全球约 1100 万信徒。"
+      },
+      {
+        "type": "callout",
+        "heading": "创价学会的特点",
+        "body": "创价学会特点：① 强调个人转变（人间革命）；② 唱念题目（Nam-myoho-renge-kyo）；③ 积极参与社会（环保、教育、文化）；④ 池田对话——与汤因比、罗素等对话；⑤ SGI（创价学会国际）有 192 个国家/地区的分会；⑥ 创办创价大学、东京富士美术馆。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**人间的变革——是一切变革的起点**。",
+        "cite": "池田大作"
+      },
+      {
+        "type": "list",
+        "heading": "创价学会核心",
+        "items": [
+          "人间革命",
+          "唱念题目",
+          "和平对话",
+          "创价教育",
+          "全球网络"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1930",
+        "era": "日本",
+        "event": "**创价学会成立**"
+      },
+      {
+        "year": "AD 1943",
+        "era": "二战",
+        "event": "牧口、户田因反战入狱"
+      },
+      {
+        "year": "AD 1945",
+        "era": "战后",
+        "event": "户田重建创价学会"
+      },
+      {
+        "year": "AD 1960",
+        "era": "日本",
+        "event": "池田大作任会长"
+      },
+      {
+        "year": "AD 1975",
+        "era": "全球",
+        "event": "**SGI 国际成立**"
+      },
+      {
+        "year": "AD 1995",
+        "era": "日本",
+        "event": "**池田与汤因比对话出版**"
+      },
+      {
+        "year": "AD 2023",
+        "era": "全球",
+        "event": "全球 1100 万信徒"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Soka Gakkai headquarters Tokyo",
+        "caption": "创价学会东京总部",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Ikeda Daisaku Soka Gakkai",
+        "caption": "池田大作",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Soka University Japan",
+        "caption": "创价大学",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-buddhism",
+        "title": "佛教",
+        "reason": "日莲系佛教分支"
+      },
+      {
+        "id": "th-toynbee",
+        "title": "汤因比",
+        "reason": "池田对话"
+      },
+      {
+        "id": "rel-shinto",
+        "title": "神道教",
+        "reason": "日本本土宗教"
+      }
+    ],
+    "source": "《创价学会》（池田大作）·《对话的文明》（池田/汤因比）"
+  },
+  {
+    "id": "rel-fsm",
+    "name": "飞天意面神教",
+    "westernName": "Church of the Flying Spaghetti Monster",
+    "category": "戏谑宗教",
+    "era": "AD 2005",
+    "region": "美国",
+    "founder": "博比·亨德森",
+    "summary": "2005 年由博比·亨德森创立的戏谑宗教，用来讽刺美国智能设计论教学争议。它有自己的「圣典」（《The Gospel of the Flying Spaghetti Monster》）和「节日」（海盗节）。",
+    "facts": [
+      {
+        "label": "信徒",
+        "value": "**不确定（戏谑宗教）**"
+      },
+      {
+        "label": "起源",
+        "value": "**AD 2005 美国**"
+      },
+      {
+        "label": "创始人",
+        "value": "**博比·亨德森**"
+      },
+      {
+        "label": "核心经典",
+        "value": "**《Flying Spaghetti Monster 的福音》**"
+      },
+      {
+        "label": "核心教义",
+        "value": "**戏谑反对智能设计论 · 政教分离**"
+      },
+      {
+        "label": "影响",
+        "value": "**全球反宗教干涉运动**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "为什么我们需要飞天意面神",
+        "body": "2005 年，美国俄勒冈大学物理学家博比·亨德森写了一封公开信，抗议美国堪萨斯州教育委员会允许在公立学校教授智能设计论。他在信中声称：世界是由「飞天意面神」（Flying Spaghetti Monster）创造的——这个神在喝酒后创造了世界。所有进化证据都是「故意放置的」以测试我们的信仰。信徒应在星期五穿海盗装（海盗是最早的传教士）。这封信成为 21 世纪初反宗教干涉运动的标志。"
+      },
+      {
+        "type": "callout",
+        "heading": "飞天意面神教的真正意义",
+        "body": "飞天意面神教是戏谑宗教，但有严肃内核：① 反对宗教干涉教育——支持政教分离；② 反对「以科学之名行宗教之实」——智能设计论是伪装成科学的宗教；③ 推广理性思维；④ 反映世俗化趋势；⑤ 在荷兰、欧洲多个国家正式注册为合法宗教。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**你完全可以在没有依据的情况下相信任何事，包括飞天意面神**——前提是别把它强加给公立学校的孩子。",
+        "cite": "博比·亨德森 2005"
+      },
+      {
+        "type": "list",
+        "heading": "飞天意面神教要素",
+        "items": [
+          "戏谑宗教",
+          "海盗装",
+          "星期五（海盗节）",
+          "反对智能设计论",
+          "政教分离"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 2005",
+        "era": "美国",
+        "event": "**飞天意面神教创立**"
+      },
+      {
+        "year": "AD 2006",
+        "era": "全球",
+        "event": "《Flying Spaghetti Monster 的福音》出版"
+      },
+      {
+        "year": "AD 2014",
+        "era": "美国",
+        "event": "多个国家正式注册为合法宗教"
+      },
+      {
+        "year": "AD 2023",
+        "era": "全球",
+        "event": "全球数十万信徒（松散）"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Flying Spaghetti Monster",
+        "caption": "飞天意面神",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Pirate Pastafarian",
+        "caption": "海盗面纱信徒",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-christianity",
+        "title": "基督教",
+        "reason": "美国主要宗教"
+      },
+      {
+        "id": "th-hume",
+        "title": "休谟",
+        "reason": "理性批判"
+      }
+    ],
+    "source": "《Flying Spaghetti Monster 的福音》（博比·亨德森 2006）"
+  },
+  {
+    "id": "rel-shamanism",
+    "name": "萨满教",
+    "westernName": "Shamanism",
+    "category": "古代宗教",
+    "era": "约 BC 30,000 至今",
+    "region": "西伯利亚 / 北亚 / 美洲 / 全球",
+    "summary": "人类最古老的宗教形态，萨满通过神灵附体、灵魂出窍等方式与神灵世界沟通。至今仍在西伯利亚、北美、亚马逊地区活跃。",
+    "facts": [
+      {
+        "label": "信徒",
+        "value": "**保留萨满传统的族群散布全球**"
+      },
+      {
+        "label": "起源",
+        "value": "**约 BC 30,000（史前时代）**"
+      },
+      {
+        "label": "核心经典",
+        "value": "**无（口传传统）**"
+      },
+      {
+        "label": "核心人物",
+        "value": "**萨满（Shaman）——通神者**"
+      },
+      {
+        "label": "核心实践",
+        "value": "**灵魂出窍 · 神灵附体 · 治疗**"
+      },
+      {
+        "label": "意义",
+        "value": "**人类最早的宗教形态**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "萨满教——人类最早的宗教",
+        "body": "萨满教是所有宗教的最早形态，至少 3 万年前就存在。萨满（shaman，源自通古斯语）是能与神灵世界沟通的特殊人物——通过击鼓、念咒、舞蹈、食用致幻植物进入恍惚状态，让神灵附体或灵魂出窍。萨满在原始社会是核心人物：治疗疾病、占卜未来、控制天气、引导灵魂。"
+      },
+      {
+        "type": "callout",
+        "heading": "萨满教的特点",
+        "body": "萨满教特点：① 万物有灵——山、河、树、动物都有灵魂；② 萨满通神——通过恍惚状态与神灵沟通；③ 萨满不是神——而是连接人神的媒介；④ 治疗——精神疾病、身体疾病；⑤ 死亡仪式——引导灵魂到灵界；⑥ 占卜——预知未来。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**萨满是通往另一个世界的桥梁**。",
+        "cite": "萨满教经典"
+      },
+      {
+        "type": "list",
+        "heading": "萨满教要素",
+        "items": [
+          "万物有灵",
+          "萨满通神",
+          "恍惚状态",
+          "治疗",
+          "占卜",
+          "死亡仪式"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 30,000",
+        "era": "史前",
+        "event": "**萨满教起源**"
+      },
+      {
+        "year": "BC 5,000",
+        "era": "新石器",
+        "event": "萨满洞穴壁画（法国肖维）"
+      },
+      {
+        "year": "BC 3,000",
+        "era": "铜器时代",
+        "event": "萨满青铜塑像（西伯利亚）"
+      },
+      {
+        "year": "AD 700",
+        "era": "通古斯",
+        "event": "萨满教发展"
+      },
+      {
+        "year": "AD 13-18 世纪",
+        "era": "美洲/西伯利亚",
+        "event": "殖民者屠杀萨满"
+      },
+      {
+        "year": "AD 2020s",
+        "era": "全球",
+        "event": "萨满教复兴（新纪元）"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Shaman healing ritual",
+        "caption": "萨满治疗仪式",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Siberian shaman costume",
+        "caption": "西伯利亚萨满服装",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Chauvet cave shaman drawing",
+        "caption": "肖维洞穴萨满画",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-tengri",
+        "title": "腾格里",
+        "reason": "北亚宗教"
+      },
+      {
+        "id": "rel-hinduism",
+        "title": "印度教",
+        "reason": "万物有灵"
+      },
+      {
+        "id": "rel-buddhism",
+        "title": "佛教",
+        "reason": "古代印度宗教"
+      }
+    ],
+    "source": "《萨满教》（米哈伊尔·霍洛帕尔）"
   }
 ]
 
@@ -1658,6 +2986,8 @@ export const RELIGION_CATEGORIES = [
   { id: 'chinese', label: '中国本土宗教', color: '#c89a5b' },
   { id: 'east-asian', label: '东亚宗教', color: '#d4a85b' },
   { id: 'emerging', label: '新兴宗教', color: '#9b7eb6' },
+  { id: 'ancient', label: '古代宗教', color: '#b88e54' },
+  { id: 'other', label: '其他', color: '#5bc89a' },
 ] as const
 
 export type ReligionCategory = typeof RELIGION_CATEGORIES[number]['id']

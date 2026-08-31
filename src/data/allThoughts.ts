@@ -2,7 +2,6 @@
  * allThoughts.ts — 全人类思想精华数据
  *
  * 不同国家/时期的思想家 + 思想流派，每条含 6 大富内容字段。
- * 复用 KeyFact/RichSection/TimelineEvent/TraditionImage/RelatedItem 类型。
  */
 import type { KeyFact, RichSection, TimelineEvent, TraditionImage, RelatedItem } from '@/types'
 
@@ -1391,6 +1390,1420 @@ export const THINKERS: Thinker[] = [
       }
     ],
     "source": "《杂阿含经》《长阿含经》《中阿含经》《增壹阿含经》（南传巴利文三藏·相应部）·《金刚经》《心经》《法华经》《华严经》《楞严经》（汉传大乘经典）· 玄奘《大唐西域记》· 法显《佛国记》· 义净《南海寄归内法传》· 印顺《印度佛教史》· 季羡林《佛教与中印文化交流》"
+  },
+  {
+    "id": "th-mencius",
+    "name": "孟子",
+    "westernName": "Mencius",
+    "region": "china",
+    "era": "BC 372-289",
+    "school": "儒家",
+    "title": "儒家亚圣，性善论集大成者",
+    "summary": "战国中期邹国（今山东邹城）人，名轲，字子舆。孔子之孙子思的学生。曾游说齐宣王、梁惠王等推行仁政，未被采纳。晚年与弟子万章、公孙丑等著《孟子》七篇。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**BC 372—289**（约 83 岁）"
+      },
+      {
+        "label": "国籍",
+        "value": "**战国邹国**（今山东邹城）"
+      },
+      {
+        "label": "姓名字号",
+        "value": "**名轲，字子舆**"
+      },
+      {
+        "label": "师承",
+        "value": "**子思**（孔子之孙）"
+      },
+      {
+        "label": "代表作",
+        "value": "**《孟子》7 篇**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**性善论 · 仁政 · 民贵君轻 · 浩然之气**"
+      },
+      {
+        "label": "地位",
+        "value": "**儒家亚圣 · 仅次于孔子**"
+      },
+      {
+        "label": "弟子",
+        "value": "**万章 · 公孙丑**"
+      },
+      {
+        "label": "典故",
+        "value": "**孟母三迁 · 孟母断机**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：周游列国推销仁政",
+        "body": "孟子出生于邹国（孔子的故乡鲁国附近），幼年丧父，母亲仇氏为给他提供良好教育，三次搬家（孟母三迁）：墓地旁→集市旁→学宫旁。孟子拜子思为师，学成后像孔子一样周游列国推销仁政。先后到过齐、宋、滕、魏等国，但当时的诸侯忙于兼并战争，无人采纳。孟子晚年回邹国，与弟子万章、公孙丑等著书立说。"
+      },
+      {
+        "type": "callout",
+        "heading": "性善论——人皆有不忍人之心",
+        "body": "孟子主张性善：「人皆有不忍人之心」，看到小孩要掉井里，会本能伸手救他。由此推出四端：恻隐之心（仁之端）、羞恶之心（义之端）、辞让之心（礼之端）、是非之心（智之端）。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**人皆有不忍人之心**。",
+        "cite": "《孟子·公孙丑上》"
+      },
+      {
+        "type": "quote",
+        "text": "**民为贵，社稷次之，君为轻**。",
+        "cite": "《孟子·尽心下》"
+      },
+      {
+        "type": "quote",
+        "text": "**富贵不能淫，贫贱不能移，威武不能屈，此之谓大丈夫**。",
+        "cite": "《孟子·滕文公下》"
+      },
+      {
+        "type": "quote",
+        "text": "**天时不如地利，地利不如人和**。",
+        "cite": "《孟子·公孙丑下》"
+      },
+      {
+        "type": "paragraph",
+        "heading": "孟母三迁——中华母亲的典范",
+        "body": "孟母仇氏是中国历史上著名的贤母。孟母断机教子：孟子逃学回家，孟母剪断织机上的线说：「你求学就像织布，半途而废就像我剪断线一样，前功尽弃。」"
+      },
+      {
+        "type": "list",
+        "heading": "孟子对儒家的发展",
+        "items": [
+          "性善论——反对荀子的性恶论",
+          "仁政学说——反对法家严刑峻法",
+          "民贵君轻——中国最早的民本思想",
+          "浩然之气——道德修养的最高境界",
+          "义利之辨——反对杨朱的「为我」",
+          "大丈夫人格——富贵贫贱威武不能移"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 372",
+        "era": "战国",
+        "event": "孟子生于邹国"
+      },
+      {
+        "year": "BC 350",
+        "era": "青年",
+        "event": "孟母三迁"
+      },
+      {
+        "year": "BC 335",
+        "era": "37岁",
+        "event": "**拜子思为师**"
+      },
+      {
+        "year": "BC 318",
+        "era": "54岁",
+        "event": "见梁惠王"
+      },
+      {
+        "year": "BC 315",
+        "era": "57岁",
+        "event": "见齐宣王"
+      },
+      {
+        "year": "BC 305",
+        "era": "67岁",
+        "event": "返邹著《孟子》"
+      },
+      {
+        "year": "BC 289",
+        "era": "约83岁",
+        "event": "孟子去世"
+      },
+      {
+        "year": "AD 1313",
+        "era": "元代",
+        "event": "《孟子》升格为经——四书之一"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Mencius ancient Chinese portrait",
+        "caption": "孟子画像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Mencius mother three moves sculpture",
+        "caption": "孟母三迁雕塑",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Mencius Temple Zoucheng",
+        "caption": "邹城孟庙孟府",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Mencius ancient Chinese text",
+        "caption": "《孟子》古本",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-confucius",
+        "title": "孔子",
+        "reason": "儒家学派创始人"
+      },
+      {
+        "id": "th-xunzi",
+        "title": "荀子",
+        "reason": "性恶论代表"
+      },
+      {
+        "id": "th-laozi",
+        "title": "老子",
+        "reason": "同期道家圣哲"
+      },
+      {
+        "id": "th-socrates",
+        "title": "苏格拉底",
+        "reason": "同期西方圣哲"
+      },
+      {
+        "id": "th-plato",
+        "title": "柏拉图",
+        "reason": "同期西方圣哲"
+      }
+    ],
+    "source": "《孟子》（战国·孟子）·《史记·孟子荀卿列传》（西汉·司马迁）· 汉·赵岐《孟子章句》· 宋·朱熹《孟子集注》· 杨伯峻《孟子译注》"
+  },
+  {
+    "id": "th-xunzi",
+    "name": "荀子",
+    "westernName": "Xunzi",
+    "region": "china",
+    "era": "BC 313-238",
+    "school": "儒家",
+    "title": "先秦儒家集大成者",
+    "summary": "战国末期赵国人，名况，字卿。三次任齐国稷下学宫祭酒（学长）。后到楚国任兰陵令。著《荀子》三十二篇。弟子韩非、李斯皆为法家代表。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**BC 313—238**"
+      },
+      {
+        "label": "国籍",
+        "value": "**战国赵国**"
+      },
+      {
+        "label": "姓名",
+        "value": "**名况，字卿**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《荀子》32 篇**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**性恶论 · 礼法并施 · 天行有常 · 制天命而用之**"
+      },
+      {
+        "label": "地位",
+        "value": "**先秦儒家集大成者**"
+      },
+      {
+        "label": "弟子",
+        "value": "**韩非 · 李斯**（法家代表）"
+      },
+      {
+        "label": "影响",
+        "value": "**汉代经学多出自荀学**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：三次任稷下祭酒",
+        "body": "荀子五十岁开始到齐国游学，齐王在都城临淄西门外设「稷下学宫」，汇集天下学者，荀子在这里三次被推为「祭酒」（学长）。公元前 264 年应楚国春申君之请，任兰陵县令。春申君死后，荀子废官居家，著书数万言而死。"
+      },
+      {
+        "type": "callout",
+        "heading": "性恶论与化性起伪",
+        "body": "荀子主张「性恶」：「人之性恶，其善者伪也。」人性本恶（趋利避害），但通过后天的「礼」「法」「师」「学」可以「化性起伪」。这是与孟子「性善论」最大的对立，也是汉代经学的源头。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**人之性恶，其善者伪也**。",
+        "cite": "《荀子·性恶》"
+      },
+      {
+        "type": "quote",
+        "text": "**天行有常，不为尧存，不为桀亡**。",
+        "cite": "《荀子·天论》"
+      },
+      {
+        "type": "quote",
+        "text": "**制天命而用之**。",
+        "cite": "《荀子·天论》"
+      },
+      {
+        "type": "quote",
+        "text": "**青，取之于蓝，而青于蓝；冰，水为之，而寒于水**。",
+        "cite": "《荀子·劝学》"
+      },
+      {
+        "type": "paragraph",
+        "heading": "教出两位法家代表——韩非与李斯",
+        "body": "荀子虽是儒家，但他的思想中融入了大量法家元素。他教出了两位法家代表——韩非（写出《韩非子》）和李斯（秦朝丞相）。"
+      },
+      {
+        "type": "list",
+        "heading": "荀子对儒家的贡献",
+        "items": [
+          "性恶论——与孟子性善论形成对照",
+          "天行有常——中国古代唯物论",
+          "制天命而用之——人定胜天思想",
+          "礼法并施——融合儒家礼与法家法",
+          "劝学篇——中国古代教育心理学"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 313",
+        "era": "战国",
+        "event": "荀子生于赵国"
+      },
+      {
+        "year": "BC 286",
+        "era": "27岁",
+        "event": "齐国设稷下学宫"
+      },
+      {
+        "year": "BC 280",
+        "era": "33岁",
+        "event": "**第一次任稷下学宫祭酒**"
+      },
+      {
+        "year": "BC 270",
+        "era": "43岁",
+        "event": "**第二次任稷下学宫祭酒**"
+      },
+      {
+        "year": "BC 264",
+        "era": "49岁",
+        "event": "任楚兰陵令"
+      },
+      {
+        "year": "BC 255",
+        "era": "58岁",
+        "event": "春申君遇害，荀子废官居家"
+      },
+      {
+        "year": "BC 238",
+        "era": "75岁",
+        "event": "荀子去世"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Xunzi ancient Chinese portrait",
+        "caption": "荀子画像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Lanling China ancient",
+        "caption": "兰陵——荀子最后居所",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Jixia Academy ancient Chinese",
+        "caption": "稷下学宫——荀子三任祭酒",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Xunzi ancient Chinese text",
+        "caption": "《荀子》古本",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-confucius",
+        "title": "孔子",
+        "reason": "儒家学派创始人"
+      },
+      {
+        "id": "th-mencius",
+        "title": "孟子",
+        "reason": "性善论代表"
+      },
+      {
+        "id": "th-sunzi",
+        "title": "孙子",
+        "reason": "同期兵家圣祖"
+      },
+      {
+        "id": "th-laozi",
+        "title": "老子",
+        "reason": "同期道家圣哲"
+      },
+      {
+        "id": "th-plato",
+        "title": "柏拉图",
+        "reason": "同期西方圣哲"
+      }
+    ],
+    "source": "《荀子》（战国·荀子）·《史记·孟子荀卿列传》（西汉·司马迁）· 梁启雄《荀子简释》· 楼宇烈《荀子新注》"
+  },
+  {
+    "id": "th-mozi",
+    "name": "墨子",
+    "westernName": "Mozi",
+    "region": "china",
+    "era": "BC 470-391",
+    "school": "墨家",
+    "title": "墨家学派创始人",
+    "summary": "战国初期宋国人，名翟。出身底层工匠。创立墨家，与儒家并称「显学」。墨家弟子纪律严明，曾多次帮助弱国守城。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**约 BC 470—391**"
+      },
+      {
+        "label": "国籍",
+        "value": "**战国宋国**"
+      },
+      {
+        "label": "姓名",
+        "value": "**名翟**（dí）"
+      },
+      {
+        "label": "出身",
+        "value": "**底层工匠**"
+      },
+      {
+        "label": "技能",
+        "value": "**精于木工、器械**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《墨子》53 篇**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**兼爱·非攻·尚贤·天志·非命**"
+      },
+      {
+        "label": "地位",
+        "value": "**墨家学派创始人**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：工匠出身的哲学大师",
+        "body": "墨子出身底层，做过工匠。精通木工、机械。墨子游说诸侯，曾用守城器械帮宋国守城，迫使楚国退兵。他反对儒家繁琐的礼乐，主张「兼爱」「非攻」。"
+      },
+      {
+        "type": "callout",
+        "heading": "兼爱非攻——博爱主义的先驱",
+        "body": "墨子主张「兼爱」——不分亲疏远近地爱所有人。「非攻」就是反对侵略战争，墨子反对当时大国对小国的兼并，主张和平。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**兼相爱，交相利**。",
+        "cite": "《墨子·兼爱中》"
+      },
+      {
+        "type": "quote",
+        "text": "**非攻，窃仁义之不攻战也**。",
+        "cite": "《墨子·非攻上》"
+      },
+      {
+        "type": "quote",
+        "text": "**尚贤者，政之本也**。",
+        "cite": "《墨子·尚贤上》"
+      },
+      {
+        "type": "paragraph",
+        "heading": "墨家与工科技术",
+        "body": "墨家不仅是哲学学派，更是中国最早的工科技术团体。《墨子》书中包含大量物理学、数学、光学知识，如「杠杆原理」「小孔成像」。"
+      },
+      {
+        "type": "list",
+        "heading": "墨家核心主张",
+        "items": [
+          "兼爱——平等地爱所有人",
+          "非攻——反对侵略战争",
+          "尚贤——选拔贤能者做官",
+          "节用——反对奢侈浪费",
+          "非命——反对天命论"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 470",
+        "era": "战国",
+        "event": "墨子生于宋国"
+      },
+      {
+        "year": "BC 425",
+        "era": "战国",
+        "event": "**止楚攻宋**——以守城器械迫使楚王退兵"
+      },
+      {
+        "year": "BC 391",
+        "era": "约79岁",
+        "event": "墨子去世"
+      },
+      {
+        "year": "AD 1900",
+        "era": "清代",
+        "event": "孙诒让《墨子间诂》——墨学复兴"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Mozi ancient Chinese portrait",
+        "caption": "墨子画像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Mozi wooden bird kite ancient",
+        "caption": "墨子造木鸢图",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Mozi ancient Chinese text",
+        "caption": "《墨子》古本",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Mohist School ancient China",
+        "caption": "墨家学派图",
+        "credit": "Public Domain Illustration"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-confucius",
+        "title": "孔子",
+        "reason": "墨家与儒家并称显学"
+      },
+      {
+        "id": "th-laozi",
+        "title": "老子",
+        "reason": "同期道家圣哲"
+      },
+      {
+        "id": "th-zhuangzi",
+        "title": "庄子",
+        "reason": "同期道家圣哲"
+      },
+      {
+        "id": "th-buddha",
+        "title": "释迦牟尼",
+        "reason": "同期东方圣哲"
+      },
+      {
+        "id": "th-socrates",
+        "title": "苏格拉底",
+        "reason": "同期西方圣哲"
+      }
+    ],
+    "source": "《墨子》（战国·墨子及弟子）·《韩非子·显学》· 孙诒让《墨子间诂》· 钱穆《墨子传略》· 梁启超《墨子学案》"
+  },
+  {
+    "id": "th-sunzi",
+    "name": "孙子（孙武）",
+    "westernName": "Sun Tzu",
+    "region": "china",
+    "era": "BC 545-470",
+    "school": "兵家",
+    "title": "兵家圣祖，百世兵家之师",
+    "summary": "春秋末期齐国乐安（今山东惠民）人，名武，字长卿。吴王阖闾之客，以《兵法》十三篇见吴王，被任为将，助吴伐楚，攻入郢都。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**约 BC 545—470**"
+      },
+      {
+        "label": "国籍",
+        "value": "**春秋齐国乐安**"
+      },
+      {
+        "label": "姓名",
+        "value": "**名武，字长卿**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《孙子兵法》13 篇**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**上兵伐谋 · 知己知彼 · 兵者诡道**"
+      },
+      {
+        "label": "地位",
+        "value": "**兵家圣祖 · 百世兵家之师**"
+      },
+      {
+        "label": "世界声誉",
+        "value": "**拿破仑、克劳塞维茨、毛泽东都推崇**"
+      },
+      {
+        "label": "典故",
+        "value": "**吴宫教战 · 柏举之战**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：吴王阖闾之将",
+        "body": "孙子是齐国田氏贵族后裔，因齐国内乱逃到吴国。伍子胥向吴王阖闾七荐孙子。吴王读了他的《兵法》十三篇后，训练 180 名宫女，以吴王两个宠姬为队长。孙子下达命令，宫女们大笑不听。孙子斩杀两个队长——「臣既已受命为将，将在军，君命有所不受。」这就是「吴宫教战」的典故。"
+      },
+      {
+        "type": "callout",
+        "heading": "上兵伐谋，不战而屈人之兵",
+        "body": "孙子主张「上兵伐谋」——最好的战争是用谋略战胜敌人，「不战而屈人之兵」——不通过战争就让敌人屈服。这是中国战略思想的核心。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**兵者，国之大事，死生之地，存亡之道，不可不察也**。",
+        "cite": "《孙子兵法·计篇》"
+      },
+      {
+        "type": "quote",
+        "text": "**知彼知己，百战不殆**。",
+        "cite": "《孙子兵法·谋攻篇》"
+      },
+      {
+        "type": "quote",
+        "text": "**上兵伐谋，其次伐交，其次伐兵，其下攻城**。",
+        "cite": "《孙子兵法·谋攻篇》"
+      },
+      {
+        "type": "quote",
+        "text": "**不战而屈人之兵，善之善者也**。",
+        "cite": "《孙子兵法·谋攻篇》"
+      },
+      {
+        "type": "paragraph",
+        "heading": "对世界军事的深远影响",
+        "body": "《孙子兵法》在唐朝传入日本，江户时代成为日本武士必读；18 世纪传入欧洲，拿破仑读后大加赞赏；二战后传入美国，西点军校必修；海湾战争中美军将领人手一册。"
+      },
+      {
+        "type": "list",
+        "heading": "《孙子兵法》13 篇",
+        "items": [
+          "计篇—庙算",
+          "作战篇—战前准备",
+          "谋攻篇—不战而屈人之兵",
+          "军形篇—实力对比",
+          "兵势篇—形势与节奏",
+          "虚实篇—避实击虚",
+          "九变篇—灵活应变",
+          "用间篇—间谍战"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 545",
+        "era": "春秋",
+        "event": "孙子生于齐国乐安"
+      },
+      {
+        "year": "BC 525",
+        "era": "青年",
+        "event": "齐国内乱，孙子奔吴"
+      },
+      {
+        "year": "BC 512",
+        "era": "33岁",
+        "event": "**吴宫教战**——斩杀吴王两宠姬队长"
+      },
+      {
+        "year": "BC 506",
+        "era": "39岁",
+        "event": "**柏举之战**——3 万吴军击败 20 万楚军，攻入郢都"
+      },
+      {
+        "year": "BC 496",
+        "era": "49岁",
+        "event": "阖闾伐越受伤去世"
+      },
+      {
+        "year": "BC 470",
+        "era": "约75岁",
+        "event": "孙子去世"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Sun Tzu ancient Chinese portrait",
+        "caption": "孙子画像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Sunzi Bingfa bamboo slips Yinqueshan",
+        "caption": "《孙子兵法》古本（银雀山汉墓竹简）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Wugong Wu palace training ancient",
+        "caption": "吴宫教战图",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Battle of Boju ancient Chinese",
+        "caption": "柏举之战图",
+        "credit": "Public Domain Illustration"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-confucius",
+        "title": "孔子",
+        "reason": "同期儒家圣哲"
+      },
+      {
+        "id": "th-laozi",
+        "title": "老子",
+        "reason": "同期道家圣哲"
+      },
+      {
+        "id": "th-sunbin",
+        "title": "孙膑",
+        "reason": "孙子后人"
+      },
+      {
+        "id": "th-socrates",
+        "title": "苏格拉底",
+        "reason": "同期西方圣哲"
+      },
+      {
+        "id": "th-plato",
+        "title": "柏拉图",
+        "reason": "同期西方圣哲"
+      }
+    ],
+    "source": "《孙子兵法》（春秋·孙武）·《史记·孙子吴起列传》（西汉·司马迁）· 银雀山汉墓竹简（1972 年出土）· 曹操《孙子兵法注》· 郭化若《孙子译注》"
+  },
+  {
+    "id": "th-hanfei",
+    "name": "韩非子",
+    "westernName": "Han Fei",
+    "region": "china",
+    "era": "BC 280-233",
+    "school": "法家",
+    "title": "法家集大成者",
+    "summary": "战国末期韩国贵族，名非，与李斯同为荀子弟子。秦王政读其书慕其才，邀之入秦。遭李斯陷害，死于狱中。著《韩非子》五十五篇。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**BC 280—233**"
+      },
+      {
+        "label": "国籍",
+        "value": "**战国韩国**"
+      },
+      {
+        "label": "姓名",
+        "value": "**名非**（韩非）"
+      },
+      {
+        "label": "师承",
+        "value": "**荀子**"
+      },
+      {
+        "label": "同学",
+        "value": "**李斯**（同门）"
+      },
+      {
+        "label": "代表作",
+        "value": "**《韩非子》55 篇**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**法·术·势·以法治国·中央集权**"
+      },
+      {
+        "label": "地位",
+        "value": "**法家集大成者**"
+      },
+      {
+        "label": "死因",
+        "value": "**遭李斯陷害死于狱中**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：韩国公子入秦被害",
+        "body": "韩非是韩国贵族公子，口吃但擅长著书。他多次上书韩王变法图强，韩王不用。秦王政读其《孤愤》《五蠹》后大加赞赏，说：「嗟乎！寡人得见此人与之游，死不恨矣！」于是发兵攻韩，索取韩非。韩非入秦后，李斯妒其才，姚贾进谗言，秦王下令将韩非下狱。李斯派人送毒药给韩非，韩非想见秦王申辩，未能见到，于狱中服毒自尽。"
+      },
+      {
+        "type": "callout",
+        "heading": "法家三要素——法、术、势",
+        "body": "韩非集法家大成，将商鞅的「法」、申不害的「术」、慎到的「势」三者合一：法——成文的法律；术——君主驾驭臣下的权术；势——君主至高无上的权势。三者结合才能推行中央集权。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**法不阿贵，绳不挠曲**。",
+        "cite": "《韩非子·有度》"
+      },
+      {
+        "type": "quote",
+        "text": "**刑过不避大臣，赏善不遗匹夫**。",
+        "cite": "《韩非子·有度》"
+      },
+      {
+        "type": "quote",
+        "text": "**事在四方，要在中央**。",
+        "cite": "《韩非子·物权》"
+      },
+      {
+        "type": "list",
+        "heading": "韩非子的核心主张",
+        "items": [
+          "以法治国——法律面前人人平等",
+          "中央集权——君主专制",
+          "法术势结合——法家三要素",
+          "进化史观——历史是进化的",
+          "性恶论——继承荀子"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 280",
+        "era": "战国",
+        "event": "韩非生于韩国贵族家庭"
+      },
+      {
+        "year": "BC 260",
+        "era": "青年",
+        "event": "**拜荀子为师**，与李斯同学"
+      },
+      {
+        "year": "BC 250",
+        "era": "中年",
+        "event": "多次上书韩王变法图强，韩王不用"
+      },
+      {
+        "year": "BC 234",
+        "era": "46岁",
+        "event": "**秦王政读其书慕其才**——发兵攻韩索取"
+      },
+      {
+        "year": "BC 233",
+        "era": "47岁",
+        "event": "入秦，遭李斯陷害入狱"
+      },
+      {
+        "year": "BC 233",
+        "era": "47岁",
+        "event": "**服毒自尽于狱中**"
+      },
+      {
+        "year": "BC 221",
+        "era": "12年后",
+        "event": "秦始皇统一天下，推行韩非子之法家思想"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Han Fei ancient Chinese portrait",
+        "caption": "韩非画像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Han Feizi ancient Chinese text",
+        "caption": "《韩非子》古本",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Legalist School ancient China",
+        "caption": "法家学派图",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Qin Shi Huang portrait",
+        "caption": "秦始皇——韩非思想的实践者",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-xunzi",
+        "title": "荀子",
+        "reason": "韩非之师"
+      },
+      {
+        "id": "th-confucius",
+        "title": "孔子",
+        "reason": "同期儒家圣哲"
+      },
+      {
+        "id": "th-laozi",
+        "title": "老子",
+        "reason": "同期道家圣哲"
+      },
+      {
+        "id": "th-sunzi",
+        "title": "孙子",
+        "reason": "同期兵家圣祖"
+      },
+      {
+        "id": "th-plato",
+        "title": "柏拉图",
+        "reason": "同期西方圣哲"
+      }
+    ],
+    "source": "《韩非子》（战国·韩非）·《史记·老子韩非列传》（西汉·司马迁）· 陈奇猷《韩非子新校注》"
+  },
+  {
+    "id": "th-aristotle",
+    "name": "亚里士多德",
+    "westernName": "Aristotle",
+    "region": "greece",
+    "era": "BC 384-322",
+    "school": "古希腊哲学",
+    "title": "古希腊哲学集大成者",
+    "summary": "古希腊斯塔吉拉人。父亲是马其顿国王腓力二世的御医。17 岁赴雅典学园拜柏拉图为师，学了 20 年（直到柏拉图去世）。后被马其顿王聘为亚历山大大帝的老师（BC 343-340）。在雅典创立吕克昂学园。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**BC 384—322**（享年 62）"
+      },
+      {
+        "label": "国籍",
+        "value": "**古希腊斯塔吉拉**（色雷斯）"
+      },
+      {
+        "label": "职业",
+        "value": "**柏拉图学园学习 20 年 + 吕克昂学园创建者**"
+      },
+      {
+        "label": "师承",
+        "value": "**柏拉图**（学园 20 年）"
+      },
+      {
+        "label": "学生",
+        "value": "**亚历山大大帝**（马其顿王腓力二世之子）"
+      },
+      {
+        "label": "代表作",
+        "value": "**《形而上学》《尼各马可伦理学》《政治学》《诗学》等 170+ 部**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**实体论·四因说·中庸之道·逻辑学·形式质料说**"
+      },
+      {
+        "label": "研究领域",
+        "value": "**哲学·逻辑·物理·生物·伦理·政治·修辞·诗学·心理学·形而上学**"
+      },
+      {
+        "label": "地位",
+        "value": "**古希腊哲学集大成者 · 百科全书式学者**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响西方学术 2000 年 · 中世纪经院哲学奠基**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：从御医之子到亚历山大之师",
+        "body": "亚里士多德出生于色雷斯的斯塔吉拉，父亲尼各马可是马其顿王腓力二世的御医。17 岁赴雅典柏拉图学园，学习 20 年（BC 367-347），是柏拉图最杰出的学生。柏拉图称他「学园之灵」。BC 343 年受马其顿王腓力二世之聘，成为 13 岁的亚历山大大帝的老师。BC 340 年回雅典，创立吕克昂学园（Lyceum），边讲学边研究。亚历山大远征时为亚里士多德搜集动植物标本资助研究。BC 323 年亚历山大去世，反马其顿派兴起，亚里士多德被控「不敬神」，被迫逃离雅典，次年病逝。"
+      },
+      {
+        "type": "callout",
+        "heading": "四因说——理解世界的四个角度",
+        "body": "亚里士多德认为理解一个事物需要四个原因：① 质料因（material cause）——事物由什么构成；② 形式因（formal cause）——事物的本质属性；③ 动力因（efficient cause）——谁或什么产生了它；④ 目的因（final cause）——它为什么存在。比如一座雕像：质料因=大理石，形式因=雕像形状，动力因=雕刻家，目的因=为了美化城市。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**吾爱吾师，吾更爱真理**。",
+        "cite": "亚里士多德（据传）"
+      },
+      {
+        "type": "quote",
+        "text": "**人是政治动物**。",
+        "cite": "亚里士多德《政治学》"
+      },
+      {
+        "type": "quote",
+        "text": "**中庸是美德的本质**。",
+        "cite": "亚里士多德《尼各马可伦理学》"
+      },
+      {
+        "type": "quote",
+        "text": "**我们是我们反复做的事情。卓越，不是一种行为，而是一种习惯**。",
+        "cite": "亚里士多德"
+      },
+      {
+        "type": "paragraph",
+        "heading": "百科全书式学者",
+        "body": "亚里士多德是古代世界最伟大的百科全书式学者。他几乎研究了当时所有学科：哲学、逻辑、物理、生物、伦理、政治、修辞、诗学、心理学、形而上学、教育学。他的著作构建了西方学术的分类体系。逻辑学方面，他创立了「形式逻辑」（三段论），2000 年来无人超越。生物学方面，他研究了 500 多种动物，包括对海豚胎生、章鱼变色等的观察。诗学方面，他的《诗学》开创了西方文艺理论。"
+      },
+      {
+        "type": "list",
+        "heading": "亚里士多德对各学科的贡献",
+        "items": [
+          "**逻辑学**——三段论、形式逻辑",
+          "**物理学**——运动理论、自然哲学",
+          "**形而上学**——实体论、四因说",
+          "**伦理学**——中庸学说、幸福论",
+          "**政治学**——人是政治动物、最好的政体",
+          "**诗学**——模仿说、悲剧理论",
+          "**生物学**——动物分类、胚胎学",
+          "**修辞学**——《修辞术》"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 384",
+        "era": "古希腊",
+        "event": "亚里士多德生于斯塔吉拉，父亲是马其顿王御医"
+      },
+      {
+        "year": "BC 367",
+        "era": "17岁",
+        "event": "**赴雅典柏拉图学园学习**，长达 20 年"
+      },
+      {
+        "year": "BC 347",
+        "era": "37岁",
+        "event": "柏拉图去世，离开雅典"
+      },
+      {
+        "year": "BC 343",
+        "era": "41岁",
+        "event": "**成为 13 岁亚历山大大帝的老师**"
+      },
+      {
+        "year": "BC 340",
+        "era": "44岁",
+        "event": "在雅典创立吕克昂学园"
+      },
+      {
+        "year": "BC 336",
+        "era": "48岁",
+        "event": "亚历山大继位，资助亚里士多德研究"
+      },
+      {
+        "year": "BC 335-323",
+        "era": "成熟期",
+        "event": "在吕克昂学园讲学著述，撰写了大部分著作"
+      },
+      {
+        "year": "BC 323",
+        "era": "61岁",
+        "event": "亚历山大去世，反马其顿派控亚里士多德不敬神"
+      },
+      {
+        "year": "BC 322",
+        "era": "62岁",
+        "event": "**亚里士多德病逝于埃维亚岛**"
+      },
+      {
+        "year": "AD 1-200",
+        "era": "罗马",
+        "event": "亚里士多德著作被编纂成册"
+      },
+      {
+        "year": "AD 800-1200",
+        "era": "中世纪",
+        "event": "阿拉伯学者阿维森纳、阿威罗伊注释亚里士多德"
+      },
+      {
+        "year": "AD 1200s",
+        "era": "中世纪",
+        "event": "经院哲学家托马斯·阿奎那融合亚里士多德哲学与神学"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Aristotle bust statue Greek philosopher",
+        "caption": "亚里士多德胸像（罗马复制）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Aristotle teaching Alexander Great painting",
+        "caption": "亚里士多德教导亚历山大大帝（莱昂纳德·奥利瓦画）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "School of Athens Raphael Aristotle Plato",
+        "caption": "《雅典学院》——亚里士多德与柏拉图居中（拉斐尔）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Lyceum Athens archaeological site",
+        "caption": "吕克昂学园遗址",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-plato",
+        "title": "柏拉图",
+        "reason": "亚里士多德的老师"
+      },
+      {
+        "id": "th-socrates",
+        "title": "苏格拉底",
+        "reason": "古希腊三贤之一"
+      },
+      {
+        "id": "th-confucius",
+        "title": "孔子",
+        "reason": "同期东方圣哲（轴心时代）"
+      },
+      {
+        "id": "th-buddha",
+        "title": "释迦牟尼",
+        "reason": "同期东方圣哲（轴心时代）"
+      },
+      {
+        "id": "th-aristotle-student-alexander",
+        "title": "亚历山大大帝",
+        "reason": "亚里士多德的学生"
+      }
+    ],
+    "source": "《形而上学》《尼各马可伦理学》《政治学》《诗学》《工具论》（古希腊·亚里士多德）·《物理学》《修辞术》《论灵魂》（古希腊·亚里士多德）· 苗力田《亚里士多德全集》· 罗素《西方哲学史》"
+  },
+  {
+    "id": "th-heraclitus",
+    "name": "赫拉克利特",
+    "westernName": "Heraclitus",
+    "region": "greece",
+    "era": "BC 535-475",
+    "school": "古希腊哲学",
+    "title": "爱菲斯学派辩证法奠基者",
+    "summary": "古希腊爱菲斯（今土耳其）贵族家庭，王位继承人却放弃王位交给弟弟。隐居山林终生思考，留下 130+ 残篇。被称为「晦涩者」——其哲学以深奥著称。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**约 BC 535—475**"
+      },
+      {
+        "label": "国籍",
+        "value": "**古希腊爱菲斯**（今土耳其伊兹密尔附近）"
+      },
+      {
+        "label": "身份",
+        "value": "**王位继承人·放弃王位**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《论自然》**——仅存 130+ 残篇"
+      },
+      {
+        "label": "核心思想",
+        "value": "**万物流变·人不能两次踏进同一条河流·逻各斯·火本原·对立统一**"
+      },
+      {
+        "label": "地位",
+        "value": "**辩证法奠基者 · 爱菲斯学派创始人**"
+      },
+      {
+        "label": "影响",
+        "value": "**深刻影响黑格尔、马克思、尼采**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：放弃王位的隐士",
+        "body": "赫拉克利特出生于爱菲斯贵族家庭，本是王位继承人，却让位给弟弟，自己隐居山林思考哲学。他瞧不起同时代的人，甚至说：「驴宁愿要草料也不要黄金。」苏格拉底读了他的著作后说：「我所理解的部分是精彩的；我所不理解的部分想必也是精彩的；但需要有一个德尔菲潜水员才能理解。」"
+      },
+      {
+        "type": "callout",
+        "heading": "万物流变——人不能两次踏进同一条河流",
+        "body": "赫拉克利特的核心思想是「万物流变」：一切皆流，无物常住。他说过「人不能两次踏进同一条河流」。但他认为流变背后有「逻各斯」（Logos，理性、规律）——火是万物的本原，火变气，气变水，水变土；反过来土变水，水变气，气变火。这是一个永恒的循环。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**人不能两次踏进同一条河流**。",
+        "cite": "赫拉克利特（残篇 41）"
+      },
+      {
+        "type": "quote",
+        "text": "**太阳每天都是新的**。",
+        "cite": "赫拉克利特（残篇 6）"
+      },
+      {
+        "type": "quote",
+        "text": "**对立的东西相互结合，最美的和谐诞生于差异**。",
+        "cite": "赫拉克利特（残篇 8）"
+      },
+      {
+        "type": "quote",
+        "text": "**性格即命运**。",
+        "cite": "赫拉克利特（残篇 119）"
+      },
+      {
+        "type": "list",
+        "heading": "赫拉克利特的核心思想",
+        "items": [
+          "万物流变——无物常住",
+          "逻各斯——宇宙的理性规律",
+          "火本原——万物由火生成",
+          "对立统一——差异产生和谐",
+          "辩证法——对立面相互转化"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 535",
+        "era": "古希腊",
+        "event": "赫拉克利特生于爱菲斯贵族家庭"
+      },
+      {
+        "year": "BC 500",
+        "era": "中年",
+        "event": "**放弃王位，让位给弟弟**"
+      },
+      {
+        "year": "BC 500-475",
+        "era": "隐居",
+        "event": "隐居山林著《论自然》"
+      },
+      {
+        "year": "BC 475",
+        "era": "约60岁",
+        "event": "赫拉克利特去世（传说患水肿病）"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Heraclitus ancient Greek philosopher bust",
+        "caption": "赫拉克利特胸像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Heraclitus weeping philosopher Raphael",
+        "caption": "《雅典学院》中的赫拉克利特（拉斐尔）——正在哭泣",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Ephesus ancient Greek ruins",
+        "caption": "爱菲斯古城遗址",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Heraclitus river flux illustration",
+        "caption": "万物流变示意图",
+        "credit": "Public Domain Illustration"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-socrates",
+        "title": "苏格拉底",
+        "reason": "同期古希腊哲学家"
+      },
+      {
+        "id": "th-plato",
+        "title": "柏拉图",
+        "reason": "同期古希腊哲学家"
+      },
+      {
+        "id": "th-aristotle",
+        "title": "亚里士多德",
+        "reason": "古希腊哲学集大成者"
+      },
+      {
+        "id": "th-laozi",
+        "title": "老子",
+        "reason": "同期东方圣哲（轴心时代）"
+      },
+      {
+        "id": "th-confucius",
+        "title": "孔子",
+        "reason": "同期东方圣哲（轴心时代）"
+      }
+    ],
+    "source": "《赫拉克利特著作残篇》（古希腊·赫拉克利特）· 第欧根尼·拉尔修《名哲言行录》· 黑格尔《哲学史讲演录》· 马克思《博士论文·德谟克利特的自然哲学与伊壁鸠鲁的自然哲学的区别》"
+  },
+  {
+    "id": "th-democritus",
+    "name": "德谟克利特",
+    "westernName": "Democritus",
+    "region": "greece",
+    "era": "BC 460-370",
+    "school": "古希腊哲学",
+    "title": "原子论之父",
+    "summary": "古希腊阿布德拉人。出身富裕，成年后用遗产周游世界，从埃及、巴比伦、印度学到了大量知识。回国后专注哲学，留下 70 多部著作（仅残篇存世）。马克思称他「经验的自然科学家」。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**约 BC 460—370**"
+      },
+      {
+        "label": "国籍",
+        "value": "**古希腊阿布德拉**（色雷斯）"
+      },
+      {
+        "label": "师承",
+        "value": "**留基伯**（原子论创立者）"
+      },
+      {
+        "label": "代表作",
+        "value": "**70+ 部著作（仅存残篇）**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**原子论·虚空·影像说·快乐主义伦理学**"
+      },
+      {
+        "label": "地位",
+        "value": "**原子论之父 · 古希腊最后一位自然哲学家**"
+      },
+      {
+        "label": "绰号",
+        "value": "**「笑着的哲学家」**——与赫拉克利特的「哭泣」相对"
+      },
+      {
+        "label": "影响",
+        "value": "**深刻影响伊壁鸠鲁、卢克莱修、现代原子科学**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：用遗产周游世界的学者",
+        "body": "德谟克利特出生于色雷斯的阿布德拉，父亲是富人。父亲死后，他把遗产分给兄弟，自己带着钱周游世界：到埃及学习几何，到巴比伦学习天文和星象，到印度学习哲学。他回来时已经把钱花光，兄弟们以为他疯了。他用《宇宙大系统》证明自己的智慧，获得家乡奖励。"
+      },
+      {
+        "type": "callout",
+        "heading": "原子论——万物由原子和虚空构成",
+        "body": "德谟克利特继承并发展了老师留基伯的原子论：宇宙万物由不可分割的「原子」（atomos，希腊语「不可分」）和「虚空」构成。原子永恒不灭，在虚空中运动、碰撞、结合、分离，产生万物。原子的形状、大小、位置、排列不同，构成不同的物质。这是最早的唯物主义原子论。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**在充满理智的欢乐中度过一生**。",
+        "cite": "德谟克利特"
+      },
+      {
+        "type": "quote",
+        "text": "**不要企图无所不知，否则你将一无所知**。",
+        "cite": "德谟克利特"
+      },
+      {
+        "type": "paragraph",
+        "heading": "笑着的哲学家",
+        "body": "德谟克利特被称为「笑着的哲学家」，因为他认为人生应该「在充满理智的欢乐中度过」。他说：「对善的无知就是犯错误的原因。」「对一切由必然性而产生的快乐和痛苦不予关心的人是幸福的。」他的伦理观是「快乐主义」——以理性主导的快乐为至善。"
+      },
+      {
+        "type": "list",
+        "heading": "德谟克利特的核心思想",
+        "items": [
+          "原子论——万物由原子和虚空构成",
+          "影像说——感觉是原子流产生的影像",
+          "快乐主义——理性主导的快乐为至善",
+          "必然性——一切都按因果律发生",
+          "感觉主义——感觉是认识的来源"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 460",
+        "era": "古希腊",
+        "event": "德谟克利特生于阿布德拉"
+      },
+      {
+        "year": "BC 440",
+        "era": "青年",
+        "event": "**用遗产周游世界**——埃及、巴比伦、印度"
+      },
+      {
+        "year": "BC 420",
+        "era": "成熟",
+        "event": "回国，建立原子论哲学体系"
+      },
+      {
+        "year": "BC 370",
+        "era": "约90岁",
+        "event": "德谟克利特去世"
+      },
+      {
+        "year": "AD 60",
+        "era": "罗马",
+        "event": "卢克莱修《物性论》——原子论的最完整阐释"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Democritus ancient Greek philosopher bust",
+        "caption": "德谟克利特胸像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Democritus laughing philosopher",
+        "caption": "笑着的哲学家（西方传统形象）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Abdera ancient Greek ruins",
+        "caption": "阿布德拉古城遗址",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Atom ancient Greece illustration",
+        "caption": "古希腊原子论示意图",
+        "credit": "Public Domain Illustration"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-socrates",
+        "title": "苏格拉底",
+        "reason": "同期古希腊哲学家"
+      },
+      {
+        "id": "th-plato",
+        "title": "柏拉图",
+        "reason": "同期古希腊哲学家"
+      },
+      {
+        "id": "th-aristotle",
+        "title": "亚里士多德",
+        "reason": "古希腊哲学集大成者"
+      },
+      {
+        "id": "th-heraclitus",
+        "title": "赫拉克利特",
+        "reason": "同期爱菲斯哲学家"
+      },
+      {
+        "id": "th-laozi",
+        "title": "老子",
+        "reason": "同期东方圣哲"
+      }
+    ],
+    "source": "《宇宙大系统》（古希腊·德谟克利特）·《物性论》（古罗马·卢克莱修）·《名哲言行录》（古罗马·第欧根尼·拉尔修）· 马克思《博士论文》"
   }
 ]
 

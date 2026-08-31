@@ -138,6 +138,12 @@ export default function EraQuickLearnModal({
                           title: ev.title,
                           desc: ev.desc,
                           longDesc: ev.longDesc,
+                          facts: ev.facts,
+                          sections: ev.sections,
+                          timeline: ev.timeline,
+                          images: ev.images,
+                          related: ev.related,
+                          source: ev.source,
                         })
                       }}
                       className="w-full text-left relative pb-3 mb-1 last:pb-0 cursor-pointer rounded-lg border border-transparent hover:border-vermilion-500/60 hover:bg-vermilion-900/30 transition-colors group p-2 -ml-2"

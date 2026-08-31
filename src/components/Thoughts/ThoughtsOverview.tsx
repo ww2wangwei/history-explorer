@@ -1,9 +1,15 @@
 /**
  * ThoughtsOverview — 全思想板块
+ *
  * 集中收集整理全人类的思想精华
- * 卡片网格 + 详情弹窗（复用 OverviewRichContent 渲染富内容）
+ *
+ * 使用统一的 OverviewLayout + OverviewSearch + OverviewRichContent
+ * 与其他板块（人物/战争/神话/诗词/文化/地理/文明/传统）保持一致的风格。
  */
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import OverviewLayout from '@/components/ui/OverviewLayout'
+import OverviewSearch from '@/components/ui/OverviewSearch'
+import EmptyState from '@/components/ui/EmptyState'
 import { THINKERS, THINKER_REGIONS, type Thinker, type ThinkerRegion } from '@/data/allThoughts'
 import { bingImage } from '@/utils/geoImage'
 import { audioEngine } from '@/utils/audioEngine'
@@ -15,6 +21,7 @@ interface Props {
   onClose: () => void
 }
 
+// 区域标签 & 颜色（用于过滤按钮 + 卡片顶条）
 const REGION_LABELS: Record<string, string> = {
   china: '中国',
   greece: '古希腊',
@@ -42,132 +49,200 @@ export default function ThoughtsOverview({ isActive, onClose }: Props) {
     return THINKERS.filter(t => {
       const matchRegion = regionFilter === 'all' || t.region === regionFilter
       const q = query.toLowerCase().trim()
-      const matchQuery = !q || t.name.toLowerCase().includes(q) || (t.westernName?.toLowerCase().includes(q) ?? false) || t.school.includes(q) || t.title.includes(q)
+      const matchQuery =
+        !q ||
+        t.name.toLowerCase().includes(q) ||
+        (t.westernName?.toLowerCase().includes(q) ?? false) ||
+        t.school.includes(q) ||
+        t.title.includes(q)
       return matchRegion && matchQuery
     })
   }, [regionFilter, query])
 
   const selected = selectedId ? THINKERS.find(t => t.id === selectedId) ?? null : null
 
+  // ESC 优先关闭详情弹窗，再关闭外层
+  useEffect(() => {
+    if (!isActive) return
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.stopPropagation()
+        if (selectedId) setSelectedId(null)
+        else onClose()
+      }
+    }
+    window.addEventListener('keydown', handler, true)
+    return () => window.removeEventListener('keydown', handler, true)
+  }, [isActive, selectedId, onClose])
+
+  const toolbar = (
+    <div className="flex flex-wrap items-center gap-2">
+      <button
+        onClick={() => setRegionFilter('all')}
+        className={`px-3 py-1.5 rounded-full text-xs transition-colors ${
+          regionFilter === 'all'
+            ? 'bg-vermilion-700/40 text-vermilion-300 border border-bronze-600/40'
+            : 'bg-ink-700/40 text-ink-300 hover:bg-ink-600/60'
+        }`}
+      >
+        全部 ({THINKERS.length})
+      </button>
+      {THINKER_REGIONS.map(r => {
+        const cnt = THINKERS.filter(t => t.region === r.id).length
+        if (cnt === 0) return null
+        const isSelected = regionFilter === r.id
+        return (
+          <button
+            key={r.id}
+            onClick={() => setRegionFilter(r.id as ThinkerRegion)}
+            className="px-3 py-1.5 rounded-full text-xs transition-colors border"
+            style={{
+              background: isSelected ? r.color + '30' : undefined,
+              color: isSelected ? r.color : '#9ca3af',
+              borderColor: isSelected ? r.color : 'transparent',
+            }}
+          >
+            {r.label} ({cnt})
+          </button>
+        )
+      })}
+      <OverviewSearch
+        value={query}
+        onChange={setQuery}
+        placeholder="搜索姓名/流派..."
+        minWidth={200}
+        className="ml-auto max-w-xs"
+      />
+    </div>
+  )
+
   return (
-    <ModalShell isOpen={isActive} onClose={onClose} innerStyle={{ borderColor: '#9b7eb6' + '60' }}>
-      <div className="w-full h-full bg-ink-900 overflow-y-auto">
-        {/* Header */}
-        <header className="sticky top-0 z-10 bg-ink-900/95 backdrop-blur border-b border-ink-700 px-6 py-4 flex items-center justify-between">
-          <div>
-            <button onClick={() => { audioEngine.playModalClose(); onClose() }} className="text-xs text-ink-400 hover:text-vermilion-300 mb-1">← 返回 Dashboard</button>
-            <h1 className="font-serif text-2xl text-vermilion-300">💡 全思想</h1>
-            <p className="text-xs text-ink-300 mt-0.5">集中收集整理全人类的思想精华 · {THINKERS.length} 位思想家</p>
-          </div>
-          <button onClick={() => { audioEngine.playModalClose(); onClose() }} className="px-3 py-1.5 rounded-lg bg-ink-700 hover:bg-ink-600 text-parchment-50 text-sm" title="关闭 (Esc)" aria-label="关闭">关闭</button>
-        </header>
-
-        {/* Filters */}
-        <div className="px-6 py-4 border-b border-ink-700/40">
-          <div className="flex flex-wrap gap-2 items-center">
-            <button
-              onClick={() => setRegionFilter('all')}
-              className={`px-3 py-1.5 rounded-full text-xs ${regionFilter === 'all' ? 'bg-vermilion-700/40 text-vermilion-300 border border-bronze-600/40' : 'bg-ink-700/40 text-ink-300'}`}
-            >全部 ({THINKERS.length})</button>
-            {THINKER_REGIONS.map(r => {
-              const cnt = THINKERS.filter(t => t.region === r.id).length
-              if (cnt === 0) return null
-              return (
-                <button
-                  key={r.id}
-                  onClick={() => setRegionFilter(r.id as ThinkerRegion)}
-                  className={`px-3 py-1.5 rounded-full text-xs ${regionFilter === r.id ? 'border' : ''}`}
-                  style={{
-                    background: regionFilter === r.id ? r.color + '30' : undefined,
-                    color: regionFilter === r.id ? r.color : '#9ca3af',
-                    borderColor: regionFilter === r.id ? r.color : 'transparent',
-                  }}
-                >{r.label} ({cnt})</button>
-              )
-            })}
-            <input
-              type="text"
-              placeholder="搜索姓名/流派..."
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              className="ml-auto px-3 py-1.5 bg-ink-700/60 border border-ink-600 rounded-lg text-sm text-parchment-50 placeholder-ink-500 focus:outline-none focus:border-vermilion-500/40"
-            />
-          </div>
-        </div>
-
-        {/* Card Grid */}
-        <main className="max-w-7xl mx-auto px-6 py-6">
+    <>
+      <OverviewLayout
+        emoji="💡"
+        title="全思想"
+        subtitle={`集中收集整理全人类的思想精华 · 共 ${THINKERS.length} 位思想家 · ${THINKER_REGIONS.filter(r => THINKERS.some(t => t.region === r.id)).length} 个区域`}
+        onClose={onClose}
+        suppressEsc={!!selectedId}
+        toolbar={toolbar}
+        headerBorderClass="border-vermilion-500/40"
+      >
+        {filtered.length === 0 ? (
+          <EmptyState
+            title="没有匹配的思想家"
+            hint="试试清空筛选条件，或切换到「全部」"
+            emoji="🔍"
+          />
+        ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {filtered.map(t => (
-              <button
+              <ThinkerCard
                 key={t.id}
-                onClick={() => { audioEngine.playModalOpen(); setSelectedId(t.id) }}
-                className="group relative overflow-hidden rounded-xl bg-ink-700/30 border border-ink-600/40 hover:border-vermilion-500/60 transition-all hover:scale-[1.02] text-left"
-              >
-                {/* 顶部色块 */}
-                <div className="h-2" style={{ background: REGION_COLORS[t.region] }} />
-                {/* 头部 */}
-                <div className="p-4">
-                  <div className="flex items-baseline justify-between mb-2">
-                    <h3 className="font-serif text-lg text-bone">{t.name}</h3>
-                    <span className="text-[10px] text-ink-400 px-1.5 py-0.5 rounded bg-ink-800">{REGION_LABELS[t.region]}</span>
-                  </div>
-                  {t.westernName && (
-                    <div className="text-xs text-ink-400 italic mb-1">{t.westernName}</div>
-                  )}
-                  <div className="text-xs text-vermilion-300 mb-2">📅 {t.era}</div>
-                  <div className="text-xs text-bronze-400 mb-2">🏛 {t.school}</div>
-                  <div className="text-sm text-parchment-50 leading-relaxed line-clamp-3">{t.title}</div>
-                  <div className="text-xs text-ink-300 mt-2 line-clamp-2">{t.summary}</div>
-                  <div className="mt-3 pt-3 border-t border-ink-600/30 flex items-center justify-between">
-                    <span className="text-[10px] text-ink-400">富内容 {t.facts.length + t.sections.length + t.timeline.length + t.related.length} 模块</span>
-                    <span className="text-xs text-vermilion-300 group-hover:text-vermilion-200">查看详情 →</span>
-                  </div>
-                </div>
-              </button>
+                thinker={t}
+                onClick={() => {
+                  audioEngine.playModalOpen()
+                  setSelectedId(t.id)
+                }}
+              />
             ))}
           </div>
-          {filtered.length === 0 && (
-            <div className="text-center text-ink-400 py-12">
-              没有匹配的思想家。试试其他筛选条件。
-            </div>
-          )}
-        </main>
+        )}
 
-        <footer className="max-w-7xl mx-auto px-6 py-6 text-xs text-ink-500 text-center">
-          💡 全思想 · 集中收集整理全人类的思想精华
-          <br />
-          当前数据：{THINKERS.length} 位思想家。后续将扩展到 50+ 位主流思想家。
+        <footer className="mt-8 pt-4 border-t border-ink-700/40 text-center text-xs text-ink-500">
+          💡 全思想 · 当前数据：{THINKERS.length} 位思想家 · 后续将扩展到 50+ 位主流思想家
         </footer>
-      </div>
+      </OverviewLayout>
 
-      {/* 详情弹窗 */}
+      {/* 详情弹窗（独立 modal 层） */}
       {selected && (
         <ThinkerDetail
           thinker={selected}
-          onClose={() => { audioEngine.playModalClose(); setSelectedId(null) }}
-          onSelect={(id) => setSelectedId(id)}
+          onClose={() => {
+            audioEngine.playModalClose()
+            setSelectedId(null)
+          }}
+          onSelect={(id) => {
+            audioEngine.playModalOpen()
+            setSelectedId(id)
+          }}
         />
       )}
-    </ModalShell>
+    </>
+  )
+}
+
+// ===== 卡片 =====
+function ThinkerCard({ thinker, onClick }: { thinker: Thinker; onClick: () => void }) {
+  const coverKw = `${thinker.name} ${thinker.westernName ?? ''} philosopher portrait`
+  const cover = bingImage(coverKw, 400, 400)
+  const totalModules = thinker.facts.length + thinker.sections.length + thinker.timeline.length + thinker.related.length
+
+  return (
+    <button
+      onClick={onClick}
+      className="group relative overflow-hidden rounded-xl bg-ink-700/30 border border-ink-600/40 hover:border-vermilion-500/60 transition-all hover:scale-[1.01] text-left flex flex-col"
+    >
+      {/* 顶部封面图（区域主色作为网络失败占位） */}
+      <div
+        aria-hidden
+        className="relative w-full h-28 bg-cover bg-center"
+        style={{
+          backgroundColor: REGION_COLORS[thinker.region] + '60',
+          backgroundImage: `url(${cover})`,
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-900 via-ink-900/40 to-transparent" />
+        <div className="absolute bottom-2 left-3 right-3 flex items-baseline justify-between">
+          <h3 className="font-serif text-lg text-bone leading-tight">{thinker.name}</h3>
+          {thinker.westernName && (
+            <span className="text-[10px] text-ink-300 italic truncate">{thinker.westernName}</span>
+          )}
+        </div>
+      </div>
+
+      {/* 主体 */}
+      <div className="p-3 flex-1 flex flex-col">
+        <div className="flex items-center gap-2 mb-2">
+          <span
+            className="text-[10px] px-1.5 py-0.5 rounded border"
+            style={{
+              color: REGION_COLORS[thinker.region],
+              borderColor: REGION_COLORS[thinker.region] + '60',
+              background: REGION_COLORS[thinker.region] + '10',
+            }}
+          >
+            {REGION_LABELS[thinker.region]}
+          </span>
+          <span className="text-[10px] text-vermilion-300">📅 {thinker.era}</span>
+        </div>
+        <div className="text-xs text-bronze-400 mb-2">🏛 {thinker.school}</div>
+        <div className="text-sm text-parchment-50 leading-relaxed line-clamp-2 mb-2">{thinker.title}</div>
+        <div className="text-xs text-ink-300 line-clamp-2 mb-3 flex-1">{thinker.summary}</div>
+        <div className="pt-2 border-t border-ink-600/30 flex items-center justify-between">
+          <span className="text-[10px] text-ink-400">富内容 {totalModules} 模块</span>
+          <span className="text-xs text-vermilion-300 group-hover:text-vermilion-200">查看详情 →</span>
+        </div>
+      </div>
+    </button>
   )
 }
 
 // ===== 详情弹窗 =====
 function ThinkerDetail({ thinker, onClose, onSelect }: { thinker: Thinker; onClose: () => void; onSelect: (id: string) => void }) {
   const yearLabel = thinker.era
-  const imgKw = `${thinker.name} ${thinker.westernName ?? ''} portrait`
+  const imgKw = `${thinker.name} ${thinker.westernName ?? ''} portrait bust`
   const eventImg = bingImage(imgKw, 800, 450)
+  const color = REGION_COLORS[thinker.region] ?? '#9b7eb6'
 
   return (
-    <ModalShell isOpen onClose={onClose} innerStyle={{ borderColor: REGION_COLORS[thinker.region] + '60' }}>
+    <ModalShell isOpen onClose={onClose} innerStyle={{ borderColor: color + '60' }}>
       <div className="relative w-full bg-ink-900 max-w-4xl max-h-[90vh] overflow-y-auto">
         {/* 头部 */}
         <div className="relative">
           <div
             className="w-full h-64 bg-cover bg-center"
             style={{
-              backgroundColor: REGION_COLORS[thinker.region] + '60',
+              backgroundColor: color + '60',
               backgroundImage: `url(${eventImg})`,
             }}
           />
@@ -177,7 +252,8 @@ function ThinkerDetail({ thinker, onClose, onSelect }: { thinker: Thinker; onClo
               {REGION_LABELS[thinker.region]} · {thinker.school} · {yearLabel}
             </div>
             <h2 className="text-3xl font-serif leading-tight text-bone">
-              {thinker.name}{thinker.westernName && <span className="text-lg text-ink-400 ml-2">{thinker.westernName}</span>}
+              {thinker.name}
+              {thinker.westernName && <span className="text-lg text-ink-400 ml-2">{thinker.westernName}</span>}
             </h2>
           </div>
           <button
@@ -185,7 +261,9 @@ function ThinkerDetail({ thinker, onClose, onSelect }: { thinker: Thinker; onClo
             className="absolute top-3 right-3 z-20 text-parchment-50/80 hover:text-parchment-50 text-xl leading-none w-8 h-8 flex items-center justify-center rounded-lg bg-ink-900/60 hover:bg-ink-900/80 backdrop-blur"
             title="关闭 (ESC)"
             aria-label="关闭"
-          >×</button>
+          >
+            ×
+          </button>
         </div>
 
         <div className="p-6 space-y-4">
@@ -208,7 +286,9 @@ function ThinkerDetail({ thinker, onClose, onSelect }: { thinker: Thinker; onClo
                     key={i}
                     onClick={() => onSelect(r.id)}
                     className="px-3 py-1.5 rounded-lg bg-ink-700/60 hover:bg-ink-600 border border-ink-600 text-xs text-bone hover:text-vermilion-300 transition-colors"
-                  >→ {r.title}</button>
+                  >
+                    → {r.title}
+                  </button>
                 ))}
               </div>
             </div>

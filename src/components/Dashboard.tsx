@@ -30,6 +30,7 @@ import type { Era } from '@/types'
 import type { Question } from '@/types/questions'
 import EraQuickLearnModal, { type QuickEventState } from './QuickLearn/EraQuickLearnModal'
 import { Seal, GreekKeyDivider } from '@/components/ui/ChineseOrnament'
+import ThoughtsOverview from '@/components/Thoughts/ThoughtsOverview'
 
 // 🎯 性能优化：data 改用懒加载共享 loader — 不再静态 import，eras.json + events.json
 //   从主 bundle 拆出。数据未到位时 eras/events 为空数组（useCoreDataReady 检测）。
@@ -120,6 +121,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
   const [selectedQuickEvent, setSelectedQuickEvent] = useState<QuickEventState | null>(null)
   const jumpToMap = useJumpToMap()
   const [showEraList, setShowEraList] = useState(false)
+  const [showThoughts, setShowThoughts] = useState(false)
 
   const learnEra: Era | null = learnEraId ? (eras.find(e => e.id === learnEraId) ?? null) : null
   const welcomeTitleRef = useRef<HTMLDivElement | null>(null)
@@ -333,6 +335,33 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         }}
         newPathId="ladder"
       />
+
+      {/* === 15. 全思想入口（紧跟 FilmstripGallery 之后，居中容器外） === */}
+      <div className="max-w-5xl mx-auto px-6 mt-6 mb-2">
+        <div className="flex items-center gap-4 mb-3">
+          <span className="font-brush text-lg text-bone tracking-[0.4em]">思想宝库</span>
+          <div className="flex-1">
+            <GreekKeyDivider />
+          </div>
+          <span className="text-xs text-ink-400 font-brush tracking-widest">💡 引导</span>
+        </div>
+      </div>
+      <button
+        onClick={() => { audioEngine.playModalOpen(); setShowThoughts(true) }}
+        className="block w-full max-w-5xl mx-auto px-6 mb-6 group"
+      >
+        <div className="relative overflow-hidden rounded-xl border border-ink-600/40 hover:border-vermilion-500/60 transition-all hover:scale-[1.005] p-5 flex items-center gap-4 bg-ink-700/30">
+          <div className="text-4xl shrink-0">💡</div>
+          <div className="flex-1 text-left">
+            <div className="flex items-baseline gap-2">
+              <span className="font-brush text-xl text-vermilion-300 tracking-wide">全思想</span>
+              <span className="text-xs text-ink-400">集中收集整理全人类的思想精华</span>
+            </div>
+            <div className="text-xs text-ink-300 mt-1">老子 · 庄子 · 孔子 · 苏格拉底 · 柏拉图 · 释迦牟尼 · 亚里士多德 · 笛卡尔 · 康德 · 黑格尔 · 尼采 · 马克思 · 更多</div>
+          </div>
+          <div className="text-bronze-400 text-xs group-hover:text-vermilion-300 transition-colors">点击进入 →</div>
+        </div>
+      </button>
 
       <div className="px-4 sm:px-8 py-4">
         {/* === 3. Hero CTA（当前推荐 · 卷轴式） === */}
@@ -564,6 +593,14 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
         prevEra={prevLearnEra}
         nextEra={nextLearnEra}
       />
+
+      {/* 💡 全思想 Modal */}
+      {showThoughts && (
+        <ThoughtsOverview
+          isActive={showThoughts}
+          onClose={() => { audioEngine.playModalClose(); setShowThoughts(false) }}
+        />
+      )}
     </div>
   )
 }

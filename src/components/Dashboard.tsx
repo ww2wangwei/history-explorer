@@ -1117,11 +1117,12 @@ function FilmstripGallery({
               }}
               aria-label={`${p.title} — ${p.desc}`}
             >
-              {/* 背景图（激活态轻微放大） */}
+              {/* 背景图（激活态轻微放大；降级色作为网络失败占位） */}
               <div
                 aria-hidden
                 className="absolute inset-0 bg-cover bg-center"
                 style={{
+                  backgroundColor: p.color + '60',
                   backgroundImage: `url(${p.imageUrl ?? bingImage(p.imageKeyword, 480, 480)})`,
                   transform: isActive ? 'scale(1.05)' : 'scale(1.2)',
                   transition: 'transform 0.7s ease',

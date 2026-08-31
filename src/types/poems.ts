@@ -102,5 +102,20 @@ export interface Poem {
   geo?: [number, number]
   /** 可选：创作地的简短标签 — 地图图钉标签用（不填则用诗题） */
   geoLabel?: string
+
+  /** 富内容字段 - 与其他 overview 板块对齐 */
+  facts?: Array<{ label: string; value: string }>
+  sections?: Array<{
+    type: 'paragraph' | 'callout' | 'list' | 'quote'
+    heading?: string
+    body?: string
+    variant?: string
+    items?: string[]
+    text?: string
+    cite?: string
+  }>
+  timeline?: Array<{ year: string; era?: string; event: string }>
+  images?: Array<{ imageKeyword: string; caption: string; credit?: string }>
+  related?: Array<{ id: string; title: string; reason: string }>
 }
 

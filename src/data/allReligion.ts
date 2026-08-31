@@ -1680,6 +1680,10 @@ export const RELIGIONS: Religion[] = [
       {
         "label": "影响",
         "value": "**影响犹太教/基督教/伊斯兰教**"
+      },
+      {
+        "label": "其他名称",
+        "value": "**拜火教（中国俗称）/ 琐罗亚斯德教 / 祆教（中文古称）**"
       }
     ],
     "sections": [
@@ -1780,6 +1784,11 @@ export const RELIGIONS: Religion[] = [
         "id": "rel-christianity",
         "title": "基督教",
         "reason": "受琐罗亚斯德教影响"
+      },
+      {
+        "id": "rel-islam",
+        "title": "伊斯兰教",
+        "reason": "取代了波斯琐罗亚斯德教"
       }
     ],
     "source": "《阿维斯塔》·《帕西人》（帕尔坦·达尔拉 2005）"
@@ -2977,6 +2986,1085 @@ export const RELIGIONS: Religion[] = [
       }
     ],
     "source": "《萨满教》（米哈伊尔·霍洛帕尔）"
+  },
+  {
+    "id": "rel-catholicism",
+    "name": "天主教",
+    "westernName": "Catholicism",
+    "category": "亚伯拉罕一神教",
+    "era": "AD 30 至今",
+    "region": "全球（罗马为中心）",
+    "founder": "耶稣 / 使徒伯多禄（首位教宗）",
+    "summary": "基督教的三大分支中最大的一支，全球信徒约 13 亿。罗马教廷为中央权威，继承使徒传统。",
+    "facts": [
+      {
+        "label": "信徒",
+        "value": "**约 13 亿**"
+      },
+      {
+        "label": "中心",
+        "value": "**梵蒂冈（罗马教廷）**"
+      },
+      {
+        "label": "核心教义",
+        "value": "**三位一体 · 七圣事 · 圣母 · 炼狱**"
+      },
+      {
+        "label": "特色",
+        "value": "**教宗无谬误（ex cathedra）**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "基督教最古老的分支",
+        "body": "天主教是基督教最早的形式，由耶稣的十二使徒之一伯多禄（彼得）创立。罗马教会宣称其主教是彼得的继承人——即教宗。1054 年东西教会大分裂，天主教和东正教正式决裂。1517 年宗教改革后，新教脱离。"
+      },
+      {
+        "type": "callout",
+        "heading": "天主教核心特征",
+        "body": "天主教区别于新教的核心：① 教宗权威；② 圣传——教会传统与《圣经》同等权威；③ 七圣事；④ 圣母崇拜；⑤ 圣徒崇拜；⑥ 炼狱。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**圣父、圣子、圣灵——三位一体**。",
+        "cite": "天主教信经"
+      },
+      {
+        "type": "list",
+        "heading": "天主教七圣事",
+        "items": [
+          "洗礼",
+          "坚振",
+          "圣体（弥撒）",
+          "告解",
+          "终傅",
+          "神品",
+          "婚配"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 30",
+        "era": "耶稣",
+        "event": "耶稣受难、复活"
+      },
+      {
+        "year": "AD 313",
+        "era": "君士坦丁",
+        "event": "**《米兰敕令》——基督教合法**"
+      },
+      {
+        "year": "AD 1054",
+        "era": "东西分裂",
+        "event": "**天主教与东正教大分裂**"
+      },
+      {
+        "year": "AD 1517",
+        "era": "宗教改革",
+        "event": "**马丁·路德 95 条论纲——新教脱离**"
+      },
+      {
+        "year": "AD 1870",
+        "era": "梵蒂冈",
+        "event": "教宗无误钦定"
+      },
+      {
+        "year": "AD 1962",
+        "era": "梵二会议",
+        "event": "现代天主教改革"
+      },
+      {
+        "year": "AD 2023",
+        "era": "现代",
+        "event": "全球 13 亿信徒"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "St Peter Basilica Vatican Rome",
+        "caption": "圣彼得大教堂——梵蒂冈",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Pope Francis Vatican",
+        "caption": "教宗方济各",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Sistine Chapel Michelangelo ceiling",
+        "caption": "西斯廷教堂天顶画",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-christianity",
+        "title": "基督教（总）",
+        "reason": "包含天主教"
+      },
+      {
+        "id": "rel-orthodoxy",
+        "title": "东正教",
+        "reason": "基督东部分支"
+      },
+      {
+        "id": "th-jesus",
+        "title": "耶稣",
+        "reason": "基督教创始人"
+      },
+      {
+        "id": "th-aquinas",
+        "title": "阿奎那",
+        "reason": "天主教哲学"
+      }
+    ],
+    "source": "《天主教教理》（天主教教廷）·《天主教史》（达尔格连）"
+  },
+  {
+    "id": "rel-orthodoxy",
+    "name": "东正教",
+    "westernName": "Orthodox Christianity",
+    "category": "亚伯拉罕一神教",
+    "era": "AD 33 至今",
+    "region": "东欧 / 俄罗斯 / 巴尔干",
+    "founder": "使徒安德烈",
+    "summary": "基督教第二大分支，全球约 2.2 亿信徒。1054 年与天主教正式分裂，保留早期教会传统。",
+    "facts": [
+      {
+        "label": "信徒",
+        "value": "**约 2.2 亿**"
+      },
+      {
+        "label": "中心",
+        "value": "**君士坦丁堡（今伊斯坦布尔）**"
+      },
+      {
+        "label": "核心教义",
+        "value": "**七次大公会议 · 神化（theosis）**"
+      },
+      {
+        "label": "影响",
+        "value": "**俄罗斯国教 · 东欧文明**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "基督教最古老的传统",
+        "body": "东正教承袭使徒传统，中心是君士坦丁堡牧首。1453 年奥斯曼帝国攻陷君士坦丁堡后，东正教中心转移到莫斯科——莫斯科成为「第三罗马」。"
+      },
+      {
+        "type": "callout",
+        "heading": "东正教核心特征",
+        "body": "东正教：① 七次大公会议——教义基础；② 神化（theosis）；③ 圣像崇拜；④ 拜占庭礼仪；⑤ 独立自主教会；⑥ 修道主义。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**神化是救赎——通过恩典与苦修与神合一**。",
+        "cite": "东正教神学"
+      },
+      {
+        "type": "list",
+        "heading": "东正教主要教会",
+        "items": [
+          "君士坦丁堡（伊斯坦布尔）",
+          "亚历山大",
+          "安提阿",
+          "耶路撒冷",
+          "莫斯科（俄罗斯）",
+          "希腊、塞尔维亚"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 33",
+        "era": "耶路撒冷",
+        "event": "五旬节——东正教起源"
+      },
+      {
+        "year": "AD 330",
+        "era": "君士坦丁",
+        "event": "君士坦丁堡建立"
+      },
+      {
+        "year": "AD 787",
+        "era": "第七次大公会议",
+        "event": "确立圣像崇拜"
+      },
+      {
+        "year": "AD 1054",
+        "era": "东西分裂",
+        "event": "**天主教与东正教大分裂**"
+      },
+      {
+        "year": "AD 1453",
+        "era": "奥斯曼帝国",
+        "event": "**君士坦丁堡陷落**"
+      },
+      {
+        "year": "AD 1458",
+        "era": "俄罗斯",
+        "event": "莫斯科自号「第三罗马」"
+      },
+      {
+        "year": "AD 1917",
+        "era": "十月革命",
+        "event": "俄罗斯东正教受迫害"
+      },
+      {
+        "year": "AD 1991",
+        "era": "苏联",
+        "event": "东正教复兴"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Hagia Sophia Istanbul Orthodox cathedral",
+        "caption": "圣索菲亚大教堂",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Russian Orthodox Church golden domes",
+        "caption": "俄罗斯东正教教堂",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Byzantine icon Orthodox",
+        "caption": "拜占庭圣像画",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-christianity",
+        "title": "基督教",
+        "reason": "包含东正教"
+      },
+      {
+        "id": "rel-catholicism",
+        "title": "天主教",
+        "reason": "东西分裂"
+      },
+      {
+        "id": "th-augustine",
+        "title": "奥古斯丁",
+        "reason": "教父哲学"
+      }
+    ],
+    "source": "《东正教简史》（梅斯基森）·《拜占庭帝国》（吉本）"
+  },
+  {
+    "id": "rel-protestantism",
+    "name": "新教",
+    "westernName": "Protestantism",
+    "category": "亚伯拉罕一神教",
+    "era": "AD 1517 至今",
+    "region": "北欧 / 美国 / 全球",
+    "founder": "马丁·路德 / 加尔文 / 亨利八世",
+    "summary": "1517 年宗教改革后从天主教分出来的基督教分支，全球约 8 亿信徒。",
+    "facts": [
+      {
+        "label": "信徒",
+        "value": "**约 8 亿**"
+      },
+      {
+        "label": "起源",
+        "value": "**AD 1517 维滕堡**"
+      },
+      {
+        "label": "创始人",
+        "value": "**马丁·路德**"
+      },
+      {
+        "label": "核心理念",
+        "value": "**唯独圣经 · 因信称义 · 唯独恩典**"
+      },
+      {
+        "label": "影响",
+        "value": "**现代民主 + 资本主义**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "宗教改革",
+        "body": "1517 年 10 月 31 日，马丁·路德发表《九十五条论纲》，反对天主教会售卖赎罪券。这引发宗教改革运动，新教从天主教分离。"
+      },
+      {
+        "type": "callout",
+        "heading": "新教五唯独",
+        "body": "新教「五唯独」：① 唯独圣经；② 唯独恩典；③ 唯独信心；④ 唯独基督；⑤ 一切荣耀归于神。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**这是我的立场，我别无选择**——马丁·路德。",
+        "cite": "沃尔姆斯帝国议会 1521"
+      },
+      {
+        "type": "list",
+        "heading": "新教主要宗派",
+        "items": [
+          "路德宗（4 亿）",
+          "加尔文宗（8 千万）",
+          "圣公会（8 千万）",
+          "浸信会（5 千万）",
+          "卫理公会（8 千万）",
+          "五旬节派（3 亿）",
+          "福音派（6 亿）"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1517",
+        "era": "维滕堡",
+        "event": "**马丁·路德发表 95 条论纲**"
+      },
+      {
+        "year": "AD 1534",
+        "era": "英格兰",
+        "event": "亨利八世建立圣公会"
+      },
+      {
+        "year": "AD 1536",
+        "era": "日内瓦",
+        "event": "加尔文《基督教要义》出版"
+      },
+      {
+        "year": "AD 1618-1648",
+        "era": "三十年战争",
+        "event": "宗教战争"
+      },
+      {
+        "year": "AD 1906",
+        "era": "美国",
+        "event": "五旬节派兴起"
+      },
+      {
+        "year": "AD 2023",
+        "era": "现代",
+        "event": "全球 8 亿信徒"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Martin Luther 95 Theses Wittenberg",
+        "caption": "马丁·路德",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Westminster Abbey Anglican London",
+        "caption": "威斯敏斯特教堂",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Calvin Geneva Reformed church",
+        "caption": "加尔文派日内瓦",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-christianity",
+        "title": "基督教",
+        "reason": "新教是分支"
+      },
+      {
+        "id": "rel-catholicism",
+        "title": "天主教",
+        "reason": "宗教改革分离"
+      },
+      {
+        "id": "rel-orthodoxy",
+        "title": "东正教",
+        "reason": "另一分支"
+      },
+      {
+        "id": "th-calvin",
+        "title": "加尔文",
+        "reason": "新教神学家"
+      }
+    ],
+    "source": "《宗教改革史》（杜兰特）·《基督教简史》（帕尔默）"
+  },
+  {
+    "id": "rel-vodun",
+    "name": "伏都教 / 沃达比教",
+    "westernName": "Vodun / Voodoo",
+    "category": "非洲传统宗教",
+    "era": "约 BC 10,000 至今",
+    "region": "西非（贝宁/多哥/尼日利亚）→ 海地/路易斯安那",
+    "summary": "源自西非约鲁巴/丰族传统宗教，全球约 6000 万信徒。海地伏都教是最著名的分支，是海地国教。",
+    "facts": [
+      {
+        "label": "信徒",
+        "value": "**约 6000 万**"
+      },
+      {
+        "label": "起源",
+        "value": "**约 BC 10,000 西非**"
+      },
+      {
+        "label": "核心人物",
+        "value": "**巫毒祭司 + 西马农（Loa）**"
+      },
+      {
+        "label": "核心教义",
+        "value": "**祖先崇拜 · 万物有灵 · 神祇附体**"
+      },
+      {
+        "label": "特色",
+        "value": "**巫毒娃娃（误解）**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "西非的万灵信仰",
+        "body": "伏都教（Vodun，字面意思是「精灵」）是西非（贝宁、多哥、加纳）的传统宗教。公元 16-19 世纪奴隶贸易把伏都教带到美洲，形成海地伏都教。海地 1804 年独立后，伏都教成为海地国教。"
+      },
+      {
+        "type": "callout",
+        "heading": "伏都教核心教义",
+        "body": "伏都教核心：① 一位至高神（Mawu-Lisa）；② 数以千计的精灵 Loa；③ 祖先崇拜；④ 灵魂附体；⑤ 萨泰里阿仪式。误解：巫毒娃娃原本是用来传递信息，并非操控。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**Loa 是连接神界与人的桥梁**。",
+        "cite": "伏都教"
+      },
+      {
+        "type": "list",
+        "heading": "伏都教主要 Loa",
+        "items": [
+          "Damballa——彩虹蛇",
+          "Shango——风暴与火神",
+          "Erzulie——爱与美之神",
+          "Legba——通向灵界的门神",
+          "Baron Samedi——死亡之神",
+          "Ogoun——战争与铁神"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 10,000",
+        "era": "西非",
+        "event": "伏都教起源"
+      },
+      {
+        "year": "AD 1500",
+        "era": "西非",
+        "event": "贝宁王国鼎盛——伏都教文化"
+      },
+      {
+        "year": "AD 1502-1804",
+        "era": "大西洋",
+        "event": "奴隶贸易——伏都教传入美洲"
+      },
+      {
+        "year": "AD 1737",
+        "era": "海地",
+        "event": "巫毒之夜——伏都教反叛"
+      },
+      {
+        "year": "AD 1791-1804",
+        "era": "海地革命",
+        "event": "伏都教祭祀鼓动奴隶革命"
+      },
+      {
+        "year": "AD 1804",
+        "era": "海地",
+        "event": "海地独立——伏都教成为国教"
+      },
+      {
+        "year": "AD 1884",
+        "era": "海地",
+        "event": "法国承认海地独立"
+      },
+      {
+        "year": "AD 2023",
+        "era": "现代",
+        "event": "全球 6000 万信徒"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Vodun ceremony West Africa",
+        "caption": "西非伏都教仪式",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Haiti Voodoo ceremony dance",
+        "caption": "海地伏都教舞蹈",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "veve Vodou Loa symbol",
+        "caption": "伏都教符号",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-yoruba",
+        "title": "约鲁巴教",
+        "reason": "伏都教源头"
+      },
+      {
+        "id": "rel-christianity",
+        "title": "天主教",
+        "reason": "伏都教受天主教影响"
+      },
+      {
+        "id": "rel-shamanism",
+        "title": "萨满教",
+        "reason": "通神实践"
+      }
+    ],
+    "source": "《海地伏都教》（梅特罗）·《伏都教历史》（汤姆森）"
+  },
+  {
+    "id": "rel-yoruba",
+    "name": "约鲁巴教",
+    "westernName": "Yoruba Religion",
+    "category": "非洲传统宗教",
+    "era": "约 BC 3000 至今",
+    "region": "西非（尼日利亚/贝宁/多哥）",
+    "summary": "西非约鲁巴族的传统宗教，约 1 亿信徒。核心：至高神 Olorun + 数以百计的 Orisa 神祇。",
+    "facts": [
+      {
+        "label": "信徒",
+        "value": "**约 1 亿**"
+      },
+      {
+        "label": "起源",
+        "value": "**约 BC 3000 西非**"
+      },
+      {
+        "label": "核心经典",
+        "value": "**口头传统（Ifá 系统）**"
+      },
+      {
+        "label": "核心教义",
+        "value": "**至高神 Olorun + Orisa 神祇**"
+      },
+      {
+        "label": "影响",
+        "value": "**伏都教源头 + 巴西 Candomblé**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "西非最大的传统宗教之一",
+        "body": "约鲁巴教是西非约鲁巴族的传统宗教，约公元前 3000 年在今尼日利亚一带形成。约鲁巴族是尼日利亚最大族群之一（5000 万人）。"
+      },
+      {
+        "type": "callout",
+        "heading": "约鲁巴教的影响",
+        "body": "约鲁巴教对世界的影响：① 伏都教源头——伏都教中大部分 Loa 来自约鲁巴 Orisa；② 影响巴西 Candomblé 和古巴 Santería；③ Ifá 占卜系统 2008 年被联合国教科文组织列为非物质文化遗产。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**Olorun 是至高，Orisa 是他的使者**——约鲁巴教。",
+        "cite": "约鲁巴教传统"
+      },
+      {
+        "type": "list",
+        "heading": "约鲁巴教主要 Orisa",
+        "items": [
+          "Obatala——创造之神",
+          "Shango——雷神与火神",
+          "Yemoja——海母神",
+          "Ogun——铁与战争神",
+          "Esu——混乱之神",
+          "Oshun——爱与甜水神"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 3000",
+        "era": "西非",
+        "event": "约鲁巴教起源"
+      },
+      {
+        "year": "AD 11 世纪",
+        "era": "约鲁巴",
+        "event": "Ifá 占卜系统成熟"
+      },
+      {
+        "year": "AD 14-19 世纪",
+        "era": "约鲁巴帝国",
+        "event": "奥约帝国鼎盛"
+      },
+      {
+        "year": "AD 16-19 世纪",
+        "era": "奴隶贸易",
+        "event": "约鲁巴宗教传入美洲"
+      },
+      {
+        "year": "AD 1835",
+        "era": "巴西",
+        "event": "Candomblé 兴起"
+      },
+      {
+        "year": "AD 2023",
+        "era": "现代",
+        "event": "全球约 1 亿信徒"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Yoruba Orisha shrine",
+        "caption": "约鲁巴 Orisa 神龛",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Shango Yoruba thunder god",
+        "caption": "Shango 雷神",
+        "credit": "Wikimedia Commons · Private Domain"
+      },
+      {
+        "imageKeyword": "Ifa divination board Nigeria",
+        "caption": "Ifá 占卜板",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-vodun",
+        "title": "伏都教",
+        "reason": "约鲁巴教的源头"
+      },
+      {
+        "id": "rel-christianity",
+        "title": "天主教",
+        "reason": "受其影响"
+      },
+      {
+        "id": "rel-islam",
+        "title": "伊斯兰教",
+        "reason": "受其影响"
+      }
+    ],
+    "source": "《约鲁巴宗教》（约翰逊）·《Ifá 占卜》（赖特）"
+  },
+  {
+    "id": "rel-sufism",
+    "name": "苏菲派",
+    "westernName": "Sufism",
+    "category": "伊斯兰神秘主义",
+    "era": "AD 7世纪 至今",
+    "region": "中东/北非/中亚/南亚",
+    "summary": "伊斯兰教的神秘主义分支，强调与真主的神秘合一。全球数亿信徒，对伊斯兰文化和艺术有深远影响。",
+    "facts": [
+      {
+        "label": "信徒",
+        "value": "**数亿**"
+      },
+      {
+        "label": "起源",
+        "value": "**AD 7世纪阿拉伯**"
+      },
+      {
+        "label": "核心理念",
+        "value": "**神秘合一 + 爱 + 旋转舞**"
+      },
+      {
+        "label": "代表",
+        "value": "**鲁米 / 阿塔尔**"
+      },
+      {
+        "label": "影响",
+        "value": "**诗歌 + 音乐 + 舞蹈**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "伊斯兰教的神秘之心",
+        "body": "苏菲派（Sufism）是伊斯兰教的神秘主义分支，7 世纪兴起于阿拉伯。「Sufi」可能源自「羊毛」（suf），因为早期苏菲派穿粗羊毛衣服苦修。苏菲派通过 dhikr（记念真主）、禁欲、冥想达到「法纳」（fana，消融在真主中）。著名苏菲大师：鲁米（13 世纪）、阿塔尔、哈拉智。"
+      },
+      {
+        "type": "callout",
+        "heading": "苏菲派的实践",
+        "body": "苏菲派主要实践：① dhikr——反复念诵真主之名；② 萨玛（Sama）——音乐、诗歌、舞蹈仪式（最著名的梅夫拉维教团旋转舞）；③ 导师制度；④ 修道院。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**你中有我，我中有你**——苏菲诗人鲁米。",
+        "cite": "鲁米《玛斯纳维》"
+      },
+      {
+        "type": "list",
+        "heading": "苏菲教团",
+        "items": [
+          "梅夫拉维教团（Mevlevi）—— 鲁米创立",
+          "卡迪里教团（Qadiriyya）——非洲",
+          "纳格什班迪教团（Naqshbandi）——中亚",
+          "契斯提教团（Chishti）——南亚"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 7世纪",
+        "era": "阿拉伯",
+        "event": "苏菲派起源"
+      },
+      {
+        "year": "AD 922",
+        "era": "巴格达",
+        "event": "哈拉智被处死——苏菲派殉道者"
+      },
+      {
+        "year": "AD 1207",
+        "era": "波斯",
+        "event": "鲁米诞生"
+      },
+      {
+        "year": "AD 1258",
+        "era": "蒙古",
+        "event": "巴格达陷落——苏菲派扩展"
+      },
+      {
+        "year": "AD 1273",
+        "era": "土耳其",
+        "event": "鲁米逝世——梅夫拉维教团"
+      },
+      {
+        "year": "AD 2023",
+        "era": "现代",
+        "event": "全球数亿信徒"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Whirling Dervishes Mevlevi Sufi",
+        "caption": "梅夫拉维旋转舞",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Rumi Persian poet Sufi",
+        "caption": "鲁米——苏菲诗人",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Sufi dhikr ceremony",
+        "caption": "苏菲 dhikr 仪式",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-islam",
+        "title": "伊斯兰教",
+        "reason": "苏菲是伊斯兰分支"
+      },
+      {
+        "id": "th-rumi",
+        "title": "鲁米",
+        "reason": "苏菲大师"
+      },
+      {
+        "id": "th-averroes",
+        "title": "阿威罗伊",
+        "reason": "伊斯兰哲学家"
+      }
+    ],
+    "source": "《鲁米诗集》·《苏菲之道》（侯赛因）"
+  },
+  {
+    "id": "rel-caodai",
+    "name": "高台教",
+    "westernName": "Cao Đài",
+    "category": "东亚新兴宗教",
+    "era": "AD 1926",
+    "region": "越南",
+    "founder": "吴文昭 / 黎文忠",
+    "summary": "1926 年越南新兴宗教，综合佛教、道教、儒教、基督教和本土信仰。全球信徒约 500 万。",
+    "facts": [
+      {
+        "label": "信徒",
+        "value": "**约 500 万**"
+      },
+      {
+        "label": "起源",
+        "value": "**AD 1926 越南西宁**"
+      },
+      {
+        "label": "创始人",
+        "value": "**吴文昭 / 黎文忠**"
+      },
+      {
+        "label": "核心教义",
+        "value": "**三教合一 · 普世宗教**"
+      },
+      {
+        "label": "特色",
+        "value": "**绣有「眼」的圣殿**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "越南的「第三种选择」",
+        "body": "高台教（Cao Đài = 「大道至高」）由越南西宁省政府公务员吴文昭、黎文忠等于 1926 年在通灵仪式上创立。他们声称与全知之神联系，获得启示。综合了佛教、道教、儒教、基督教、伊斯兰教以及伏都教元素。"
+      },
+      {
+        "type": "callout",
+        "heading": "高台教的特点",
+        "body": "高台教：① 普世主义——所有宗教都是同一真理的不同方面；② 三教合一；③ 拜「眼」——圣殿中悬挂着神圣之眼；④ 圣徒包含多元——释迦牟尼、孔子、老子、耶稣、穆罕默德、维克多·雨果、孙中山都是高台教圣人。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**大道至高，无所不在，无所不能**——高台教核心。",
+        "cite": "高台教"
+      },
+      {
+        "type": "list",
+        "heading": "高台教圣徒",
+        "items": [
+          "释迦牟尼",
+          "孔子",
+          "老子",
+          "耶稣基督",
+          "穆罕默德",
+          "维克多·雨果",
+          "孙中山",
+          "李白",
+          "关羽"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1919",
+        "era": "越南",
+        "event": "吴文昭获得通灵体验"
+      },
+      {
+        "year": "AD 1926",
+        "era": "越南西宁",
+        "event": "高台教正式成立"
+      },
+      {
+        "year": "AD 1930",
+        "era": "越南",
+        "event": "西宁圣殿落成"
+      },
+      {
+        "year": "AD 1957",
+        "era": "越南",
+        "event": "高台教鼎盛"
+      },
+      {
+        "year": "AD 1975",
+        "era": "越南统一",
+        "event": "高台教受限制"
+      },
+      {
+        "year": "AD 1980s",
+        "era": "越南",
+        "event": "高台教复兴"
+      },
+      {
+        "year": "AD 2023",
+        "era": "现代",
+        "event": "全球约 500 万信徒"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Caodai Holy See Tay Ninh Vietnam",
+        "caption": "高台教西宁圣殿",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Caodai divine eye symbol",
+        "caption": "高台教神圣之眼",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Caodai ceremony Vietnam",
+        "caption": "高台教仪式",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-buddhism",
+        "title": "佛教",
+        "reason": "高台三教之一"
+      },
+      {
+        "id": "rel-taoism",
+        "title": "道教",
+        "reason": "高台三教之一"
+      },
+      {
+        "id": "rel-catholicism",
+        "title": "天主教",
+        "reason": "影响高台"
+      }
+    ],
+    "source": "《高台教》（唐纳利）·《越南宗教史》"
+  },
+  {
+    "id": "rel-mormon",
+    "name": "摩门教 / 后期圣徒",
+    "westernName": "Mormonism / LDS",
+    "category": "新兴宗教",
+    "era": "AD 1830",
+    "region": "美国",
+    "founder": "约瑟·斯密",
+    "summary": "1830 年由约瑟·斯密创立于美国的新兴宗教，全球信徒约 1700 万。",
+    "facts": [
+      {
+        "label": "信徒",
+        "value": "**约 1700 万**"
+      },
+      {
+        "label": "起源",
+        "value": "**AD 1830 美国纽约**"
+      },
+      {
+        "label": "创始人",
+        "value": "**约瑟·斯密**"
+      },
+      {
+        "label": "核心经典",
+        "value": "**《圣经》+ 《摩尔门经》**"
+      },
+      {
+        "label": "特色",
+        "value": "**圣殿婚礼 · 不喝酒不喝茶咖啡**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "美国本土新兴宗教",
+        "body": "摩门教（正式名称「耶稣基督后期圣徒教会」）由约瑟·斯密（Joseph Smith，1805—1844）于 1830 年在美国纽约创立。斯密声称得到天使摩罗尼的启示，发现了金叶子，上面刻有古代美洲居民的记录，被翻译为《摩尔门经》。"
+      },
+      {
+        "type": "callout",
+        "heading": "摩门教核心教义",
+        "body": "摩门教核心：① 《摩尔门经》——与《圣经》并列的圣典；② 圣殿——通过圣殿仪式（包括代替死者洗礼、圣殿婚礼）获得救恩；③ 永恒家庭——婚姻在死后仍延续；④ 普世救恩；⑤ 健康律法（智慧语）——不饮酒、不抽烟、不喝茶和咖啡。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**我们相信所有被救赎的人……都将永远与家人在一起**。",
+        "cite": "摩门教《家庭宣言》"
+      },
+      {
+        "type": "list",
+        "heading": "摩门教重要概念",
+        "items": [
+          "《摩尔门经》",
+          "圣殿仪式",
+          "永恒家庭",
+          "活的先知",
+          "智慧语",
+          "十一奉献"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1805",
+        "era": "美国",
+        "event": "约瑟·斯密诞生"
+      },
+      {
+        "year": "AD 1820",
+        "era": "美国",
+        "event": "第一次异象——神的显现"
+      },
+      {
+        "year": "AD 1827",
+        "era": "美国",
+        "event": "金叶子出土"
+      },
+      {
+        "year": "AD 1830",
+        "era": "纽约",
+        "event": "摩门教正式成立"
+      },
+      {
+        "year": "AD 1844",
+        "era": "美国",
+        "event": "约瑟·斯密遇害"
+      },
+      {
+        "year": "AD 1846-1847",
+        "era": "美国",
+        "event": "杨百翰率众西迁——盐湖城"
+      },
+      {
+        "year": "AD 1847",
+        "era": "美国",
+        "event": "抵达犹他州——摩门教新总部"
+      },
+      {
+        "year": "AD 1890",
+        "era": "美国",
+        "event": "废除一夫多妻"
+      },
+      {
+        "year": "AD 2023",
+        "era": "现代",
+        "event": "全球 1700 万信徒"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Salt Lake Temple Mormon Utah",
+        "caption": "盐湖城圣殿（摩门教）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Joseph Smith Mormon founder",
+        "caption": "约瑟·斯密",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Book of Mormon Golden Plates",
+        "caption": "《摩尔门经》",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "rel-christianity",
+        "title": "基督教",
+        "reason": "摩门教源头"
+      },
+      {
+        "id": "rel-catholicism",
+        "title": "天主教",
+        "reason": "对摩门教的反对"
+      },
+      {
+        "id": "rel-protestantism",
+        "title": "新教",
+        "reason": "对摩门教的反对"
+      }
+    ],
+    "source": "《摩尔门经》（约瑟·斯密译）·《摩门教史》（布赫里格）"
   }
 ]
 
@@ -2987,6 +4075,7 @@ export const RELIGION_CATEGORIES = [
   { id: 'east-asian', label: '东亚宗教', color: '#d4a85b' },
   { id: 'emerging', label: '新兴宗教', color: '#9b7eb6' },
   { id: 'ancient', label: '古代宗教', color: '#b88e54' },
+  { id: 'african', label: '非洲传统', color: '#c8985a' },
   { id: 'other', label: '其他', color: '#5bc89a' },
 ] as const
 

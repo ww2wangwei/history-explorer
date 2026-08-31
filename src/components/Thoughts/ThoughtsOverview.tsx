@@ -117,7 +117,12 @@ export default function ThoughtsOverview({ isActive, onClose }: Props) {
   )
 
   return (
-    <>
+    <ModalShell
+      isOpen={isActive}
+      onClose={onClose}
+      innerClassName="!max-w-6xl !w-full !bg-ink-900 !border-vermilion-500/40"
+      ariaLabel="全思想"
+    >
       <OverviewLayout
         emoji="💡"
         title="全思想"
@@ -167,7 +172,7 @@ export default function ThoughtsOverview({ isActive, onClose }: Props) {
           }}
         />
       )}
-    </>
+    </ModalShell>
   )
 }
 

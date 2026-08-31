@@ -6045,6 +6045,2219 @@ export const THINKERS: Thinker[] = [
       }
     ],
     "source": "《神学大全》（阿奎那 1265-1274）·《反异教大全》（阿奎那 1259-1264）·《亚里士多德注释》· 戴维·伯格斯《西方哲学史》"
+  },
+  {
+    "id": "th-wangyangming",
+    "name": "王阳明",
+    "westernName": "Wang Yangming",
+    "region": "china",
+    "era": "AD 1472-1529",
+    "school": "心学",
+    "title": "心学集大成者，知行合一",
+    "summary": "浙江余姚人，名守仁，字伯安，号阳明子。出身书香门第，父亲王华是状元。28 岁中进士。因弹劾太监刘瑾被贬贵州龙场驿丞。在龙场悟道，提出「心即理」「知行合一」「致良知」。后平定宁王朱宸濠之乱，封新建伯。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**AD 1472—1529**（享年 57）"
+      },
+      {
+        "label": "国籍",
+        "value": "**明朝浙江余姚**"
+      },
+      {
+        "label": "姓名",
+        "value": "**名守仁，字伯安**（因筑室阳明洞，自号阳明子）"
+      },
+      {
+        "label": "进士",
+        "value": "**28 岁中进士（1499）**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《传习录》《大学问》《王阳明全集》**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**心即理 · 知行合一 · 致良知**"
+      },
+      {
+        "label": "地位",
+        "value": "**心学集大成者 · 与朱熹理学并立**"
+      },
+      {
+        "label": "教育",
+        "value": "**曾在龙冈书院、稽山书院、阳明书院讲学**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响东亚 500 年 · 影响日本明治维新**"
+      },
+      {
+        "label": "事迹",
+        "value": "**平定宁王朱宸濠之乱，封新建伯**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：龙场悟道的传奇",
+        "body": "王阳明出身书香门第，父亲王华是成化十七年（1481）状元。28 岁中进士，开始讲学。1506 年因弹劾太监刘瑾，被廷杖 40 后贬到贵州龙场驿丞。龙场地处蛮荒，瘴气丛生，王阳明生了一场大病。在生死关头，他在石棺中静坐，忽然大悟：「圣人之道，吾性自足，向之求理于事物者误也。」这就是著名的「龙场悟道」。"
+      },
+      {
+        "type": "callout",
+        "heading": "心学三命题——心即理·知行合一·致良知",
+        "body": "王阳明心学三大命题：① 心即理——天地万物之理都在我心中，不必外求；② 知行合一——知和行是同一件事，「未有知而不行者，知而不行只是未知」；③ 致良知——人人皆有良知（内在的道德直觉），致良知就是扩充这种直觉。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**心外无物，心外无理**。",
+        "cite": "王阳明《传习录》"
+      },
+      {
+        "type": "quote",
+        "text": "**知是行之始，行是知之成**。",
+        "cite": "王阳明《传习录》"
+      },
+      {
+        "type": "quote",
+        "text": "**此心光明，亦复何言**。——临终之言",
+        "cite": "王阳明"
+      },
+      {
+        "type": "quote",
+        "text": "**致良知**——把内心的良知推广到万事万物。",
+        "cite": "王阳明"
+      },
+      {
+        "type": "list",
+        "heading": "王阳明的影响",
+        "items": [
+          "明代心学——挑战朱熹理学权威",
+          "日本明治维新——吉田松阴等维新志士皆从王学",
+          "王学东传日本——成为明治维新思想武器",
+          "明清之际——影响黄宗羲、顾炎武、王夫之",
+          "当代——稻盛和夫（经营哲学）、曾国藩"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1472",
+        "era": "明朝",
+        "event": "王阳明生于浙江余姚，父亲王华是状元"
+      },
+      {
+        "year": "AD 1499",
+        "era": "28岁",
+        "event": "中进士，开始讲学"
+      },
+      {
+        "year": "AD 1506",
+        "era": "35岁",
+        "event": "因弹劾刘瑾被贬贵州龙场驿丞"
+      },
+      {
+        "year": "AD 1508",
+        "era": "37岁",
+        "event": "**龙场悟道**——提出心即理"
+      },
+      {
+        "year": "AD 1509",
+        "era": "38岁",
+        "event": "任贵州龙冈书院主讲"
+      },
+      {
+        "year": "AD 1510",
+        "era": "39岁",
+        "event": "提出「知行合一」"
+      },
+      {
+        "year": "AD 1519",
+        "era": "48岁",
+        "event": "**平定宁王朱宸濠之乱**——封新建伯"
+      },
+      {
+        "year": "AD 1521",
+        "era": "50岁",
+        "event": "提出「致良知」"
+      },
+      {
+        "year": "AD 1527",
+        "era": "56岁",
+        "event": "奉命平定广西思恩、田州之乱"
+      },
+      {
+        "year": "AD 1529",
+        "era": "57岁",
+        "event": "病逝于江西南安大庾岭，临终言「此心光明，亦复何言」"
+      },
+      {
+        "year": "AD 1905",
+        "era": "明代后400多年",
+        "event": "日本倒幕维新志士皆奉王学——吉田松阴、伊藤博文"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Wang Yangming Ming dynasty portrait",
+        "caption": "王阳明画像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Wang Yangming Longchang site Guizhou",
+        "caption": "龙场阳明洞",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Yangming Temple Yuyao Zhejiang",
+        "caption": "余姚王阳明故居",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Chuanxi Lu Wang Yangming book",
+        "caption": "《传习录》",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-confucius",
+        "title": "孔子",
+        "reason": "儒家学派创始人"
+      },
+      {
+        "id": "th-mencius",
+        "title": "孟子",
+        "reason": "心性论先驱"
+      },
+      {
+        "id": "th-zhuxi",
+        "title": "朱熹",
+        "reason": "理学集大成者，与阳明心学对立"
+      },
+      {
+        "id": "th-buddha",
+        "title": "释迦牟尼",
+        "reason": "禅宗影响阳明"
+      },
+      {
+        "id": "th-laozi",
+        "title": "老子",
+        "reason": "道家思想影响"
+      }
+    ],
+    "source": "《传习录》（王阳明 1527）·《王阳明全集》（吴光等编校）·《明史·王守仁传》· 钱穆《阳明学述要》· 陈来《有无之境——王阳明哲学的精神》"
+  },
+  {
+    "id": "th-zhuxi",
+    "name": "朱熹",
+    "westernName": "Zhu Xi",
+    "region": "china",
+    "era": "AD 1130-1200",
+    "school": "理学",
+    "title": "理学集大成者",
+    "summary": "南宋徽州婺源（今江西）人，出生于福建尤溪。18 岁中进士。师承李侗（二程三传弟子）。继承并发展了程颢、程颐的理学，集北宋以来理学之大成。所注《四书章句集注》成为元明清三代科举标准。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**AD 1130—1200**（享年 71）"
+      },
+      {
+        "label": "国籍",
+        "value": "**南宋**（徽州婺源，出生于福建尤溪）"
+      },
+      {
+        "label": "姓名",
+        "value": "**字元晦，号晦庵**（别号紫阳）"
+      },
+      {
+        "label": "进士",
+        "value": "**18 岁中进士（1148）**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《四书章句集注》《朱子语类》《近思录》**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**理气论 · 存天理灭人欲 · 格物致知 · 理学集大成**"
+      },
+      {
+        "label": "地位",
+        "value": "**理学集大成者 · 程朱理学创立者**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响东亚 700 年 · 元明清三代科举标准**"
+      },
+      {
+        "label": "教育",
+        "value": "**白鹿洞书院复兴 · 创办竹林精舍**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：从进士到理学大师",
+        "body": "朱熹出生于福建尤溪。父亲朱松是程颐再传弟子。18 岁中进士，但仕途不顺，先后被罢官 6 次。晚年因庆元党禁被诬为「伪学」之首，下令死后不得享祀。但他从未停止讲学和著述，先后复兴白鹿洞书院，创办竹林精舍，讲学 50 年，培养弟子数千人。1200 年去世。"
+      },
+      {
+        "type": "callout",
+        "heading": "理气论——理在气先",
+        "body": "朱熹的宇宙观：万物由「气」构成，但「理」是气的本质和规律——「理在气先」「理在气中」。社会伦理层面，他提出「存天理，灭人欲」——天理是道德的普遍法则，人欲是过度的物质欲望。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**存天理，灭人欲**。",
+        "cite": "朱熹《语类》"
+      },
+      {
+        "type": "quote",
+        "text": "**问渠那得清如许，为有源头活水来**。",
+        "cite": "朱熹《观书有感》"
+      },
+      {
+        "type": "quote",
+        "text": "**少年易老学难成，一寸光阴不可轻**。",
+        "cite": "朱熹《偶成》"
+      },
+      {
+        "type": "list",
+        "heading": "朱熹的贡献",
+        "items": [
+          "四书集注——成为科举标准",
+          "理气论——理学集大成",
+          "白鹿洞书院——复兴中国高等教育",
+          "程朱理学——与陆王心学对立",
+          "影响日本朱子学、朝鲜性理学"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1130",
+        "era": "南宋",
+        "event": "朱熹出生于福建尤溪"
+      },
+      {
+        "year": "AD 1148",
+        "era": "19岁",
+        "event": "中进士"
+      },
+      {
+        "year": "AD 1153",
+        "era": "24岁",
+        "event": "拜李侗为师（二程三传弟子）"
+      },
+      {
+        "year": "AD 1175",
+        "era": "46岁",
+        "event": "与吕祖谦合编《近思录》"
+      },
+      {
+        "year": "AD 1179",
+        "era": "50岁",
+        "event": "**重建白鹿洞书院**"
+      },
+      {
+        "year": "AD 1190",
+        "era": "61岁",
+        "event": "《四书章句集注》成书"
+      },
+      {
+        "year": "AD 1195",
+        "era": "66岁",
+        "event": "庆元党禁——理学被定为「伪学」"
+      },
+      {
+        "year": "AD 1200",
+        "era": "71岁",
+        "event": "朱熹去世"
+      },
+      {
+        "year": "AD 1227",
+        "era": "死后27年",
+        "event": "诏赐朱熹谥号「文公」"
+      },
+      {
+        "year": "AD 1313",
+        "era": "元代",
+        "event": "《四书章句集注》成为科举标准"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Zhu Xi Song dynasty portrait",
+        "caption": "朱熹画像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Bailudong Academy Jiangxi",
+        "caption": "白鹿洞书院",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Analects Zhu Xi annotations",
+        "caption": "《四书章句集注》",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Youxi County Fujian Zhu Xi birthplace",
+        "caption": "福建尤溪朱熹故居",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-confucius",
+        "title": "孔子",
+        "reason": "朱熹是儒家集大成"
+      },
+      {
+        "id": "th-wangyangming",
+        "title": "王阳明",
+        "reason": "与朱熹理学对立的心学"
+      },
+      {
+        "id": "th-mencius",
+        "title": "孟子",
+        "reason": "心性论源头"
+      },
+      {
+        "id": "th-buddha",
+        "title": "释迦牟尼",
+        "reason": "禅宗影响朱熹"
+      },
+      {
+        "id": "th-laozi",
+        "title": "老子",
+        "reason": "道家影响朱熹"
+      }
+    ],
+    "source": "《四书章句集注》（朱熹 1190）·《朱子语类》（黎靖德编）·《近思录》（朱熹/吕祖谦 1175）· 钱穆《朱子新学案》· 陈来《朱子哲学研究》"
+  },
+  {
+    "id": "th-nagarjuna",
+    "name": "龙树",
+    "westernName": "Nāgārjuna",
+    "region": "india",
+    "era": "约 BC 150-250",
+    "school": "中观学派",
+    "title": "大乘佛教中观哲学奠基者",
+    "summary": "印度大乘佛教哲学家。出生于南印度婆罗门家庭。传说曾学隐身术入王宫，后被识破。在说一切有部出家。综合部派佛教与大乘思想，创立中观学派（Madhyamaka），主张「缘起性空」「一切皆空」。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**约 BC 150—AD 250**（具体不详）"
+      },
+      {
+        "label": "国籍",
+        "value": "**南印度**"
+      },
+      {
+        "label": "出身",
+        "value": "**婆罗门家庭**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《中论》《十二门论》《大智度论》《十住毗婆沙论》**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**缘起性空 · 八不中道 · 二谛 · 空即是色**"
+      },
+      {
+        "label": "地位",
+        "value": "**大乘佛教中观哲学奠基者 · 八宗共祖**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响整个大乘佛教 2000 年**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：婆罗门出身的佛教哲学家",
+        "body": "龙树出生于南印度婆罗门家庭，年少时即精通吠陀经典和各种学问。曾与三位朋友学习隐身术，进入王宫玩乐。王妃发觉后报告国王，国王封闭宫门，龙树被朋友们抛弃。后来龙树反思世俗行为，进入一座佛教寺院出家。在出家后，他对当时部派佛教的教义不满，认为它们都不能回答根本问题。后来他到了雪山（喜马拉雅）从一位老比丘那里学到大乘经典，综合各家思想创立中观学派。"
+      },
+      {
+        "type": "callout",
+        "heading": "缘起性空——一切法的本质是空",
+        "body": "龙树的核心理论：「缘起性空」——一切现象都是因缘和合而生，没有自性（独立存在的本质），因此都是「空」。但「空」不等于「无」——「空」是说事物没有固定不变的实体，这是中道。这是大乘佛教最重要的哲学突破。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**不生亦不灭，不常亦不断，不一亦不异，不来亦不出**——八不中道。",
+        "cite": "龙树《中论》"
+      },
+      {
+        "type": "quote",
+        "text": "**众因缘生法，我说即是空**。",
+        "cite": "龙树《中论》"
+      },
+      {
+        "type": "list",
+        "heading": "龙树的核心思想",
+        "items": [
+          "缘起性空——一切皆空",
+          "八不中道——超越有/无的二元",
+          "二谛——世俗谛与胜义谛",
+          "空即是色——空不是虚无",
+          "真俗二谛统一"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 200",
+        "era": "南印度",
+        "event": "龙树生于婆罗门家庭"
+      },
+      {
+        "year": "BC 150",
+        "era": "青年",
+        "event": "出家为僧"
+      },
+      {
+        "year": "BC 100",
+        "era": "中年",
+        "event": "雪山得大乘经典"
+      },
+      {
+        "year": "BC 100-AD 100",
+        "era": "成熟",
+        "event": "创立中观学派"
+      },
+      {
+        "year": "AD 200",
+        "era": "晚年",
+        "event": "龙树去世"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Nagarjuna statue ancient Indian",
+        "caption": "龙树雕像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Madhyamaka philosophy wheel",
+        "caption": "中观学派示意图",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Prajnaparamita Sutra ancient text",
+        "caption": "般若经古本",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Nalanda University ruins ancient India",
+        "caption": "那烂陀寺遗址",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-buddha",
+        "title": "释迦牟尼",
+        "reason": "大乘佛教源头"
+      },
+      {
+        "id": "th-confucius",
+        "title": "孔子",
+        "reason": "同期东方圣哲"
+      },
+      {
+        "id": "th-laozi",
+        "title": "老子",
+        "reason": "同期东方圣哲（空与无的呼应）"
+      },
+      {
+        "id": "th-socrates",
+        "title": "苏格拉底",
+        "reason": "同期西方圣哲"
+      },
+      {
+        "id": "th-zhuangzi",
+        "title": "庄子",
+        "reason": "齐物论与缘起性空有相通处"
+      }
+    ],
+    "source": "《中论》（龙树 约 BC 100）·《十二门论》（龙树）·《大智度论》（龙树）· 印顺《印度佛教史》· 吕澂《印度佛学源流略讲》"
+  },
+  {
+    "id": "th-gandhi",
+    "name": "莫罕达斯·甘地",
+    "westernName": "Mohandas K. Gandhi",
+    "region": "india",
+    "era": "1869-1948",
+    "school": "非暴力主义",
+    "title": "圣雄甘地，非暴力不合作运动领袖",
+    "summary": "印度国父，非暴力不合作运动（satyagraha）的创立者。出生于西印度古吉拉特邦波尔班达尔。1888 年赴英国学习法律。1893 年到南非为印度侨民维权，发展出非暴力斗争方法。1915 年回印度，领导印度独立运动，1947 年印度独立。1948 年被印度教狂热分子刺杀。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**1869—1948**（享年 79）"
+      },
+      {
+        "label": "国籍",
+        "value": "**英属印度**（古吉拉特邦）"
+      },
+      {
+        "label": "职业",
+        "value": "**律师 · 政治家 · 社会活动家**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《我体验真理的故事》《印度自治》《非暴力抵抗》**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**非暴力不合作 · 真理力量 · 简朴生活**"
+      },
+      {
+        "label": "地位",
+        "value": "**印度国父 · 现代非暴力运动之父**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响马丁·路德·金、曼德拉、特蕾莎修女**"
+      },
+      {
+        "label": "死因",
+        "value": "**被印度教狂热分子刺杀**"
+      },
+      {
+        "label": "称号",
+        "value": "**圣雄甘地（Mahatma）**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：从羞涩律师到圣雄",
+        "body": "甘地出生于西印度古吉拉特邦波尔班达尔一个商人种姓（吠舍）家庭。13 岁结婚。19 岁赴英国伦敦大学学院学习法律，3 年取得律师资格，回印度后执业不顺。1893 年应印度商人之邀去南非处理一桩案件。在南非待了 21 年，他为印度侨民维权，发展出非暴力斗争的方法（satyagraha）。1915 年回印度，领导印度独立运动，发动 4 次大规模非暴力不合作运动（1919、1920、1930、1942）。1947 年印度独立，他倡导印度教与穆斯林和解。1948 年在德里参加祈祷会时被印度教狂热分子刺杀。"
+      },
+      {
+        "type": "callout",
+        "heading": "非暴力不合作——satyagraha（坚持真理）",
+        "body": "甘地的非暴力不合作运动（satyagraha，「坚持真理」）：① 绝对不伤害任何人；② 面对压迫者坚定地承受一切苦难；③ 绝不向邪恶妥协；④ 最终通过坚持真理来战胜邪恶。这是和平斗争的最高形式。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**以眼还眼，世界只会更盲目**。",
+        "cite": "甘地"
+      },
+      {
+        "type": "quote",
+        "text": "**你必须成为你希望在世界上看到的改变**。",
+        "cite": "甘地"
+      },
+      {
+        "type": "quote",
+        "text": "**我不同意你的观点，但我誓死捍卫你说话的权利**（伏尔泰思想，被甘地实践）。",
+        "cite": "甘地（实践）"
+      },
+      {
+        "type": "quote",
+        "text": "**非暴力是强者的武器**。",
+        "cite": "甘地"
+      },
+      {
+        "type": "list",
+        "heading": "甘地非暴力运动大事",
+        "items": [
+          "1906—南非非暴力抵抗运动",
+          "1919—印度阿姆利则惨案后非暴力运动",
+          "1922—印度斋浦尔纺织工人罢工",
+          "1930—食盐长征（390 公里步行）",
+          "1942—退出印度运动",
+          "1947—印度独立",
+          "1948—甘地遇刺"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "1869",
+        "era": "印度",
+        "event": "甘地生于古吉拉特邦波尔班达尔"
+      },
+      {
+        "year": "1883",
+        "era": "14岁",
+        "event": "与卡斯特巴伊结婚（13岁）"
+      },
+      {
+        "year": "1888",
+        "era": "19岁",
+        "event": "赴英国学习法律"
+      },
+      {
+        "year": "1893",
+        "era": "24岁",
+        "event": "去南非处理案件"
+      },
+      {
+        "year": "1906",
+        "era": "37岁",
+        "event": "首次提出 satyagraha（坚持真理）"
+      },
+      {
+        "year": "1915",
+        "era": "46岁",
+        "event": "回印度，开始独立运动"
+      },
+      {
+        "year": "1919",
+        "era": "50岁",
+        "event": "**阿姆利则惨案——印度非暴力抵抗开始**"
+      },
+      {
+        "year": "1930",
+        "era": "61岁",
+        "event": "**食盐长征——390 公里步行制盐**"
+      },
+      {
+        "year": "1942",
+        "era": "73岁",
+        "event": "提出「退出印度」运动"
+      },
+      {
+        "year": "1947",
+        "era": "78岁",
+        "event": "**印度独立**——印度和巴基斯坦分治"
+      },
+      {
+        "year": "1948",
+        "era": "79岁",
+        "event": "在德里被印度教狂热分子刺杀"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Mahatma Gandhi portrait 1942",
+        "caption": "甘地肖像（1942）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Gandhi spinning wheel charkha",
+        "caption": "甘地纺车——简朴生活象征",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Salt March Dandi 1930",
+        "caption": "食盐长征（1930）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Gandhi Raj Ghat memorial Delhi",
+        "caption": "甘地纪念碑（德里 Raj Ghat）",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-buddha",
+        "title": "释迦牟尼",
+        "reason": "印度精神传统先驱"
+      },
+      {
+        "id": "th-jesus",
+        "title": "耶稣",
+        "reason": "非暴力思想的西方先驱"
+      },
+      {
+        "id": "th-rousseau",
+        "title": "卢梭",
+        "reason": "平等主义思想共鸣"
+      },
+      {
+        "id": "th-martin-luther-king",
+        "title": "马丁·路德·金",
+        "reason": "甘地思想的实践者"
+      },
+      {
+        "id": "th-mandela",
+        "title": "曼德拉",
+        "reason": "受甘地非暴力思想影响"
+      }
+    ],
+    "source": "《我体验真理的故事》（甘地 1927-1949）·《印度自治》（甘地 1909）·《非暴力抵抗》（甘地）· 马丁·路德·金《从绝境到希望》"
+  },
+  {
+    "id": "th-machiavelli",
+    "name": "尼科洛·马基雅维利",
+    "westernName": "Niccolò Machiavelli",
+    "region": "europe",
+    "era": "1469-1527",
+    "school": "政治现实主义",
+    "title": "现代政治学之父",
+    "summary": "意大利政治哲学家。出生于佛罗伦萨。父亲是律师。1498-1512 年任佛罗伦萨共和国国务秘书，负责外交和军事。1512 年美第奇家族复辟，他被逮捕、拷打、流放。在流放中写下《君主论》。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**1469—1527**（享年 58）"
+      },
+      {
+        "label": "国籍",
+        "value": "**意大利佛罗伦萨**"
+      },
+      {
+        "label": "职业",
+        "value": "**政治家 · 哲学家 · 作家**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《君主论》《论战争艺术》《佛罗伦萨史》**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**目的证明手段正确 · 现实主义政治 · virtù（才干）vs fortuna（命运）**"
+      },
+      {
+        "label": "地位",
+        "value": "**现代政治学之父**"
+      },
+      {
+        "label": "影响",
+        "value": "**开创现实主义政治学传统**"
+      },
+      {
+        "label": "名言",
+        "value": "**被人畏惧比被人爱戴更安全**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：从国务秘书到流亡者",
+        "body": "马基雅维利出生于佛罗伦萨。父亲是律师，他自学拉丁文和古典著作。1498-1512 年任佛罗伦萨共和国国务秘书，负责外交和军事，曾出使法国、德国、瑞士。1512 年西班牙支持的教皇军队击败佛罗伦萨共和国，美第奇家族复辟。马基雅维利被指控阴谋反对美第奇家族，被逮捕、严刑拷打（手臂几乎折断），最终被流放到乡间小庄园。在流放中，他于 1513 年写下《君主论》献给美第奇家族以争取复职，但直到 1527 年美第奇家族倒台前，他都未能复职。"
+      },
+      {
+        "type": "callout",
+        "heading": "virtù vs fortuna——才干战胜命运",
+        "body": "马基雅维利的核心思想：virtù（才干，意大利语不同于道德的「virtue」）是君主必须具备的品质——果断、狡猾、必要时残忍。Fortuna（命运）是不可预测的。优秀的君主需要 virtù 战胜 fortuna。他提出了「目的证明手段正确」（目的论道德观）的雏形。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**被人畏惧比被人爱戴更安全**。",
+        "cite": "马基雅维利《君主论》"
+      },
+      {
+        "type": "quote",
+        "text": "**在关乎国家生存的大事上，必须排除道德考虑**。",
+        "cite": "马基雅维利《君主论》"
+      },
+      {
+        "type": "quote",
+        "text": "**狐狸识别陷阱，狮子抵御狼群**——君主必须两者兼备。",
+        "cite": "马基雅维利《君主论》"
+      },
+      {
+        "type": "list",
+        "heading": "马基雅维利核心思想",
+        "items": [
+          "政治现实主义——剥离道德谈政治",
+          "virtù（才干）——政治领导力的核心",
+          "fortuna（命运）——virtù 与其对抗",
+          "目的证明手段正确——政治手段的独立性",
+          "国家理由——国家安全高于一切"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "1469",
+        "era": "佛罗伦萨",
+        "event": "马基雅维利生于佛罗伦萨"
+      },
+      {
+        "year": "1498",
+        "era": "29岁",
+        "event": "任佛罗伦萨共和国国务秘书"
+      },
+      {
+        "year": "1499-1512",
+        "era": "成熟",
+        "event": "出使法国、德国、瑞士"
+      },
+      {
+        "year": "1512",
+        "era": "43岁",
+        "event": "美第奇家族复辟，被逮捕拷打"
+      },
+      {
+        "year": "1513",
+        "era": "44岁",
+        "event": "在流放中**撰写《君主论》**"
+      },
+      {
+        "year": "1519",
+        "era": "50岁",
+        "event": "撰写《论战争艺术》"
+      },
+      {
+        "year": "1525",
+        "era": "56岁",
+        "event": "撰写《佛罗伦萨史》"
+      },
+      {
+        "year": "1527",
+        "era": "58岁",
+        "event": "美第奇家族倒台，但几天后马基雅维利去世"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Niccolo Machiavelli portrait",
+        "caption": "马基雅维利肖像（桑蒂·迪·蒂托 16 世纪）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Prince Machiavelli book cover",
+        "caption": "《君主论》封面",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Florence Palazzo Vecchio",
+        "caption": "佛罗伦萨旧宫——马基雅维利工作地",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Medici family Florence Renaissance",
+        "caption": "美第奇家族——马基雅维利的雇主与迫害者",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-hobbes",
+        "title": "霍布斯",
+        "reason": "现实主义政治学发展者"
+      },
+      {
+        "id": "th-locke",
+        "title": "洛克",
+        "reason": "反驳马基雅维利，提出有限政府"
+      },
+      {
+        "id": "th-rousseau",
+        "title": "卢梭",
+        "reason": "社会契约论发展者"
+      },
+      {
+        "id": "th-sunzi",
+        "title": "孙子",
+        "reason": "兵家诡道思想"
+      },
+      {
+        "id": "th-hanfei",
+        "title": "韩非子",
+        "reason": "法家思想共鸣"
+      }
+    ],
+    "source": "《君主论》（马基雅维利 1513）·《论战争艺术》（马基雅维利 1519-1520）·《佛罗伦萨史》（马基雅维利 1525）· 昆廷·斯金纳《马基雅维利》"
+  },
+  {
+    "id": "th-epicurus",
+    "name": "伊壁鸠鲁",
+    "westernName": "Epicurus",
+    "region": "greece",
+    "era": "BC 341-270",
+    "school": "伊壁鸠鲁学派",
+    "title": "快乐主义哲学创始人",
+    "summary": "古希腊原子论哲学家。出生于萨摩斯岛，父亲是雅典殖民者。在米特罗帕特隆和伊兹密尔学习。公元前 306 年在雅典创立「花园」学园——招收包括妇女和奴隶在内的学生。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**BC 341—270**（享年 71）"
+      },
+      {
+        "label": "国籍",
+        "value": "**古希腊雅典**（出生于萨摩斯岛）"
+      },
+      {
+        "label": "出身",
+        "value": "**父亲是教师**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《自然论》《准则学》《论快乐》《书信集》**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**快乐主义 · 原子论 · 神的超脱 · 死亡与我们无关**"
+      },
+      {
+        "label": "地位",
+        "value": "**伊壁鸠鲁学派创始人 · 西方快乐主义之父**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响卢克莱修、边沁、密尔**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：在花园里建立乌托邦",
+        "body": "伊壁鸠鲁出生于萨摩斯岛，父亲是雅典殖民地的教师。他在米特罗帕特隆和伊兹密尔学习德谟克利特的原子论。公元前 306 年回到雅典，在雅典城外购买了一座花园，创立「花园」学园，招收学生。这里与众不同：接收妇女和奴隶（其他学派不收），生活简朴，朋友同居共餐。伊壁鸠鲁与弟子在花园里生活、讨论、著述，建立了古希腊最著名的乌托邦式社区。"
+      },
+      {
+        "type": "callout",
+        "heading": "快乐主义——至善是快乐",
+        "body": "伊壁鸠鲁的伦理观：至善是快乐（hedone）。但他强调的不是感官享受，而是「身体的无痛苦和灵魂的无纷扰」。他说：「如果一个人不知道他所追求的是什么，那么匮乏感和富足感对他来说就毫无意义。」他提出「死亡与我们无关」——死亡是原子的离散，因此不必畏惧。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**快乐是至善**。",
+        "cite": "伊壁鸠鲁《准则学》"
+      },
+      {
+        "type": "quote",
+        "text": "**死亡与我们无关——因为当我们存在时，死亡尚未来临；当死亡来临时，我们已不复存在**。",
+        "cite": "伊壁鸠鲁"
+      },
+      {
+        "type": "list",
+        "heading": "伊壁鸠鲁核心思想",
+        "items": [
+          "快乐主义——至善是快乐（无痛苦）",
+          "原子论——万物由原子构成",
+          "神的超脱——神只享福，不干预",
+          "死亡无关——不必怕死",
+          "友谊至上——朋友是最重要的"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 341",
+        "era": "古希腊",
+        "event": "伊壁鸠鲁生于萨摩斯岛"
+      },
+      {
+        "year": "BC 320",
+        "era": "21岁",
+        "event": "到雅典学习"
+      },
+      {
+        "year": "BC 306",
+        "era": "35岁",
+        "event": "**在雅典创立花园学园**"
+      },
+      {
+        "year": "BC 270",
+        "era": "71岁",
+        "event": "伊壁鸠鲁死于肾结石（疼痛但他说「快乐的」）"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Epicurus bust statue ancient Greek",
+        "caption": "伊壁鸠鲁胸像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Epicurus Garden Athens ancient",
+        "caption": "伊壁鸠鲁花园（复原图）",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Samos Island Greek ruins",
+        "caption": "萨摩斯岛——伊壁鸠鲁故乡",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Atom Epicurus ancient illustration",
+        "caption": "古希腊原子论示意图",
+        "credit": "Public Domain Illustration"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-democritus",
+        "title": "德谟克利特",
+        "reason": "原子论先驱"
+      },
+      {
+        "id": "th-aristotle",
+        "title": "亚里士多德",
+        "reason": "同期古希腊哲学家"
+      },
+      {
+        "id": "th-plato",
+        "title": "柏拉图",
+        "reason": "同期古希腊哲学家"
+      },
+      {
+        "id": "th-jesus",
+        "title": "耶稣",
+        "reason": "基督教神学吸收了伊壁鸠鲁元素"
+      },
+      {
+        "id": "th-mohammed",
+        "title": "穆罕默德",
+        "reason": "中世纪阿拉伯哲学吸收"
+      }
+    ],
+    "source": "《准则学》（伊壁鸠鲁）·《论快乐》（伊壁鸠鲁）·《物性论》（卢克莱修）· 蒙田《随笔集》（评价伊壁鸠鲁）"
+  },
+  {
+    "id": "th-diogenes",
+    "name": "第欧根尼",
+    "westernName": "Diogenes of Sinope",
+    "region": "greece",
+    "era": "BC 412-323",
+    "school": "犬儒学派",
+    "title": "古希腊最疯狂的哲学家",
+    "summary": "古希腊犬儒学派代表。出生于黑海边的辛诺普。因伪造货币被流放到雅典，遇到苏格拉底的学生安提斯泰尼，成为犬儒学派代表。传说他住在大木桶里，白天打着灯笼在街上寻找「真正的人」，曾当面告诉亚历山大大帝「请不要挡住我的阳光」。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**约 BC 412—323**（享年约 89）"
+      },
+      {
+        "label": "国籍",
+        "value": "**古希腊辛诺普**（黑海边）"
+      },
+      {
+        "label": "职业",
+        "value": "**哲学家 · 流浪汉**"
+      },
+      {
+        "label": "代表作",
+        "value": "**仅存残篇**（如《共和国》《论财富》）"
+      },
+      {
+        "label": "核心思想",
+        "value": "**犬儒主义 · 禁欲主义 · 自然生活 · 抛弃文明**"
+      },
+      {
+        "label": "地位",
+        "value": "**犬儒学派代表人物**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响斯多葛学派、嬉皮士运动**"
+      },
+      {
+        "label": "事迹",
+        "value": "**白天打着灯笼找「真正的人」**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：住在木桶里的哲学家",
+        "body": "第欧根尼出生于黑海边的辛诺普，父亲是银行家。他因伪造货币被流放到雅典。在雅典遇到苏格拉底的学生安提斯泰尼（犬儒学派创始人），成为其信徒。第欧根尼过着极简生活：住在大木桶（陶罐）里，不分昼夜在街上行走。雅典人为他颁布特殊法令——「犬儒派可以不在乎社会规范」。"
+      },
+      {
+        "type": "callout",
+        "heading": "犬儒主义——抛弃文明，按自然生活",
+        "body": "第欧根尼主张：文明的礼节和物质都是累赘。人类应该像狗一样活着——按自然本能，吃生食，住在露天，不分贵贱，不在乎社会地位。他自称为「狗」（kynikos，犬儒的来源），认为狗是最真诚的动物。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**请不要挡住我的阳光**——回应亚历山大大帝。",
+        "cite": "第欧根尼"
+      },
+      {
+        "type": "quote",
+        "text": "**白天打着灯笼寻找真正的人**。",
+        "cite": "第欧根尼（典故）"
+      },
+      {
+        "type": "list",
+        "heading": "第欧根尼核心思想",
+        "items": [
+          "犬儒主义——抛弃文明",
+          "禁欲主义——物质是累赘",
+          "自然生活——按本能活着",
+          "讽刺与嘲笑——反对虚伪",
+          "拒绝社会规范"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 412",
+        "era": "古希腊",
+        "event": "第欧根尼生于辛诺普"
+      },
+      {
+        "year": "BC 380",
+        "era": "32岁",
+        "event": "因伪造货币被流放"
+      },
+      {
+        "year": "BC 360",
+        "era": "52岁",
+        "event": "到雅典遇到安提斯泰尼"
+      },
+      {
+        "year": "BC 350",
+        "era": "62岁",
+        "event": "住在大木桶里"
+      },
+      {
+        "year": "BC 336",
+        "era": "76岁",
+        "event": "**与亚历山大大帝会面**"
+      },
+      {
+        "year": "BC 323",
+        "era": "约89岁",
+        "event": "在科林斯去世（同一天亚历山大大帝去世）"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Diogenes Cynic philosopher lantern",
+        "caption": "第欧根尼打着灯笼",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Alexander Diogenes painting",
+        "caption": "第欧根尼与亚历山大大帝",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Sinope Turkey ancient Greek",
+        "caption": "辛诺普——第欧根尼故乡",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Cynic philosophy ancient illustration",
+        "caption": "犬儒学派示意图",
+        "credit": "Public Domain Illustration"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-socrates",
+        "title": "苏格拉底",
+        "reason": "犬儒学派师承苏格拉底"
+      },
+      {
+        "id": "th-alexander",
+        "title": "亚历山大大帝",
+        "reason": "第欧根尼的对话者"
+      },
+      {
+        "id": "th-plato",
+        "title": "柏拉图",
+        "reason": "同期古希腊哲学家"
+      },
+      {
+        "id": "th-aristotle",
+        "title": "亚里士多德",
+        "reason": "同期古希腊哲学家"
+      },
+      {
+        "id": "th-laozi",
+        "title": "老子",
+        "reason": "同期东方圣哲（简朴生活）"
+      }
+    ],
+    "source": "第欧根尼·拉尔修《名哲言行录》· 卢西安《犬儒派哲学家传》·《牛津古希腊哲学辞典》"
+  },
+  {
+    "id": "th-zeno",
+    "name": "芝诺（季蒂昂的）",
+    "westernName": "Zeno of Citium",
+    "region": "greece",
+    "era": "BC 334-262",
+    "school": "斯多葛学派",
+    "title": "斯多葛学派创始人",
+    "summary": "塞浦路斯或腓尼基人。原是商人。公元前 313 年船难后在雅典听苏格拉底学生帕勒隆学派、柏拉图学园、犬儒学派。公元前 300 年在雅典创立斯多葛学派（因在「画廊」Stoa Poikile 教学而得名）。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**约 BC 334—262**（享年约 72）"
+      },
+      {
+        "label": "国籍",
+        "value": "**塞浦路斯 · 季蒂昂**（一说腓尼基）"
+      },
+      {
+        "label": "职业",
+        "value": "**商人 · 哲学家**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《共和国》（已失传）**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**顺应自然 · 逻各斯 · 命运 · 禁欲主义**"
+      },
+      {
+        "label": "地位",
+        "value": "**斯多葛学派创始人**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响罗马皇帝（奥勒留）、基督教、近代哲学**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：船难后成为哲学家",
+        "body": "芝诺出生于塞浦路斯季蒂昂（Citium），原是腓尼基商人。公元前 313 年，他在从腓尼基到雅典的海上遭遇船难，失去了所有的财产。但他在雅典听了苏格拉底学生帕勒隆学派的讲学，对哲学产生兴趣。后来他跟随犬儒学派的克拉特斯（Cratés）学习，最后创立了自己的学派——斯多葛学派。公元前 300 年，他在雅典「画廊」（Stoa Poikile，古代希腊人会众与学者的聚集地）公开讲学，因此学派得名。"
+      },
+      {
+        "type": "callout",
+        "heading": "顺应自然——与逻各斯同一",
+        "body": "斯多葛学派的核心教义：① 顺应自然（physis）生活；② 逻各斯（Logos）是宇宙的理性规律；③ 智慧的人顺应逻各斯，即顺应自然；④ 命运（heimarmene）是不可避免的因果链；⑤ 不动心（apatheia）——去除激情；⑥ 世界公民（kosmopolitēs）——超越城邦。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**顺应自然**——智慧就是顺应自然。",
+        "cite": "芝诺（残篇）"
+      },
+      {
+        "type": "quote",
+        "text": "**世界是一个国家，理性是它的法律**。",
+        "cite": "芝诺"
+      },
+      {
+        "type": "list",
+        "heading": "斯多葛学派核心思想",
+        "items": [
+          "顺应自然——与逻各斯同一",
+          "逻各斯——宇宙理性",
+          "不动心——去除激情",
+          "世界公民——超越城邦",
+          "命运——必然的因果链",
+          "德性即至善"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 334",
+        "era": "塞浦路斯",
+        "event": "芝诺生于季蒂昂"
+      },
+      {
+        "year": "BC 313",
+        "era": "21岁",
+        "event": "船难后在雅典开始学哲学"
+      },
+      {
+        "year": "BC 300",
+        "era": "34岁",
+        "event": "**在画廊创立斯多葛学派**"
+      },
+      {
+        "year": "BC 262",
+        "era": "约72岁",
+        "event": "芝诺去世"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Zeno of Citium bust statue",
+        "caption": "芝诺胸像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Stoa Poikile ancient Athens painting",
+        "caption": "画廊（Stoa Poikile）——斯多葛学派名字来源",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Citium Cyprus ancient Greek",
+        "caption": "季蒂昂——芝诺故乡",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Stoic philosophy ancient",
+        "caption": "斯多葛学派示意图",
+        "credit": "Public Domain Illustration"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-socrates",
+        "title": "苏格拉底",
+        "reason": "斯多葛学派师承苏格拉底"
+      },
+      {
+        "id": "th-heraclitus",
+        "title": "赫拉克利特",
+        "reason": "逻各斯概念先驱"
+      },
+      {
+        "id": "th-epicurus",
+        "title": "伊壁鸠鲁",
+        "reason": "斯多葛学派对手"
+      },
+      {
+        "id": "th-aristotle",
+        "title": "亚里士多德",
+        "reason": "同期古希腊哲学家"
+      },
+      {
+        "id": "th-marcus-aurelius",
+        "title": "马尔库斯·奥勒留",
+        "reason": "斯多葛学派最伟大实践者"
+      }
+    ],
+    "source": "《斯多葛学派残篇》（Long & Sedley 编）· 第欧根尼·拉尔修《名哲言行录》· 普鲁塔克《斯多葛派的矛盾》"
+  },
+  {
+    "id": "th-pythagoras",
+    "name": "毕达哥拉斯",
+    "westernName": "Pythagoras",
+    "region": "greece",
+    "era": "BC 570-495",
+    "school": "毕达哥拉斯学派",
+    "title": "数学之父，神秘主义哲学家",
+    "summary": "古希腊数学家、哲学家。出生于爱琴海萨摩斯岛。据传曾游历埃及、巴比伦、印度，学习他们的数学和神秘主义。公元前 530 年迁居意大利南部克罗顿，创立了一个宗教式的秘密社团——毕达哥拉斯学派。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**约 BC 570—495**（享年约 75）"
+      },
+      {
+        "label": "国籍",
+        "value": "**古希腊萨摩斯岛**"
+      },
+      {
+        "label": "职业",
+        "value": "**数学家 · 哲学家 · 神秘主义者**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《金诗篇》（残篇）**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**万物皆数 · 数是宇宙本原 · 灵魂轮回 · 数字神秘主义**"
+      },
+      {
+        "label": "地位",
+        "value": "**毕达哥拉斯学派创始人 · 西方数学之父**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响柏拉图、近代科学**"
+      },
+      {
+        "label": "定理",
+        "value": "**毕达哥拉斯定理（勾股定理）**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：游历与创立学派",
+        "body": "毕达哥拉斯出生于爱琴海萨摩斯岛。父亲是雕刻匠（Mnesarchus）。据传他曾游历埃及、巴比伦、印度，学习他们的数学、天文、神秘主义。公元前 530 年迁居意大利南部克罗顿（Croton），创立了一个宗教式的秘密社团——毕达哥拉斯学派。这个学派同时是宗教团体、政治团体和学术团体。他们发现了著名的「毕达哥拉斯定理」（勾股定理），但传说他们以「百牛大祭」庆祝，因为对数学的发现如同发现宇宙的真理。"
+      },
+      {
+        "type": "callout",
+        "heading": "万物皆数——数是宇宙的本质",
+        "body": "毕达哥拉斯学派的核心信条：「万物皆数」（all is number）。数是宇宙的本质和规律，1 是起点，2 是观点，3 是平面，4 是公正，5 是颜色，10 是完美（因为 10 = 1+2+3+4）。他们相信灵魂轮回（metempsychosis）——灵魂死后可以转入其他生物体内。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**万物皆数**。",
+        "cite": "毕达哥拉斯"
+      },
+      {
+        "type": "quote",
+        "text": "**数是宇宙的统治者**。",
+        "cite": "毕达哥拉斯"
+      },
+      {
+        "type": "list",
+        "heading": "毕达哥拉斯学派核心思想",
+        "items": [
+          "万物皆数——数的本体论",
+          "数的神秘主义——数字代表宇宙规律",
+          "灵魂轮回——灵魂不朽",
+          "宗教式社团——秘密政治团体",
+          "勾股定理——数学基本定理"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 570",
+        "era": "古希腊",
+        "event": "毕达哥拉斯生于萨摩斯岛"
+      },
+      {
+        "year": "BC 540",
+        "era": "30岁",
+        "event": "游历埃及、巴比伦"
+      },
+      {
+        "year": "BC 530",
+        "era": "40岁",
+        "event": "迁居克罗顿"
+      },
+      {
+        "year": "BC 530",
+        "era": "40岁",
+        "event": "**创立毕达哥拉斯学派**"
+      },
+      {
+        "year": "BC 495",
+        "era": "约75岁",
+        "event": "毕达哥拉斯去世（被刺杀或放逐）"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Pythagoras bust statue ancient Greek",
+        "caption": "毕达哥拉斯胸像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Pythagoras theorem illustration",
+        "caption": "勾股定理示意图",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Samos ancient Greek ruins",
+        "caption": "萨摩斯岛——毕达哥拉斯故乡",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Croton ancient Greek Italy",
+        "caption": "克罗顿——学派所在地",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-plato",
+        "title": "柏拉图",
+        "reason": "深受毕达哥拉斯影响"
+      },
+      {
+        "id": "th-aristotle",
+        "title": "亚里士多德",
+        "reason": "批判与继承毕达哥拉斯"
+      },
+      {
+        "id": "th-heraclitus",
+        "title": "赫拉克利特",
+        "reason": "同期古希腊哲学家"
+      },
+      {
+        "id": "th-thales",
+        "title": "泰勒斯",
+        "reason": "前辈自然哲学家"
+      },
+      {
+        "id": "th-jesus",
+        "title": "耶稣",
+        "reason": "柏拉图→基督教思想链"
+      }
+    ],
+    "source": "凯基利·凯梅尼德《毕达哥拉斯传》（约 BC 3 世纪）· 第欧根尼·拉尔修《名哲言行录》· 波菲利《毕达哥拉斯传》· 恩培里柯《数学史》"
+  },
+  {
+    "id": "th-bentham",
+    "name": "杰里米·边沁",
+    "westernName": "Jeremy Bentham",
+    "region": "europe",
+    "era": "1748-1832",
+    "school": "功利主义",
+    "title": "功利主义创始人",
+    "summary": "英国哲学家、法学家。出生于伦敦律师家庭。4 岁学拉丁文，12 岁入牛津大学。1776 年发表《政府片论》。他提出「最大多数人的最大幸福」原则，创立了功利主义（Utilitarianism），影响整个 19 世纪英国哲学和立法。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**1748—1832**（享年 84）"
+      },
+      {
+        "label": "国籍",
+        "value": "**英国伦敦**"
+      },
+      {
+        "label": "职业",
+        "value": "**哲学家 · 法学家 · 改革家**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《政府片论》《道德与立法原理导论》《论义务论》**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**最大多数人的最大幸福 · 功利原则 · 快乐计算**"
+      },
+      {
+        "label": "地位",
+        "value": "**功利主义创始人**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响英国哲学、法律改革、约翰·密尔**"
+      },
+      {
+        "label": "趣事",
+        "value": "**死后遗体被制成「自动偶像」保存在伦敦大学学院**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：住在修道院里的法律改革家",
+        "body": "边沁出生于伦敦律师家庭。父亲是富有的律师。4 岁学拉丁文，7 岁学法语，12 岁入牛津大学皇后学院，15 岁获学士学位。1769 年获硕士学位和林肯律师学院入学资格。但他对法律实务感到失望，转而研究法学理论和伦理学。1776 年发表《政府片论》驳斥布莱克斯通的《英国法释》。他一生未婚，但与弟子约翰·密尔（James Mill）建立了「哲学激进派」，主导 19 世纪英国哲学和立法。1832 年去世前，他要求遗体被解剖并保存为「自动偶像」（auto-icon）——他的骨架至今保存在伦敦大学学院。"
+      },
+      {
+        "type": "callout",
+        "heading": "最大多数人的最大幸福——功利原则",
+        "body": "边沁的功利原则：「最大多数人的最大幸福」是正确与错误的衡量标准。他提出「快乐计算」：每一种快乐的价值 = 强度 × 持续时间 × 确定性 × 邻近性 × 多产性 × 纯粹性 × 范围。他还设计了圆形监狱（panopticon），影响现代监狱设计。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**最大多数人的最大幸福**——这是正确与错误的唯一标准。",
+        "cite": "边沁《道德与立法原理导论》"
+      },
+      {
+        "type": "quote",
+        "text": "**自然把人类置于两位君主——痛苦与快乐的统治之下**。",
+        "cite": "边沁"
+      },
+      {
+        "type": "list",
+        "heading": "边沁核心思想",
+        "items": [
+          "最大多数人的最大幸福",
+          "快乐计算——量化幸福",
+          "功利主义——结果论伦理学",
+          "法典化——简化英国普通法",
+          "圆形监狱——现代监狱设计"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "1748",
+        "era": "伦敦",
+        "event": "边沁生于伦敦律师家庭"
+      },
+      {
+        "year": "1760",
+        "era": "12岁",
+        "event": "牛津大学皇后学院"
+      },
+      {
+        "year": "1776",
+        "era": "28岁",
+        "event": "**发表《政府片论》**"
+      },
+      {
+        "year": "1789",
+        "era": "41岁",
+        "event": "**发表《道德与立法原理导论》——功利主义诞生**"
+      },
+      {
+        "year": "1791",
+        "era": "43岁",
+        "event": "出版《圆形监狱》"
+      },
+      {
+        "year": "1802",
+        "era": "54岁",
+        "event": "支持奴隶制废除"
+      },
+      {
+        "year": "1832",
+        "era": "84岁",
+        "event": "边沁去世，遗体被保存"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Jeremy Bentham portrait painting",
+        "caption": "边沁肖像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Jeremy Bentham auto-icon University College",
+        "caption": "边沁的「自动偶像」——伦敦大学学院",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Panopticon Bentham prison design",
+        "caption": "边沁设计的圆形监狱（panopticon）",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Oxford University Queen's College",
+        "caption": "牛津大学皇后学院",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-adam-smith",
+        "title": "亚当·斯密",
+        "reason": "同期英国思想家"
+      },
+      {
+        "id": "th-millet",
+        "title": "约翰·密尔",
+        "reason": "边沁的门徒，功利主义发展者"
+      },
+      {
+        "id": "th-locke",
+        "title": "洛克",
+        "reason": "经验主义先驱"
+      },
+      {
+        "id": "th-marx",
+        "title": "马克思",
+        "reason": "批判功利主义"
+      },
+      {
+        "id": "th-hume",
+        "title": "休谟",
+        "reason": "情感主义伦理学先驱"
+      }
+    ],
+    "source": "《政府片论》（边沁 1776）·《道德与立法原理导论》（边沁 1789）·《圆形监狱》（边沁 1791）· 哈特《边沁法理学研究》"
+  },
+  {
+    "id": "th-mill",
+    "name": "约翰·斯图尔特·密尔",
+    "westernName": "John Stuart Mill",
+    "region": "europe",
+    "era": "1806-1873",
+    "school": "功利主义",
+    "title": "功利主义集大成者",
+    "summary": "英国哲学家、经济学家。父亲是詹姆斯·密尔（边沁弟子）。3 岁学希腊文，8 岁学拉丁文，12 岁学逻辑和经济学，13 岁已读完边沁全部著作。20 岁精神崩溃，休养 2 年。1865 年当选国会议员。1869 年发表《论自由》，捍卫个人自由。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**1806—1873**（享年 67）"
+      },
+      {
+        "label": "国籍",
+        "value": "**英国伦敦**"
+      },
+      {
+        "label": "职业",
+        "value": "**哲学家 · 经济学家 · 政治家**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《论自由》《功利主义》《论代议制政府》《妇女的屈从地位》**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**功利主义 · 自由原则 · 多元质量论**"
+      },
+      {
+        "label": "地位",
+        "value": "**功利主义集大成者**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响自由主义、政治哲学**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：从未上过学的天才",
+        "body": "密尔是詹姆斯·密尔的长子，詹姆斯·密尔是边沁的弟子。密尔从未上过任何学校——完全由父亲教育。3 岁学希腊文，8 岁学拉丁文，12 岁学逻辑和经济学，13 岁已读完边沁全部著作。他 17 岁就为大英帝国东印度公司工作，主管对印度的通信。1826 年起精神崩溃，抑郁到无法工作。他父亲那年去世，他休养 2 年才恢复。1851 年与哈丽特·泰勒结婚，她是密尔思想的合作者。1865 年当选国会议员，1869 年发表《论自由》，1873 年去世。"
+      },
+      {
+        "type": "callout",
+        "heading": "自由原则——唯一为他人福利所限制",
+        "body": "密尔的自由原则：「唯一为他人福利所限制的个人自由——每个人是他自己身体的最高主权者。」他辩护：① 言论自由绝对不能压制；② 个人的行为只要不伤害他人，国家不应干预；③ 思想自由和讨论自由是人类幸福的基石。他还改进边沁的功利主义，区分「快乐的质」与「量」——做一个不满足的人胜过做一只满足的猪。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**做一个不满足的人，胜过做一只满足的猪**；做不满足的苏格拉底，胜过做满足的傻瓜。",
+        "cite": "密尔《功利主义》"
+      },
+      {
+        "type": "quote",
+        "text": "**如果整个人类只有一种意见，而只有一个人持有相反意见——那么压制这一意见并不比这一意见本身更合理**。",
+        "cite": "密尔《论自由》"
+      },
+      {
+        "type": "list",
+        "heading": "密尔核心思想",
+        "items": [
+          "自由原则——个人自由的边界",
+          "质量与数量——快乐的层次",
+          "功利主义——结果论伦理学",
+          "代议制政府——民主理论",
+          "女权——妇女应与男性平等"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "1806",
+        "era": "伦敦",
+        "event": "密尔生于伦敦，3岁学希腊文"
+      },
+      {
+        "year": "1823",
+        "era": "17岁",
+        "event": "进入东印度公司工作"
+      },
+      {
+        "year": "1826",
+        "era": "20岁",
+        "event": "精神崩溃，休养 2 年"
+      },
+      {
+        "year": "1851",
+        "era": "45岁",
+        "event": "与哈丽特·泰勒结婚"
+      },
+      {
+        "year": "1859",
+        "era": "53岁",
+        "event": "**发表《论自由》**——自由主义经典"
+      },
+      {
+        "year": "1863",
+        "era": "57岁",
+        "event": "发表《功利主义》"
+      },
+      {
+        "year": "1869",
+        "era": "63岁",
+        "event": "发表《妇女的屈从地位》"
+      },
+      {
+        "year": "1865-1868",
+        "era": "59-62岁",
+        "event": "任国会议员"
+      },
+      {
+        "year": "1873",
+        "era": "67岁",
+        "event": "密尔去世"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "John Stuart Mill portrait painting",
+        "caption": "密尔肖像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Library Mill philosophy study",
+        "caption": "密尔的书房",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "British Parliament Westminster",
+        "caption": "英国国会——密尔议员地",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Liberty Mill book cover",
+        "caption": "《论自由》封面",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-bentham",
+        "title": "边沁",
+        "reason": "功利主义创始人"
+      },
+      {
+        "id": "th-adam-smith",
+        "title": "亚当·斯密",
+        "reason": "同期英国思想家"
+      },
+      {
+        "id": "th-rousseau",
+        "title": "卢梭",
+        "reason": "自由主义先驱"
+      },
+      {
+        "id": "th-locke",
+        "title": "洛克",
+        "reason": "自由主义奠基"
+      },
+      {
+        "id": "th-marx",
+        "title": "马克思",
+        "reason": "对功利主义的批判者"
+      }
+    ],
+    "source": "《论自由》（密尔 1859）·《功利主义》（密尔 1863）·《论代议制政府》（密尔 1861）·《妇女的屈从地位》（密尔 1869）"
+  },
+  {
+    "id": "th-marcus-aurelius",
+    "name": "马尔库斯·奥勒留",
+    "westernName": "Marcus Aurelius",
+    "region": "middle-east",
+    "era": "AD 121-180",
+    "school": "斯多葛学派",
+    "title": "哲学家皇帝，最后一位伟大的斯多葛",
+    "summary": "罗马帝国五贤帝时代最后一位皇帝，公元 161-180 年在位。同时也是斯多葛学派最重要的实践者。在多瑙河前线与蛮族作战期间写下《沉思录》——这是斯多葛哲学的精华，影响西方两千年。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**AD 121—180**（享年 58）"
+      },
+      {
+        "label": "国籍",
+        "value": "**罗马帝国**"
+      },
+      {
+        "label": "职业",
+        "value": "**罗马皇帝（161-180）· 斯多葛哲学家**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《沉思录》（Meditations）**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**斯多葛哲学 · 帝王哲学 · 内心平静**"
+      },
+      {
+        "label": "地位",
+        "value": "**五贤帝最后一位 · 斯多葛实践者**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响美国总统、军事家、哲学家**"
+      },
+      {
+        "label": "成就",
+        "value": "**统治罗马 19 年 · 与瘟疫和蛮族作战**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：皇帝哲学家的双重生活",
+        "body": "马尔库斯·奥勒留出生于罗马贵族家庭，自幼受严格的斯多葛哲学教育。12 岁开始穿斯多葛的简单服装，睡硬板床。161 年继位为罗马皇帝，与养子维鲁斯共治（161-169 年），后独自执政（169-180 年）。在位期间，罗马帝国面临三大挑战：① 东方帕提亚帝国的战争；② 多瑙河北方的马科曼尼人入侵；③ 安东尼瘟疫（疑似天花或麻疹）——造成罗马人口锐减。他在多瑙河前线作战时写下《沉思录》，原本只是私人日记，从未打算公开。"
+      },
+      {
+        "type": "callout",
+        "heading": "帝王哲学——掌握自己的内心",
+        "body": "《沉思录》是马尔库斯·奥勒留的私人日记，记录了他对斯多葛哲学的思考：「我有责任让你不被任何激情所扰——不是按我的意志，而是按普遍自然。」他反复强调：① 一切皆会过去；② 控制你所能控制的；③ 接受你所不能控制的；④ 公正、节制、勇气、智慧是至善。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**你有权力不对你的心灵做任何坏事**。",
+        "cite": "奥勒留《沉思录》"
+      },
+      {
+        "type": "quote",
+        "text": "**有史以来的一切——是幻象、是灰尘**。",
+        "cite": "奥勒留《沉思录》"
+      },
+      {
+        "type": "quote",
+        "text": "**退到你的内心——宇宙的真正价值在于你的内心**。",
+        "cite": "奥勒留《沉思录》"
+      },
+      {
+        "type": "list",
+        "heading": "奥勒留核心思想",
+        "items": [
+          "斯多葛哲学——顺应自然",
+          "内心平静——理性的堡垒",
+          "履行职责——作为皇帝的责任",
+          "爱人类——把人性当神圣",
+          "永恒与短暂——一切皆流逝"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 121",
+        "era": "罗马",
+        "event": "马尔库斯·奥勒留生于罗马"
+      },
+      {
+        "year": "AD 138",
+        "era": "17岁",
+        "event": "养父安东尼·庇护继位为皇帝"
+      },
+      {
+        "year": "AD 161",
+        "era": "40岁",
+        "event": "继位为罗马皇帝，与维鲁斯共治"
+      },
+      {
+        "year": "AD 162-166",
+        "era": "中年",
+        "event": "**东方帕提亚战争**——罗马胜利"
+      },
+      {
+        "year": "AD 166-180",
+        "era": "后期",
+        "event": "**马科曼尼战争**——奥勒留多瑙河前线"
+      },
+      {
+        "year": "AD 169",
+        "era": "48岁",
+        "event": "维鲁斯去世，独自执政"
+      },
+      {
+        "year": "AD 180",
+        "era": "59岁",
+        "event": "**奥勒留在维也纳附近去世**"
+      },
+      {
+        "year": "AD 170s",
+        "era": "多瑙河前线",
+        "event": "**撰写《沉思录》**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Marcus Aurelius equestrian statue Rome",
+        "caption": "奥勒留骑马雕像（罗马卡比托利欧）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Marcus Aurelius bust statue",
+        "caption": "奥勒留胸像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Meditations book frontispiece",
+        "caption": "《沉思录》封面",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Roman Empire Danube frontier map",
+        "caption": "罗马帝国多瑙河前线",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-zeno",
+        "title": "芝诺",
+        "reason": "斯多葛学派创始人"
+      },
+      {
+        "id": "th-epicurus",
+        "title": "伊壁鸠鲁",
+        "reason": "斯多葛学派对手"
+      },
+      {
+        "id": "th-jesus",
+        "title": "耶稣",
+        "reason": "奥勒留时期基督教诞生"
+      },
+      {
+        "id": "th-aquinas",
+        "title": "阿奎那",
+        "reason": "斯多葛学派影响中世纪基督教"
+      },
+      {
+        "id": "th-confucius",
+        "title": "孔子",
+        "reason": "斯多葛学派与儒家相通之处"
+      }
+    ],
+    "source": "《沉思录》（奥勒留 约 AD 170-180）·《罗马帝王史》（赫罗狄恩）· Cassius Dio《罗马史》· 皮埃尔·阿多《作为导师的马尔库斯·奥勒留》"
+  },
+  {
+    "id": "th-augustine",
+    "name": "奥古斯丁",
+    "westernName": "Augustine of Hippo",
+    "region": "middle-east",
+    "era": "AD 354-430",
+    "school": "教父哲学",
+    "title": "基督教教父哲学集大成者",
+    "summary": "罗马帝国北非希波主教。年轻时生活放荡，母亲是基督徒。19 岁在迦太基读书时与情人同居，生下私生子阿罗修斯。32 岁皈依基督教。37 岁任希波主教。著作《忏悔录》《上帝之城》奠定西方基督教神学。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**AD 354—430**（享年 76）"
+      },
+      {
+        "label": "国籍",
+        "value": "**罗马帝国北非（现阿尔及利亚）**"
+      },
+      {
+        "label": "职业",
+        "value": "**主教 · 哲学家 · 神学家**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《忏悔录》《上帝之城》《论三位一体》《上帝之城》**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**原罪论 · 恩典论 · 内在光照说 · 历史神学**"
+      },
+      {
+        "label": "地位",
+        "value": "**基督教教父哲学集大成者**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响西方神学 1600 年**"
+      },
+      {
+        "label": "称号",
+        "value": "**「教会博士」（Doctor Gratiae）**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：放荡才子的惊人转变",
+        "body": "奥古斯丁出生于罗马帝国北非塔加斯特（今阿尔及利亚苏格艾赫拉斯），父亲帕特里修斯是异教徒，母亲莫妮卡是虔诚基督徒。少年时在迦太基学习修辞学，19 岁与情人同居，生下私生子阿罗修斯。年轻时信奉摩尼教（一种二元宗教），接受米兰新柏拉图主义。后来母亲为他祷告 17 年。32 岁在米兰花园听到「拿起，读吧」（Tolle lege）的儿童声音，皈依基督教。37 岁任希波主教，直到去世。"
+      },
+      {
+        "type": "callout",
+        "heading": "原罪论——人类因亚当堕落",
+        "body": "奥古斯丁提出原罪论：① 亚当在伊甸园犯了罪，这种罪遗传给所有人类；② 人类靠自己无法获得救赎，必须依靠上帝的恩典；③ 上帝预定谁获救（预定论）；④ 教会有赦罪的权力。他反对贝拉基主义（人类靠自己可以无罪）。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**不公正的愤怒使灵魂失去理性**。",
+        "cite": "奥古斯丁《上帝之城》"
+      },
+      {
+        "type": "quote",
+        "text": "**我们的心永远得不到安宁，直到在你中找到安宁**。",
+        "cite": "奥古斯丁《忏悔录》"
+      },
+      {
+        "type": "quote",
+        "text": "**时间是什么？如果你不问我，我知道；如果你问我，我不知**。",
+        "cite": "奥古斯丁《忏悔录》"
+      },
+      {
+        "type": "list",
+        "heading": "奥古斯丁核心思想",
+        "items": [
+          "原罪论——亚当的罪遗传",
+          "恩典论——上帝的恩典救人",
+          "预定论——上帝预定谁获救",
+          "历史神学——上帝之城vs人间之城",
+          "内在光照说——真理在内心"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 354",
+        "era": "罗马帝国",
+        "event": "奥古斯丁生于塔加斯特（北非）"
+      },
+      {
+        "year": "AD 374",
+        "era": "20岁",
+        "event": "在迦太基学习修辞学"
+      },
+      {
+        "year": "AD 383",
+        "era": "29岁",
+        "event": "到米兰任修辞学教授"
+      },
+      {
+        "year": "AD 386",
+        "era": "32岁",
+        "event": "**皈依基督教**"
+      },
+      {
+        "year": "AD 391",
+        "era": "37岁",
+        "event": "任希波主教"
+      },
+      {
+        "year": "AD 397",
+        "era": "43岁",
+        "event": "**出版《忏悔录》**"
+      },
+      {
+        "year": "AD 413-426",
+        "era": "59-72岁",
+        "event": "撰写《上帝之城》"
+      },
+      {
+        "year": "AD 430",
+        "era": "76岁",
+        "event": "汪达尔人围城希波时，奥古斯丁去世"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Saint Augustine painting Botticelli",
+        "caption": "圣奥古斯丁（波提切利画）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Confessions Augustine frontispiece",
+        "caption": "《忏悔录》",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Hippo ruins Algeria Augustine",
+        "caption": "希波古城遗址（阿尔及利亚）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Vandals siege Hippo 430 AD",
+        "caption": "汪达尔人围城希波（AD 430）",
+        "credit": "Public Domain Illustration"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-jesus",
+        "title": "耶稣",
+        "reason": "基督教核心"
+      },
+      {
+        "id": "th-plato",
+        "title": "柏拉图",
+        "reason": "新柏拉图主义影响奥古斯丁"
+      },
+      {
+        "id": "th-aquinas",
+        "title": "阿奎那",
+        "reason": "奥古斯丁思想的继承者"
+      },
+      {
+        "id": "th-paul",
+        "title": "保罗",
+        "reason": "基督教神学先驱"
+      },
+      {
+        "id": "th-aristotle",
+        "title": "亚里士多德",
+        "reason": "通过新柏拉图主义间接影响"
+      }
+    ],
+    "source": "《忏悔录》（奥古斯丁 397）·《上帝之城》（奥古斯丁 413-426）·《论三位一体》（奥古斯丁 399-419）·《教父哲学全集》"
   }
 ]
 

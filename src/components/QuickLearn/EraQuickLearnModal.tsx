@@ -8,7 +8,7 @@
  * 关键：selectedQuickEvent 必须由父组件持有（Dashboard 里），
  * 这样 pendingReopen / 浮层 ← 按钮才能正确触发"打开快速学习 + 选中大事"。
  */
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useAIStore } from '@/store/useAIStore'
 import { useNotesStore } from '@/store/useNotesStore'
 import { useCardsStore } from '@/store/useCardsStore'
@@ -16,7 +16,7 @@ import { getTargetTitle } from '@/utils/lookups'
 import { bingImage } from '@/utils/geoImage'
 import { useJumpToMap } from '@/hooks/useJumpToMap'
 import ModalShell from '@/components/ui/Modal'
-import type { Era } from '@/types'
+import type { Era, QuickEvent, KeyFact, RichSection, TimelineEvent, TraditionImage, RelatedItem } from '@/types'
 import erasData from '@/data/eras.json'
 import eventsData from '@/data/events.json'
 import type { HistoricalEvent } from '@/types'
@@ -29,6 +29,15 @@ export interface QuickEventState {
   title: string
   desc?: string
   longDesc?: string
+  // === 富内容字段（从 QuickEvent 同步） ===
+  facts?: KeyFact[]
+  sections?: RichSection[]
+  timeline?: TimelineEvent[]
+  images?: TraditionImage[]
+  related?: RelatedItem[]
+  source?: string
+  category?: string
+  region?: Era['region']
 }
 
 interface Props {
@@ -227,6 +236,16 @@ export default function EraQuickLearnModal({
         era={era}
         event={quickEvent}
         onClose={onCloseQuickEvent}
+        onJumpToEra={(id) => {
+          // 跳转到指定朝代的快速学习
+          const targetEra = (eras as Array<{ id: string }>).find(e => e.id === id)
+          if (targetEra) {
+            // 关闭当前 quickEvent
+            onCloseQuickEvent()
+            // 通过 custom event 通知父组件切换朝代
+            window.dispatchEvent(new CustomEvent('jump-to-era', { detail: { eraId: id } }))
+          }
+        }}
       />
     </>
   )
@@ -238,9 +257,10 @@ interface QuickEventDetailProps {
   era: Era
   event: QuickEventState | null
   onClose: () => void
+  onJumpToEra?: (eraId: string) => void
 }
 
-function QuickEventDetail({ era, event, onClose }: QuickEventDetailProps) {
+function QuickEventDetail({ era, event, onClose, onJumpToEra }: QuickEventDetailProps) {
   const aiSetPersona = useAIStore(s => s.setPersonaPrompt)
   const aiNewThread = useAIStore(s => s.newThread)
   const aiOpenPanel = useAIStore(s => s.openPanel)
@@ -323,6 +343,110 @@ function QuickEventDetail({ era, event, onClose }: QuickEventDetailProps) {
           <div className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
             <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📋 一句话简介</div>
             <div className="text-sm text-vermilion-300 font-serif italic">{event.desc}</div>
+          </div>
+        )}
+
+        {/* === 富内容：facts / sections / timeline / images / related / source === */}
+        {event.facts && event.facts.length > 0 && (
+          <div>
+            <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">📊 关键事实</div>
+            <div className="grid grid-cols-2 gap-2">
+              {event.facts.map((f, i) => (
+                <div key={i} className="p-3 rounded-lg bg-ink-700/30 border border-ink-600/40">
+                  <div className="text-[10px] text-ink-300 uppercase tracking-wider mb-1">{f.label}</div>
+                  <div className="text-sm text-parchment-50" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(f.value) }} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {event.sections && event.sections.length > 0 && (
+          <div className="space-y-3">
+            {event.sections.map((s, i) => {
+              if (s.type === 'paragraph') {
+                return (
+                  <div key={i}>
+                    {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📝 {s.heading}</div>}
+                    <div className="text-sm text-parchment-50 leading-relaxed" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.body || '') }} />
+                  </div>
+                )
+              }
+              if (s.type === 'callout') {
+                return (
+                  <div key={i} className="p-3 rounded-lg bg-emerald-900/20 border border-emerald-700/40">
+                    {s.heading && <div className="text-xs text-emerald-300 uppercase tracking-wider mb-1">💡 {s.heading}</div>}
+                    <div className="text-sm text-parchment-50 leading-relaxed" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.body || '') }} />
+                  </div>
+                )
+              }
+              if (s.type === 'list') {
+                return (
+                  <div key={i}>
+                    {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📋 {s.heading}</div>}
+                    <ul className="text-sm text-parchment-50 leading-relaxed space-y-1 list-disc list-inside">
+                      {s.items?.map((it, j) => (
+                        <li key={j} dangerouslySetInnerHTML={{ __html: renderMarkdownBold(it) }} />
+                      ))}
+                    </ul>
+                  </div>
+                )
+              }
+              if (s.type === 'quote') {
+                return (
+                  <div key={i} className="p-3 rounded-lg bg-ink-700/30 border-l-4 border-vermilion-500/60">
+                    <div className="text-sm text-parchment-50 italic" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.text || '') }} />
+                    {s.cite && <div className="text-xs text-ink-300 mt-1">— {s.cite}</div>}
+                  </div>
+                )
+              }
+              return null
+            })}
+          </div>
+        )}
+
+        {event.timeline && event.timeline.length > 0 && (
+          <div>
+            <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">⏳ 时间线</div>
+            <div className="space-y-1.5">
+              {event.timeline.map((t, i) => (
+                <div key={i} className="flex gap-3 items-start text-sm">
+                  <div className="font-mono text-xs text-vermilion-300 min-w-[80px] shrink-0">{t.year}{t.era && <span className="text-ink-400"> · {t.era}</span>}</div>
+                  <div className="text-parchment-50" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(t.event) }} />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {event.related && event.related.length > 0 && (
+          <div>
+            <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">🔗 关联条目</div>
+            <div className="flex flex-wrap gap-2">
+              {event.related.map((r, i) => (
+                <button
+                  key={i}
+                  onClick={() => {
+                    if (r.id === era.id) return // 同一朝代不跳
+                    // 跳转逻辑：根据 r.id 跳转到对应朝代
+                    const targetEra = (eras as Array<{ id: string; name: string }>).find(e => e.id === r.id)
+                    if (targetEra) {
+                      onJumpToEra?.(r.id)
+                    }
+                  }}
+                  className="px-3 py-1.5 rounded-lg bg-ink-700/40 hover:bg-ink-600/60 border border-ink-600/40 text-xs text-parchment-50 hover:text-vermilion-300 transition-colors"
+                  title={r.reason}
+                >
+                  → {r.title}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {event.source && (
+          <div className="text-xs text-ink-300 leading-relaxed border-t border-ink-700/40 pt-2">
+            📚 <span dangerouslySetInnerHTML={{ __html: renderMarkdownBold(event.source) }} />
           </div>
         )}
 

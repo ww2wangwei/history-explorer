@@ -83,16 +83,90 @@ export interface Era {
   shortDesc?: string;                // 一句话简介
   /** 快速学习：3-5 个核心要点（每个一句话，覆盖政治/经济/文化/对外） */
   keyPoints?: string[]
-  /** 快速学习：关键事件列表（按时间顺序），每件 = { year, title, desc } */
-  quickEvents?: { year: number; title: string; desc: string; longDesc?: string }[]
+  /** 快速学习：关键事件列表（按时间顺序），每件 = { year, title, desc, longDesc? } */
+  quickEvents?: QuickEvent[]
   /** 快速学习：历史意义/对后世的影响（一段话） */
   legacy?: string
   /** 与前后朝代的连接（被...推翻 / 起源于... / 转型为...） */
   succession?: { predecessor?: string; successor?: string; note?: string }
+  /** 朝代级富内容（可选）：4-6 个关键事实卡 */
+  facts?: KeyFact[]
+  /** 朝代级富内容（可选）：段落/要点/引语 */
+  sections?: RichSection[]
+  /** 朝代级富内容（可选）：朝代时间线 */
+  timeline?: TimelineEvent[]
+  /** 朝代级富内容（可选）：配图 */
+  images?: TraditionImage[]
+  /** 朝代级富内容（可选）：关联朝代/事件 */
+  related?: RelatedItem[]
+  /** 朝代级富内容（可选）：典籍出处 */
+  source?: string
+}
+
+/** 快速学习事件 */
+export interface QuickEvent {
+  year: number;
+  title: string;
+  desc: string;
+  longDesc?: string;
+  /** 事件级富内容（可选）：4-6 个关键事实卡 */
+  facts?: KeyFact[]
+  /** 事件级富内容（可选）：段落/要点/引语 */
+  sections?: RichSection[]
+  /** 事件级富内容（可选）：事件时间线 */
+  timeline?: TimelineEvent[]
+  /** 事件级富内容（可选）：配图 */
+  images?: TraditionImage[]
+  /** 事件级富内容（可选）：关联事件/朝代 */
+  related?: RelatedItem[]
+  /** 事件级富内容（可选）：典籍出处 */
+  source?: string
+  /** 事件类型（政治/经济/文化/军事/科技/思想/外交） */
+  category?: string
+  /** 事件所属文明（区域） */
+  region?: EraRegion
 }
 
 // 朝代/文明区域
 export type EraRegion = 'china' | 'rome' | 'arab' | 'persia' | 'mongol' | 'britain' | 'other';
+
+// === 富内容通用类型（与 traditions.ts 共享） ===
+
+/** 结构化段落 */
+export type RichSection =
+  | { type: 'paragraph'; heading?: string; body: string }
+  | { type: 'callout'; heading?: string; body: string; variant?: 'info' | 'success' | 'warning' | 'quote' }
+  | { type: 'list'; heading?: string; items: string[] }
+  | { type: 'quote'; heading?: string; text: string; cite?: string }
+  | { type: 'table'; heading?: string; headers: string[]; rows: string[][] }
+
+/** 多图画廊 */
+export interface TraditionImage {
+  url?: string                // 优先 Wikimedia 直链
+  imageKeyword: string        // 兜底：bingImage keyword
+  caption: string             // 图片说明（用于图注）
+  credit?: string             // 来源/作者
+}
+
+/** 时间线事件 */
+export interface TimelineEvent {
+  year: string                // 如 "BC 5000" / "AD 1046" / "上古"
+  event: string               // 事件描述
+  era?: string                // 朝代补充
+}
+
+/** 关键事实（数据卡） */
+export interface KeyFact {
+  label: string               // "作者" / "年代" / "类别"
+  value: string               // "李白" / "AD 712-770"
+}
+
+/** 相关条目跳转 */
+export interface RelatedItem {
+  id: string                  // 对应某条 tradition.id 或 era.id
+  title: string
+  reason: string              // 为什么相关（用于提示）
+}
 
 // 时间范围常量
 export const TIME_RANGE = {

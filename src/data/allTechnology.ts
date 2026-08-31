@@ -1,8 +1,5 @@
 /**
  * allTechnology.ts — 全科技数据
- *
- * 整理人类发展至今最具影响力的科技创新
- * 覆盖能源/材料/通信/动力/计算等 12 个核心领域
  */
 import type { KeyFact, RichSection, TimelineEvent, TraditionImage, RelatedItem } from '@/types'
 
@@ -1787,6 +1784,1541 @@ export const TECHNOLOGIES: Technology[] = [
       }
     ],
     "source": "《弗莱明传》（安德鲁·莫耶 2009）·《抗生素的故事》（麦格雷戈 2018）·《奇迹的年代》"
+  },
+  {
+    "id": "tech-stone-tools",
+    "name": "石器",
+    "westernName": "Stone Tools",
+    "category": "材料",
+    "era": "BC 2,500,000",
+    "region": "非洲",
+    "summary": "人类最古老的工具。250 万年前奥杜瓦伊石器标志着人类起源。新石器时代的磨制石器与农业革命同时。",
+    "facts": [
+      {
+        "label": "最早石器",
+        "value": "**BC 2,500,000 奥杜瓦伊**"
+      },
+      {
+        "label": "类型",
+        "value": "**打制石器 → 磨制石器**"
+      },
+      {
+        "label": "时代",
+        "value": "**旧石器 → 新石器**"
+      },
+      {
+        "label": "意义",
+        "value": "**人类起源的标志**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "从猿到人的标志",
+        "body": "约 BC 2,500,000 年前，南方古猿/能人开始制造最简单的打制石器——奥杜瓦伊石器。约 BC 1,700,000 年，直立人出现，制造更精细的手斧。约 BC 50,000 年，智人出现。BC 10,000 年进入新石器时代，磨制石器与农业革命同时。"
+      },
+      {
+        "type": "callout",
+        "heading": "石器时代的分期",
+        "body": "① 旧石器时代（BC 2,500,000—10,000）——打制石器；② 中石器时代（BC 10,000—8,000）——弓箭发明；③ 新石器时代（BC 8,000—3,000）——磨制石器。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**工具使人类成为人类**。",
+        "cite": "古人类学共识"
+      },
+      {
+        "type": "list",
+        "heading": "石器时代大事",
+        "items": [
+          "BC 2,500,000—奥杜瓦伊石器",
+          "BC 1,700,000—阿舍利手斧",
+          "BC 50,000—狩猎采集",
+          "BC 10,000—新石器革命"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 2,500,000",
+        "era": "旧石器早期",
+        "event": "奥杜瓦伊石器"
+      },
+      {
+        "year": "BC 1,700,000",
+        "era": "旧石器早期",
+        "event": "阿舍利手斧"
+      },
+      {
+        "year": "BC 50,000",
+        "era": "旧石器晚期",
+        "event": "智人精致石器"
+      },
+      {
+        "year": "BC 10,000",
+        "era": "新石器",
+        "event": "磨制石器"
+      },
+      {
+        "year": "BC 3,000",
+        "era": "铜石并用",
+        "event": "金属时代开始"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Olduvai stone tools earliest",
+        "caption": "奥杜瓦伊石器",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Acheulean hand axe prehistoric",
+        "caption": "阿舍利手斧",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Neolithic polished stone tools",
+        "caption": "新石器磨制石器",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-fire",
+        "title": "火",
+        "reason": "石器的伙伴"
+      },
+      {
+        "id": "tech-agriculture",
+        "title": "农业",
+        "reason": "新石器革命"
+      },
+      {
+        "id": "tech-bronze",
+        "title": "青铜",
+        "reason": "石器之后"
+      }
+    ],
+    "source": "《人类简史》（赫拉利）·《考古学》（费根）"
+  },
+  {
+    "id": "tech-bronze",
+    "name": "青铜",
+    "westernName": "Bronze",
+    "category": "材料",
+    "era": "约 BC 3,300",
+    "region": "美索不达米亚",
+    "summary": "人类最早大规模使用的金属。青铜是铜与锡的合金，比纯铜更硬，开启了青铜时代（约 BC 3300—1200）。",
+    "facts": [
+      {
+        "label": "发明地",
+        "value": "**美索不达米亚**"
+      },
+      {
+        "label": "最早青铜",
+        "value": "**BC 3,300**"
+      },
+      {
+        "label": "组成",
+        "value": "**铜（88%）+ 锡（12%）**"
+      },
+      {
+        "label": "时代",
+        "value": "**BC 3,300—1,200**"
+      },
+      {
+        "label": "用途",
+        "value": "**武器/工具/礼器/钱币**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "青铜时代的开端",
+        "body": "公元前 3300 年左右，美索不达米亚的苏美尔人发明青铜——铜与锡的合金。青铜比纯铜更硬（硬度约 3 倍），更耐用，迅速取代纯铜。中国夏商周三代（约 BC 2070—256）是青铜时代的鼎盛期——河南安阳殷墟出土的司母戊鼎重 832.84 公斤。"
+      },
+      {
+        "type": "callout",
+        "heading": "青铜时代的遗产",
+        "body": "青铜在公元前 3300—1200 年塑造了早期文明：① 武器革命；② 农具革命；③ 礼器革命；④ 文字载体（金文）；⑤ 跨地区贸易。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**问鼎中原——鼎的重量象征王权**。",
+        "cite": "《左传》"
+      },
+      {
+        "type": "list",
+        "heading": "青铜时代的遗产",
+        "items": [
+          "武器革命",
+          "农具革命",
+          "礼器革命",
+          "文字载体",
+          "跨地区贸易"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 3,300",
+        "era": "苏美尔",
+        "event": "**青铜发明**"
+      },
+      {
+        "year": "BC 2,000",
+        "era": "商朝",
+        "event": "中国青铜鼎盛期"
+      },
+      {
+        "year": "BC 1,600",
+        "era": "商代",
+        "event": "**司母戊鼎**"
+      },
+      {
+        "year": "BC 1,200",
+        "era": "青铜末期",
+        "event": "铁器出现"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "铁器普及"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Bronze Age ancient weapons tools",
+        "caption": "青铜时代武器",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Simuwu Ding Shang dynasty bronze",
+        "caption": "司母戊鼎",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "ancient bronze artifacts collection",
+        "caption": "古代青铜器",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-stone-tools",
+        "title": "石器",
+        "reason": "金属之前的工具"
+      },
+      {
+        "id": "tech-iron",
+        "title": "铁器",
+        "reason": "青铜之后"
+      },
+      {
+        "id": "tech-fire",
+        "title": "火",
+        "reason": "冶炼的来源"
+      }
+    ],
+    "source": "《青铜时代》（柴尔德）·《中国青铜时代》（张光直）"
+  },
+  {
+    "id": "tech-iron",
+    "name": "铁器",
+    "westernName": "Iron",
+    "category": "材料",
+    "era": "约 BC 1,200",
+    "region": "安纳托利亚",
+    "summary": "铁器取代青铜，开启铁器时代。铁矿比铜矿、锡矿更丰富，铁器更便宜、更普及，引发农业和社会革命。",
+    "facts": [
+      {
+        "label": "起源",
+        "value": "**安纳托利亚赫梯**"
+      },
+      {
+        "label": "最早铁器",
+        "value": "**BC 1,500**"
+      },
+      {
+        "label": "普及",
+        "value": "**BC 1,200 海上民族入侵**"
+      },
+      {
+        "label": "时代",
+        "value": "**铁器时代（BC 1,200 至今）**"
+      },
+      {
+        "label": "意义",
+        "value": "**民主化 + 农业革命**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "铁器时代的开端",
+        "body": "公元前 1500 年左右，赫梯人率先冶炼出铁，但秘不外传。公元前 1200 年，海上民族入侵赫梯帝国，铁的冶炼技术传播开。铁比青铜更普遍——铁矿遍布全球；铁器更便宜，使普通农民也能拥有金属工具。这引发了农业革命——铁犁使开垦硬土成为可能。"
+      },
+      {
+        "type": "callout",
+        "heading": "铁器时代的意义",
+        "body": "铁器取代青铜是民主化革命：① 武器民主化——普通士兵可拥有铁剑；② 农具民主化——铁犁取代木犁；③ 文化革命——荷马史诗反映铁器时代；④ 中国春秋战国——铁器普及推动井田制瓦解。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**铁器时代 = 武器和农具的民主化**。",
+        "cite": "《技术与文明》"
+      },
+      {
+        "type": "list",
+        "heading": "铁器时代的遗产",
+        "items": [
+          "武器民主化",
+          "农具民主化",
+          "森林开垦",
+          "井田制瓦解",
+          "史诗时代"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1,500",
+        "era": "赫梯",
+        "event": "**铁器冶炼**"
+      },
+      {
+        "year": "BC 1,200",
+        "era": "海上民族",
+        "event": "**铁器技术扩散**"
+      },
+      {
+        "year": "BC 1,000",
+        "era": "希腊",
+        "event": "铁器普及"
+      },
+      {
+        "year": "BC 800",
+        "era": "中国西周",
+        "event": "中国开始炼铁"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋战国",
+        "event": "中国铁器普及"
+      },
+      {
+        "year": "AD 1900",
+        "era": "现代",
+        "event": "钢铁时代"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Iron Age ancient tools weapons",
+        "caption": "铁器时代工具",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Hittite iron smelting ancient",
+        "caption": "赫梯炼铁",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Iron plow agriculture ancient",
+        "caption": "铁犁",
+        "credit": "Public Domain Illustration"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-bronze",
+        "title": "青铜",
+        "reason": "铁器的前身"
+      },
+      {
+        "id": "tech-stone-tools",
+        "title": "石器",
+        "reason": "金属之前的工具"
+      },
+      {
+        "id": "tech-agriculture",
+        "title": "农业",
+        "reason": "铁器推动农业"
+      }
+    ],
+    "source": "《技术与文明》（芒福德）·《铁器时代考古》"
+  },
+  {
+    "id": "tech-wheel",
+    "name": "轮子",
+    "westernName": "Wheel",
+    "category": "交通",
+    "era": "约 BC 3,500",
+    "region": "美索不达米亚",
+    "summary": "人类最伟大的基础发明之一。最早是陶轮（BC 3500），后用于车辆（BC 3200）。轮子彻底改变了运输和制造业。",
+    "facts": [
+      {
+        "label": "发明地",
+        "value": "**美索不达米亚**"
+      },
+      {
+        "label": "最早陶轮",
+        "value": "**BC 3,500**"
+      },
+      {
+        "label": "最早车轮",
+        "value": "**BC 3,200**"
+      },
+      {
+        "label": "原理",
+        "value": "**圆周运动 → 滚动摩擦**"
+      },
+      {
+        "label": "影响",
+        "value": "**运输/工业/计时**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "从陶轮到车轮",
+        "body": "轮子的历史始于陶轮。约 BC 3,500 年，美索不达米亚的陶工发明陶轮。约 BC 3,200 年，第一辆有轮子的车辆出现——苏美尔人的战车。轮子使运输效率成倍增长。"
+      },
+      {
+        "type": "callout",
+        "heading": "轮子的革命性影响",
+        "body": "轮子不仅是交通工具的核心：① 交通——轮式车辆、火车、自行车；② 工业——齿轮、轴承、滑轮；③ 农业——水车、风车、拖拉机；④ 计时——钟表。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**轮子是人类最有效率的运动装置**。",
+        "cite": "技术史共识"
+      },
+      {
+        "type": "list",
+        "heading": "轮子的应用",
+        "items": [
+          "交通工具",
+          "工业机械",
+          "农业机械",
+          "计时钟表"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 3,500",
+        "era": "美索不达米亚",
+        "event": "**陶轮发明**"
+      },
+      {
+        "year": "BC 3,200",
+        "era": "苏美尔",
+        "event": "**第一辆有轮车**"
+      },
+      {
+        "year": "BC 2,000",
+        "era": "中亚",
+        "event": "战车普及"
+      },
+      {
+        "year": "AD 1885",
+        "era": "德国",
+        "event": "汽车发明"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "wheel invention Mesopotamia",
+        "caption": "美索不达米亚陶轮",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Sumerian war chariot ancient",
+        "caption": "苏美尔战车",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-bronze",
+        "title": "青铜",
+        "reason": "青铜时代的车"
+      },
+      {
+        "id": "tech-steam-engine",
+        "title": "蒸汽机",
+        "reason": "蒸汽时代的车"
+      }
+    ],
+    "source": "《技术与文明》（芒福德）·《轮子》（安东尼 2007）"
+  },
+  {
+    "id": "tech-automobile",
+    "name": "汽车",
+    "westernName": "Automobile",
+    "category": "交通",
+    "era": "AD 1886",
+    "region": "德国",
+    "inventor": "卡尔·本茨",
+    "summary": "1886 年德国工程师卡尔·本茨发明第一辆汽油汽车。福特 T 型车让汽车走入千家万户。",
+    "facts": [
+      {
+        "label": "第一辆汽车",
+        "value": "**1886 本茨 Patent-Motorwagen**"
+      },
+      {
+        "label": "福特 T 型车",
+        "value": "**1908**"
+      },
+      {
+        "label": "全球保有量",
+        "value": "**13 亿辆（2022）**"
+      },
+      {
+        "label": "影响",
+        "value": "**出行自由、城市化、工业化**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "从奔驰到福特",
+        "body": "1886 年德国工程师卡尔·本茨制造了第一辆汽油动力汽车——Benz Patent-Motorwagen。1908 年，亨利·福特推出 T 型车，通过流水线生产大幅降低成本，让普通工人也能买得起汽车。到 1927 年停产时，T 型车共售出 1500 万辆。"
+      },
+      {
+        "type": "callout",
+        "heading": "汽车的革命性影响",
+        "body": "汽车改变了人类社会：① 出行自由——不再依赖马匹；② 城市化——郊区化；③ 工业化——石油、汽车、公路网；④ 自由主义——个人主义消费文化兴起。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**任何颜色，只要是黑的都行**——福特 T 型车。",
+        "cite": "亨利·福特"
+      },
+      {
+        "type": "list",
+        "heading": "汽车的影响",
+        "items": [
+          "出行自由",
+          "郊区化",
+          "石油工业",
+          "公路网",
+          "消费文化"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1886",
+        "era": "德国",
+        "event": "**本茨发明第一辆汽车**"
+      },
+      {
+        "year": "AD 1908",
+        "era": "美国",
+        "event": "**福特 T 型车**"
+      },
+      {
+        "year": "AD 1913",
+        "era": "美国",
+        "event": "**福特流水线**"
+      },
+      {
+        "year": "AD 1927",
+        "era": "美国",
+        "event": "T 型车共 1500 万辆"
+      },
+      {
+        "year": "AD 2022",
+        "era": "全球",
+        "event": "13 亿辆车"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Benz Patent-Motorwagen 1886",
+        "caption": "Benz 第一辆汽车（1886）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Ford Model T assembly line",
+        "caption": "福特 T 型车流水线",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "modern electric car Tesla",
+        "caption": "电动汽车",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-wheel",
+        "title": "轮子",
+        "reason": "汽车的基础"
+      },
+      {
+        "id": "tech-steam-engine",
+        "title": "蒸汽机",
+        "reason": "蒸汽火车"
+      },
+      {
+        "id": "tech-petroleum",
+        "title": "石油",
+        "reason": "汽车动力"
+      }
+    ],
+    "source": "《车轮上的革命》（弗林克 1988）"
+  },
+  {
+    "id": "tech-airplane",
+    "name": "飞机",
+    "westernName": "Airplane",
+    "category": "交通",
+    "era": "AD 1903",
+    "region": "美国",
+    "inventor": "莱特兄弟",
+    "summary": "1903 年莱特兄弟首次实现重于空气的飞机飞行，彻底改变了人类的运输、战争和通信。",
+    "facts": [
+      {
+        "label": "首次飞行",
+        "value": "**1903.12.17 莱特兄弟**"
+      },
+      {
+        "label": "飞行时间",
+        "value": "**12 秒**"
+      },
+      {
+        "label": "飞行距离",
+        "value": "**36.5 米**"
+      },
+      {
+        "label": "全球航空乘客",
+        "value": "**40 亿（2019）**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "从莱特兄弟到喷气时代",
+        "body": "1903 年 12 月 17 日，奥维尔·莱特驾驶他和哥哥威尔伯制造的「飞行者一号」，进行了人类历史上第一次有动力、可控、持续的载人飞行——飞行 12 秒，距离 36.5 米。1969 年波音 747 出现，标志现代航空业。"
+      },
+      {
+        "type": "callout",
+        "heading": "飞机的革命性影响",
+        "body": "飞机改变了人类生活：① 全球化加速；② 旅游业兴起；③ 战争革命——空战、战略轰炸；④ 邮件与快递；⑤ 但也带来空难、噪音污染、碳排放。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**飞行不再是关于飞机，而是关于地面**——航空的根本改变。",
+        "cite": "海因里希·赫兹"
+      },
+      {
+        "type": "list",
+        "heading": "飞机的影响",
+        "items": [
+          "全球化",
+          "旅游业",
+          "战争革命",
+          "邮件快递"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1903",
+        "era": "美国",
+        "event": "**莱特兄弟首次飞行**"
+      },
+      {
+        "year": "AD 1919",
+        "era": "英国",
+        "event": "首次跨大西洋飞行"
+      },
+      {
+        "year": "AD 1935",
+        "era": "美国",
+        "event": "DC-3 商业航空革命"
+      },
+      {
+        "year": "AD 1947",
+        "era": "美国",
+        "event": "**叶格突破音障**"
+      },
+      {
+        "year": "AD 1969",
+        "era": "美国",
+        "event": "波音 747"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Wright brothers first flight 1903",
+        "caption": "莱特兄弟首次飞行",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Boeing 747 commercial airliner",
+        "caption": "波音 747",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-wheel",
+        "title": "轮子",
+        "reason": "飞机起落架"
+      },
+      {
+        "id": "tech-petroleum",
+        "title": "石油",
+        "reason": "飞机燃料"
+      },
+      {
+        "id": "tech-automobile",
+        "title": "汽车",
+        "reason": "地面交通"
+      }
+    ],
+    "source": "《莱特兄弟》（麦卡洛 1979）"
+  },
+  {
+    "id": "tech-rocket",
+    "name": "火箭",
+    "westernName": "Rocket",
+    "category": "交通",
+    "era": "AD 1926",
+    "region": "美国",
+    "inventor": "罗伯特·戈达德",
+    "summary": "中国宋代发明最早的火箭（13 世纪），1926 年戈达德发射现代火箭，1957 年苏联卫星开启太空时代。",
+    "facts": [
+      {
+        "label": "现代火箭之父",
+        "value": "**罗伯特·戈达德 1926**"
+      },
+      {
+        "label": "V-2 火箭",
+        "value": "**1942 德国**"
+      },
+      {
+        "label": "首颗人造卫星",
+        "value": "**1957 苏联**"
+      },
+      {
+        "label": "首次载人航天",
+        "value": "**1961 加加林**"
+      },
+      {
+        "label": "首次登月",
+        "value": "**1969 阿波罗11号**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "从中国火箭到月球",
+        "body": "中国宋代（约 AD 1200）是火箭的诞生地。20 世纪初，齐奥尔科夫斯基提出液体燃料火箭理论。1926 年，罗伯特·戈达德发射了世界首枚液体燃料火箭。1957 年，苏联发射斯普特尼克 1 号，开启太空时代。1961 年，加加林首次载人航天。1969 年，阿姆斯特朗登月。"
+      },
+      {
+        "type": "callout",
+        "heading": "火箭与太空时代",
+        "body": "火箭使人类能够：① 卫星——通信、导航、气象、军事；② 载人航天——ISS；③ 探月；④ 火星探测。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**地球是人类的摇篮，但人类不能永远生活在摇篮里**。",
+        "cite": "齐奥尔科夫斯基"
+      },
+      {
+        "type": "list",
+        "heading": "火箭的影响",
+        "items": [
+          "卫星",
+          "载人航天",
+          "探月",
+          "火星探测"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1200",
+        "era": "宋代",
+        "event": "中国最早火箭"
+      },
+      {
+        "year": "AD 1926",
+        "era": "美国",
+        "event": "**戈达德首枚液体火箭**"
+      },
+      {
+        "year": "AD 1942",
+        "era": "德国",
+        "event": "**V-2 火箭**"
+      },
+      {
+        "year": "AD 1957",
+        "era": "苏联",
+        "event": "**首颗人造卫星**"
+      },
+      {
+        "year": "AD 1961",
+        "era": "苏联",
+        "event": "**加加林首次载人航天**"
+      },
+      {
+        "year": "AD 1969",
+        "era": "美国",
+        "event": "**阿波罗11号登月**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Goddard first liquid rocket 1926",
+        "caption": "戈达德液体火箭（1926）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "V2 rocket Nazi Germany",
+        "caption": "V-2 火箭",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Apollo 11 moon landing 1969",
+        "caption": "阿波罗11号登月",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-gunpowder",
+        "title": "火药",
+        "reason": "中国火箭的起源"
+      },
+      {
+        "id": "tech-airplane",
+        "title": "飞机",
+        "reason": "现代航空"
+      },
+      {
+        "id": "tech-petroleum",
+        "title": "石油",
+        "reason": "现代火箭燃料"
+      }
+    ],
+    "source": "《火箭与导弹》（比辛格）"
+  },
+  {
+    "id": "tech-telegraph",
+    "name": "电报",
+    "westernName": "Telegraph",
+    "category": "通信",
+    "era": "AD 1844",
+    "region": "美国",
+    "inventor": "塞缪尔·莫尔斯",
+    "summary": "1837 年莫尔斯发明电报机，1844 年首次发送「What hath God wrought」——人类第一次以接近光速远距离传递信息。",
+    "facts": [
+      {
+        "label": "发明者",
+        "value": "**塞缪尔·莫尔斯 1837**"
+      },
+      {
+        "label": "首次实用",
+        "value": "**1844 华盛顿到巴尔的摩**"
+      },
+      {
+        "label": "原理",
+        "value": "**电磁脉冲 + 莫尔斯电码**"
+      },
+      {
+        "label": "影响",
+        "value": "**即时通讯 / 金融市场 / 战争指挥**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "即时通讯的开端",
+        "body": "1837 年，塞缪尔·莫尔斯发明电报机，并设计了莫尔斯电码。1844 年 5 月 24 日，他用这条线路从华盛顿国会大厦向巴尔的摩发送了第一条电报。1866 年，第一条跨大西洋海底电缆铺设成功。"
+      },
+      {
+        "type": "callout",
+        "heading": "电报的革命性影响",
+        "body": "电报改变了人类生活：① 即时通讯——记者可以发回即时新闻；② 金融市场——股票价格实时传递；③ 战争指挥；④ 铁路调度。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**上帝创造了何等奇迹**——第一条电报。",
+        "cite": "莫尔斯 1844"
+      },
+      {
+        "type": "list",
+        "heading": "电报的影响",
+        "items": [
+          "即时通讯",
+          "金融市场",
+          "战争指挥",
+          "铁路调度"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1837",
+        "era": "美国",
+        "event": "**莫尔斯发明电报机**"
+      },
+      {
+        "year": "AD 1844",
+        "era": "美国",
+        "event": "**第一条实用电报线路**"
+      },
+      {
+        "year": "AD 1866",
+        "era": "欧美",
+        "event": "**永久跨大西洋电缆**"
+      },
+      {
+        "year": "AD 1876",
+        "era": "美国",
+        "event": "贝尔发明电话"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Morse code telegraph 1844",
+        "caption": "莫尔斯电报机",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Morse code alphabet",
+        "caption": "莫尔斯电码表",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "transatlantic telegraph cable 1858",
+        "caption": "跨大西洋电报电缆",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-electricity",
+        "title": "电力",
+        "reason": "电报的物理基础"
+      },
+      {
+        "id": "tech-telephone",
+        "title": "电话",
+        "reason": "电报的后继"
+      },
+      {
+        "id": "tech-internet",
+        "title": "互联网",
+        "reason": "通信的延伸"
+      }
+    ],
+    "source": "《莫尔斯传》（西尔弗曼）"
+  },
+  {
+    "id": "tech-telephone",
+    "name": "电话",
+    "westernName": "Telephone",
+    "category": "通信",
+    "era": "AD 1876",
+    "region": "美国",
+    "inventor": "亚历山大·贝尔",
+    "summary": "1876 年贝尔发明电话——人类第一次远距离实时语音通讯。",
+    "facts": [
+      {
+        "label": "发明者",
+        "value": "**亚历山大·贝尔 1876**"
+      },
+      {
+        "label": "首句话",
+        "value": "**\"Mr. Watson, come here.\"**"
+      },
+      {
+        "label": "全球用户",
+        "value": "**80 亿（峰值）**"
+      },
+      {
+        "label": "智能手机",
+        "value": "**2007 iPhone**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "贝尔的电话革命",
+        "body": "1876 年 3 月 10 日，亚历山大·贝尔在波士顿用他的电报机发送了世界上第一通电话。1877 年，贝尔成立贝尔电话公司。1900 年代自动交换机的发明使电话普及。1973 年第一部移动电话（摩托罗拉）。2007 年 iPhone 发布。"
+      },
+      {
+        "type": "callout",
+        "heading": "电话的革命性影响",
+        "body": "电话改变了人类生活：① 即时通讯——远距离实时听到对方；② 商业——远程办公、客服、电话会议；③ 应急服务——110/119/120；④ 智能手机。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**Mr. Watson, come here, I want to see you.**",
+        "cite": "贝尔 第一通电话 1876"
+      },
+      {
+        "type": "list",
+        "heading": "电话的影响",
+        "items": [
+          "即时语音",
+          "商业革命",
+          "家庭联系",
+          "应急服务"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1876",
+        "era": "美国",
+        "event": "**贝尔发明电话**"
+      },
+      {
+        "year": "AD 1877",
+        "era": "美国",
+        "event": "**贝尔电话公司**"
+      },
+      {
+        "year": "AD 1892",
+        "era": "美国",
+        "event": "**自动交换机**"
+      },
+      {
+        "year": "AD 1915",
+        "era": "美国",
+        "event": "**跨美国大陆电话线**"
+      },
+      {
+        "year": "AD 1973",
+        "era": "美国",
+        "event": "**第一部移动电话**"
+      },
+      {
+        "year": "AD 2007",
+        "era": "美国",
+        "event": "**iPhone 发布**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Alexander Graham Bell first telephone",
+        "caption": "贝尔第一电话",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "early telephone 1900s",
+        "caption": "早期电话",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Apple iPhone first generation 2007",
+        "caption": "iPhone（2007）",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-telegraph",
+        "title": "电报",
+        "reason": "电话的前身"
+      },
+      {
+        "id": "tech-electricity",
+        "title": "电力",
+        "reason": "电话的物理基础"
+      },
+      {
+        "id": "tech-internet",
+        "title": "互联网",
+        "reason": "现代通讯"
+      }
+    ],
+    "source": "《贝尔传》（波伊尔 2005）"
+  },
+  {
+    "id": "tech-petroleum",
+    "name": "石油",
+    "westernName": "Petroleum",
+    "category": "能源",
+    "era": "AD 1859",
+    "region": "美国",
+    "summary": "1859 年发现第一口现代油井。石油成为工业社会的主要能源——火车、汽车、飞机、塑料。",
+    "facts": [
+      {
+        "label": "第一口现代油井",
+        "value": "**1859 美国宾州**"
+      },
+      {
+        "label": "全球石油日产量",
+        "value": "**约 1 亿桶（2022）**"
+      },
+      {
+        "label": "石油消费占比",
+        "value": "**全球能源 33%**"
+      },
+      {
+        "label": "影响",
+        "value": "**现代工业基础 + 战争 + 外交**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "黑色黄金——石油时代",
+        "body": "石油是古生物死后埋在地层里，经过几百万年的高温高压形成的碳氢化合物。1859 年美国宾州发现第一口现代油井。1880 年代内燃机发明后，石油成为内燃机的燃料。20 世纪，石油成为现代工业的命脉。"
+      },
+      {
+        "type": "callout",
+        "heading": "石油的地缘政治影响",
+        "body": "石油是 20 世纪最重要的地缘政治资源：① 一战、二战——石油是战争胜负的关键；② 中东——波斯湾油田成为大国争夺焦点；③ 1973 石油危机；④ 石油美元体系；⑤ 气候变化——燃烧化石燃料是全球变暖主因。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**石油是工业的血液**。",
+        "cite": "现代共识"
+      },
+      {
+        "type": "list",
+        "heading": "石油的影响",
+        "items": [
+          "工业燃料",
+          "塑料化工",
+          "汽车航空",
+          "地缘政治",
+          "气候变化"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1859",
+        "era": "美国",
+        "event": "**美国宾州第一口现代油井**"
+      },
+      {
+        "year": "AD 1886",
+        "era": "德国",
+        "event": "本茨发明汽车"
+      },
+      {
+        "year": "AD 1908",
+        "era": "中东",
+        "event": "**波斯发现大量石油**"
+      },
+      {
+        "year": "AD 1928",
+        "era": "中东",
+        "event": "**沙特发现石油**"
+      },
+      {
+        "year": "AD 1960",
+        "era": "中东",
+        "event": "**OPEC 成立**"
+      },
+      {
+        "year": "AD 1973",
+        "era": "全球",
+        "event": "**第一次石油危机**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "first oil well Pennsylvania 1859",
+        "caption": "宾州第一口油井（1859）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "oil refinery industrial modern",
+        "caption": "现代石油炼化厂",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Middle East oil field Persian Gulf",
+        "caption": "中东油田",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-automobile",
+        "title": "汽车",
+        "reason": "石油消耗大户"
+      },
+      {
+        "id": "tech-airplane",
+        "title": "飞机",
+        "reason": "石油燃料"
+      },
+      {
+        "id": "tech-electricity",
+        "title": "电力",
+        "reason": "发电燃料"
+      }
+    ],
+    "source": "《石油政治》（耶金 1991）"
+  },
+  {
+    "id": "tech-nuclear",
+    "name": "核能",
+    "westernName": "Nuclear Power",
+    "category": "能源",
+    "era": "AD 1942",
+    "region": "美国",
+    "summary": "1942 年费米实现人类第一次可控核反应堆。1954 年苏联建成世界第一座核电站。核能是 21 世纪主要的低碳能源之一。",
+    "facts": [
+      {
+        "label": "第一反应堆",
+        "value": "**芝加哥一号堆 1942**"
+      },
+      {
+        "label": "第一颗原子弹",
+        "value": "**1945（广岛/长崎）**"
+      },
+      {
+        "label": "第一座核电站",
+        "value": "**1954 苏联**"
+      },
+      {
+        "label": "核电占全球电力",
+        "value": "**约 10%**"
+      },
+      {
+        "label": "特点",
+        "value": "**极高能量密度 + 低碳**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "从原子弹到核电站",
+        "body": "1938 年，奥托·哈恩发现核裂变。1942 年，恩里科·费米在芝加哥大学实现了人类第一次可控核反应。1945 年，曼哈顿计划成功制造原子弹。1954 年，苏联建成世界第一座核电站。到 2020s，全球约 440 座核电站，提供全球 10% 的电力。"
+      },
+      {
+        "type": "callout",
+        "heading": "核能的希望与争议",
+        "body": "核能争议巨大：① 支持——极高能量密度（1 公斤铀 = 200 万公斤煤）、低碳、稳定；② 反对——放射性废料、核电事故（切尔诺贝利 1986、福岛 2011）、核武器扩散、退役困难。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**现在我们成了死神，世界的毁灭者**。",
+        "cite": "奥本海默 1945"
+      },
+      {
+        "type": "list",
+        "heading": "核能的影响",
+        "items": [
+          "武器",
+          "发电",
+          "医疗",
+          "工业",
+          "研究"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1938",
+        "era": "德国",
+        "event": "**核裂变发现**"
+      },
+      {
+        "year": "AD 1942",
+        "era": "美国",
+        "event": "**芝加哥一号堆**"
+      },
+      {
+        "year": "AD 1945",
+        "era": "美国",
+        "event": "**原子弹（广岛/长崎）**"
+      },
+      {
+        "year": "AD 1954",
+        "era": "苏联",
+        "event": "**世界第一座核电站**"
+      },
+      {
+        "year": "AD 1986",
+        "era": "苏联",
+        "event": "**切尔诺贝利核事故**"
+      },
+      {
+        "year": "AD 2011",
+        "era": "日本",
+        "event": "**福岛核事故**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Chicago Pile 1 1942 first nuclear reactor",
+        "caption": "芝加哥一号堆（1942）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Hiroshima atomic bomb 1945",
+        "caption": "广岛原子弹（1945）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "nuclear power plant reactor",
+        "caption": "现代核电站",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-electricity",
+        "title": "电力",
+        "reason": "核电是发电"
+      },
+      {
+        "id": "tech-petroleum",
+        "title": "石油",
+        "reason": "替代能源"
+      }
+    ],
+    "source": "《原子弹秘史》（罗兹 1986）"
+  },
+  {
+    "id": "tech-vaccine",
+    "name": "疫苗",
+    "westernName": "Vaccine",
+    "category": "医学",
+    "era": "AD 1796",
+    "region": "英国",
+    "inventor": "爱德华·詹纳",
+    "summary": "1796 年英国医生詹纳发明天花疫苗，开创了免疫学。疫苗拯救的生命数超过任何其他医学发明。",
+    "facts": [
+      {
+        "label": "发明者",
+        "value": "**爱德华·詹纳 1796**"
+      },
+      {
+        "label": "第一支疫苗",
+        "value": "**天花疫苗**"
+      },
+      {
+        "label": "拯救人数",
+        "value": "**估计超过 5 亿人**"
+      },
+      {
+        "label": "影响",
+        "value": "**天花灭绝 + 流行病控制**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "詹纳的天花疫苗",
+        "body": "18 世纪，天花是欧洲最致命的疾病。英国医生爱德华·詹纳注意到挤奶女工接触牛痘后不会得天花。1796 年 5 月 14 日，他用从牛痘脓包中提取的脓液给 8 岁男孩接种——6 周后再给他接种天花，男孩没有患病。这是人类第一次疫苗接种。"
+      },
+      {
+        "type": "callout",
+        "heading": "疫苗的发展",
+        "body": "① 1796—詹纳天花疫苗；② 1885—巴斯德狂犬病疫苗；③ 1920s—白喉/百日咳/破伤风；④ 1955—索尔克小儿麻痹症；⑤ 1980—WHO 宣布天花根除；⑥ 2020—新冠 mRNA 疫苗。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**医学可以做的最伟大的事情——预防疾病**。",
+        "cite": "医学共识"
+      },
+      {
+        "type": "list",
+        "heading": "主要疫苗",
+        "items": [
+          "天花",
+          "麻疹",
+          "百日咳",
+          "破伤风",
+          "小儿麻痹症",
+          "狂犬病"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1796",
+        "era": "英国",
+        "event": "**詹纳发明天花疫苗**"
+      },
+      {
+        "year": "AD 1885",
+        "era": "法国",
+        "event": "**狂犬病疫苗**"
+      },
+      {
+        "year": "AD 1955",
+        "era": "美国",
+        "event": "**小儿麻痹症疫苗**"
+      },
+      {
+        "year": "AD 1980",
+        "era": "全球",
+        "event": "**天花根除**"
+      },
+      {
+        "year": "AD 2020",
+        "era": "全球",
+        "event": "新冠 mRNA 疫苗"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Edward Jenner vaccination 1796",
+        "caption": "詹纳发明天花疫苗（1796）",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "modern vaccination nurse child",
+        "caption": "现代疫苗接种",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "COVID mRNA vaccine Pfizer",
+        "caption": "mRNA 新冠疫苗",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-antibiotics",
+        "title": "抗生素",
+        "reason": "医学突破"
+      },
+      {
+        "id": "tech-fire",
+        "title": "火",
+        "reason": "古代医学"
+      }
+    ],
+    "source": "《疫苗的故事》（奥菲特 2005）"
+  },
+  {
+    "id": "tech-anesthesia",
+    "name": "麻醉",
+    "westernName": "Anesthesia",
+    "category": "医学",
+    "era": "AD 1846",
+    "region": "美国",
+    "inventor": "威廉·莫顿",
+    "summary": "1846 年美国牙医莫顿首次公开演示乙醚麻醉，开启了无痛手术时代。",
+    "facts": [
+      {
+        "label": "首次公开演示",
+        "value": "**1846 麻省总医院**"
+      },
+      {
+        "label": "发明者",
+        "value": "**威廉·莫顿**"
+      },
+      {
+        "label": "意义",
+        "value": "**无痛手术**"
+      },
+      {
+        "label": "影响",
+        "value": "**手术革命 + 外科发展**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "无痛手术的开始",
+        "body": "1846 年 10 月 16 日，美国牙医威廉·莫顿在波士顿麻省总医院首次公开演示乙醚麻醉——患者失去意识，外科医生成功切除颈部的肿瘤，全程无痛。"
+      },
+      {
+        "type": "callout",
+        "heading": "麻醉的革命性影响",
+        "body": "麻醉使手术成为可能：① 复杂手术——心脏、器官移植、脑手术；② 无痛分娩；③ 疼痛管理；④ 但也带来麻醉意外、药物依赖风险。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**之前是外科的速度时代，现在是外科的科学时代**。",
+        "cite": "外科史共识"
+      },
+      {
+        "type": "list",
+        "heading": "麻醉的影响",
+        "items": [
+          "无痛手术",
+          "复杂手术",
+          "无痛分娩",
+          "疼痛管理"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1846",
+        "era": "美国",
+        "event": "**莫顿首次公开演示**"
+      },
+      {
+        "year": "AD 1847",
+        "era": "英国",
+        "event": "辛普森推广氯仿"
+      },
+      {
+        "year": "AD 1884",
+        "era": "美国",
+        "event": "可卡因局部麻醉"
+      },
+      {
+        "year": "AD 1942",
+        "era": "美国",
+        "event": "箭毒（肌松剂）"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Morton ether anesthesia 1846",
+        "caption": "莫顿乙醚麻醉（1846）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Massachusetts General Hospital Ether Dome",
+        "caption": "麻省总医院乙醚穹顶",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "modern anesthesia operation room",
+        "caption": "现代手术室",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-vaccine",
+        "title": "疫苗",
+        "reason": "医学突破"
+      },
+      {
+        "id": "tech-antibiotics",
+        "title": "抗生素",
+        "reason": "医学突破"
+      }
+    ],
+    "source": "《麻醉史》（兰格 2006）"
   }
 ]
 

@@ -3319,6 +3319,1740 @@ export const TECHNOLOGIES: Technology[] = [
       }
     ],
     "source": "《麻醉史》（兰格 2006）"
+  },
+  {
+    "id": "tech-microscope",
+    "name": "显微镜",
+    "westernName": "Microscope",
+    "category": "医学",
+    "era": "AD 1590",
+    "region": "荷兰",
+    "summary": "1590 年荷兰眼镜商发明显微镜。17 世纪列文虎克改进，发现微生物，奠定微生物学和细胞生物学的基础。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**詹森父子 1590**"
+      },
+      {
+        "label": "改进",
+        "value": "**列文虎克 1674**"
+      },
+      {
+        "label": "影响",
+        "value": "**微生物学 · 细胞学**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "看见看不见的世界",
+        "body": "1590 年荷兰眼镜商汉斯·詹森和扎卡里亚斯·詹森（父子）发明了第一个复合显微镜。1665 年罗伯特·胡克用显微镜观察软木，发现「细胞」。1674 年列文虎克用自制显微镜（270 倍放大率）首次观察微生物——细菌、原生动物、精子。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1590",
+        "era": "荷兰",
+        "event": "**詹森父子发明复合显微镜**"
+      },
+      {
+        "year": "AD 1665",
+        "era": "英国",
+        "event": "**胡克发现细胞**"
+      },
+      {
+        "year": "AD 1674",
+        "era": "荷兰",
+        "event": "**列文虎克观察微生物**"
+      },
+      {
+        "year": "AD 1861",
+        "era": "法国",
+        "event": "**巴斯德证明细菌致病**"
+      },
+      {
+        "year": "AD 1931",
+        "era": "德国",
+        "event": "**电子显微镜**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Leeuwenhoek microscope antique",
+        "caption": "列文虎克显微镜（17 世纪）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "modern microscope laboratory",
+        "caption": "现代光学显微镜",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "cells under microscope",
+        "caption": "显微镜下的细胞",
+        "credit": "Wikimedia Commons · CC BY-SA"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-antibiotics",
+        "title": "抗生素",
+        "reason": "细菌致病"
+      },
+      {
+        "id": "tech-vaccine",
+        "title": "疫苗",
+        "reason": "微生物学应用"
+      }
+    ],
+    "source": "《显微镜的历史》（布莱恩·福特）"
+  },
+  {
+    "id": "tech-telescope",
+    "name": "望远镜",
+    "westernName": "Telescope",
+    "category": "光学/科学",
+    "era": "AD 1608",
+    "region": "荷兰",
+    "summary": "1608 年荷兰眼镜商发明望远镜，伽利略 1609 年改进并用于天文观测，发现木星四颗卫星，证实日心说。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**李普希 1608**"
+      },
+      {
+        "label": "天文",
+        "value": "**伽利略 1609**"
+      },
+      {
+        "label": "影响",
+        "value": "**天文学革命**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "看见宇宙",
+        "body": "1608 年荷兰眼镜商汉斯·李普希申请了第一架望远镜专利。1609 年伽利略·伽利雷改进望远镜（20 倍放大率），并用于天文观测，发现木星四颗大卫星、土星环、金星相位、太阳黑子、月球山脉——证实日心说。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1608",
+        "era": "荷兰",
+        "event": "**李普希申请望远镜专利**"
+      },
+      {
+        "year": "AD 1609",
+        "era": "意大利",
+        "event": "**伽利略改进望远镜**"
+      },
+      {
+        "year": "AD 1610",
+        "era": "意大利",
+        "event": "**伽利略发现木星卫星**"
+      },
+      {
+        "year": "AD 1668",
+        "era": "英国",
+        "event": "**牛顿反射望远镜**"
+      },
+      {
+        "year": "AD 1990",
+        "era": "美国",
+        "event": "**哈勃空间望远镜**"
+      },
+      {
+        "year": "AD 2021",
+        "era": "美国",
+        "event": "**詹姆斯·韦伯空间望远镜**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Galileo telescope original 1609",
+        "caption": "伽利略望远镜（1609）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Hubble Space Telescope NASA",
+        "caption": "哈勃空间望远镜",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "James Webb Space Telescope",
+        "caption": "詹姆斯·韦伯望远镜",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-microscope",
+        "title": "显微镜",
+        "reason": "姐妹发明"
+      },
+      {
+        "id": "tech-rocket",
+        "title": "火箭",
+        "reason": "航天应用"
+      }
+    ],
+    "source": "《望远镜四百年》（亨利·金）"
+  },
+  {
+    "id": "tech-radar",
+    "name": "雷达",
+    "westernName": "Radar",
+    "category": "通信",
+    "era": "AD 1935",
+    "region": "英国",
+    "summary": "1935 年英国物理学家沃森·瓦特发明雷达——利用无线电波探测远距离物体。二战中雷达挽救了英国。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**沃森·瓦特 1935**"
+      },
+      {
+        "label": "二战",
+        "value": "**不列颠空战胜利**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "不列颠之眼",
+        "body": "雷达（Radio Detection And Ranging）原理：发射电磁波，接收反射波，计算距离和方向。1935 年英国物理学家罗伯特·沃森·瓦特发明雷达。1939 年二战爆发时，英国建立了本土防空雷达网（Chain Home），成为不列颠之战的关键防御。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1935",
+        "era": "英国",
+        "event": "**沃森·瓦特发明雷达**"
+      },
+      {
+        "year": "AD 1939",
+        "era": "英国",
+        "event": "**Chain Home 雷达网运行**"
+      },
+      {
+        "year": "AD 1940",
+        "era": "不列颠之战",
+        "event": "**雷达挽救英国**"
+      },
+      {
+        "year": "AD 1970s",
+        "era": "现代",
+        "event": "相控阵雷达"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "radar antenna World War II",
+        "caption": "二战雷达天线",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Watson-Watt radar inventor",
+        "caption": "沃森·瓦特——雷达发明者",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "modern radar dish control tower",
+        "caption": "现代雷达控制塔",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-electricity",
+        "title": "电力",
+        "reason": "雷达的物理基础"
+      },
+      {
+        "id": "tech-rocket",
+        "title": "火箭",
+        "reason": "导弹制导"
+      }
+    ],
+    "source": "《雷达的故事》（罗伯特·巴肯）"
+  },
+  {
+    "id": "tech-surgery",
+    "name": "外科手术",
+    "westernName": "Surgery",
+    "category": "医学",
+    "era": "约 BC 6,500",
+    "region": "全球",
+    "summary": "外科手术是医学最古老的分支。从史前环锯术到现代微创手术，外科技术不断进步。",
+    "facts": [
+      {
+        "label": "最早",
+        "value": "**史前环锯术（BC 6,500）**"
+      },
+      {
+        "label": "麻醉",
+        "value": "**AD 1846**"
+      },
+      {
+        "label": "消毒",
+        "value": "**AD 1865**"
+      },
+      {
+        "label": "微创",
+        "value": "**AD 1987**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "从环锯到机器人",
+        "body": "外科手术比文字还早。BC 6,500 年欧洲发现新石器时代的环锯术。古代外科很危险——没有麻醉、消毒、抗生素。1846 年麻醉 + 1865 年李斯特消毒法 + 1928 年青霉素 = 现代外科三大支柱。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 6,500",
+        "era": "新石器",
+        "event": "**环锯术**"
+      },
+      {
+        "year": "AD 1846",
+        "era": "美国",
+        "event": "**麻醉公开演示**"
+      },
+      {
+        "year": "AD 1865",
+        "era": "英国",
+        "event": "**李斯特消毒法**"
+      },
+      {
+        "year": "AD 1954",
+        "era": "美国",
+        "event": "**首例肾移植**"
+      },
+      {
+        "year": "AD 1967",
+        "era": "南非",
+        "event": "**首例心脏移植**"
+      },
+      {
+        "year": "AD 2000",
+        "era": "美国",
+        "event": "**达芬奇机器人**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "trepanation skull prehistoric",
+        "caption": "史前环锯术",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "modern surgery operation room",
+        "caption": "现代手术室",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Da Vinci surgical robot",
+        "caption": "达芬奇手术机器人",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-vaccine",
+        "title": "疫苗",
+        "reason": "医学突破"
+      },
+      {
+        "id": "tech-antibiotics",
+        "title": "抗生素",
+        "reason": "医学突破"
+      },
+      {
+        "id": "tech-anesthesia",
+        "title": "麻醉",
+        "reason": "无痛手术"
+      }
+    ],
+    "source": "《外科史》（罗伊·波特 2002）"
+  },
+  {
+    "id": "tech-cement",
+    "name": "水泥 / 混凝土",
+    "westernName": "Cement / Concrete",
+    "category": "材料",
+    "era": "AD 1824",
+    "region": "英国",
+    "summary": "1824 年英国发明波特兰水泥，开启现代混凝土时代。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**约瑟夫·阿斯普丁 1824**"
+      },
+      {
+        "label": "全球",
+        "value": "**44 亿吨/年**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "改变世界的建筑材料",
+        "body": "1824 年英国发明家约瑟夫·阿斯普丁发明波特兰水泥。1850 年代钢筋混凝土发明。20 世纪水泥和钢筋混凝土成为现代世界最重要的建筑材料。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 126",
+        "era": "古罗马",
+        "event": "**万神殿建成（罗马混凝土）**"
+      },
+      {
+        "year": "AD 1824",
+        "era": "英国",
+        "event": "**阿斯普丁发明波特兰水泥**"
+      },
+      {
+        "year": "AD 1850",
+        "era": "法国",
+        "event": "**钢筋混凝土发明**"
+      },
+      {
+        "year": "AD 1931",
+        "era": "美国",
+        "event": "**帝国大厦**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Pantheon Rome concrete dome",
+        "caption": "万神殿——古罗马混凝土",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Portland cement modern industry",
+        "caption": "波特兰水泥",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "modern concrete skyscrapers",
+        "caption": "现代混凝土摩天大楼",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-stone-tools",
+        "title": "石器",
+        "reason": "建筑始祖"
+      },
+      {
+        "id": "tech-iron",
+        "title": "铁器",
+        "reason": "钢筋"
+      }
+    ],
+    "source": "《水泥的历史》（罗伯特·科尔斯）"
+  },
+  {
+    "id": "tech-steel",
+    "name": "钢铁",
+    "westernName": "Steel",
+    "category": "材料",
+    "era": "AD 1856",
+    "region": "英国",
+    "summary": "1856 年贝塞麦发明转炉炼钢法，开启廉价钢铁时代。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**贝塞麦 1856**"
+      },
+      {
+        "label": "全球",
+        "value": "**19 亿吨/年**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "现代工业的脊梁",
+        "body": "1856 年英国发明家亨利·贝塞麦发明转炉炼钢法。20 世纪平炉、电炉、氧气顶吹等工艺使钢铁成为现代工业的基础材料。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1800",
+        "era": "土耳其",
+        "event": "**希泰尔最早炼钢**"
+      },
+      {
+        "year": "AD 1856",
+        "era": "英国",
+        "event": "**贝塞麦转炉炼钢法**"
+      },
+      {
+        "year": "AD 1937",
+        "era": "美国",
+        "event": "**金门大桥**"
+      },
+      {
+        "year": "AD 2022",
+        "era": "现代",
+        "event": "全球钢产量 19 亿吨"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Bessemer converter steel making",
+        "caption": "贝塞麦转炉炼钢",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "modern steel mill production",
+        "caption": "现代钢铁厂",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Golden Gate Bridge steel",
+        "caption": "金门大桥——钢铁结构",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-iron",
+        "title": "铁器",
+        "reason": "钢铁前身"
+      },
+      {
+        "id": "tech-cement",
+        "title": "水泥",
+        "reason": "现代材料"
+      }
+    ],
+    "source": "《钢铁的故事》（哈罗德·埃文斯）"
+  },
+  {
+    "id": "tech-photography",
+    "name": "摄影",
+    "westernName": "Photography",
+    "category": "通信",
+    "era": "AD 1839",
+    "region": "法国",
+    "summary": "1839 年法国达盖尔发明摄影术，使人类第一次能永久记录影像。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**达盖尔 1839**"
+      },
+      {
+        "label": "全球",
+        "value": "**1.8 万亿张**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "记录光的艺术",
+        "body": "1839 年法国画家路易·达盖尔公布银版摄影术。1888 年柯达推出柔性胶片。1900 年 Kodak Brownie 相机让普通人也能拍照。1975 年数码相机。2007 年 iPhone 标志手机摄影时代。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1826",
+        "era": "法国",
+        "event": "**尼埃普斯第一张照片**"
+      },
+      {
+        "year": "AD 1839",
+        "era": "法国",
+        "event": "**达盖尔摄影术公开**"
+      },
+      {
+        "year": "AD 1888",
+        "era": "美国",
+        "event": "**柯达胶片相机**"
+      },
+      {
+        "year": "AD 1975",
+        "era": "美国",
+        "event": "**第一台数码相机**"
+      },
+      {
+        "year": "AD 2007",
+        "era": "美国",
+        "event": "**iPhone 发布**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Daguerre first photograph 1839",
+        "caption": "达盖尔第一张照片（1839）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Kodak Brownie camera 1900",
+        "caption": "柯达 Brownie 相机（1900）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "iPhone camera modern",
+        "caption": "现代手机摄影",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-microscope",
+        "title": "显微镜",
+        "reason": "显微摄影"
+      },
+      {
+        "id": "tech-printing",
+        "title": "印刷",
+        "reason": "图像复制"
+      }
+    ],
+    "source": "《摄影简史》（伊安·杰弗里）"
+  },
+  {
+    "id": "tech-television",
+    "name": "电视",
+    "westernName": "Television",
+    "category": "通信",
+    "era": "AD 1927",
+    "region": "英国 / 美国",
+    "summary": "1927 年贝尔德展示第一台电视。1950 年代彩色电视普及。20 世纪最重要的家庭媒介。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**贝尔德 1927**"
+      },
+      {
+        "label": "彩色",
+        "value": "**1951**"
+      },
+      {
+        "label": "全球",
+        "value": "**50 亿人看**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "让图像飞入家庭",
+        "body": "1927 年英国工程师约翰·洛吉·贝尔德在伦敦通过电话线传输了第一个电视图像。1941 年美国开始商业电视广播。1951 年彩色电视首次直播。1958 年中国北京电视台开播。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1927",
+        "era": "英国",
+        "event": "**贝尔德电视演示**"
+      },
+      {
+        "year": "AD 1941",
+        "era": "美国",
+        "event": "美国商业电视广播"
+      },
+      {
+        "year": "AD 1951",
+        "era": "美国",
+        "event": "**彩色电视直播**"
+      },
+      {
+        "year": "AD 1958",
+        "era": "中国",
+        "event": "北京电视台（央视前身）开播"
+      },
+      {
+        "year": "AD 1969",
+        "era": "美国",
+        "event": "**阿波罗 11 号登月直播**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Baird television 1927",
+        "caption": "贝尔德电视（1927）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "early television 1950s",
+        "caption": "1950 年代电视",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "modern flat screen TV",
+        "caption": "现代电视",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-radio",
+        "title": "收音机",
+        "reason": "广播前身"
+      },
+      {
+        "id": "tech-internet",
+        "title": "互联网",
+        "reason": "流媒体"
+      }
+    ],
+    "source": "《电视简史》（艾弗·韦茨）"
+  },
+  {
+    "id": "tech-radio",
+    "name": "收音机 / 无线电",
+    "westernName": "Radio",
+    "category": "通信",
+    "era": "AD 1895",
+    "region": "意大利 / 俄罗斯",
+    "summary": "1895 年马可尼发明无线电报。1906 年首次广播。20 世纪最重要的通信革命之一。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**马可尼 1895**"
+      },
+      {
+        "label": "首播",
+        "value": "**1906 费森登**"
+      },
+      {
+        "label": "全球",
+        "value": "**44 亿台**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "不用电线的通讯",
+        "body": "1887 年赫兹验证电磁波。1895 年意大利人马可尼和俄国人波波夫分别独立发明无线电报。1901 年马可尼跨大西洋无线电传输。1906 年美国费森登首次广播。1920 年 KDKA 商业电台。1933 年 FM 广播。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1887",
+        "era": "德国",
+        "event": "**赫兹验证电磁波**"
+      },
+      {
+        "year": "AD 1895",
+        "era": "意大利/俄国",
+        "event": "**马可尼/波波夫发明无线电报**"
+      },
+      {
+        "year": "AD 1901",
+        "era": "跨大西洋",
+        "event": "**马可尼跨大西洋无线电**"
+      },
+      {
+        "year": "AD 1906",
+        "era": "美国",
+        "event": "**费森登首次语音广播**"
+      },
+      {
+        "year": "AD 1920",
+        "era": "美国",
+        "event": "**KDKA 商业电台**"
+      },
+      {
+        "year": "AD 1933",
+        "era": "美国",
+        "event": "FM 广播"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Marconi wireless telegraph 1895",
+        "caption": "马可尼无线电报（1895）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "antique radio 1920s",
+        "caption": "古董收音机",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "transistor radio 1954",
+        "caption": "晶体管收音机",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-telegraph",
+        "title": "电报",
+        "reason": "无线电报前身"
+      },
+      {
+        "id": "tech-television",
+        "title": "电视",
+        "reason": "广播衍生"
+      }
+    ],
+    "source": "《马可尼传》（马克·贝隆）"
+  },
+  {
+    "id": "tech-plastic",
+    "name": "塑料",
+    "westernName": "Plastic",
+    "category": "材料",
+    "era": "AD 1907",
+    "region": "美国 / 比利时",
+    "summary": "1907 年贝克兰发明第一种全合成塑料——酚醛树脂。20 世纪塑料改变了人类生活，但带来严重的塑料污染。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**贝克兰 1907**"
+      },
+      {
+        "label": "全球",
+        "value": "**4 亿吨/年**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "现代生活的双刃剑",
+        "body": "1907 年比利时裔美籍化学家贝克兰发明酚醛树脂——第一种完全合成的塑料，开启塑料时代。1930s 聚氯乙烯、聚乙烯、聚苯乙烯相继发明。1950s 后塑料制品进入家庭、工业、农业、医疗。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1869",
+        "era": "美国",
+        "event": "赛璐珞（celluloid）"
+      },
+      {
+        "year": "AD 1907",
+        "era": "美国",
+        "event": "**贝克兰发明酚醛树脂**"
+      },
+      {
+        "year": "AD 1926",
+        "era": "美国",
+        "event": "**聚氯乙烯（PVC）**"
+      },
+      {
+        "year": "AD 1933",
+        "era": "英国",
+        "event": "**聚乙烯（PE）ICI**"
+      },
+      {
+        "year": "AD 1935",
+        "era": "美国",
+        "event": "聚苯乙烯（PS）"
+      },
+      {
+        "year": "AD 2023",
+        "era": "现代",
+        "event": "全球年产量 4 亿吨"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Bakelite first plastic 1907",
+        "caption": "贝克兰酚醛树脂（1907）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "plastic bottles pollution ocean",
+        "caption": "塑料瓶污染",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "modern plastic products",
+        "caption": "现代塑料制品",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-petroleum",
+        "title": "石油",
+        "reason": "塑料原料"
+      },
+      {
+        "id": "tech-cement",
+        "title": "水泥",
+        "reason": "现代材料"
+      }
+    ],
+    "source": "《塑料：有毒诱惑的历史》（苏珊·弗兰克）"
+  },
+  {
+    "id": "tech-gps",
+    "name": "GPS 全球定位系统",
+    "westernName": "GPS",
+    "category": "导航",
+    "era": "AD 1978",
+    "region": "美国",
+    "summary": "1978 年美国发射第一颗 GPS 卫星。1995 年全球覆盖。GPS 改变了人类导航和日常生活。",
+    "facts": [
+      {
+        "label": "第一颗卫星",
+        "value": "**1978**"
+      },
+      {
+        "label": "全球覆盖",
+        "value": "**1995**"
+      },
+      {
+        "label": "全球设备",
+        "value": "**60 亿台**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "让我们定位一切",
+        "body": "1978 年美国国防部发射第一颗 GPS 卫星 Navstar 1。1995 年 24 颗卫星组网完成，提供全球 24 小时三维定位（精度约 10 米）。2000 年取消民用 SA 干扰。GPS 由约 30 颗卫星组成，至少 4 颗可见才能定位（3 颗确定位置，1 颗修正时间）。精度：手机 GPS 5-10 米，差分 GPS（DGPS）1 米，RTK GPS 1 厘米。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1978",
+        "era": "美国",
+        "event": "**首颗 GPS 卫星（Navstar 1）**"
+      },
+      {
+        "year": "AD 1995",
+        "era": "美国",
+        "event": "**GPS 全球覆盖**"
+      },
+      {
+        "year": "AD 2000",
+        "era": "美国",
+        "event": "**取消 SA 干扰**"
+      },
+      {
+        "year": "AD 2008",
+        "era": "手机",
+        "event": "iPhone 3G 内置 GPS"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "GPS satellite space",
+        "caption": "GPS 卫星",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "GPS navigation smartphone map",
+        "caption": "手机 GPS 导航",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "GPS device hiking",
+        "caption": "GPS 导航设备",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-rocket",
+        "title": "火箭",
+        "reason": "发射卫星"
+      },
+      {
+        "id": "tech-compass",
+        "title": "指南针",
+        "reason": "导航传统"
+      }
+    ],
+    "source": "《GPS 的故事》（格雷格·米勒）"
+  },
+  {
+    "id": "tech-ct-mri",
+    "name": "CT 与 MRI",
+    "westernName": "CT & MRI",
+    "category": "医学",
+    "era": "AD 1971 / 1977",
+    "region": "英国 / 美国",
+    "summary": "1971 年英国亨斯菲尔德发明 CT 扫描仪。1977 年美国劳特布尔完成首例人体 MRI。",
+    "facts": [
+      {
+        "label": "CT 发明",
+        "value": "**亨斯菲尔德 1971**"
+      },
+      {
+        "label": "MRI 首例",
+        "value": "**劳特布尔 1977**"
+      },
+      {
+        "label": "用途",
+        "value": "**医学影像诊断**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "看见体内的世界",
+        "body": "1895 年伦琴发现 X 射线，但 X 光只能看到二维图像。1971 年英国工程师戈弗雷·亨斯菲尔德发明 CT（计算机断层扫描）——用 X 光断层扫描 + 计算机重建三维图像，1979 年获诺贝尔医学奖。1977 年美国物理学家保罗·劳特布尔首次完成 MRI（磁共振成像）人体扫描，2003 年获诺贝尔医学奖。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1895",
+        "era": "德国",
+        "event": "**伦琴发现 X 射线**"
+      },
+      {
+        "year": "AD 1971",
+        "era": "英国",
+        "event": "**亨斯菲尔德发明 CT**"
+      },
+      {
+        "year": "AD 1977",
+        "era": "美国",
+        "event": "**劳特布尔首例 MRI**"
+      },
+      {
+        "year": "AD 2003",
+        "era": "现代",
+        "event": "MRI 普及"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "CT scan medical",
+        "caption": "CT 扫描",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "MRI machine scan",
+        "caption": "MRI 机器",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "X-ray discovery 1895",
+        "caption": "伦琴发现 X 射线",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-surgery",
+        "title": "外科手术",
+        "reason": "医学诊断"
+      },
+      {
+        "id": "tech-electricity",
+        "title": "电力",
+        "reason": "扫描仪基础"
+      }
+    ],
+    "source": "《CT 与 MRI 的故事》（史蒂芬·托马斯）"
+  },
+  {
+    "id": "tech-genetic",
+    "name": "基因编辑",
+    "westernName": "Genetic Editing (CRISPR)",
+    "category": "医学",
+    "era": "AD 2012",
+    "region": "法国 / 美国",
+    "summary": "2012 年 Doudna 和 Charpentier 发表 CRISPR-Cas9 基因编辑技术。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**Doudna/Charpentier 2012**"
+      },
+      {
+        "label": "应用",
+        "value": "**基因治疗/农业/疾病治愈**"
+      },
+      {
+        "label": "未来",
+        "value": "**治愈遗传病**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "修改生命密码",
+        "body": "1987 年日本科学家在大肠杆菌中发现 CRISPR 序列。2012 年美国 Jennifer Doudna 和法国 Emmanuelle Charpentier 发表论文，证明 CRISPR-Cas9 可以精准编辑 DNA。2020 年两人获诺贝尔化学奖。这是 21 世纪最重要的生物技术革命。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1987",
+        "era": "日本",
+        "event": "**CRISPR 序列发现**"
+      },
+      {
+        "year": "AD 2003",
+        "era": "美国",
+        "event": "**人类基因组计划完成**"
+      },
+      {
+        "year": "AD 2012",
+        "era": "美国",
+        "event": "**Doudna/Charpentier CRISPR 论文**"
+      },
+      {
+        "year": "AD 2018",
+        "era": "中国",
+        "event": "**贺建奎基因编辑婴儿丑闻**"
+      },
+      {
+        "year": "AD 2020",
+        "era": "美国",
+        "event": "**Doudna/Charpentier 诺贝尔化学奖**"
+      },
+      {
+        "year": "AD 2023",
+        "era": "FDA",
+        "event": "**Casgevy（CRISPR 镰状细胞病疗法）获批**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "CRISPR Cas9 genetic editing",
+        "caption": "CRISPR-Cas9 基因编辑",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "DNA double helix science",
+        "caption": "DNA 双螺旋",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Jennifer Doudna Charpentier CRISPR",
+        "caption": "Doudna & Charpentier",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-antibiotics",
+        "title": "抗生素",
+        "reason": "医学突破"
+      },
+      {
+        "id": "tech-vaccine",
+        "title": "疫苗",
+        "reason": "mRNA 疫苗"
+      }
+    ],
+    "source": "《破解基因》（詹妮弗·杜德娜）"
+  },
+  {
+    "id": "tech-ivf",
+    "name": "试管婴儿 / 体外受精",
+    "westernName": "IVF (In Vitro Fertilization)",
+    "category": "医学",
+    "era": "AD 1978",
+    "region": "英国",
+    "summary": "1978 年英国第一例试管婴儿路易丝·布朗诞生。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**爱德华兹/斯特普托 1978**"
+      },
+      {
+        "label": "全球",
+        "value": "**超 1000 万试管婴儿**"
+      },
+      {
+        "label": "影响",
+        "value": "**辅助生殖技术**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "在试管中孕育生命",
+        "body": "1978 年 7 月 25 日，英国女婴路易丝·布朗出生——人类历史上第一例试管婴儿。她由胚胎学家 Robert Edwards 和妇科医生 Patrick Steptoe 通过体外受精（IVF）技术培育。2010 年 Edwards 获诺贝尔医学奖。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1978",
+        "era": "英国",
+        "event": "**首例试管婴儿（路易丝·布朗）**"
+      },
+      {
+        "year": "AD 1992",
+        "era": "比利时",
+        "event": "**首例 ICSI（卵胞浆内单精子注射）**"
+      },
+      {
+        "year": "AD 2010",
+        "era": "英国",
+        "event": "**Edwards 诺贝尔医学奖**"
+      },
+      {
+        "year": "AD 2024",
+        "era": "全球",
+        "event": "**全球试管婴儿超 1000 万**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Louise Brown first IVF baby",
+        "caption": "路易丝·布朗——第一例试管婴儿",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "IVF embryo under microscope",
+        "caption": "IVF 胚胎（显微镜下）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Robert Edwards IVF Nobel",
+        "caption": "Edwards（IVF 发明者）",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-microscope",
+        "title": "显微镜",
+        "reason": "辅助技术"
+      },
+      {
+        "id": "tech-surgery",
+        "title": "外科手术",
+        "reason": "取卵手术"
+      }
+    ],
+    "source": "《试管婴儿》（罗杰·戈斯登）"
+  },
+  {
+    "id": "tech-cloning",
+    "name": "克隆技术",
+    "westernName": "Cloning",
+    "category": "医学",
+    "era": "AD 1996",
+    "region": "英国",
+    "summary": "1996 年第一只体细胞克隆动物多利羊诞生。",
+    "facts": [
+      {
+        "label": "多利羊",
+        "value": "**1996 英国**"
+      },
+      {
+        "label": "技术",
+        "value": "**体细胞核移植（SCNT）**"
+      },
+      {
+        "label": "意义",
+        "value": "**哺乳动物可被克隆**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "复制生命",
+        "body": "1996 年 7 月 5 日，英国罗斯林研究所伊恩·威尔穆特领导的团队宣布成功克隆一只绵羊——多利。这是用成年哺乳动物的体细胞（乳腺细胞）核移植到去核卵细胞中，发育成胚胎，再植入代孕母羊。1997 年论文发表。2003 年多利因肺病早逝（正常羊寿命 12 年）。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1952",
+        "era": "美国",
+        "event": "**克隆青蛙**"
+      },
+      {
+        "year": "AD 1984",
+        "era": "丹麦",
+        "event": "**首例哺乳动物胚胎克隆（羊）**"
+      },
+      {
+        "year": "AD 1996",
+        "era": "英国",
+        "event": "**多利羊诞生**"
+      },
+      {
+        "year": "AD 1997",
+        "era": "英国",
+        "event": "**多利论文发表**"
+      },
+      {
+        "year": "AD 2003",
+        "era": "英国",
+        "event": "**多利死亡**"
+      },
+      {
+        "year": "AD 2018",
+        "era": "中国",
+        "event": "首例体细胞克隆猴"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Dolly the sheep cloning 1996",
+        "caption": "多利羊（1996）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Ian Wilmut Dolly clone",
+        "caption": "Wilmut 团队",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "SCNT somatic cell nuclear transfer",
+        "caption": "体细胞核移植（SCNT）",
+        "credit": "Public Domain Illustration"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-genetic",
+        "title": "基因编辑",
+        "reason": "基因技术"
+      },
+      {
+        "id": "tech-ivf",
+        "title": "试管婴儿",
+        "reason": "辅助生殖"
+      }
+    ],
+    "source": "《多利之后》（伊恩·威尔穆特）"
+  },
+  {
+    "id": "tech-bicycle",
+    "name": "自行车",
+    "westernName": "Bicycle",
+    "category": "交通",
+    "era": "AD 1817",
+    "region": "德国",
+    "summary": "1817 年德国男爵德莱斯发明「跑步机」。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**德莱斯 1817**"
+      },
+      {
+        "label": "改良",
+        "value": "**麦克米伦 1839**"
+      },
+      {
+        "label": "全球",
+        "value": "**10 亿辆自行车**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "两轮的人类解放",
+        "body": "1817 年德国男爵卡尔·德莱斯发明「跑步机」。1839 年苏格兰麦克米伦发明脚蹬驱动。1861 年法国米肖发明踏板曲柄。1885 年英国斯塔利发明现代链条传动自行车。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1817",
+        "era": "德国",
+        "event": "**德莱斯跑步机**"
+      },
+      {
+        "year": "AD 1839",
+        "era": "苏格兰",
+        "event": "**麦克米伦脚蹬驱动**"
+      },
+      {
+        "year": "AD 1861",
+        "era": "法国",
+        "event": "**米肖踏板曲柄**"
+      },
+      {
+        "year": "AD 1885",
+        "era": "英国",
+        "event": "**斯塔利 Rover 安全自行车**"
+      },
+      {
+        "year": "AD 1970s",
+        "era": "中国",
+        "event": "自行车王国"
+      },
+      {
+        "year": "AD 2023",
+        "era": "全球",
+        "event": "全球 10 亿辆自行车"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "bicycle old Drais Laufmaschine 1817",
+        "caption": "德莱斯跑步机（1817）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Rover safety bicycle 1885",
+        "caption": "Rover 安全自行车（1885）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "modern bicycle city",
+        "caption": "现代自行车",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-wheel",
+        "title": "轮子",
+        "reason": "自行车基础"
+      },
+      {
+        "id": "tech-automobile",
+        "title": "汽车",
+        "reason": "后续个人交通工具"
+      }
+    ],
+    "source": "《自行车的历史》（赫伯特·赫斯洛夫）"
+  },
+  {
+    "id": "tech-xray",
+    "name": "X 射线",
+    "westernName": "X-ray",
+    "category": "医学",
+    "era": "AD 1895",
+    "region": "德国",
+    "summary": "1895 年德国物理学家伦琴发现 X 射线。医学诊断革命。",
+    "facts": [
+      {
+        "label": "发现",
+        "value": "**伦琴 1895**"
+      },
+      {
+        "label": "首获诺贝尔",
+        "value": "**1901 物理学**"
+      },
+      {
+        "label": "用途",
+        "value": "**医学诊断**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "看不见的光",
+        "body": "1895 年 11 月 8 日，德国物理学家威廉·康拉德·伦琴（Wilhelm Röntgen）在实验中意外发现一种能穿透物体的神秘射线——他称之为「X」。1901 年首获诺贝尔物理学奖。X 射线能透过软组织看清骨骼——开创了医学影像时代。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1895",
+        "era": "德国",
+        "event": "**伦琴发现 X 射线**"
+      },
+      {
+        "year": "AD 1901",
+        "era": "瑞典",
+        "event": "**伦琴首获诺贝尔物理奖**"
+      },
+      {
+        "year": "AD 1896",
+        "era": "全球",
+        "event": "X 射线临床应用"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "X-ray hand Roentgen 1895",
+        "caption": "伦琴 X 光手部（1895）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Wilhelm Röntgen Discoverer",
+        "caption": "伦琴——X 射线发现者",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-ct-mri",
+        "title": "CT 与 MRI",
+        "reason": "医学影像"
+      },
+      {
+        "id": "tech-microscope",
+        "title": "显微镜",
+        "reason": "微观观察"
+      }
+    ],
+    "source": "《X 射线的故事》（E·罗伯特·保罗）"
+  },
+  {
+    "id": "tech-battery",
+    "name": "电池",
+    "westernName": "Battery",
+    "category": "能源",
+    "era": "AD 1800",
+    "region": "意大利",
+    "summary": "1800 年伏打发明电池——第一个能产生稳定电流的装置。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**伏打 1800**"
+      },
+      {
+        "label": "原理",
+        "value": "**化学反应产生电流**"
+      },
+      {
+        "label": "影响",
+        "value": "**电能存储**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "人造电流",
+        "body": "1786 年伽伐尼发现「动物电」，1800 年意大利物理学家亚历山德罗·伏打发明伏打电堆——把铜和锌交替排列，用浸盐水的纸隔开——产生持续的直流电。这是第一个能稳定产生电流的装置，开创了电化学。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1786",
+        "era": "意大利",
+        "event": "**伽伐尼发现动物电**"
+      },
+      {
+        "year": "AD 1800",
+        "era": "意大利",
+        "event": "**伏打电堆发明**"
+      },
+      {
+        "year": "AD 1859",
+        "era": "法国",
+        "event": "**铅酸蓄电池（普兰特）**"
+      },
+      {
+        "year": "AD 1991",
+        "era": "日本",
+        "event": "**锂离子电池（索尼商业化）**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Voltaic pile battery 1800",
+        "caption": "伏打电堆（1800）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "modern lithium battery",
+        "caption": "现代锂离子电池",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-electricity",
+        "title": "电力",
+        "reason": "电池供能"
+      },
+      {
+        "id": "tech-electric-vehicle",
+        "title": "电动汽车",
+        "reason": "电池应用"
+      }
+    ],
+    "source": "《电池的历史》（亨利·林德斯特兰德）"
+  },
+  {
+    "id": "tech-laser-surgery",
+    "name": "激光手术",
+    "westernName": "Laser Surgery",
+    "category": "医学",
+    "era": "AD 1960",
+    "region": "美国",
+    "summary": "1960 年激光发明后，迅速应用于眼科、外科手术。",
+    "facts": [
+      {
+        "label": "首次应用",
+        "value": "**1961 眼科**"
+      },
+      {
+        "label": "原理",
+        "value": "**激光精确切割**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "光的手术刀",
+        "body": "1960 年激光发明后，1961 年用于眼科手术（视网膜修复）。1980s 普及到外科手术（LASIK、激光切割）。激光比传统手术刀更精准，出血少，创伤小。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1960",
+        "era": "美国",
+        "event": "激光发明"
+      },
+      {
+        "year": "AD 1961",
+        "era": "美国",
+        "event": "**首次激光眼科手术**"
+      },
+      {
+        "year": "AD 1980s",
+        "era": "美国",
+        "event": "**LASIK 普及**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "LASIK eye surgery laser",
+        "caption": "LASIK 激光眼科手术",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-laser",
+        "title": "激光",
+        "reason": "激光发明"
+      },
+      {
+        "id": "tech-surgery",
+        "title": "外科手术",
+        "reason": "手术应用"
+      }
+    ],
+    "source": "《激光医学》（纳塔莉·斯特朗）"
+  },
+  {
+    "id": "tech-steamship",
+    "name": "蒸汽轮船",
+    "westernName": "Steamship",
+    "category": "交通",
+    "era": "AD 1807",
+    "region": "美国",
+    "summary": "1807 年富尔顿的克莱蒙特号是第一艘商业蒸汽轮船，开启了航运革命。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**富尔顿 1807**"
+      },
+      {
+        "label": "船名",
+        "value": "**克莱蒙特号**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "蒸汽动力走入海洋",
+        "body": "1807 年美国工程师罗伯特·富尔顿（Robert Fulton）建造了「克莱蒙特号」蒸汽轮船，在哈德逊河上运行，从纽约到奥尔巴尼 32 小时。这开启了蒸汽航运时代。1838 年 SS 大西洋号蒸汽轮船首次横渡大西洋。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1775",
+        "era": "法国",
+        "event": "法国早期蒸汽船"
+      },
+      {
+        "year": "AD 1807",
+        "era": "美国",
+        "event": "**富尔顿克莱蒙特号**"
+      },
+      {
+        "year": "AD 1838",
+        "era": "美国",
+        "event": "**首艘跨大西洋蒸汽船**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Fulton Clermont steamship 1807",
+        "caption": "克莱蒙特号（1807）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "modern steamship ocean liner",
+        "caption": "现代蒸汽轮船",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-steam-engine",
+        "title": "蒸汽机",
+        "reason": "蒸汽机应用"
+      },
+      {
+        "id": "tech-wheel",
+        "title": "轮子",
+        "reason": "船只动力"
+      }
+    ],
+    "source": "《美国轮船》（约翰·哈里森）"
+  },
+  {
+    "id": "tech-pcb",
+    "name": "印刷电路板",
+    "westernName": "Printed Circuit Board",
+    "category": "计算",
+    "era": "AD 1936",
+    "region": "奥地利",
+    "summary": "1936 年奥地利工程师保罗·艾斯勒发明印刷电路板（PCB），是现代电子工业的基础。",
+    "facts": [
+      {
+        "label": "发明",
+        "value": "**艾斯勒 1936**"
+      },
+      {
+        "label": "现代电子",
+        "value": "**几乎所有电子产品的核心**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "现代电子的骨架",
+        "body": "1936 年奥地利工程师保罗·艾斯勒（Paul Eisler）发明印刷电路板（PCB）——把电路连接印刷在绝缘板上。二战后 PCB 广泛应用，1950s 后成为电子工业的基础。计算机、手机、家电、汽车——所有电子产品都依赖 PCB。"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1936",
+        "era": "奥地利",
+        "event": "**艾斯勒发明 PCB**"
+      },
+      {
+        "year": "AD 1948",
+        "era": "美国",
+        "event": "PCB 商业化"
+      },
+      {
+        "year": "AD 1956",
+        "era": "美国",
+        "event": "PCB 广泛用于军事和民用"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "printed circuit board PCB modern",
+        "caption": "现代 PCB 电路板",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Paul Eisler PCB inventor",
+        "caption": "保罗·艾斯勒（PCB 发明者）",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "tech-computer",
+        "title": "计算机",
+        "reason": "电子核心"
+      },
+      {
+        "id": "tech-electricity",
+        "title": "电力",
+        "reason": "电路基础"
+      }
+    ],
+    "source": "《现代电子学的历史》（特克尔）"
   }
 ]
 
@@ -3332,6 +5066,8 @@ export const TECH_CATEGORIES = [
   { id: 'power', label: '动力', color: '#d4856a' },
   { id: 'calculation', label: '计算', color: '#5bc89a' },
   { id: 'medicine', label: '医学', color: '#e879b9' },
+  { id: 'transport', label: '交通', color: '#5b9bc8' },
+  { id: 'optics', label: '光学/科学', color: '#b88e54' },
 ] as const
 
 export type TechCategory = typeof TECH_CATEGORIES[number]['id']

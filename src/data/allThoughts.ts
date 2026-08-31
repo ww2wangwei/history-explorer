@@ -1,7 +1,5 @@
 /**
  * allThoughts.ts — 全人类思想精华数据
- *
- * 不同国家/时期的思想家 + 思想流派，每条含 6 大富内容字段。
  */
 import type { KeyFact, RichSection, TimelineEvent, TraditionImage, RelatedItem } from '@/types'
 
@@ -2804,6 +2802,1127 @@ export const THINKERS: Thinker[] = [
       }
     ],
     "source": "《宇宙大系统》（古希腊·德谟克利特）·《物性论》（古罗马·卢克莱修）·《名哲言行录》（古罗马·第欧根尼·拉尔修）· 马克思《博士论文》"
+  },
+  {
+    "id": "th-bacon",
+    "name": "弗兰西斯·培根",
+    "westernName": "Francis Bacon",
+    "region": "europe",
+    "era": "1561-1626",
+    "school": "经验主义",
+    "title": "实验科学之父，近代科学方法奠基者",
+    "summary": "英国哲学家、政治家。父亲是伊丽莎白一世的掌玺大臣。12 岁入剑桥三一学院。毕业后做律师，23 岁当选国会议员。1617 年任掌玺大臣，1618 年任大法官。1621 年因受贿被弹劾。其《新工具》《新大西岛》奠定了归纳法。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**1561—1626**（享年 65）"
+      },
+      {
+        "label": "国籍",
+        "value": "**英国**（英格兰）"
+      },
+      {
+        "label": "职业",
+        "value": "**哲学家·政治家·大法官**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《新工具》《新大西岛》《学术的进展》**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**知识就是力量·归纳法·四假象·实验科学**"
+      },
+      {
+        "label": "地位",
+        "value": "**实验科学之父 · 近代归纳法奠基者**"
+      },
+      {
+        "label": "名言",
+        "value": "**Knowledge is power（知识就是力量）**"
+      },
+      {
+        "label": "影响",
+        "value": "**奠定近代科学方法 · 影响牛顿、达尔文、爱因斯坦**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：从政客到哲学家",
+        "body": "培根是英国哲学家、政治家。父亲尼古拉斯·培根是伊丽莎白一世的掌玺大臣。12 岁入剑桥三一学院。毕业后做律师，23 岁当选国会议员。一生追求仕途，担任过掌玺大臣、大法官等要职。但他在仕途中始终不忘学术研究，写出了《新工具》《新大西岛》等奠定近代科学方法的著作。1621 年因受贿被弹劾，退出政坛，专心学术。"
+      },
+      {
+        "type": "callout",
+        "heading": "四假象——阻碍人类认识真理的偏见",
+        "body": "培根在《新工具》中指出四种假象（Idols）妨碍人类认识真理：① 族类的假象（人性共通的偏见）；② 洞穴的假象（个人特有的偏见）；③ 市场的假象（语言造成的误解）；④ 剧场的假象（盲信权威）。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**Knowledge is power. 知识就是力量**。",
+        "cite": "培根《沉思录》"
+      },
+      {
+        "type": "quote",
+        "text": "**若要命令自然，就必须服从自然**。",
+        "cite": "培根《新工具》"
+      },
+      {
+        "type": "list",
+        "heading": "培根的贡献",
+        "items": [
+          "归纳法——从个别到一般",
+          "实验科学——开创实验方法",
+          "四假象说——批判蒙昧主义",
+          "新材料主义——物质是世界的本原",
+          "新大西岛——理想科技国"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "1561",
+        "era": "英国",
+        "event": "培根生于伦敦，父亲是伊丽莎白一世掌玺大臣"
+      },
+      {
+        "year": "1573",
+        "era": "12岁",
+        "event": "入剑桥三一学院"
+      },
+      {
+        "year": "1576",
+        "era": "15岁",
+        "event": "入法国大使馆工作"
+      },
+      {
+        "year": "1584",
+        "era": "23岁",
+        "event": "当选国会议员"
+      },
+      {
+        "year": "1605",
+        "era": "44岁",
+        "event": "出版《学术的进展》"
+      },
+      {
+        "year": "1617",
+        "era": "56岁",
+        "event": "任掌玺大臣"
+      },
+      {
+        "year": "1618",
+        "era": "57岁",
+        "event": "任大法官，封男爵"
+      },
+      {
+        "year": "1620",
+        "era": "59岁",
+        "event": "**出版《新工具》**"
+      },
+      {
+        "year": "1621",
+        "era": "60岁",
+        "event": "因受贿被弹劾"
+      },
+      {
+        "year": "1626",
+        "era": "65岁",
+        "event": "**因试验冷藏防腐感染肺炎去世**——科学的殉道者"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Francis Bacon portrait painting 1618",
+        "caption": "培根肖像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Bacon New Atlantis title page 1627",
+        "caption": "《新大西岛》封面（1627）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Trinity College Cambridge chapel",
+        "caption": "剑桥三一学院",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Bacon scientific method illustration",
+        "caption": "培根归纳法示意图",
+        "credit": "Public Domain Illustration"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-descartes",
+        "title": "笛卡尔",
+        "reason": "理性主义代表，与培根经验主义对立"
+      },
+      {
+        "id": "th-locke",
+        "title": "洛克",
+        "reason": "继承培根经验主义"
+      },
+      {
+        "id": "th-hobbes",
+        "title": "霍布斯",
+        "reason": "培根的秘书"
+      },
+      {
+        "id": "th-newton",
+        "title": "牛顿",
+        "reason": "受培根方法影响"
+      },
+      {
+        "id": "th-kant",
+        "title": "康德",
+        "reason": "综合经验主义与理性主义"
+      }
+    ],
+    "source": "《新工具》（培根 1620）·《新大西岛》（培根 1627）·《学术的进展》（培根 1605）· 罗素《西方哲学史》"
+  },
+  {
+    "id": "th-descartes",
+    "name": "勒内·笛卡尔",
+    "westernName": "René Descartes",
+    "region": "europe",
+    "era": "1596-1650",
+    "school": "理性主义",
+    "title": "近代哲学之父",
+    "summary": "法国哲学家、数学家。父亲是布列塔尼地方议员。8 岁入拉弗莱什学院。1616 年毕业于普瓦捷大学法律系。1618 年参军，1619 年冬天在德国军营里梦见「新哲学的奇迹」。1628 年移居荷兰专心著述。1649 年受瑞典女王克里斯蒂娜之邀去瑞典讲学，因不适应严寒，5 个月后病逝。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**1596—1650**（享年 54）"
+      },
+      {
+        "label": "国籍",
+        "value": "**法国**"
+      },
+      {
+        "label": "职业",
+        "value": "**哲学家 · 数学家 · 科学家**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《第一哲学沉思集》《方法论》《哲学原理》**"
+      },
+      {
+        "label": "数学贡献",
+        "value": "**解析几何的创始人 · 坐标系**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**我思故我在 · 二元论 · 普遍怀疑 · 天赋观念论**"
+      },
+      {
+        "label": "地位",
+        "value": "**近代哲学之父 · 理性主义创始人**"
+      },
+      {
+        "label": "名言",
+        "value": "**Cogito, ergo sum（我思故我在）**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：梦见新哲学",
+        "body": "笛卡尔出生于法国贵族家庭，8 岁入拉弗莱什学院（欧洲最好的耶稣会学校之一）。父亲去世留下遗产，使他得以独立追求学术。1618 年参加荷兰军队，1619 年冬天在德国乌尔姆附近的军营里，1619 年 11 月 10 日夜梦见「新哲学的奇迹」，决定献身于哲学与数学。1628 年移居荷兰专心著述 20 年。1649 年受瑞典女王克里斯蒂娜邀请去斯德哥尔摩讲学，女王要求他清晨 5 点讲课，他因不适应瑞典严寒患上肺炎，5 个月后病逝。"
+      },
+      {
+        "type": "callout",
+        "heading": "我思故我在——近代哲学的第一原则",
+        "body": "笛卡尔用「普遍怀疑」方法怀疑一切：感官可能欺骗我，梦和现实难以区分，连数学都可能错。但有一件事不能怀疑：「我在怀疑」本身！怀疑是一种思维，所以「我思」必然存在。所以「我思故我在」（Cogito, ergo sum）。这是近代哲学的第一个确定性原则。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**Cogito, ergo sum. 我思故我在**。",
+        "cite": "笛卡尔《第一哲学沉思集》"
+      },
+      {
+        "type": "quote",
+        "text": "**阅读好书，就是和许多高尚的人谈话**。",
+        "cite": "笛卡尔《方法论》"
+      },
+      {
+        "type": "quote",
+        "text": "**当你怀疑时，你已经存在**。",
+        "cite": "笛卡尔"
+      },
+      {
+        "type": "list",
+        "heading": "笛卡尔的贡献",
+        "items": [
+          "解析几何——发明坐标系",
+          "二元论——心灵与物质分离",
+          "普遍怀疑——认识论革命",
+          "理性主义——哲学新方向",
+          "反射弧概念——现代神经科学"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "1596",
+        "era": "法国",
+        "event": "笛卡尔生于法国拉艾镇"
+      },
+      {
+        "year": "1604",
+        "era": "8岁",
+        "event": "入拉弗莱什学院"
+      },
+      {
+        "year": "1616",
+        "era": "20岁",
+        "event": "毕业于普瓦捷大学法律系"
+      },
+      {
+        "year": "1619",
+        "era": "23岁",
+        "event": "**梦见「新哲学的奇迹」**"
+      },
+      {
+        "year": "1628",
+        "era": "32岁",
+        "event": "移居荷兰专心著述"
+      },
+      {
+        "year": "1637",
+        "era": "41岁",
+        "event": "**出版《方法论》**——未署名"
+      },
+      {
+        "year": "1641",
+        "era": "45岁",
+        "event": "**出版《第一哲学沉思集》**"
+      },
+      {
+        "year": "1649",
+        "era": "53岁",
+        "event": "受瑞典女王克里斯蒂娜之邀去斯德哥尔摩讲学"
+      },
+      {
+        "year": "1650",
+        "era": "54岁",
+        "event": "**因肺炎病逝于瑞典**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "René Descartes portrait painting",
+        "caption": "笛卡尔肖像（弗兰斯·哈尔斯 1649）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Descartes coordinate geometry illustration",
+        "caption": "笛卡尔坐标系示意图",
+        "credit": "Public Domain Illustration"
+      },
+      {
+        "imageKeyword": "Stockholm Sweden winter palace",
+        "caption": "斯德哥尔摩——笛卡尔逝世地",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "La Flèche Jesuit college",
+        "caption": "拉弗莱什学院——笛卡尔母校",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-bacon",
+        "title": "培根",
+        "reason": "经验主义代表，与笛卡尔理性主义对立"
+      },
+      {
+        "id": "th-spinoza",
+        "title": "斯宾诺莎",
+        "reason": "笛卡尔继承人"
+      },
+      {
+        "id": "th-leibniz",
+        "title": "莱布尼茨",
+        "reason": "笛卡尔继承人"
+      },
+      {
+        "id": "th-locke",
+        "title": "洛克",
+        "reason": "经验主义发展者"
+      },
+      {
+        "id": "th-kant",
+        "title": "康德",
+        "reason": "综合经验主义与理性主义"
+      }
+    ],
+    "source": "《第一哲学沉思集》（笛卡尔 1641）·《方法论》（笛卡尔 1637）·《哲学原理》（笛卡尔 1644）· 罗素《西方哲学史》"
+  },
+  {
+    "id": "th-locke",
+    "name": "约翰·洛克",
+    "westernName": "John Locke",
+    "region": "europe",
+    "era": "1632-1704",
+    "school": "经验主义",
+    "title": "自由主义之父",
+    "summary": "英国哲学家。1646 年入威斯敏斯特公学，1652 年入牛津基督教会学院。毕业后留校任教。因与沙夫茨伯里伯爵（辉格党领袖）交往而被卷入政治，1683 年流亡荷兰。1689 年光荣革命后回国，发表《政府论》。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**1632—1704**（享年 72）"
+      },
+      {
+        "label": "国籍",
+        "value": "**英国**"
+      },
+      {
+        "label": "代表作",
+        "value": "**《人类理解论》《政府论》《论宗教宽容》**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**白板说 · 天赋人权 · 社会契约 · 三权分立**"
+      },
+      {
+        "label": "地位",
+        "value": "**自由主义之父 · 经验主义代表**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响美国《独立宣言》起草者杰斐逊**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：从医生到自由主义之父",
+        "body": "洛克出生于英国乡村律师家庭。父亲是清教徒，参加过克伦威尔的议会军。洛克 14 岁入威斯敏斯特公学，20 岁入牛津基督教会学院，毕业后留校任教希腊语、修辞学、道德哲学。后学医，担任沙夫茨伯里伯爵的私人医生和顾问。沙夫茨伯里是辉格党领袖，反对斯图亚特王朝专制。1683 年沙夫茨伯里被指控叛国，洛克流亡荷兰。1688 年光荣革命后，洛克回国发表《政府论》，奠定自由主义政治哲学基础。"
+      },
+      {
+        "type": "callout",
+        "heading": "白板说——人心如同白纸",
+        "body": "洛克在《人类理解论》中提出「白板说」（Tabula Rasa）：人出生时心灵如同一张白纸，没有任何先天的观念，所有的知识都来自后天经验——通过感觉（sensation）和反省（reflection）获得。这与笛卡尔的天赋观念论形成对立。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**人出生时心灵如同一张白纸，上面没有任何字迹**。",
+        "cite": "洛克《人类理解论》"
+      },
+      {
+        "type": "quote",
+        "text": "**在自然状态中，所有人都是平等和独立的**。",
+        "cite": "洛克《政府论》"
+      },
+      {
+        "type": "quote",
+        "text": "**生命、自由、财产是人人不可侵犯的天赋权利**。",
+        "cite": "洛克《政府论》"
+      },
+      {
+        "type": "list",
+        "heading": "洛克的核心思想",
+        "items": [
+          "白板说——心灵是后天塑造的",
+          "天赋人权——生命、自由、财产",
+          "社会契约——政府的合法性来自被统治者的同意",
+          "三权分立——立法、行政、外交（联邦）",
+          "宗教宽容——政教分离"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "1632",
+        "era": "英国",
+        "event": "洛克生于萨默塞特郡，父亲是清教徒律师"
+      },
+      {
+        "year": "1646",
+        "era": "14岁",
+        "event": "入威斯敏斯特公学"
+      },
+      {
+        "year": "1652",
+        "era": "20岁",
+        "event": "入牛津基督教会学院"
+      },
+      {
+        "year": "1658",
+        "era": "26岁",
+        "event": "毕业留校任教"
+      },
+      {
+        "year": "1667",
+        "era": "35岁",
+        "event": "担任沙夫茨伯里伯爵私人医生"
+      },
+      {
+        "year": "1671",
+        "era": "39岁",
+        "event": "开始撰写《人类理解论》"
+      },
+      {
+        "year": "1683",
+        "era": "51岁",
+        "event": "因政治迫害流亡荷兰"
+      },
+      {
+        "year": "1689",
+        "era": "57岁",
+        "event": "**光荣革命后回国**——发表《政府论》"
+      },
+      {
+        "year": "1690",
+        "era": "58岁",
+        "event": "**出版《人类理解论》**"
+      },
+      {
+        "year": "1704",
+        "era": "72岁",
+        "event": "洛克去世"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "John Locke portrait painting",
+        "caption": "洛克肖像（赫曼·费尔曼 1689）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Oxford University Christ Church",
+        "caption": "牛津基督教会学院",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Glorious Revolution 1688 William Mary",
+        "caption": "光荣革命（1688）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Tabula rasa blank slate illustration",
+        "caption": "白板说示意图",
+        "credit": "Public Domain Illustration"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-bacon",
+        "title": "培根",
+        "reason": "经验主义奠基者"
+      },
+      {
+        "id": "th-hobbes",
+        "title": "霍布斯",
+        "reason": "社会契约论先驱"
+      },
+      {
+        "id": "th-rousseau",
+        "title": "卢梭",
+        "reason": "社会契约论发展者"
+      },
+      {
+        "id": "th-descartes",
+        "title": "笛卡尔",
+        "reason": "理性主义代表"
+      },
+      {
+        "id": "th-kant",
+        "title": "康德",
+        "reason": "综合经验主义与理性主义"
+      }
+    ],
+    "source": "《人类理解论》（洛克 1690）·《政府论》（洛克 1689）·《论宗教宽容》（洛克 1689）· 罗素《西方哲学史》"
+  },
+  {
+    "id": "th-kant",
+    "name": "伊曼努尔·康德",
+    "westernName": "Immanuel Kant",
+    "region": "europe",
+    "era": "1724-1804",
+    "school": "德国古典哲学",
+    "title": "西方哲学史上最重要的哲学家之一",
+    "summary": "德国哲学家，近代西方哲学最重要的转折点。出身东普鲁士哥尼斯堡（今俄罗斯加里宁格勒）小手工业家庭。一生几乎未离开哥尼斯堡，遵守极严格的作息（每天同一时间散步）。47 岁才发表第一重要著作。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**1724—1804**（享年 80）"
+      },
+      {
+        "label": "国籍",
+        "value": "**东普鲁士哥尼斯堡**（今俄罗斯加里宁格勒）"
+      },
+      {
+        "label": "代表作",
+        "value": "**《纯粹理性批判》《实践理性批判》《判断力批判》三大批判**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**先天综合判断 · 二律背反 · 自在之物 · 绝对命令 · 永久和平**"
+      },
+      {
+        "label": "地位",
+        "value": "**西方哲学史上最重要的哲学家之一**"
+      },
+      {
+        "label": "生活",
+        "value": "**严格守时 · 终生未离开哥尼斯堡**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响黑格尔、马克思、尼采、海德格尔、维特根斯坦**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：永远准时的哥尼斯堡散步者",
+        "body": "康德出生于东普鲁士哥尼斯堡一个小手工业家庭。父亲是马鞍匠，母亲是虔信派教徒。1740 年入哥尼斯堡大学，1755 年毕业。毕业后在中学做了 9 年家庭教师。34 岁回到哥尼斯堡大学，47 岁才发表第一重要著作《自然通史和天体理论》。1770 年获教授职位。一生几乎未离开哥尼斯堡，每天午后 3 点半准时散步，居民以他的散步来对表。"
+      },
+      {
+        "type": "callout",
+        "heading": "哥白尼式革命——主体性转向",
+        "body": "康德发动了哲学史上的「哥白尼式革命」：不是我们的认识符合对象，而是对象符合我们的认识。他区分「现象」（我们可以认识的世界）和「自在之物」（物自身，本体世界）。先天综合判断是可能的——数学、自然科学的普遍必然性来自主体的先天形式（时间、空间、因果等范畴）。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**有两种东西，我对它们的思考越是深沉和持久，它们在我心灵中唤起的惊奇和敬畏就会日新月异——我们头上的星空与我们心中的道德法则**。",
+        "cite": "康德《实践理性批判》"
+      },
+      {
+        "type": "quote",
+        "text": "**有两种完全不同的方式可以证明上帝存在——天上的星空和心中的道德**。",
+        "cite": "康德"
+      },
+      {
+        "type": "quote",
+        "text": "**你要这样行动，使你的行为准则能够成为普遍法则**。",
+        "cite": "康德《实践理性批判》"
+      },
+      {
+        "type": "quote",
+        "text": "**人是目的，不是工具**。",
+        "cite": "康德"
+      },
+      {
+        "type": "list",
+        "heading": "康德三大批判",
+        "items": [
+          "**纯粹理性批判**（1781）——认识论：先天综合判断如何可能",
+          "**实践理性批判**（1788）——伦理学：绝对命令、道德法则",
+          "**判断力批判**（1790）——美学/目的论：美与崇高",
+          "**永久和平论**（1795）——政治哲学：世界公民愿景"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "1724",
+        "era": "东普鲁士",
+        "event": "康德生于哥尼斯堡小手工业家庭"
+      },
+      {
+        "year": "1740",
+        "era": "16岁",
+        "event": "入哥尼斯堡大学"
+      },
+      {
+        "year": "1755",
+        "era": "31岁",
+        "event": "大学毕业，做家庭教师"
+      },
+      {
+        "year": "1764",
+        "era": "40岁",
+        "event": "撰写《自然通史》"
+      },
+      {
+        "year": "1770",
+        "era": "46岁",
+        "event": "获哥尼斯堡大学逻辑学与形而上学教授"
+      },
+      {
+        "year": "1781",
+        "era": "57岁",
+        "event": "**出版《纯粹理性批判》**"
+      },
+      {
+        "year": "1788",
+        "era": "64岁",
+        "event": "**出版《实践理性批判》**"
+      },
+      {
+        "year": "1790",
+        "era": "66岁",
+        "event": "**出版《判断力批判》**"
+      },
+      {
+        "year": "1795",
+        "era": "71岁",
+        "event": "出版《永久和平论》"
+      },
+      {
+        "year": "1804",
+        "era": "80岁",
+        "event": "康德去世，墓碑刻「有两件事……」"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Immanuel Kant portrait painting 1791",
+        "caption": "康德肖像（多贝尔 1791）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Königsberg cathedral Kaliningrad",
+        "caption": "哥尼斯堡——康德故乡",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Kant Königsberg portrait statue",
+        "caption": "康德雕像（哥尼斯堡/加里宁格勒）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Milky Way galaxy Kant starry sky",
+        "caption": "康德「头上的星空」",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-hegel",
+        "title": "黑格尔",
+        "reason": "德国古典哲学继承人"
+      },
+      {
+        "id": "th-hume",
+        "title": "休谟",
+        "reason": "康德从独断论梦中惊醒"
+      },
+      {
+        "id": "th-descartes",
+        "title": "笛卡尔",
+        "reason": "理性主义先驱"
+      },
+      {
+        "id": "th-locke",
+        "title": "洛克",
+        "reason": "经验主义代表"
+      },
+      {
+        "id": "th-marx",
+        "title": "马克思",
+        "reason": "受黑格尔影响，间接受康德影响"
+      }
+    ],
+    "source": "《纯粹理性批判》（康德 1781）·《实践理性批判》（康德 1788）·《判断力批判》（康德 1790）·《永久和平论》（康德 1795）· 罗素《西方哲学史》"
+  },
+  {
+    "id": "th-hegel",
+    "name": "格奥尔格·黑格尔",
+    "westernName": "Georg Wilhelm Friedrich Hegel",
+    "region": "europe",
+    "era": "1770-1831",
+    "school": "德国古典哲学",
+    "title": "德国古典哲学集大成者",
+    "summary": "德国哲学家。1788 年入图宾根神学院，与谢林、荷尔德林同窗。后任纽伦堡文科中学校长 8 年。1816 年起任海德堡大学、柏林大学教授。1831 年在柏林逝世。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**1770—1831**（享年 61）"
+      },
+      {
+        "label": "国籍",
+        "value": "**德意志**（符腾堡）"
+      },
+      {
+        "label": "代表作",
+        "value": "**《精神现象学》《逻辑学》《哲学全书》《法哲学原理》**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**绝对精神 · 辩证法 · 正反合 · 历史理性 · 国家哲学**"
+      },
+      {
+        "label": "地位",
+        "value": "**德国古典哲学集大成者**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响马克思、克尔凯郭尔、海德格尔、萨特**"
+      },
+      {
+        "label": "名言",
+        "value": "**凡是合乎理性的都是现实的，凡是现实的都是合乎理性的**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：从神学院学生到普鲁士国家哲学家",
+        "body": "黑格尔出生于斯图加特官僚家庭。1788 年入图宾根神学院，与谢林、荷尔德林是同学（「图宾根三杰」）。1793 年毕业，做过家庭教师、纽伦堡文科中学校长（1808-1816）。1816 年任海德堡大学教授，1818-1831 年任柏林大学教授，1830 年任校长。1831 年因霍乱在柏林逝世，黑格尔哲学后被德国官方定为普鲁士国家哲学。"
+      },
+      {
+        "type": "callout",
+        "heading": "辩证法——正反合的综合",
+        "body": "黑格尔辩证法：一切存在都是辩证的——正题（肯定）、反题（否定）、合题（否定之否定/综合）。绝对精神（Geist）是世界的本质，它通过自我否定、自我发展、自我认识，达到绝对自由。历史是绝对精神的展开。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**凡是合乎理性的都是现实的，凡是现实的都是合乎理性的**。",
+        "cite": "黑格尔《法哲学原理》"
+      },
+      {
+        "type": "quote",
+        "text": "**仆从眼中无英雄**——不是因为英雄不是英雄，而是因为仆从只是仆从。",
+        "cite": "黑格尔"
+      },
+      {
+        "type": "quote",
+        "text": "**历史是一条灰烬之河**——但人类吸取经验。",
+        "cite": "黑格尔（变体）"
+      },
+      {
+        "type": "quote",
+        "text": "**密涅瓦的猫头鹰只在黄昏起飞**。",
+        "cite": "黑格尔《法哲学原理》"
+      },
+      {
+        "type": "list",
+        "heading": "黑格尔核心思想",
+        "items": [
+          "绝对精神——世界的本质",
+          "辩证法——正反合的发展",
+          "历史哲学——历史是理性展开",
+          "国家哲学——国家是伦理理念的现实化",
+          "主奴辩证法——自我意识的发展",
+          "美是理念的感性显现"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "1770",
+        "era": "符腾堡",
+        "event": "黑格尔生于斯图加特"
+      },
+      {
+        "year": "1788",
+        "era": "18岁",
+        "event": "入图宾根神学院，与谢林同学"
+      },
+      {
+        "year": "1793",
+        "era": "23岁",
+        "event": "毕业，做家庭教师"
+      },
+      {
+        "year": "1807",
+        "era": "37岁",
+        "event": "**出版《精神现象学》**"
+      },
+      {
+        "year": "1808",
+        "era": "38岁",
+        "event": "任纽伦堡文科中学校长"
+      },
+      {
+        "year": "1812",
+        "era": "42岁",
+        "event": "**出版《逻辑学》**（大逻辑）"
+      },
+      {
+        "year": "1816",
+        "era": "46岁",
+        "event": "任海德堡大学教授"
+      },
+      {
+        "year": "1817",
+        "era": "47岁",
+        "event": "出版《哲学全书》"
+      },
+      {
+        "year": "1818",
+        "era": "48岁",
+        "event": "任柏林大学教授"
+      },
+      {
+        "year": "1820",
+        "era": "50岁",
+        "event": "**出版《法哲学原理》**"
+      },
+      {
+        "year": "1830",
+        "era": "60岁",
+        "event": "任柏林大学校长"
+      },
+      {
+        "year": "1831",
+        "era": "61岁",
+        "event": "因霍乱在柏林逝世"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Hegel portrait painting",
+        "caption": "黑格尔肖像",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Humboldt University Berlin",
+        "caption": "柏林大学——黑格尔的最后讲台",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Tubingen Seminary historic",
+        "caption": "图宾根神学院——黑格尔的母校",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Hegel dialectic thesis antithesis",
+        "caption": "黑格尔辩证法示意图",
+        "credit": "Public Domain Illustration"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-kant",
+        "title": "康德",
+        "reason": "德国古典哲学奠基者"
+      },
+      {
+        "id": "th-marx",
+        "title": "马克思",
+        "reason": "辩证法继承人"
+      },
+      {
+        "id": "th-fichte",
+        "title": "费希特",
+        "reason": "图宾根三杰之一"
+      },
+      {
+        "id": "th-schelling",
+        "title": "谢林",
+        "reason": "图宾根三杰之一"
+      },
+      {
+        "id": "th-nietzsche",
+        "title": "尼采",
+        "reason": "反叛黑格尔哲学"
+      }
+    ],
+    "source": "《精神现象学》（黑格尔 1807）·《逻辑学》（黑格尔 1812）·《哲学全书》（黑格尔 1817）·《法哲学原理》（黑格尔 1820）· 罗素《西方哲学史》"
+  },
+  {
+    "id": "th-nietzsche",
+    "name": "弗里德里希·尼采",
+    "westernName": "Friedrich Nietzsche",
+    "region": "europe",
+    "era": "1844-1900",
+    "school": "唯意志主义",
+    "title": "后现代哲学先驱",
+    "summary": "德国哲学家。父亲是牧师。1864 年入波恩大学，1865 年转莱比锡大学，1869 年任巴塞尔大学古典语文学教授，年仅 24 岁。后因严重健康问题辞职。1889 年在意大利都灵精神崩溃，再未恢复，直到 1900 年去世。",
+    "facts": [
+      {
+        "label": "生卒",
+        "value": "**1844—1900**（享年 56）"
+      },
+      {
+        "label": "国籍",
+        "value": "**德意志**（普鲁士萨克森）"
+      },
+      {
+        "label": "代表作",
+        "value": "**《查拉图斯特拉如是说》《善恶的彼岸》《道德的谱系》《权力意志》**"
+      },
+      {
+        "label": "核心思想",
+        "value": "**上帝已死 · 永恒轮回 · 权力意志 · 主人道德奴隶道德 · 超人哲学**"
+      },
+      {
+        "label": "地位",
+        "value": "**后现代哲学先驱 · 存在主义先驱**"
+      },
+      {
+        "label": "影响",
+        "value": "**影响海德格尔、萨特、福柯、德里达**"
+      },
+      {
+        "label": "名言",
+        "value": "**当你凝视深渊时，深渊也在凝视你**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "生平：哲学史上最有名的发疯者",
+        "body": "尼采出生于牧师家庭，父亲早逝。24 岁任巴塞尔大学古典语文学教授，是该校最年轻的教授之一。后因严重偏头痛和眼疾辞职，此后 10 年在瑞士、意大利、法国漫游，著书立说。1889 年 1 月在意大利都灵，他看到一匹马被车夫鞭打，冲上去抱住马脖子痛哭，几日后精神崩溃，再未完全恢复。后在母亲和妹妹照顾下度过 11 年，直到 1900 年在魏玛去世。"
+      },
+      {
+        "type": "callout",
+        "heading": "上帝已死——西方价值的根本危机",
+        "body": "尼采在《快乐的科学》中宣称「上帝已死」——并不是说上帝不存在，而是说传统基督教信仰对西方道德价值的支持已经崩溃。这导致西方价值真空——「如何面对虚无？」尼采的答案是「超人」（Übermensch）和「永恒轮回」。",
+        "variant": "info"
+      },
+      {
+        "type": "quote",
+        "text": "**上帝已死——是你们杀死了他。我们将如何安慰自己，最残忍的凶手？**",
+        "cite": "尼采《快乐的科学》"
+      },
+      {
+        "type": "quote",
+        "text": "**当你凝视深渊时，深渊也在凝视你**。",
+        "cite": "尼采《善恶的彼岸》"
+      },
+      {
+        "type": "quote",
+        "text": "**那些杀不死我的，使我更强大**。",
+        "cite": "尼采"
+      },
+      {
+        "type": "quote",
+        "text": "**一个人知道自己为什么而活，就能忍受任何一种生活**。",
+        "cite": "尼采"
+      },
+      {
+        "type": "list",
+        "heading": "尼采核心思想",
+        "items": [
+          "上帝已死——传统价值崩溃",
+          "权力意志——万物之根本动力",
+          "主人道德 vs 奴隶道德",
+          "永恒轮回——同一生命无限次重演",
+          "超人哲学——超越人类的强者",
+          "视角主义——没有绝对真理"
+        ]
+      }
+    ],
+    "timeline": [
+      {
+        "year": "1844",
+        "era": "普鲁士",
+        "event": "尼采生于萨克森州吕肯，父亲是牧师"
+      },
+      {
+        "year": "1858",
+        "era": "14岁",
+        "event": "入普夫尔塔学校（精英寄宿）"
+      },
+      {
+        "year": "1864",
+        "era": "20岁",
+        "event": "入波恩大学神学与古典语文学"
+      },
+      {
+        "year": "1865",
+        "era": "21岁",
+        "event": "转莱比锡大学"
+      },
+      {
+        "year": "1869",
+        "era": "24岁",
+        "event": "**任巴塞尔大学古典语文学教授**——最年轻教授之一"
+      },
+      {
+        "year": "1872",
+        "era": "28岁",
+        "event": "**出版《悲剧的诞生》**"
+      },
+      {
+        "year": "1879",
+        "era": "35岁",
+        "event": "因病辞职，开始漫游著述"
+      },
+      {
+        "year": "1882",
+        "era": "38岁",
+        "event": "出版《快乐的科学》，提出「上帝已死」"
+      },
+      {
+        "year": "1883-1885",
+        "era": "中年",
+        "event": "**撰写《查拉图斯特拉如是说》**"
+      },
+      {
+        "year": "1886",
+        "era": "42岁",
+        "event": "**出版《善恶的彼岸》**"
+      },
+      {
+        "year": "1887",
+        "era": "43岁",
+        "event": "出版《道德的谱系》"
+      },
+      {
+        "year": "1889",
+        "era": "45岁",
+        "event": "**在都灵精神崩溃**，抱住马脖子痛哭"
+      },
+      {
+        "year": "1900",
+        "era": "56岁",
+        "event": "尼采在魏玛去世"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "Nietzsche portrait painting 1882",
+        "caption": "尼采肖像（1882）",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Turin Italy horse Nietzsche collapse",
+        "caption": "都灵——尼采精神崩溃地",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Nietzsche Zarathustra cover 1883",
+        "caption": "《查拉图斯特拉如是说》封面",
+        "credit": "Wikimedia Commons · Public Domain"
+      },
+      {
+        "imageKeyword": "Basel University historic building",
+        "caption": "巴塞尔大学——尼采的讲台",
+        "credit": "Wikimedia Commons · Public Domain"
+      }
+    ],
+    "related": [
+      {
+        "id": "th-kant",
+        "title": "康德",
+        "reason": "德国古典哲学先驱"
+      },
+      {
+        "id": "th-hegel",
+        "title": "黑格尔",
+        "reason": "尼采反叛黑格尔哲学"
+      },
+      {
+        "id": "th-marx",
+        "title": "马克思",
+        "reason": "同期哲学家"
+      },
+      {
+        "id": "th-sartre",
+        "title": "萨特",
+        "reason": "存在主义继承人"
+      },
+      {
+        "id": "th-foucault",
+        "title": "福柯",
+        "reason": "后现代主义继承人"
+      }
+    ],
+    "source": "《查拉图斯特拉如是说》（尼采 1883-1885）·《善恶的彼岸》（尼采 1886）·《道德的谱系》（尼采 1887）·《权力意志》（尼采遗稿）· 周国平《尼采与形而上学》"
   }
 ]
 

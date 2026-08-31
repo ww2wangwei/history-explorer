@@ -78,6 +78,7 @@ const PATHS: { id: string; icon: string; title: string; desc: string; color: str
   { id: 'ladder', icon: '🪜', title: '文史天梯', desc: '史·诗·人 三条天梯 · 学测记问 4 步闭环 · 通关可重开', color: '#b8433a', imageKeyword: 'ancient stone temple stairs scholarly',
     imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Skylight%2C_chandelier_and_stairs%2C_Ashmolean_Museum%2C_Oxford.jpg' }, // 阿什莫林博物馆天梯（喻登阶）
   { id: 'allTraditions', icon: '🪷', title: '全传统', desc: '12 子分类 · 中国人的历史、家、神话、哲学、文字、文学、艺术、历法节气、礼仪制度、衣食住行、科技', color: '#d4856a', imageKeyword: 'chinese tradition ink painting calligraphy' },
+  { id: 'allThoughts', icon: '💡', title: '全思想', desc: '集中收集整理全人类的思想精华 · 老子·孔子·苏格拉底·柏拉图·佛陀·更多', color: '#9b7eb6', imageKeyword: 'philosophy ancient greek thinker meditation candle' },
 ]
 
 // === 主路径（4 个核心） ===
@@ -317,7 +318,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           <div className="flex-1">
             <GreekKeyDivider />
           </div>
-          <span className="text-xs text-ink-400 font-brush tracking-widest">14 板块</span>
+          <span className="text-xs text-ink-400 font-brush tracking-widest">15 板块</span>
         </div>
       </div>
 
@@ -333,35 +334,14 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           if (recommendation) recordVisit('timeline', recommendation.eraId)
           setShowEraList(true)
         }}
+        onOpenThoughts={() => {
+          audioEngine.playModalOpen()
+          setShowThoughts(true)
+        }}
         newPathId="ladder"
       />
 
-      {/* === 15. 全思想入口（紧跟 FilmstripGallery 之后，居中容器外） === */}
-      <div className="max-w-5xl mx-auto px-6 mt-6 mb-2">
-        <div className="flex items-center gap-4 mb-3">
-          <span className="font-brush text-lg text-bone tracking-[0.4em]">思想宝库</span>
-          <div className="flex-1">
-            <GreekKeyDivider />
-          </div>
-          <span className="text-xs text-ink-400 font-brush tracking-widest">💡 引导</span>
-        </div>
-      </div>
-      <button
-        onClick={() => { audioEngine.playModalOpen(); setShowThoughts(true) }}
-        className="block w-full max-w-5xl mx-auto px-6 mb-6 group"
-      >
-        <div className="relative overflow-hidden rounded-xl border border-ink-600/40 hover:border-vermilion-500/60 transition-all hover:scale-[1.005] p-5 flex items-center gap-4 bg-ink-700/30">
-          <div className="text-4xl shrink-0">💡</div>
-          <div className="flex-1 text-left">
-            <div className="flex items-baseline gap-2">
-              <span className="font-brush text-xl text-vermilion-300 tracking-wide">全思想</span>
-              <span className="text-xs text-ink-400">集中收集整理全人类的思想精华</span>
-            </div>
-            <div className="text-xs text-ink-300 mt-1">老子 · 庄子 · 孔子 · 苏格拉底 · 柏拉图 · 释迦牟尼 · 亚里士多德 · 笛卡尔 · 康德 · 黑格尔 · 尼采 · 马克思 · 更多</div>
-          </div>
-          <div className="text-bronze-400 text-xs group-hover:text-vermilion-300 transition-colors">点击进入 →</div>
-        </div>
-      </button>
+      {/* Filmstrip 已包含全思想板块（横向折叠第 15 个） */}
 
       <div className="px-4 sm:px-8 py-4">
         {/* === 3. Hero CTA（当前推荐 · 卷轴式） === */}
@@ -1081,6 +1061,7 @@ function FilmstripGallery({
   onEnterPath,
   onEnterLadder,
   onOpenEraList,
+  onOpenThoughts,
   newPathId,
 }: {
   paths: { id: string; icon: string; title: string; desc: string; color: string; imageKeyword: string; imageUrl?: string }[]
@@ -1089,6 +1070,7 @@ function FilmstripGallery({
   onEnterPath: (id: PathId) => void
   onEnterLadder: () => void
   onOpenEraList: () => void
+  onOpenThoughts?: () => void
   newPathId?: string
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -1113,6 +1095,7 @@ function FilmstripGallery({
   const handleClick = (id: string) => {
     if (id === 'ladder') onEnterLadder()
     else if (id === 'timeline') onOpenEraList()
+    else if (id === 'allThoughts') onOpenThoughts?.()
     else onEnterPath(id as PathId)
   }
 

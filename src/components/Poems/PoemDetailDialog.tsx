@@ -17,6 +17,7 @@ import { usePoemStore } from '@/store/usePoemStore'
 import { useJumpToMap } from '@/hooks/useJumpToMap'
 import { formatRelativeTime } from '@/utils/relativeTime'
 import type { Poem } from '@/types/poems'
+import { OverviewRichContent } from '@/components/ui/OverviewRichContent'
 import PoemScene from './PoemScene'
 import PoemBGMControls from './PoemBGMControls'
 
@@ -333,6 +334,10 @@ export default function PoemDetailDialog({ poem, isFavorite, onToggleFavorite, o
             <p className="text-sm text-parchment-50 leading-relaxed whitespace-pre-line">
               {poem.background}
             </p>
+
+            {/* 富内容 */}
+            <OverviewRichContent item={poem as any} />
+
             <div className="text-[10px] text-ink-300 mt-2">出处 · {poem.source}</div>
           </section>
         </div>

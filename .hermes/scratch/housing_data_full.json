@@ -1,0 +1,4803 @@
+{
+  "tr-hou-ritual": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**宗庙与社稷**"
+      },
+      {
+        "label": "起源",
+        "value": "**夏商**"
+      },
+      {
+        "label": "核心",
+        "value": "**祭祖、祭社稷**"
+      },
+      {
+        "label": "代表",
+        "value": "**太庙、社稷坛**"
+      },
+      {
+        "label": "现代",
+        "value": "**文物保护**"
+      },
+      {
+        "label": "意义",
+        "value": "**祭祀建筑**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "宗庙与社稷",
+        "body": "宗庙 (祭祖)、社稷坛 (祭土地神、谷神) 是中华祭祀建筑的核心。起源：夏代祭祖；周代完善 \"左祖右社\"；明清太庙、社稷坛。"
+      },
+      {
+        "type": "callout",
+        "heading": "左祖右社",
+        "body": "左祖右社是都城规划核心原则。原因：体现礼制；皇权至上；宗法制度；天地人和谐；延续 3000 多年。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "太庙",
+        "body": "太庙是帝王祭祖场所。位于宫殿东侧 (左祖)。北京太庙建于明永乐十八年 (AD 1420)，是明清两代皇帝祭祖场所。"
+      },
+      {
+        "type": "list",
+        "heading": "宗庙祭祀",
+        "items": [
+          "**太庙** - 帝王祭祖",
+          "**家庙** - 百姓祭祖",
+          "**祠堂** - 宗族祭祖",
+          "**社稷坛** - 帝王祭社稷",
+          "**地坛** - 帝王祭地",
+          "**天坛** - 帝王祭天"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "保护",
+        "body": "现代宗庙与社稷坛保护重要。遗产、文化、祭祀传统、学术研究、国际。"
+      },
+      {
+        "type": "quote",
+        "text": "**国之大事，在祀与戎**。",
+        "cite": "左传成公十三年"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1000",
+        "era": "西周",
+        "event": "**左祖右社**确立"
+      },
+      {
+        "year": "BC 200",
+        "era": "西汉",
+        "event": "**社稷**祭祀制度化"
+      },
+      {
+        "year": "AD 1420",
+        "era": "明",
+        "event": "**北京太庙**建成"
+      },
+      {
+        "year": "AD 1420",
+        "era": "明",
+        "event": "**社稷坛**建成"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**太庙社稷坛**鼎盛"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**宗庙**破坏"
+      },
+      {
+        "year": "AD 1950",
+        "era": "当代",
+        "event": "**太庙**改为劳动人民文化宫"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**社稷坛**中山公园"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "temple of ancestors imperial beijing",
+        "caption": "北京太庙",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "altar of land and grain beijing",
+        "caption": "北京社稷坛",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese ancestral hall shrine",
+        "caption": "宗庙建筑",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "建筑类型"
+      },
+      {
+        "id": "tr-hou-temple",
+        "title": "寺庙与道观",
+        "reason": "祭祀建筑"
+      },
+      {
+        "id": "tr-hou-zigong",
+        "title": "紫禁城与故宫",
+        "reason": "太庙在故宫"
+      },
+      {
+        "id": "tr-hou-capital",
+        "title": "都城规划",
+        "reason": "左祖右社"
+      },
+      {
+        "id": "tr-hou-mausoleum",
+        "title": "帝王陵墓",
+        "reason": "墓葬祭祀"
+      },
+      {
+        "id": "tr-hou-fengshui",
+        "title": "风水",
+        "reason": "风水与祭祀"
+      }
+    ],
+    "source": "周礼、礼记、明会典、北京太庙、社稷坛"
+  },
+  "tr-hou-bridge": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**中华桥梁**"
+      },
+      {
+        "label": "起源",
+        "value": "**西周**"
+      },
+      {
+        "label": "核心",
+        "value": "**石拱桥、悬索桥**"
+      },
+      {
+        "label": "代表",
+        "value": "**赵州桥、卢沟桥**"
+      },
+      {
+        "label": "现代",
+        "value": "**桥梁遗产**"
+      },
+      {
+        "label": "意义",
+        "value": "**交通建筑艺术**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "中华桥梁特色",
+        "body": "中华桥梁是建筑的重要类型。种类：石桥、木桥、拱桥、悬索桥、廊桥等。代表：赵州桥、卢沟桥、安平桥、灵虹桥、五亭桥。"
+      },
+      {
+        "type": "callout",
+        "heading": "赵州桥",
+        "body": "赵州桥 (安济桥) 是世界桥梁奇迹。原因：隋开皇十五年 (AD 595) 李春建造；单孔敞肩石拱桥；1400 年不倒；世界桥梁建筑鼻祖。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "卢沟桥",
+        "body": "卢沟桥是华北名桥。原因：金代明昌三年 (AD 1192) 建成；多孔联拱石桥；\"卢沟晓月\"；七七事变发生地。"
+      },
+      {
+        "type": "list",
+        "heading": "主要桥梁",
+        "items": [
+          "**赵州桥** (河北)",
+          "**卢沟桥** (北京)",
+          "**安平桥** (福建)",
+          "**灵虹桥** (云南)",
+          "**五亭桥** (扬州)",
+          "**广济桥** (潮州)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "廊桥文化",
+        "body": "中华廊桥 (风雨桥) 是独特类型。原因：木质桥廊；可遮风避雨；供人休息；闽浙湘桂特有。代表：福建闽东廊桥、广西侗族风雨桥。"
+      },
+      {
+        "type": "quote",
+        "text": "**赵州桥鲁班修**。",
+        "cite": "民间传说"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1000",
+        "era": "西周",
+        "event": "**桥梁**出现"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**桥梁**初步发展"
+      },
+      {
+        "year": "AD 595",
+        "era": "隋",
+        "event": "**赵州桥**建成"
+      },
+      {
+        "year": "AD 1192",
+        "era": "金",
+        "event": "**卢沟桥**建成"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**安平桥**建成"
+      },
+      {
+        "year": "AD 1500",
+        "era": "明",
+        "event": "**桥梁**普及"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**现代桥梁**出现"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**桥梁**列入世界遗产"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "zhaozhou bridge ancient",
+        "caption": "赵州桥",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "lugou bridge marco polo",
+        "caption": "卢沟桥",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese ancient covered bridge",
+        "caption": "风雨桥",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "桥梁是建筑类型"
+      },
+      {
+        "id": "tr-hou-canal",
+        "title": "运河与水利",
+        "reason": "运河桥梁"
+      },
+      {
+        "id": "tr-hou-citydef",
+        "title": "城池与防御",
+        "reason": "护城河桥"
+      },
+      {
+        "id": "tr-hou-garden",
+        "title": "园林",
+        "reason": "园林桥"
+      },
+      {
+        "id": "tr-hou-zao",
+        "title": "造园与叠石",
+        "reason": "桥与园林"
+      },
+      {
+        "id": "tr-hou-pailou",
+        "title": "牌坊",
+        "reason": "牌坊对比"
+      }
+    ],
+    "source": "周礼、天工开物、中国桥梁史 (茅以升)、赵州桥志"
+  },
+  "tr-hou-canal": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**运河与水利**"
+      },
+      {
+        "label": "起源",
+        "value": "**春秋**"
+      },
+      {
+        "label": "核心",
+        "value": "**京杭大运河**"
+      },
+      {
+        "label": "代表",
+        "value": "**京杭运河、灵渠**"
+      },
+      {
+        "label": "现代",
+        "value": "**世遗(2014)**"
+      },
+      {
+        "label": "意义",
+        "value": "**水利建筑**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "中华运河",
+        "body": "中华运河是重要水利工程。起源：春秋 (邗沟)；秦代 (灵渠)；隋代 (京杭运河)；元代 (京杭运河贯通)。运河是中华水利文明的代表。"
+      },
+      {
+        "type": "callout",
+        "heading": "京杭大运河",
+        "body": "京杭大运河是世界最长古运河。原因：北起北京、南至杭州；全长 1794 公里；连接 5 大水系；2000 多年历史；2014 年列入世界文化遗产。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "灵渠",
+        "body": "灵渠是秦代水利工程。位于广西兴安县；公元前 214 年；沟通湘江、漓江；连接长江、珠江水系；中国最早的运河之一。"
+      },
+      {
+        "type": "list",
+        "heading": "主要运河",
+        "items": [
+          "**京杭大运河** (北京-杭州)",
+          "**灵渠** (广西)",
+          "**邗沟** (江苏)",
+          "**鸿沟** (河南)",
+          "**通惠河** (北京)",
+          "**江南运河** (江苏)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "运河文化",
+        "body": "运河文化独特。沿岸城市 (扬州、苏州、杭州、济宁等)；漕运文化；盐商文化；运河小镇；非物质文化遗产。"
+      },
+      {
+        "type": "quote",
+        "text": "**半部中国史，千年运河情**。",
+        "cite": "民间俗语"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 486",
+        "era": "春秋",
+        "event": "**邗沟**开挖"
+      },
+      {
+        "year": "BC 214",
+        "era": "秦",
+        "event": "**灵渠**建成"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**运河**发展"
+      },
+      {
+        "year": "AD 600",
+        "era": "隋",
+        "event": "**京杭运河**"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": "**京杭运河**贯通"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**京杭运河**鼎盛"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**运河**衰落"
+      },
+      {
+        "year": "AD 2014",
+        "era": "当代",
+        "event": "**京杭大运河**世遗"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "grand canal China beijing hangzhou",
+        "caption": "京杭大运河",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "lingqu canal guangxi",
+        "caption": "灵渠",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "canal town China waterway",
+        "caption": "运河小镇",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "水利是建筑类型"
+      },
+      {
+        "id": "tr-hou-bridge",
+        "title": "桥梁",
+        "reason": "运河桥梁"
+      },
+      {
+        "id": "tr-hou-zhenghe",
+        "title": "郑和下西洋",
+        "reason": "水路交通"
+      },
+      {
+        "id": "tr-hou-zhidao",
+        "title": "驿站与邮驿",
+        "reason": "陆路邮驿"
+      },
+      {
+        "id": "tr-hou-citydef",
+        "title": "城池与防御",
+        "reason": "运河城池"
+      },
+      {
+        "id": "tr-hou-fengshui",
+        "title": "风水",
+        "reason": "水利风水"
+      }
+    ],
+    "source": "隋书、漕运通志、中国运河 (刘文锴)、京杭大运河 (岳国芳)"
+  },
+  "tr-hou-courtyard": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**四合院**"
+      },
+      {
+        "label": "起源",
+        "value": "**西周**"
+      },
+      {
+        "label": "核心",
+        "value": "**院落式民居**"
+      },
+      {
+        "label": "代表",
+        "value": "**北京四合院**"
+      },
+      {
+        "label": "现代",
+        "value": "**保护与改造**"
+      },
+      {
+        "label": "意义",
+        "value": "**汉族民居代表**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "四合院是什么",
+        "body": "四合院是汉族民居代表。布局：四面房屋围合中央庭院；坐北朝南；中轴对称；等级分明。代表：北京四合院、山西大院、徽派民居。"
+      },
+      {
+        "type": "callout",
+        "heading": "北京四合院",
+        "body": "北京四合院是四合院代表。原因：元代定型；明清完善；正房、东西厢房、倒座房；大门、影壁；等级分明；汉族文化核心。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "四合院等级",
+        "body": "四合院等级分明。一等：亲王；二等：贝勒；三等：官员；四等：普通百姓。门当、户对体现等级。"
+      },
+      {
+        "type": "list",
+        "heading": "主要四合院",
+        "items": [
+          "**北京四合院**",
+          "**山西乔家大院**",
+          "**徽派民居** (皖南)",
+          "**晋中大院**",
+          "**关中民居**",
+          "**川西林盘**"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "四合院文化",
+        "body": "四合院文化深厚。家族共居；长幼有序；男女有别；\"家\"文化；汉族居住哲学。"
+      },
+      {
+        "type": "quote",
+        "text": "**四世同堂，五福临门**。",
+        "cite": "民间祝福语"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1000",
+        "era": "西周",
+        "event": "**四合院**雏形"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**四合院**形成"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**四合院**成熟"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": "**北京四合院**定型"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**四合院**鼎盛"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**四合院**破坏"
+      },
+      {
+        "year": "AD 1980",
+        "era": "当代",
+        "event": "**四合院**保护"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**四合院**修复与改造"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "beijing siheyuan courtyard",
+        "caption": "北京四合院",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "shanxi courtyard mansion",
+        "caption": "山西乔家大院",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "huizhou style house anhui",
+        "caption": "徽派民居",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "民居是建筑类型"
+      },
+      {
+        "id": "tr-hou-fengshui",
+        "title": "风水",
+        "reason": "四合院风水"
+      },
+      {
+        "id": "tr-hou-garden",
+        "title": "园林",
+        "reason": "民居园林"
+      },
+      {
+        "id": "tr-hou-tianjin",
+        "title": "天津民居",
+        "reason": "其他民居"
+      },
+      {
+        "id": "tr-hou-yaodong",
+        "title": "窑洞与穴居",
+        "reason": "窑洞"
+      },
+      {
+        "id": "tr-hou-tulou",
+        "title": "土楼",
+        "reason": "客家土楼"
+      }
+    ],
+    "source": "周礼、礼记、北京四合院 (马旭初)、晋商民居"
+  },
+  "tr-hou-diao": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**吊脚楼 — 干栏式建筑**"
+      },
+      {
+        "label": "起源",
+        "value": "**河姆渡文化 (BC 5000)**"
+      },
+      {
+        "label": "核心",
+        "value": "**下层架空 / 上层住人**"
+      },
+      {
+        "label": "分布",
+        "value": "**湘西鄂西渝黔桂**"
+      },
+      {
+        "label": "代表",
+        "value": "**凤凰吊脚楼 / 苗寨吊脚楼**"
+      },
+      {
+        "label": "特色",
+        "value": "**依山就势、错落有致**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "何谓\"吊脚楼\"？",
+        "body": "吊脚楼 (干栏式建筑) 源于河姆渡文化 (BC 5000)。\"吊脚\"指下层架空 (防潮防虫防兽)；\"楼\"指上层住人。分布于湘西、鄂西、渝东南、黔东南、桂北等南方少数民族地区。"
+      },
+      {
+        "type": "callout",
+        "heading": "\"干栏\"建筑的智慧",
+        "body": "\"干栏\"是南方少数民族应对湿热环境的智慧。原因：南方多雨潮湿 — 架空防潮；山林多虫兽 — 架空防虫防兽；木材丰富 — 用木桩架空。\"干栏\"建筑已有 7000 年历史。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "吊脚楼如何\"依山就势\"？",
+        "body": "吊脚楼\"依山就势\"建造。原因：底层依山势长短不一；前柱\"吊脚\"、后柱落地；屋顶顺坡起；层层出挑；错落有致。吊脚楼与山地自然融为一体。"
+      },
+      {
+        "type": "list",
+        "heading": "吊脚楼的主要分布",
+        "items": [
+          "**湘西** — 凤凰吊脚楼、土家吊脚楼",
+          "**鄂西** — 恩施土家吊脚楼",
+          "**渝东南** — 酉阳、秀山吊脚楼",
+          "**黔东南** — 苗寨吊脚楼 (西江千户苗寨)",
+          "**桂北** — 龙胜吊脚楼",
+          "**云南** — 傣族竹楼 (干栏变体)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "吊脚楼的文化意义",
+        "body": "吊脚楼是南方少数民族智慧的体现。原因：因地制宜 — 适应山地；文化象征 — 民族特色；社群结构 — 聚族而居；建筑技艺 — 干栏木构；保护与传承 — 列入国家级非遗。"
+      },
+      {
+        "type": "quote",
+        "text": "**依山就势，错落有致，吊脚楼上有人家**。",
+        "cite": "民间俗语"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "新石器",
+        "event": "**河姆渡**干栏式建筑"
+      },
+      {
+        "year": "BC 2000",
+        "era": "传说",
+        "event": "**南方民族**沿用"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**干栏**文献记载"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**吊脚楼** 雏形"
+      },
+      {
+        "year": "AD 1500",
+        "era": "明",
+        "event": "**土家吊脚楼** 成型"
+      },
+      {
+        "year": "AD 1700",
+        "era": "清",
+        "event": "**吊脚楼**鼎盛"
+      },
+      {
+        "year": "AD 2000",
+        "era": "当代",
+        "event": "**吊脚楼**列入非遗"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**吊脚楼**保护与传承"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "miao village stilted house",
+        "caption": "苗寨吊脚楼 (西江千户苗寨)",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "fenghuang phoenix ancient town",
+        "caption": "凤凰吊脚楼",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "tujia stilted house",
+        "caption": "土家吊脚楼",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "中华建筑",
+        "reason": "民居是建筑类型"
+      },
+      {
+        "id": "tr-hou-courtyard",
+        "title": "合院式",
+        "reason": "民居对比"
+      },
+      {
+        "id": "tr-hou-tianjin",
+        "title": "天井式",
+        "reason": "南方民居"
+      },
+      {
+        "id": "tr-hou-tulou",
+        "title": "土楼",
+        "reason": "其他民居"
+      },
+      {
+        "id": "tr-hou-yaodong",
+        "title": "窑洞",
+        "reason": "民居对比"
+      },
+      {
+        "id": "tr-hou-fengshui",
+        "title": "风水",
+        "reason": "山地风水"
+      }
+    ],
+    "source": "河姆渡考古、干栏建筑研究 (李先逵)、湘西吊脚楼 (何介文)、土家族建筑 (张良皋)"
+  },
+  "tr-hou-fang": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**画舫 — 古代游轮**"
+      },
+      {
+        "label": "起源",
+        "value": "**唐宋**"
+      },
+      {
+        "label": "核心",
+        "value": "**装饰华丽 / 园林游船**"
+      },
+      {
+        "label": "代表",
+        "value": "**颐和园\"清晏舫\"**"
+      },
+      {
+        "label": "种类",
+        "value": "**木舫 / 石舫**"
+      },
+      {
+        "label": "文化",
+        "value": "**\"画船听雨\"古典意象**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "何谓\"画舫\"？",
+        "body": "\"画舫\"是装饰华丽的游船，唐宋兴起。\"舫\"是不动的画船 — 园林中模拟船形的建筑 (或真的船)。画舫多停泊江南水乡，\"画船听雨\"是古典意象。"
+      },
+      {
+        "type": "callout",
+        "heading": "\"清晏舫\"的来历",
+        "body": "颐和园\"清晏舫\"是石舫代表。原因：颐和园昆明湖西岸；建于清乾隆二十年 (AD 1755)；石制仿船形；取\"海晏河清\"之意；皇帝借此体现江山永固；世界园林奇观。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "\"舫\"的两种形态",
+        "body": "\"舫\"分木制与石制两种。木舫：真船 (可移动)，装饰华丽 — 如颐和园\"云绘楼\"画舫；石舫：石制仿船 (不可动)，永久纪念 — 如颐和园\"清晏舫\"、苏州狮子林\"画舫\"。"
+      },
+      {
+        "type": "list",
+        "heading": "画舫的功能与文化",
+        "items": [
+          "**休闲娱乐** — 帝王、文人游船",
+          "**饮宴雅集** — 舫上设茶室、琴台",
+          "**吟诗作赋** — 船中题诗、作文",
+          "**观景赏景** — 沿岸风景",
+          "**园林点缀** — 石舫是园林一景",
+          "**古典意象** — \"画船听雨\"\"烟波画舫\""
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "画舫的文学意象",
+        "body": "画舫是古典文学中的常见意象。\"画船听雨\" (江南意象)；\"烟波画舫\" (西湖意象)；\"乘舫游湖\" (文人雅集)；\"舫中吟诗\" (李白、苏轼)。画舫象征浪漫与文化。"
+      },
+      {
+        "type": "quote",
+        "text": "**画船听雨，诗意江南**。",
+        "cite": "古典文学意象"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**\"舫\"** 出现"
+      },
+      {
+        "year": "AD 600",
+        "era": "唐",
+        "event": "**画舫** 兴起"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**画舫**兴盛 (汴京、临安)"
+      },
+      {
+        "year": "AD 1400",
+        "era": "明",
+        "event": "**石舫**出现"
+      },
+      {
+        "year": "AD 1755",
+        "era": "清",
+        "event": "**清晏舫** (颐和园)"
+      },
+      {
+        "year": "AD 1800",
+        "era": "清",
+        "event": "**画舫**遍布江南"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**画舫**衰落"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**画舫**文化遗产保护"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "qingyan boat summer palace",
+        "caption": "颐和园\"清晏舫\"",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "jiangnan painting boat",
+        "caption": "江南画舫",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "chinese garden stone boat",
+        "caption": "园林石舫",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "中华建筑",
+        "reason": "画舫是建筑"
+      },
+      {
+        "id": "tr-hou-garden",
+        "title": "园林",
+        "reason": "舫在园林中"
+      },
+      {
+        "id": "tr-hou-zhenghe",
+        "title": "郑和",
+        "reason": "船舶对比"
+      },
+      {
+        "id": "tr-hou-car",
+        "title": "出行车",
+        "reason": "古代出行"
+      },
+      {
+        "id": "tr-hou-tower",
+        "title": "楼阁",
+        "reason": "建筑对比"
+      },
+      {
+        "id": "tr-hou-canal",
+        "title": "运河",
+        "reason": "水上交通"
+      }
+    ],
+    "source": "宋史·礼志、清史稿·舆服志、颐和园志、画舫研究 (周维权)、江南园林 (刘敦桢)"
+  },
+  "tr-hou-fengshui": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**风水**"
+      },
+      {
+        "label": "起源",
+        "value": "**商周**"
+      },
+      {
+        "label": "核心",
+        "value": "**\"藏风聚气\"**"
+      },
+      {
+        "label": "代表",
+        "value": "**《葬书》《地理正宗》**"
+      },
+      {
+        "label": "现代",
+        "value": "**争议与传承**"
+      },
+      {
+        "label": "意义",
+        "value": "**建筑选址哲学**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "什么是风水",
+        "body": "风水是中华建筑选址、布局的哲学。\"气\" 为核心；\"藏风聚气\" 为原则；分 \"峦头\" (形势)、\"理气\" (方位)；影响中华建筑 2000 多年。"
+      },
+      {
+        "type": "callout",
+        "heading": "风水核心",
+        "body": "风水核心是 \"气\"。原因：天地之气滋养万物；建筑应 \"藏风聚气\"；背山面水最佳；\"四灵\" (青龙、白虎、朱雀、玄武) 原则。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "《葬书》",
+        "body": "《葬书》是风水经典。作者 - 郭璞 (东晋)；内容 - 风水理论奠基；\"气乘风则散，界水则止，聚之使不散，行行\"；影响深远。"
+      },
+      {
+        "type": "list",
+        "heading": "风水流派",
+        "items": [
+          "**形势派** (峦头派)",
+          "**理气派**",
+          "**八宅派**",
+          "**玄空派**",
+          "**三合派**",
+          "**天星派**"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "现代争议",
+        "body": "风水在现代有争议。支持派：风水有科学道理 (地理、生态、心理)；反对派：风水是迷信。但风水对中华建筑的影响深远。"
+      },
+      {
+        "type": "quote",
+        "text": "**藏风聚气，背山面水**。",
+        "cite": "风水谚语"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1000",
+        "era": "商周",
+        "event": "**风水**萌芽"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**风水**理论化"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**堪舆**成熟"
+      },
+      {
+        "year": "AD 300",
+        "era": "东晋",
+        "event": "**葬书** (郭璞)"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": "**地理正宗**"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**风水**鼎盛"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**风水**批判"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**风水**复兴与争议"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese feng shui landscape",
+        "caption": "风水选址",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "chinese geomancy compass luopan",
+        "caption": "罗盘",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese burial mound feng shui",
+        "caption": "风水墓地",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "风水是建筑哲学"
+      },
+      {
+        "id": "tr-hou-courtyard",
+        "title": "四合院",
+        "reason": "四合院风水"
+      },
+      {
+        "id": "tr-hou-mausoleum",
+        "title": "帝王陵墓",
+        "reason": "陵墓风水"
+      },
+      {
+        "id": "tr-hou-capital",
+        "title": "都城规划",
+        "reason": "都城风水"
+      },
+      {
+        "id": "tr-hou-tianjin",
+        "title": "天津民居",
+        "reason": "天津风水"
+      },
+      {
+        "id": "tr-hou-yaodong",
+        "title": "窑洞与穴居",
+        "reason": "窑洞风水"
+      }
+    ],
+    "source": "葬书 (东晋郭璞)、地理正宗 (元)、中国风水史 (何晓昕)"
+  },
+  "tr-hou-yingbi": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**影壁与照壁**"
+      },
+      {
+        "label": "起源",
+        "value": "**西周**"
+      },
+      {
+        "label": "核心",
+        "value": "**遮挡视线、装饰**"
+      },
+      {
+        "label": "代表",
+        "value": "**故宫九龙壁**"
+      },
+      {
+        "label": "现代",
+        "value": "**装饰艺术**"
+      },
+      {
+        "label": "意义",
+        "value": "**中华建筑小品**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "什么是影壁",
+        "body": "影壁 (照壁) 是中华建筑小品。位置：大门内外；功能：遮挡视线 (风水)、装饰门面、衬托建筑。材质：砖、石、木、琉璃。"
+      },
+      {
+        "type": "callout",
+        "heading": "故宫九龙壁",
+        "body": "故宫九龙壁是影壁艺术巅峰。原因：紫禁城内；长 29.4 米、高 3.5 米；九条龙；彩色琉璃；故宫影壁艺术代表。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "影壁文化",
+        "body": "影壁有文化内涵。风水：\"挡煞气\"；装饰：体现主人身份；礼仪：客人入门 \"见影\" 礼让。"
+      },
+      {
+        "type": "list",
+        "heading": "影壁类型",
+        "items": [
+          "**琉璃影壁** (皇家)",
+          "**砖雕影壁** (民间)",
+          "**石雕影壁** (园林)",
+          "**木雕影壁** (民居)",
+          "**照壁** (南方称谓)",
+          "**座山影壁** (院内)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "现代影壁",
+        "body": "现代影壁成为装饰艺术。别墅、办公楼、酒店影壁；现代设计融合传统元素；景观设计常用。"
+      },
+      {
+        "type": "quote",
+        "text": "**开门见影壁，藏风聚气**。",
+        "cite": "民间俗语"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1000",
+        "era": "西周",
+        "event": "**影壁**雏形"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**影壁**初步形成"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**影壁**成熟"
+      },
+      {
+        "year": "AD 1400",
+        "era": "明",
+        "event": "**九龙壁** (故宫)"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**影壁**鼎盛"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**影壁**部分破坏"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**影壁**保护"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**影壁**艺术复兴"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese nine dragon wall",
+        "caption": "九龙壁",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese spirit wall screen",
+        "caption": "影壁",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese marble screen wall",
+        "caption": "石影壁",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "影壁是建筑小品"
+      },
+      {
+        "id": "tr-hou-courtyard",
+        "title": "四合院",
+        "reason": "四合院影壁"
+      },
+      {
+        "id": "tr-hou-zigong",
+        "title": "紫禁城与故宫",
+        "reason": "故宫影壁"
+      },
+      {
+        "id": "tr-hou-garden",
+        "title": "园林",
+        "reason": "园林影壁"
+      },
+      {
+        "id": "tr-hou-temple",
+        "title": "寺庙与道观",
+        "reason": "寺庙影壁"
+      },
+      {
+        "id": "tr-hou-fengshui",
+        "title": "风水",
+        "reason": "影壁风水"
+      }
+    ],
+    "source": "营造法式、故宫建筑研究、中国影壁 (楼庆西)"
+  },
+  "tr-hou-zao": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**藻井 — 古代建筑的\"穹顶装饰\"**"
+      },
+      {
+        "label": "起源",
+        "value": "**汉代**"
+      },
+      {
+        "label": "核心",
+        "value": "**天花板上的\"天圆地方\"**"
+      },
+      {
+        "label": "形制",
+        "value": "**方形、圆形、八角形、覆斗形**"
+      },
+      {
+        "label": "代表",
+        "value": "**故宫太和殿 / 隆兴寺摩尼殿**"
+      },
+      {
+        "label": "意义",
+        "value": "**\"建筑仰望艺术\"**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "何谓\"藻井\"？",
+        "body": "\"藻井\"是古代建筑天花板的穹顶装饰，多用于宫殿、寺庙、祠堂。\"藻\"指水草 (压火)；\"井\"指方井 (居中)。藻井是中华独有的\"建筑仰望艺术\"。"
+      },
+      {
+        "type": "callout",
+        "heading": "为何称\"藻\"？",
+        "body": "\"藻井\"称\"藻\"源于五行学说。原因：宫殿、寺庙多木构，易遭火灾；\"藻\"为水草，水克火 — 故名\"藻井\"。藻井实际有\"以水压火\"之意，祈求建筑免于火灾。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "藻井的形制与装饰",
+        "body": "藻井形制多样：方形、圆形、八角形、覆斗形。装饰：斗栱层叠 (一层层向上收拢)；彩画 (青绿色调)；雕刻 (龙凤、莲花)。藻井中央\"明镜\" — 寓意\"天圆地方\"。"
+      },
+      {
+        "type": "list",
+        "heading": "藻井的形制分类",
+        "items": [
+          "**方形藻井** — 唐宋常见",
+          "**圆形藻井** — 明清常见",
+          "**八角形藻井** — 宋元常见",
+          "**覆斗形藻井** — 唐代成熟",
+          "**斗四藻井** — 宋辽金",
+          "**斗八藻井** — 元明清"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "藻井为何被誉为\"仰望艺术\"？",
+        "body": "藻井被誉为\"建筑仰望艺术\"。原因：构图 — 由下向上逐层收拢；色彩 — 绚丽多彩；雕刻 — 立体层次；寓意 — \"天圆地方\"、星宿、神仙、龙凤；中华独有 — 世界罕见。"
+      },
+      {
+        "type": "quote",
+        "text": "**藻井明镜，天圆地方**。",
+        "cite": "营造法式"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**藻井**雏形"
+      },
+      {
+        "year": "AD 500",
+        "era": "南北朝",
+        "event": "**藻井** 发展"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**覆斗藻井** 成熟"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**《营造法式》** 制度化"
+      },
+      {
+        "year": "AD 1100",
+        "era": "辽金",
+        "event": "**藻井** 多样化"
+      },
+      {
+        "year": "AD 1400",
+        "era": "明",
+        "event": "**故宫** 藻井鼎盛"
+      },
+      {
+        "year": "AD 1700",
+        "era": "清",
+        "event": "**藻井** 工巧化"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**藻井**列入保护"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese ceiling caisson zaojing",
+        "caption": "藻井",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "taihe palace caisson ceiling",
+        "caption": "太和殿藻井",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "longxing temple caisson",
+        "caption": "隆兴寺摩尼殿藻井",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "中华建筑",
+        "reason": "藻井是建筑装饰"
+      },
+      {
+        "id": "tr-hou-zigong",
+        "title": "紫禁城",
+        "reason": "故宫藻井"
+      },
+      {
+        "id": "tr-hou-temple",
+        "title": "寺庙",
+        "reason": "寺庙藻井"
+      },
+      {
+        "id": "tr-hou-pagoda",
+        "title": "佛塔",
+        "reason": "塔内藻井"
+      },
+      {
+        "id": "tr-hou-pailou",
+        "title": "牌坊",
+        "reason": "建筑装饰"
+      },
+      {
+        "id": "tr-hou-baogu",
+        "title": "抱鼓石",
+        "reason": "其他装饰"
+      }
+    ],
+    "source": "营造法式、清工部《工程做法则例》、藻井研究 (傅熹年)、建筑装饰 (楼庆西)"
+  },
+  "tr-hou-tianjin": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**天井式民居 — 南方\"聚宝盆\"**"
+      },
+      {
+        "label": "起源",
+        "value": "**汉代**"
+      },
+      {
+        "label": "核心",
+        "value": "**\"四水归堂\"**"
+      },
+      {
+        "label": "代表",
+        "value": "**徽派宏村西递**"
+      },
+      {
+        "label": "分布",
+        "value": "**皖赣闽粤**"
+      },
+      {
+        "label": "特色",
+        "value": "**粉墙黛瓦马头墙**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "何谓\"天井式民居\"？",
+        "body": "\"天井式民居\"分布于南方 (皖南、江西、福建、广东)，与北方\"四合院\"对应。\"天井\"指屋面围合的小型露天空间；\"四水归堂\" — 四方之水归入院内，寓意\"财不外流\"。"
+      },
+      {
+        "type": "callout",
+        "heading": "\"四水归堂\"是什么意思？",
+        "body": "\"四水归堂\"指四面屋顶雨水汇入院中天井。原因：南方多雨 — 天井可采光、通风、排水；\"财不外流\" — 雨水 (财) 归自家堂屋；徽商文化 — 聚财、聚气。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "徽派\"粉墙黛瓦马头墙\"",
+        "body": "徽派民居\"粉墙黛瓦马头墙\"。粉墙 (白色墙) — 朴素；黛瓦 (黑色瓦) — 稳重；马头墙 (防火墙) — 高出屋面、阶梯状，防止火势蔓延。代表：宏村、西递。"
+      },
+      {
+        "type": "list",
+        "heading": "天井式民居的类别",
+        "items": [
+          "**徽派民居** (皖南) — 宏村、西递",
+          "**赣派民居** (江西) — 流坑、婺源",
+          "**闽派民居** (福建) — 客家围屋",
+          "**粤派民居** (广东) — 镬耳屋",
+          "**土楼** (广义) — 客家围楼",
+          "**四水归堂** — 共性特点"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "客家围屋与土楼",
+        "body": "客家围屋与土楼属于广义\"天井式\"。福建土楼 (圆形/方形) — 客家人聚族而居；江西围屋 — 方围；广东围龙屋 — 半月形。客家围屋中央为祖堂，天井居中。"
+      },
+      {
+        "type": "quote",
+        "text": "**四水归堂，财不外流**。",
+        "cite": "徽派民谚"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**天井**雏形"
+      },
+      {
+        "year": "AD 600",
+        "era": "唐",
+        "event": "**南方民居**发展"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**徽派** 雏形"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": "**马头墙**出现"
+      },
+      {
+        "year": "AD 1500",
+        "era": "明",
+        "event": "**徽派**鼎盛"
+      },
+      {
+        "year": "AD 1700",
+        "era": "清",
+        "event": "**客家围屋**完善"
+      },
+      {
+        "year": "AD 2000",
+        "era": "当代",
+        "event": "**皖南古村落**世遗"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**徽派**列入保护"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "huizhou style courtyard house",
+        "caption": "徽派民居 (宏村)",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese horse head wall",
+        "caption": "马头墙",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "hakka round tulou",
+        "caption": "客家围屋",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "中华建筑",
+        "reason": "民居是建筑重要类型"
+      },
+      {
+        "id": "tr-hou-courtyard",
+        "title": "合院式",
+        "reason": "南北民居对比"
+      },
+      {
+        "id": "tr-hou-yaodong",
+        "title": "窑洞",
+        "reason": "其他民居"
+      },
+      {
+        "id": "tr-hou-tulou",
+        "title": "土楼",
+        "reason": "客家围楼"
+      },
+      {
+        "id": "tr-hou-diao",
+        "title": "吊脚楼",
+        "reason": "其他民居"
+      },
+      {
+        "id": "tr-hou-fengshui",
+        "title": "风水",
+        "reason": "四水归堂风水"
+      }
+    ],
+    "source": "徽州古建筑、徽派民居研究 (单德启)、客家围屋 (林嘉书)、皖南古村落 (张仲一)"
+  },
+  "tr-hou-yaodong": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**窑洞与穴居**"
+      },
+      {
+        "label": "起源",
+        "value": "**新石器**"
+      },
+      {
+        "label": "核心",
+        "value": "**\"地坑式\"窑洞**"
+      },
+      {
+        "label": "代表",
+        "value": "**陕西、山西、河南**"
+      },
+      {
+        "label": "现代",
+        "value": "**保护与改造**"
+      },
+      {
+        "label": "意义",
+        "value": "**黄土高原民居**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "什么是窑洞",
+        "body": "窑洞是黄土高原特有民居。在土崖上挖出拱形洞；分靠崖式、下沉式、独立式；冬暖夏凉；节能；中华生态建筑代表。"
+      },
+      {
+        "type": "callout",
+        "heading": "地坑院",
+        "body": "地坑院 (下沉式窑洞) 是独特形式。原因：在平地挖下沉式院落；从地面入；四周挖窑洞；地下生活；体现 \"天人合一\"；河南陕县最多。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "窑洞文化",
+        "body": "窑洞文化深厚。红色文化：延安窑洞 (1935-1948 中共中央)；民间文化：窑洞婚礼、窑洞民俗；建筑艺术：冬暖夏凉、节约能源。"
+      },
+      {
+        "type": "list",
+        "heading": "窑洞类型",
+        "items": [
+          "**靠崖式窑洞**",
+          "**下沉式窑洞** (地坑院)",
+          "**独立式窑洞**",
+          "**锢窑** (砖石)",
+          "**土窑**",
+          "**石窑**"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "现代改造",
+        "body": "现代窑洞改造工程。改善通风采光；增加卫生设施；保持传统外观；陕北窑洞文化复兴。"
+      },
+      {
+        "type": "quote",
+        "text": "**冬暖夏凉神仙府**。",
+        "cite": "民间谚语"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "新石器",
+        "event": "**穴居** (半坡)"
+      },
+      {
+        "year": "BC 1000",
+        "era": "西周",
+        "event": "**窑洞**雏形"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**窑洞**普及"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**窑洞**成熟"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**延安窑洞**红色文化"
+      },
+      {
+        "year": "AD 1935",
+        "era": "近代",
+        "event": "**中共中央**延安"
+      },
+      {
+        "year": "AD 1980",
+        "era": "当代",
+        "event": "**窑洞**改造"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**窑洞**保护"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese cave dwelling yaodong",
+        "caption": "窑洞",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese sunken courtyard sigkang yuan",
+        "caption": "地坑院",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "loess plateau cave house",
+        "caption": "黄土高原窑洞",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "民居是建筑类型"
+      },
+      {
+        "id": "tr-hou-courtyard",
+        "title": "四合院",
+        "reason": "其他民居"
+      },
+      {
+        "id": "tr-hou-tulou",
+        "title": "土楼",
+        "reason": "客家民居"
+      },
+      {
+        "id": "tr-hou-fengshui",
+        "title": "风水",
+        "reason": "窑洞风水"
+      },
+      {
+        "id": "tr-hou-tianjin",
+        "title": "天津民居",
+        "reason": "对比"
+      },
+      {
+        "id": "tr-hou-yaodong",
+        "title": "窑洞与穴居",
+        "reason": "自身"
+      }
+    ],
+    "source": "周礼、礼记、延安窑洞 (王东方)、中国窑洞民居 (侯继尧)"
+  },
+  "tr-hou-tulou": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**土楼**"
+      },
+      {
+        "label": "起源",
+        "value": "**宋元**"
+      },
+      {
+        "label": "核心",
+        "value": "**客家围楼**"
+      },
+      {
+        "label": "代表",
+        "value": "**福建南靖、永定**"
+      },
+      {
+        "label": "现代",
+        "value": "**世遗（2008）**"
+      },
+      {
+        "label": "意义",
+        "value": "**客家建筑代表**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "什么是土楼",
+        "body": "土楼是客家围楼。圆形或方形；夯土墙；内为院落；多层（一至五层）；同族聚居；福建、广东、江西客家地区。"
+      },
+      {
+        "type": "callout",
+        "heading": "永定土楼",
+        "body": "永定土楼是土楼代表。原因：福建龙岩永定；客家祖地；圆形、方形、八角形；2008 年列入世界文化遗产。代表：振成楼 (圆形)、承启楼 (大圆楼)。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "土楼文化",
+        "body": "土楼文化独特。客家精神：团结、防御、共存；建筑设计：易守难攻；家族共居：体现客家宗族观念。"
+      },
+      {
+        "type": "list",
+        "heading": "土楼类型",
+        "items": [
+          "**圆形土楼**",
+          "**方形土楼**",
+          "**五凤楼**",
+          "**围龙屋**",
+          "**走马楼**",
+          "**圆寨**"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "土楼建造",
+        "body": "土楼建造独特。夯土技术：生土、熟土、石灰、沙子混合；逐层夯筑；坚固耐用；冬暖夏凉；2008 年列入世遗。"
+      },
+      {
+        "type": "quote",
+        "text": "**客家土楼，天下奇观**。",
+        "cite": "民间俗语"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1000",
+        "era": "远古",
+        "event": "**穴居**雏形"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**土楼**雏形"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": "**土楼**普及"
+      },
+      {
+        "year": "AD 1500",
+        "era": "明",
+        "event": "**土楼**鼎盛"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**客家**南迁"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**土楼**延续"
+      },
+      {
+        "year": "AD 2008",
+        "era": "当代",
+        "event": "**土楼**世遗"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**土楼**旅游与保护"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese hakka round tulou",
+        "caption": "永定土楼",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese hakka tulou nanjing",
+        "caption": "南靖土楼",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese hakka earth building",
+        "caption": "客家土楼",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "民居是建筑类型"
+      },
+      {
+        "id": "tr-hou-courtyard",
+        "title": "四合院",
+        "reason": "其他民居"
+      },
+      {
+        "id": "tr-hou-tianjin",
+        "title": "天津民居",
+        "reason": "其他民居"
+      },
+      {
+        "id": "tr-hou-yaodong",
+        "title": "窑洞与穴居",
+        "reason": "其他民居"
+      },
+      {
+        "id": "tr-hou-citydef",
+        "title": "城池与防御",
+        "reason": "土楼防御"
+      },
+      {
+        "id": "tr-hou-zigong",
+        "title": "紫禁城与故宫",
+        "reason": "官式建筑"
+      }
+    ],
+    "source": "客家研究、土楼研究 (黄汉民)、福建土楼 (林嘉书)"
+  },
+  "tr-hou-silk": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**丝绸之路 — 跨国大探险**"
+      },
+      {
+        "label": "起源",
+        "value": "**西汉张骞 (BC 130)**"
+      },
+      {
+        "label": "起点",
+        "value": "**长安**"
+      },
+      {
+        "label": "终点",
+        "value": "**罗马 (欧洲)**"
+      },
+      {
+        "label": "全长",
+        "value": "**7000 余公里**"
+      },
+      {
+        "label": "意义",
+        "value": "**东西文明交流**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "丝绸之路的由来",
+        "body": "丝绸之路是西汉武帝时张骞出使西域 (BC 130) 开通。从长安经河西走廊 (武威、张掖、酒泉、敦煌)、中亚 (撒马尔罕)、西亚 (波斯)，到欧洲 (罗马)。全长 7000 余公里。"
+      },
+      {
+        "type": "callout",
+        "heading": "\"丝绸\"为何得名？",
+        "body": "\"丝绸之路\"得名源于 19 世纪德国地理学家李希霍芬 (Ferdinand von Richthofen)。原意：通过这条路，中国的丝绸、瓷器、茶叶、铁器、纸张、四大发明 (造纸、印刷、火药、指南针) 传向西方。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "丝绸之路的两条路线",
+        "body": "丝绸之路分两条路线。\"陆上丝绸之路\" (沙漠之路)：长安 → 河西走廊 → 敦煌 → 中亚 → 西亚 → 欧洲；\"海上丝绸之路\"：东南沿海 → 东南亚 → 印度洋 → 阿拉伯 → 非洲东岸。"
+      },
+      {
+        "type": "list",
+        "heading": "丝绸之路的文化交流",
+        "items": [
+          "**丝绸** — 中国 → 中亚 → 欧洲",
+          "**瓷器** — 中国 → 西亚 → 欧洲",
+          "**茶叶** — 中国 → 中亚 → 西亚",
+          "**造纸术** — 中国 → 中亚 → 阿拉伯 → 欧洲",
+          "**佛教** — 印度 → 中亚 → 中国",
+          "**葡萄** — 中亚 → 中国"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "丝绸之路的当代意义",
+        "body": "\"一带一路\"是丝绸之路的当代延续。原因：习近平 2013 年提出\"丝绸之路经济带\"和\"21 世纪海上丝绸之路\"；连接亚欧非；促进国际合作；继承古代丝路精神。"
+      },
+      {
+        "type": "quote",
+        "text": "**使者相望于道，商旅不绝于途**。",
+        "cite": "汉书·西域传"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 138",
+        "era": "西汉",
+        "event": "**张骞**第一次出使西域"
+      },
+      {
+        "year": "BC 126",
+        "era": "西汉",
+        "event": "**张骞**归汉"
+      },
+      {
+        "year": "BC 119",
+        "era": "西汉",
+        "event": "**张骞**第二次出使"
+      },
+      {
+        "year": "BC 60",
+        "era": "西汉",
+        "event": "**西域都护府**设置"
+      },
+      {
+        "year": "AD 100",
+        "era": "东汉",
+        "event": "**班超**经营西域"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**丝绸之路**鼎盛"
+      },
+      {
+        "year": "AD 1500",
+        "era": "明",
+        "event": "**海上丝路**兴起"
+      },
+      {
+        "year": "AD 2013",
+        "era": "当代",
+        "event": "**\"一带一路\"**倡议"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "silk road ancient route map",
+        "caption": "丝绸之路路线图",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "silk road camel caravan",
+        "caption": "丝路驼队",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "dunhuang mogao caves",
+        "caption": "敦煌 (丝路明珠)",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "中华建筑",
+        "reason": "丝路影响建筑"
+      },
+      {
+        "id": "tr-hou-zhenghe",
+        "title": "郑和下西洋",
+        "reason": "海上丝路"
+      },
+      {
+        "id": "tr-hou-guanlu",
+        "title": "官路",
+        "reason": "陆上交通"
+      },
+      {
+        "id": "tr-hou-cave",
+        "title": "石窟",
+        "reason": "敦煌石窟"
+      },
+      {
+        "id": "tr-hou-zhidao",
+        "title": "秦直道",
+        "reason": "古代交通"
+      },
+      {
+        "id": "tr-hou-post",
+        "title": "驿站",
+        "reason": "沿途驿站"
+      }
+    ],
+    "source": "史记·大宛列传、汉书·西域传、丝绸之路 (法国·布尔努瓦)、丝绸之路研究 (余太山)"
+  },
+  "tr-hou-post": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**驿站与邮驿**"
+      },
+      {
+        "label": "起源",
+        "value": "**商周**"
+      },
+      {
+        "label": "核心",
+        "value": "**驿站系统**"
+      },
+      {
+        "label": "代表",
+        "value": "**鸡鸣驿、孟城驿**"
+      },
+      {
+        "label": "现代",
+        "value": "**文化遗产**"
+      },
+      {
+        "label": "意义",
+        "value": "**古代通讯系统**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "驿站系统",
+        "body": "驿站是古代通讯系统。起源：商周 \"驲传\"；秦代 \"驿道\"；汉代 \"邮亭\"；唐宋驿站制度完善；明清驿站与铺递并行。"
+      },
+      {
+        "type": "callout",
+        "heading": "鸡鸣驿",
+        "body": "鸡鸣驿是中国现存最大古代驿站。原因：明代宣德七年 (AD 1432)；位于河北怀来；规模宏大；现存明代古城；列入国家重点文物。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "邮驿功能",
+        "body": "邮驿功能多元。官方文书传递；官员迎送；军情快递；物资运输；201 信息网络。"
+      },
+      {
+        "type": "list",
+        "heading": "驿站网络",
+        "items": [
+          "**鸡鸣驿** (河北)",
+          "**孟城驿** (江苏)",
+          "**宣化驿** (河北)",
+          "**茂陵驿** (陕西)",
+          "**蒙山驿** (山东)",
+          "**温泉驿** (广东)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "驿站文化",
+        "body": "驿站文化丰富。古诗：王维 \"渭城朝雨浥轻尘，客舍青青柳色新\"；李贺 \"一驿过一驿\"；驿站文学、驿丞文化。"
+      },
+      {
+        "type": "quote",
+        "text": "**一骑红尘妃子笑，无人知是荔枝来**。",
+        "cite": "杜牧《过华清宫》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1000",
+        "era": "商周",
+        "event": "**驿传**制度"
+      },
+      {
+        "year": "BC 200",
+        "era": "秦汉",
+        "event": "**驿道**完善"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**驿站**发达"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**急递铺**"
+      },
+      {
+        "year": "AD 1400",
+        "era": "明",
+        "event": "**驿站**成熟"
+      },
+      {
+        "year": "AD 1500",
+        "era": "明",
+        "event": "**鸡鸣驿**"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**邮政**取代驿站"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**驿站**列入保护"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese ancient post station",
+        "caption": "古代驿站",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "jim ingyi post station ancient",
+        "caption": "鸡鸣驿",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese horse relay messenger",
+        "caption": "驿马快信",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "驿站是建筑类型"
+      },
+      {
+        "id": "tr-hou-zhidao",
+        "title": "驿站与邮驿",
+        "reason": "自身"
+      },
+      {
+        "id": "tr-hou-zhenghe",
+        "title": "郑和下西洋",
+        "reason": "海陆通讯"
+      },
+      {
+        "id": "tr-hou-citydef",
+        "title": "城池与防御",
+        "reason": "驿站防御"
+      },
+      {
+        "id": "tr-hou-canal",
+        "title": "运河与水利",
+        "reason": "运河驿站"
+      },
+      {
+        "id": "tr-hou-bridge",
+        "title": "桥梁",
+        "reason": "驿站桥梁"
+      }
+    ],
+    "source": "周礼、唐代驿制、鸡鸣驿志、中国驿站史 (刘广生)"
+  },
+  "tr-hou-car": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**古代车辆**"
+      },
+      {
+        "label": "起源",
+        "value": "**夏代**"
+      },
+      {
+        "label": "核心",
+        "value": "**马车、独轮车**"
+      },
+      {
+        "label": "代表",
+        "value": "**指南车、记里鼓车**"
+      },
+      {
+        "label": "现代",
+        "value": "**车辆文化**"
+      },
+      {
+        "label": "意义",
+        "value": "**交通运输工具**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "中华车辆",
+        "body": "中华车辆发展悠久。起源：夏代 \"奚仲造车\"；商周马车；汉代独轮车；三国 \"木牛流马\"；明清大车。"
+      },
+      {
+        "type": "callout",
+        "heading": "指南车",
+        "body": "指南车是中国古代机械代表。原因：黄帝时代发明；利用差速齿轮原理；车行方向始终朝南；体现中华机械智慧。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "车辆类型",
+        "body": "车辆类型分多种。马车 (贵族用)、牛车 (运输)、独轮车 (民间)、轿车 (代步)、太平车 (明清北京)、三轮车 (晚清)。"
+      },
+      {
+        "type": "list",
+        "heading": "主要车辆",
+        "items": [
+          "**马车**",
+          "**牛车**",
+          "**独轮车**",
+          "**轿车**",
+          "**太平车**",
+          "**三轮车**"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "车马文化",
+        "body": "车马文化是中华礼仪重要组成。\"车马炮\" 是象棋；\"驾\" 字表示驾驭；古代贵族死后殉葬车马；汉代画像砖有车马图。"
+      },
+      {
+        "type": "quote",
+        "text": "**车同轨，书同文**。",
+        "cite": "秦始皇"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 2000",
+        "era": "夏",
+        "event": "**奚仲**造车"
+      },
+      {
+        "year": "BC 1000",
+        "era": "商周",
+        "event": "**马车**普及"
+      },
+      {
+        "year": "BC 200",
+        "era": "西汉",
+        "event": "**独轮车**"
+      },
+      {
+        "year": "AD 200",
+        "era": "三国",
+        "event": "**木牛流马**"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**车辆**发达"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**太平车**"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**人力车**"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**车辆**现代化"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "ancient chinese chariot horse",
+        "caption": "古代战车",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "chinese wheelbarrow ancient",
+        "caption": "独轮车",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese horse carriage sedan",
+        "caption": "轿车",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "车马与建筑"
+      },
+      {
+        "id": "tr-hou-zhidao",
+        "title": "驿站与邮驿",
+        "reason": "驿马"
+      },
+      {
+        "id": "tr-hou-zhenghe",
+        "title": "郑和下西洋",
+        "reason": "宝船"
+      },
+      {
+        "id": "tr-hou-bridge",
+        "title": "桥梁",
+        "reason": "车马桥"
+      },
+      {
+        "id": "tr-hou-citydef",
+        "title": "城池与防御",
+        "reason": "战车"
+      },
+      {
+        "id": "tr-hou-canal",
+        "title": "运河与水利",
+        "reason": "漕运船"
+      }
+    ],
+    "source": "周礼、考工记、中国古代车文化 (宋镇豪)"
+  },
+  "tr-hou-zhenghe": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**郑和下西洋**"
+      },
+      {
+        "label": "时间",
+        "value": "**AD 1405-1433**"
+      },
+      {
+        "label": "核心",
+        "value": "**宝船航海**"
+      },
+      {
+        "label": "代表",
+        "value": "**宝船、福船**"
+      },
+      {
+        "label": "影响",
+        "value": "**海上丝绸之路**"
+      },
+      {
+        "label": "意义",
+        "value": "**世界航海史**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "郑和下西洋",
+        "body": "郑和下西洋是世界航海壮举。明永永乐三年 (AD 1405) 至宣德八年 (AD 1433)；郑和率 200+ 艘船；7 次远航；到达亚非 30+ 国家；规模空前。"
+      },
+      {
+        "type": "callout",
+        "heading": "宝船",
+        "body": "郑和宝船是古代世界最大木质帆船。船长 100+ 米；宽 50 米；可载 1000+ 人；9 桅 12 帆；木质帆船巅峰；体现中华造船技艺。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "远航意义",
+        "body": "郑和远航意义深远。政治：朝贡贸易；经济：海上丝路；文化：中外交流；地理：绘制航海图；航海：留下《郑和航海图》。"
+      },
+      {
+        "type": "list",
+        "heading": "七次远航",
+        "items": [
+          "**第一次** (1405-1407)",
+          "**第二次** (1407-1409)",
+          "**第三次** (1409-1411)",
+          "**第四次** (1413-1415)",
+          "**第五次** (1417-1419)",
+          "**第六次** (1421-1422)",
+          "**第七次** (1431-1433)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "造船技术",
+        "body": "郑和宝船体现中华造船技术。福船 (水密隔舱) 是中华造船核心技术；水密隔舱已列入世界航海遗产。"
+      },
+      {
+        "type": "quote",
+        "text": "**七下西洋，沟通中外**。",
+        "cite": "郑和下西洋"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1405",
+        "era": "明",
+        "event": "**郑和**首次远航"
+      },
+      {
+        "year": "AD 1407",
+        "era": "明",
+        "event": "**第二次**远航"
+      },
+      {
+        "year": "AD 1409",
+        "era": "明",
+        "event": "**第三次**远航"
+      },
+      {
+        "year": "AD 1413",
+        "era": "明",
+        "event": "**第四次**远航"
+      },
+      {
+        "year": "AD 1417",
+        "era": "明",
+        "event": "**第五次**远航"
+      },
+      {
+        "year": "AD 1421",
+        "era": "明",
+        "event": "**第六次**远航"
+      },
+      {
+        "year": "AD 1433",
+        "era": "明",
+        "event": "**第七次**远航 (最后)"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**郑和**列入世界航海史"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "zheng he treasure ship",
+        "caption": "郑和宝船",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "chinese ancient treasure ship model",
+        "caption": "宝船模型",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "zheng he portrait ming",
+        "caption": "郑和画像",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "宝船是水上建筑"
+      },
+      {
+        "id": "tr-hou-silk",
+        "title": "丝绸之路",
+        "reason": "海上丝绸之路"
+      },
+      {
+        "id": "tr-hou-zhidao",
+        "title": "驿站与邮驿",
+        "reason": "海陆邮驿"
+      },
+      {
+        "id": "tr-hou-canal",
+        "title": "运河与水利",
+        "reason": "运河与海运"
+      },
+      {
+        "id": "tr-hou-zhidao",
+        "title": "造船技术",
+        "reason": "其他船"
+      },
+      {
+        "id": "tr-hou-citydef",
+        "title": "城池与防御",
+        "reason": "海防"
+      }
+    ],
+    "source": "明史·郑和传、瀛涯胜揽、郑和航海图、郑和研究 (万明)"
+  },
+  "tr-hou-zhidao": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**秦直道 — 世界最早的\"高速公路\"**"
+      },
+      {
+        "label": "始建",
+        "value": "**秦始皇三十五年 (BC 212)**"
+      },
+      {
+        "label": "监修",
+        "value": "**蒙恬**"
+      },
+      {
+        "label": "起讫",
+        "value": "**咸阳林光宫 → 九原郡 (包头)**"
+      },
+      {
+        "label": "全长",
+        "value": "**700 余公里 (一说 1800 里)**"
+      },
+      {
+        "label": "宽度",
+        "value": "**30-40 米**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "秦直道的由来",
+        "body": "秦直道是秦始皇三十五年 (BC 212) 命蒙恬监修的大型国家工程。南起咸阳林光宫 (今陕西淳化)，北至九原郡 (今内蒙古包头)，全长 700 余公里 (一说 1800 里)，宽 30-40 米。"
+      },
+      {
+        "type": "callout",
+        "heading": "\"堑山堙谷\"是什么意思？",
+        "body": "\"堑山堙谷\"是秦直道修筑工艺。\"堑山\"：遇山开山，把山削平；\"堙谷\"：遇谷填土，把谷填平。直道穿越陕甘宁黄土高原与内蒙古草原，地形复杂，工艺要求极高。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "秦直道为何被称为\"高速公路\"？",
+        "body": "秦直道被称为\"世界最早的公路\"。原因：宽度 30-40 米 (双向 6-8 车道)；路面夯实坚硬；\"堑山堙谷\"笔直；军用快速 (骑兵半天可达)；2000 多年前世界罕见。"
+      },
+      {
+        "type": "list",
+        "heading": "秦三大工程",
+        "items": [
+          "**万里长城** — BC 221 蒙恬修筑",
+          "**秦直道** — BC 212 蒙恬监修",
+          "**阿房宫** — BC 212 始建 (未完成)",
+          "**灵渠** — BC 214 史禄开凿 (南方)",
+          "**郑国渠** — BC 246 韩国水工所开",
+          "**秦驰道** — 全国公路网"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "秦直道的历史作用",
+        "body": "秦直道历史作用重大。原因：军事 — 北击匈奴、运送兵员粮草；政治 — 中央集权、控制边疆；经济 — 促进南北物资交流；文化 — 中原与北方文化交流；交通 — 2000 年南北大通道。"
+      },
+      {
+        "type": "quote",
+        "text": "**直道通九原，蒙恬筑万里**。",
+        "cite": "史记·蒙恬列传"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 221",
+        "era": "秦",
+        "event": "**蒙恬**北击匈奴"
+      },
+      {
+        "year": "BC 212",
+        "era": "秦",
+        "event": "**秦直道**始建"
+      },
+      {
+        "year": "BC 210",
+        "era": "秦",
+        "event": "**秦直道**建成"
+      },
+      {
+        "year": "BC 209",
+        "era": "秦末",
+        "event": "**秦二世**继续使用"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**汉武帝**利用直道北击匈奴"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**直道**仍有遗迹"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**直道**考古调查"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**直道**列入文物保护"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "qin dynasty straight road",
+        "caption": "秦直道遗迹",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "meng tian general qin",
+        "caption": "蒙恬 (监修者)",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "ancient qin road map",
+        "caption": "秦直道路线图",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "中华建筑",
+        "reason": "直道是基础设施"
+      },
+      {
+        "id": "tr-hou-guanlu",
+        "title": "官路",
+        "reason": "秦驰道"
+      },
+      {
+        "id": "tr-hou-citydef",
+        "title": "城池防御",
+        "reason": "长城与直道"
+      },
+      {
+        "id": "tr-hou-post",
+        "title": "驿站",
+        "reason": "沿线驿站"
+      },
+      {
+        "id": "tr-hou-silk",
+        "title": "丝绸之路",
+        "reason": "国际交通"
+      },
+      {
+        "id": "tr-hou-bridge",
+        "title": "桥梁",
+        "reason": "沿线桥梁"
+      }
+    ],
+    "source": "史记·蒙恬列传、汉书·地理志、秦直道研究 (王子今)、秦直道考古 (陕西省考古研究院)"
+  },
+  "tr-hou-guanlu": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**官路与国道**"
+      },
+      {
+        "label": "起源",
+        "value": "**商周**"
+      },
+      {
+        "label": "核心",
+        "value": "**官方道路网**"
+      },
+      {
+        "label": "代表",
+        "value": "**秦驰道、唐驿路**"
+      },
+      {
+        "label": "现代",
+        "value": "**文化遗产**"
+      },
+      {
+        "label": "意义",
+        "value": "**古代国道**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "官路概念",
+        "body": "官路是古代官方修建与维护的道路网络。商周\"周道如砥\"；秦\"驰道\"以咸阳为中心；汉\"驿道\"；唐\"驿路\"；宋\"官道\"；明清\"官马大道\"。"
+      },
+      {
+        "type": "callout",
+        "heading": "秦驰道",
+        "body": "秦驰道是世界最早的\"国道\"。原因：秦始皇统一后修筑；东至燕齐、南至吴楚；以咸阳为中心；宽 50 步（69 米）；绿化带；2000 年前的高速公路。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "唐驿路",
+        "body": "唐驿路是唐代官道网络。驿站制度完善；陆路、水路并行；长安为中心；连接全国；30 里一驿。"
+      },
+      {
+        "type": "list",
+        "heading": "主要官道",
+        "items": [
+          "周道 (周代)",
+          "秦驰道",
+          "汉驿道",
+          "唐驿路",
+          "宋官道",
+          "明清官马大道"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "官路文化",
+        "body": "官路是文化交流的纽带。驿站系统是基础设施；官员上任；商旅往来；信息传递；与丝绸之路相连。"
+      },
+      {
+        "type": "quote",
+        "text": "**千里江陵一日还**。",
+        "cite": "李白诗"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1000",
+        "era": "商周",
+        "event": "**周道**制度化"
+      },
+      {
+        "year": "BC 221",
+        "era": "秦",
+        "event": "**秦驰道**修筑"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**驿道**发达"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**驿路**鼎盛"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**官道**完善"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**官马大道**"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**现代公路**兴起"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**古道**保护"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "ancient chinese official road",
+        "caption": "古代官路",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "qin imperial road ancient",
+        "caption": "秦驰道",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "ancient road path",
+        "caption": "古代道路",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "建筑类型"
+      },
+      {
+        "id": "tr-hou-zhidao",
+        "title": "驿站与邮驿",
+        "reason": "驿站"
+      },
+      {
+        "id": "tr-hou-bridge",
+        "title": "桥梁",
+        "reason": "官路桥梁"
+      },
+      {
+        "id": "tr-hou-citydef",
+        "title": "城池与防御",
+        "reason": "城池与路"
+      },
+      {
+        "id": "tr-hou-canal",
+        "title": "运河与水利",
+        "reason": "陆水并行"
+      },
+      {
+        "id": "tr-hou-zhidao",
+        "title": "造船",
+        "reason": "水路"
+      }
+    ],
+    "source": "周礼、史记秦始皇本纪、中国古代道路交通史 (王子今)"
+  },
+  "tr-hou-intro": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**中华建筑**"
+      },
+      {
+        "label": "起源",
+        "value": "**原始巢居**"
+      },
+      {
+        "label": "核心典籍",
+        "value": "**营造法式**"
+      },
+      {
+        "label": "特点",
+        "value": "**木构为主**"
+      },
+      {
+        "label": "体系",
+        "value": "**六大建筑**"
+      },
+      {
+        "label": "影响",
+        "value": "**凝固的音乐**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "中华建筑为何独特",
+        "body": "中华建筑是世界三大建筑体系之一。特点：木构为主、院落布局、屋顶优美、园林结合、天人合一。"
+      },
+      {
+        "type": "callout",
+        "heading": "凝固的音乐",
+        "body": "建筑是凝固的音乐。节奏、韵律、和谐、时间、文化体现中华美学。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "木构特点",
+        "body": "木构是中华建筑特点。材料丰富、工艺发达、抗震、易改、文化天人合一。"
+      },
+      {
+        "type": "list",
+        "heading": "六大类型",
+        "items": [
+          "宫殿",
+          "陵墓",
+          "宗教",
+          "民居",
+          "园林",
+          "军事"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "21 世纪",
+        "body": "中华建筑在 21 世纪仍重要。文化载体、世界遗产、海外华人、传承、旅游核心。"
+      },
+      {
+        "type": "quote",
+        "text": "**建筑是凝固的音乐**。",
+        "cite": "歌德"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "新石器",
+        "event": "**穴居**"
+      },
+      {
+        "year": "BC 3000",
+        "era": "传说",
+        "event": "**有巢氏**"
+      },
+      {
+        "year": "BC 1000",
+        "era": "西周",
+        "event": "**四合院**"
+      },
+      {
+        "year": "BC 200",
+        "era": "西汉",
+        "event": "**木构**成熟"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**佛光寺**"
+      },
+      {
+        "year": "AD 1100",
+        "era": "宋",
+        "event": "**营造法式**"
+      },
+      {
+        "year": "AD 1400",
+        "era": "明",
+        "event": "**故宫**"
+      },
+      {
+        "year": "AD 1700",
+        "era": "清",
+        "event": "**工程做法**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese ancient architecture",
+        "caption": "中华建筑",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "forbidden city beijing",
+        "caption": "北京故宫",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese traditional siheyuan",
+        "caption": "四合院",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-citydef",
+        "title": "城池与防御",
+        "reason": "城池是建筑类型"
+      },
+      {
+        "id": "tr-hou-pagoda",
+        "title": "佛塔",
+        "reason": "宗教建筑"
+      },
+      {
+        "id": "tr-hou-garden",
+        "title": "园林",
+        "reason": "园林是建筑类型"
+      },
+      {
+        "id": "tr-hou-courtyard",
+        "title": "四合院",
+        "reason": "民居代表"
+      },
+      {
+        "id": "tr-hou-capital",
+        "title": "都城规划",
+        "reason": "都城规划"
+      },
+      {
+        "id": "tr-hou-fengshui",
+        "title": "风水",
+        "reason": "建筑与风水"
+      }
+    ],
+    "source": "营造法式、工程做法则例、中国建筑史 (梁思成)、华夏意匠 (李允鉌)"
+  },
+  "tr-hou-capital": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**都城规划**"
+      },
+      {
+        "label": "起源",
+        "value": "**夏商**"
+      },
+      {
+        "label": "核心",
+        "value": "**中轴对称**"
+      },
+      {
+        "label": "代表",
+        "value": "**汉唐北京**"
+      },
+      {
+        "label": "现代",
+        "value": "**城市规划**"
+      },
+      {
+        "label": "意义",
+        "value": "**政治文化**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "都城核心",
+        "body": "中华都城规划核心：中轴对称、左祖右社、面朝后市。代表：安阳、汉长安、唐长安、北宋东京、明清北京。"
+      },
+      {
+        "type": "callout",
+        "heading": "中轴对称",
+        "body": "中轴对称是都城规划核心。皇权、等级、礼制、文化中尊、视觉震撼。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "里坊制",
+        "body": "里坊制是唐长安特色。里坊分隔、围墙、管理、108 坊、宋改街市制。"
+      },
+      {
+        "type": "list",
+        "heading": "规划原则",
+        "items": [
+          "中轴对称",
+          "左祖右社",
+          "面朝后市",
+          "里坊制",
+          "水系",
+          "城门对称"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "明清北京",
+        "body": "明清北京是中华都城规划巅峰。规模宏大、中轴对称、宫城皇城内外城、儒家理想、世界遗产。"
+      },
+      {
+        "type": "quote",
+        "text": "**辨方正位，体国经野**。",
+        "cite": "周礼考工记"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1600",
+        "era": "商",
+        "event": "**安阳**"
+      },
+      {
+        "year": "BC 1000",
+        "era": "西周",
+        "event": "**镐京**"
+      },
+      {
+        "year": "BC 200",
+        "era": "西汉",
+        "event": "**长安**"
+      },
+      {
+        "year": "AD 600",
+        "era": "唐",
+        "event": "**长安**鼎盛"
+      },
+      {
+        "year": "AD 1000",
+        "era": "北宋",
+        "event": "**东京**"
+      },
+      {
+        "year": "AD 1400",
+        "era": "明",
+        "event": "**北京**"
+      },
+      {
+        "year": "AD 1700",
+        "era": "清",
+        "event": "**北京**延续"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**北京**世遗"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "forbidden city aerial",
+        "caption": "北京中轴线",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "tang changan city",
+        "caption": "唐长安",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "chinese capital city gate",
+        "caption": "都城城门",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "都城是建筑"
+      },
+      {
+        "id": "tr-hou-citydef",
+        "title": "城池与防御",
+        "reason": "城池与都城"
+      },
+      {
+        "id": "tr-hou-zigong",
+        "title": "紫禁城与故宫",
+        "reason": "明清都城核心"
+      },
+      {
+        "id": "tr-hou-ritual",
+        "title": "宗庙与社稷",
+        "reason": "左祖右社"
+      },
+      {
+        "id": "tr-hou-temple",
+        "title": "寺庙与道观",
+        "reason": "城市宗教"
+      },
+      {
+        "id": "tr-hou-pailou",
+        "title": "牌坊",
+        "reason": "城市装饰"
+      }
+    ],
+    "source": "周礼考工记、长安志 (宋)、东京梦华录、中国都城 (贺业钜)"
+  },
+  "tr-hou-pagoda": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**佛塔**"
+      },
+      {
+        "label": "起源",
+        "value": "**东汉**"
+      },
+      {
+        "label": "核心",
+        "value": "**舍利藏经**"
+      },
+      {
+        "label": "类型",
+        "value": "**楼阁密檐**"
+      },
+      {
+        "label": "代表",
+        "value": "**大雁塔**"
+      },
+      {
+        "label": "意义",
+        "value": "**独特类型**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "佛塔类型",
+        "body": "中华佛塔起源于印度窣堵坡，与中华楼结合形成独特类型。楼阁式、密檐式、亭阁式、金刚宝座、阿育王塔。"
+      },
+      {
+        "type": "callout",
+        "heading": "应县木塔",
+        "body": "应县木塔是世界木构奇迹。辽清宁二年 (AD 1056)；高度 67.31 米；纯木构卯榫；多次地震不倒；国家重点文物。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "大雁塔",
+        "body": "大雁塔是中华佛塔代表。唐永徽三年 (AD 652) 玄奘主持；位置西安慈恩寺；藏经；丝路象征；世界遗产。"
+      },
+      {
+        "type": "list",
+        "heading": "主要佛塔",
+        "items": [
+          "大雁塔",
+          "小雁塔",
+          "应县木塔",
+          "嵩岳寺塔",
+          "六和塔",
+          "灵光塔"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "标志",
+        "body": "佛塔成为中华建筑标志。独特、中印融合、优美、佛教文化、国际标志。"
+      },
+      {
+        "type": "quote",
+        "text": "**救人一命，胜造七级浮屠**。",
+        "cite": "民间俗语"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 68",
+        "era": "东汉",
+        "event": "**佛教**传入"
+      },
+      {
+        "year": "AD 300",
+        "era": "魏晋",
+        "event": "**佛塔**中华化"
+      },
+      {
+        "year": "AD 500",
+        "era": "南北朝",
+        "event": "**佛塔**大量建造"
+      },
+      {
+        "year": "AD 652",
+        "era": "唐",
+        "event": "**大雁塔**"
+      },
+      {
+        "year": "AD 1056",
+        "era": "辽",
+        "event": "**应县木塔**"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**佛塔**多样化"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**佛塔**保护"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**佛塔**列入保护"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese ancient pagoda",
+        "caption": "中华佛塔",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "ying xian wood pagoda",
+        "caption": "应县木塔",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "dayan pagoda xian",
+        "caption": "大雁塔",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "佛塔是建筑类型"
+      },
+      {
+        "id": "tr-hou-temple",
+        "title": "寺庙与道观",
+        "reason": "寺庙与塔"
+      },
+      {
+        "id": "tr-hou-tower",
+        "title": "楼阁与塔",
+        "reason": "楼阁建筑"
+      },
+      {
+        "id": "tr-hou-cave",
+        "title": "石窟与岩画",
+        "reason": "石窟艺术"
+      },
+      {
+        "id": "tr-hou-pailou",
+        "title": "牌坊",
+        "reason": "牌坊建筑"
+      },
+      {
+        "id": "tr-hou-zao",
+        "title": "造园与叠石",
+        "reason": "塔与园林"
+      }
+    ],
+    "source": "洛阳伽蓝记、营造法式、佛塔 (罗哲文)、中国古塔 (徐华铛)"
+  },
+  "tr-hou-cave": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**石窟与岩画**"
+      },
+      {
+        "label": "起源",
+        "value": "**魏晋**"
+      },
+      {
+        "label": "核心",
+        "value": "**岩壁凿窟**"
+      },
+      {
+        "label": "代表",
+        "value": "**敦煌云冈**"
+      },
+      {
+        "label": "现代",
+        "value": "**世界遗产**"
+      },
+      {
+        "label": "意义",
+        "value": "**佛教艺术**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "石窟艺术",
+        "body": "中华石窟起源于印度佛教石窟，与中华文化融合形成独特艺术。四大石窟：敦煌莫高窟、云冈、龙门、麦积山。还有大足石刻。"
+      },
+      {
+        "type": "callout",
+        "heading": "敦煌莫高窟",
+        "body": "敦煌莫高窟是佛教艺术宝库。735 个洞窟、2400+ 尊造像、45000 平方米壁画；前秦 AD 366 始建；列入世界文化遗产。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "云冈石窟",
+        "body": "云冈石窟是北魏艺术代表。252 个洞窟、51000+ 尊造像；北魏和平年间 (AD 460) 始建；秀骨清像风格；影响龙门。"
+      },
+      {
+        "type": "list",
+        "heading": "主要石窟",
+        "items": [
+          "敦煌莫高窟 (甘肃)",
+          "云冈石窟 (山西)",
+          "龙门石窟 (河南)",
+          "麦积山石窟 (甘肃)",
+          "大足石刻 (四川)",
+          "克孜尔石窟 (新疆)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "文化瑰宝",
+        "body": "石窟艺术是中华文化瑰宝。规模宏大、壁画彩塑、千年历史、中印融合、世界遗产。"
+      },
+      {
+        "type": "quote",
+        "text": "**敦煌者，吾国学术之伤心史也**。",
+        "cite": "陈寅恪"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 366",
+        "era": "前秦",
+        "event": "**敦煌莫高窟**"
+      },
+      {
+        "year": "AD 460",
+        "era": "北魏",
+        "event": "**云冈石窟**"
+      },
+      {
+        "year": "AD 500",
+        "era": "北魏",
+        "event": "**龙门石窟**"
+      },
+      {
+        "year": "AD 800",
+        "era": "唐",
+        "event": "**石窟**鼎盛"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**大足石刻**"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**石窟**延续"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**藏经洞**"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**石窟**世遗"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "dunhuang mogao caves",
+        "caption": "敦煌莫高窟",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "yungang grottoes",
+        "caption": "云冈石窟",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "longmen grottoes",
+        "caption": "龙门石窟",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "石窟是建筑类型"
+      },
+      {
+        "id": "tr-hou-temple",
+        "title": "寺庙与道观",
+        "reason": "寺庙石窟"
+      },
+      {
+        "id": "tr-hou-pagoda",
+        "title": "佛塔",
+        "reason": "石窟与塔"
+      },
+      {
+        "id": "tr-hou-zao",
+        "title": "造园与叠石",
+        "reason": "岩壁建筑"
+      },
+      {
+        "id": "tr-hou-fengshui",
+        "title": "风水",
+        "reason": "石窟风水"
+      },
+      {
+        "id": "tr-hou-mausoleum",
+        "title": "帝王陵墓",
+        "reason": "墓葬石窟"
+      }
+    ],
+    "source": "洛阳伽蓝记、魏书释老志、敦煌莫高窟、中国石窟 (阎文儒)"
+  },
+  "tr-hou-tower": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**楼阁与塔**"
+      },
+      {
+        "label": "起源",
+        "value": "**战国**"
+      },
+      {
+        "label": "核心",
+        "value": "**多层建筑**"
+      },
+      {
+        "label": "代表",
+        "value": "**江南三大名楼**"
+      },
+      {
+        "label": "现代",
+        "value": "**古建筑保护**"
+      },
+      {
+        "label": "意义",
+        "value": "**重要类型**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "三大名楼",
+        "body": "江南三大名楼：黄鹤楼 (武汉)、岳阳楼 (岳阳)、滕王阁 (南昌)。三大名楼都因诗文而闻名。三楼均为当代重建。"
+      },
+      {
+        "type": "callout",
+        "heading": "黄鹤楼",
+        "body": "黄鹤楼最负盛名。三国时期 (AD 223)；诗文崔颢《黄鹤楼》；传说仙人驾鹤；当代重建；天下绝景。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "岳阳楼",
+        "body": "岳阳楼因《岳阳楼记》而闻名。范仲淹 (北宋)；先天下之忧而忧后天下之乐而乐；士大夫精神；名楼文化核心。"
+      },
+      {
+        "type": "list",
+        "heading": "主要楼阁",
+        "items": [
+          "黄鹤楼 (武汉)",
+          "岳阳楼 (岳阳)",
+          "滕王阁 (南昌)",
+          "鹳雀楼 (永济)",
+          "蓬莱阁 (蓬莱)",
+          "天一阁 (宁波)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "文化标志",
+        "body": "楼阁成为中华文化标志。文墨客题咏、诗文书画、文化景点、国际标志。"
+      },
+      {
+        "type": "quote",
+        "text": "**昔人已乘黄鹤去，此地空余黄鹤楼**。",
+        "cite": "崔颢《黄鹤楼》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 300",
+        "era": "战国",
+        "event": "**楼阁**雏形"
+      },
+      {
+        "year": "AD 223",
+        "era": "三国",
+        "event": "**黄鹤楼**"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**滕王阁**"
+      },
+      {
+        "year": "AD 1046",
+        "era": "宋",
+        "event": "**岳阳楼**"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**楼阁**鼎盛"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**楼阁**破坏"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**楼阁**重建"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**名楼**保护"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "yellow crane tower",
+        "caption": "黄鹤楼",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "yue yang tower",
+        "caption": "岳阳楼",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "teng wang pavilion",
+        "caption": "滕王阁",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "楼阁是建筑类型"
+      },
+      {
+        "id": "tr-hou-pagoda",
+        "title": "佛塔",
+        "reason": "塔与楼阁"
+      },
+      {
+        "id": "tr-hou-temple",
+        "title": "寺庙与道观",
+        "reason": "寺庙楼阁"
+      },
+      {
+        "id": "tr-hou-zigong",
+        "title": "紫禁城与故宫",
+        "reason": "城楼对比"
+      },
+      {
+        "id": "tr-hou-pailou",
+        "title": "牌坊",
+        "reason": "其他独特建筑"
+      },
+      {
+        "id": "tr-hou-fengshui",
+        "title": "风水",
+        "reason": "楼阁风水"
+      }
+    ],
+    "source": "岳阳楼记 (宋范仲淹)、滕王阁序 (唐王勃)、黄鹤楼 (崔颢)、中国楼阁"
+  },
+  "tr-hou-baogu": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**抱鼓石与蹲脊兽**"
+      },
+      {
+        "label": "起源",
+        "value": "**汉代**"
+      },
+      {
+        "label": "核心",
+        "value": "**门墩 + 屋脊兽**"
+      },
+      {
+        "label": "代表",
+        "value": "**故宫蹲脊兽**"
+      },
+      {
+        "label": "规制",
+        "value": "**\"五脊六兽\"**"
+      },
+      {
+        "label": "意义",
+        "value": "**等级与装饰**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "抱鼓石 (门墩)",
+        "body": "抱鼓石是门前圆鼓形石雕，分\"鼓\"与\"须弥座\"两部分。\"鼓\"象征武官 (圆鼓形)；\"须弥座\"承托。抱鼓石立于大门两侧，作为门框支撑、装饰、等级标志。"
+      },
+      {
+        "type": "callout",
+        "heading": "抱鼓石的等级",
+        "body": "抱鼓石等级分明。原因：鼓上雕狮子 → 武官 (一品、二品)；鼓上雕瑞兽 → 文官；素面 (无雕) → 百姓。抱鼓石形制、用材、雕工严格按门第等级。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "蹲脊兽 (屋脊兽)",
+        "body": "蹲脊兽是屋脊上的装饰兽。\"仙人骑鸡\"打头；后随龙、凤、狮子、天马、海马、狻猊、押鱼、獬豸 (十种)。\"五脊六兽\"是最高规制 (太和殿十条蹲脊兽)。"
+      },
+      {
+        "type": "list",
+        "heading": "抱鼓石与蹲脊兽的功能",
+        "items": [
+          "**等级标志** — 体现官阶与门第",
+          "**辟邪压胜** — 镇宅护佑",
+          "**装饰美化** — 屋脊与门面",
+          "**结构加固** — 屋脊节点、门框支撑",
+          "**文化符号** — 龙凤代表皇权",
+          "**艺术价值** — 雕塑、雕刻艺术"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "蹲脊兽的数量与等级",
+        "body": "蹲脊兽数量体现建筑等级。最高等级 (太和殿)：\"仙人骑鸡\"+ 10 蹲脊兽 (龙、凤、狮子、天马、海马、狻猊、押鱼、獬豸、行什)。二品：5 只；三品：3 只；百姓：1-2 只。"
+      },
+      {
+        "type": "quote",
+        "text": "**抱鼓石守门，蹲脊兽镇脊**。",
+        "cite": "中华建筑口诀"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 200",
+        "era": "西汉",
+        "event": "**门墩**雏形"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**门阀**雕刻出现"
+      },
+      {
+        "year": "AD 600",
+        "era": "唐",
+        "event": "**抱鼓石**定型"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**《营造法式》** 制度化"
+      },
+      {
+        "year": "AD 1400",
+        "era": "明",
+        "event": "**故宫**蹲脊兽"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**抱鼓石**鼎盛"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**建筑装饰**部分衰落"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**传统装饰**复兴"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese drum stone door pier",
+        "caption": "抱鼓石 (门墩)",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese roof ridge beast",
+        "caption": "蹲脊兽 (屋脊)",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "imperial roof guardian animal",
+        "caption": "故宫太和殿蹲脊兽",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "中华建筑",
+        "reason": "抱鼓石是建筑构件"
+      },
+      {
+        "id": "tr-hou-zigong",
+        "title": "紫禁城",
+        "reason": "故宫蹲脊兽"
+      },
+      {
+        "id": "tr-hou-yingbi",
+        "title": "影壁",
+        "reason": "门内装饰"
+      },
+      {
+        "id": "tr-hou-pailou",
+        "title": "牌坊",
+        "reason": "其他装饰构件"
+      },
+      {
+        "id": "tr-hou-pagoda",
+        "title": "佛塔",
+        "reason": "塔脊兽"
+      },
+      {
+        "id": "tr-hou-fengshui",
+        "title": "风水",
+        "reason": "辟邪文化"
+      }
+    ],
+    "source": "营造法式、清工部《工程做法则例》、抱鼓石研究 (刘敦桢)、蹲脊兽研究 (楼庆西)"
+  },
+  "tr-hou-mausoleum": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**帝王陵墓**"
+      },
+      {
+        "label": "起源",
+        "value": "**商周**"
+      },
+      {
+        "label": "核心",
+        "value": "**地宫神道**"
+      },
+      {
+        "label": "代表",
+        "value": "**始皇陵**"
+      },
+      {
+        "label": "现代",
+        "value": "**考古遗产**"
+      },
+      {
+        "label": "意义",
+        "value": "**墓葬艺术**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "陵墓特点",
+        "body": "中华帝王陵墓特点：规模宏大、地宫深邃、神道漫长、陪葬丰富、地上建筑精美。代表：秦始皇陵、唐乾陵、明十三陵、清东西陵。"
+      },
+      {
+        "type": "callout",
+        "heading": "秦始皇陵",
+        "body": "秦始皇陵是世界奇迹。规模 56 平方公里、兵马俑世界第八大奇迹、地宫模拟版图、2200 年历史、世界遗产。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "明十三陵",
+        "body": "明十三陵是中国陵墓代表。天寿山 40 平方公里、13 位皇帝陵墓、整体规划、世界遗产。"
+      },
+      {
+        "type": "list",
+        "heading": "组成部分",
+        "items": [
+          "神道",
+          "石像生",
+          "享殿",
+          "地宫",
+          "宝顶",
+          "陪葬墓"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "文化遗产",
+        "body": "帝王陵墓成为文化遗产。规模、艺术、历史、考古、国际遗产。"
+      },
+      {
+        "type": "quote",
+        "text": "**事死如事生**。",
+        "cite": "荀子礼论"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1600",
+        "era": "商",
+        "event": "**殷墟**"
+      },
+      {
+        "year": "BC 1000",
+        "era": "西周",
+        "event": "**陵墓**制度化"
+      },
+      {
+        "year": "BC 221",
+        "era": "秦",
+        "event": "**秦始皇陵**"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**帝陵**"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**乾陵**"
+      },
+      {
+        "year": "AD 1400",
+        "era": "明",
+        "event": "**十三陵**"
+      },
+      {
+        "year": "AD 1700",
+        "era": "清",
+        "event": "**东西陵**"
+      },
+      {
+        "year": "AD 1987",
+        "era": "当代",
+        "event": "**明清陵寝**世遗"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "qin terracotta army",
+        "caption": "兵马俑",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "ming tombs sacred way",
+        "caption": "明十三陵神道",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "qing dynasty eastern tombs",
+        "caption": "清东陵",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "陵墓是建筑类型"
+      },
+      {
+        "id": "tr-hou-temple",
+        "title": "寺庙与道观",
+        "reason": "建筑对比"
+      },
+      {
+        "id": "tr-hou-pagoda",
+        "title": "佛塔",
+        "reason": "其他建筑"
+      },
+      {
+        "id": "tr-hou-zigong",
+        "title": "紫禁城与故宫",
+        "reason": "宫殿陵墓"
+      },
+      {
+        "id": "tr-hou-ritual",
+        "title": "宗庙与社稷",
+        "reason": "祭祀建筑"
+      },
+      {
+        "id": "tr-hou-zao",
+        "title": "造园与叠石",
+        "reason": "陵墓园林"
+      }
+    ],
+    "source": "礼记、史记、中国陵寝史 (杨宽)、明十三陵 (胡汉生)"
+  },
+  "tr-hou-temple": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**寺庙与道观**"
+      },
+      {
+        "label": "起源",
+        "value": "**东汉**"
+      },
+      {
+        "label": "核心",
+        "value": "**供奉神佛**"
+      },
+      {
+        "label": "代表",
+        "value": "**佛光寺**"
+      },
+      {
+        "label": "现代",
+        "value": "**宗教遗产**"
+      },
+      {
+        "label": "意义",
+        "value": "**宗教艺术**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "寺庙建筑",
+        "body": "中华寺庙建筑包括佛教寺庙、道教宫观、伊斯兰清真寺等。佛教东汉传入；道教东汉后兴起；伊斯兰唐宋传入；儒教文庙。"
+      },
+      {
+        "type": "callout",
+        "heading": "佛光寺东大殿",
+        "body": "佛光寺东大殿是中华木构典范。唐代 AD 857 年；规模最大；斗拱、屋檐；唐代彩塑、壁画；国家重点文物。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "白马寺",
+        "body": "白马寺是中国佛教祖庭。东汉永平年间 (AD 68)；中国第一座官办寺院；佛教正式传入中国的标志；国际影响。"
+      },
+      {
+        "type": "list",
+        "heading": "主要宗教建筑",
+        "items": [
+          "佛教寺庙",
+          "道教宫观",
+          "清真寺",
+          "文庙",
+          "佛塔",
+          "石窟"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "保护",
+        "body": "现代寺庙保护重要。遗产、文化载体、建筑、雕塑、壁画、旅游、学术研究。"
+      },
+      {
+        "type": "quote",
+        "text": "**天下名山僧占多**。",
+        "cite": "民间俗语"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 68",
+        "era": "东汉",
+        "event": " **白马寺**"
+      },
+      {
+        "year": "AD 100",
+        "era": "东汉",
+        "event": " **道教**产生"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": " **佛光寺**"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": " **寺庙**大量兴建"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": " **喇嘛教**传入"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": " **寺庙**鼎盛"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": " **寺庙**破坏"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": " **寺庙**复兴"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese ancient buddhist temple",
+        "caption": "中华寺庙",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "baimasi white horse temple",
+        "caption": "白马寺",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "foguang temple east hall",
+        "caption": "佛光寺东大殿",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "寺庙是建筑类型"
+      },
+      {
+        "id": "tr-hou-pagoda",
+        "title": "佛塔",
+        "reason": "佛塔与寺庙"
+      },
+      {
+        "id": "tr-hou-cave",
+        "title": "石窟与岩画",
+        "reason": "石窟与寺庙"
+      },
+      {
+        "id": "tr-hou-garden",
+        "title": "园林",
+        "reason": "寺庙园林"
+      },
+      {
+        "id": "tr-hou-tower",
+        "title": "楼阁与塔",
+        "reason": "楼阁建筑"
+      },
+      {
+        "id": "tr-hou-fengshui",
+        "title": "风水",
+        "reason": "寺庙风水"
+      }
+    ],
+    "source": "洛阳伽蓝记、营造法式、中国佛教寺院 (白化文)"
+  },
+  "tr-hou-garden": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**中华园林**"
+      },
+      {
+        "label": "起源",
+        "value": "**商周（囿）**"
+      },
+      {
+        "label": "核心",
+        "value": "**虽由人作宛自天开**"
+      },
+      {
+        "label": "类型",
+        "value": "**皇家私家**"
+      },
+      {
+        "label": "代表",
+        "value": "**拙政颐和**"
+      },
+      {
+        "label": "意义",
+        "value": "**艺术瑰宝**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "园林特色",
+        "body": "中华园林是世界三大园林体系之一。特点：虽由人作宛自天开。皇家、江南私家、岭南、寺庙。"
+      },
+      {
+        "type": "callout",
+        "heading": "拙政园",
+        "body": "拙政园是江南园林代表。苏州最大；明代正德年间 (AD 1509) 始建；以水见长；借景漏景；世界文化遗产。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "颐和园",
+        "body": "颐和园是皇家园林代表。规模 290 公顷；昆明湖万寿山；江南风格融入；清代乾隆 (AD 1750)；世界遗产。"
+      },
+      {
+        "type": "list",
+        "heading": "主要类型",
+        "items": [
+          "皇家园林",
+          "江南私家",
+          "岭南园林",
+          "北方园林",
+          "寺庙园林",
+          "书院园林"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "艺术瑰宝",
+        "body": "中华园林是艺术瑰宝。哲学、融合、文化、国际、影响日韩。"
+      },
+      {
+        "type": "quote",
+        "text": "**虽由人作，宛自天开**。",
+        "cite": "园冶 (明计成)"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1000",
+        "era": "西周",
+        "event": "**囿**"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**上林苑**"
+      },
+      {
+        "year": "AD 1500",
+        "era": "明",
+        "event": "**拙政园**"
+      },
+      {
+        "year": "AD 1600",
+        "era": "明",
+        "event": "**园冶**"
+      },
+      {
+        "year": "AD 1750",
+        "era": "清",
+        "event": "**颐和园**"
+      },
+      {
+        "year": "AD 1800",
+        "era": "清",
+        "event": "**避暑山庄**"
+      },
+      {
+        "year": "AD 1997",
+        "era": "当代",
+        "event": "**苏州园林**世遗"
+      },
+      {
+        "year": "AD 1998",
+        "era": "当代",
+        "event": "**颐和园**世遗"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese classical garden",
+        "caption": "中华园林",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "zhuozheng yuan",
+        "caption": "拙政园",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "summer palace beijing",
+        "caption": "颐和园",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "园林是建筑类型"
+      },
+      {
+        "id": "tr-hou-zao",
+        "title": "造园与叠石",
+        "reason": "造园技术"
+      },
+      {
+        "id": "tr-hou-fengshui",
+        "title": "风水",
+        "reason": "园林风水"
+      },
+      {
+        "id": "tr-hou-courtyard",
+        "title": "四合院",
+        "reason": "民居与园林"
+      },
+      {
+        "id": "tr-hou-temple",
+        "title": "寺庙与道观",
+        "reason": "寺庙园林"
+      },
+      {
+        "id": "tr-hou-pagoda",
+        "title": "佛塔",
+        "reason": "园林与塔"
+      }
+    ],
+    "source": "园冶 (明计成)、长物志 (明文震亨)、中国园林 (陈从周)"
+  },
+  "tr-hou-citydef": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**城池与防御**"
+      },
+      {
+        "label": "起源",
+        "value": "**夏代**"
+      },
+      {
+        "label": "核心",
+        "value": "**城墙城门**"
+      },
+      {
+        "label": "代表",
+        "value": "**西安南京城墙**"
+      },
+      {
+        "label": "现代",
+        "value": "**城墙保护**"
+      },
+      {
+        "label": "意义",
+        "value": "**军事防御**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "中华城池",
+        "body": "中华城池是城市防御工程。起源：夏商、春秋、秦汉长城、明清城池鼎盛。"
+      },
+      {
+        "type": "callout",
+        "heading": "瓮城",
+        "body": "瓮城是中华城池特色。半圆形小城、瓮中捉鳖、加大防御、军事智慧。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "长城",
+        "body": "长城是世界奇迹。规模 21196 公里；历史 2000 多年；因地形；中华象征；世界遗产。"
+      },
+      {
+        "type": "list",
+        "heading": "城池设施",
+        "items": [
+          "城墙",
+          "城门",
+          "瓮城",
+          "护城河",
+          "角楼",
+          "敌楼"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "保护",
+        "body": "现代城池保护重要。遗产、文化、旅游、象征、教育。"
+      },
+      {
+        "type": "quote",
+        "text": "**因地形，用险制塞**。",
+        "cite": "汉书匈奴传"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 2000",
+        "era": "夏商",
+        "event": "**城**出现"
+      },
+      {
+        "year": "BC 700",
+        "era": "春秋",
+        "event": "**筑城**"
+      },
+      {
+        "year": "BC 221",
+        "era": "秦",
+        "event": "**秦始皇**长城"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**汉长城**"
+      },
+      {
+        "year": "AD 1400",
+        "era": "明",
+        "event": "**明长城**"
+      },
+      {
+        "year": "AD 1600",
+        "era": "明清",
+        "event": "**城池**鼎盛"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**城墙**拆除"
+      },
+      {
+        "year": "AD 1987",
+        "era": "当代",
+        "event": "**长城**世遗"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "great wall china",
+        "caption": "长城",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "ancient city wall gate",
+        "caption": "古城门",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese fortress",
+        "caption": "瓮城",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "城池是建筑类型"
+      },
+      {
+        "id": "tr-hou-capital",
+        "title": "都城规划",
+        "reason": "都城与城池"
+      },
+      {
+        "id": "tr-hou-tower",
+        "title": "楼阁与塔",
+        "reason": "城楼建筑"
+      },
+      {
+        "id": "tr-hou-zhenghe",
+        "title": "郑和下西洋",
+        "reason": "海上防御"
+      },
+      {
+        "id": "tr-hou-zhidao",
+        "title": "驿站与邮驿",
+        "reason": "驿站系统"
+      },
+      {
+        "id": "tr-hou-bridge",
+        "title": "桥梁",
+        "reason": "城池与桥"
+      }
+    ],
+    "source": "周礼、墨子城守、天工开物、中国城池史 (贺业钜)"
+  },
+  "tr-hou-pailou": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**牌坊**"
+      },
+      {
+        "label": "起源",
+        "value": "**宋**"
+      },
+      {
+        "label": "核心",
+        "value": "**旌表功德**"
+      },
+      {
+        "label": "类型",
+        "value": "**功德节烈**"
+      },
+      {
+        "label": "代表",
+        "value": "**棠樾牌坊群**"
+      },
+      {
+        "label": "意义",
+        "value": "**独特建筑**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "牌坊独特",
+        "body": "牌坊 (牌楼) 是中华独有的建筑类型。起源：宋代坊门；明清牌坊兴盛。功能：旌表、标志、纪念、装饰。"
+      },
+      {
+        "type": "callout",
+        "heading": "棠樾牌坊群",
+        "body": "歙县棠樾牌坊群是艺术代表。7 座牌坊、忠孝节义、工艺精美、鲍氏家族 400 年、儒家伦理。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "节孝坊",
+        "body": "节孝坊是常见主题。三从四德伦理、表彰节妇孝子、各地多有、儒家伦理、现代有争议。"
+      },
+      {
+        "type": "list",
+        "heading": "牌坊类型",
+        "items": [
+          "功德坊",
+          "节孝坊",
+          "标志坊",
+          "陵墓坊",
+          "百岁坊",
+          "寺庙坊"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "保护争议",
+        "body": "现代牌坊保护有争议。遗产、伦理、保护、文化、旅游。"
+      },
+      {
+        "type": "quote",
+        "text": "**旌表节孝，激励人心**。",
+        "cite": "明会典"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**里门**"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**牌坊**雏形"
+      },
+      {
+        "year": "AD 1500",
+        "era": "明",
+        "event": "**牌坊**盛行"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**牌坊**鼎盛"
+      },
+      {
+        "year": "清",
+        "era": "清",
+        "event": "**棠樾牌坊群**"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**牌坊**破坏"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**牌坊**保护"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**牌坊**列入保护"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese memorial archway",
+        "caption": "中华牌坊",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "tangyue memorial arches",
+        "caption": "棠樾牌坊群",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese traditional archway",
+        "caption": "街巷牌坊",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "引子:中华建筑",
+        "reason": "牌坊是建筑类型"
+      },
+      {
+        "id": "tr-hou-temple",
+        "title": "寺庙与道观",
+        "reason": "寺庙牌坊"
+      },
+      {
+        "id": "tr-hou-garden",
+        "title": "园林",
+        "reason": "园林牌坊"
+      },
+      {
+        "id": "tr-hou-pagoda",
+        "title": "佛塔",
+        "reason": "其他独特建筑"
+      },
+      {
+        "id": "tr-hou-zigong",
+        "title": "紫禁城与故宫",
+        "reason": "宫城对比"
+      },
+      {
+        "id": "tr-hou-zao",
+        "title": "造园与叠石",
+        "reason": "建筑装饰"
+      }
+    ],
+    "source": "明会典、清会典、中国牌坊 (刘敦桢)、歙县棠樾牌坊群"
+  },
+  "tr-hou-zigong": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**穿越600年时光的紫禁城**"
+      },
+      {
+        "label": "始建",
+        "value": "**明永乐四年 (AD 1406)**"
+      },
+      {
+        "label": "建成",
+        "value": "**明永乐十八年 (AD 1420)**"
+      },
+      {
+        "label": "规模",
+        "value": "**72 万平方米 / 8700 余间**"
+      },
+      {
+        "label": "规制",
+        "value": "**前朝后寝 / 中轴对称**"
+      },
+      {
+        "label": "地位",
+        "value": "**世界文化遗产 (1987)**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "紫禁城的由来",
+        "body": "紫禁城 (故宫) 是明清两朝皇宫。明永乐四年 (AD 1406) 始建，永乐十八年 (AD 1420) 建成；24 年建成。占地 72 万平方米、房屋 8700 余间。明清 24 位皇帝在此居住执政 500 余年。"
+      },
+      {
+        "type": "callout",
+        "heading": "为何称为\"紫禁城\"？",
+        "body": "\"紫禁城\"之名源于星象学。原因：紫微星 (北极星) 居天中，皇宫对应\"紫微\" (天子居所)；\"禁\"指禁卫森严；\"城\"指城垣。所以\"紫禁城\"是\"天上紫微垣\"在人间之映射。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "\"前朝后寝\"如何布局？",
+        "body": "故宫布局\"前朝后寝\"：前朝 (南部) — 文武百官上朝理政；三大殿 (太和殿、中和殿、保和殿)；后寝 (北部) — 帝后生活；后三宫 (乾清宫、交泰殿、坤宁宫)。"
+      },
+      {
+        "type": "list",
+        "heading": "紫禁城六大特点",
+        "items": [
+          "**中轴对称** — 全城 7.8 公里中轴线 (永定门 → 钟鼓楼)",
+          "**前朝后寝** — 南部\"三大殿\"、北部\"后三宫\"",
+          "**红墙黄瓦** — 红 (火、光明)、黄 (土、皇权)",
+          "**等级森严** — 屋顶形式、开间数严格按等级",
+          "**木构为主** — 纯木结构，榫卯连接，无钉",
+          "**园林融合** — 御花园、慈宁宫花园"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "紫禁城为何成为世界文化遗产？",
+        "body": "紫禁城 1987 年列入世界文化遗产。原因：规模 (世界最大宫殿)、历史 (明清 500 年)、艺术 (建筑、雕塑、书画、珍宝)、研究 (建筑史、艺术史、政治史)。故宫是中华文明的最高结晶。"
+      },
+      {
+        "type": "quote",
+        "text": "**紫禁城，红墙黄瓦，600 年风雨，依然屹立**。",
+        "cite": "中华建筑评论"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1406",
+        "era": "明",
+        "event": "**明永乐四年** 始建紫禁城"
+      },
+      {
+        "year": "AD 1420",
+        "era": "明",
+        "event": "**明永乐十八年** 建成"
+      },
+      {
+        "year": "AD 1421",
+        "era": "明",
+        "event": "**明永乐十九年** 朱棣迁都北京"
+      },
+      {
+        "year": "AD 1644",
+        "era": "清",
+        "event": "**清军入关** 紫禁城延续"
+      },
+      {
+        "year": "AD 1912",
+        "era": "清末",
+        "event": "**末代皇帝溥仪退位**"
+      },
+      {
+        "year": "AD 1925",
+        "era": "民国",
+        "event": "**故宫博物院** 成立"
+      },
+      {
+        "year": "AD 1949",
+        "era": "当代",
+        "event": "**中华人民共和国** 保护故宫"
+      },
+      {
+        "year": "AD 1987",
+        "era": "当代",
+        "event": "**紫禁城** 列入世界文化遗产"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "forbidden city beijing aerial",
+        "caption": "紫禁城俯瞰",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "taihe palace throne hall",
+        "caption": "太和殿 (前朝核心)",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "forbidden city corner tower",
+        "caption": "角楼 (防御)",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-hou-intro",
+        "title": "中华建筑",
+        "reason": "宫殿是建筑最高类型"
+      },
+      {
+        "id": "tr-hou-capital",
+        "title": "都城规划",
+        "reason": "明清北京都城核心"
+      },
+      {
+        "id": "tr-hou-ritual",
+        "title": "礼制建筑",
+        "reason": "前朝礼仪"
+      },
+      {
+        "id": "tr-hou-citydef",
+        "title": "城池防御",
+        "reason": "宫城防御"
+      },
+      {
+        "id": "tr-hou-baogu",
+        "title": "抱鼓石与蹲脊兽",
+        "reason": "故宫脊兽"
+      },
+      {
+        "id": "tr-hou-zao",
+        "title": "藻井",
+        "reason": "故宫藻井"
+      }
+    ],
+    "source": "明史·舆服志、紫禁城 (单士元)、故宫 (黄仁宇)、中国宫殿建筑 (刘敦桢)"
+  }
+}

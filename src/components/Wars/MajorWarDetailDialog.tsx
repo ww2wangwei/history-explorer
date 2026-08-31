@@ -6,6 +6,7 @@ import { bingImage, majorWarSearchKeywords } from '@/utils/geoImage'
 import { useJumpToMap } from '@/hooks/useJumpToMap'
 import { lookupLocationStrict } from '@/utils/locationCoords'
 import type { MajorWar, MajorWarNode } from '@/data/majorWars'
+import { OverviewRichContent } from '@/components/ui/OverviewRichContent'
 
 function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
   mw: MajorWar
@@ -79,6 +80,9 @@ function MajorWarDetailDialog({ mw, onClose, onSelectNode }: {
         <div className="p-6 pb-3">
           <div className="text-xs text-ink-300 uppercase tracking-wider mb-2">📜 战争总览</div>
           <div className="text-sm text-parchment-50 leading-relaxed">{mw.summary}</div>
+
+          {/* 富内容 */}
+          <OverviewRichContent item={mw as any} />
         </div>
 
         {/* 节点时间线 */}

@@ -1,0 +1,5263 @@
+[
+  {
+    "id": "ce-001",
+    "title": "甲骨文诞生",
+    "year": -1300,
+    "category": "文字",
+    "location": [
+      114.3,
+      30.6
+    ],
+    "region": "中国",
+    "importance": 3,
+    "description": "商代晚期（约公元前 14-11 世纪），中国已出现成熟的文字系统——甲骨文。商王在龟甲或兽骨上钻凿后用火烧，根据裂纹形状占卜吉凶，再由贞人（专业占卜师）将占卜日期、问事人、占卜内容、结果等刻在甲骨上。这套文字系统已有 4500 多个单字，结构包括象形、会意、形声等，反映了商代宗教、政治、经济的方方面面。甲骨文是汉字的源头，奠定了中国 3000 多年一脉相承的文字系统。1899 年王懿荣首次发现，现已出土 15 万片以上，是研究商代历史的第一手资料。",
+    "facts": [
+      {
+        "label": "年代",
+        "value": "BC 14-11 世纪（商代晚期）"
+      },
+      {
+        "label": "地区",
+        "value": "中国·殷墟（今河南安阳）"
+      },
+      {
+        "label": "类别",
+        "value": "文字 / 汉字源头"
+      },
+      {
+        "label": "发现时间",
+        "value": "1899 年（清末·王懿荣）"
+      },
+      {
+        "label": "单字数量",
+        "value": "约 4500+ 个，已释读约 2000 个"
+      },
+      {
+        "label": "出土数量",
+        "value": "15 万片以上（截至 21 世纪）"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "何为甲骨文",
+        "body": "甲骨文是中国已发现最早的成系统的文字形式，主要刻写在龟甲与兽骨上。商王和贵族在占卜吉凶时，由贞人（专业占卜师）将卜辞契刻于甲骨，再烧灼观裂纹以定凶吉。文字内容涵盖祭祀、征战、田猎、气象、疾病等商代社会的方方面面。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "发现与影响",
+        "body": "1899 年清末金石学家王懿荣在中药「龙骨」上首次辨识出甲骨文，至今出土甲骨超过 15 万片。甲骨文证明汉字至少在 3000 年前已形成完整体系，并由此奠定中国一脉相承的文字传统。"
+      },
+      {
+        "type": "callout",
+        "heading": "汉字的源头",
+        "body": "甲骨文是现代汉字的直接祖先。从甲骨文→金文→隶书→楷书，汉字虽经多次形体演变，但结构原则（象形、会意、形声）始终一脉相承，是中华文明连续性的核心证据。",
+        "variant": "info"
+      },
+      {
+        "type": "list",
+        "heading": "六书造字法",
+        "items": [
+          "象形（如日、月、山）",
+          "指事（如上、下）",
+          "会意（如休、明）",
+          "形声（如江、河）",
+          "转注",
+          "假借"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "学习视角",
+        "body": "研究甲骨文应把握三条主线：①**文字学**角度——汉字形体的源头；②**历史学**角度——商代社会与宗教的第一手资料；③**考古学**角度——殷墟发掘与中国现代考古学的起源。"
+      },
+      {
+        "type": "quote",
+        "text": "\"一片甲骨惊世界，千年文明照古今。\"",
+        "cite": "王懿荣纪念语"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1300",
+        "era": "商代晚期",
+        "event": "**甲骨文** 成熟使用"
+      },
+      {
+        "year": "BC 1046",
+        "era": "西周",
+        "event": "甲骨占卜制度逐步衰微"
+      },
+      {
+        "year": "AD 1899",
+        "era": "清末",
+        "event": "王懿荣辨识甲骨文"
+      },
+      {
+        "year": "AD 1928",
+        "era": "民国",
+        "event": "殷墟正式考古发掘"
+      },
+      {
+        "year": "AD 2017",
+        "era": "当代",
+        "event": "甲骨文入选**世界记忆名录**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "oracle bone script inscription",
+        "caption": "甲骨文 · 龟甲刻辞拓片",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "yinxu ruins anyang",
+        "caption": "殷墟遗址 · 商代晚期都城",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "wang yirong scholar portrait",
+        "caption": "王懿荣 · 甲骨文发现者",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "shang dynasty bronze script",
+        "caption": "商代金文 · 甲骨文之后的汉字形态",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-script-zhishi",
+        "title": "汉字造字法",
+        "reason": "六书体系奠定于甲骨文"
+      },
+      {
+        "id": "tr-script-natural",
+        "title": "自然崇拜与文字",
+        "reason": "甲骨占卜与自然神祇"
+      },
+      {
+        "id": "era-shang",
+        "title": "商朝",
+        "reason": "甲骨文是商代核心遗存"
+      },
+      {
+        "id": "p-wang-yirong",
+        "title": "王懿荣",
+        "reason": "甲骨文发现者"
+      },
+      {
+        "id": "tr-history-yanying",
+        "title": "殷墟与商朝考古",
+        "reason": "殷墟是甲骨文主要出土地"
+      }
+    ],
+    "source": "📚 《甲骨文合集》、胡厚宣《殷墟发掘》、王宇信《甲骨学一百年》、中国社会科学院考古研究所"
+  },
+  {
+    "id": "ce-002",
+    "title": "《汉谟拉比法典》",
+    "year": -1754,
+    "category": "制度",
+    "location": [
+      44.42,
+      32.54
+    ],
+    "region": "美索不达米亚",
+    "importance": 3,
+    "description": "古巴比伦国王汉谟拉比（约公元前 1792-1750 年在位）颁布的法典，刻在一块高 2.25 米的黑色玄武岩石柱上。原文 282 条，包括诉讼、盗窃、伤害、婚姻、继承、商业、奴隶等社会各方面规定。法典的核心原则是以眼还眼以牙还牙的同态复仇，但实际条文按社会等级（自由民/平民/奴隶）差异化处理。这是现存最早的较为完整的成文法典，比《十二铜表法》早 1200 年。1901 年法国人在伊朗苏撒遗址发现石柱，现藏于巴黎卢浮宫。",
+    "facts": [
+      {
+        "label": "颁布者",
+        "value": "古巴比伦国王汉谟拉比（约 BC 1792-1750）"
+      },
+      {
+        "label": "年代",
+        "value": "BC 1754 年左右"
+      },
+      {
+        "label": "载体",
+        "value": "黑色玄武岩石柱（高 2.25 米）"
+      },
+      {
+        "label": "条文数",
+        "value": "282 条"
+      },
+      {
+        "label": "发现时间",
+        "value": "1901 年法国考古团"
+      },
+      {
+        "label": "现藏",
+        "value": "巴黎卢浮宫博物馆"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "法典地位",
+        "body": "《汉谟拉比法典》是**现存最早较完整的成文法典**，早于罗马《十二铜表法》约 1200 年。原文以阿卡德语楔形文字刻于黑色玄武岩石柱上，分前言、正文（282 条）、结语三部分。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "社会原则",
+        "body": "法典核心原则是**「以眼还眼、以牙还牙」**的同态复仇，但实际条文按社会等级（自由民 / 平民 / 奴隶）差异化处理。它同时规定了商业契约、婚姻继承、伤害赔偿、劳资关系等社会制度，是研究古巴比伦社会的第一手资料。"
+      },
+      {
+        "type": "callout",
+        "heading": "同态复仇",
+        "body": "法典第 196 条「若某人毁坏他人之眼，则毁其眼」成为后世同态复仇思想的经典表达。但实际条文按身份等级差异执行，体现了古巴比伦社会的等级森严。",
+        "variant": "warning"
+      },
+      {
+        "type": "list",
+        "heading": "内容分类",
+        "items": [
+          "诉讼程序",
+          "财产保护",
+          "人身伤害",
+          "婚姻家庭",
+          "商业贸易",
+          "奴隶制度"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "发现与意义",
+        "body": "1901 年法国人在伊朗苏撒遗址（Susa）发现石柱，柱体曾被埃兰人作为战利品掠至苏撒。现藏巴黎卢浮宫，是博物馆镇馆之宝。"
+      },
+      {
+        "type": "quote",
+        "text": "\"安努与恩利尔授我以统治民众之权。\"",
+        "cite": "汉谟拉比 · 法典前言"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1792",
+        "era": "古巴比伦",
+        "event": "汉谟拉比即位"
+      },
+      {
+        "year": "BC 1754",
+        "era": "古巴比伦",
+        "event": "《**汉谟拉比法典**》刻石颁布"
+      },
+      {
+        "year": "BC 1595",
+        "era": "赫梯入侵",
+        "event": "巴比伦王国衰亡"
+      },
+      {
+        "year": "BC 1158",
+        "era": "埃兰",
+        "event": "石柱被掠至苏萨"
+      },
+      {
+        "year": "AD 1901",
+        "era": "近代",
+        "event": "法国考古队发现石柱"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "code of hammurabi stele",
+        "caption": "汉谟拉比法典石柱",
+        "credit": "Louvre / Wikimedia"
+      },
+      {
+        "imageKeyword": "babylon ancient city reconstruction",
+        "caption": "古巴比伦城复原图",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "cuneiform tablet writing",
+        "caption": "楔形文字泥板",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "hammurabi receiving laws sun god",
+        "caption": "汉谟拉比从太阳神沙马什处受法典",
+        "credit": "公共领域"
+      }
+    ],
+    "related": [
+      {
+        "id": "era-old-babylonian",
+        "title": "古巴比伦（阿摩利王朝）",
+        "reason": "法典所属王朝"
+      },
+      {
+        "id": "era-mesopotamia",
+        "title": "美索不达米亚",
+        "reason": "两河流域文明"
+      },
+      {
+        "id": "tr-history-law",
+        "title": "古代法律制度",
+        "reason": "人类早期成文法典"
+      },
+      {
+        "id": "era-rome-republic",
+        "title": "罗马共和国",
+        "reason": "罗马法受其影响"
+      }
+    ],
+    "source": "📚 《汉谟拉比法典》（Ancient Near Eastern Texts）、L. W. King《The Code of Hammurabi》、巴黎卢浮宫档案"
+  },
+  {
+    "id": "ce-003",
+    "title": "金字塔建造",
+    "year": -2560,
+    "category": "建筑",
+    "location": [
+      31.13,
+      29.98
+    ],
+    "region": "埃及",
+    "importance": 3,
+    "description": "胡夫金字塔（Khufu Pyramid）建于公元前 2560 年左右，古埃及第四王朝法老胡夫的陵墓。原始高度 146.5 米（现 138.8 米，因风化降低），底边长 230 米，由 230 万块 2.5 吨重的巨石砌成。建造过程动用 10 万工人历时 20 年。数学精度惊人：四条边误差仅 1.6 厘米，方向精确朝向东南西北。四千五百年来一直是世界最高建筑，直至 1311 年被英国林肯大教堂超越。周围还有卡夫拉金字塔和孟卡拉金字塔，是古世界七大奇迹中最古老且唯一幸存者。",
+    "facts": [
+      {
+        "label": "年代",
+        "value": "BC 27-前 26 世纪"
+      },
+      {
+        "label": "地区",
+        "value": "古埃及·吉萨"
+      },
+      {
+        "label": "代表",
+        "value": "胡夫金字塔（最大）"
+      },
+      {
+        "label": "高度",
+        "value": "原 146.6 米，今 138.5 米"
+      },
+      {
+        "label": "石块数",
+        "value": "约 230 万块"
+      },
+      {
+        "label": "世遗",
+        "value": "1979 年列入世界文化遗产"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "金字塔起源",
+        "body": "金字塔是古埃及法老（国王）的陵墓建筑，由早期「马斯塔巴」（长方形平顶墓）演变而来。第一座真正意义的金字塔是左塞尔的「阶梯金字塔」（约 BC 2650），其后演变为「弯曲金字塔」「红金字塔」，最终定型为正四棱锥形。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "胡夫金字塔",
+        "body": "吉萨大金字塔（胡夫金字塔）是古埃及最大金字塔，原高 146.6 米，4500 年间是世界最高建筑，直到 1311 年被英国林肯大教堂超越。石块平均重 2.5 吨，最大达 80 吨；总重约 600 万吨。"
+      },
+      {
+        "type": "callout",
+        "heading": "世界七大奇迹",
+        "body": "金字塔是**古代世界七大奇迹**中**最古老**且**唯一留存至今**的一座。希腊人将其列为七大奇迹之首，称之为「光辉之神」。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "建造技术",
+        "items": [
+          "巨石开采（铜凿 + 石灰岩）",
+          "尼罗河运输至吉萨",
+          "斜坡滑道系统",
+          "精确天文方位（正北偏差 < 1°）",
+          "内部墓室与走廊系统"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "文化象征",
+        "body": "金字塔不仅是陵墓，更是古埃及宗教信仰（法老死后成神、太阳崇拜）、数学水平、动员能力的综合体现。"
+      },
+      {
+        "type": "quote",
+        "text": "\"人怕时间，时间怕金字塔。\"",
+        "cite": "阿拉伯古谚"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 2650",
+        "era": "第三王朝",
+        "event": "左塞尔**阶梯金字塔**"
+      },
+      {
+        "year": "BC 2560",
+        "era": "第四王朝",
+        "event": "**胡夫金字塔** 建成"
+      },
+      {
+        "year": "BC 2532",
+        "era": "第四王朝",
+        "event": "哈夫拉金字塔（狮身人面像旁）"
+      },
+      {
+        "year": "BC 2510",
+        "era": "第四王朝",
+        "event": "门卡乌拉金字塔"
+      },
+      {
+        "year": "AD 1979",
+        "era": "当代",
+        "event": "**吉萨金字塔群** 列入世界遗产"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "great pyramid giza egypt",
+        "caption": "胡夫金字塔",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "sphinx giza profile",
+        "caption": "狮身人面像",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "pyramid construction ancient drawing",
+        "caption": "金字塔建造想象图",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "pyramid interior burial chamber",
+        "caption": "金字塔内部墓室",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "era-ancient-egypt",
+        "title": "古埃及",
+        "reason": "金字塔所属文明"
+      },
+      {
+        "id": "tr-history-liangzhu",
+        "title": "良渚文化",
+        "reason": "同期玉器文明"
+      },
+      {
+        "id": "tr-history-miaoyao",
+        "title": "庙底沟文化",
+        "reason": "东亚早期文明对比"
+      },
+      {
+        "id": "tr-history-shu",
+        "title": "古代工程",
+        "reason": "早期巨型工程"
+      }
+    ],
+    "source": "📚 《埃及金字塔》（Lehner, Mark）、《古埃及史》、Hawass《Mountains of the Pharaohs》"
+  },
+  {
+    "id": "ce-004",
+    "title": "雅典卫城",
+    "year": -450,
+    "category": "建筑",
+    "location": [
+      23.73,
+      37.97
+    ],
+    "region": "希腊",
+    "importance": 3,
+    "description": "雅典卫城（Acropolis of Athens）建于公元前 5 世纪雅典民主鼎盛时期，主体建筑帕特农神庙（Parthenon）由伯里克利下令、伊克蒂诺斯和卡里克拉特斯设计、菲狄亚斯监督雕刻。建筑用大理石构成，46 根多立克柱列，长 70 米、宽 30 米，内有 12 米高的雅典娜女神金象牙像（已失传）。三角山花和雕带描绘了雅典娜诞生、雅典娜与波塞冬争夺雅典、泛雅典娜节游行等神话场景，是古典雕刻艺术的巅峰。1687 年被威尼斯炮火击中引发内部火药爆炸，部分建筑被毁，但仍是西方建筑美学的源头。1987 年列入世界文化遗产。",
+    "facts": [
+      {
+        "label": "年代",
+        "value": "BC 5 世纪（古典时期）"
+      },
+      {
+        "label": "地区",
+        "value": "希腊·雅典"
+      },
+      {
+        "label": "核心",
+        "value": "帕特农神庙"
+      },
+      {
+        "label": "主持",
+        "value": "伯里克利"
+      },
+      {
+        "label": "设计师",
+        "value": "伊克蒂诺斯、卡里克拉特"
+      },
+      {
+        "label": "意义",
+        "value": "西方古典建筑与民主象征"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "卫城功能",
+        "body": "雅典卫城（Acropolis）是建在雅典城中央石灰岩山丘上的宗教中心，原为防御城堡，古典时期转为祭祀雅典娜的神圣之地。希波战争后（BC 480 被波斯焚毁），伯里克利主持大规模重建，将卫城打造为古希腊艺术与民主的最高象征。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "帕特农神庙",
+        "body": "帕特农神庙（Parthenon）建于 BC 447-432，是供奉雅典娜的多立克式神庙。8 根多立克柱（前后各 17 根），整体使用大理石，雕刻由菲狄亚斯主持。它代表古希腊建筑的最高成就，比例、雕饰、光学矫正（如柱身微凸 entasis）均登峰造极。"
+      },
+      {
+        "type": "callout",
+        "heading": "古典文明的象征",
+        "body": "卫城是**西方古典文明**的标志性建筑群：民主制度的发源地（雅典）+ 神话崇拜的中心（雅典娜）+ 艺术哲学的高峰（黄金时代）。它奠定了西方建筑「柱式 + 山花」的基础。",
+        "variant": "info"
+      },
+      {
+        "type": "list",
+        "heading": "主要建筑",
+        "items": [
+          "帕特农神庙",
+          "伊瑞克提翁神庙（女像柱）",
+          "普罗皮莱亚（山门）",
+          "雅典娜胜利神庙",
+          "厄瑞克透斯井"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "命运多舛",
+        "body": "卫城历经波斯战争破坏、罗马帝国改造、基督教教堂化、奥斯曼清真寺化、威尼斯炮击（1687 火药爆炸）、希腊独立后修复——几乎每一段欧洲历史都在其身上留下印记。"
+      },
+      {
+        "type": "quote",
+        "text": "\"雅典娜的礼物，是这座城市永不陷落的誓言。\"",
+        "cite": "古希腊神话 · 雅典建城传说"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 580",
+        "era": "古风时期",
+        "event": "早期雅典娜神庙"
+      },
+      {
+        "year": "BC 480",
+        "era": "希波战争",
+        "event": "波斯军队**焚毁**卫城"
+      },
+      {
+        "year": "BC 447",
+        "era": "古典时期",
+        "event": "伯里克利主持重建"
+      },
+      {
+        "year": "BC 432",
+        "era": "古典时期",
+        "event": "**帕特农神庙** 建成"
+      },
+      {
+        "year": "AD 1687",
+        "era": "奥斯曼时期",
+        "event": "威尼斯炮击引爆火药"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "parthenon athens greece",
+        "caption": "帕特农神庙",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "acropolis athens aerial view",
+        "caption": "雅典卫城俯瞰",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "caryatid porch erechtheion",
+        "caption": "伊瑞克提翁神庙女像柱",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "pericles bust ancient greek",
+        "caption": "伯里克利胸像",
+        "credit": "公共领域"
+      }
+    ],
+    "related": [
+      {
+        "id": "era-ancient-greece",
+        "title": "古希腊城邦",
+        "reason": "卫城所属文明"
+      },
+      {
+        "id": "tr-history-art",
+        "title": "古典艺术",
+        "reason": "希腊古典艺术代表"
+      },
+      {
+        "id": "tr-history-greece",
+        "title": "希腊文化",
+        "reason": "民主与哲学发源"
+      },
+      {
+        "id": "tr-history-intro",
+        "title": "世界文明导论",
+        "reason": "古典文明总览"
+      }
+    ],
+    "source": "📚 《伯罗奔尼撒战争史》（修昔底德）、《希腊建筑史》（J. J. Coulton）、Hellenic Ministry of Culture"
+  },
+  {
+    "id": "ce-005",
+    "title": "《罗马十二铜表法》",
+    "year": -451,
+    "category": "制度",
+    "location": [
+      12.5,
+      41.9
+    ],
+    "region": "罗马",
+    "importance": 3,
+    "description": "公元前 451 年罗马共和国制定的第一部成文法典，由十人委员会起草，刻在 12 块铜板上（其中两块毁于高卢入侵）。内容涵盖诉讼程序、所有权、婚姻、继承、债务、刑法等。它是古罗马习惯法的首次成文化，结束了贵族对法律解释权的垄断，保护了平民权益，被视为公民在法律面前平等的源头。虽然原铜板失传，但内容通过后世法学家（如盖尤斯）的引述保存下来，深刻影响了中世纪欧洲各国法律，是现代大陆法系（罗马-日耳曼法系）的源头。",
+    "facts": [
+      {
+        "label": "年代",
+        "value": "BC 451-450"
+      },
+      {
+        "label": "地区",
+        "value": "罗马共和国"
+      },
+      {
+        "label": "条文数",
+        "value": "原文 12 表"
+      },
+      {
+        "label": "核心",
+        "value": "成文法取代习惯法"
+      },
+      {
+        "label": "目的",
+        "value": "限制贵族司法特权"
+      },
+      {
+        "label": "影响",
+        "value": "罗马法之源 / 大陆法系源头"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "立法背景",
+        "body": "罗马共和国早期实行「习惯法」，法律由贵族祭司阶层把持，常因解释不一而欺压平民。BC 462 平民保民官提议成文法，BC 451 选出「十人立法委员会」赴希腊考察法制，最终于 BC 451-450 完成《十二铜表法》。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "主要内容",
+        "body": "原文刻于 12 块铜牌（故名「十二表」），包括：传唤、审理、家长权、继承、监护、财产、侵权、刑法、土地法、公法、宗教法、私法补充等。条文简短、具体，体现了早期成文法的「形式主义」特征。"
+      },
+      {
+        "type": "callout",
+        "heading": "平民的胜利",
+        "body": "《十二铜表法》是**平民对贵族长期斗争的胜利成果**——它把法律从贵族的秘密变为公开的文本，限制了贵族随意解释法律的空间。但其实质仍维护贵族与父权利益。",
+        "variant": "info"
+      },
+      {
+        "type": "list",
+        "heading": "后世影响",
+        "items": [
+          "**罗马法** 的直接源头",
+          "欧洲中世纪城市法的参照",
+          "**大陆法系**（法德日）的源头",
+          "英美**普通法**也受其影响",
+          "现代民法的契约、侵权、继承原则"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "文本命运",
+        "body": "原铜表在 BC 390 高卢人入侵时被毁，但内容通过法学家的引用（如西塞罗著作）部分保存下来。"
+      },
+      {
+        "type": "quote",
+        "text": "\"十二表是所有公私契约之母。\"",
+        "cite": "西塞罗《De Legibus》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 494",
+        "era": "罗马共和国",
+        "event": "平民第一次撤离运动"
+      },
+      {
+        "year": "BC 462",
+        "era": "罗马共和国",
+        "event": "保民官提出成文法要求"
+      },
+      {
+        "year": "BC 451",
+        "era": "罗马共和国",
+        "event": "**十人立法委员会** 赴希腊考察"
+      },
+      {
+        "year": "BC 450",
+        "era": "罗马共和国",
+        "event": "**十二铜表法** 颁布"
+      },
+      {
+        "year": "BC 390",
+        "era": "高卢入侵",
+        "event": "原铜表**毁于战火**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "twelve tables roman law illustration",
+        "caption": "十二铜表法版画",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "roman forum ruins",
+        "caption": "罗马广场遗址",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "roman republic senate meeting",
+        "caption": "罗马共和国元老院",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "roman bronze tablet inscription",
+        "caption": "罗马青铜铭牌",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "era-rome-republic",
+        "title": "罗马共和国",
+        "reason": "法典所属政体"
+      },
+      {
+        "id": "era-rome-empire",
+        "title": "罗马帝国",
+        "reason": "罗马法延续至帝国"
+      },
+      {
+        "id": "era-old-babylonian",
+        "title": "古巴比伦",
+        "reason": "更早的成文法典"
+      },
+      {
+        "id": "tr-history-law",
+        "title": "古代法律制度",
+        "reason": "人类早期成文法"
+      }
+    ],
+    "source": "📚 《十二铜表法》（R. S. Bagnall）、西塞罗《De Legibus》、A. C. Johnson《Roman Egypt》"
+  },
+  {
+    "id": "ce-006",
+    "title": "司马迁著《史记》",
+    "year": -94,
+    "category": "学术",
+    "location": [
+      108.94,
+      34.34
+    ],
+    "region": "中国",
+    "importance": 3,
+    "description": "西汉太史令司马迁（前 145-约前 86）历经 14 年撰写的中国第一部纪传体通史。130 篇、52.65 万字，分本纪 12 篇、世家 30 篇、列传 70 篇、书 8 篇、表 10 篇。记载从黄帝到汉武帝约 3000 年历史。首创的纪传体成为后世正史标准体例，影响中国史学 2000 年。鲁迅誉为史家之绝唱，无韵之离骚。现通行版本经东汉班固补撰太史公自序后定稿《史记》。司马迁因替李陵辩护被宫刑，仍发愤著书。",
+    "facts": [
+      {
+        "label": "年代",
+        "value": "BC 109-91"
+      },
+      {
+        "label": "作者",
+        "value": "司马迁"
+      },
+      {
+        "label": "体裁",
+        "value": "纪传体通史"
+      },
+      {
+        "label": "篇幅",
+        "value": "130 篇，52.65 万字"
+      },
+      {
+        "label": "跨度",
+        "value": "黄帝至汉武帝，约 3000 年"
+      },
+      {
+        "label": "意义",
+        "value": "中国第一部纪传体通史"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "成书背景",
+        "body": "司马迁（BC 145-86）出身史官世家，20 岁起漫游全国考察史迹。父亲司马谈去世后继任太史令。BC 99 年因替投降匈奴的李陵辩护，触怒汉武帝，被处宫刑。为完成父亲遗愿、究天人之际、通古今之变，忍辱著书。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "体裁创新",
+        "body": "《史记》创立**「纪传体」**：以本纪（帝王）、世家（诸侯）、列传（人物）、书（典章制度）、表（年表）五种体裁组合，第一次系统地以人物为中心叙述历史，成为后世正史的标准体裁。"
+      },
+      {
+        "type": "callout",
+        "heading": "史家之绝唱",
+        "body": "《史记》是**中国第一部纪传体通史**，开创了以人物为纲的史学范式。鲁迅誉为「史家之绝唱，无韵之离骚」。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "五种体裁",
+        "items": [
+          "**本纪** 12 篇（帝王）",
+          "**世家** 30 篇（诸侯贵族）",
+          "**列传** 70 篇（重要人物）",
+          "**书** 8 篇（典章制度）",
+          "**表** 10 篇（大事年表）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "史学地位",
+        "body": "《史记》不仅是史书，也是文学经典：项羽本纪、廉颇蔺相如列传等篇章人物刻画生动、叙事波澜起伏，对后世散文、戏剧、小说影响深远。"
+      },
+      {
+        "type": "quote",
+        "text": "\"人固有一死，或重于泰山，或轻于鸿毛。\"",
+        "cite": "司马迁《报任少卿书》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 145",
+        "era": "西汉",
+        "event": "司马迁出生"
+      },
+      {
+        "year": "BC 126",
+        "era": "西汉",
+        "event": "司马迁漫游全国考察"
+      },
+      {
+        "year": "BC 108",
+        "era": "西汉",
+        "event": "继任太史令"
+      },
+      {
+        "year": "BC 99",
+        "era": "西汉",
+        "event": "**李陵之祸**，处宫刑"
+      },
+      {
+        "year": "BC 91",
+        "era": "西汉",
+        "event": "《**史记**》完成"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "sima qian portrait historian",
+        "caption": "司马迁画像",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "shiji historical records book",
+        "caption": "《史记》书影（明刻本）",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "han dynasty writing brush ink",
+        "caption": "汉代毛笔书写",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "han wudi court painting",
+        "caption": "汉武帝朝堂",
+        "credit": "公共领域"
+      }
+    ],
+    "related": [
+      {
+        "id": "p-sima-qian",
+        "title": "司马迁",
+        "reason": "《史记》作者"
+      },
+      {
+        "id": "era-han-west",
+        "title": "西汉",
+        "reason": "成书朝代"
+      },
+      {
+        "id": "p-han-wudi",
+        "title": "汉武帝",
+        "reason": "同时代皇帝"
+      },
+      {
+        "id": "tr-history-intro",
+        "title": "中国史学传统",
+        "reason": "纪传体开端"
+      }
+    ],
+    "source": "📚 《史记》（司马迁）、《太史公行年考》（王国维）、《报任少卿书》、中华书局点校本"
+  },
+  {
+    "id": "ce-007",
+    "title": "造纸术改进",
+    "year": 105,
+    "category": "科技",
+    "location": [
+      112.46,
+      34.62
+    ],
+    "region": "中国",
+    "importance": 3,
+    "description": "东汉和帝年间（公元 105 年）宦官蔡伦改进造纸术，用树皮、麻头、破布、旧渔网等廉价原料造纸，史称蔡侯纸。此前中国书写材料主要是竹简、木牍、丝帛，前者笨重后者昂贵，纸张的出现使知识大规模传播成为可能。4 世纪传入朝鲜，8 世纪传入中亚，9 世纪传入阿拉伯世界（巴格达建造纸厂），12 世纪传入欧洲（西班牙、意大利）。中国纸和阿拉伯纸的兴起直接促成了欧洲文艺复兴和宗教改革。蔡伦被尊为纸神，造纸术与火药、指南针、印刷术并称中国古代四大发明。",
+    "facts": [
+      {
+        "label": "人物",
+        "value": "蔡伦（东汉宦官）"
+      },
+      {
+        "label": "年代",
+        "value": "AD 105 年"
+      },
+      {
+        "label": "工艺",
+        "value": "树皮、麻头、破布造纸"
+      },
+      {
+        "label": "意义",
+        "value": "「蔡侯纸」取代竹简缣帛"
+      },
+      {
+        "label": "传播",
+        "value": "经中亚传至阿拉伯、欧洲"
+      },
+      {
+        "label": "影响",
+        "value": "四大发明之一，文明传播之基"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "改进背景",
+        "body": "东汉以前，中国书写材料主要为竹简（笨重）和缣帛（昂贵）。西汉已有以麻造纸的雏形，但工艺粗糙、不便书写。AD 105 年蔡伦改进造纸术，用树皮、麻头、破布、旧渔网为原料，制造出「便于书写」的纸。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "技术贡献",
+        "body": "蔡伦的创新在于：①扩大原料来源（树皮、麻头、破布等廉价材料）；②改进制造工艺（沤制、舂捣、抄纸、晾晒）；③提升纸张质量（薄而韧、平整、适合书写）。汉和帝诏令推广，命名为「蔡侯纸」。"
+      },
+      {
+        "type": "callout",
+        "heading": "文明传播的基石",
+        "body": "纸的发明使知识大规模低成本复制成为可能。从中国传入中亚、阿拉伯（公元 8 世纪）、欧洲（11-12 世纪），最终推动文艺复兴、宗教改革、启蒙运动——**人类文明史的最大技术革命之一**。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "传播路线",
+        "items": [
+          "AD 105 中国东汉",
+          "AD 650 中亚撒马尔罕",
+          "AD 751 阿拉伯（怛罗斯战役）",
+          "AD 900 埃及",
+          "AD 1100 西班牙",
+          "AD 1300 欧洲普及"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "与四大文明",
+        "body": "造纸术、印刷术、火药、指南针是中国「四大发明」，其中造纸术影响最为深远——它从根本上降低了知识的载体成本，使平民也能接受教育。"
+      },
+      {
+        "type": "quote",
+        "text": "\"蔡伦造纸，天下文章始于易。\"",
+        "cite": "《后汉书·蔡伦传》注"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "麻类植物纸雏形出现"
+      },
+      {
+        "year": "AD 105",
+        "era": "东汉",
+        "event": "**蔡伦改进造纸术**"
+      },
+      {
+        "year": "AD 751",
+        "era": "唐",
+        "event": "**怛罗斯战役**，技术传至阿拉伯"
+      },
+      {
+        "year": "AD 793",
+        "era": "阿拉伯",
+        "event": "巴格达建大纸厂"
+      },
+      {
+        "year": "AD 1151",
+        "era": "欧洲",
+        "event": "西班牙建立第一家欧洲纸厂"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "cai lun paper making ancient china",
+        "caption": "蔡伦造纸（古代绘画）",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "traditional chinese paper making craft",
+        "caption": "传统手工造纸工艺",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "ancient chinese paper artifact",
+        "caption": "古代纸张文物",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "han dynasty bamboo slip writing",
+        "caption": "汉代竹简（被纸取代前）",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "p-cai-lun",
+        "title": "蔡伦",
+        "reason": "造纸术改进者"
+      },
+      {
+        "id": "era-han-east",
+        "title": "东汉",
+        "reason": "改进年代"
+      },
+      {
+        "id": "tr-tech-infra",
+        "title": "中华科技",
+        "reason": "四大发明之首"
+      },
+      {
+        "id": "tr-tech-qin",
+        "title": "工程技术",
+        "reason": "古代材料技术"
+      }
+    ],
+    "source": "📚 《后汉书·蔡伦传》、潘吉星《中国造纸史》、Carter《The Invention of Printing in China》"
+  },
+  {
+    "id": "ce-008",
+    "title": "《几何原本》成书",
+    "year": -300,
+    "category": "学术",
+    "location": [
+      30.8,
+      26.8
+    ],
+    "region": "埃及",
+    "importance": 3,
+    "description": "古希腊数学家欧几里得（约公元前 330-前 275）在托勒密王朝的亚历山大城图书馆工作期间著成。13 卷本，以公理化方法系统整理了当时所有几何学知识。从 5 条公理出发，演绎出 465 个命题，涵盖平面几何、立体几何、数论和比例理论。此书 2000 年来一直是欧洲几何学的标准教材，从文艺复兴到 19 世纪非欧几何出现前从未被取代。1482 年印刷本问世后影响更广，哥白尼、伽利略、牛顿都深受其影响。其公理化方法成为现代数学和科学的范式。",
+    "facts": [
+      {
+        "label": "作者",
+        "value": "欧几里得（约 BC 330-275）"
+      },
+      {
+        "label": "年代",
+        "value": "BC 300 年左右成书"
+      },
+      {
+        "label": "语种",
+        "value": "希腊语"
+      },
+      {
+        "label": "卷数",
+        "value": "13 卷"
+      },
+      {
+        "label": "命题",
+        "value": "465 个命题"
+      },
+      {
+        "label": "影响",
+        "value": "西方数学 2000 年基础教科书"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "作者与背景",
+        "body": "欧几里得（Euclid）是托勒密王朝时期的希腊数学家，在亚历山大城工作。《几何原本》集希腊古典数学之大成，融合了柏拉图学派的演绎哲学、欧多克萨斯比例论、阿基米德式严格证明。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "结构创新",
+        "body": "欧几里得以**公理化方法**重构数学：从 5 条公设 + 5 条公理出发，通过演绎推理推导出全部 465 个命题。这种结构对后世数学、哲学、科学影响深远——亚里士多德逻辑、笛卡尔方法论、爱因斯坦相对论均采用公理化体系。"
+      },
+      {
+        "type": "callout",
+        "heading": "两千年的教科书",
+        "body": "《几何原本》从 BC 300 到 19 世纪末（约 2200 年）一直是西方数学的**标准教科书**，印刷版本超过 1000 种，是仅次于《圣经》印刷次数最多的书。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "十三卷内容",
+        "items": [
+          "卷 1-2：三角形、矩形、毕达哥拉斯定理",
+          "卷 3-4：圆与正多边形",
+          "卷 5-6：欧多克萨斯比例论",
+          "卷 7-9：数论",
+          "卷 10：不可公度量",
+          "卷 11-13：立体几何"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "非欧几何的诞生",
+        "body": "19 世纪数学家发现第 5 公设（平行公设）不可由其他公设推出，从而诞生非欧几何（罗巴切夫斯基、黎曼），爱因斯坦用黎曼几何建立广义相对论。"
+      },
+      {
+        "type": "quote",
+        "text": "\"几何无王者之道。\"",
+        "cite": "欧几里得回复托勒密国王要求"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 300",
+        "era": "希腊化",
+        "event": "**《几何原本》** 成书"
+      },
+      {
+        "year": "AD 820",
+        "era": "阿拉伯",
+        "event": "译为阿拉伯文"
+      },
+      {
+        "year": "AD 1482",
+        "era": "威尼斯",
+        "event": "首次**拉丁文印刷**版"
+      },
+      {
+        "year": "AD 1607",
+        "era": "明代",
+        "event": "徐光启、利玛窦译《**几何原本**》前 6 卷"
+      },
+      {
+        "year": "AD 1829",
+        "era": "俄国",
+        "event": "**非欧几何**诞生"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "euclid elements ancient manuscript",
+        "caption": "《几何原本》古抄本",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "euclid mathematician portrait",
+        "caption": "欧几里得（古代肖像）",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "geometric proof diagram classical",
+        "caption": "几何证明示意图",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "pythagorean theorem illustration",
+        "caption": "毕达哥拉斯定理图解",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "era-ancient-greece",
+        "title": "古希腊",
+        "reason": "作者所处文明"
+      },
+      {
+        "id": "p-plato",
+        "title": "柏拉图",
+        "reason": "演绎哲学先驱"
+      },
+      {
+        "id": "tr-phil-aristotle",
+        "title": "亚里士多德",
+        "reason": "逻辑学奠基"
+      },
+      {
+        "id": "tr-history-intro",
+        "title": "世界科学传统",
+        "reason": "公理化体系源起"
+      }
+    ],
+    "source": "📚 Heath《The Thirteen Books of Euclid's Elements》、Proclus《Commentary on the First Book of Euclid》、徐光启《几何原本》译序"
+  },
+  {
+    "id": "ce-009",
+    "title": "万神殿完工",
+    "year": 126,
+    "category": "建筑",
+    "location": [
+      12.5,
+      41.9
+    ],
+    "region": "罗马",
+    "importance": 2,
+    "description": "罗马万神殿（Pantheon）由哈德良皇帝在公元 126 年左右重建（最初由奥古斯都的女婿阿格里帕于公元前 27 年所建），是古罗马保存最完好的建筑。圆顶直径 43.3 米（直到 1436 年佛罗伦萨大教堂建成才被超越），无钢筋混凝土穹顶纪录保持 1300 年。中央有直径 8.92 米的圆形采光孔（oculus），是唯一光源。建筑采用罗马混凝土（opus caementicium），用不同密度材料分层浇筑，顶部最轻。公元 609 年改作基督教教堂（Santa Maria ad Martyres），6 世纪东哥特战争和 80 年代教皇重修时均未受损。拉斐尔、巴尔达萨雷·卡斯蒂利奥内等名人葬于此。",
+    "facts": [
+      {
+        "label": "年代",
+        "value": "AD 113-125"
+      },
+      {
+        "label": "地区",
+        "value": "罗马·罗马城"
+      },
+      {
+        "label": "建造者",
+        "value": "哈德良皇帝"
+      },
+      {
+        "label": "穹顶直径",
+        "value": "43.3 米（古代最大）"
+      },
+      {
+        "label": "高度",
+        "value": "43.3 米（直径等于高度）"
+      },
+      {
+        "label": "意义",
+        "value": "罗马建筑巅峰，世界遗产"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "建造背景",
+        "body": "万神殿（Pantheon）最初由屋大维的副手阿格里帕于 BC 27 年建造，AD 80 年毁于大火。AD 113-125 年由罗马皇帝哈德良（Hadrian）在原址重建，保留「阿格里帕所建」铭文以示谦逊。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "建筑技术",
+        "body": "万神殿的**半球形穹顶**直径 43.3 米，纪录保持至 15 世纪（佛罗伦萨大教堂）。穹顶由轻质混凝土（opus caementicium）浇筑，厚度从底部的 5.9 米渐变至顶部的 1.5 米，顶部有直径 8.9 米的「天眼」采光孔。"
+      },
+      {
+        "type": "callout",
+        "heading": "球与圆",
+        "body": "万神殿穹顶直径与高度相等，使内部形成一个**完美的球体**，象征宇宙。**这是数学与建筑的完美结合**，也是「球与圆」古典宇宙观的建筑表达。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "建筑要素",
+        "items": [
+          "**穹顶** 半球形（直径 43.3 米）",
+          "**天眼** 顶部采光孔（8.9 米）",
+          "**壁龛** 7 个神祇壁龛",
+          "**柱廊** 8 根科林斯柱",
+          "**铜门** 古时镀金铜门"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "保存原因",
+        "body": "万神殿是**唯一完整保存至今**的古罗马大型建筑，原因：①6 世纪改为基督教堂（圣母殉道者教堂），免于战火；②文艺复兴以来一直是西方建筑朝圣之地。"
+      },
+      {
+        "type": "quote",
+        "text": "\"哈德良没有留下任何成就超过这座神庙。\"",
+        "cite": "普林尼《自然史》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 27",
+        "era": "罗马共和国",
+        "event": "阿格里帕初建万神殿"
+      },
+      {
+        "year": "AD 80",
+        "era": "罗马帝国",
+        "event": "大火**焚毁**第一代"
+      },
+      {
+        "year": "AD 113",
+        "era": "图拉真",
+        "event": "第二次重建（未完工）"
+      },
+      {
+        "year": "AD 125",
+        "era": "哈德良",
+        "event": "**万神殿** 完工"
+      },
+      {
+        "year": "AD 609",
+        "era": "中世纪",
+        "event": "改为**基督教教堂**保存至今"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "pantheon rome interior dome",
+        "caption": "万神殿内部穹顶",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "pantheon rome exterior facade",
+        "caption": "万神殿外观",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "pantheon oculus light beam",
+        "caption": "天眼光束",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "hadrian emperor bust",
+        "caption": "哈德良皇帝胸像",
+        "credit": "公共领域"
+      }
+    ],
+    "related": [
+      {
+        "id": "era-rome-empire",
+        "title": "罗马帝国",
+        "reason": "所属帝国"
+      },
+      {
+        "id": "era-ancient-greece",
+        "title": "古希腊",
+        "reason": "希腊化建筑影响"
+      },
+      {
+        "id": "tr-history-art",
+        "title": "古典建筑",
+        "reason": "古典建筑巅峰"
+      },
+      {
+        "id": "tr-history-intro",
+        "title": "古代工程",
+        "reason": "古代工程奇迹"
+      }
+    ],
+    "source": "📚 《Pantheon: From Antiquity to the Present》（Mark, Wilson Jones）、Pliny《Natural History》、Lancaster《Concrete Vaulted Construction in Imperial Rome》"
+  },
+  {
+    "id": "ce-010",
+    "title": "长城（明长城）",
+    "year": 1500,
+    "category": "建筑",
+    "location": [
+      115.97,
+      40.46
+    ],
+    "region": "中国",
+    "importance": 3,
+    "description": "明长城是 1368-1644 年明朝为防御北方蒙古、女真修建的军事工程。总长度 8851.8 公里（2012 年国家文物局数据），东起辽宁虎山、西至甘肃嘉峪关。墙体平均高 6-7 米、宽 4-5 米，每隔 100-200 米设烽火台，关键山口设关城（如山海关、居庸关、嘉峪关、玉门关）。工程总计用砖约 1.8 亿块、土石方 1.5 亿立方米。1987 年被联合国教科文组织列入世界文化遗产，是世界最长的人工建筑。不到长城非好汉是毛泽东的诗句。我们今天看到的长城大部分是明代修建的，早期秦长城、汉长城等遗迹在西北地区仍有遗存。",
+    "facts": [
+      {
+        "label": "始建",
+        "value": "BC 7 世纪（春秋）"
+      },
+      {
+        "label": "代表",
+        "value": "明长城（AD 1368-1644）"
+      },
+      {
+        "label": "总长",
+        "value": "约 21196.18 公里"
+      },
+      {
+        "label": "材料",
+        "value": "砖石、夯土、木材"
+      },
+      {
+        "label": "世遗",
+        "value": "1987 年列入世界文化遗产"
+      },
+      {
+        "label": "意义",
+        "value": "中华民族象征，人类最大建筑工程"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "历史沿革",
+        "body": "长城并非一次建成，而是**延续 2000 多年的防御工程**：春秋战国（BC 7 世纪）各国筑「互防墙」；秦始皇（BC 221）连接燕、赵、秦长城；汉代向西延伸至敦煌；明代（1368-1644）用砖石大规模重建，形成今日所见长城。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "明长城",
+        "body": "现存长城主要为**明长城**（89%）。明洪武至万历年间，用砖石、灰浆构筑，规模浩大：东起鸭绿江，西至嘉峪关，全长 8851.8 公里。八达岭、山海关、嘉峪关是著名关隘。"
+      },
+      {
+        "type": "callout",
+        "heading": "中华民族的象征",
+        "body": "长城不仅是军事防御工程，更是**中华民族的象征**——「不到长城非好汉」成为中外共识。**1987 年列入世界文化遗产**，是七大世界文化遗产之一。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "主要关隘",
+        "items": [
+          "**山海关**（天下第一关）",
+          "**嘉峪关**（万里长城西端）",
+          "**居庸关**（京畿咽喉）",
+          "**八达岭**（最著名段）",
+          "**娘子关**（山西门户）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "工程奇迹",
+        "body": "长城总长 21196.18 公里（2012 年国家测绘局数据），如果用修建长城的砖石土方筑一道 2 米厚、3 米高的墙，可绕地球一圈多。"
+      },
+      {
+        "type": "quote",
+        "text": "\"起临洮，至辽东，延袤万余里。\"",
+        "cite": "《史记·蒙恬列传》载秦始皇长城"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 656",
+        "era": "春秋",
+        "event": "楚国**最早的长城**"
+      },
+      {
+        "year": "BC 221",
+        "era": "秦",
+        "event": "秦始皇**连接**各国长城"
+      },
+      {
+        "year": "BC 100",
+        "era": "汉",
+        "event": "**汉长城** 向西延伸"
+      },
+      {
+        "year": "AD 1500",
+        "era": "明",
+        "event": "**明长城** 大规模重建"
+      },
+      {
+        "year": "AD 1987",
+        "era": "当代",
+        "event": "**长城** 列入世界遗产"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "great wall china badaling",
+        "caption": "八达岭长城",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "juyongguan pass great wall",
+        "caption": "居庸关长城",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "jiauguan pass fortress",
+        "caption": "嘉峪关长城",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "great wall wild section autumn",
+        "caption": "野长城秋色",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "era-ming",
+        "title": "明朝",
+        "reason": "现存长城主修朝代"
+      },
+      {
+        "id": "p-qin-shi-huang",
+        "title": "秦始皇",
+        "reason": "首连长城"
+      },
+      {
+        "id": "era-qin",
+        "title": "秦朝",
+        "reason": "首连万里长城"
+      },
+      {
+        "id": "tr-history-shu",
+        "title": "古代工程",
+        "reason": "巨型军事工程"
+      }
+    ],
+    "source": "📚 《史记·蒙恬列传》、董耀会《万里长城纵横谈》、《明史·兵志》、国家文物局长城调查公报"
+  },
+  {
+    "id": "ce-011",
+    "title": "印刷术（雕版）",
+    "year": 700,
+    "category": "科技",
+    "location": [
+      108.94,
+      34.34
+    ],
+    "region": "中国",
+    "importance": 3,
+    "description": "雕版印刷术起源于中国唐代（7-9 世纪），方法是把文字反向刻在木板上，涂墨覆纸印制。世界上现存最早的雕版印刷品是 1966 年韩国发现的《无垢净光大陀罗尼经》（约公元 704-751 年），中国最早的实物是 1900 年敦煌藏经洞发现的《金刚经》（公元 868 年）。雕版印刷在宋代广泛应用，印书业兴盛，活字印刷 400 年后（北宋毕昇）才出现。14 世纪传入欧洲（古登堡受中国活字启发），促成 1450 年金属活字印刷的发明，推动了文艺复兴、宗教改革和科学革命。",
+    "facts": [
+      {
+        "label": "年代",
+        "value": "约 AD 7 世纪（唐初）"
+      },
+      {
+        "label": "地区",
+        "value": "中国"
+      },
+      {
+        "label": "材料",
+        "value": "梨木、枣木雕版"
+      },
+      {
+        "label": "已知最早实物",
+        "value": "《陀罗尼经咒》（AD 650-670）"
+      },
+      {
+        "label": "代表作",
+        "value": "《金刚经》卷子（AD 868）"
+      },
+      {
+        "label": "意义",
+        "value": "四大发明之一，书籍批量复制之始"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "雕版印刷起源",
+        "body": "雕版印刷是在木板上雕刻反向凸字，涂墨后覆纸印制。**已知最早的雕版印刷品是唐初的《陀罗尼经咒》**（约 AD 650-670），现存英国大英图书馆。1900 年敦煌藏经洞发现《金刚经》卷子（AD 868），是现存最早标有明确日期的印刷品。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "技术原理",
+        "body": "雕版印刷工序：①书写文字于薄纸；②反贴于木板；③雕刻师沿字迹雕刻；④涂墨；⑤覆纸按压转印。一版可印数千张，远快于手抄。"
+      },
+      {
+        "type": "callout",
+        "heading": "书籍普及的起点",
+        "body": "雕版印刷使佛经、历书、诗集等可以**廉价批量复制**，平民也能拥有书本。它直接催生了宋代书籍市场的繁荣。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "早期印刷品",
+        "items": [
+          "《陀罗尼经咒》AD 650-670",
+          "《金刚经》卷子 AD 868",
+          "《妙法莲华经》五代",
+          "《开宝藏》（北宋大藏经）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "与活字的关系",
+        "body": "雕版印刷在中国流行了 400 年后才被毕昇发明活字（AD 1040）。因汉字字数庞大（数万字），活字印刷在中国并未取代雕版，反而在西方（字母文字）发扬光大。"
+      },
+      {
+        "type": "quote",
+        "text": "\"若要人不知，除非己莫为。\"",
+        "cite": "汉代俗语，雕版尚未发明"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 650",
+        "era": "唐初",
+        "event": "**雕版印刷** 雏形出现"
+      },
+      {
+        "year": "AD 868",
+        "era": "唐",
+        "event": "《**金刚经**》卷子印刷"
+      },
+      {
+        "year": "AD 971",
+        "era": "北宋",
+        "event": "《**开宝藏**》雕印"
+      },
+      {
+        "year": "AD 1040",
+        "era": "北宋",
+        "event": "**毕昇**发明活字"
+      },
+      {
+        "year": "AD 1450",
+        "era": "欧洲",
+        "event": "**古登堡** 借鉴发明金属活字"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "block printing woodblock ancient china",
+        "caption": "雕版印刷工艺",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "diamond sutra dunhuang manuscript",
+        "caption": "敦煌《金刚经》",
+        "credit": "British Library"
+      },
+      {
+        "imageKeyword": "chinese woodblock printer at work",
+        "caption": "传统雕版印刷工人",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "bi sheng movable type portrait",
+        "caption": "毕昇（活字发明者）",
+        "credit": "公共领域"
+      }
+    ],
+    "related": [
+      {
+        "id": "ce-012",
+        "title": "活字印刷",
+        "reason": "雕版印刷的升级"
+      },
+      {
+        "id": "ce-019",
+        "title": "古登堡圣经",
+        "reason": "活字印刷欧洲推广"
+      },
+      {
+        "id": "p-bi-sheng",
+        "title": "毕昇",
+        "reason": "活字印刷发明者"
+      },
+      {
+        "id": "tr-tech-infra",
+        "title": "中华科技",
+        "reason": "四大发明之一"
+      }
+    ],
+    "source": "📚 Carter《The Invention of Printing in China》、钱存训《中国纸和印刷文化史》、敦煌研究院"
+  },
+  {
+    "id": "ce-012",
+    "title": "活字印刷",
+    "year": 1040,
+    "category": "科技",
+    "location": [
+      108.94,
+      34.34
+    ],
+    "region": "中国",
+    "importance": 3,
+    "description": "北宋庆历年间（1041-1048）平民发明家毕昇在都城东京（今开封）创制了泥活字印刷术。方法是用胶泥刻字，每字一印，火烧硬后按韵排列在铁板上覆纸加压印刷。比欧洲谷登堡 1450 年的金属活字印刷早 400 年。但因汉字数量庞大（10 万个单字），泥活字易碎，毕昇的发明在中国未能广泛应用，沈括《梦溪笔谈》有记载。元代王祯改进为木活字，明代有铜活字、铅活字，但始终未取代雕版印刷。西方活字印刷因字母少（26 个）天然适合。活字印刷被誉为文明之母。",
+    "facts": [
+      {
+        "label": "发明者",
+        "value": "毕昇（北宋宋匠）"
+      },
+      {
+        "label": "年代",
+        "value": "约 AD 1040-1048"
+      },
+      {
+        "label": "材料",
+        "value": "胶泥活字"
+      },
+      {
+        "label": "记载",
+        "value": "沈括《梦溪笔谈》"
+      },
+      {
+        "label": "意义",
+        "value": "世界最早的活字印刷"
+      },
+      {
+        "label": "传播",
+        "value": "经朝鲜→日本→欧洲"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "发明背景",
+        "body": "北宋庆历年间（1041-1048），平民出身的工匠**毕昇**用胶泥刻字，每字一印，经火烧硬后用于排版印刷。这一发明比欧洲谷登堡早约 400 年。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "技术演进",
+        "body": "毕昇原版为胶泥活字，后世发展出：①木活字（王祯 AD 1298）；②铜活字；③铅活字。中国因汉字字数庞大（数万），雕版始终占主流；活字真正普及在西方字母文字世界。"
+      },
+      {
+        "type": "callout",
+        "heading": "革命性",
+        "body": "活字印刷相比雕版：**单个字可重复使用**——大幅降低排版成本，特别适合字母文字。**这是信息革命的第一次重大突破**。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "材料演进",
+        "items": [
+          "胶泥活字（毕昇）",
+          "木活字（王祯，元代）",
+          "铜活字（明代）",
+          "铅活字（西方主流）",
+          "激光照排（20 世纪）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "传播路径",
+        "body": "活字印刷从中国→朝鲜（1234 铸字印书）→日本（1592）→欧洲（谷登堡 1450）。"
+      },
+      {
+        "type": "quote",
+        "text": "\"庆历中，有布衣毕昇，又为活板。\"",
+        "cite": "沈括《梦溪笔谈·技艺》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1040",
+        "era": "北宋",
+        "event": "**毕昇** 发明胶泥活字"
+      },
+      {
+        "year": "AD 1234",
+        "era": "朝鲜高丽",
+        "event": "铸字印《**真观和尚语录**》"
+      },
+      {
+        "year": "AD 1298",
+        "era": "元",
+        "event": "**王祯** 改进木活字"
+      },
+      {
+        "year": "AD 1450",
+        "era": "欧洲",
+        "event": "**谷登堡** 金属活字"
+      },
+      {
+        "year": "AD 1592",
+        "era": "日本",
+        "event": "天正遣欧少年使节带回活字"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "bi sheng movable type clay",
+        "caption": "毕昇与胶泥活字",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "wooden movable type blocks",
+        "caption": "传统木活字",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "gutenberg press reprint",
+        "caption": "谷登堡印刷机（活字应用）",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "korean jikji movable type",
+        "caption": "高丽《直指》金属活字",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "ce-011",
+        "title": "雕版印刷",
+        "reason": "活字印刷的前身"
+      },
+      {
+        "id": "ce-019",
+        "title": "古登堡圣经",
+        "reason": "活字印刷欧洲高峰"
+      },
+      {
+        "id": "ce-029",
+        "title": "古登堡印刷机",
+        "reason": "活字印刷工业化"
+      },
+      {
+        "id": "p-bi-sheng",
+        "title": "毕昇",
+        "reason": "活字发明者"
+      }
+    ],
+    "source": "📚 沈括《梦溪笔谈》、钱存训《中国纸和印刷文化史》、Carter《The Invention of Printing in China》"
+  },
+  {
+    "id": "ce-013",
+    "title": "《兰亭集序》",
+    "year": 353,
+    "category": "艺术",
+    "location": [
+      120.62,
+      30.05
+    ],
+    "region": "中国",
+    "importance": 3,
+    "description": "东晋永和九年（公元 353 年）三月初三，王羲之与谢安、孙绰等 41 人在会稽山阴兰亭举行修禊集会，饮酒赋诗。王羲之乘酒兴用蚕茧纸、鼠须笔为诗集作序，即《兰亭集序》。全文 28 行、324 字，遒媚劲健，被历代书家公认为天下第一行书。原作据传被唐太宗李世民陪葬昭陵（野史称被高宗李治带入昭陵），现流传的均为摹本，最著名是冯承素摹本（藏北京故宫）和虞世南、褚遂良、欧阳询等临本。王羲之被尊为书圣，其子王献之合称二王，父子书法影响了东瀛（影响日本书道）、朝鲜等东亚文化圈。",
+    "facts": [
+      {
+        "label": "作者",
+        "value": "王羲之"
+      },
+      {
+        "label": "年代",
+        "value": "AD 353 年（东晋永和九年）"
+      },
+      {
+        "label": "场合",
+        "value": "会稽山阴兰亭修禊"
+      },
+      {
+        "label": "体裁",
+        "value": "行书序文"
+      },
+      {
+        "label": "字数",
+        "value": "324 字（涂改 22 处）"
+      },
+      {
+        "label": "誉称",
+        "value": "\"天下第一行书\""
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "创作背景",
+        "body": "东晋永和九年（353）三月初三，王羲之与谢安、孙绰等 41 位文人雅士在会稽山阴兰亭举行\"修禊\"（临水祈福）。众人流觞曲水，饮酒赋诗，王羲之乘兴为诗集作序——即《兰亭集序》。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "书法艺术",
+        "body": "全文 324 字，涂改 22 处，**笔意随情绪起伏**——前段欢愉轻快（\"天朗气清，惠风和畅\"），中段沉郁（\"固知一死生为虚诞，齐彭殇为妄作\"），后段悲慨（\"临文嗟悼，不能喻之于怀\"）。这种**情感与笔墨的同步**是后世书法无法复制的核心。"
+      },
+      {
+        "type": "callout",
+        "heading": "天下第一行书",
+        "body": "《兰亭集序》被后世誉为\"**天下第一行书**\"。唐代以降，历代帝王将相、书法家争相临摹。**原迹传为唐太宗殉葬**，现传摹本以\"神龙本\"最为著名。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "书法地位",
+        "items": [
+          "\"天下第一行书\"",
+          "中国书法美学典范",
+          "行书字体定型样本",
+          "后世书法家必习范本"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "历史命运",
+        "body": "原迹传至唐太宗手中，命赵模、韩道政等人摹制副本分赐诸王。太宗驾崩后，**据传原迹陪葬昭陵**——故真迹永埋地下。"
+      },
+      {
+        "type": "quote",
+        "text": "\"仰观宇宙之大，俯察品类之盛，所以游目骋怀，足以极视听之娱。\"",
+        "cite": "王羲之《兰亭集序》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 353",
+        "era": "东晋",
+        "event": "王羲之作《**兰亭集序**》"
+      },
+      {
+        "year": "AD 620",
+        "era": "唐初",
+        "event": "欧阳询摹写副本"
+      },
+      {
+        "year": "AD 649",
+        "era": "唐",
+        "event": "**唐太宗** 将真迹殉葬昭陵"
+      },
+      {
+        "year": "AD 730",
+        "era": "唐",
+        "event": "**神龙本** 摹本流传至今"
+      },
+      {
+        "year": "AD 1747",
+        "era": "清",
+        "event": "乾隆将神龙本刻入**三希堂法帖**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "lantingxu orchid pavilion preface calligraphy",
+        "caption": "《兰亭集序》神龙本",
+        "credit": "故宫博物院"
+      },
+      {
+        "imageKeyword": "orchid pavilion riverside gathering",
+        "caption": "兰亭曲水流觞",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "wang xizhi calligrapher portrait",
+        "caption": "王羲之画像",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "tang taizong emperor portrait",
+        "caption": "唐太宗（兰亭收藏者）",
+        "credit": "公共领域"
+      }
+    ],
+    "related": [
+      {
+        "id": "p-wang-xizhi",
+        "title": "王羲之",
+        "reason": "《兰亭集序》作者"
+      },
+      {
+        "id": "p-wang-xianzhi",
+        "title": "王献之",
+        "reason": "王羲之之子"
+      },
+      {
+        "id": "era-jin-east",
+        "title": "东晋",
+        "reason": "创作年代"
+      },
+      {
+        "id": "tr-history-art",
+        "title": "中国书法",
+        "reason": "行书巅峰"
+      }
+    ],
+    "source": "📚 王羲之《兰亭集序》、刘涛《中国书法史》、故宫博物院《兰亭八柱帖》"
+  },
+  {
+    "id": "ce-014",
+    "title": "敦煌莫高窟",
+    "year": 366,
+    "category": "艺术",
+    "location": [
+      94.66,
+      40.14
+    ],
+    "region": "中国",
+    "importance": 3,
+    "description": "莫高窟位于甘肃敦煌东南 25 公里鸣沙山东麓断崖上，前秦建元二年（公元 366 年）乐僔和尚开凿第一个洞窟。历经十六国、北朝、隋唐、五代、宋、西夏、元等多个朝代，现存洞窟 735 个（其中有壁画和彩塑的 492 个）、壁画 4.5 万平方米、彩塑 2415 尊、唐宋木构窟檐 5 座。壁画内容丰富，包括佛像、佛教故事、神话、供养人、丝路商旅、社会生活等。1900 年王圆箓道士发现藏经洞（17 窟），出土 5 万件文献与艺术品（部分被斯坦因、伯希和掠至英法俄），是中国近代最重要的考古发现之一。1987 年列入世界文化遗产。",
+    "facts": [
+      {
+        "label": "始建",
+        "value": "前秦建元二年（AD 366）"
+      },
+      {
+        "label": "延续",
+        "value": "至元代（AD 14 世纪）约 1000 年"
+      },
+      {
+        "label": "洞窟数",
+        "value": "现存 735 个（其中有壁画 492 个）"
+      },
+      {
+        "label": "壁画面积",
+        "value": "约 4.5 万平方米"
+      },
+      {
+        "label": "塑像",
+        "value": "2415 尊"
+      },
+      {
+        "label": "世遗",
+        "value": "1987 年列入世界文化遗产"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "开凿背景",
+        "body": "敦煌莫高窟位于河西走廊西端、丝绸之路要冲。前秦建元二年（366），乐僔和尚路经鸣沙山，忽见金光如佛，遂开凿第一窟。此后历经十六国、北魏、隋、唐、五代、宋、西夏、元，**千年不断开凿**。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "艺术宝库",
+        "body": "莫高窟集建筑、雕塑、壁画三位一体：**壁画面积 4.5 万平方米**（相当于 6 个足球场），题材包括佛教故事、丝路商旅、社会生活、服饰演变。**是研究中世纪欧亚大陆文明的视觉百科全书**。"
+      },
+      {
+        "type": "callout",
+        "heading": "藏经洞的悲剧",
+        "body": "清光绪二十六年（1900），道士王圆箓发现藏经洞（17 窟），内藏**5 万余件**写本、刻本、织绣、绘画。1907-1914 年间，**英国斯坦因、法国伯希和、日本橘瑞超、俄国人奥登堡**等先后骗购走约 4 万件，写本流散英、法、俄、日。",
+        "variant": "warning"
+      },
+      {
+        "type": "list",
+        "heading": "洞窟分期",
+        "items": [
+          "十六国·北魏（早期，BC 366-580）",
+          "隋代（统一风格，AD 581-618）",
+          "唐代（黄金期，AD 618-907）",
+          "五代·宋（回落，AD 907-1279）",
+          "西夏·元（晚期，AD 1038-1368）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "国际敦煌学",
+        "body": "敦煌文献催生了**敦煌学**——以敦煌遗书和敦煌艺术为研究对象的国际显学。\"国学大师\"**陈寅恪**曰：\"敦煌者，吾国学术之伤心史也。\""
+      },
+      {
+        "type": "quote",
+        "text": "\"敦者，大也；煌者，盛也。\"",
+        "cite": "《尚书·禹贡》释敦煌"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 366",
+        "era": "前秦",
+        "event": "乐僔开凿**第一窟**"
+      },
+      {
+        "year": "AD 618",
+        "era": "唐",
+        "event": "莫高窟**黄金时代**"
+      },
+      {
+        "year": "AD 781",
+        "era": "唐",
+        "event": "**吐蕃**占领敦煌（藏经洞文献期）"
+      },
+      {
+        "year": "AD 1900",
+        "era": "清",
+        "event": "王圆箓发现**藏经洞**"
+      },
+      {
+        "year": "AD 1987",
+        "era": "当代",
+        "event": "莫高窟列入**世界遗产**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "mogao caves dunhuang mural",
+        "caption": "莫高窟壁画",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "nine rank goddess flying apsaras",
+        "caption": "飞天壁画（敦煌标志）",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "dunhuang library cave manuscripts",
+        "caption": "藏经洞文献",
+        "credit": "British Library"
+      },
+      {
+        "imageKeyword": "mogaoku buddha statue large",
+        "caption": "莫高窟大佛",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-art-painting",
+        "title": "中国壁画",
+        "reason": "敦煌壁画是巅峰"
+      },
+      {
+        "id": "tr-religion-buddhism",
+        "title": "佛教传播",
+        "reason": "敦煌是佛教东传枢纽"
+      },
+      {
+        "id": "era-tang",
+        "title": "唐朝",
+        "reason": "敦煌黄金期"
+      },
+      {
+        "id": "tr-region-overview",
+        "title": "河西走廊",
+        "reason": "敦煌地理归属"
+      }
+    ],
+    "source": "📚 敦煌研究院《敦煌石窟全集》、荣新江《敦煌学十八讲》、斯坦因《Serindia》"
+  },
+  {
+    "id": "ce-015",
+    "title": "科举制度",
+    "year": 605,
+    "category": "制度",
+    "location": [
+      108.94,
+      34.34
+    ],
+    "region": "中国",
+    "importance": 3,
+    "description": "隋炀帝大业三年（公元 607 年）下诏开设进士科，标志着科举制度正式确立（虽然汉代已有察举、唐代有制举，但未形成全国统一制度）。唐代完善（武则天创立殿试、武举），宋代改革（糊名誊录、防作弊），明清完善为八股文。延续 1300 年，1905 年清廷废除。科举是中国古代最重要的文官选拔制度，打破了魏晋以来世家大族对官位的垄断，朝为田舍郎暮登天子堂成为可能，让社会阶层流动。影响了越南、朝鲜、日本（古代日本有贡举），被西方学者誉为中国第五大发明。孙中山的五权宪法借鉴了科举的考试制度。",
+    "facts": [
+      {
+        "label": "正式确立",
+        "value": "隋大业三年（AD 605）"
+      },
+      {
+        "label": "延续",
+        "value": "至清光绪三十一年（1905）共 1300 年"
+      },
+      {
+        "label": "创始皇帝",
+        "value": "隋炀帝（杨广）"
+      },
+      {
+        "label": "考试层次",
+        "value": "乡试（省）→ 会试（京）→ 殿试（皇帝）"
+      },
+      {
+        "label": "影响",
+        "value": "打破世族垄断 / 中央集权利器"
+      },
+      {
+        "label": "废除",
+        "value": "清末新政，1905 年正式废除"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "制度起源",
+        "body": "隋朝建立前，选官主要靠**察举制**（地方推荐）和**九品中正制**（魏晋，按门第评等）。大业三年（605），隋炀帝杨广**设进士科**，标志着科举制度正式建立——以考试选拔人才，取代门第世袭。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "制度演进",
+        "body": "唐代科举分常科（每年）与制科（皇帝特旨）；宋代王安石变法改革考试内容；明清科举定型为**八股文**（固定格式）。考试分三级：①乡试（省级，三年一次，中举人）；②会试（京城，中贡士）；③殿试（皇帝亲策，赐进士）。"
+      },
+      {
+        "type": "callout",
+        "heading": "历史功过",
+        "body": "科举制打破**世族垄断**，使寒门子弟通过读书改变命运，**促进社会阶层流动**。但明清八股禁锢思想，导致近代中国科技落后。其废除（1905）也是清末新政重要内容。",
+        "variant": "info"
+      },
+      {
+        "type": "list",
+        "heading": "制度层次",
+        "items": [
+          "**童试**（县、府、院）→秀才",
+          "**乡试**（省）→举人",
+          "**会试**（京）→贡士",
+          "**殿试**（皇帝）→进士（分三甲）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "历史遗产",
+        "body": "**科举制是中国的\"第五大发明\"**——西方文官制度（19 世纪英国）明显借鉴科举。法国启蒙思想家伏尔泰、孟德斯鸠都盛赞中国科举。"
+      },
+      {
+        "type": "quote",
+        "text": "\"上品无寒门，下品无士族。\"",
+        "cite": "《晋书·刘毅传》论九品中正制流弊"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 605",
+        "era": "隋",
+        "event": "**隋炀帝** 设进士科"
+      },
+      {
+        "year": "AD 742",
+        "era": "唐",
+        "event": "**李白**应诏入翰林"
+      },
+      {
+        "year": "AD 1069",
+        "era": "北宋",
+        "event": "**王安石** 改革科举"
+      },
+      {
+        "year": "AD 1427",
+        "era": "明",
+        "event": "科举定型为**八股文**"
+      },
+      {
+        "year": "AD 1905",
+        "era": "清末",
+        "event": "**科举制度** 正式废除"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "imperial examination china ancient",
+        "caption": "科举考试图（古代绘画）",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "palace examination hall ming",
+        "caption": "明代贡院",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "eight legged essay examination paper",
+        "caption": "八股文试卷",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "sui yangdi emperor portrait",
+        "caption": "隋炀帝像",
+        "credit": "公共领域"
+      }
+    ],
+    "related": [
+      {
+        "id": "era-sui",
+        "title": "隋朝",
+        "reason": "科举创始朝代"
+      },
+      {
+        "id": "era-tang",
+        "title": "唐朝",
+        "reason": "科举完善期"
+      },
+      {
+        "id": "tr-history-intro",
+        "title": "中国制度史",
+        "reason": "选官制度演进"
+      },
+      {
+        "id": "p-du-fu",
+        "title": "杜甫",
+        "reason": "科举未中典型"
+      }
+    ],
+    "source": "📚 《新唐书·选举志》、刘海峰《科举学导论》、邓嗣禹《中国考试制度史》"
+  },
+  {
+    "id": "ce-016",
+    "title": "《本草纲目》",
+    "year": 1578,
+    "category": "学术",
+    "location": [
+      114.3,
+      30.6
+    ],
+    "region": "中国",
+    "importance": 2,
+    "description": "明代医药学家李时珍（1518-1593）历时 27 年编撰，参考 800 多部古代医药文献，三易其稿。全书 52 卷、190 万字，载药 1892 种（其中新增 374 种）、插图 1109 幅、方剂 11096 首。按水火土金石草谷菜果木服虫鳞介禽兽人 16 部 60 类编排。纠正了前人草子可以变鱼、萤火虫是腐草化成等错误。达尔文称之为中国古代百科全书。1596 年首版金陵胡承龙刻本（金陵本），现藏于中国、美国、日本多家图书馆，是世界自然科学史上的杰作。李时珍被誉为药圣。",
+    "facts": [
+      {
+        "label": "作者",
+        "value": "李时珍"
+      },
+      {
+        "label": "成书年代",
+        "value": "AD 1578 年（嘉靖三十一年）"
+      },
+      {
+        "label": "初刊",
+        "value": "AD 1596 年（金陵胡承龙刊本）"
+      },
+      {
+        "label": "收录药物",
+        "value": "1892 种（新增 374 种）"
+      },
+      {
+        "label": "插图",
+        "value": "1109 幅"
+      },
+      {
+        "label": "字数",
+        "value": "约 190 万字"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "作者背景",
+        "body": "李时珍（1518-1593），湖北蕲春人，三代从医。他发现历代本草谬误甚多，决意重修。**27 年（1552-1578）撰成《本草纲目》**，参考 800 余种文献，亲历山川采药，访求四方。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "体系创新",
+        "body": "《本草纲目》打破历代《本草》按\"上中下三品\"分类，**首创\"析族区类，振纲分目\"**——按水、火、土、金石、草、谷、菜、果、木、服器、虫、鳞、介、禽、兽、人 16 部 60 类，体系严密。"
+      },
+      {
+        "type": "callout",
+        "heading": "东方医药百科",
+        "body": "《本草纲目》是中国古代**最系统、最完整的药物学著作**，集 16 世纪前中国药学之大成。它被译为日、朝、拉丁、英、法、德、俄等多国文字，**影响全球药物学 400 年**。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "部类结构",
+        "items": [
+          "水部（天水、地水）",
+          "火部（土火、水火）",
+          "土部（各种土壤）",
+          "金石部（金、玉、石）",
+          "草部（山草、芳草等 11 类）",
+          "木部（乔木、灌木等 6 类）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "李时珍精神",
+        "body": "为编此书，李时珍**三次考功名不第**（秀才），转而从医；为采药亲自上山，**曾中毒七八次**；为验证\"腐草为萤\"之说，**夜宿茅亭数月**观察萤火虫——这种实证精神超越时代。"
+      },
+      {
+        "type": "quote",
+        "text": "\"医者，贵在格物。\"",
+        "cite": "李时珍引《本草纲目·凡例》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1552",
+        "era": "明嘉靖",
+        "event": "李时珍开始编撰"
+      },
+      {
+        "year": "AD 1578",
+        "era": "明万历",
+        "event": "《**本草纲目**》完稿"
+      },
+      {
+        "year": "AD 1596",
+        "era": "明万历",
+        "event": "**金陵**胡承龙首刻"
+      },
+      {
+        "year": "AD 1656",
+        "era": "清",
+        "event": "波兰人**卜弥格**译为拉丁文"
+      },
+      {
+        "year": "AD 1856",
+        "era": "近代",
+        "event": "英国人**达利** 译为英文"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "li shizhen physician portrait ming",
+        "caption": "李时珍画像",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "bencao gangmu compendium book",
+        "caption": "《本草纲目》书影",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "chinese herbal medicine herbs",
+        "caption": "传统中草药",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "chinese herbal illustration drawing",
+        "caption": "本草插图",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "p-li-shizhen",
+        "title": "李时珍",
+        "reason": "作者"
+      },
+      {
+        "id": "era-ming",
+        "title": "明朝",
+        "reason": "成书年代"
+      },
+      {
+        "id": "tr-tech-med",
+        "title": "中医药",
+        "reason": "中医药集大成"
+      },
+      {
+        "id": "tr-history-intro",
+        "title": "中国科技史",
+        "reason": "百科全书式著作"
+      }
+    ],
+    "source": "📚 李时珍《本草纲目》、钱超尘《本草纲目译注》、E. Bretschneider《Botanicon Sinicum》"
+  },
+  {
+    "id": "ce-017",
+    "title": "《蒙娜丽莎》",
+    "year": 1503,
+    "category": "艺术",
+    "location": [
+      2.35,
+      48.86
+    ],
+    "region": "欧洲",
+    "importance": 3,
+    "description": "列奥纳多·达·芬奇 1503-1519 年绘制，卢浮宫镇馆三宝之一（另两件：《断臂维纳斯》《萨莫色雷斯的胜利女神》）。板上油画（白杨木），高 77 cm、宽 53 cm。画中佛罗伦萨商人妻子丽莎·乔宫多侧身微笑，眼神温柔而神秘。背景是托斯卡纳风景（达·芬奇家乡），有道路、河流、桥梁。达·芬奇发明了晕涂法（sfumato），即模糊边界（如眼角嘴角），营造立体感。1911 年被盗，1913 年意大利人佩鲁贾发现，藏卢浮宫。1962 年和 1974 年分别被损坏（泼酸和砸玻璃），均已修复。2019 年卢浮宫为它单独辟展厅。",
+    "facts": [
+      {
+        "label": "作者",
+        "value": "列奥纳多·达·芬奇"
+      },
+      {
+        "label": "年代",
+        "value": "约 AD 1503-1519"
+      },
+      {
+        "label": "尺寸",
+        "value": "77 × 53 cm（小型油画）"
+      },
+      {
+        "label": "现藏",
+        "value": "巴黎卢浮宫"
+      },
+      {
+        "label": "模特",
+        "value": "丽莎·乔宫多（佛罗伦萨丝绸商之妻）"
+      },
+      {
+        "label": "影响",
+        "value": "西方艺术最著名的画作"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "创作背景",
+        "body": "约 1503 年，列奥纳多·达·芬奇（Leonardo da Vinci）应佛罗伦萨丝绸商人**弗朗切斯科·乔宫多**之托，为其妻**丽莎·乔宫多**（Lisa Gherardini del Giocondo）绘制肖像。达·芬奇 1506 年中断创作，1517 年法国国王弗朗索瓦一世邀请他赴法，画家把画带到法国。1519 年达·芬奇去世，此画留法国王室。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "艺术突破",
+        "body": "《蒙娜丽莎》代表文艺复兴艺术的最高成就：①**晕涂法（sfumato）**——以极薄透明油彩层叠形成烟雾般柔和过渡；②**金字塔构图**——人物姿态稳定庄严；③**背景大气透视**——远景山水如梦似幻；④**神秘微笑**——嘴角阴影处理使表情随观者角度变化。"
+      },
+      {
+        "type": "callout",
+        "heading": "蒙娜丽莎效应",
+        "body": "这幅画的**艺术价值**已被超越为**文化符号**：1911 年被盗、1956 年被泼酸、2006 年被杯砸——但每一次\"灾难\"都使其知名度倍增。如今《蒙娜丽莎》是**全球最著名的画作**，每天约 30000 人在卢浮宫前排队观看。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "艺术特点",
+        "items": [
+          "**晕涂法**（sfumato）柔和过渡",
+          "**金字塔构图** 平衡稳定",
+          "**背景虚化** 空气透视",
+          "**解剖学**精确——达·芬奇兼任解剖学家",
+          "**光学应用**——嘴唇阴影营造微笑"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "未解之谜",
+        "body": "画作留下诸多谜团：①模特究竟是谁？②背景山水是哪里？④画作原本大小？⑤是否藏在达·芬奇自画像？这些问题至今没有定论，**给后世无数再创作以空间**。"
+      },
+      {
+        "type": "quote",
+        "text": "\"艺术乃大自然的镜像。\"",
+        "cite": "达·芬奇《笔记》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1503",
+        "era": "文艺复兴",
+        "event": "达·芬奇开始创作"
+      },
+      {
+        "year": "AD 1517",
+        "era": "文艺复兴",
+        "event": "达·芬奇将画带至**法国**"
+      },
+      {
+        "year": "AD 1519",
+        "era": "文艺复兴",
+        "event": "达·芬奇去世，画归**法王**"
+      },
+      {
+        "year": "AD 1911",
+        "era": "近代",
+        "event": "**卢浮宫**失窃案（两年后追回）"
+      },
+      {
+        "year": "AD 1962",
+        "era": "当代",
+        "event": "法国法律定为**国宝**禁止外借"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "mona lisa painting louvre",
+        "caption": "《蒙娜丽莎》原作",
+        "credit": "Louvre / Wikimedia"
+      },
+      {
+        "imageKeyword": "leonardo da vinci portrait",
+        "caption": "达·芬奇自画像",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "renaissance florence skyline",
+        "caption": "文艺复兴佛罗伦萨",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "louvre museum pyramid paris",
+        "caption": "卢浮宫金字塔",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "p-leonardo",
+        "title": "达·芬奇",
+        "reason": "作者"
+      },
+      {
+        "id": "era-renaissance",
+        "title": "文艺复兴",
+        "reason": "创作背景"
+      },
+      {
+        "id": "tr-history-art",
+        "title": "西方艺术",
+        "reason": "文艺复兴巅峰"
+      },
+      {
+        "id": "ce-018",
+        "title": "西斯廷教堂",
+        "reason": "同时代艺术高峰"
+      }
+    ],
+    "source": "📚 Zöllner《Leonardo da Vinci: The Complete Paintings》、Kemp《Leonardo》、卢浮宫档案"
+  },
+  {
+    "id": "ce-018",
+    "title": "西斯廷教堂天顶画",
+    "year": 1512,
+    "category": "艺术",
+    "location": [
+      12.46,
+      41.91
+    ],
+    "region": "欧洲",
+    "importance": 3,
+    "description": "米开朗基罗 1508-1512 年独自完成西斯廷教堂天顶壁画《创世纪》和《先知书》。面积约 480 平方米，覆盖天花板和侧墙上部。9 幅主要画作：《上帝分光暗》《日月星辰》《水面与大陆》《亚当诞生》《亚当夏娃被逐》《诺亚献祭》《大洪水》《诺亚醉酒》《亚伯拉罕献以撒》。7 位先知和 5 位女巫坐在拱形结构上。米开朗基罗当时才 33 岁，据说因长期仰头作画，颈椎变形，阅读时要把书举到头顶上方。2014 年起修复完成（去掉几个世纪以来的烟灰和蜡烛烟尘），色彩更鲜艳。与拉斐尔《雅典学院》、达·芬奇《最后的晚餐》并称文艺复兴三大杰作。",
+    "facts": [
+      {
+        "label": "作者",
+        "value": "米开朗琪罗"
+      },
+      {
+        "label": "年代",
+        "value": "AD 1508-1512"
+      },
+      {
+        "label": "位置",
+        "value": "梵蒂冈西斯廷礼拜堂"
+      },
+      {
+        "label": "面积",
+        "value": "约 460 平方米"
+      },
+      {
+        "label": "人物数",
+        "value": "343 人（9 个圣经场景）"
+      },
+      {
+        "label": "意义",
+        "value": "文艺复兴盛期艺术巅峰"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "创作背景",
+        "body": "1508 年教皇**尤利乌斯二世**委托 33 岁的米开朗琪罗为西斯廷礼拜堂绘制天顶。原计划由他人完成，但米开朗琪罗自告奋勇。**他以 4 年时间（1508-1512），独自仰头作画**，留下终身颈疾。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "画面结构",
+        "body": "天顶画分三部分：①中央 9 幅《创世纪》场景（上帝造世界、亚当堕落、诺亚方舟）；②周围 12 位先知与女预言家；③四角的旧约故事。**壁画按建筑结构精确对位**，中央是神创造人，最外圈是人类历史。"
+      },
+      {
+        "type": "callout",
+        "heading": "孤身四年",
+        "body": "米开朗琪罗**独自一人**完成全部工作——拒绝助手，亲自调配颜料（湿壁画需当天完成）。他说：\"我画得精疲力竭，几乎像只猫——但我没有别的选择。\"**这种为艺术献身的精神**成为文艺复兴艺术家的典范。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "九幅创世纪",
+        "items": [
+          "**神分光暗**",
+          "**神造日月星辰**",
+          "**神分水陆**",
+          "**神造亚当**（最著名）",
+          "**神造夏娃**",
+          "**原罪逐出乐园**",
+          "**诺亚献祭**",
+          "**大洪水**",
+          "**诺亚醉酒**"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "后续工程",
+        "body": "米开朗琪罗晚年又绘制了西斯廷礼拜堂**祭坛壁画《最后的审判》**（AD 1536-1541），面积 220 平方米，巨型裸体引发争议（后由助手遮掩）。"
+      },
+      {
+        "type": "quote",
+        "text": "\"我用了所有时间，就像经历了一场缓慢的死亡。\"",
+        "cite": "米开朗琪罗书信"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1508",
+        "era": "文艺复兴",
+        "event": "教皇**尤利乌斯二世**委托"
+      },
+      {
+        "year": "AD 1511",
+        "era": "文艺复兴",
+        "event": "**天顶画** 主体完成"
+      },
+      {
+        "year": "AD 1512",
+        "era": "文艺复兴",
+        "event": "**西斯廷天顶画** 全部完工"
+      },
+      {
+        "year": "AD 1536",
+        "era": "文艺复兴",
+        "event": "**《最后的审判》** 开始"
+      },
+      {
+        "year": "AD 1541",
+        "era": "文艺复兴",
+        "event": "《最后的审判》完工"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "sistine chapel ceiling michelangelo",
+        "caption": "西斯廷教堂天顶画",
+        "credit": "Vatican Museums"
+      },
+      {
+        "imageKeyword": "creation of adam michelangelo",
+        "caption": "《创造亚当》",
+        "credit": "Vatican / Wikimedia"
+      },
+      {
+        "imageKeyword": "michelangelo sculptor painter portrait",
+        "caption": "米开朗琪罗画像",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "sistine chapel last judgment",
+        "caption": "《最后的审判》",
+        "credit": "Vatican Museums"
+      }
+    ],
+    "related": [
+      {
+        "id": "p-michelangelo",
+        "title": "米开朗琪罗",
+        "reason": "作者"
+      },
+      {
+        "id": "p-julius-ii",
+        "title": "尤利乌斯二世",
+        "reason": "委托人"
+      },
+      {
+        "id": "era-renaissance",
+        "title": "文艺复兴",
+        "reason": "创作背景"
+      },
+      {
+        "id": "ce-017",
+        "title": "蒙娜丽莎",
+        "reason": "同时代艺术高峰"
+      }
+    ],
+    "source": "📚 Hall《Michelangelo: The Frescoes of the Sistine Chapel》、Mormando《Michelangelo: A Spiritual Journey》"
+  },
+  {
+    "id": "ce-019",
+    "title": "印刷《古登堡圣经》",
+    "year": 1455,
+    "category": "科技",
+    "location": [
+      8.68,
+      50.11
+    ],
+    "region": "欧洲",
+    "importance": 3,
+    "description": "约翰内斯·古登堡（Johannes Gutenberg，约 1400-1468）约 1450 年在德国美因茨发明金属活字印刷机。此前活字印刷在中国（毕昇泥活字）和韩国（高丽金属活字）已存在，但欧洲字母少（26 个）天然适合金属活字。约 1455 年他印制的《古登堡圣经》（拉丁文 42 行版）是欧洲第一本重要的活字印刷书，约 180 册，每本 1282 页。《古登堡圣经》的印刷标志着印刷时代的开始，欧洲信息传播成本降低 80%，催生了 1500-1600 年的信息爆炸，直接推动宗教改革（路德《九十五条论纲》数周内传遍欧洲）、科学革命（哥白尼、维萨里）和启蒙运动。被誉为西方文明最重要的发明之一。",
+    "facts": [
+      {
+        "label": "印刷者",
+        "value": "约翰内斯·古登堡"
+      },
+      {
+        "label": "年代",
+        "value": "AD 1455 年（美因茨）"
+      },
+      {
+        "label": "印数",
+        "value": "约 180 部（其中 49 部存世）"
+      },
+      {
+        "label": "页数",
+        "value": "1282 页"
+      },
+      {
+        "label": "文字",
+        "value": "拉丁文"
+      },
+      {
+        "label": "意义",
+        "value": "西方活字印刷的里程碑"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "印刷背景",
+        "body": "1440 年代，德国美因茨金匠**约翰内斯·古登堡**（Johannes Gutenberg）借鉴中国活字技术（经丝绸之路传播），发明**金属活字印刷机**。**1455 年印出《圣经》拉丁文译本**，共 180 部，每部 1282 页，分两卷。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "技术贡献",
+        "body": "古登堡的关键创新：①**金属合金活字**（铅、锡、锑、铜）；②**油性油墨**（亚麻仁油调和）；③**螺旋压印机**（借用葡萄酒压榨机原理）。三件合在一起使西方印刷进入工业化时代。"
+      },
+      {
+        "type": "callout",
+        "heading": "信息爆炸",
+        "body": "《古登堡圣经》开启**印刷革命**：欧洲书籍年产量从手抄时代的数千册跃升到 1500 年的 1000 万册。这直接催化了**文艺复兴、宗教改革、启蒙运动**——**信息自由流动使现代性成为可能**。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "历史影响",
+        "items": [
+          "书籍价格暴跌（手抄本 200 古登堡→印刷本 5 古登堡）",
+          "识字率上升",
+          "**马丁·路德**宗教改革（1517）",
+          "**伽利略**科学著作普及",
+          "**启蒙运动**思想传播"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "成本问题",
+        "body": "古登堡为印《圣经》**耗尽家财**，合伙人约翰内斯·富斯特告他侵吞借款，最终败诉。古登堡晚年贫困，1468 年去世时默默无闻。"
+      },
+      {
+        "type": "quote",
+        "text": "\"印刷术改变了人类的思维方式。\"",
+        "cite": "麦克卢汉《理解媒介》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1450",
+        "era": "德意志",
+        "event": "**古登堡** 完成活字印刷机"
+      },
+      {
+        "year": "AD 1455",
+        "era": "德意志",
+        "event": "《**古登堡圣经**》印成"
+      },
+      {
+        "year": "AD 1500",
+        "era": "欧洲",
+        "event": "欧洲印书达 **1000 万册**"
+      },
+      {
+        "year": "AD 1517",
+        "era": "德意志",
+        "event": "路德《**九十五条论纲**》"
+      },
+      {
+        "year": "AD 2000",
+        "era": "当代",
+        "event": "纽约佳士得 **1100 万美元** 拍卖"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "gutenberg bible printed page",
+        "caption": "古登堡圣经书页",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "gutenberg printing press replica",
+        "caption": "古登堡印刷机（复制品）",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "johann gutenberg portrait",
+        "caption": "古登堡肖像",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "mainz cathedral medieval",
+        "caption": "美因茨大教堂（古登堡城市）",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "ce-012",
+        "title": "活字印刷",
+        "reason": "技术源头"
+      },
+      {
+        "id": "ce-029",
+        "title": "古登堡印刷机",
+        "reason": "配套发明"
+      },
+      {
+        "id": "p-gutenberg",
+        "title": "古登堡",
+        "reason": "发明者"
+      },
+      {
+        "id": "ce-023",
+        "title": "九十五条论纲",
+        "reason": "印刷推动宗教改革"
+      }
+    ],
+    "source": "📚 Eisenstein《The Printing Press as an Agent of Change》、Ingram《The Gutenberg Revolution》"
+  },
+  {
+    "id": "ce-020",
+    "title": "维吉尔《埃涅阿斯纪》",
+    "year": -19,
+    "category": "文学",
+    "location": [
+      12.5,
+      41.9
+    ],
+    "region": "罗马",
+    "importance": 2,
+    "description": "古罗马诗人维吉尔（Publius Vergilius Maro，前 70-前 19）在奥古斯都时期创作了 12 卷拉丁文史诗《埃涅阿斯纪》。模仿荷马《奥德赛》和《伊利亚特》，讲述特洛伊英雄埃涅阿斯在特洛伊沦陷后辗转漂流，最终到达意大利建立罗马的故事。第二卷（特洛伊木马）和第六卷（埃涅阿斯下冥界）最为著名。维吉尔生前未能完成全诗（写到第 12 卷埃涅阿斯与图尔努斯决斗时去世），奥古斯都下令出版。维吉尔成为罗马帝国的官方诗人，影响但丁《神曲》（但丁以维吉尔为向导）、莎士比亚《裘力斯·凯撒》、但丁、米尔顿等无数后世作家。被中世纪欧洲视为先知和魔法师。但丁称之为智慧的海洋、诗人的老师。",
+    "facts": [
+      {
+        "label": "作者",
+        "value": "维吉尔（Publius Vergilius Maro）"
+      },
+      {
+        "label": "年代",
+        "value": "BC 29-19"
+      },
+      {
+        "label": "体裁",
+        "value": "史诗（12 卷）"
+      },
+      {
+        "label": "行数",
+        "value": "9896 行"
+      },
+      {
+        "label": "主角",
+        "value": "埃涅阿斯（特洛伊英雄）"
+      },
+      {
+        "label": "影响",
+        "value": "罗马文学的最高峰 / 西方史诗典范"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "创作背景",
+        "body": "维吉尔（BC 70-19），古罗马奥古斯都时期诗人，受**屋大维（奥古斯都）**委托创作《埃涅阿斯纪》，目的是**为屋大维家族追溯神性谱系**——将凯撒家族追溯到特洛伊王子埃涅阿斯。维吉尔至死未能定稿，要求焚毁但屋大维保留。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "史诗结构",
+        "body": "史诗模仿荷马史诗，分两部分：①前 6 卷模仿《奥德赛》——埃涅阿斯漂泊（特洛伊陷落→地中海漂泊→迦太基女王狄多→意大利）；②后 6 卷模仿《伊利亚特》——意大利战争。**全书 9896 行拉丁六拍诗**。"
+      },
+      {
+        "type": "callout",
+        "heading": "罗马国族史诗",
+        "body": "《埃涅阿斯纪》是**罗马帝国的\"国族史诗\"**，塑造了罗马人\"天命所归\"的意识。**关键诗句\"罗马人的帝国没有止境\"（Tu regere imperio populos）** 成为罗马扩张的精神支柱。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "重要主题",
+        "items": [
+          "**Pietas**（虔敬、责任）——主角核心美德",
+          "**Fatum**（命运）——罗马帝国天命",
+          "**Labor**（劳苦）——英雄必历劫",
+          "**Imperium**（帝国）——无止境的统治"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "但丁的导师",
+        "body": "但丁《神曲》中**维吉尔是向导**，带领诗人穿越地狱与炼狱（天堂由贝阿特丽切引导）。**这象征维吉尔是\"人智的最高\"**——哲学理性所能达到的极限。"
+      },
+      {
+        "type": "quote",
+        "text": "\"Fuimus fuimus, olim fuimus!\"",
+        "cite": "《埃涅阿斯纪》拉丁原文片段（拉丁语古典范本）"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 70",
+        "era": "罗马共和国",
+        "event": "维吉尔出生"
+      },
+      {
+        "year": "BC 39",
+        "era": "罗马共和国",
+        "event": "发表《**农事诗**》"
+      },
+      {
+        "year": "BC 29",
+        "era": "罗马帝国前夕",
+        "event": "开始创作《**埃涅阿斯纪**》"
+      },
+      {
+        "year": "BC 19",
+        "era": "罗马帝国前夕",
+        "event": "维吉尔去世，诗未终稿"
+      },
+      {
+        "year": "AD 1308",
+        "era": "中世纪",
+        "event": "**但丁**以维吉尔为《神曲》向导"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "virgil aeneid manuscript medieval",
+        "caption": "《埃涅阿斯纪》中世纪手抄本",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "aeneas carrying anchises troy",
+        "caption": "埃涅阿斯背负父亲（名画）",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "virgil poet portrait classical",
+        "caption": "维吉尔古典肖像",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "dante virgil inferno illustration",
+        "caption": "但丁与维吉尔（地狱篇插图）",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "p-virgil",
+        "title": "维吉尔",
+        "reason": "作者"
+      },
+      {
+        "id": "era-rome-empire",
+        "title": "罗马帝国",
+        "reason": "国族史诗"
+      },
+      {
+        "id": "ce-021",
+        "title": "神曲",
+        "reason": "维吉尔是但丁向导"
+      },
+      {
+        "id": "tr-history-art",
+        "title": "古典文学",
+        "reason": "西方史诗典范"
+      }
+    ],
+    "source": "📚 维吉尔《埃涅阿斯纪》（杨周翰译本）、R. F. Anderson《The Art of the Aeneid》、Hardie《The Last Trojan Hero》"
+  },
+  {
+    "id": "ce-021",
+    "title": "但丁《神曲》",
+    "year": 1320,
+    "category": "文学",
+    "location": [
+      11.26,
+      43.77
+    ],
+    "region": "欧洲",
+    "importance": 3,
+    "description": "意大利诗人但丁·阿利吉耶里（Dante Alighieri，1265-1321）于 1308-1321 年用佛罗伦萨方言（托斯卡纳方言）写成的长诗。共 100 歌（地狱 34 + 炼狱 33 + 天堂 33），14233 行。采用在圣周五（1300 年）迷路于黑暗森林的中世纪幻视结构：诗人由古罗马诗人维吉尔引导游历地狱、炼狱，由初恋贝雅特丽齐引导游历天堂。但丁借古典和基督教意象，批判了当时教廷和教会的腐败，表达了从中世纪向文艺复兴过渡的人文主义思想。《神曲》使托斯卡纳方言成为意大利标准语，被誉为意大利语之父。但丁被誉为意大利最伟大的诗人，与莎士比亚、但丁、歌德并称世界四大诗人。",
+    "facts": [
+      {
+        "label": "作者",
+        "value": "但丁·阿利吉耶里"
+      },
+      {
+        "label": "年代",
+        "value": "AD 1308-1321"
+      },
+      {
+        "label": "语种",
+        "value": "意大利语（托斯卡纳方言）"
+      },
+      {
+        "label": "结构",
+        "value": "地狱、炼狱、天堂各 33 歌 + 序曲 1，共 100 歌"
+      },
+      {
+        "label": "行数",
+        "value": "14233 行（三韵律）"
+      },
+      {
+        "label": "意义",
+        "value": "意大利文艺复兴先声 / 世界文学巅峰"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "创作背景",
+        "body": "但丁（1265-1321），佛罗伦萨诗人、政治家。1302 年因党争被流放，终身未能归乡。流放期间他**以意大利语（而非拉丁语）创作《神曲》**，开创意大利文学语言——被誉为\"意大利现代语言之父\"。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "三界结构",
+        "body": "《神曲》虚构但丁在\"人生中段\"（35 岁）于黑暗森林迷路：①**地狱**（9 圈 33 歌）——按罪轻重惩罚；②**炼狱**（7 层 + 山顶伊甸园）——净化灵魂；③**天堂**（9 天 + 至高天）——与神合一。**全诗 14233 行三韵律诗**（aba bcb cdc ...）。"
+      },
+      {
+        "type": "callout",
+        "heading": "意大利文学的奠基",
+        "body": "但丁选择**意大利方言**而非拉丁语写作，是文艺复兴最早的宣言。他确立了意大利民族语言，并**将神学、哲学、政治讽刺熔于一炉**——被认为预示文艺复兴的\"人本主义\"。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "三界结构",
+        "items": [
+          "**地狱 9 圈**：淫欲→饕餮→贪婪→懒惰→愤怒→异端→暴力→欺诈→背叛",
+          "**炼狱 7 层**：七大罪过逐层净化",
+          "**天堂 9 天**：月球→水星→金星→太阳→火星→木星→土星→恒星天→水晶天",
+          "**至高天**：神的光辉、贝阿特丽切显现"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "政治寓意",
+        "body": "但丁将**佛罗伦萨政敌**（教皇博尼法八世等）置于地狱第八圈（欺诈），**自己的政治理想**（统一的世俗帝国）置于天堂最高层——**他用诗写出政治批判**。"
+      },
+      {
+        "type": "quote",
+        "text": "\"走过我，进入永恒之邦的人们，请把希望寄托在星辰之外。\"",
+        "cite": "但丁《神曲·地狱篇》铭文"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1265",
+        "era": "中世纪",
+        "event": "但丁出生于佛罗伦萨"
+      },
+      {
+        "year": "AD 1302",
+        "era": "中世纪",
+        "event": "**但丁** 被流放"
+      },
+      {
+        "year": "AD 1308",
+        "era": "中世纪",
+        "event": "开始创作《**神曲**》"
+      },
+      {
+        "year": "AD 1321",
+        "era": "中世纪",
+        "event": "**但丁** 去世，《神曲》完稿"
+      },
+      {
+        "year": "AD 1865",
+        "era": "近代",
+        "event": "意大利建国，将但丁立为**国父**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "dante alighieri portrait profile",
+        "caption": "但丁肖像",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "dante inferno illustration botticelli",
+        "caption": "《神曲·地狱篇》插图（波提切利）",
+        "credit": "Vatican Library"
+      },
+      {
+        "imageKeyword": "florence duomo renaissance skyline",
+        "caption": "佛罗伦萨大教堂（但丁之城）",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "dante beatrice paradise meeting",
+        "caption": "但丁与贝阿特丽切（天堂篇）",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "p-dante",
+        "title": "但丁",
+        "reason": "作者"
+      },
+      {
+        "id": "ce-020",
+        "title": "埃涅阿斯纪",
+        "reason": "维吉尔在神曲中是向导"
+      },
+      {
+        "id": "era-renaissance",
+        "title": "文艺复兴",
+        "reason": "意大利文艺复兴先声"
+      },
+      {
+        "id": "tr-history-art",
+        "title": "欧洲文学",
+        "reason": "世界文学巅峰"
+      }
+    ],
+    "source": "📚 但丁《神曲》（王维克/朱维基译本）、Singleton《Dante's Commedia》、Kirkpatrick《Dante》"
+  },
+  {
+    "id": "ce-022",
+    "title": "《莎士比亚全集》",
+    "year": 1600,
+    "category": "文学",
+    "location": [
+      -0.13,
+      51.51
+    ],
+    "region": "欧洲",
+    "importance": 2,
+    "description": "英国剧作家、诗人威廉·莎士比亚（William Shakespeare，1564-1616）约 1589-1613 年创作的作品。现存 37 部戏剧（10 部历史剧、10 部悲剧、14 部喜剧、3 部悲喜剧）、154 首十四行诗、2 首长诗。四大悲剧：《哈姆雷特》《奥赛罗》《麦克白》《李尔王》；四大喜剧：《仲夏夜之梦》《威尼斯商人》《皆大欢喜》《第十二夜》。1623 年第一对开本（First Folio）由 Heminge 和 Condell 编辑出版，收录 36 部剧作。他的戏剧在全世界被翻译和演出，《哈姆雷特》《罗密欧与朱丽叶》《李尔王》等成为世界文学经典。莎士比亚被誉为人类文学的奥林匹斯山之巅。",
+    "facts": [
+      {
+        "label": "作者",
+        "value": "威廉·莎士比亚"
+      },
+      {
+        "label": "年代",
+        "value": "约 AD 1589-1613（创作期）"
+      },
+      {
+        "label": "剧目数",
+        "value": "37 部戏剧 + 154 首十四行诗"
+      },
+      {
+        "label": "剧种",
+        "value": "悲剧、喜剧、历史剧、悲喜剧"
+      },
+      {
+        "label": "语种",
+        "value": "早期现代英语"
+      },
+      {
+        "label": "影响",
+        "value": "英语文学最高成就 / 世界戏剧之父"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "作者生平",
+        "body": "莎士比亚（1564-1616），英国埃文河畔斯特拉特福人，父亲手套商人。他 18 岁娶大 8 岁女子为妻，育三子女。1580 年代赴伦敦，先做剧场杂役、马夫，后成为演员、剧作家、合伙人。他**39 部戏剧、154 首十四行诗**成为英语文学的基石。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "剧目概览",
+        "body": "莎翁剧目按四大类分：①**喜剧** 17 部（《仲夏夜之梦》《威尼斯商人》《第十二夜》《皆大欢喜》等）；②**悲剧** 11 部（《哈姆雷特》《奥赛罗》《麦克白》《李尔王》《罗密欧与朱丽叶》等）；③**历史剧** 10 部（《亨利五世》《理查三世》《约翰王》等）；④**悲喜剧/传奇剧**（《暴风雨》《冬天的故事》等）。"
+      },
+      {
+        "type": "callout",
+        "heading": "作品的奇迹",
+        "body": "莎士比亚**一生未上大学**，却写出 4 千词汇（同时代英语仅 2 千词汇）。**全球每年上演他的剧作逾 5 万场**，《哈姆雷特》\"生存还是毁灭\"是**全球最著名的独白**。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "四大悲剧",
+        "items": [
+          "**《哈姆雷特》**——生存还是毁灭",
+          "**《奥赛罗》**——嫉妒的毁灭",
+          "**《麦克白》**——权力的腐败",
+          "**《李尔王》**——人性的崩塌"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "第一对开本",
+        "body": "1623 年，莎翁去世 7 年后，他的剧团同事**赫明奇与康德尔**整理出版**《第一对开本》（First Folio）**，收录 36 部剧作——若非此书，**约 18 部莎剧可能失传**（包括《麦克白》《李尔王》《第十二夜》等）。"
+      },
+      {
+        "type": "quote",
+        "text": "\"To be or not to be, that is the question.\"",
+        "cite": "莎士比亚《哈姆雷特》第三幕第一场"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1564",
+        "era": "都铎",
+        "event": "莎士比亚出生"
+      },
+      {
+        "year": "AD 1589",
+        "era": "都铎",
+        "event": "开始**戏剧创作**（推测）"
+      },
+      {
+        "year": "AD 1601",
+        "era": "斯图亚特",
+        "event": "**《哈姆雷特》** 首演"
+      },
+      {
+        "year": "AD 1616",
+        "era": "斯图亚特",
+        "event": "**莎士比亚** 去世"
+      },
+      {
+        "year": "AD 1623",
+        "era": "斯图亚特",
+        "event": "**《第一对开本》** 出版"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "shakespeare portrait chandos",
+        "caption": "莎士比亚钱多斯肖像",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "globe theatre london model",
+        "caption": "环球剧场（重建）",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "shakespeare first folio book",
+        "caption": "《莎士比亚第一对开本》",
+        "credit": "Folger Library"
+      },
+      {
+        "imageKeyword": "hamlet skull scene illustration",
+        "caption": "《哈姆雷特》\"生存还是毁灭\"",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "p-shakespeare",
+        "title": "莎士比亚",
+        "reason": "作者"
+      },
+      {
+        "id": "era-renaissance",
+        "title": "文艺复兴",
+        "reason": "创作背景"
+      },
+      {
+        "id": "tr-history-art",
+        "title": "欧洲文学",
+        "reason": "英语文学最高成就"
+      },
+      {
+        "id": "ce-021",
+        "title": "神曲",
+        "reason": "同时代欧洲文学"
+      }
+    ],
+    "source": "📚 《莎士比亚全集》（朱生豪译本）、Greenblatt《Will in the World》、Schoenbaum《Shakespeare's Lives》"
+  },
+  {
+    "id": "ce-023",
+    "title": "《九十五条论纲》",
+    "year": 1517,
+    "category": "思想",
+    "location": [
+      11.03,
+      50.45
+    ],
+    "region": "欧洲",
+    "importance": 3,
+    "description": "1517 年 10 月 31 日，马丁·路德（1483-1546）将《九十五条论纲》钉在德国维滕贝格城堡教堂大门上，反对教廷售卖赎罪券。原意是邀请学者辩论，印刷术的传播使其迅速传遍欧洲。引发宗教改革运动，新教各派别（路德宗、加尔文宗、圣公会等）脱离罗马天主教会。1521 年路德被教廷绝罚，但他得到萨克森选帝侯等诸侯保护。1555 年《奥格斯堡和约》确立教随国定原则，新教与天主教合法并存。宗教改革深刻改变了欧洲政治版图（天主教国家 vs 新教国家）和文化格局，催生了新教伦理（韦伯论述），为现代民族国家、个人主义和资本主义发展奠基。1517 年也被视为现代世界的起点。",
+    "facts": [
+      {
+        "label": "作者",
+        "value": "马丁·路德"
+      },
+      {
+        "label": "年代",
+        "value": "AD 1517 年 10 月 31 日"
+      },
+      {
+        "label": "发表地",
+        "value": "德国维滕堡"
+      },
+      {
+        "label": "原文",
+        "value": "拉丁文"
+      },
+      {
+        "label": "触发事件",
+        "value": "教廷发售\"赎罪券\""
+      },
+      {
+        "label": "意义",
+        "value": "欧洲宗教改革开端"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "背景",
+        "body": "16 世纪初，罗马教廷为修建圣彼得大教堂，**大规模发售\"赎罪券\"**（捐款可减免罪罚）。美因茨大主教**阿尔布莱希特**为偿债与教廷合谋，在德国发售赎罪券。这一敛财行为引发神学家**马丁·路德**愤怒。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "论纲内容",
+        "body": "1517 年 10 月 31 日，路德按神学论辩传统，将**《九十五条论纲》**钉在维滕堡教堂大门（后被传为传说，但来源是同时代信函）。论纲核心：①赎罪券无圣经依据；②悔改是内心而非金钱行为；③教宗权力不及上帝恩典。"
+      },
+      {
+        "type": "callout",
+        "heading": "改革之火",
+        "body": "原本只是\"学术辩论邀请\"，却因**印刷术**（1455 年古登堡发明）使论纲 2 周内传遍德国、**2 个月**内传遍欧洲。教廷反击，路德拒不退让，**1521 年沃尔姆斯会议被宣判\"异端\"**——**欧洲宗教改革由此爆发**。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "五大唯独",
+        "items": [
+          "**唯独圣经**（Sola Scriptura）",
+          "**唯独恩典**（Sola Gratia）",
+          "**唯独信心**（Sola Fide）",
+          "**唯独基督**（Solus Christus）",
+          "**唯独荣耀上帝**（Soli Deo Gloria）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "深远影响",
+        "body": "宗教改革导致欧洲**天主教、新教（路德宗、加尔文宗、英国国教）分裂**。**三十年战争**（1618-1648）使德国人口损失 1/3，**威斯特伐利亚和约**奠定现代民族国家体系。"
+      },
+      {
+        "type": "quote",
+        "text": "\"Here I stand, I can do no other.\"",
+        "cite": "路德 1521 年沃尔姆斯会议答辩"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1517",
+        "era": "德意志",
+        "event": "**路德** 发表《九十五条论纲》"
+      },
+      {
+        "year": "AD 1521",
+        "era": "神圣罗马",
+        "event": "**沃尔姆斯会议**判路德为异端"
+      },
+      {
+        "year": "AD 1525",
+        "era": "德意志",
+        "event": "**农民战争**（路德宗支持者）"
+      },
+      {
+        "year": "AD 1534",
+        "era": "英格兰",
+        "event": "亨利八世**脱离罗马教廷**"
+      },
+      {
+        "year": "AD 1648",
+        "era": "欧洲",
+        "event": "**威斯特伐利亚和约**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "luther 95 theses door wittenberg",
+        "caption": "路德钉论纲（19 世纪绘画）",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "martin luther portrait cranach",
+        "caption": "马丁·路德肖像（克拉纳赫画）",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "worms diet 1521 luther",
+        "caption": "沃尔姆斯会议（19 世纪绘画）",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "reformation church protestant service",
+        "caption": "新教礼拜",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "p-luther",
+        "title": "马丁·路德",
+        "reason": "作者"
+      },
+      {
+        "id": "ce-019",
+        "title": "古登堡圣经",
+        "reason": "印刷术推动改革传播"
+      },
+      {
+        "id": "tr-religion-christianity",
+        "title": "基督教史",
+        "reason": "天主教-新教分裂"
+      },
+      {
+        "id": "ce-026",
+        "title": "人权宣言",
+        "reason": "个人权利觉醒"
+      }
+    ],
+    "source": "📚 路德《九十五条论纲》、MacCulloch《The Reformation》、Dixon《The Reformation in Germany》"
+  },
+  {
+    "id": "ce-024",
+    "title": "牛顿《自然哲学的数学原理》",
+    "year": 1687,
+    "category": "学术",
+    "location": [
+      -0.13,
+      51.51
+    ],
+    "region": "欧洲",
+    "importance": 3,
+    "description": "艾萨克·牛顿（Isaac Newton，1643-1727）于 1687 年在剑桥三一学院出版的拉丁文著作《自然哲学的数学原理》（Philosophiae Naturalis Principia Mathematica）。全书 3 卷：第一卷讨论物体在无阻力介质中的运动（含牛顿三大运动定律）；第二卷讨论物体在阻力介质中的运动（包括流体阻力）；第三卷讨论万有引力、天体运动和潮汐。用数学（微积分）证明开普勒三定律，奠定经典力学。与 1687 年之前同年牛顿发明微积分（与莱布尼茨独立）、1666 年发现万有引力传说、1672 年用三棱镜发现白光由七色组成，构成牛顿革命。《原理》被誉为科学史上最伟大的著作，自然和自然的法则隐藏在黑暗中，上帝说：让牛顿出世吧！于是世界一片光明（蒲柏颂诗）。",
+    "facts": [
+      {
+        "label": "作者",
+        "value": "艾萨克·牛顿"
+      },
+      {
+        "label": "成书年代",
+        "value": "AD 1687 年"
+      },
+      {
+        "label": "原文",
+        "value": "拉丁文"
+      },
+      {
+        "label": "原名",
+        "value": "Philosophiae Naturalis Principia Mathematica"
+      },
+      {
+        "label": "核心",
+        "value": "三大运动定律 + 万有引力"
+      },
+      {
+        "label": "影响",
+        "value": "现代科学奠基之作"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "成书背景",
+        "body": "1665-1666 年伦敦瘟疫期间，剑桥大学关闭，**牛顿返乡**。他在这段\"奇迹之年\"奠定了微积分、光学、引力三大发现。20 年后的 1684 年，哈雷、雷恩、胡克讨论行星运动问题无法解决，哈雷求助牛顿。**牛顿很快寄去一篇论文，并开始撰写《原理》**——1687 年正式出版。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "三大运动定律",
+        "body": "①**惯性定律**：物体保持静止或匀速直线运动，除非受外力；②**加速度定律**：F = ma；③**作用反作用定律**：作用力与反作用力大小相等方向相反。"
+      },
+      {
+        "type": "callout",
+        "heading": "万有引力",
+        "body": "《原理》提出**万有引力定律**：F = G·(m₁m₂/r²)。这一公式**统一了苹果落地和月亮绕地**——从地面物体到天体运动由同一公式描述。**这是人类认知宇宙的伟大时刻**。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "三大卷",
+        "items": [
+          "卷 1：物体运动（不受阻力）",
+          "卷 2：物体运动（在阻尼介质中）",
+          "卷 3：宇宙体系（万有引力 + 行星运动）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "历史地位",
+        "body": "《原理》是**现代科学的奠基之作**。它将数学引入物理，建立了**因果可预测的世界观**。爱因斯坦相对论在 1905-1915 年扩展了牛顿力学（高速/强引力），但牛顿仍是日常世界的完美近似。"
+      },
+      {
+        "type": "quote",
+        "text": "\"Hypotheses non fingo.\"",
+        "cite": "牛顿《原理》第三卷：不杜撰假说"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1666",
+        "era": "科学革命",
+        "event": "**牛顿** 家乡\"奇迹年\""
+      },
+      {
+        "year": "AD 1684",
+        "era": "科学革命",
+        "event": "**哈雷** 拜访牛顿"
+      },
+      {
+        "year": "AD 1687",
+        "era": "科学革命",
+        "event": "《**自然哲学的数学原理**》出版"
+      },
+      {
+        "year": "AD 1727",
+        "era": "科学革命",
+        "event": "**牛顿** 去世（享年 84 岁）"
+      },
+      {
+        "year": "AD 1905",
+        "era": "近代",
+        "event": "**爱因斯坦** 狭义相对论"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "newton principia title page",
+        "caption": "《原理》第一版扉页",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "newton isaac portrait",
+        "caption": "牛顿肖像",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "apple tree newton",
+        "caption": "\"苹果树\"（牛顿花园）",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "edmond halley comet portrait",
+        "caption": "哈雷（推动出版《原理》）",
+        "credit": "公共领域"
+      }
+    ],
+    "related": [
+      {
+        "id": "p-newton",
+        "title": "牛顿",
+        "reason": "作者"
+      },
+      {
+        "id": "p-halley",
+        "title": "哈雷",
+        "reason": "推动出版"
+      },
+      {
+        "id": "p-einstein",
+        "title": "爱因斯坦",
+        "reason": "扩展牛顿力学"
+      },
+      {
+        "id": "ce-025",
+        "title": "瓦特蒸汽机",
+        "reason": "科学革命应用"
+      }
+    ],
+    "source": "📚 牛顿《自然哲学的数学原理》（王克迪译本）、Westfall《Never at Rest》、Cohen《Isaac Newton's Principia》"
+  },
+  {
+    "id": "ce-025",
+    "title": "瓦特蒸汽机改良",
+    "year": 1769,
+    "category": "科技",
+    "location": [
+      -1.97,
+      52.48
+    ],
+    "region": "欧洲",
+    "importance": 3,
+    "description": "詹姆斯·瓦特（James Watt，1736-1819）于 1769 年获得分离冷凝器专利，改良了托马斯·纽科门 1712 年的蒸汽机。纽科门蒸汽机效率极低（热效率约 0.5%），瓦特将冷凝器与汽缸分离，使汽缸始终保持高温，效率提高 2-4 倍；后又发明双向往复运动、离心调速器、压力表等。1781 年瓦特与马修·博尔顿合伙生产万能蒸汽机（Sun and Planet gear），适用于任何行业。蒸汽机在纺织业（取代水力）、采矿、冶金、铁路等广泛应用，标志工业革命的开始。瓦特也是马力（horsepower）单位概念的发明者。功率单位瓦特以他命名。蒸汽机使工厂摆脱地理限制，城市化进程加速。",
+    "facts": [
+      {
+        "label": "改良者",
+        "value": "詹姆斯·瓦特"
+      },
+      {
+        "label": "年代",
+        "value": "AD 1769 年（专利）"
+      },
+      {
+        "label": "原始发明",
+        "value": "纽科门蒸汽机（1712）"
+      },
+      {
+        "label": "核心创新",
+        "value": "独立冷凝器 + 双向作用 + 行星齿轮"
+      },
+      {
+        "label": "意义",
+        "value": "工业革命核心动力"
+      },
+      {
+        "label": "效率提升",
+        "value": "约 4 倍于纽科门机"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "改良背景",
+        "body": "蒸汽机并非瓦特发明——英国铁匠**托马斯·纽科门** 1712 年已造出实用蒸汽机，但效率极低（约 0.5%），只用于矿井抽水。1763 年，**格拉斯哥大学仪器修理工瓦特**受委托修理纽科门机模型，发现其 80% 蒸汽浪费在反复加热/冷却汽缸上。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "关键创新",
+        "body": "瓦特用了 10 年（1763-1776）逐步完善：①**独立冷凝器**（1769 专利）——蒸汽在汽缸外的冷凝器冷凝；②**双向作用**（1782）——活塞上下都做功；④**行星齿轮**（1781）——将往复运动转为旋转运动，使蒸汽机**驱动任何旋转机械**。"
+      },
+      {
+        "type": "callout",
+        "heading": "工业革命的引擎",
+        "body": "改良后的蒸汽机效率提升 4 倍，**可用于驱动纺纱机、织布机、机床、轮船、火车**。1784 年瓦特机专利到期后迅速普及，**1800 年英国 1/5 工业动力来自蒸汽**。**这是\"工业革命\"的核心技术**，人类进入化石能源时代。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "应用领域",
+        "items": [
+          "**纺织机械**——蒸汽纺纱机、织布机",
+          "**交通**——汽船（富尔顿 1807）、火车（斯蒂芬森 1825）",
+          "**冶金**——蒸汽鼓风机",
+          "**采矿**——蒸汽抽水机",
+          "**制造**——机床、磨坊"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "瓦特单位",
+        "body": "为纪念瓦特，**国际单位制**以\"瓦特\"（W）命名功率单位——每秒 1 焦耳的能量转换即 1 瓦特。"
+      },
+      {
+        "type": "quote",
+        "text": "\"蒸汽机把人类从体力劳动中解放出来。\"",
+        "cite": "恩格斯《英国工人阶级状况》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1712",
+        "era": "英国",
+        "event": "**纽科门** 蒸汽机"
+      },
+      {
+        "year": "AD 1763",
+        "era": "英国",
+        "event": "**瓦特** 受命修理纽科门机"
+      },
+      {
+        "year": "AD 1769",
+        "era": "英国",
+        "event": "瓦特获得**冷凝器专利**"
+      },
+      {
+        "year": "AD 1782",
+        "era": "英国",
+        "event": "瓦特**双向作用**专利"
+      },
+      {
+        "year": "AD 1825",
+        "era": "英国",
+        "event": "**斯蒂芬森** 蒸汽机车"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "watt steam engine industrial",
+        "caption": "瓦特蒸汽机",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "james watt portrait industrial revolution",
+        "caption": "詹姆斯·瓦特肖像",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "newcomen steam engine beam",
+        "caption": "纽科门蒸汽机",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "industrial revolution factory 19th century",
+        "caption": "19 世纪蒸汽工厂",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "p-watt",
+        "title": "瓦特",
+        "reason": "改良者"
+      },
+      {
+        "id": "p-stephenson",
+        "title": "斯蒂芬森",
+        "reason": "蒸汽机车发明者"
+      },
+      {
+        "id": "ce-024",
+        "title": "牛顿原理",
+        "reason": "奠定热力学基础"
+      },
+      {
+        "id": "tr-history-intro",
+        "title": "工业革命",
+        "reason": "工业革命核心"
+      }
+    ],
+    "source": "📚 卡伦布尔《瓦特蒸汽机》、Mokyr《The Enlightened Economy》、坎贝尔《The Coming of the Steam Age》"
+  },
+  {
+    "id": "ce-026",
+    "title": "《人权宣言》",
+    "year": 1789,
+    "category": "制度",
+    "location": [
+      2.35,
+      48.86
+    ],
+    "region": "欧洲",
+    "importance": 2,
+    "description": "1789 年 8 月 26 日法国制宪议会通过的革命纲领，共 17 条。核心内容：人生而平等、权利自由（言论、出版、信仰、财产、人身）；主权在民；法律是公意（general will）的表达；财产权神圣不可侵犯；主权者有反抗暴政的权利。作为法国大革命的标志性文件，受到美国《独立宣言》（1776）和启蒙运动（卢梭《社会契约论》）影响。后又成为联合国《世界人权宣言》（1948）的思想基础之一。1789 年 10 月妇女游行至凡尔赛宫，迫使路易十六从凡尔赛回巴黎。1791 年 9 月通过宪法后《人权宣言》成为宪法序言。原文自由、平等、博爱成为法国国家格言。被誉为旧制度的死亡证明，新制度的出生证书。",
+    "facts": [
+      {
+        "label": "通过年代",
+        "value": "AD 1789 年 8 月 26 日"
+      },
+      {
+        "label": "发布机构",
+        "value": "法国国民议会"
+      },
+      {
+        "label": "条款数",
+        "value": "17 条"
+      },
+      {
+        "label": "背景",
+        "value": "法国大革命"
+      },
+      {
+        "label": "核心",
+        "value": "自由、平等、财产权、主权在民"
+      },
+      {
+        "label": "影响",
+        "value": "现代人权思想奠基文件"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "背景",
+        "body": "1789 年 5 月，路易十六召开**三级会议**，第三等级（平民）与特权阶级冲突激化，国民议会宣告成立。7 月 14 日**攻陷巴士底狱**。8 月，国民议会通过**《人权与公民权宣言》**，简称为《人权宣言》。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "核心内容",
+        "body": "①人生而平等（**第 1 条**）；②主权在民（**第 3 条**）；③自由、财产、安全、反抗压迫是**自然权利**（**第 2 条**）；④法律面前人人平等；⑤言论自由、信仰自由；⑥财产权\"神圣不可侵犯\"。**它系统阐述了现代公民权利概念**。"
+      },
+      {
+        "type": "callout",
+        "heading": "现代人权之母",
+        "body": "《人权宣言》是**人类历史上第一个系统的现代人权文件**。它直接启发了**美国《权利法案》**（1791）和**联合国《世界人权宣言》**（1948）。**\"自由、平等、博爱\"** 的口号从此传遍世界。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "关键条款",
+        "items": [
+          "**第 1 条**：人生而自由、平等",
+          "**第 2 条**：自然权利——自由、财产、安全、反抗压迫",
+          "**第 3 条**：主权在民",
+          "**第 4 条**：自由即有权做不害他人的事",
+          "**第 6 条**：法律面前人人平等",
+          "**第 17 条**：财产权神圣不可侵犯"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "女性主义批评",
+        "body": "宣言第 1 条\"人生而平等\"，但**妇女**当时无权投票。1791 年**奥兰普·德古热**发表**《妇女权利宣言》**，尖锐批评：\"妇女生来就有和男人一样的权利。\"——这是女权运动的奠基文本。"
+      },
+      {
+        "type": "quote",
+        "text": "\"Men are born and remain free and equal in rights.\"",
+        "cite": "《人权宣言》第一句"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1789.5",
+        "era": "法国大革命",
+        "event": "路易十六召开**三级会议**"
+      },
+      {
+        "year": "AD 1789.7.14",
+        "era": "法国大革命",
+        "event": "**攻陷巴士底狱**"
+      },
+      {
+        "year": "AD 1789.8.26",
+        "era": "法国大革命",
+        "event": "**《人权宣言》** 通过"
+      },
+      {
+        "year": "AD 1791",
+        "era": "法国",
+        "event": "奥兰普·德古热《**妇女权利宣言**》"
+      },
+      {
+        "year": "AD 1948",
+        "era": "联合国",
+        "event": "**《世界人权宣言》** 通过"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "declaration of rights of man 1789",
+        "caption": "《人权宣言》原本",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "storming bastille 1789 painting",
+        "caption": "攻陷巴士底狱",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "olympe de gouges portrait",
+        "caption": "奥兰普·德古热",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "french national assembly meeting",
+        "caption": "法国国民议会会议",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "p-lafayette",
+        "title": "拉法耶特",
+        "reason": "主要起草人之一"
+      },
+      {
+        "id": "p-jefferson",
+        "title": "杰斐逊",
+        "reason": "美国独立宣言也借鉴了它"
+      },
+      {
+        "id": "ce-023",
+        "title": "九十五条论纲",
+        "reason": "个人权利觉醒"
+      },
+      {
+        "id": "tr-history-intro",
+        "title": "启蒙运动",
+        "reason": "理性主义果实"
+      }
+    ],
+    "source": "📚 《人权宣言》（法国国民议会）、Hunt《Inventing Human Rights》、肖厚国《〈人权宣言〉译注》"
+  },
+  {
+    "id": "ce-027",
+    "title": "希腊字母表",
+    "year": -800,
+    "category": "文字",
+    "location": [
+      23.73,
+      37.97
+    ],
+    "region": "希腊",
+    "importance": 2,
+    "description": "希腊字母约公元前 800 年由古希腊人在腓尼基字母基础上创造。腓尼基字母（公元前 1050 年）有 22 个辅音，无元音。希腊人加入元音（Α Ε Η Ι Ο Υ Ω），共 24 个字母。成为希腊语的标准书写系统，也是数学、物理等学科符号系统的基础（αβγδθλμπφω 等）。拉丁字母（公元前 7 世纪）源自希腊字母西部方言（伊特鲁里亚字母），共 21 个。现代英语字母（26 个）源自拉丁字母。斯拉夫字母（西里尔字母）、格鲁吉亚字母、亚美尼亚字母等都直接或间接源自希腊字母。希腊字母也是西方数学和科学的通用符号系统基础。",
+    "facts": [
+      {
+        "label": "形成年代",
+        "value": "约 BC 800-700"
+      },
+      {
+        "label": "地区",
+        "value": "希腊"
+      },
+      {
+        "label": "字母数",
+        "value": "24 个"
+      },
+      {
+        "label": "源头",
+        "value": "腓尼基字母"
+      },
+      {
+        "label": "贡献",
+        "value": "首次出现元音字母"
+      },
+      {
+        "label": "影响",
+        "value": "拉丁字母、斯拉夫字母的源头"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "字母起源",
+        "body": "腓尼基人（地中海东岸的航海民族）发明了**22 个辅音字母**（无元音），用于商业记账。约 BC 800-700 年，希腊人借用了这套字母，并**首创元音字母**（A、E、I、O、U）——**这是人类文字史的重大突破**。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "字母特点",
+        "body": "希腊字母**24 个**：包括 7 个元音和 17 个辅音。它按**发音部位**系统排列（唇音、舌音、齿音、喉音），**结构清晰、便于学习**。希腊字母还有**大小写两套**（大写多用于铭文，小写多用于抄本）。"
+      },
+      {
+        "type": "callout",
+        "heading": "字母之母",
+        "body": "希腊字母是**拉丁字母的源头**——罗马借希腊字母创造拉丁字母，再演化出西方所有字母。**斯拉夫字母**（西里尔）也由希腊字母改造。**今天全球 30+ 种字母都源于希腊字母**。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "元音创造",
+        "items": [
+          "**Α α**（a）— 来自腓尼基 aleph（牛）",
+          "**Ε ε**（e）— 来自 heh（窗）",
+          "**Ι ι**（i）— 来自 yod（手）",
+          "**Ο ο**（o）— 来自 ayin（眼）",
+          "**Υ υ**（u）— 来自 vav（钩）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "学术语言",
+        "body": "希腊字母至今仍是**数学、物理、天文等学科的通用符号**：π（圆周率）、Ω（电阻）、Φ（磁通）、Σ（求和）、Δ（变化量）。**这显示了希腊字母在西方知识体系中的核心地位**。"
+      },
+      {
+        "type": "quote",
+        "text": "\"ABC...\"...希腊字母 Άλφα Βήτα Γάμμα...",
+        "cite": "希腊字母诵读顺序（西方\"ABC\"的源头）"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1050",
+        "era": "腓尼基",
+        "event": "**腓尼基字母** 形成"
+      },
+      {
+        "year": "BC 800",
+        "era": "希腊",
+        "event": "希腊借用**辅音字母**"
+      },
+      {
+        "year": "BC 730",
+        "era": "希腊",
+        "event": "添加**元音字母**"
+      },
+      {
+        "year": "BC 700",
+        "era": "希腊",
+        "event": "**希腊字母表** 成熟"
+      },
+      {
+        "year": "BC 600",
+        "era": "意大利",
+        "event": "**拉丁字母** 借自希腊"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "greek alphabet ancient inscription",
+        "caption": "希腊字母铭文",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "phoenician alphabet tablet",
+        "caption": "腓尼基字母表",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "greek alphabet letters chart",
+        "caption": "希腊字母对照表",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "classical greek marble inscription",
+        "caption": "古典希腊铭文",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "era-ancient-greece",
+        "title": "古希腊",
+        "reason": "字母创造者"
+      },
+      {
+        "id": "tr-script-natural",
+        "title": "字母文字",
+        "reason": "元音字母创新"
+      },
+      {
+        "id": "ce-001",
+        "title": "甲骨文",
+        "reason": "对比东西方文字起源"
+      },
+      {
+        "id": "ce-034",
+        "title": "汉字统一",
+        "reason": "对比中文发展路径"
+      }
+    ],
+    "source": "📚 Powell《Greek Alphabet》、Jeffery《The Local Scripts of Archaic Greece》、赫尔德《希腊字母史》"
+  },
+  {
+    "id": "ce-028",
+    "title": "《汉谟拉比法典》石刻",
+    "year": -1750,
+    "category": "制度",
+    "location": [
+      44.42,
+      32.54
+    ],
+    "region": "美索不达米亚",
+    "importance": 2,
+    "description": "黑色玄武岩石碑，高 2.25 米，上半部刻汉谟拉比法典序言，下半部刻 282 条法律。1901 年 12 月法国考古学家让-文森特·谢尔泽尔在伊朗苏撒（古埃兰首都）发现。原碑曾被埃兰人作为战利品从巴比伦运到苏撒。1901 年被运到巴黎，1903 年起藏于巴黎卢浮宫。石碑顶端的浮雕是汉谟拉比从太阳神沙马什（Shamash）手中接受权杖的场景，象征君权神授。虽然原文部分磨损（古巴比伦楔形文字），但 80% 的内容仍可辨认。它是世界上现存最早、最完整的成文法典，对后世法律发展影响深远。美索不达米亚文明的代表性文物。",
+    "facts": [
+      {
+        "label": "年代",
+        "value": "约 BC 1750 年"
+      },
+      {
+        "label": "载体",
+        "value": "黑色玄武岩石柱"
+      },
+      {
+        "label": "高度",
+        "value": "2.25 米"
+      },
+      {
+        "label": "发现",
+        "value": "AD 1901 年（法国考古队）"
+      },
+      {
+        "label": "发现地",
+        "value": "伊朗苏萨（Susa）"
+      },
+      {
+        "label": "现藏",
+        "value": "巴黎卢浮宫"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "石柱描述",
+        "body": "汉谟拉比法典石柱由**整块黑色玄武岩**雕成，高 2.25 米，圆周 1.65 米。柱顶浮雕为**太阳神沙马什**将权杖授予国王汉谟拉比的场景，象征\"君权神授\"。柱身刻有阿卡德语楔形文字，**约 8000 个字符**——前言、正文 282 条、结语。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "流散历史",
+        "body": "石柱原本立在**西巴尔（Sippar）**太阳神庙。BC 1595 年赫梯入侵巴比伦，石柱被掠。**BC 1158 年埃兰国王**攻陷巴比伦，将石柱作为战利品运至苏撒。**苏撒被毁后石柱被埋地下**。1901 年法国考古队**雅克·德·摩根**发现并运回巴黎。"
+      },
+      {
+        "type": "callout",
+        "heading": "出土意义",
+        "body": "石柱出土是**20 世纪最重要的考古发现之一**。它使**亚述学**成为现代学科，**楔形文字**被系统破译（19 世纪中叶）。此前美索不达米亚文明主要靠圣经传说认知——**石柱实证了《圣经》之外的真实历史**。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "石柱层次",
+        "items": [
+          "顶部浮雕：沙马什授法",
+          "前言：汉谟拉比自我颂扬",
+          "正文 282 条：法律条文",
+          "结语：汉谟拉比告诫后王"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "收藏争议",
+        "body": "石柱自 1901 年起一直在**卢浮宫**，伊拉克政府多次要求归还未果——这是**文物归还运动**的典型案例。"
+      },
+      {
+        "type": "quote",
+        "text": "\"使正义照耀大地，消灭邪恶之徒。\"",
+        "cite": "汉谟拉比法典前言"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1750",
+        "era": "古巴比伦",
+        "event": "石柱刻成立于**西巴尔**"
+      },
+      {
+        "year": "BC 1595",
+        "era": "赫梯入侵",
+        "event": "巴比伦陷落"
+      },
+      {
+        "year": "BC 1158",
+        "era": "埃兰",
+        "event": "石柱被掠至**苏萨**"
+      },
+      {
+        "year": "AD 1901",
+        "era": "近代",
+        "event": "**法国考古队** 发现"
+      },
+      {
+        "year": "AD 1903",
+        "era": "近代",
+        "event": "石柱入藏**卢浮宫**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "hammurabi stele full height louvre",
+        "caption": "汉谟拉比法典石柱（卢浮宫）",
+        "credit": "Louvre"
+      },
+      {
+        "imageKeyword": "shamash hammurabi relief top",
+        "caption": "沙马什授法浮雕",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "susa ancient ruins persia",
+        "caption": "苏萨遗址",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "cuneiform tablet close up",
+        "caption": "楔形文字细节",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "ce-002",
+        "title": "汉谟拉比法典",
+        "reason": "同一法典不同描述"
+      },
+      {
+        "id": "era-old-babylonian",
+        "title": "古巴比伦",
+        "reason": "法典所属王朝"
+      },
+      {
+        "id": "era-mesopotamia",
+        "title": "美索不达米亚",
+        "reason": "两河文明"
+      },
+      {
+        "id": "ce-005",
+        "title": "罗马十二铜表法",
+        "reason": "比较早期成文法"
+      }
+    ],
+    "source": "📚 Harper《The Code of Hammurabi》、Roth《Law Collections from Mesopotamia》、Lloyd《The Archaeology of Mesopotamia》"
+  },
+  {
+    "id": "ce-029",
+    "title": "古登堡印刷机",
+    "year": 1440,
+    "category": "科技",
+    "location": [
+      8.68,
+      50.11
+    ],
+    "region": "欧洲",
+    "importance": 2,
+    "description": "约翰内斯·古登堡（Johannes Gutenberg，1397/1400-1468）约 1440 年在德国美因茨发明的金属活字印刷机。关键创新：1) 用铅锡锑合金铸造可重复使用的活字；2) 发明油性墨水（亚麻仁油+灯黑）适合金属表面；3) 改进螺旋压印机（来自葡萄酒压榨机），保证均匀压印。约 1455 年印刷 180 册《古登堡圣经》（拉丁文 42 行版），是欧洲第一本重要印刷书。此前欧洲抄书速度约每页 5 小时，印刷速度约每 500 页/天。信息传播成本降低 80%，1500-1600 年欧洲出版书籍数量从 1000 万到 2 亿册。活字印刷与古登堡被誉为西方最重要发明之一，被列入千年人物前三。",
+    "facts": [
+      {
+        "label": "发明者",
+        "value": "约翰内斯·古登堡"
+      },
+      {
+        "label": "年代",
+        "value": "约 AD 1440-1450"
+      },
+      {
+        "label": "地点",
+        "value": "德国美因茨"
+      },
+      {
+        "label": "核心技术",
+        "value": "金属活字 + 螺旋压印机 + 油性墨"
+      },
+      {
+        "label": "首批产品",
+        "value": "《古登堡圣经》（AD 1455）"
+      },
+      {
+        "label": "意义",
+        "value": "现代印刷工业的开端"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "发明背景",
+        "body": "15 世纪欧洲抄书效率极低（每本《圣经》需 170 张羊皮纸，抄写 1 年）。**1450 年前后**，德国美因茨金匠**约翰内斯·古登堡**（约 1398-1468）结合三项已知技术发明**金属活字印刷机**：①金属合金活字（铸字）；②**螺旋压印机**（借用葡萄酒压榨机原理）；③**油性油墨**（亚麻仁油调和）。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "技术细节",
+        "body": "古登堡的金属活字由**铅、锡、锑合金**铸造（每字一印），活字固定在木板上，涂油墨，覆纸，转动螺旋压印。每个零件都经过精密切算，使**每小时可印 250 张**——是手抄的 50 倍。"
+      },
+      {
+        "type": "callout",
+        "heading": "传播之快",
+        "body": "古登堡机发明后，**15 世纪末欧洲已有 250 多家印刷所**，出版了 **2000 万册**书籍。**1492 年哥伦布航行所携地图、《九十五条论纲》（1517）、《天体运行论》（1543）** 都通过印刷传播。**这是信息革命的开端**。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "三项创新",
+        "items": [
+          "**金属合金活字**（铅+锡+锑+铜）",
+          "**螺旋压印机**（葡萄酒压榨机原理）",
+          "**油性油墨**（亚麻仁油）",
+          "**可调整字模**（matrix）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "经济后果",
+        "body": "印刷机使**书籍价格暴跌 80%**：手抄本 200 古登堡→印刷本 5 古登堡。**识字率上升**，中世纪大学教材广泛流传，**推动了文艺复兴、宗教改革、启蒙运动**——**从根本上改变了人类社会**。"
+      },
+      {
+        "type": "quote",
+        "text": "\"印刷术是文艺复兴最重要的工具。\"",
+        "cite": "伊丽莎白·爱森斯坦《作为变革动因的印刷机》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1440",
+        "era": "德意志",
+        "event": "**古登堡** 开始实验"
+      },
+      {
+        "year": "AD 1450",
+        "era": "德意志",
+        "event": "印刷机技术成熟"
+      },
+      {
+        "year": "AD 1455",
+        "era": "德意志",
+        "event": "《**古登堡圣经**》印成"
+      },
+      {
+        "year": "AD 1500",
+        "era": "欧洲",
+        "event": "欧洲印书达 **1000 万册**"
+      },
+      {
+        "year": "AD 1810",
+        "era": "英国",
+        "event": "**蒸汽印刷机** 出现"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "gutenberg press replica mechanical",
+        "caption": "古登堡印刷机复制品",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "metal movable type blocks letters",
+        "caption": "金属活字",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "old printing shop medieval",
+        "caption": "中世纪印刷工坊",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "oil based printing ink historical",
+        "caption": "古代油性印刷墨",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "ce-019",
+        "title": "古登堡圣经",
+        "reason": "印刷机首批产品"
+      },
+      {
+        "id": "ce-012",
+        "title": "活字印刷",
+        "reason": "中国活字先驱"
+      },
+      {
+        "id": "p-gutenberg",
+        "title": "古登堡",
+        "reason": "发明者"
+      },
+      {
+        "id": "ce-023",
+        "title": "九十五条论纲",
+        "reason": "印刷推动改革"
+      }
+    ],
+    "source": "📚 Eisenstein《The Printing Press as an Agent of Change》、Ingram《The Gutenberg Revolution》、Pettegree《The Book in the Renaissance》"
+  },
+  {
+    "id": "ce-030",
+    "title": "印度教形成",
+    "year": -1500,
+    "category": "宗教",
+    "location": [
+      78.96,
+      22.59
+    ],
+    "region": "印度",
+    "importance": 2,
+    "description": "印度教（Hinduism）由公元前 1500 年左右雅利安人带入印度的吠陀信仰演化而来。核心经典：吠陀本集（《梨俱吠陀》等 4 部，约公元前 1500-1000 年）、婆罗门书（公元前 1000-500 年）、奥义书（公元前 800-500 年）。核心教义：1) 法（dharma）：宇宙秩序；2) 业（karma）：因果报应；3) 轮回（samsara）：生死循环；4) 解脱（moksha）：摆脱轮回。4 部吠陀经也由口传到 6 世纪成文。印度教没有单一创始人，是世界上最多样化的宗教之一（有湿婆派、毗湿奴派、萨克蒂派等），与佛教、耆那教、锡克教有渊源。现全球 12 亿信徒，是世界第 3 大宗教（仅次于基督教、伊斯兰教）。种姓制度（varna）源于吠陀时期。",
+    "facts": [
+      {
+        "label": "形成年代",
+        "value": "约 BC 1500-500"
+      },
+      {
+        "label": "地区",
+        "value": "印度次大陆"
+      },
+      {
+        "label": "核心经典",
+        "value": "《吠陀》《奥义书》《薄伽梵歌》"
+      },
+      {
+        "label": "核心教义",
+        "value": "梵我一如、轮回解脱"
+      },
+      {
+        "label": "主要神祇",
+        "value": "梵天、毗湿奴、湿婆"
+      },
+      {
+        "label": "信徒",
+        "value": "约 12 亿（全球第三大宗教）"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "起源",
+        "body": "印度教（Hinduism）并非某个创始人建立的宗教，而是**印度次大陆原住民宗教传统的延续与演变**。约 BC 1500 年雅利安人进入印度，带来《吠陀》经典；与本土达罗毗荼人信仰融合，逐步演变为印度教。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "经典体系",
+        "body": "印度教经典分四部分：①**《吠陀本集》**（Vedas）—— 颂神诗集；②**《梵书》**（Brahmanas）——祭祀仪式；③**《森林书》**（Aranyakas）；④**《奥义书》**（Upanishads）——哲学核心；⑤**《薄伽梵歌》**——史诗《摩诃婆罗多》核心。"
+      },
+      {
+        "type": "callout",
+        "heading": "印度文明的核心",
+        "body": "印度教不只是宗教，更是**印度文明的底层操作系统**：种姓制度、瑜伽、苦行、节庆（如排灯节 Diwali）、婚姻习俗都源于此。**它不像其他宗教有明确创始人**，所以有人称之为\"**印度教生活方式**\"。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "三大主神",
+        "items": [
+          "**梵天**（Brahma）——创造之神",
+          "**毗湿奴**（Vishnu）——保护之神",
+          "**湿婆**（Shiva）——毁灭与重生"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "佛教的母体",
+        "body": "佛教、耆那教都源于印度教传统（公元前 6 世纪\"沙门思潮\"）。**佛教兴起后，印度教吸收佛教元素（如菩萨、舍利塔）继续发展**。"
+      },
+      {
+        "type": "quote",
+        "text": "\"Tat tvam asi.\"（你是那。）",
+        "cite": "《奥义书》——梵我一如"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1500",
+        "era": "吠陀期",
+        "event": "**雅利安人**入印，吠陀形成"
+      },
+      {
+        "year": "BC 900",
+        "era": "梵书期",
+        "event": "祭祀仪式制度化"
+      },
+      {
+        "year": "BC 600",
+        "era": "奥义书期",
+        "event": "《**奥义书**》哲学反思"
+      },
+      {
+        "year": "BC 400",
+        "era": "史诗期",
+        "event": "《**薄伽梵歌**》编入《摩诃婆罗多》"
+      },
+      {
+        "year": "AD 800",
+        "era": "中世纪",
+        "event": "**商羯罗** 改革印度教"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "hindu temple ornate sculpture",
+        "caption": "印度教神庙雕刻",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "shiva nataraja bronze statue",
+        "caption": "湿婆舞蹈之王（铜像）",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "ganges river varanasi ghats",
+        "caption": "恒河瓦拉纳西",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "om symbol sanskrit hindu",
+        "caption": "\"唵\"（Om）——印度教象征",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "ce-031",
+        "title": "佛教创立",
+        "reason": "源于印度教"
+      },
+      {
+        "id": "tr-religion-hinduism",
+        "title": "印度教传统",
+        "reason": "印度教历史"
+      },
+      {
+        "id": "era-ancient-india",
+        "title": "古印度",
+        "reason": "文明所在"
+      },
+      {
+        "id": "tr-myth-shiva",
+        "title": "湿婆神话",
+        "reason": "三大主神"
+      }
+    ],
+    "source": "📚 Flood《An Introduction to Hinduism》、Doniger《The Hindus: An Alternative History》、Radhakrishnan《Indian Philosophy》"
+  },
+  {
+    "id": "ce-031",
+    "title": "佛教创立",
+    "year": -528,
+    "category": "宗教",
+    "location": [
+      84.99,
+      24.69
+    ],
+    "region": "印度",
+    "importance": 2,
+    "description": "佛教由乔达摩·悉达多（释迦牟尼，前 563-前 483）在公元前 528 年（成道后 1 年）创立。释迦牟尼是古印度迦毗罗卫国（今尼泊尔境内）王子，29 岁出家修行，35 岁在菩提伽耶菩提树下悟道。此后 45 年在恒河流域传教，80 岁在拘尸那迦圆寂。核心教义：四圣谛（苦、集、灭、道）、八正道、十二因缘、无常、无我。公元前 3 世纪阿育王统治孔雀王朝时佛教成为国教，传遍印度次大陆。公元前 1 世纪经中亚传入中国（汉代），东汉时形成汉传佛教（汉语系）。北传经丝绸之路到中亚、中国、朝鲜、日本、越南；南传经斯里兰卡到东南亚（缅甸、泰国、柬埔寨）。现全球 5 亿信徒。释迦牟尼悟道之地菩提伽耶（Bodh Gaya）现为联合国世界文化遗产。",
+    "facts": [
+      {
+        "label": "创始人",
+        "value": "乔达摩·悉达多（释迦牟尼）"
+      },
+      {
+        "label": "年代",
+        "value": "约 BC 528 年（35 岁觉悟）"
+      },
+      {
+        "label": "地区",
+        "value": "古印度·迦毗罗卫（今尼泊尔蓝毗尼）"
+      },
+      {
+        "label": "核心教义",
+        "value": "四圣谛、八正道、十二因缘"
+      },
+      {
+        "label": "主要经典",
+        "value": "三藏（经、律、论）"
+      },
+      {
+        "label": "信徒",
+        "value": "约 5 亿（全球第四大宗教）"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "创立背景",
+        "body": "乔达摩·悉达多（约 BC 563-483），**释迦族**王子，迦毗罗卫国（今尼泊尔境内）王子。他 29 岁出家修道，35 岁在**菩提伽耶**一棵菩提树下证悟（\"佛陀\"），从此开始**45 年传教**，80 岁涅槃。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "核心教义",
+        "body": "①**四圣谛**（苦、集、灭、道）；②**八正道**（正见、正思维、正语、正业、正命、正精进、正念、正定）；③**十二因缘**（无明→行→识→名色→六入→触→受→爱→取→有→生→老死）；④**缘起性空**；⑤**三法印**（诸行无常、诸法无我、涅槃寂静）。"
+      },
+      {
+        "type": "callout",
+        "heading": "从王子到觉者",
+        "body": "佛陀放弃王子身份（\"金盆洗手\"）的举动，**开辟了世界宗教史的先例**——东方世界从此有了\"**主动放弃世俗权力**\"的觉悟传统。这一传统深刻影响了印度、中国、韩国、日本的禅修文化。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "传教核心",
+        "items": [
+          "**第一次说法**：鹿野苑（**初转法轮**）",
+          "**主要听众**：国王、商人、农民、妓女、贱民",
+          "**核心弟子**：舍利弗、目犍连、阿难",
+          "**僧团**：比丘、比丘尼二众",
+          "**国王皈依**：摩揭陀国王阿阇世"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "汉传与藏传",
+        "body": "佛教沿两条路线传播：①**北传**（汉传、藏传）—— 强调成佛度众生（大乘）；②**南传**（上座部）—— 强调个人解脱（原始佛教）。**佛教传入中国（汉代）**，与中国本土文化深度融合，形成禅宗、净土宗等八大宗派。"
+      },
+      {
+        "type": "quote",
+        "text": "\"凡所有相，皆是虚妄。\"",
+        "cite": "《金刚经》核心偈"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 563",
+        "era": "古印度",
+        "event": "**乔达摩·悉达多** 出生（蓝毗尼）"
+      },
+      {
+        "year": "BC 534",
+        "era": "古印度",
+        "event": "**出家** 求道"
+      },
+      {
+        "year": "BC 528",
+        "era": "古印度",
+        "event": "**菩提伽耶** 证悟成佛"
+      },
+      {
+        "year": "BC 483",
+        "era": "古印度",
+        "event": "佛陀**涅槃**"
+      },
+      {
+        "year": "AD 67",
+        "era": "汉代",
+        "event": "**佛教** 正式传入中国"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "buddha statue meditating banyan tree",
+        "caption": "佛陀菩提伽耶像",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "bodh gaya temple pilgrimage",
+        "caption": "菩提伽耶（佛陀证悟地）",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "buddha first sermon deer park",
+        "caption": "鹿野苑初转法轮",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "buddhist monk saffron robe meditation",
+        "caption": "佛教僧侣修行",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "ce-030",
+        "title": "印度教形成",
+        "reason": "佛教源于印度教传统"
+      },
+      {
+        "id": "ce-014",
+        "title": "敦煌莫高窟",
+        "reason": "佛教艺术宝库"
+      },
+      {
+        "id": "tr-religion-buddhism",
+        "title": "佛教传统",
+        "reason": "佛教在中国的发展"
+      },
+      {
+        "id": "p-buddha",
+        "title": "释迦牟尼",
+        "reason": "创始人"
+      }
+    ],
+    "source": "📚 释迦牟尼原始教义、Robinson《What Buddhists Believe》、Rahula《What the Buddha Taught》"
+  },
+  {
+    "id": "ce-032",
+    "title": "基督教创立",
+    "year": 30,
+    "category": "宗教",
+    "location": [
+      35.21,
+      31.78
+    ],
+    "region": "中东",
+    "importance": 2,
+    "description": "基督教由拿撒勒人耶稣（约公元前 4 年-公元 30/33 年）创立。耶稣是巴勒斯坦伯利恒出生的犹太人，在加利利传道 3 年，招收 12 门徒。核心教义：上帝是唯一的神（继承犹太教一神论），爱、信、宽恕（爱你的邻人、爱你的敌人）、救赎（耶稣为人类罪而死）。耶稣因宣称自己是弥赛亚（救世主）而遭犹太公会和罗马总督彼拉多审判，被钉十字架于耶路撒冷各各他（髑髅地），死后 3 日复活。门徒保罗将福音传遍罗马帝国，公元 4 世纪罗马帝国国教化。中世纪发展出天主教、东正教。11 世纪天主教东西教会大分裂。16 世纪宗教改革产生新教各派（路德宗、加尔文宗、圣公会）。现全球 24 亿信徒，是世界上最大的宗教。圣地耶路撒冷（耶稣受难地）是基督教、犹太教、伊斯兰教共同的圣城。",
+    "facts": [
+      {
+        "label": "创立年代",
+        "value": "约 AD 30 年"
+      },
+      {
+        "label": "地区",
+        "value": "犹太行省（罗马帝国）"
+      },
+      {
+        "label": "创始人",
+        "value": "耶稣基督"
+      },
+      {
+        "label": "核心教义",
+        "value": "三位一体、救赎、复活"
+      },
+      {
+        "label": "主要经典",
+        "value": "《圣经》（旧约+新约）"
+      },
+      {
+        "label": "信徒",
+        "value": "约 24 亿（全球第一大宗教）"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "创立背景",
+        "body": "**耶稣基督**（约 BC 4-AD 30），巴勒斯坦地区犹太人。他 30 岁开始传道，宣讲\"**天国近了，你们应当悔改**\"。他宣称自己是**弥赛亚（救世主）**、神的儿子。因挑战犹太教祭司权威和罗马统治，被钉十字架。**第三日复活**——这是基督教的核心信仰。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "发展历程",
+        "body": "耶稣死后，**门徒**（特别是保罗、彼得）将他的教训传遍地中海世界。**公元 313 年君士坦丁**颁布**米兰敕令**，基督教获得合法地位；**公元 392 年狄奥多西**定基督教为罗马国教。"
+      },
+      {
+        "type": "callout",
+        "heading": "世界最大宗教",
+        "body": "基督教是**全球第一大宗教**（24 亿信徒，约占世界人口 1/3）。它直接塑造了**西方文明**的核心：法律、道德、艺术、哲学、语言。它也是**传教士最成功的全球宗教**——传遍全球每个角落。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "主要教派",
+        "items": [
+          "**罗马天主教**（11 亿）—— 教皇制、圣事",
+          "**东正教**（2 亿）—— 君士坦丁堡传统",
+          "**新教**（8 亿）—— 16 世纪宗教改革产物",
+          "**福音派**（快速增长）",
+          "**圣公会**（英国国教延续）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "与犹太教关系",
+        "body": "基督教脱胎于**犹太教**——耶稣和早期门徒都是犹太人。新约是用**希腊文**写成（不是希伯来文），面向非犹太信徒。基督教既继承犹太教经典（旧约），又增添新约——形成\"**新旧约圣经**\"。"
+      },
+      {
+        "type": "quote",
+        "text": "\"God so loved the world that he gave his one and only Son.\"",
+        "cite": "《约翰福音》3:16"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 30",
+        "era": "罗马帝国",
+        "event": "**耶稣** 被钉十字架、复活"
+      },
+      {
+        "year": "AD 313",
+        "era": "罗马帝国",
+        "event": "**米兰敕令**，基督教合法化"
+      },
+      {
+        "year": "AD 392",
+        "era": "罗马帝国",
+        "event": "**狄奥多西** 定基督教为国教"
+      },
+      {
+        "year": "AD 1054",
+        "era": "中世纪",
+        "event": "**东西教会大分裂**"
+      },
+      {
+        "year": "AD 1517",
+        "era": "近代",
+        "event": "**宗教改革**（路德、加尔文）"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "jesus crucifixion religious painting",
+        "caption": "耶稣受难（古典绘画）",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "jerusalem old city church holy sepulchre",
+        "caption": "耶路撒冷圣墓教堂",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "last supper leonardo",
+        "caption": "达·芬奇《最后的晚餐》",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "vatican st peters basilica rome",
+        "caption": "圣彼得大教堂",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "ce-033",
+        "title": "可兰经成书",
+        "reason": "三大亚伯拉罕宗教之一"
+      },
+      {
+        "id": "ce-023",
+        "title": "九十五条论纲",
+        "reason": "宗教改革"
+      },
+      {
+        "id": "ce-018",
+        "title": "西斯廷教堂",
+        "reason": "基督教艺术"
+      },
+      {
+        "id": "tr-religion-christianity",
+        "title": "基督教史",
+        "reason": "完整基督教历史"
+      }
+    ],
+    "source": "📚 《新约圣经》、Gonzalez《The Story of Christianity》、Brown《An Introduction to the New Testament》"
+  },
+  {
+    "id": "ce-033",
+    "title": "《可兰经》成书",
+    "year": 650,
+    "category": "宗教",
+    "location": [
+      46.72,
+      24.69
+    ],
+    "region": "中东",
+    "importance": 2,
+    "description": "《可兰经》（Quran，阿拉伯语意为诵读）是伊斯兰教的根本经典，被穆斯林视为真主安拉通过先知穆罕默德降示的启示。穆罕默德 610 年开始在麦加传道，632 年逝世时《可兰经》尚未成文，散记在椰枣叶、兽骨、皮革上。第一任哈里发阿布·伯克尔（632-634）下令整理；第三任哈里发奥斯曼（644-656）成立专门委员会，由穆罕默德秘书栽德·本·萨比特主持，在 651-652 年定型为标准版本（奥斯曼定本），销毁了不同版本。共 30 卷（章 juz）114 章（sura），6200 多节（ayah）。阿拉伯语原文被认为是真主的言语（神圣语言）。抄本藏于麦加禁寺和世界各大清真寺。是伊斯兰教法学（sharia）和日常生活的根本指南。穆斯林相信《可兰经》是真主最后的启示，之前的《圣经》被篡改。",
+    "facts": [
+      {
+        "label": "通过对象",
+        "value": "先知穆罕默德"
+      },
+      {
+        "label": "年代",
+        "value": "约 AD 610-632"
+      },
+      {
+        "label": "定本年代",
+        "value": "AD 650 年（奥斯曼哈里发时期）"
+      },
+      {
+        "label": "语种",
+        "value": "阿拉伯语"
+      },
+      {
+        "label": "章节数",
+        "value": "114 章（苏拉）"
+      },
+      {
+        "label": "信徒",
+        "value": "约 19 亿（全球第二大宗教）"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "降示背景",
+        "body": "穆罕默德（约 AD 570-632），麦加古莱什部落哈希姆家族出身。他 40 岁（约 AD 610）在**希拉山洞**独修时，**天使吉卜利勒（加百列）**首次降示《古兰经》。此后 22 年，零星启示断断续续降下，**第三任哈里发奥斯曼**将其编纂为标准文本。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "核心教义",
+        "body": "①**信安拉**（唯一神，99 个美名）；②**信天使**（吉卜利勒、米卡伊勒等）；③**信经典**（《古兰经》外还有《讨拉特》《引支勒》《宰逋尔》原版）；④**信先知**（阿丹、易卜拉欣、穆萨、尔萨、穆罕默德）；⑤**信末日**（复生日与审判）；⑥**信前定**（taqdir）。"
+      },
+      {
+        "type": "callout",
+        "heading": "阿拉伯语的统一",
+        "body": "《古兰经》被穆斯林视为**安拉原话的复制**——是**人类语言的完美版本**。这促使穆斯林**排斥《古兰经》翻译**（翻译本被视为\"注释\"），从而**保存了阿拉伯语的统一性**：从摩洛哥到伊拉克，所有阿拉伯国家读同一版本《古兰经》。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "核心主题",
+        "items": [
+          "**认主独一**（Tawhid）",
+          "**末日审判**（Yawm al-Qiyamah）",
+          "**先知故事**（阿丹、易卜拉欣、穆萨、尔萨）",
+          "**伦理法律**（礼拜、斋戒、天课、朝觐）",
+          "**善恶报应**（天堂与火狱）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "亚伯拉罕传统",
+        "body": "伊斯兰教属**亚伯拉罕一神教传统**，与犹太教、基督教同源。**穆斯林称犹太教徒和基督徒为\"有经者\"（Ahl al-Kitab）**——共同敬拜同一神。"
+      },
+      {
+        "type": "quote",
+        "text": "\"Inna lillahi wa inna ilayhi raji'un.\"",
+        "cite": "《古兰经》2:156——\"我们确属安拉，我们将归于他\""
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 570",
+        "era": "阿拉伯",
+        "event": "**穆罕默德** 出生（麦加）"
+      },
+      {
+        "year": "AD 610",
+        "era": "阿拉伯",
+        "event": "**希拉山洞**首次降示"
+      },
+      {
+        "year": "AD 622",
+        "era": "阿拉伯",
+        "event": "**希吉拉**迁至麦地那"
+      },
+      {
+        "year": "AD 632",
+        "era": "阿拉伯",
+        "event": "**穆罕默德** 去世"
+      },
+      {
+        "year": "AD 650",
+        "era": "阿拉伯",
+        "event": "**奥斯曼哈里发** 确立定本"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "quran ancient manuscript arabic",
+        "caption": "《古兰经》古抄本",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "mecca kaaba mosque",
+        "caption": "麦加克尔白",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "prophet mohammad historical calligraphy",
+        "caption": "穆罕默德书法艺术",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "mosque dome arabesque architecture",
+        "caption": "清真寺建筑",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "ce-032",
+        "title": "基督教创立",
+        "reason": "亚伯拉罕传统"
+      },
+      {
+        "id": "tr-religion-islam",
+        "title": "伊斯兰教",
+        "reason": "伊斯兰教传统"
+      },
+      {
+        "id": "ce-030",
+        "title": "印度教形成",
+        "reason": "全球主要宗教对比"
+      },
+      {
+        "id": "p-mohammed",
+        "title": "穆罕默德",
+        "reason": "先知"
+      }
+    ],
+    "source": "📚 《古兰经》（马坚译本）、Esposito《Islam: The Straight Path》、Watt《Muhammad: Prophet and Statesman》"
+  },
+  {
+    "id": "ce-034",
+    "title": "汉字统一",
+    "year": -221,
+    "category": "文字",
+    "location": [
+      108.94,
+      34.34
+    ],
+    "region": "中国",
+    "importance": 3,
+    "description": "公元前 221 年秦始皇统一六国后，采纳李斯建议推行书同文政策，以秦国通行的小篆为标准文字，废止六国异体字（齐、楚、燕、赵、魏、韩各有不同写法）。小篆笔画圆转、结构对称，是规范化程度最高的古文字。同时统一度量衡（车同轨、行同伦），是中国历史上第一次大规模语言文字规范化工程，奠定了书同文的中华文化认同基础，虽然秦朝短命，但小篆和隶书（秦狱吏程邈整理）延续为汉字正字，汉代演变为楷书（唐代定形）。影响中国 2000 多年——日本汉字（漢字/kanji）、朝鲜汉字（한자/hanja）也保留汉字。书同文是中华文化统一的核心要素，与车同轨（统一道路规格）、统一度量衡构成秦始皇三大统一政策。也是中华文化圈形成的基础。",
+    "facts": [
+      {
+        "label": "年代",
+        "value": "BC 221 年（秦统一六国）"
+      },
+      {
+        "label": "推行者",
+        "value": "秦始皇、李斯"
+      },
+      {
+        "label": "基础",
+        "value": "秦国大篆"
+      },
+      {
+        "label": "规范",
+        "value": "小篆（\"书同文\"）"
+      },
+      {
+        "label": "其他统一",
+        "value": "度量衡（\"车同轨\"）、货币、车轨"
+      },
+      {
+        "label": "意义",
+        "value": "汉字传承 2200 年的基础"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "统一背景",
+        "body": "春秋战国时期，各国**语言异声、文字异形**——同一字在各国写法不同。秦统一六国后（前 230-221），**丞相李斯**主持整理文字，废除六国异体字，**以秦国大篆为基础创制\"小篆\"**——这就是\"书同文\"。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "配套制度",
+        "body": "秦始皇同步推行：①**车同轨**——统一车轮距（轨距 6 尺）；②**度量衡**——统一斗、斤、尺；③**货币**——以秦\"半两\"钱统一六国货币；④**律令**——以秦律统一六国。这些都是**中央集权的物质基础**。"
+      },
+      {
+        "type": "callout",
+        "heading": "文化认同的根本",
+        "body": "汉字统一使中国 2200 年来**语言可隔代通**——2000 年前的汉朝人文章今天能读懂。**这是中华文明延续性的根本保证**——欧洲各国语言虽都源于拉丁语，但因文字标准化失败，**没有一种文字覆盖全欧洲**。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "统一行动",
+        "items": [
+          "**书同文**（汉字统一为小篆）",
+          "**车同轨**（统一轨距 6 尺）",
+          "**统一度量衡**（斗、斤、尺）",
+          "**统一货币**（半两钱）",
+          "**修驰道**（全国交通网）",
+          "**筑长城**（统一边防）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "书同文工程",
+        "body": "李斯作《**仓颉篇**》、赵高作《**爰历篇**》、胡毋敬作《**博学篇**》，共 3300 字作为标准教材，颁行全国。秦代后期\"**隶书**\"逐渐取代小篆，简化笔画。**隶书至汉代成熟**，成为此后 2000 年汉字的基础字体。"
+      },
+      {
+        "type": "quote",
+        "text": "\"书同文，车同轨，行同伦。\"",
+        "cite": "《礼记·中庸》——秦统一后的制度总结"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 230",
+        "era": "秦",
+        "event": "**秦** 开始统一战争"
+      },
+      {
+        "year": "BC 221",
+        "era": "秦",
+        "event": "**秦** 统一六国"
+      },
+      {
+        "year": "BC 221",
+        "era": "秦",
+        "event": "李斯推行**书同文**"
+      },
+      {
+        "year": "BC 213",
+        "era": "秦",
+        "event": "**焚书坑儒**"
+      },
+      {
+        "year": "BC 200",
+        "era": "汉",
+        "event": "**隶书** 取代小篆成为主流"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "qin shihuang terracotta warrior",
+        "caption": "秦始皇兵马俑",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "small seal script characters qin",
+        "caption": "秦小篆字体",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "li si qin calligrapher",
+        "caption": "李斯（书同文主持者）",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "chinese bamboo slip writing",
+        "caption": "秦汉简牍书写",
+        "credit": "Wikimedia Commons"
+      }
+    ],
+    "related": [
+      {
+        "id": "ce-001",
+        "title": "甲骨文诞生",
+        "reason": "汉字源头"
+      },
+      {
+        "id": "p-qin-shi-huang",
+        "title": "秦始皇",
+        "reason": "推行统一"
+      },
+      {
+        "id": "p-li-si",
+        "title": "李斯",
+        "reason": "书同文主持"
+      },
+      {
+        "id": "era-qin",
+        "title": "秦朝",
+        "reason": "统一年代"
+      }
+    ],
+    "source": "📚 许慎《说文解字》、王力《古代汉语》、William Boltz《The Origin and Development of Chinese Writing》"
+  },
+  {
+    "id": "ce-035",
+    "title": "古罗马《十二铜表法》",
+    "year": -451,
+    "category": "制度",
+    "location": [
+      12.5,
+      41.9
+    ],
+    "region": "罗马",
+    "importance": 2,
+    "description": "公元前 451 年罗马共和国十人委员会起草，刻在 12 块铜板上（其中两块在高卢入侵时毁于火灾），在罗马广场公开展示。这是古罗马第一部成文法典，结束了贵族对法律解释权的垄断，保护了平民的基本权利。内容涵盖诉讼程序（传唤、审判、执行）、所有权、土地、婚姻、继承、债务、刑法等。原则是公民在法律面前平等（suo iure utatur），但实际条文按社会等级（贵族/平民/奴隶）差异化。对后世欧洲各国法律影响深远，是现代大陆法系（成文法系）和普通法系（英美法系）共同的源头之一。原铜板虽失传，但内容通过后世法学家（盖尤斯《法学阶梯》、保罗《法学汇编》等）的引述保存下来。与希腊梭伦立法（公元前 594 年）并称古代世界两大立法里程碑。罗马法精神（自然法理念）通过中世纪教会法→罗马法复兴（11 世纪波伦那大学）→拿破仑《法国民法典》→现代欧洲法律体系，深刻影响了世界法律史。",
+    "facts": [
+      {
+        "label": "年代",
+        "value": "BC 451-450"
+      },
+      {
+        "label": "地区",
+        "value": "罗马共和国"
+      },
+      {
+        "label": "条文数",
+        "value": "约 450 条（12 表）"
+      },
+      {
+        "label": "起草",
+        "value": "十人立法委员会"
+      },
+      {
+        "label": "目的",
+        "value": "限制贵族司法特权"
+      },
+      {
+        "label": "意义",
+        "value": "罗马法基础 / 大陆法系源头"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "立法背景",
+        "body": "罗马共和国早期**实行习惯法**，法律由贵族祭司阶层（Pontifex）把持。**法律未成文**，贵族可以随意解释，对平民不公。**BC 494 年平民撤离运动**后，平民争得保民官；BC 462 年提议成文法；**BC 451 年十人立法委员会赴希腊考察**，最后形成 12 表法。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "法律内容",
+        "body": "原文刻于 12 块青铜牌（故名\"十二表\"），内容分：①**诉讼程序**（传唤、审理、执行）；②**家庭法**（家长权、婚姻、继承）；③**财产法**（所有权、占有、债）；④**侵权法**；⑤**刑法**；⑥**公法与宗教法**。条文**简短具体**（如\"断自由人骨者罚 300 阿斯\"）。"
+      },
+      {
+        "type": "callout",
+        "heading": "公私契约之母",
+        "body": "《十二铜表法》是**平民对贵族长期斗争的胜利**——它将法律从秘密变为公开文本，**限制贵族随意解释法律**。西塞罗称之为**\"一切公私契约之母\"**。**它是罗马法的源头**，经中世纪注释法学派传承，**成为现代大陆法系（法德日）的根源**。",
+        "variant": "success"
+      },
+      {
+        "type": "list",
+        "heading": "十二表",
+        "items": [
+          "**第一表**：传唤与审判",
+          "**第二表**：审理",
+          "**第三表**：执行",
+          "**第四表**：家长权",
+          "**第五表**：继承与监护",
+          "**第六表**：所有权与占有",
+          "**第七表**：地役权与相邻关系",
+          "**第八表**：侵权法",
+          "**第九表**：刑法",
+          "**第十表**：宗教法",
+          "**第十一表**：补充法（一）",
+          "**第十二表**：补充法（二）"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "文本命运",
+        "body": "**原 12 表铜牌在 BC 390 年高卢人入侵罗马时被毁**。但内容通过**法学家的引用**（西塞罗、盖尤斯《法学阶梯》）**部分保存**。后世编纂的\"十二表\"多为后世复原。"
+      },
+      {
+        "type": "quote",
+        "text": "\"Summa ius summa iniuria.\"",
+        "cite": "古罗马格言：\"最严的法就是最大的不公\"——批评严格执法"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 494",
+        "era": "罗马共和国",
+        "event": "平民**第一次撤离**运动"
+      },
+      {
+        "year": "BC 462",
+        "era": "罗马共和国",
+        "event": "保民官**提出成文法**要求"
+      },
+      {
+        "year": "BC 451",
+        "era": "罗马共和国",
+        "event": "**十人立法委员会** 赴希腊考察"
+      },
+      {
+        "year": "BC 450",
+        "era": "罗马共和国",
+        "event": "**十二铜表法** 颁布"
+      },
+      {
+        "year": "BC 390",
+        "era": "罗马共和国",
+        "event": "原铜表**毁于高卢入侵**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "roman forum ruins columns",
+        "caption": "罗马广场遗址",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "twelve tables illustration engraving",
+        "caption": "十二铜表法版画",
+        "credit": "公共领域"
+      },
+      {
+        "imageKeyword": "roman bronze tablet inscription",
+        "caption": "罗马青铜铭牌",
+        "credit": "Wikimedia Commons"
+      },
+      {
+        "imageKeyword": "roman consul senate roman republic",
+        "caption": "罗马共和国元老院",
+        "credit": "公共领域"
+      }
+    ],
+    "related": [
+      {
+        "id": "ce-005",
+        "title": "罗马十二铜表法",
+        "reason": "同一法典不同描述"
+      },
+      {
+        "id": "era-rome-republic",
+        "title": "罗马共和国",
+        "reason": "法典所属政体"
+      },
+      {
+        "id": "ce-002",
+        "title": "汉谟拉比法典",
+        "reason": "更早的成文法典"
+      },
+      {
+        "id": "tr-history-law",
+        "title": "古代法律",
+        "reason": "大陆法系源头"
+      }
+    ],
+    "source": "📚 西塞罗《De Legibus》、Berger《Encyclopedic Dictionary of Roman Law》、Crawford《Roman Statutes》"
+  }
+]

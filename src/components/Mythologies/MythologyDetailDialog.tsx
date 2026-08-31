@@ -13,6 +13,7 @@
  * 注：未来详版迭代 → 这里替换 `summary` 为 `fullStory`
  */
 import ModalShell from '@/components/ui/Modal'
+import { OverviewRichContent } from '@/components/ui/OverviewRichContent'
 import { bingImage } from '@/utils/geoImage'
 import {
   MYTHOLOGIES,
@@ -95,6 +96,9 @@ export default function MythologyDetailDialog({ myth, onClose, onJumpToGraph }: 
               {myth.summary}
             </p>
           </div>
+
+          {/* 富内容 */}
+          <OverviewRichContent item={myth as any} />
 
           {/* 登场角色 */}
           {characters.length > 0 && (

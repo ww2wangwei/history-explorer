@@ -11,6 +11,7 @@ import { useEffect, useState, memo } from 'react'
 import TerritoryMapThumb from './TerritoryMapThumb'
 import MarkdownText from './MarkdownText'
 import MiniMap from '@/components/Figures/MiniMap'
+import { OverviewRichContent } from '@/components/ui/OverviewRichContent'
 import { TERRITORY_FILES } from '@/data/territory-files'
 import { ERA_CENTERS } from '@/data/era-centers'
 import { getProvincesForTerritory, type Province } from '@/data/china-provinces'
@@ -173,6 +174,9 @@ function TerritoryDetailModalInner({ territoryId, region, era: eraProp, geojson,
                   </div>
                 </div>
               )}
+
+              {/* 富内容 */}
+              {era && <OverviewRichContent item={era as any} />}
 
               {/* 核心要点 */}
               {era?.keyPoints && era.keyPoints.length > 0 && (

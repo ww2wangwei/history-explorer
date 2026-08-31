@@ -1,0 +1,5134 @@
+{
+  "tr-tech-counting": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**计数与算术**"
+      },
+      {
+        "label": "起源",
+        "value": "**新石器（结绳）**"
+      },
+      {
+        "label": "核心",
+        "value": "**十进制、算筹**"
+      },
+      {
+        "label": "代表",
+        "value": "**《九章算术》、算盘**"
+      },
+      {
+        "label": "现代",
+        "value": "**世遗**"
+      },
+      {
+        "label": "意义",
+        "value": "**数学成就**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "计数起源",
+        "body": "中华计数起源远古。结绳记事（黄帝）；刻契计数；十进制（\"十\"手指）。"
+      },
+      {
+        "type": "callout",
+        "heading": "算筹与算盘",
+        "body": "算筹是中国传统计算工具。春秋战国至元代使用；元代改进为算盘（珠算）；沿用至今。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "《九章算术》",
+        "body": "《九章算术》是中华数学经典。汉代成书；246 题；分方田、粟米、衰分等九章。"
+      },
+      {
+        "type": "list",
+        "heading": "主要成就",
+        "items": [
+          "十进制",
+          "算筹",
+          "算盘",
+          "九章算术",
+          "圆周率 (祖冲之)",
+          "勾股定理"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "数学家",
+        "body": "中华数学家祖冲之、刘徽、秦九韶、杨辉、朱世杰。祖冲之推算圆周率 3.1415926-3.1415927。"
+      },
+      {
+        "type": "quote",
+        "text": "**运筹帷幄，决胜千里**。",
+        "cite": "兵法与算术"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "新石器",
+        "event": "**结绳记事**"
+      },
+      {
+        "year": "BC 1000",
+        "era": "商周",
+        "event": "**十进制**"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**算筹**"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**九章算术**"
+      },
+      {
+        "year": "AD 500",
+        "era": "南北朝",
+        "event": "**祖冲之**"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": "**算盘**"
+      },
+      {
+        "year": "AD 2013",
+        "era": "当代",
+        "event": "**珠算**世遗"
+      },
+      {
+        "year": "AD 2013",
+        "era": "当代",
+        "event": "**珠算**列入非遗"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese abacus suanpan",
+        "caption": "中国算盘",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "ancient counting rods",
+        "caption": "算筹",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "jiuzhang suanshu ancient",
+        "caption": "九章算术",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "数学是科技"
+      },
+      {
+        "id": "tr-tech-mengxi",
+        "title": "梦溪笔谈",
+        "reason": "科技记录"
+      },
+      {
+        "id": "tr-tech-zhoubi",
+        "title": "周髀算经",
+        "reason": "天文数学"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "科技基础"
+      },
+      {
+        "id": "tr-tech-gan",
+        "title": "甘石星经",
+        "reason": "天文学"
+      },
+      {
+        "id": "tr-tech-sunzi",
+        "title": "孙子兵法",
+        "reason": "数学与军事"
+      }
+    ],
+    "source": "九章算术 (汉)、数书九章 (宋秦九韶)、中国数学史 (钱宝琮)"
+  },
+  "tr-tech-four": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**四大发明**"
+      },
+      {
+        "label": "核心",
+        "value": "**造纸、印刷、火药、指南针**"
+      },
+      {
+        "label": "起源",
+        "value": "**汉~宋**"
+      },
+      {
+        "label": "影响",
+        "value": "**世界文明**"
+      },
+      {
+        "label": "意义",
+        "value": "**中华科技代表**"
+      },
+      {
+        "label": "争议",
+        "value": "**发明权**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "四大发明",
+        "body": "四大发明是中华科技代表：造纸术（东汉）、印刷术（唐）、火药（唐）、指南针（北宋）。"
+      },
+      {
+        "type": "callout",
+        "heading": "造纸术",
+        "body": "造纸术是四大发明之首。原因：东汉和帝元年（AD 105）蔡伦改良；纸便于书写；文化传承成本大降。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "指南针",
+        "body": "指南针源于\"司南\"。北宋时期用于航海；传入阿拉伯；再传入欧洲；促进大航海时代。"
+      },
+      {
+        "type": "list",
+        "heading": "四大发明",
+        "items": [
+          "造纸术 (东汉, AD 105)",
+          "印刷术 (唐, AD 800)",
+          "火药 (唐末宋初)",
+          "指南针 (北宋, 11 世纪)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "影响世界",
+        "body": "四大发明影响世界。造纸 + 印刷 → 文化普及；火药 → 军事革命；指南针 → 航海大发现。"
+      },
+      {
+        "type": "quote",
+        "text": "**四大发明，改变世界**。",
+        "cite": "李约瑟"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 105",
+        "era": "东汉",
+        "event": "**蔡伦**造纸"
+      },
+      {
+        "year": "AD 800",
+        "era": "唐",
+        "event": "**雕版印刷**"
+      },
+      {
+        "year": "AD 900",
+        "era": "唐末",
+        "event": "**火药**出现"
+      },
+      {
+        "year": "AD 1000",
+        "era": "北宋",
+        "event": "**指南针**航海"
+      },
+      {
+        "year": "AD 1040",
+        "era": "宋",
+        "event": "**毕昇**活字印刷"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": "**火药**传入欧洲"
+      },
+      {
+        "year": "AD 1500",
+        "era": "明",
+        "event": "**四大发明**普及"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**四大发明**列入科技史"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese four inventions",
+        "caption": "四大发明",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "papermaking ancient",
+        "caption": "造纸术",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "compass magnetic ancient",
+        "caption": "指南针",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "科技代表"
+      },
+      {
+        "id": "tr-tech-counting",
+        "title": "计数与算术",
+        "reason": "计数"
+      },
+      {
+        "id": "tr-tech-gunpowder",
+        "title": "火药",
+        "reason": "火药与四大"
+      },
+      {
+        "id": "tr-tech-silk",
+        "title": "丝绸",
+        "reason": "丝绸"
+      },
+      {
+        "id": "tr-tech-mengxi",
+        "title": "梦溪笔谈",
+        "reason": "科技记录"
+      },
+      {
+        "id": "tr-tech-zhoubi",
+        "title": "周髀算经",
+        "reason": "天文"
+      }
+    ],
+    "source": "天工开物 (明宋应星)、中国科学技术史 (李约瑟)"
+  },
+  "tr-tech-gan": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**天文观测**"
+      },
+      {
+        "label": "起源",
+        "value": "**西周**"
+      },
+      {
+        "label": "核心",
+        "value": "**二十八宿、星表**"
+      },
+      {
+        "label": "代表",
+        "value": "**《甘石星经》、石氏星表**"
+      },
+      {
+        "label": "现代",
+        "value": "**世界最早**"
+      },
+      {
+        "label": "意义",
+        "value": "**天文记录**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "天文起源",
+        "body": "中华天文起源很早。商代甲骨文有日食、月食记录；西周\"夏小正\"；春秋已制定历法。"
+      },
+      {
+        "type": "callout",
+        "heading": "《甘石星经》",
+        "body": "《甘石星经》是世界最早的星表。战国时期甘德、石申；120 颗恒星位置；早于西方 200 年。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "二十八宿",
+        "body": "二十八宿是中华天球分区系统。东方青龙七宿、北方玄武七宿、西方白虎七宿、南方朱雀七宿。"
+      },
+      {
+        "type": "list",
+        "heading": "天文成就",
+        "items": [
+          "甘石星经",
+          "二十八宿",
+          "夏小正",
+          "太初历",
+          "授时历",
+          "时宪历"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "古代天文学家",
+        "body": "天文学家：张衡、祖冲之、郭守敬。"
+      },
+      {
+        "type": "quote",
+        "text": "**仰观天文，俯察地理**。",
+        "cite": "《周易·系辞》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1000",
+        "era": "商",
+        "event": "**日食月食**记录"
+      },
+      {
+        "year": "BC 600",
+        "era": "春秋",
+        "event": "**夏小正**"
+      },
+      {
+        "year": "BC 400",
+        "era": "战国",
+        "event": "**甘石星经**"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**太初历**"
+      },
+      {
+        "year": "AD 100",
+        "era": "东汉",
+        "event": "**张衡**浑天仪"
+      },
+      {
+        "year": "AD 500",
+        "era": "南北朝",
+        "event": "**祖冲之**大明历"
+      },
+      {
+        "year": "AD 1281",
+        "era": "元",
+        "event": "**授时历** (郭守敬)"
+      },
+      {
+        "year": "AD 1645",
+        "era": "清",
+        "event": "**时宪历**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "ancient chinese observatory",
+        "caption": "古观象台",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "stone star chart ancient",
+        "caption": "石氏星表",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "armillary sphere ancient",
+        "caption": "浑天仪",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "天文是科技"
+      },
+      {
+        "id": "tr-tech-zhoubi",
+        "title": "周髀算经",
+        "reason": "天文数学"
+      },
+      {
+        "id": "tr-tech-mengxi",
+        "title": "梦溪笔谈",
+        "reason": "科技记录"
+      },
+      {
+        "id": "tr-tech-counting",
+        "title": "计数与算术",
+        "reason": "数学"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "科技成就"
+      },
+      {
+        "id": "tr-tech-infra",
+        "title": "基础设施",
+        "reason": "基础设施"
+      }
+    ],
+    "source": "甘石星经 (战国)、史记天官书 (西汉司马迁)、授时历 (元郭守敬)、中国天文学史 (陈遵妫)"
+  },
+  "tr-tech-gunpowder": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**火药**"
+      },
+      {
+        "label": "起源",
+        "value": "**唐末（炼丹）**"
+      },
+      {
+        "label": "核心",
+        "value": "**硝石、硫磺、木炭**"
+      },
+      {
+        "label": "代表",
+        "value": "**黑火药、火铳**"
+      },
+      {
+        "label": "现代",
+        "value": "**军事革命**"
+      },
+      {
+        "label": "意义",
+        "value": "**世界级发明**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "火药起源",
+        "body": "火药起源于炼丹术。唐代炼丹家偶然发明；硫磺 + 硝石 + 木炭；点燃爆炸；宋元用于军事。"
+      },
+      {
+        "type": "callout",
+        "heading": "火药军事化",
+        "body": "火药军事化是中华军事革命。原因：宋金元使用火药武器；元朝发明火铳；14 世纪传入欧洲；改变了世界战争。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "火药配比",
+        "body": "火药配比（一硝二磺三木炭）是中华发明的最佳配方。"
+      },
+      {
+        "type": "list",
+        "heading": "主要火器",
+        "items": [
+          "火箭",
+          "火球",
+          "震天雷",
+          "火铳",
+          "火炮",
+          "火箭炮"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "火药影响",
+        "body": "火药传入欧洲后，改变了战争形态、城市防御、地缘政治。"
+      },
+      {
+        "type": "quote",
+        "text": "**火药之母，硝石是也**。",
+        "cite": "古代化学"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 800",
+        "era": "唐",
+        "event": "**炼丹**发明火药"
+      },
+      {
+        "year": "AD 900",
+        "era": "唐末",
+        "event": "**火药**军用"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**火药武器**"
+      },
+      {
+        "year": "AD 1200",
+        "era": "宋元",
+        "event": "**火铳**出现"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": "**火药**传入欧洲"
+      },
+      {
+        "year": "AD 1500",
+        "era": "明",
+        "event": "**火绳枪**"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**现代火药**"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**黑火药**列入非遗"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "ancient chinese gunpowder",
+        "caption": "古代火药",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "chinese fire arrow ancient",
+        "caption": "火药箭",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "chinese hand cannon ancient",
+        "caption": "元朝火铳",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "火药是科技"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "火药与四大"
+      },
+      {
+        "id": "tr-tech-armor",
+        "title": "盔甲",
+        "reason": "火药与盔甲"
+      },
+      {
+        "id": "tr-tech-nu",
+        "title": "弓弩",
+        "reason": "火器"
+      },
+      {
+        "id": "tr-tech-ji",
+        "title": "兵器",
+        "reason": "其他兵器"
+      },
+      {
+        "id": "tr-tech-mengxi",
+        "title": "梦溪笔谈",
+        "reason": "科技记录"
+      }
+    ],
+    "source": "武经总要 (宋曾公亮)、火药与火器史 (王兆春)、中国火药史"
+  },
+  "tr-tech-huatuo": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**华佗**"
+      },
+      {
+        "label": "时期",
+        "value": "**东汉末**"
+      },
+      {
+        "label": "核心",
+        "value": "**外科、麻沸散、五禽戏**"
+      },
+      {
+        "label": "贡献",
+        "value": "**外科麻醉、运动医学**"
+      },
+      {
+        "label": "影响",
+        "value": "**中医外科鼻祖**"
+      },
+      {
+        "label": "意义",
+        "value": "**医学创新**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "华佗生平",
+        "body": "华佗（约 AD 145-208），东汉末医学家；沛国谯人；与董奉、张仲景并称\"建安三神医\"。"
+      },
+      {
+        "type": "callout",
+        "heading": "麻沸散",
+        "body": "麻沸散是华佗发明的麻醉剂。公元 2 世纪；用于外科手术；早于西方 1600 多年。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "五禽戏",
+        "body": "五禽戏是华佗创编的导引术。模仿虎、鹿、熊、猿、鸟；强身健体；世界最早的医疗体育。"
+      },
+      {
+        "type": "list",
+        "heading": "华佗贡献",
+        "items": [
+          "麻沸散",
+          "五禽戏",
+          "外科手术",
+          "刮骨疗毒",
+          "针灸",
+          "汤药"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "华佗之死",
+        "body": "华佗因曹操多疑被杀害。所著《青囊书》失传；五禽戏流传至今。"
+      },
+      {
+        "type": "quote",
+        "text": "**以医救人，不求闻达**。",
+        "cite": "华佗"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 145",
+        "era": "东汉",
+        "event": "**华佗**生"
+      },
+      {
+        "year": "AD 180",
+        "era": "东汉",
+        "event": "**华佗**行医"
+      },
+      {
+        "year": "AD 200",
+        "era": "东汉",
+        "event": "**麻沸散**"
+      },
+      {
+        "year": "AD 208",
+        "era": "东汉",
+        "event": "**华佗**遇害"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**华佗**"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**华佗**庙宇"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**五禽戏**世遗"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**中医**国际化"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "hua tuo portrait",
+        "caption": "华佗画像",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "wuqin xi five animal qigong",
+        "caption": "五禽戏",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "ancient chinese surgery",
+        "caption": "古代外科",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "中医外科鼻祖"
+      },
+      {
+        "id": "tr-tech-acupuncture",
+        "title": "针灸",
+        "reason": "中医技术"
+      },
+      {
+        "id": "tr-tech-tcm",
+        "title": "中医基础",
+        "reason": "中医理论"
+      },
+      {
+        "id": "tr-tech-wuqin",
+        "title": "五禽戏",
+        "reason": "导引术"
+      },
+      {
+        "id": "tr-tech-bencao",
+        "title": "本草纲目",
+        "reason": "中药学"
+      },
+      {
+        "id": "tr-tech-zhongyao",
+        "title": "中药",
+        "reason": "中药材"
+      }
+    ],
+    "source": "后汉书方术列传、华佗研究、中医外科史"
+  },
+  "tr-tech-infra": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**基础设施**"
+      },
+      {
+        "label": "起源",
+        "value": "**远古**"
+      },
+      {
+        "label": "核心",
+        "value": "**道路、水利、桥梁**"
+      },
+      {
+        "label": "代表",
+        "value": "**秦直道、京杭大运河**"
+      },
+      {
+        "label": "现代",
+        "value": "**基建成就**"
+      },
+      {
+        "label": "意义",
+        "value": "**基础工程**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "古代基建",
+        "body": "中华古代基础设施。秦直道（BC 221）；京杭大运河（AD 605）；长城；驿站系统。"
+      },
+      {
+        "type": "callout",
+        "heading": "京杭大运河",
+        "body": "京杭大运河是世界最长古运河。北起北京、南至杭州；全长 1794 公里；2014 列入世界遗产。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "秦直道",
+        "body": "秦直道是古代\"高速公路\"。秦始皇命蒙恬修筑；陕西至内蒙古；全长 700+ 公里。"
+      },
+      {
+        "type": "list",
+        "heading": "基础设施",
+        "items": [
+          "道路",
+          "运河",
+          "桥梁",
+          "长城",
+          "驿站",
+          "城市"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "现代基建",
+        "body": "中华现代基建成就。高铁（4 万公里+）；高速公路（17 万公里+）；港珠澳大桥。"
+      },
+      {
+        "type": "quote",
+        "text": "**要致富，先修路**。",
+        "cite": "现代谚语"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 221",
+        "era": "秦",
+        "event": "**秦直道**"
+      },
+      {
+        "year": "BC 214",
+        "era": "秦",
+        "event": "**灵渠**"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**道路**发展"
+      },
+      {
+        "year": "AD 605",
+        "era": "隋",
+        "event": "**京杭大运河**"
+      },
+      {
+        "year": "AD 1281",
+        "era": "元",
+        "event": "**京杭运河**贯通"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**铁路**传入"
+      },
+      {
+        "year": "AD 2008",
+        "era": "当代",
+        "event": "**高铁**"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**港珠澳大桥**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "qin straight road ancient",
+        "caption": "秦直道",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "grand canal modern",
+        "caption": "京杭大运河",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "modern high speed rail",
+        "caption": "中国高铁",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "基建是科技"
+      },
+      {
+        "id": "tr-tech-mengxi",
+        "title": "梦溪笔谈",
+        "reason": "科技记录"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "科技基础"
+      },
+      {
+        "id": "tr-tech-water",
+        "title": "水利",
+        "reason": "水利工程"
+      },
+      {
+        "id": "tr-tech-gan",
+        "title": "甘石星经",
+        "reason": "天文学"
+      },
+      {
+        "id": "tr-tech-silk",
+        "title": "丝绸",
+        "reason": "丝绸之路"
+      }
+    ],
+    "source": "考工记、天工开物、中国基础设施建设史"
+  },
+  "tr-tech-ji": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**兵器**"
+      },
+      {
+        "label": "起源",
+        "value": "**石器时代**"
+      },
+      {
+        "label": "核心",
+        "value": "**戈、矛、剑、戟**"
+      },
+      {
+        "label": "代表",
+        "value": "**越王勾践剑**"
+      },
+      {
+        "label": "现代",
+        "value": "**工艺复原**"
+      },
+      {
+        "label": "意义",
+        "value": "**军事技术**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "兵器起源",
+        "body": "兵器起源于石器时代。石斧、石矛；商代青铜兵器；战国铁兵器；汉代钢刀。"
+      },
+      {
+        "type": "callout",
+        "heading": "越王勾践剑",
+        "body": "越王勾践剑是春秋名剑。春秋越国；出土 1965 湖北江陵；含金属记忆合金；千年不锈。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "十八般兵器",
+        "body": "传统十八般兵器：刀、枪、剑、戟、斧、钺、钩、叉、镗、棍、槊、棒、拐、流星锤等。"
+      },
+      {
+        "type": "list",
+        "heading": "主要兵器",
+        "items": [
+          "刀",
+          "剑",
+          "枪",
+          "矛",
+          "戈",
+          "戟",
+          "斧",
+          "钺"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "兵器文化",
+        "body": "兵器有文化内涵。侠客文化；武术文化；关公大刀；倚天剑屠龙刀；兵器崇拜。"
+      },
+      {
+        "type": "quote",
+        "text": "**剑胆琴心**。",
+        "cite": "侠客文化"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1500",
+        "era": "商",
+        "event": "**青铜兵器**"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**越王勾践剑**"
+      },
+      {
+        "year": "BC 400",
+        "era": "战国",
+        "event": "**铁兵器**"
+      },
+      {
+        "year": "BC 200",
+        "era": "西汉",
+        "event": "**钢刀**"
+      },
+      {
+        "year": "AD 200",
+        "era": "东汉",
+        "event": "**环首刀**"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**火药武器**"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": "**火铳**"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**冷热兵器**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "ancient chinese sword",
+        "caption": "中华古剑",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "yue wang goujian sword",
+        "caption": "越王勾践剑",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese eighteen weapons",
+        "caption": "十八般兵器",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "兵器是科技"
+      },
+      {
+        "id": "tr-tech-smelt",
+        "title": "冶金",
+        "reason": "冶金与兵器"
+      },
+      {
+        "id": "tr-tech-armor",
+        "title": "盔甲",
+        "reason": "兵器与盔甲"
+      },
+      {
+        "id": "tr-tech-sunzi",
+        "title": "孙子兵法",
+        "reason": "军事"
+      },
+      {
+        "id": "tr-tech-nu",
+        "title": "弓弩",
+        "reason": "远程兵器"
+      },
+      {
+        "id": "tr-tech-gunpowder",
+        "title": "火药",
+        "reason": "火药兵器"
+      }
+    ],
+    "source": "考工记、武经总要 (宋)、中国兵器史 (王兆春)"
+  },
+  "tr-tech-mengxi": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**梦溪笔谈**"
+      },
+      {
+        "label": "作者",
+        "value": "**沈括 (北宋)**"
+      },
+      {
+        "label": "时间",
+        "value": "**AD 1086-1093**"
+      },
+      {
+        "label": "核心",
+        "value": "**综合性科技著作**"
+      },
+      {
+        "label": "代表",
+        "value": "**建筑、磁学、历法**"
+      },
+      {
+        "label": "意义",
+        "value": "**中国科学史坐标**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "《梦溪笔谈》",
+        "body": "《梦溪笔谈》是沈括的综合性著作。宋元祐年间 (1086-1093) 写成于润州 (今镇江) 梦溪园；26 卷 + 补笔谈 + 续笔谈。"
+      },
+      {
+        "type": "callout",
+        "heading": "建筑记录",
+        "body": "《梦溪笔谈》记录大量建筑知识。原因：喻皓《木经》、李诫《营造法式》、指南针。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "磁学指南",
+        "body": "《梦溪笔谈》记录磁学知识。磁石指南；司南；指南鱼；早于西方 100+ 年。"
+      },
+      {
+        "type": "list",
+        "heading": "主要门类",
+        "items": [
+          "故事",
+          "乐律",
+          "象数",
+          "人事",
+          "官政",
+          "技艺",
+          "器用",
+          "神奇",
+          "异事",
+          "谬误",
+          "讥谑",
+          "乐府"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "其他科学",
+        "body": "其他科学记录包括历法、数学、地理、医药、水利。"
+      },
+      {
+        "type": "quote",
+        "text": "**天下奇闻怪事，尽在梦溪笔谈**。",
+        "cite": "民间评价"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 1031",
+        "era": "北宋",
+        "event": "**沈括**生"
+      },
+      {
+        "year": "AD 1070",
+        "era": "北宋",
+        "event": "**沈括**任职"
+      },
+      {
+        "year": "AD 1082",
+        "era": "北宋",
+        "event": "**沈括**贬至梦溪"
+      },
+      {
+        "year": "AD 1086",
+        "era": "北宋",
+        "event": "**梦溪笔谈**编写"
+      },
+      {
+        "year": "AD 1093",
+        "era": "北宋",
+        "event": "**梦溪笔谈**完成"
+      },
+      {
+        "year": "AD 1097",
+        "era": "北宋",
+        "event": "**沈括**去世"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**梦溪笔谈**流传"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**梦溪笔谈**列入世界记忆"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "shen kuo portrait",
+        "caption": "沈括画像",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "mengxi bitan ancient book",
+        "caption": "梦溪笔谈",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "shen kuo dream brook",
+        "caption": "梦溪园",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "科技记录"
+      },
+      {
+        "id": "tr-tech-gan",
+        "title": "甘石星经",
+        "reason": "天文学"
+      },
+      {
+        "id": "tr-tech-zhoubi",
+        "title": "周髀算经",
+        "reason": "天文数学"
+      },
+      {
+        "id": "tr-tech-counting",
+        "title": "计数与算术",
+        "reason": "数学"
+      },
+      {
+        "id": "tr-tech-water",
+        "title": "水利",
+        "reason": "水利工程"
+      },
+      {
+        "id": "tr-tech-silk",
+        "title": "丝绸",
+        "reason": "丝绸之路"
+      }
+    ],
+    "source": "梦溪笔谈 (宋沈括)、梦溪笔谈译注 (胡道静)"
+  },
+  "tr-tech-mo": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**墨**"
+      },
+      {
+        "label": "起源",
+        "value": "**商代**"
+      },
+      {
+        "label": "核心",
+        "value": "**松烟墨、油烟墨**"
+      },
+      {
+        "label": "代表",
+        "value": "**徽墨、湖墨**"
+      },
+      {
+        "label": "现代",
+        "value": "**工艺**"
+      },
+      {
+        "label": "意义",
+        "value": "**文房四宝**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "墨的历史",
+        "body": "墨起源商代。甲骨文已有墨书；汉代\"松烟墨\"；唐代油烟墨；徽墨、湖墨为代表。"
+      },
+      {
+        "type": "callout",
+        "heading": "徽墨",
+        "body": "徽墨是中华名墨。原因：安徽徽州；始于唐，盛于宋；\"色浓、胶轻、质细、香淡\"；胡开文（乾隆）\"苍佩室墨\"；列入非遗。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "墨工艺",
+        "body": "墨工艺复杂：松烟、油烟制墨；配胶；捶打；晾晒；描金；历时 1-2 年。"
+      },
+      {
+        "type": "list",
+        "heading": "主要名墨",
+        "items": [
+          "徽墨 (安徽)",
+          "湖墨 (湖州)",
+          "川墨 (四川)",
+          "易水墨 (河北)",
+          "桐烟墨",
+          "松烟墨"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "墨与文化",
+        "body": "墨是文房四宝之一。\"墨\"代表书画；文人雅士必备；墨文化传承千年。"
+      },
+      {
+        "type": "quote",
+        "text": "**笔墨纸砚，文房四宝**。",
+        "cite": "文房四宝"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1500",
+        "era": "商",
+        "event": "**墨**出现"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**墨**成熟"
+      },
+      {
+        "year": "AD 100",
+        "era": "东汉",
+        "event": "**松烟墨**"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**油烟墨**"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**徽墨**兴盛"
+      },
+      {
+        "year": "AD 1700",
+        "era": "清",
+        "event": "**胡开文**"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**墨**工业化"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**徽墨**世遗"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "ancient chinese ink stick",
+        "caption": "古代墨锭",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "huizhou inkstick ancient",
+        "caption": "徽墨",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese ink stone scholar",
+        "caption": "文房四宝",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "科技与文化"
+      },
+      {
+        "id": "tr-tech-acupuncture",
+        "title": "针灸",
+        "reason": "中医技艺"
+      },
+      {
+        "id": "tr-tech-zhang",
+        "title": "造纸",
+        "reason": "造纸术"
+      },
+      {
+        "id": "tr-tech-bian",
+        "title": "砭石",
+        "reason": "中医工具"
+      },
+      {
+        "id": "tr-tech-ceramic",
+        "title": "陶瓷",
+        "reason": "陶瓷"
+      },
+      {
+        "id": "tr-tech-counting",
+        "title": "计数与算术",
+        "reason": "数学"
+      }
+    ],
+    "source": "墨谱 (宋李孝美)、墨史 (宋晁贯之)、徽墨 (周绍良)"
+  },
+  "tr-tech-mortise": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**榫卯与木工**"
+      },
+      {
+        "label": "起源",
+        "value": "**新石器**"
+      },
+      {
+        "label": "核心",
+        "value": "**榫卯结构**"
+      },
+      {
+        "label": "代表",
+        "value": "**应县木塔**"
+      },
+      {
+        "label": "现代",
+        "value": "**家具、榫卯**"
+      },
+      {
+        "label": "意义",
+        "value": "**中华木构核心**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "榫卯起源",
+        "body": "榫卯是中华木构核心。新石器时代河姆渡遗址已用榫卯；不同时期发展；明式家具榫卯巅峰。"
+      },
+      {
+        "type": "callout",
+        "heading": "榫卯类型",
+        "body": "中华榫卯类型丰富。银锭榫、燕尾榫、抱肩榫、粽角榫、十字交叉、束腰等几十种；不使用钉子；纯木连接。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "明式家具",
+        "body": "明式家具是榫卯巅峰。明代（AD 1400-1644）；硬木（黄花梨、紫檀）；16-32 种榫卯；家具艺术；影响世界。"
+      },
+      {
+        "type": "list",
+        "heading": "主要榫卯",
+        "items": [
+          "银锭榫",
+          "燕尾榫",
+          "抱肩榫",
+          "粽角榫",
+          "十字交叉",
+          "束腰"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "榫卯优势",
+        "body": "榫卯优势。第一，牢固；第二，可拆装；第三，便于运输；第四，抗震；第五，便于修复。"
+      },
+      {
+        "type": "quote",
+        "text": "**不着一钉，尽得风流**。",
+        "cite": "明式家具"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "新石器",
+        "event": "**河姆渡**榫卯"
+      },
+      {
+        "year": "BC 2000",
+        "era": "夏商",
+        "event": "**榫卯**成熟"
+      },
+      {
+        "year": "BC 1000",
+        "era": "商周",
+        "event": "**榫卯**多样"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**榫卯**鼎盛"
+      },
+      {
+        "year": "AD 1056",
+        "era": "辽",
+        "event": "**应县木塔**"
+      },
+      {
+        "year": "AD 1400",
+        "era": "明",
+        "event": "**明式家具**"
+      },
+      {
+        "year": "AD 1700",
+        "era": "清",
+        "event": "**清式家具**"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**榫卯**传承"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese mortise tenon joint",
+        "caption": "榫卯结构",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "ming style furniture",
+        "caption": "明式家具",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "ying xian wood pagoda",
+        "caption": "应县木塔",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "木工科技"
+      },
+      {
+        "id": "tr-tech-ceramic",
+        "title": "陶瓷",
+        "reason": "陶瓷与木"
+      },
+      {
+        "id": "tr-tech-silk",
+        "title": "丝绸",
+        "reason": "丝绸与木"
+      },
+      {
+        "id": "tr-tech-ship",
+        "title": "造船",
+        "reason": "造船榫卯"
+      },
+      {
+        "id": "tr-tech-counting",
+        "title": "计数与算术",
+        "reason": "木与数"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "科技基础"
+      }
+    ],
+    "source": "天工开物、明式家具研究 (王世襄)、中国榫卯图谱"
+  },
+  "tr-tech-nu": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**弓弩**"
+      },
+      {
+        "label": "起源",
+        "value": "**新石器**"
+      },
+      {
+        "label": "核心",
+        "value": "**复合弓、弩**"
+      },
+      {
+        "label": "代表",
+        "value": "**诸葛连弩**"
+      },
+      {
+        "label": "现代",
+        "value": "**复原研究**"
+      },
+      {
+        "label": "意义",
+        "value": "**中华远程兵器**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "弓弩起源",
+        "body": "弓弩起源很早。新石器弓箭；春秋弩；战国强弩；汉代\"臂张弩\"；三国\"诸葛连弩\"。"
+      },
+      {
+        "type": "callout",
+        "heading": "诸葛连弩",
+        "body": "诸葛连弩是中华机械兵器代表。原因：三国蜀汉诸葛亮（AD 200）发明；可一次发射多支箭（\"元戎弩\"）；机械机械；失传后复原研究。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "弩的优势",
+        "body": "弩的优势：射程远（300 米）；精度高；威力大；省力；可以瞄准；比弓更易用。"
+      },
+      {
+        "type": "list",
+        "heading": "主要弩机",
+        "items": [
+          "臂张弩",
+          "蹶张弩",
+          "诸葛连弩",
+          "腰引弩",
+          "三弓床弩",
+          "神臂弓"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "弩的影响",
+        "body": "弩影响战争。在中国延续 2000 多年；传入欧洲；冷兵器时代最先进远程兵器。"
+      },
+      {
+        "type": "quote",
+        "text": "**弓开如秋月，箭去似流星**。",
+        "cite": "古代射击诗"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "新石器",
+        "event": "**弓箭**"
+      },
+      {
+        "year": "BC 1000",
+        "era": "商周",
+        "event": "**弩**出现"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**强弩**"
+      },
+      {
+        "year": "BC 400",
+        "era": "战国",
+        "event": "**楚琴氏弩**"
+      },
+      {
+        "year": "AD 200",
+        "era": "三国",
+        "event": "**诸葛连弩**"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**神臂弓**"
+      },
+      {
+        "year": "AD 1400",
+        "era": "明",
+        "event": "**弩**普及"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**现代枪械**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "ancient chinese crossbow",
+        "caption": "古代弩机",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "zhuge nu crossbow ancient",
+        "caption": "诸葛连弩",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "chinese bow arrow ancient",
+        "caption": "弓箭",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "兵器是科技"
+      },
+      {
+        "id": "tr-tech-ji",
+        "title": "兵器",
+        "reason": "其他兵器"
+      },
+      {
+        "id": "tr-tech-armor",
+        "title": "盔甲",
+        "reason": "兵器与盔甲"
+      },
+      {
+        "id": "tr-tech-gunpowder",
+        "title": "火药",
+        "reason": "火药兵器"
+      },
+      {
+        "id": "tr-tech-sunzi",
+        "title": "孙子兵法",
+        "reason": "军事"
+      },
+      {
+        "id": "tr-tech-smelt",
+        "title": "冶金",
+        "reason": "冶金与兵器"
+      }
+    ],
+    "source": "武经总要 (宋曾公亮)、中国古代兵器史 (王兆春)"
+  },
+  "tr-tech-pi": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**皮革与皮甲**"
+      },
+      {
+        "label": "起源",
+        "value": "**新石器**"
+      },
+      {
+        "label": "核心",
+        "value": "**皮革加工**"
+      },
+      {
+        "label": "代表",
+        "value": "**皮甲、皮革**"
+      },
+      {
+        "label": "现代",
+        "value": "**传统工艺**"
+      },
+      {
+        "label": "意义",
+        "value": "**早期科技**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "皮革起源",
+        "body": "皮革是中华早期重要材料。新石器时代已用兽皮；制革、皮革、皮甲、皮靴。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "皮革工艺",
+        "body": "皮革工艺：兽皮 → 浸水 → 刮肉 → 鞣制（植物鞣） → 染色 → 成品。"
+      },
+      {
+        "type": "list",
+        "heading": "主要皮革制品",
+        "items": [
+          "皮甲",
+          "皮靴",
+          "皮囊",
+          "皮革",
+          "皮绳",
+          "皮革鼓"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "皮革用途",
+        "body": "皮革用途广。军事（皮甲、弓弦）；生活（皮靴、皮带）；乐器（皮鼓）；文化（皮革装饰）。"
+      },
+      {
+        "type": "paragraph",
+        "heading": "皮革文化",
+        "body": "皮革在中华文化中应用广泛。军事（皮甲、弓弦、皮鼓）；生活（皮靴、皮囊、皮箱）；乐器（皮鼓）；文化（皮革装饰）；图腾（皮革面具）。"
+      },
+      {
+        "type": "quote",
+        "text": "**革故鼎新**。",
+        "cite": "《周易》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "新石器",
+        "event": "**皮革**使用"
+      },
+      {
+        "year": "BC 1500",
+        "era": "商",
+        "event": "**皮甲**"
+      },
+      {
+        "year": "BC 1000",
+        "era": "西周",
+        "event": "**皮革工艺**"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**皮甲**改进"
+      },
+      {
+        "year": "AD 100",
+        "era": "东汉",
+        "event": "**皮革**普及"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**皮革**多样"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**皮革**工业"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**皮革**工艺"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "leather making ancient",
+        "caption": "皮革制作",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "ancient chinese leather armor",
+        "caption": "皮甲",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "leather shoes ancient",
+        "caption": "皮靴",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "科技与皮革"
+      },
+      {
+        "id": "tr-tech-armor",
+        "title": "盔甲",
+        "reason": "皮甲与盔甲"
+      },
+      {
+        "id": "tr-tech-ji",
+        "title": "兵器",
+        "reason": "其他兵器"
+      },
+      {
+        "id": "tr-tech-nu",
+        "title": "弓弩",
+        "reason": "弓弩与皮革"
+      },
+      {
+        "id": "tr-tech-silk",
+        "title": "丝绸",
+        "reason": "丝绸与皮革"
+      },
+      {
+        "id": "tr-tech-gunpowder",
+        "title": "火药",
+        "reason": "火药与皮革"
+      }
+    ],
+    "source": "考工记、中国皮革史、皮革工艺学"
+  },
+  "tr-tech-qimin": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**齐民要术**"
+      },
+      {
+        "label": "作者",
+        "value": "**贾思勰 (北魏)**"
+      },
+      {
+        "label": "时间",
+        "value": "**AD 533-544**"
+      },
+      {
+        "label": "核心",
+        "value": "**综合性农书**"
+      },
+      {
+        "label": "代表",
+        "value": "**农业、手工业**"
+      },
+      {
+        "label": "意义",
+        "value": "**科技百科全书**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "《齐民要术》",
+        "body": "《齐民要术》是贾思勰的农学巨著。北魏末年（AD 533-544）写成；10 卷 92 篇；100,000+ 字；中华农业百科全书。"
+      },
+      {
+        "type": "callout",
+        "heading": "内容广博",
+        "body": "《齐民要术》涵盖农林牧副渔：粮食作物（粟、稻、麦）；蔬菜；果树；林木；蚕桑；畜牧；酿酒；酿醋；制酱；制糖；制盐。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "影响",
+        "body": "《齐民要术》影响深远。中国农学经典；达尔文引用过；世界农业史重要文献；列入\"中国科技名著\"。"
+      },
+      {
+        "type": "list",
+        "heading": "主要类目",
+        "items": [
+          "粮食作物",
+          "蔬菜",
+          "果树",
+          "林木",
+          "蚕桑",
+          "畜牧",
+          "酿酒",
+          "制酱",
+          "制糖",
+          "制盐"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "国际影响",
+        "body": "《齐民要术》国际影响深远。日本、朝鲜、越南视为农学经典；达尔文引用作为进化论证据；现代学者深入研究。"
+      },
+      {
+        "type": "quote",
+        "text": "**起于农耕，终于烹饮**。",
+        "cite": "齐民要术"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "新石器",
+        "event": "**农业**"
+      },
+      {
+        "year": "BC 1000",
+        "era": "商周",
+        "event": "**农业**"
+      },
+      {
+        "year": "BC 200",
+        "era": "西汉",
+        "event": "**农书**萌芽"
+      },
+      {
+        "year": "AD 533",
+        "era": "北魏",
+        "event": "**齐民要术**编写"
+      },
+      {
+        "year": "AD 544",
+        "era": "北魏",
+        "event": "**齐民要术**完成"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**农业**发展"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**农业**"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**农业**传承"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "qimin yaoshu ancient book",
+        "caption": "齐民要术",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "jia sixie portrait",
+        "caption": "贾思勰",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "ancient chinese agriculture",
+        "caption": "古代农业",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "农学"
+      },
+      {
+        "id": "tr-tech-water",
+        "title": "水利",
+        "reason": "农业与水利"
+      },
+      {
+        "id": "tr-tech-mengxi",
+        "title": "梦溪笔谈",
+        "reason": "科技记录"
+      },
+      {
+        "id": "tr-tech-silk",
+        "title": "丝绸",
+        "reason": "蚕桑"
+      },
+      {
+        "id": "tr-tech-counting",
+        "title": "计数与算术",
+        "reason": "农业数学"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "科技基础"
+      }
+    ],
+    "source": "齐民要术 (北魏贾思勰)、中国农学史 (王毓瑚)"
+  },
+  "tr-tech-qin": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**古琴**"
+      },
+      {
+        "label": "起源",
+        "value": "**上古**"
+      },
+      {
+        "label": "核心",
+        "value": "**七弦琴、十三徽**"
+      },
+      {
+        "label": "代表",
+        "value": "**古琴、古筝**"
+      },
+      {
+        "label": "现代",
+        "value": "**联合国非遗**"
+      },
+      {
+        "label": "意义",
+        "value": "**文人雅士乐器**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "古琴起源",
+        "body": "古琴是中华最古老乐器。伏羲作琴；舜作五弦琴；周代七弦琴定型；2000 多年历史。"
+      },
+      {
+        "type": "callout",
+        "heading": "古琴艺术",
+        "body": "古琴是中华文人艺术代表。原因：联合国教科文组织人类非遗；伯牙子期高山流水；孔子、嵇康、伯牙等文人雅士寄托；琴棋书画\"四艺\"之首。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "古琴结构",
+        "body": "古琴结构独特。琴长 3 尺 6 寸 5 分（象 365 天）；十三徽（象 12 月 + 闰月）；七弦；桐木或老杉木。"
+      },
+      {
+        "type": "list",
+        "heading": "古琴名曲",
+        "items": [
+          "高山流水",
+          "广陵散",
+          "阳关三叠",
+          "梅花三弄",
+          "平沙落雁",
+          "潇湘水云",
+          "渔樵问答",
+          "醉翁操"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "古琴流派",
+        "body": "古琴流派广：虞山派、广陵派、浙派、闽派、岭南派、川派、九嶷派、梅庵派。"
+      },
+      {
+        "type": "quote",
+        "text": "**高山流水，知音难觅**。",
+        "cite": "伯牙子期"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 2000",
+        "era": "传说",
+        "event": "**伏羲**作琴"
+      },
+      {
+        "year": "BC 1000",
+        "era": "商周",
+        "event": "**七弦琴**定型"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**伯牙**"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**古琴**成熟"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**古琴**流派"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**古琴**发展"
+      },
+      {
+        "year": "AD 2003",
+        "era": "当代",
+        "event": "**古琴**列入世遗"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**古琴**传承"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese guqin ancient zither",
+        "caption": "古琴",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese guqin playing ancient",
+        "caption": "抚琴",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "chinese guqin sheet music",
+        "caption": "古琴谱",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "科技与艺术"
+      },
+      {
+        "id": "tr-tech-acupuncture",
+        "title": "针灸",
+        "reason": "中医技艺"
+      },
+      {
+        "id": "tr-tech-bian",
+        "title": "砭石",
+        "reason": "中医工具"
+      },
+      {
+        "id": "tr-tech-mo",
+        "title": "墨",
+        "reason": "文房四宝"
+      },
+      {
+        "id": "tr-tech-zhang",
+        "title": "造纸",
+        "reason": "造纸与艺术"
+      },
+      {
+        "id": "tr-tech-ceramic",
+        "title": "陶瓷",
+        "reason": "科技与艺术"
+      }
+    ],
+    "source": "琴史 (宋朱长文)、古琴曲谱 (查阜西)、中国古琴 (林友仁)"
+  },
+  "tr-tech-ship": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**造船与航海**"
+      },
+      {
+        "label": "起源",
+        "value": "**新石器**"
+      },
+      {
+        "label": "核心",
+        "value": "**水密隔舱、福船**"
+      },
+      {
+        "label": "代表",
+        "value": "**郑和宝船**"
+      },
+      {
+        "label": "现代",
+        "value": "**世遗**"
+      },
+      {
+        "label": "意义",
+        "value": "**造船业**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "中华造船",
+        "body": "中华造船史悠久。独木舟 (新石器)；木板船 (商周)；帆船 (汉)；福船 (宋元)；郑和宝船 (明)。"
+      },
+      {
+        "type": "callout",
+        "heading": "水密隔舱",
+        "body": "水密隔舱是中华造船革命性发明。将船舱分为多个独立舱；舱壁密封；提高安全；列入联合国非遗。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "福船",
+        "body": "福船是福建造船代表。尖底；吃水深；适远洋；水密隔舱；指南针导航；多桅多帆。"
+      },
+      {
+        "type": "list",
+        "heading": "主要船型",
+        "items": [
+          "独木舟",
+          "木板船",
+          "沙船",
+          "福船",
+          "楼船",
+          "郑和宝船"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "造船历史",
+        "body": "造船历史重要。秦汉楼船；唐宋海船；元朝漕船；明代宝船；清代赶缯船。"
+      },
+      {
+        "type": "quote",
+        "text": "**水密隔舱，护航千年**。",
+        "cite": "中华造船技术"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "新石器",
+        "event": "**独木舟**"
+      },
+      {
+        "year": "BC 1000",
+        "era": "商周",
+        "event": "**木板船**"
+      },
+      {
+        "year": "BC 200",
+        "era": "秦汉",
+        "event": "**楼船**"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**海船**发达"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**水密隔舱**"
+      },
+      {
+        "year": "AD 1400",
+        "era": "明",
+        "event": "**郑和宝船**"
+      },
+      {
+        "year": "AD 1500",
+        "era": "明",
+        "event": "**造船业**"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**水密隔舱**非遗"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "ancient chinese wooden ship",
+        "caption": "古代木船",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "water tight compartment ship",
+        "caption": "水密隔舱",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "ancient chinese junk boat",
+        "caption": "中华帆船",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "造船与科技"
+      },
+      {
+        "id": "tr-tech-silk",
+        "title": "丝绸",
+        "reason": "丝绸之路"
+      },
+      {
+        "id": "tr-tech-water",
+        "title": "水利",
+        "reason": "水利工程"
+      },
+      {
+        "id": "tr-tech-mengxi",
+        "title": "梦溪笔谈",
+        "reason": "科技记录"
+      },
+      {
+        "id": "tr-tech-infra",
+        "title": "基础设施",
+        "reason": "基础设施"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "科技基础"
+      }
+    ],
+    "source": "宋营造法式水密隔舱、明代宝船研究、中国造船史 (席龙飞)"
+  },
+  "tr-tech-shui": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**水利工程**"
+      },
+      {
+        "label": "起源",
+        "value": "**大禹治水**"
+      },
+      {
+        "label": "核心",
+        "value": "**都江堰、灵渠**"
+      },
+      {
+        "label": "代表",
+        "value": "**都江堰**"
+      },
+      {
+        "label": "现代",
+        "value": "**世界灌溉工程遗产**"
+      },
+      {
+        "label": "意义",
+        "value": "**水利建筑**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "都江堰",
+        "body": "都江堰是世界水利奇迹。战国秦昭王时期 (BC 256)；李冰父子建造；无坝引水；2000 多年仍在使用；列入世界文化遗产。"
+      },
+      {
+        "type": "callout",
+        "heading": "都江堰三大工程",
+        "body": "三大工程组成都江堰。第一，鱼嘴分水堤 (分岷江为内外江)；第二，飞沙堰溢洪道 (排沙防涝)；第三，宝瓶口引水口 (引水入成都平原)。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "水利思想",
+        "body": "都江堰体现 \"天人合一\" 水利思想。因势利导；充分利用自然；2000 多年的可持续水利工程典范。"
+      },
+      {
+        "type": "list",
+        "heading": "主要水利工程",
+        "items": [
+          "都江堰 (四川)",
+          "灵渠 (广西)",
+          "郑国渠 (陕西)",
+          "京杭大运河",
+          "白渠 (陕西)",
+          "它山堰 (浙江)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "水利文化",
+        "body": "水利文化深厚。灌溉文化；漕运文化；水利民俗；李冰信仰；都江堰放水节。"
+      },
+      {
+        "type": "quote",
+        "text": "**深淘滩，低作堰**。",
+        "cite": "都江堰治水格言"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 3000",
+        "era": "传说",
+        "event": "**大禹治水**"
+      },
+      {
+        "year": "BC 256",
+        "era": "战国",
+        "event": "**都江堰**"
+      },
+      {
+        "year": "BC 246",
+        "era": "秦",
+        "event": "**郑国渠**"
+      },
+      {
+        "year": "BC 214",
+        "era": "秦",
+        "event": "**灵渠**"
+      },
+      {
+        "year": "AD 600",
+        "era": "唐",
+        "event": "**水利工程**"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": "**京杭运河**"
+      },
+      {
+        "year": "AD 2000",
+        "era": "当代",
+        "event": "**都江堰**世遗"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**灌溉工程遗产**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "du jiang yan water works",
+        "caption": "都江堰",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "du jiang yan fish mouth",
+        "caption": "鱼嘴分水堤",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "du jiang yan water release",
+        "caption": "都江堰放水",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "水利是科技"
+      },
+      {
+        "id": "tr-tech-infra",
+        "title": "基础设施",
+        "reason": "基础设施"
+      },
+      {
+        "id": "tr-tech-mengxi",
+        "title": "梦溪笔谈",
+        "reason": "科技记录"
+      },
+      {
+        "id": "tr-tech-counting",
+        "title": "计数与算术",
+        "reason": "水利数学"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "科技基础"
+      },
+      {
+        "id": "tr-tech-silk",
+        "title": "丝绸",
+        "reason": "丝绸之路"
+      }
+    ],
+    "source": "史记河渠书 (西汉司马迁)、都江堰志 (钱玉成)、中国水利史 (郑肇经)"
+  },
+  "tr-tech-silk": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**丝绸技术**"
+      },
+      {
+        "label": "起源",
+        "value": "**新石器**"
+      },
+      {
+        "label": "核心",
+        "value": "**种桑养蚕、织造**"
+      },
+      {
+        "label": "代表",
+        "value": "**《天工开物》、云锦**"
+      },
+      {
+        "label": "现代",
+        "value": "**传统工艺**"
+      },
+      {
+        "label": "意义",
+        "value": "**纺织科技**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "丝绸技术",
+        "body": "丝绸是中华独特发明。起源：新石器（山西夏县）；养蚕缫丝织造；2000 多年历史。"
+      },
+      {
+        "type": "callout",
+        "heading": "丝绸之路",
+        "body": "丝绸之路是中华与世界交流的桥梁。汉武帝时张骞通西域；丝绸西传；连接亚洲、欧洲、非洲；促进东西方文化交流。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "丝织技术",
+        "body": "丝织技术高度发达。提花机（汉代）；花楼织机（明代）；缂丝（通经断纬）。"
+      },
+      {
+        "type": "list",
+        "heading": "三大名锦",
+        "items": [
+          "云锦 (南京)",
+          "蜀锦 (成都)",
+          "宋锦 (苏州)",
+          "壮锦 (广西)",
+          "黎锦 (海南)",
+          "缂丝 (定州)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "丝绸文化",
+        "body": "丝绸文化深远。影响世界服饰；丝绸之路连接东西；养蚕民俗；丝绸成为中华象征。"
+      },
+      {
+        "type": "quote",
+        "text": "**锦衣绣袍，华夏之服**。",
+        "cite": "中华丝绸"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "新石器",
+        "event": "**丝绸**起源"
+      },
+      {
+        "year": "BC 1000",
+        "era": "商周",
+        "event": "**丝绸**生产"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**丝绸之路**"
+      },
+      {
+        "year": "AD 600",
+        "era": "唐",
+        "event": "**丝绸之路**鼎盛"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**丝织**技术"
+      },
+      {
+        "year": "AD 1400",
+        "era": "明",
+        "event": "**云锦**鼎盛"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**丝绸**衰落"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**丝绸**非遗"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese silk weaving",
+        "caption": "丝绸织造",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "chinese silk road ancient",
+        "caption": "丝绸之路",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "chinese silk embroidery",
+        "caption": "中华刺绣",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "丝绸是科技"
+      },
+      {
+        "id": "tr-tech-ceramic",
+        "title": "陶瓷",
+        "reason": "丝瓷"
+      },
+      {
+        "id": "tr-tech-ship",
+        "title": "造船",
+        "reason": "航海"
+      },
+      {
+        "id": "tr-tech-counting",
+        "title": "计数与算术",
+        "reason": "丝绸数学"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "科技基础"
+      },
+      {
+        "id": "tr-tech-mengxi",
+        "title": "梦溪笔谈",
+        "reason": "科技记录"
+      }
+    ],
+    "source": "天工开物 (明宋应星)、中国丝绸史 (赵丰)、丝绸之路研究"
+  },
+  "tr-tech-smelt": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**冶金与铸造**"
+      },
+      {
+        "label": "起源",
+        "value": "**新石器**"
+      },
+      {
+        "label": "核心",
+        "value": "**青铜、铁、钢**"
+      },
+      {
+        "label": "代表",
+        "value": "**青铜器、生铁**"
+      },
+      {
+        "label": "现代",
+        "value": "**冶炼**"
+      },
+      {
+        "label": "意义",
+        "value": "**金属技术**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "冶金起源",
+        "body": "中华冶金起源新石器晚期。冶铜（夏）；青铜（商）；冶铁（春秋）；炼钢（汉）。"
+      },
+      {
+        "type": "callout",
+        "heading": "青铜器",
+        "body": "青铜器是中华冶金巅峰。原因：商周时期（BC 1600-256）；司母戊鼎（重 832.84 公斤）；四羊方尊；技术与艺术结合；列入世遗。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "冶铁",
+        "body": "冶铁在春秋战国普及。块炼铁 → 生铁 → 钢。生铁铸造、锻造、热处理；汉代铁器普及。"
+      },
+      {
+        "type": "list",
+        "heading": "冶金成就",
+        "items": [
+          "青铜器 (商周)",
+          "生铁 (战国)",
+          "钢铁 (汉)",
+          "灌钢法 (明)",
+          "坩埚炼铁",
+          "鼓风炉"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "冶金影响",
+        "body": "冶金影响中华文明。农业工具（铁犁）、兵器（铁剑）、货币（铁钱）；现代化基础。"
+      },
+      {
+        "type": "quote",
+        "text": "**炉火照天地，红星乱紫烟**。",
+        "cite": "李白诗"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 3000",
+        "era": "新石器",
+        "event": "**冶铜**"
+      },
+      {
+        "year": "BC 1500",
+        "era": "商",
+        "event": "**青铜器**"
+      },
+      {
+        "year": "BC 1000",
+        "era": "西周",
+        "event": "**青铜**鼎盛"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**冶铁**"
+      },
+      {
+        "year": "BC 400",
+        "era": "战国",
+        "event": "**生铁**"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**钢铁**"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**胆铜法**"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**冶金**发达"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese bronze ritual vessel",
+        "caption": "青铜器",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "simuwu ding bronze ancient",
+        "caption": "司母戊鼎",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese iron smelting ancient",
+        "caption": "冶铁",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "冶金是科技"
+      },
+      {
+        "id": "tr-tech-ji",
+        "title": "兵器",
+        "reason": "冶金与兵器"
+      },
+      {
+        "id": "tr-tech-armor",
+        "title": "盔甲",
+        "reason": "冶金与盔甲"
+      },
+      {
+        "id": "tr-tech-nu",
+        "title": "弓弩",
+        "reason": "冶金与弓弩"
+      },
+      {
+        "id": "tr-tech-gunpowder",
+        "title": "火药",
+        "reason": "火药与冶金"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "科技基础"
+      }
+    ],
+    "source": "考工记、中国冶金史 (华觉明)、中国古代冶金"
+  },
+  "tr-tech-tcm": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**中医基础**"
+      },
+      {
+        "label": "起源",
+        "value": "**神农、黄帝**"
+      },
+      {
+        "label": "核心",
+        "value": "**阴阳五行、脏腑经络**"
+      },
+      {
+        "label": "经典",
+        "value": "**《黄帝内经》《伤寒杂病论》**"
+      },
+      {
+        "label": "现代",
+        "value": "**世界医学**"
+      },
+      {
+        "label": "意义",
+        "value": "**中华医学体系**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "中医基础",
+        "body": "中医基础理论包括：阴阳五行；脏腑经络；气血津液；病因病机；诊法辨证；治法治则。"
+      },
+      {
+        "type": "callout",
+        "heading": "《黄帝内经》",
+        "body": "《黄帝内经》是中医奠基经典。战国时期成书；分《素问》《灵枢》两部分；162 篇；奠定中医理论体系。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "《伤寒杂病论》",
+        "body": "《伤寒杂病论》是东汉张仲景所著。成书 AD 200-219；中医临床医学奠基；六经辨证；113 方（经方）。"
+      },
+      {
+        "type": "list",
+        "heading": "中医四诊",
+        "items": [
+          "望诊 (visual)",
+          "闻诊 (audio)",
+          "问诊 (inquiry)",
+          "切诊 (palpation)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "现代中医",
+        "body": "中医现代化。2015 年屠呦呦获诺贝尔奖（青蒿素）；中医走向世界；中医现代化研究。"
+      },
+      {
+        "type": "quote",
+        "text": "**阴阳者，天地之道也**。",
+        "cite": "《黄帝内经》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "传说",
+        "event": "**神农尝百草**"
+      },
+      {
+        "year": "BC 200",
+        "era": "战国",
+        "event": "**黄帝内经**"
+      },
+      {
+        "year": "AD 100",
+        "era": "东汉",
+        "event": "**伤寒杂病论** (张仲景)"
+      },
+      {
+        "year": "AD 200",
+        "era": "东汉",
+        "event": "**中医体系**成形"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**中医**成熟"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**中医**标准化"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**中医**发展"
+      },
+      {
+        "year": "AD 2015",
+        "era": "当代",
+        "event": "**屠呦呦**诺贝尔奖"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "huangdi neijing ancient book",
+        "caption": "黄帝内经",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "traditional chinese medicine acupuncture",
+        "caption": "中医",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese herbal medicine",
+        "caption": "中药",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "中医是科技"
+      },
+      {
+        "id": "tr-tech-acupuncture",
+        "title": "针灸",
+        "reason": "中医技术"
+      },
+      {
+        "id": "tr-tech-huatuo",
+        "title": "华佗",
+        "reason": "中医名家"
+      },
+      {
+        "id": "tr-tech-bencao",
+        "title": "本草纲目",
+        "reason": "中药学"
+      },
+      {
+        "id": "tr-tech-zhongyao",
+        "title": "中药",
+        "reason": "中药材"
+      },
+      {
+        "id": "tr-tech-bian",
+        "title": "砭石",
+        "reason": "中医工具"
+      }
+    ],
+    "source": "黄帝内经 (战国)、伤寒杂病论 (东汉张仲景)、中国医学史 (陈邦贤)"
+  },
+  "tr-tech-tiangong": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**天工开物**"
+      },
+      {
+        "label": "作者",
+        "value": "**宋应星 (明)**"
+      },
+      {
+        "label": "时间",
+        "value": "**AD 1637**"
+      },
+      {
+        "label": "核心",
+        "value": "**农业、手工业百科**"
+      },
+      {
+        "label": "代表",
+        "value": "**宋应星**"
+      },
+      {
+        "label": "意义",
+        "value": "**中国科技百科全书**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "《天工开物》",
+        "body": "《天工开物》是宋应星的科技巨著。明崇祯十年（AD 1637）初刊；3 卷 18 章 123 幅图；中华科技百科。"
+      },
+      {
+        "type": "callout",
+        "heading": "内容广博",
+        "body": "《天工开物》涵盖农业和手工业。乃粒（粮食）；乃服（衣服）；彰施（染色）；粹精（粮食加工）；作咸（盐）；甘嗜（糖）；陶埏（陶瓷）；冶铸（铸造）；舟车（车船）；锤锻（锻造）；播石（采矿）；杀青（造纸）；五金（金属）；丹青（颜料）；朱墨（文具）；麴蘖（酒曲）；珠玉（珠宝）。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "影响",
+        "body": "《天工开物》影响深远。日本、朝鲜、欧洲翻译出版；达尔文引用；世界科技史重要文献。"
+      },
+      {
+        "type": "list",
+        "heading": "主要章目",
+        "items": [
+          "乃粒 (粮食)",
+          "乃服 (衣服)",
+          "彰施 (染色)",
+          "陶埏 (陶瓷)",
+          "冶铸 (铸造)",
+          "舟车 (车船)",
+          "杀青 (造纸)",
+          "五金 (金属)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "科技哲学",
+        "body": "《天工开物》体现\"天工开物\"哲学 — 巧夺天工、人工与自然结合。"
+      },
+      {
+        "type": "quote",
+        "text": "**天工开物，万物有灵**。",
+        "cite": "宋应星"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "新石器",
+        "event": "**农业手工业**"
+      },
+      {
+        "year": "AD 1500",
+        "era": "明",
+        "event": "**宋应星**生"
+      },
+      {
+        "year": "AD 1637",
+        "era": "明",
+        "event": "**天工开物**出版"
+      },
+      {
+        "year": "AD 1700",
+        "era": "清",
+        "event": "**天工开物**流传"
+      },
+      {
+        "year": "AD 1800",
+        "era": "近代",
+        "event": "**天工开物**翻译"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**天工开物**研究"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**天工开物**研究"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**天工开物**传承"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "tiangong kaiwu ancient book",
+        "caption": "天工开物",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "song yingxing portrait",
+        "caption": "宋应星",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "ancient chinese agriculture industry",
+        "caption": "农业手工业",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "科技百科"
+      },
+      {
+        "id": "tr-tech-mengxi",
+        "title": "梦溪笔谈",
+        "reason": "科技记录"
+      },
+      {
+        "id": "tr-tech-qimin",
+        "title": "齐民要术",
+        "reason": "农学"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "科技基础"
+      },
+      {
+        "id": "tr-tech-silk",
+        "title": "丝绸",
+        "reason": "丝织"
+      },
+      {
+        "id": "tr-tech-ceramic",
+        "title": "陶瓷",
+        "reason": "陶瓷"
+      }
+    ],
+    "source": "天工开物 (明宋应星)、中国古代科技史 (李约瑟)"
+  },
+  "tr-tech-wuqin": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**五禽戏**"
+      },
+      {
+        "label": "起源",
+        "value": "**华佗 (东汉)**"
+      },
+      {
+        "label": "核心",
+        "value": "**导引、气功**"
+      },
+      {
+        "label": "代表",
+        "value": "**华佗五禽戏**"
+      },
+      {
+        "label": "现代",
+        "value": "**非遗**"
+      },
+      {
+        "label": "意义",
+        "value": "**运动医学**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "五禽戏起源",
+        "body": "五禽戏是华佗（AD 145-208）所创导引术。模仿虎、鹿、熊、猿、鸟五种动物；东汉；世界最早的运动医学。"
+      },
+      {
+        "type": "callout",
+        "heading": "五禽戏原理",
+        "body": "五禽戏原理。第一，模仿动物动作；第二，活动筋骨；第三，按摩脏腑；第四，气血流通；第五，\"流水不腐，户枢不蠹\"；世界最早的运动医学。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "五禽戏动作",
+        "body": "五禽戏分五种动作：虎戏（强腰肾）；鹿戏（疏肝胆）；熊戏（健脾胃）；猿戏（养心肺）；鸟戏（调呼吸）。"
+      },
+      {
+        "type": "list",
+        "heading": "五种动物",
+        "items": [
+          "虎",
+          "鹿",
+          "熊",
+          "猿",
+          "鸟"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "现代传承",
+        "body": "五禽戏现代传承。列入国家级非遗；流行于亳州（华佗故里）；\"华佗五禽戏\"全球推广。"
+      },
+      {
+        "type": "quote",
+        "text": "**流水不腐，户枢不蠹**。",
+        "cite": "《吕氏春秋》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 200",
+        "era": "东汉",
+        "event": "**华佗**"
+      },
+      {
+        "year": "AD 200",
+        "era": "东汉",
+        "event": "**华佗**创造五禽戏"
+      },
+      {
+        "year": "AD 208",
+        "era": "东汉",
+        "event": "**华佗**遇难"
+      },
+      {
+        "year": "隋唐",
+        "era": "隋唐",
+        "event": "**五禽戏**流传"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**五禽戏**发展"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**五禽戏**衰落"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**五禽戏**非遗"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**五禽戏**传承"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "wuqin xi five animal qigong",
+        "caption": "五禽戏",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "five animal qigong movement",
+        "caption": "五禽戏动作",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "traditional chinese exercise",
+        "caption": "传统运动",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "运动医学"
+      },
+      {
+        "id": "tr-tech-huatuo",
+        "title": "华佗",
+        "reason": "华佗之功"
+      },
+      {
+        "id": "tr-tech-acupuncture",
+        "title": "针灸",
+        "reason": "中医技艺"
+      },
+      {
+        "id": "tr-tech-tcm",
+        "title": "中医基础",
+        "reason": "中医理论"
+      },
+      {
+        "id": "tr-tech-bian",
+        "title": "砭石",
+        "reason": "中医工具"
+      },
+      {
+        "id": "tr-tech-zhongyao",
+        "title": "中药",
+        "reason": "中药材"
+      }
+    ],
+    "source": "后汉书方术列传、华佗研究、五禽戏研究"
+  },
+  "tr-tech-zhang": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**造纸术**"
+      },
+      {
+        "label": "起源",
+        "value": "**西汉（早期）；东汉（蔡伦改良）**"
+      },
+      {
+        "label": "核心",
+        "value": "**植物纤维造纸**"
+      },
+      {
+        "label": "代表",
+        "value": "**东汉蔡伦**"
+      },
+      {
+        "label": "现代",
+        "value": "**世界非遗**"
+      },
+      {
+        "label": "意义",
+        "value": "**四大发明之一**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "造纸起源",
+        "body": "造纸术起源很早。西汉已有麻纸；东汉和帝元年（AD 105）蔡伦改良；现代意义的造纸。"
+      },
+      {
+        "type": "callout",
+        "heading": "蔡伦造纸",
+        "body": "蔡伦造纸是革命。原因：东汉和帝元兴元年（AD 105）；\"蔡侯纸\"；用树皮、麻头、破布、旧渔网为原料；造价低、便于书写。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "造纸传播",
+        "body": "造纸西传。东汉 → 唐朝传中亚；8 世纪到阿拉伯；12 世纪到欧洲；彻底改变欧洲文化（书籍普及）。"
+      },
+      {
+        "type": "list",
+        "heading": "主要纸张",
+        "items": [
+          "麻纸",
+          "皮纸",
+          "竹纸",
+          "宣纸",
+          "澄心堂纸",
+          "开化纸"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "宣纸",
+        "body": "宣纸是中华名纸。原因：安徽泾县；唐代起源；\"千年寿纸\"；润墨性好；宣纸是书画用纸代表；列入国家级非遗。"
+      },
+      {
+        "type": "quote",
+        "text": "**洛阳纸贵，左思《三都赋》**。",
+        "cite": "《晋书·左思传》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 200",
+        "era": "西汉",
+        "event": "**麻纸**出现"
+      },
+      {
+        "year": "AD 105",
+        "era": "东汉",
+        "event": "**蔡伦**改良"
+      },
+      {
+        "year": "AD 200",
+        "era": "东汉",
+        "event": "**造纸**普及"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**造纸**西传"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**造纸**鼎盛"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": "**造纸**成熟"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**造纸**工业"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**宣纸**非遗"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "cai lun papermaking",
+        "caption": "蔡伦造纸",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "ancient chinese paper making",
+        "caption": "古代造纸",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "xuan paper chinese",
+        "caption": "宣纸",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "造纸是科技"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "造纸"
+      },
+      {
+        "id": "tr-tech-zhang",
+        "title": "造纸",
+        "reason": "自身"
+      },
+      {
+        "id": "tr-tech-mo",
+        "title": "墨",
+        "reason": "纸与墨"
+      },
+      {
+        "id": "tr-tech-ceramic",
+        "title": "陶瓷",
+        "reason": "科技对比"
+      },
+      {
+        "id": "tr-tech-mengxi",
+        "title": "梦溪笔谈",
+        "reason": "科技记录"
+      }
+    ],
+    "source": "后汉书·蔡伦传、天工开物 (明宋应星)、中国造纸史 (潘吉星)"
+  },
+  "tr-tech-zhongyao": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**中药**"
+      },
+      {
+        "label": "起源",
+        "value": "**神农尝百草**"
+      },
+      {
+        "label": "核心",
+        "value": "**中药材、方剂**"
+      },
+      {
+        "label": "代表",
+        "value": "**《本草纲目》**"
+      },
+      {
+        "label": "现代",
+        "value": "**中医药国际化**"
+      },
+      {
+        "label": "意义",
+        "value": "**中华药学**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "中药起源",
+        "body": "中药起源远古。神农尝百草；5000 多年历史；独特理论体系（性味归经）。"
+      },
+      {
+        "type": "callout",
+        "heading": "《本草纲目》",
+        "body": "《本草纲目》是中药学巅峰。原因：明李时珍 26 年心血；1892 种药物；11096 处方；52 卷；1596 出版；世界医药学巨著。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "中药分类",
+        "body": "中药分三类：植物药（草药、根茎、果实、花叶）；动物药（鹿茸、牛黄、海马）；矿物药（朱砂、雄黄、滑石）。"
+      },
+      {
+        "type": "list",
+        "heading": "主要中药",
+        "items": [
+          "人参",
+          "黄芪",
+          "当归",
+          "枸杞",
+          "鹿茸",
+          "麝香",
+          "灵芝",
+          "冬虫夏草"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "中医方剂",
+        "body": "中医方剂以中药为基础。君臣佐使配伍；常见方剂：四君子汤、四物汤、六味地黄丸。"
+      },
+      {
+        "type": "quote",
+        "text": "**药材好，药才好**。",
+        "cite": "中药谚语"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "传说",
+        "event": "**神农尝百草**"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**神农本草经**"
+      },
+      {
+        "year": "AD 100",
+        "era": "东汉",
+        "event": "**中药学**"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**新修本草**"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**证类本草**"
+      },
+      {
+        "year": "AD 1578",
+        "era": "明",
+        "event": "**本草纲目**"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**中药**衰落"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**中医药**国际化"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese herbal medicine",
+        "caption": "中药材",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "traditional chinese medicine cabinet",
+        "caption": "中药柜",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese herbal dispensary",
+        "caption": "中药铺",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "中药是科技"
+      },
+      {
+        "id": "tr-tech-tcm",
+        "title": "中医基础",
+        "reason": "中医理论"
+      },
+      {
+        "id": "tr-tech-acupuncture",
+        "title": "针灸",
+        "reason": "中医技术"
+      },
+      {
+        "id": "tr-tech-huatuo",
+        "title": "华佗",
+        "reason": "中医名家"
+      },
+      {
+        "id": "tr-tech-bencao",
+        "title": "本草纲目",
+        "reason": "中药学"
+      },
+      {
+        "id": "tr-tech-bian",
+        "title": "砭石",
+        "reason": "中医工具"
+      }
+    ],
+    "source": "神农本草经 (东汉)、本草纲目 (明李时珍)、中华本草 (当代)"
+  },
+  "tr-tech-zhoubi": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**周髀算经**"
+      },
+      {
+        "label": "起源",
+        "value": "**西周（成书于汉）**"
+      },
+      {
+        "label": "核心",
+        "value": "**天文、勾股定理**"
+      },
+      {
+        "label": "代表",
+        "value": "**勾股定理、天文观测**"
+      },
+      {
+        "label": "意义",
+        "value": "**中华最早数学天文典籍**"
+      },
+      {
+        "label": "特点",
+        "value": "**盖天说**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "《周髀算经》",
+        "body": "《周髀算经》是中华最早数学天文典籍。成书约公元前 1 世纪；分上中下三卷；现存最早记录勾股定理。"
+      },
+      {
+        "type": "callout",
+        "heading": "勾股定理",
+        "body": "《周髀算经》记载勾股定理。原因：商高（约 BC 1100）对话：\"故折矩以为勾广三、股修四、径隅五\"；早于毕达哥拉斯 500+ 年；世界最早勾股定理文字记载。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "周髀算经天文",
+        "body": "《周髀算经》记载天文。\"髀\"是股骨（日晷）；\"周髀\"是盖天说；解释天圆地方；测算太阳高度角。"
+      },
+      {
+        "type": "list",
+        "heading": "主要成就",
+        "items": [
+          "勾股定理",
+          "盖天说",
+          "太阳观测",
+          "勾股测量",
+          "圆形计算"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "影响",
+        "body": "《周髀算经》影响深远。中国数学和天文学的源头；启发张衡、祖冲之；列入\"中国科技名著\"。"
+      },
+      {
+        "type": "quote",
+        "text": "**勾三股四弦五**。",
+        "cite": "周髀算经"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1100",
+        "era": "西周",
+        "event": "**商高**"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**周髀算经**"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**周髀算经**成书"
+      },
+      {
+        "year": "AD 100",
+        "era": "东汉",
+        "event": "**周髀算经**"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**周髀算经**"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**周髀算经**"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**周髀算经**研究"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**周髀算经**传承"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "zhoubi suanjing ancient book",
+        "caption": "周髀算经",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "gou gu theorem ancient",
+        "caption": "勾股定理",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "chinese ancient astronomer",
+        "caption": "古代天文学家",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "数学天文"
+      },
+      {
+        "id": "tr-tech-gan",
+        "title": "甘石星经",
+        "reason": "天文学"
+      },
+      {
+        "id": "tr-tech-mengxi",
+        "title": "梦溪笔谈",
+        "reason": "科技记录"
+      },
+      {
+        "id": "tr-tech-counting",
+        "title": "计数与算术",
+        "reason": "数学"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "科技基础"
+      },
+      {
+        "id": "tr-tech-ship",
+        "title": "造船",
+        "reason": "航海数学"
+      }
+    ],
+    "source": "周髀算经 (西汉)、中国数学史 (钱宝琮)、中国天文学史"
+  },
+  "tr-tech-intro": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**中华科技**"
+      },
+      {
+        "label": "起源",
+        "value": "**远古**"
+      },
+      {
+        "label": "核心典籍",
+        "value": "**天工开物、梦溪笔谈**"
+      },
+      {
+        "label": "特点",
+        "value": "**实用主义、整体观**"
+      },
+      {
+        "label": "成就",
+        "value": "**四大发明**"
+      },
+      {
+        "label": "影响",
+        "value": "**世界文明**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "中华科技",
+        "body": "中华科技发展 5000 多年。涉及农业、天文、医学、数学、纺织、冶金、航海、造纸、印刷、火药等领域。"
+      },
+      {
+        "type": "callout",
+        "heading": "四大发明",
+        "body": "四大发明是中华科技代表。造纸术 (东汉蔡伦)、印刷术 (唐)、火药 (唐)、指南针 (北宋)。影响世界文明。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "科技特点",
+        "body": "中华科技特点。实用主义、整体观、重综合轻分析、与农业文明紧密结合。"
+      },
+      {
+        "type": "list",
+        "heading": "科技门类",
+        "items": [
+          "农业",
+          "天文",
+          "医学",
+          "数学",
+          "纺织",
+          "冶金",
+          "航海",
+          "造纸",
+          "印刷",
+          "火药"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "现代价值",
+        "body": "中华科技在 21 世纪仍有价值。中医、丝绸、瓷器、茶叶、园林；现代科技复兴；李约瑟难题。"
+      },
+      {
+        "type": "quote",
+        "text": "**天工开物，万物之灵**。",
+        "cite": "天工开物 (明宋应星)"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "新石器",
+        "event": "**原始农业**"
+      },
+      {
+        "year": "BC 2000",
+        "era": "夏商",
+        "event": "**青铜**技术"
+      },
+      {
+        "year": "BC 1000",
+        "era": "西周",
+        "event": "**天文历法**"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**造纸术**"
+      },
+      {
+        "year": "AD 100",
+        "era": "东汉",
+        "event": "**蔡伦造纸**"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**雕版印刷**"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**指南针、火药**"
+      },
+      {
+        "year": "AD 1637",
+        "era": "明",
+        "event": "**天工开物** (宋应星)"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese four inventions",
+        "caption": "中华四大发明",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "ancient chinese scientist",
+        "caption": "古代科学家",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "tiangong kaiwu",
+        "caption": "天工开物",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-acupuncture",
+        "title": "针灸",
+        "reason": "科技与医学"
+      },
+      {
+        "id": "tr-tech-gunpowder",
+        "title": "火药",
+        "reason": "科技与火药"
+      },
+      {
+        "id": "tr-tech-ceramic",
+        "title": "陶瓷",
+        "reason": "科技与陶瓷"
+      },
+      {
+        "id": "tr-tech-silk",
+        "title": "丝绸",
+        "reason": "科技与丝绸"
+      },
+      {
+        "id": "tr-tech-shui",
+        "title": "水利",
+        "reason": "科技与水利"
+      },
+      {
+        "id": "tr-tech-sunzi",
+        "title": "孙子兵法",
+        "reason": "科技与军事"
+      }
+    ],
+    "source": "天工开物 (明宋应星)、梦溪笔谈 (宋沈括)、中国科学技术史 (李约瑟)"
+  },
+  "tr-tech-acupuncture": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**针灸**"
+      },
+      {
+        "label": "起源",
+        "value": "**新石器（砭石）**"
+      },
+      {
+        "label": "核心",
+        "value": "**经络、穴位**"
+      },
+      {
+        "label": "经典",
+        "value": "**《黄帝内经》《针灸甲乙经》**"
+      },
+      {
+        "label": "现代",
+        "value": "**世界非遗**"
+      },
+      {
+        "label": "意义",
+        "value": "**中医精髓**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "针灸起源",
+        "body": "针灸起源很早。新石器时代 \"砭石\"；春秋战国形成理论；汉代成熟。\"针\"指针刺，\"灸\"指艾灸。"
+      },
+      {
+        "type": "callout",
+        "heading": "经络系统",
+        "body": "经络是针灸核心。十二经脉（手三阴三阳、足三阴三阳）；奇经八脉；十五络脉；沟通人体表里、上下、左右。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "主要穴位",
+        "body": "人体有 361 个经穴（十四经）；加上经外奇穴 100+。常用穴位 100+。"
+      },
+      {
+        "type": "list",
+        "heading": "针灸治疗",
+        "items": [
+          "中风偏瘫",
+          "面瘫",
+          "颈椎病",
+          "腰椎病",
+          "失眠",
+          "痛经"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "现代发展",
+        "body": "针灸国际化。1979 年 WHO 认可针灸治疗 43 种疾病；2010 年 \"中医针灸\" 列入联合国非遗；欧美 100+ 国家采用。"
+      },
+      {
+        "type": "quote",
+        "text": "**经脉者，所以决生死，处百病，调虚实**。",
+        "cite": "《黄帝内经》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 3000",
+        "era": "新石器",
+        "event": "**砭石**"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**针灸**理论化"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**黄帝内经**"
+      },
+      {
+        "year": "AD 100",
+        "era": "东汉",
+        "event": "**针灸甲乙经**"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**针灸**对外传播"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**王唯一**针灸铜人"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": "**滑寿**十四经发挥"
+      },
+      {
+        "year": "AD 2010",
+        "era": "当代",
+        "event": "**针灸**世遗"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "acupuncture needles",
+        "caption": "针灸针",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese acupuncture model",
+        "caption": "针灸铜人",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "moxibustion moxa sticks",
+        "caption": "艾灸",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "中医是科技"
+      },
+      {
+        "id": "tr-tech-tcm",
+        "title": "中医基础",
+        "reason": "中医理论"
+      },
+      {
+        "id": "tr-tech-huatuo",
+        "title": "华佗",
+        "reason": "中医名家"
+      },
+      {
+        "id": "tr-tech-bencao",
+        "title": "本草纲目",
+        "reason": "中药学"
+      },
+      {
+        "id": "tr-tech-zhongyao",
+        "title": "中药",
+        "reason": "中药材"
+      },
+      {
+        "id": "tr-tech-wuqin",
+        "title": "五禽戏",
+        "reason": "导引术"
+      }
+    ],
+    "source": "黄帝内经 (战国)、针灸甲乙经 (东汉皇甫谧)、针灸大成 (明杨继洲)"
+  },
+  "tr-tech-armor": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**盔甲与防护**"
+      },
+      {
+        "label": "起源",
+        "value": "**商周**"
+      },
+      {
+        "label": "核心",
+        "value": "**皮甲、铁甲、棉甲**"
+      },
+      {
+        "label": "代表",
+        "value": "**明光铠、棉甲**"
+      },
+      {
+        "label": "现代",
+        "value": "**工艺复原**"
+      },
+      {
+        "label": "意义",
+        "value": "**军事技术**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "中华盔甲",
+        "body": "中华盔甲发展悠久。皮甲（商周）；铁甲（战国）；明光铠（唐）；棉甲（明清）。"
+      },
+      {
+        "type": "callout",
+        "heading": "明光铠",
+        "body": "明光铠是唐代盔甲代表。原因：南北朝出现，唐代完善；胸前、背后有圆形护镜（\"明光\"）；保护力强；唐代壁画多见。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "盔甲演进",
+        "body": "盔甲演进与冶金同步。皮甲 → 铁甲 → 棉甲。棉甲（明清）以棉花为内衬；吸收火绳枪弹。"
+      },
+      {
+        "type": "list",
+        "heading": "盔甲类型",
+        "items": [
+          "皮甲",
+          "铁甲",
+          "明光铠",
+          "棉甲",
+          "锁子甲",
+          "头盔"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "盔甲工艺",
+        "body": "盔甲工艺复杂。皮甲 — 兽皮制；铁甲 — 锻铁、铸铁；棉甲 — 棉絮 + 外层布；锁子甲 — 环环相扣。"
+      },
+      {
+        "type": "quote",
+        "text": "**甲坚兵利，国之利器**。",
+        "cite": "古代军事"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 1500",
+        "era": "商",
+        "event": "**皮甲**"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**皮甲**成熟"
+      },
+      {
+        "year": "BC 400",
+        "era": "战国",
+        "event": "**铁甲**出现"
+      },
+      {
+        "year": "AD 200",
+        "era": "东汉",
+        "event": "**铠甲**普及"
+      },
+      {
+        "year": "AD 500",
+        "era": "南北朝",
+        "event": "**明光铠**"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**明光铠**鼎盛"
+      },
+      {
+        "year": "AD 1400",
+        "era": "明",
+        "event": "**棉甲**"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**现代军装**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "ancient chinese armor",
+        "caption": "古代盔甲",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "tang dynasty armor soldier",
+        "caption": "唐代明光铠",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "ming dynasty cotton armor",
+        "caption": "明棉甲",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "军事技术"
+      },
+      {
+        "id": "tr-tech-gunpowder",
+        "title": "火药",
+        "reason": "火药与盔甲"
+      },
+      {
+        "id": "tr-tech-sunzi",
+        "title": "孙子兵法",
+        "reason": "军事思想"
+      },
+      {
+        "id": "tr-tech-nu",
+        "title": "弓弩",
+        "reason": "弓弩与盔甲"
+      },
+      {
+        "id": "tr-tech-ji",
+        "title": "兵器",
+        "reason": "其他兵器"
+      },
+      {
+        "id": "tr-tech-pi",
+        "title": "皮毛与皮革",
+        "reason": "皮甲"
+      }
+    ],
+    "source": "考工记、武经总要 (宋曾公亮)、中国军戎服饰 (刘永华)"
+  },
+  "tr-tech-bencao": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**本草与药物学**"
+      },
+      {
+        "label": "起源",
+        "value": "**神农尝百草**"
+      },
+      {
+        "label": "核心",
+        "value": "**药物学、博物学**"
+      },
+      {
+        "label": "经典",
+        "value": "**《神农本草经》《本草纲目》**"
+      },
+      {
+        "label": "现代",
+        "value": "**中药现代化**"
+      },
+      {
+        "label": "意义",
+        "value": "**药物学体系**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "本草学",
+        "body": "本草学是中华药物学。神农尝百草起源；《神农本草经》奠基；《本草纲目》集大成。"
+      },
+      {
+        "type": "callout",
+        "heading": "《本草纲目》",
+        "body": "《本草纲目》是李时珍巨著。原因：明嘉靖至万历（AD 1552-1578）；26 年编撰；1892 种药物；11096 处方；1109 图；52 卷；世界医药学巨著。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "《神农本草经》",
+        "body": "《神农本草经》是中药学奠基。成书东汉；载 365 种药物；分上中下三品；中药学经典。"
+      },
+      {
+        "type": "list",
+        "heading": "历代本草",
+        "items": [
+          "神农本草经 (东汉)",
+          "新修本草 (唐)",
+          "证类本草 (宋)",
+          "本草纲目 (明)",
+          "本草纲目拾遗 (清)",
+          "中华本草 (当代)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "现代中药",
+        "body": "中药现代化。提取有效成分；中药制剂；中药国际化（FDA 认证）；中药走向世界。"
+      },
+      {
+        "type": "quote",
+        "text": "**医者，须读本草**。",
+        "cite": "古代医家"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "传说",
+        "event": "**神农尝百草**"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**本草学**萌芽"
+      },
+      {
+        "year": "AD 100",
+        "era": "东汉",
+        "event": "**神农本草经**"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**新修本草** (苏敬)"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**证类本草**"
+      },
+      {
+        "year": "AD 1552",
+        "era": "明",
+        "event": "**本草纲目**编写"
+      },
+      {
+        "year": "AD 1578",
+        "era": "明",
+        "event": "**本草纲目**完成"
+      },
+      {
+        "year": "AD 2010",
+        "era": "当代",
+        "event": "**中华本草**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "compendium of materia medica",
+        "caption": "本草纲目",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "chinese herbal medicine cabinet",
+        "caption": "中药柜",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "li shizhen portrait",
+        "caption": "李时珍",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "本草是科技"
+      },
+      {
+        "id": "tr-tech-tcm",
+        "title": "中医基础",
+        "reason": "中药与中医"
+      },
+      {
+        "id": "tr-tech-zhongyao",
+        "title": "中药",
+        "reason": "中药材"
+      },
+      {
+        "id": "tr-tech-huatuo",
+        "title": "华佗",
+        "reason": "中医名家"
+      },
+      {
+        "id": "tr-tech-acupuncture",
+        "title": "针灸",
+        "reason": "中医技艺"
+      },
+      {
+        "id": "tr-tech-wuqin",
+        "title": "五禽戏",
+        "reason": "导引术"
+      }
+    ],
+    "source": "神农本草经 (东汉)、本草纲目 (明李时珍)、中国药学史 (傅维康)"
+  },
+  "tr-tech-bian": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**砭石与刮痧**"
+      },
+      {
+        "label": "起源",
+        "value": "**新石器**"
+      },
+      {
+        "label": "核心",
+        "value": "**砭石、刮痧**"
+      },
+      {
+        "label": "代表",
+        "value": "**砭石、刮痧板**"
+      },
+      {
+        "label": "现代",
+        "value": "**传统疗法**"
+      },
+      {
+        "label": "意义",
+        "value": "**早期医学**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "砭石起源",
+        "body": "砭石是中华最古老医疗器械。新石器时代已用砭石（出土于仰韶、龙山文化）；用于切皮排脓、放血、按摩。"
+      },
+      {
+        "type": "callout",
+        "heading": "砭石疗法",
+        "body": "砭石疗法是中医起源之一。特点：不刺破皮肤；通过温热、振动作用于经络穴位；与针刺、艾灸、导引并称中医四术。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "刮痧起源",
+        "body": "刮痧源于砭石疗法。在背部、颈部刮痧；用牛角、玉石、砭石；治疗感冒、中暑、风湿。"
+      },
+      {
+        "type": "list",
+        "heading": "中医四术",
+        "items": [
+          "砭石",
+          "针刺",
+          "艾灸",
+          "导引"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "现代传承",
+        "body": "现代中医康复、按摩、SPA 仍用砭石；刮痧列入中医药适宜技术；中华传统疗法传承。"
+      },
+      {
+        "type": "quote",
+        "text": "**砭石者，针之母也**。",
+        "cite": "中医典籍"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "新石器",
+        "event": "**砭石**出现"
+      },
+      {
+        "year": "BC 3000",
+        "era": "传说",
+        "event": "**神农尝百草**"
+      },
+      {
+        "year": "BC 500",
+        "era": "春秋",
+        "event": "**砭石**与针并行"
+      },
+      {
+        "year": "BC 200",
+        "era": "西汉",
+        "event": "**砭石**衰落"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**砭石**复兴"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**砭石**延续"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**中医**衰落"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**砭石**复兴"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "bian stone ancient",
+        "caption": "砭石",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "guasha scraping board",
+        "caption": "刮痧板",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "traditional chinese medicine tools",
+        "caption": "中医四术",
+        "credit": "illustration tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "早期医学"
+      },
+      {
+        "id": "tr-tech-acupuncture",
+        "title": "针灸",
+        "reason": "中医技艺"
+      },
+      {
+        "id": "tr-tech-tcm",
+        "title": "中医基础",
+        "reason": "中医理论"
+      },
+      {
+        "id": "tr-tech-huatuo",
+        "title": "华佗",
+        "reason": "中医名家"
+      },
+      {
+        "id": "tr-tech-wuqin",
+        "title": "五禽戏",
+        "reason": "导引术"
+      },
+      {
+        "id": "tr-tech-zhongyao",
+        "title": "中药",
+        "reason": "中药材"
+      }
+    ],
+    "source": "黄帝内经、砭石疗法 (耿乃光)、中医四术"
+  },
+  "tr-tech-ceramic": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**陶瓷**"
+      },
+      {
+        "label": "起源",
+        "value": "**新石器（仰韶）**"
+      },
+      {
+        "label": "核心",
+        "value": "**制陶、瓷器**"
+      },
+      {
+        "label": "代表",
+        "value": "**青花瓷、汝窑**"
+      },
+      {
+        "label": "现代",
+        "value": "**世遗**"
+      },
+      {
+        "label": "意义",
+        "value": "**中华名片**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "陶瓷历史",
+        "body": "中华陶瓷发展 8000 年。仰韶文化彩陶；商代白陶；东汉青瓷；唐代南青北白；宋代五大名窑；元代青花瓷；明清彩瓷。"
+      },
+      {
+        "type": "callout",
+        "heading": "汝窑",
+        "body": "汝窑是宋代五大名窑之首。原因：北宋（AD 1086-1106）；玛瑙入釉；天青色；\"雨过天青云破处\"；存世稀少；传世 67 件。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "青花瓷",
+        "body": "青花瓷是元代瓷器代表。蒙古帝国时期；白地蓝花；钴蓝釉下彩；景德镇飞；风行世界；中国瓷器代表。"
+      },
+      {
+        "type": "list",
+        "heading": "宋代五大名窑",
+        "items": [
+          "汝窑 (河南)",
+          "官窑 (开封)",
+          "哥窑 (浙江)",
+          "钧窑 (河南)",
+          "定窑 (河北)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "陶瓷传播",
+        "body": "陶瓷通过丝绸之路传遍世界。\"China\" 因瓷器得名；中国陶瓷影响欧洲。"
+      },
+      {
+        "type": "quote",
+        "text": "**雨过天青云破处，这般颜色作将来**。",
+        "cite": "赞美汝窑"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 5000",
+        "era": "新石器",
+        "event": "**仰韶彩陶**"
+      },
+      {
+        "year": "BC 2000",
+        "era": "夏商",
+        "event": "**白陶**"
+      },
+      {
+        "year": "BC 100",
+        "era": "西汉",
+        "event": "**早期青瓷**"
+      },
+      {
+        "year": "AD 100",
+        "era": "东汉",
+        "event": "**成熟青瓷**"
+      },
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**南青北白**"
+      },
+      {
+        "year": "AD 1000",
+        "era": "宋",
+        "event": "**五大名窑**"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": "**青花瓷**"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**彩瓷**鼎盛"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chinese porcelain vase",
+        "caption": "中华瓷器",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "ru ware celadon bowl",
+        "caption": "汝窑",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "blue and white porcelain",
+        "caption": "青花瓷",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "陶瓷是科技"
+      },
+      {
+        "id": "tr-tech-silk",
+        "title": "丝绸",
+        "reason": "丝瓷"
+      },
+      {
+        "id": "tr-tech-smelt",
+        "title": "冶金",
+        "reason": "陶瓷与冶金"
+      },
+      {
+        "id": "tr-tech-acupuncture",
+        "title": "针灸",
+        "reason": "陶瓷与医学"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "科技成就"
+      },
+      {
+        "id": "tr-tech-shui",
+        "title": "水利",
+        "reason": "陶瓷与水"
+      }
+    ],
+    "source": "陶说 (清朱琰)、中国陶瓷史 (冯先铭)"
+  },
+  "tr-tech-water": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**水利工程**"
+      },
+      {
+        "label": "起源",
+        "value": "**大禹治水**"
+      },
+      {
+        "label": "核心",
+        "value": "**都江堰、灵渠**"
+      },
+      {
+        "label": "代表",
+        "value": "**都江堰**"
+      },
+      {
+        "label": "意义",
+        "value": "**水利建筑**"
+      },
+      {
+        "label": "现代",
+        "value": "**世遗**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "都江堰",
+        "body": "都江堰是世界水利奇迹。战国秦昭王时期 (BC 256)；李冰父子建造；无坝引水；2000 多年仍在使用；列入世界文化遗产。"
+      },
+      {
+        "type": "callout",
+        "heading": "三大工程",
+        "body": "三大工程组成都江堰。第一，鱼嘴分水堤 (分岷江为内外江)；第二，飞沙堰溢洪道 (排沙防涝)；第三，宝瓶口引水口 (引水入成都平原)。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "水利思想",
+        "body": "都江堰体现 \"天人合一\" 水利思想。因势利导；充分利用自然；可持续水利工程典范。"
+      },
+      {
+        "type": "list",
+        "heading": "主要水利工程",
+        "items": [
+          "都江堰 (四川)",
+          "灵渠 (广西)",
+          "郑国渠 (陕西)",
+          "京杭大运河",
+          "白渠 (陕西)",
+          "它山堰 (浙江)"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "水利文化",
+        "body": "水利文化深厚。灌溉文化；漕运文化；水利民俗；李冰信仰；都江堰放水节。"
+      },
+      {
+        "type": "quote",
+        "text": "**深淘滩，低作堰**。",
+        "cite": "都江堰治水法"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "BC 3000",
+        "era": "传说",
+        "event": "**大禹治水**"
+      },
+      {
+        "year": "BC 256",
+        "era": "战国",
+        "event": "**都江堰**"
+      },
+      {
+        "year": "BC 246",
+        "era": "秦",
+        "event": "**郑国渠**"
+      },
+      {
+        "year": "BC 214",
+        "era": "秦",
+        "event": "**灵渠**"
+      },
+      {
+        "year": "AD 600",
+        "era": "唐",
+        "event": "**水利**发达"
+      },
+      {
+        "year": "AD 1300",
+        "era": "元",
+        "event": "**京杭运河**"
+      },
+      {
+        "year": "AD 2000",
+        "era": "当代",
+        "event": "**都江堰**世遗"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**灌溉工程遗产**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "du jiang yan water works",
+        "caption": "都江堰",
+        "credit": "photo tradition"
+      },
+      {
+        "imageKeyword": "du jiang yan fish mouth",
+        "caption": "鱼嘴分水堤",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "du jiang yan water release",
+        "caption": "都江堰放水",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "水利是科技"
+      },
+      {
+        "id": "tr-tech-infra",
+        "title": "基础设施",
+        "reason": "基础设施"
+      },
+      {
+        "id": "tr-tech-mengxi",
+        "title": "梦溪笔谈",
+        "reason": "科技记录"
+      },
+      {
+        "id": "tr-tech-counting",
+        "title": "计数与算术",
+        "reason": "水利数学"
+      },
+      {
+        "id": "tr-tech-four",
+        "title": "四大发明",
+        "reason": "科技基础"
+      },
+      {
+        "id": "tr-tech-ship",
+        "title": "造船",
+        "reason": "水利与船"
+      }
+    ],
+    "source": "史记河渠书 (西汉司马迁)、都江堰志 (钱玉成)、中国水利史 (郑肇经)"
+  },
+  "tr-tech-sunzi": {
+    "facts": [
+      {
+        "label": "主题",
+        "value": "**《孙子算经》**"
+      },
+      {
+        "label": "作者",
+        "value": "**佚名 (唐)**"
+      },
+      {
+        "label": "时间",
+        "value": "**AD 700**"
+      },
+      {
+        "label": "核心",
+        "value": "**古代趣题与方程**"
+      },
+      {
+        "label": "代表",
+        "value": "**鸡兔同笼**"
+      },
+      {
+        "label": "意义",
+        "value": "**古代数学经典**"
+      }
+    ],
+    "sections": [
+      {
+        "type": "paragraph",
+        "heading": "《孙子算经》",
+        "body": "《孙子算经》是唐代的数学著作。不是《孙子兵法》作者孙武，而是另一作者（或孙武后代）。含 64 题；涵盖方程、不定方程、等差数列等。"
+      },
+      {
+        "type": "callout",
+        "heading": "鸡兔同笼",
+        "body": "鸡兔同笼是《孙子算经》名题。\"今有雉兔同笼，上有三十五头，下有九十四足，问雉兔各几何？\"答案：兔 12 只、鸡 23 只。中国古代方程思想的精粹。",
+        "variant": "info"
+      },
+      {
+        "type": "paragraph",
+        "heading": "古代趣题",
+        "body": "《孙子算经》收录许多趣题。鸡兔同笼、植树问题、河流水速问题、百钱买百鸡等；体现中华古代数学的实用性。"
+      },
+      {
+        "type": "list",
+        "heading": "主要名题",
+        "items": [
+          "鸡兔同笼",
+          "百钱买百鸡",
+          "堤水高差",
+          "三人同月",
+          "放牛牧童",
+          "甲乙年龄"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "heading": "国际影响",
+        "body": "鸡兔同笼传入日本（\"鹤龟算\"）、欧洲；是世界最早的方程应用题之一；现代数学教育经典。"
+      },
+      {
+        "type": "quote",
+        "text": "**今有雉兔同笼，上有三十五头，下有九十四足**。",
+        "cite": "《孙子算经》"
+      }
+    ],
+    "timeline": [
+      {
+        "year": "AD 700",
+        "era": "唐",
+        "event": "**《孙子算经》**成书"
+      },
+      {
+        "year": "宋",
+        "era": "宋",
+        "event": "**《孙子算经》**流传"
+      },
+      {
+        "year": "明清",
+        "era": "明清",
+        "event": "**《孙子算经》**"
+      },
+      {
+        "year": "AD 1800",
+        "era": "近代",
+        "event": "**传入欧洲**"
+      },
+      {
+        "year": "AD 1900",
+        "era": "近代",
+        "event": "**学术研究**"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**小学数学经典**"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**数学竞赛**"
+      },
+      {
+        "year": "当代",
+        "era": "当代",
+        "event": "**中外交流**"
+      }
+    ],
+    "images": [
+      {
+        "imageKeyword": "chicken rabbit cage math",
+        "caption": "鸡兔同笼",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "ancient chinese math problems",
+        "caption": "古代数学题",
+        "credit": "illustration tradition"
+      },
+      {
+        "imageKeyword": "sun zi suan jing ancient book",
+        "caption": "《孙子算经》",
+        "credit": "photo tradition"
+      }
+    ],
+    "related": [
+      {
+        "id": "tr-tech-intro",
+        "title": "引子:中华科技",
+        "reason": "数学是科技"
+      },
+      {
+        "id": "tr-tech-counting",
+        "title": "计数与算术",
+        "reason": "数学"
+      },
+      {
+        "id": "tr-tech-zhoubi",
+        "title": "周髀算经",
+        "reason": "古代数学"
+      },
+      {
+        "id": "tr-tech-mengxi",
+        "title": "梦溪笔谈",
+        "reason": "科技记录"
+      },
+      {
+        "id": "tr-tech-qimin",
+        "title": "齐民要术",
+        "reason": "古代应用"
+      },
+      {
+        "id": "tr-tech-silk",
+        "title": "丝绸",
+        "reason": "丝绸与数学"
+      }
+    ],
+    "source": "孙子算经 (唐)、中国数学史 (钱宝琮)"
+  }
+}

@@ -82,7 +82,7 @@ export default function OverviewLayout({
           {toolbar}
         </div>
       </div>
-      <div className="max-w-6xl mx-auto px-6 py-4">
+      <div className="max-w-6xl mx-auto px-6 py-4 fade-in">
         {children}
       </div>
     </div>

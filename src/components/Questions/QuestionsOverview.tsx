@@ -106,7 +106,7 @@ export default function QuestionsOverview({ isActive, onClose }: Props) {
         <div className="flex items-center gap-3 mb-4">
           <button
             onClick={() => setGenOpen(true)}
-            className="px-4 py-2 rounded-lg text-sm bg-gradient-to-r from-purple-700/60 to-bronze-700/40 border border-purple-500/50 text-purple-200 hover:border-purple-400 transition-colors"
+            className="card-hover px-4 py-2 rounded-lg text-sm bg-gradient-to-r from-purple-700/60 to-bronze-700/40 border border-purple-500/50 text-purple-200 hover:border-purple-400 transition-colors"
           >
             ✨ AI 出题
           </button>

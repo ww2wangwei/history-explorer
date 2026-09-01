@@ -228,7 +228,7 @@ export default function PoemsOverview({ isActive, onClose }: Props) {
             return (
               <div
                 key={poem.id}
-                className="group rounded-lg overflow-hidden bg-ink-800/60 border border-ink-700 hover:border-vermilion-500/60 hover:bg-ink-800 transition-all flex flex-col"
+                className="card-hover group rounded-lg overflow-hidden bg-ink-800/60 border border-ink-700 hover:border-vermilion-500/60 hover:bg-ink-800 transition-all flex flex-col"
               >
                 <button
                   onClick={() => setSelected(poem)}

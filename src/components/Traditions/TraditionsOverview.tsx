@@ -133,7 +133,7 @@ export default function TraditionsOverview({ isActive, onClose }: Props) {
                 type="button"
                 onClick={() => setSelectedId(t.id)}
                 aria-label={`查看 ${t.title} 的详细内容`}
-                className="text-left relative rounded-lg overflow-hidden border border-ink-600 bg-ink-800/60 hover:border-emerald-500/80 hover:shadow-lg hover:scale-[1.01] transition-all group min-h-[180px] cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500/60"
+                className="card-hover text-left relative rounded-lg overflow-hidden border border-ink-600 bg-ink-800/60 hover:border-emerald-500/80 hover:shadow-lg hover:scale-[1.01] transition-all group min-h-[180px] cursor-pointer focus:outline-none focus:ring-2 focus:ring-emerald-500/60"
                 style={{ borderLeftWidth: '3px', borderLeftColor: meta.color }}
               >
                 {/* 背景图：优先 imageUrl，否则用 bingImage(imageKeyword ?? title) */}

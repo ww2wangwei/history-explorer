@@ -276,7 +276,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                   <button
                     key={p.id}
                     onClick={() => handlePersonClick(p)}
-                    className="text-left p-4 rounded-lg bg-ink-800/60 border border-ink-700 hover:border-vermilion-500/60 hover:bg-ink-700/60 transition-all relative group"
+                    className="card-hover text-left p-4 rounded-lg bg-ink-800/60 border border-ink-700 hover:border-vermilion-500/60 hover:bg-ink-700/60 transition-all relative group"
                   >
                     {visited && (
                       <span className="absolute top-2 right-2 text-green-400 text-sm" title="已了解">✓</span>
@@ -309,7 +309,7 @@ export default function CulturesOverview({ isActive, onClose }: Props) {
                   <button
                     key={ev.id}
                     onClick={() => setSelectedEvent(ev)}
-                    className="text-left rounded-lg bg-ink-800/60 border border-ink-700 hover:border-vermilion-500/60 hover:bg-ink-700/60 transition-all relative overflow-hidden flex"
+                    className="card-hover text-left rounded-lg bg-ink-800/60 border border-ink-700 hover:border-vermilion-500/60 hover:bg-ink-700/60 transition-all relative overflow-hidden flex"
                   >
                     {/* 缩略图 */}
                     <div className="relative w-32 flex-shrink-0 bg-ink-900">

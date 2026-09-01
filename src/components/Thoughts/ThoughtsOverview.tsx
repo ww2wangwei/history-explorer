@@ -185,7 +185,7 @@ function ThinkerCard({ thinker, onClick }: { thinker: Thinker; onClick: () => vo
   return (
     <button
       onClick={onClick}
-      className="group relative overflow-hidden rounded-xl bg-ink-700/30 border border-ink-600/40 hover:border-vermilion-500/60 transition-all hover:scale-[1.01] text-left flex flex-col"
+      className="card-hover group relative overflow-hidden rounded-xl bg-ink-700/30 border border-ink-600/40 hover:border-vermilion-500/60 transition-all hover:scale-[1.01] text-left flex flex-col"
     >
       {/* 顶部封面图（区域主色作为网络失败占位） */}
       <div

@@ -2,7 +2,9 @@
  * 5 个总览数字卡片
  *
  * 总卡片 / 待复习 / 新卡 / 已掌握 / 总复习次数
+ * P2.3 数字 count-up + scale-in 动画
  */
+import { useCountUp } from '@/hooks/useCountUp'
 
 interface Props {
   totalCards: number
@@ -16,6 +18,20 @@ interface StatCard {
   label: string
   value: number
   color: string
+}
+
+function StatItem({ label, value, color, delay }: StatCard & { delay: number }) {
+  const animated = useCountUp(value, { duration: 0.9 + delay, decimals: 0 })
+  return (
+    <div
+      key={label}
+      className="px-3 py-3 rounded-lg bg-ink-700/40 border border-ink-600 text-center scale-in"
+      style={{ animationDelay: `${delay * 0.08}s` }}
+    >
+      <div className={`text-2xl font-serif tabular-nums ${color}`}>{animated}</div>
+      <div className="text-xs text-ink-300 mt-1">{label}</div>
+    </div>
+  )
 }
 
 export default function StatsOverview({
@@ -35,14 +51,8 @@ export default function StatsOverview({
 
   return (
     <div className="grid grid-cols-5 gap-3">
-      {stats.map(stat => (
-        <div
-          key={stat.label}
-          className="px-3 py-3 rounded-lg bg-ink-700/40 border border-ink-600 text-center"
-        >
-          <div className={`text-2xl font-serif tabular-nums ${stat.color}`}>{stat.value}</div>
-          <div className="text-xs text-ink-300 mt-1">{stat.label}</div>
-        </div>
+      {stats.map((stat, i) => (
+        <StatItem key={stat.label} {...stat} delay={i} />
       ))}
     </div>
   )

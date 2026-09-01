@@ -78,7 +78,7 @@ function StatCard({ icon, label, count, color, onClick }: { icon: string; label:
   return (
     <button
       onClick={onClick}
-      className="p-4 rounded-lg bg-ink-800 border border-ink-700 hover:border-vermilion-500/60 text-left transition-colors"
+      className="card-hover p-4 rounded-lg bg-ink-800 border border-ink-700 hover:border-vermilion-500/60 text-left transition-colors"
     >
       <div className="flex items-center gap-2 mb-1">
         <span className="text-2xl">{icon}</span>

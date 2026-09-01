@@ -215,7 +215,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
               return (
                 <div
                   key={mw.key}
-                  className="major-war-card rounded-lg border border-red-700/40 bg-gradient-to-br from-red-950/30 to-ink-800/80 hover:border-red-500/80 transition-colors overflow-hidden"
+                  className="card-hover major-war-card rounded-lg border border-red-700/40 bg-gradient-to-br from-red-950/30 to-ink-800/80 hover:border-red-500/80 transition-colors overflow-hidden"
                 >
                   {/* 顶部图片 */}
                   <div className="relative w-full bg-ink-900" style={{ aspectRatio: '16/9' }}>
@@ -290,7 +290,7 @@ export default function WarsOverview({ isActive, onClose, onViewOnMap }: Props) 
                   tabIndex={0}
                   onClick={() => setSelectedWar(war)}
                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedWar(war) } }}
-                  className="war-card text-left rounded-lg border border-ink-600 bg-ink-800/60 hover:border-red-500/60 hover:bg-ink-700/60 transition-colors group overflow-hidden flex cursor-pointer focus:outline-none focus:ring-2 focus:ring-vermilion-500"
+                  className="card-hover war-card text-left rounded-lg border border-ink-600 bg-ink-800/60 hover:border-red-500/60 hover:bg-ink-700/60 transition-colors group overflow-hidden flex cursor-pointer focus:outline-none focus:ring-2 focus:ring-vermilion-500"
                 >
                   {/* 战争图片 */}
                   <div className="relative w-32 flex-shrink-0 bg-ink-900">

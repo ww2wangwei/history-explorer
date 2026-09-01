@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
 import './index.css'
+import './index-animations.css'
 // 🔧 强制注册 GSAP CSSPlugin（vite tree-shaking 可能剥离）
 // 否则 transform/opacity/autoAlpha 等 CSS 动画不生效
 import gsap from 'gsap'

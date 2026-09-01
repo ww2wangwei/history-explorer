@@ -254,7 +254,7 @@ function TerritoryCardInner({ territoryId, onClick }: TerritoryCardProps) {
   return (
     <div
       id={`territory-card-${territoryId}`}
-      className="text-left rounded-lg overflow-hidden border border-ink-600 bg-ink-800/60 hover:border-emerald-500/60 hover:bg-ink-700/60 transition-all group cursor-pointer"
+      className="card-hover text-left rounded-lg overflow-hidden border border-ink-600 bg-ink-800/60 hover:border-emerald-500/60 hover:bg-ink-700/60 transition-all group cursor-pointer"
       style={{
         borderLeftWidth: '3px',
         borderLeftColor: eraColor,
@@ -323,7 +323,7 @@ function NatureCardInner({ f, onClick }: NatureCardProps) {
   return (
     <button
       onClick={onClick}
-      className="geo-card text-left rounded-lg overflow-hidden border border-ink-600 bg-ink-800/60 hover:border-emerald-500/60 hover:bg-ink-700/60 transition-all group"
+      className="card-hover geo-card text-left rounded-lg overflow-hidden border border-ink-600 bg-ink-800/60 hover:border-emerald-500/60 hover:bg-ink-700/60 transition-all group"
     >
       <div
         className="relative w-full bg-ink-900 overflow-hidden"

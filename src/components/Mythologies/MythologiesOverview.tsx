@@ -244,7 +244,7 @@ export default function MythologiesOverview({ isActive, onClose }: Props) {
               <button
                 key={m.id}
                 onClick={() => setDialogMythId(m.id)}
-                className="text-left bg-ink-800/60 hover:bg-ink-700 rounded-xl border border-ink-700 hover:border-amber-500/50 overflow-hidden transition-all hover:-translate-y-0.5 group"
+                className="card-hover text-left bg-ink-800/60 hover:bg-ink-700 rounded-xl border border-ink-700 hover:border-amber-500/50 overflow-hidden transition-all hover:-translate-y-0.5 group"
               >
                 <div
                   className="relative h-32 bg-cover bg-center"

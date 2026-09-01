@@ -300,7 +300,7 @@ export default function ArtsOverview({ isActive, onClose }: Props) {
                         caption: work,
                         source: `《${active.title}》 · ${source}`,
                       })}
-                      className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-ink-700 hover:border-pink-500/70 transition-all cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                      className="card-hover group relative aspect-[4/3] overflow-hidden rounded-lg border border-ink-700 hover:border-pink-500/70 transition-all cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                       title={work}
                     >
                       <img

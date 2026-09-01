@@ -984,14 +984,14 @@ function ProgressEraDots({ eras, visitedIds }: { eras: Era[]; visitedIds: Set<st
           <div
             key={e.id}
             title={`${e.name}${isVisited ? ' (已学)' : ''}`}
-            className={`absolute top-1/2 w-1.5 h-1.5 rounded-full transition-colors ${
+            className={`absolute top-1/2 w-1.5 h-1.5 rounded-full transition-all node-scale-in hover:scale-[2.5] hover:shadow-lg ${
               isVisited
-                ? 'bg-green-400'
+                ? 'bg-green-400 hover:bg-green-300'
                 : isChina
-                  ? 'bg-vermilion-500/40'
-                  : 'bg-ink-500/40'
+                  ? 'bg-vermilion-500/40 hover:bg-vermilion-400'
+                  : 'bg-ink-500/40 hover:bg-parchment-50'
             }`}
-            style={{ left: `calc(${x}% - 3px)`, transform: 'translateY(-50%)' }}
+            style={{ left: `calc(${x}% - 3px)`, transform: 'translateY(-50%)', animationDelay: `${Math.abs(x) * 0.02}s` }}
           />
         )
       })}

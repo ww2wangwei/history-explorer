@@ -284,7 +284,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
                   caption: active.title,
                   source: `《${active.title}》 · 少年世界史信息图`,
                 })}
-                className="block w-full rounded-lg overflow-hidden border border-amber-800/50 hover:border-amber-500/70 transition-all cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                className="card-hover block w-full rounded-lg overflow-hidden border border-amber-800/50 hover:border-amber-500/70 transition-all cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-amber-500/50"
               >
                 <img
                   src={resolveAsset(active.infographic)}
@@ -324,7 +324,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
                         caption: caption,
                         source: `《${active.title}》 · ${source}`,
                       })}
-                      className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-ink-700 hover:border-amber-500/70 transition-all cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-amber-500/50"
+                      className="card-hover group relative aspect-[4/3] overflow-hidden rounded-lg border border-ink-700 hover:border-amber-500/70 transition-all cursor-zoom-in focus:outline-none focus:ring-2 focus:ring-amber-500/50"
                       title={caption}
                     >
                       <img

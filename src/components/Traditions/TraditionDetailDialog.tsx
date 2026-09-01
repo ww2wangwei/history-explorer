@@ -335,7 +335,7 @@ function TimelineHorizontal({ events, color }: { events: TimelineEvent[]; color:
                     borderColor: isHover ? color + '60' : 'rgba(255,255,255,0.08)',
                   }}
                 >
-                  {e.event}
+                  {renderInline(e.event)}
                 </div>
               </div>
             )

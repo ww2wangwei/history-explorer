@@ -312,7 +312,7 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
             <div className="p-5 rounded-lg bg-ink-800/80 border border-amber-700/40">
               <div className="text-xs text-amber-400 uppercase tracking-wider mb-3">📜 完整原文(选自 NotebookLM 对话)</div>
               <div className="text-sm text-parchment-50 leading-relaxed whitespace-pre-wrap font-serif">
-                {active.content}
+                {renderInline(active.content)}
               </div>
             </div>
           )}

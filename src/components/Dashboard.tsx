@@ -1218,7 +1218,7 @@ function FilmstripGallery({
                   </div>
 
                   {/* 中部：竖排全名（深色 backdrop 保证双主题可读） */}
-                  <div className="flex-1 flex items-start justify-center w-full py-3">
+                  <div className="flex-1 flex items-end justify-center w-full py-3">
                     <span
                       className="font-serif text-[10px] tracking-[0.3em] whitespace-nowrap rounded-sm"
                       style={{

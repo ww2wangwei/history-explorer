@@ -12,8 +12,14 @@ import { bingImage, personSearchKeywords, fallbackKeyword } from '@/utils/geoIma
 import type { Era, HistoricalFigure } from '@/types'
 import FigureRelationshipGraph from './FigureRelationshipGraph'
 import ModalShell from '@/components/ui/Modal'
+import { renderInline } from '@/lib/inlineMd'
 
 const eras = erasData as Era[]
+
+function Md({ text }: { text?: string }) {
+  if (!text) return null
+  return <>{renderInline(text)}</>
+}
 
 interface Props {
   person: HistoricalFigure
@@ -151,7 +157,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
           {/* 简介 */}
           <div>
             <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📜 简介</div>
-            <div className="text-sm text-parchment-50 leading-relaxed">{person.description}</div>
+            <div className="text-sm text-parchment-50 leading-relaxed"><Md text={person.description} /></div>
           </div>
 
           {/* === 富内容：facts / sections / timeline / related / source === */}
@@ -161,8 +167,8 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
               <div className="grid grid-cols-2 gap-2">
                 {(person as any).facts.map((f: any, i: number) => (
                   <div key={i} className="p-3 rounded-lg bg-ink-700/30 border border-ink-500/40">
-                    <div className="text-[10px] text-ink-300 uppercase tracking-wider mb-1">{f.label}</div>
-                    <div className="text-sm text-parchment-50">{f.value}</div>
+                    <div className="text-[10px] text-ink-300 uppercase tracking-wider mb-1"><Md text={f.label} /></div>
+                    <div className="text-sm text-parchment-50"><Md text={f.value} /></div>
                   </div>
                 ))}
               </div>
@@ -175,26 +181,26 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
                 if (s.type === 'paragraph') {
                   return (
                     <div key={i}>
-                      {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📝 {s.heading}</div>}
-                      <div className="text-sm text-parchment-50 leading-relaxed">{s.body}</div>
+                      {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1"><Md text={'📝 ' + s.heading} /></div>}
+                      <div className="text-sm text-parchment-50 leading-relaxed"><Md text={s.body} /></div>
                     </div>
                   )
                 }
                 if (s.type === 'callout') {
                   return (
                     <div key={i} className="p-3 rounded-lg bg-emerald-900/20 border border-emerald-700/40">
-                      {s.heading && <div className="text-xs text-emerald-300 uppercase tracking-wider mb-1">💡 {s.heading}</div>}
-                      <div className="text-sm text-parchment-50 leading-relaxed">{s.body}</div>
+                      {s.heading && <div className="text-xs text-emerald-300 uppercase tracking-wider mb-1"><Md text={'💡 ' + s.heading} /></div>}
+                      <div className="text-sm text-parchment-50 leading-relaxed"><Md text={s.body} /></div>
                     </div>
                   )
                 }
                 if (s.type === 'list') {
                   return (
                     <div key={i}>
-                      {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📋 {s.heading}</div>}
+                      {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1"><Md text={'📋 ' + s.heading} /></div>}
                       <ul className="text-sm text-parchment-50 leading-relaxed space-y-1 list-disc list-inside">
                         {s.items?.map((it: string, j: number) => (
-                          <li key={j}>{it}</li>
+                          <li key={j}><Md text={it} /></li>
                         ))}
                       </ul>
                     </div>
@@ -203,8 +209,8 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
                 if (s.type === 'quote') {
                   return (
                     <div key={i} className="p-3 rounded-lg bg-ink-700/30 border-l-4 border-vermilion-500/60">
-                      <div className="text-sm text-parchment-50 italic">{s.text}</div>
-                      {s.cite && <div className="text-xs text-ink-300 mt-1">— {s.cite}</div>}
+                      <div className="text-sm text-parchment-50 italic"><Md text={s.text} /></div>
+                      {s.cite && <div className="text-xs text-ink-300 mt-1">— <Md text={s.cite} /></div>}
                     </div>
                   )
                 }
@@ -220,7 +226,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
                 {(person as any).timeline.map((t: any, i: number) => (
                   <div key={i} className="flex gap-3 items-start text-sm">
                     <div className="font-mono text-xs text-vermilion-300 min-w-[80px] shrink-0">{t.year}{t.era && <span className="text-ink-400"> · {t.era}</span>}</div>
-                    <div className="text-parchment-50">{t.event}</div>
+                    <div className="text-parchment-50"><Md text={t.event} /></div>
                   </div>
                 ))}
               </div>
@@ -233,7 +239,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
               <div className="flex flex-wrap gap-2">
                 {(person as any).related.map((r: any, i: number) => (
                   <span key={i} className="px-3 py-1.5 rounded-lg bg-ink-700/40 border border-ink-500/40 text-xs text-parchment-50" title={r.reason}>
-                    → {r.title}
+                    → <Md text={r.title} />
                   </span>
                 ))}
               </div>
@@ -242,7 +248,7 @@ export default function PersonDetailDialog({ person, onClose, onChat }: Props) {
 
           {(person as any).source && (
             <div className="text-xs text-ink-300 leading-relaxed border-t border-ink-700/40 pt-2">
-              📚 {(person as any).source}
+              📚 <Md text={(person as any).source} />
             </div>
           )}
 

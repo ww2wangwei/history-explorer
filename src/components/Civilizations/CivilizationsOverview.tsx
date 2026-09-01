@@ -14,6 +14,7 @@ import { useLearningPathStore } from '@/store/useLearningPathStore'
 import { useAIStore } from '@/store/useAIStore'
 import OverviewLayout from '@/components/ui/OverviewLayout'
 import { audioEngine } from '@/utils/audioEngine'
+import { renderInline } from '@/lib/inlineMd'
 
 type Section = {
   id: string
@@ -257,7 +258,7 @@ export default function CivilizationsOverview({ isActive, onClose }: Props) {
                       <span className="text-xs font-mono text-vermilion-300 shrink-0 tabular-nums">
                         {t.year < 0 ? `公元前 ${-t.year}` : t.year}
                       </span>
-                      <span className="text-sm text-parchment-50 leading-relaxed">{t.event}</span>
+                      <span className="text-sm text-parchment-50 leading-relaxed">{renderInline(t.event)}</span>
                     </div>
                   </li>
                 ))}

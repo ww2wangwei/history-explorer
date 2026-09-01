@@ -278,9 +278,9 @@ function FactsGrid({ facts, color }: { facts: KeyFact[]; color: string }) {
             onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.10)' }}
             title="点击复制"
           >
-            <div className="text-[10px] text-ink-300 uppercase tracking-wider mb-0.5">{f.label}</div>
+            <div className="text-[10px] text-ink-300 uppercase tracking-wider mb-0.5">{renderInline(f.label)}</div>
             <div className="text-sm font-medium text-parchment-50 whitespace-pre-wrap">
-              {f.value}
+              {renderInline(f.value)}
               {copied === i && <span className="ml-1 text-[10px] text-emerald-400">已复制</span>}
             </div>
           </button>

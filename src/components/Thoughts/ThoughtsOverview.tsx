@@ -6,7 +6,7 @@
  * 使用统一的 OverviewLayout + OverviewSearch + OverviewRichContent
  * 与其他板块（人物/战争/神话/诗词/文化/地理/文明/传统）保持一致的风格。
  */
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, useRef } from 'react'
 import OverviewLayout from '@/components/ui/OverviewLayout'
 import OverviewSearch from '@/components/ui/OverviewSearch'
 import EmptyState from '@/components/ui/EmptyState'
@@ -15,6 +15,7 @@ import { bingImage } from '@/utils/geoImage'
 import { audioEngine } from '@/utils/audioEngine'
 import ModalShell from '@/components/ui/Modal'
 import { OverviewRichContent } from '@/components/ui/OverviewRichContent'
+import { useRevealStagger } from '@/hooks/useReveal'
 
 interface Props {
   isActive: boolean
@@ -74,6 +75,16 @@ export default function ThoughtsOverview({ isActive, onClose }: Props) {
     window.addEventListener('keydown', handler, true)
     return () => window.removeEventListener('keydown', handler, true)
   }, [isActive, selectedId, onClose])
+
+  // P1.2 卡片网格滚动入场
+  const cardsGridRef = useRef<HTMLDivElement>(null)
+  useRevealStagger(cardsGridRef, '[data-thinker-card]', {
+    y: 18,
+    duration: 0.45,
+    each: 0.04,
+    delay: 0.05,
+    scale: 0.96,
+  })
 
   const toolbar = (
     <div className="flex flex-wrap items-center gap-2">
@@ -139,16 +150,17 @@ export default function ThoughtsOverview({ isActive, onClose }: Props) {
             emoji="🔍"
           />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div ref={cardsGridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 thinker-grid">
             {filtered.map(t => (
+              <div data-thinker-card="">
               <ThinkerCard
-                key={t.id}
                 thinker={t}
                 onClick={() => {
                   audioEngine.playModalOpen()
                   setSelectedId(t.id)
                 }}
               />
+              </div>
             ))}
           </div>
         )}

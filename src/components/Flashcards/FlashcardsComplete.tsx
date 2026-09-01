@@ -57,7 +57,7 @@ export default function FlashcardsComplete({
             </div>
             <div className="h-2 bg-ink-700/60 rounded-lg overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-emerald-500 to-bronze-400 transition-all duration-500"
+                className="h-full bg-gradient-to-r from-emerald-500 to-bronze-400 transition-all duration-500 progress-bar"
                 style={{ width: `${progressPct}%` }}
               />
             </div>
@@ -75,7 +75,7 @@ export default function FlashcardsComplete({
             </div>
             <div className="h-1.5 bg-ink-700/60 rounded-lg overflow-hidden">
               <div
-                className="h-full bg-bronze-500/70 transition-all duration-500"
+                className="h-full bg-bronze-500/70 transition-all duration-500 progress-bar"
                 style={{ width: `${progressPct}%` }}
               />
             </div>

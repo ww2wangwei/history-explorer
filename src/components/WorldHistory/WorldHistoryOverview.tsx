@@ -203,7 +203,7 @@ export default function WorldHistoryOverview({ isActive, onClose }: Props) {
           {/* 顶部进度条 */}
           <div className="h-1 bg-ink-700 rounded-full overflow-hidden">
             <div
-              className="h-full transition-all bg-gradient-to-r from-amber-500 to-amber-300"
+              className="h-full transition-all bg-gradient-to-r from-amber-500 to-amber-300 progress-bar"
               style={{ width: `${pPct}%` }}
             />
           </div>

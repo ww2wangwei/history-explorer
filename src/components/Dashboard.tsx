@@ -471,7 +471,7 @@ export default function Dashboard({ isActive, onEnterMap, onEnterPath, onEnterLa
           </div>
 <div className="relative h-2 bg-ink-700 rounded-lg overflow-hidden">
             <div
-              className="absolute inset-y-0 left-0 bg-gradient-to-r from-vermilion-600 to-vermilion-400 transition-all duration-1000"
+              className="absolute inset-y-0 left-0 bg-gradient-to-r from-vermilion-600 to-vermilion-400 transition-all duration-1000 progress-bar"
               style={{ width: `${Math.round((learnedInTimeline / totalEras) * 100)}%` }}
             />
             {/* 朝代 tick 标记（每 10% 一刻） */}
@@ -689,7 +689,7 @@ function MotionsitesCard({
         {/* 底部进度条 */}
         {total > 0 && pct > 0 && (
           <div className="absolute bottom-0 left-0 right-0 h-1 bg-ink-900/40">
-            <div className="h-full transition-all duration-500" style={{ width: `${pct}%`, background: accent }} />
+            <div className="h-full transition-all duration-500 progress-bar" style={{ width: `${pct}%`, background: accent }} />
           </div>
         )}
       </div>
@@ -795,7 +795,7 @@ function PathScrollCard({
         {total > 0 && pct > 0 && (
           <div className="h-0.5 bg-bone/15 overflow-hidden rounded-full">
             <div
-              className="h-full transition-all duration-500"
+              className="h-full transition-all duration-500 progress-bar"
               style={{ width: `${pct}%`, background: accent }}
             />
           </div>
@@ -931,7 +931,7 @@ function PrimaryPathCard({
               </div>
               <div className="relative h-1 bg-ink-700 rounded-full overflow-hidden">
                 <div
-                  className="h-full transition-all duration-700"
+                  className="h-full transition-all duration-700 progress-bar"
                   style={{ width: `${pct}%`, background: `linear-gradient(90deg, ${accent}80 0%, ${accent} 100%)` }}
                 />
               </div>
@@ -1292,7 +1292,7 @@ function FilmstripGallery({
                     {total > 0 && pct > 0 && (
                       <div className="h-0.5 bg-bone/15 overflow-hidden rounded-full mb-2">
                         <div
-                          className="h-full transition-all duration-500"
+                          className="h-full transition-all duration-500 progress-bar"
                           style={{ width: `${pct}%`, background: p.color }}
                         />
                       </div>

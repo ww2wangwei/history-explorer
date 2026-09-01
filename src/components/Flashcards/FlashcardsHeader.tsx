@@ -21,7 +21,7 @@ export default function FlashcardsHeader({ total, current, onClose }: Props) {
         <div className="flex-1 max-w-md mx-4">
           <div className="h-1.5 bg-ink-700 rounded-lg overflow-hidden">
             <div
-              className="h-full bg-bronze-500 transition-all duration-300"
+              className="h-full bg-bronze-500 transition-all duration-300 progress-bar"
               style={{ width: `${percent}%` }}
             />
           </div>

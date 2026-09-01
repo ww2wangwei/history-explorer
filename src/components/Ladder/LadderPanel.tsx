@@ -213,7 +213,7 @@ export default function LadderPanel({ onClose }: Props) {
           <div className="flex-1 min-w-0">
             <div className="h-2 rounded-full bg-ink-800 overflow-hidden">
               <div
-                className="h-full transition-all duration-500"
+                className="h-full transition-all duration-500 progress-bar"
                 style={{ width: `${prog.progressPct}%`, background: prog.cur.color }}
               />
             </div>
@@ -405,7 +405,7 @@ function LadderMapView({
           <span className="font-serif text-lg" style={{ color: levelColor }}>{levelName}</span>
           <div className="flex-1 min-w-0">
             <div className="h-1.5 rounded-full bg-ink-800 overflow-hidden">
-              <div className="h-full transition-all duration-500" style={{ width: `${levelProgressPct}%`, background: levelColor }} />
+              <div className="h-full transition-all duration-500 progress-bar" style={{ width: `${levelProgressPct}%`, background: levelColor }} />
             </div>
           </div>
           <span className="text-xs text-ink-400 tabular-nums">XP {totalXp}</span>
@@ -913,7 +913,7 @@ function AchievementView({ ladders, prog, totalXp, onBack }: {
                   <span className="font-serif text-sm text-parchment-50 w-32 truncate">{r.label}</span>
                   <div className="flex-1 h-2 rounded-full bg-ink-700 overflow-hidden">
                     <div
-                      className="h-full transition-all duration-500"
+                      className="h-full transition-all duration-500 progress-bar"
                       style={{ width: `${pct}%`, background: isDone ? '#c89a5b' : '#9bc89a' }}
                     />
                   </div>

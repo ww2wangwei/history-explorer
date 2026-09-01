@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, Profiler, type ProfilerOnRenderCallback } from 'react'
+import { useEffect, useMemo, useState, useRef, Profiler, type ProfilerOnRenderCallback } from 'react'
 import { useHistoryStore } from '@/store/useHistoryStore'
 import { useShallow } from 'zustand/react/shallow'
 import { useCardsStore } from '@/store/useCardsStore'
@@ -16,6 +16,7 @@ import peopleData from '@/data/people.json'
 import ModalShell from '@/components/ui/Modal'
 import FallbackImage from './FallbackImage'
 import BrushReveal from './BrushReveal'
+import { useReveal } from '@/hooks/useReveal'
 
 const eras = erasData as Era[]
 const allEvents = eventsData as HistoricalEvent[]
@@ -159,6 +160,12 @@ function EraDetailInner({ eraId }: Props) {
 
   const duration = durationYears(era.startYear, era.endYear)
 
+  // P1.2 滚动入场动画
+  const headerRef = useRef<HTMLDivElement>(null)
+  const keyPointsRef = useRef<HTMLDivElement>(null)
+  useReveal(headerRef, { y: 16, duration: 0.5 })
+  useReveal(keyPointsRef, { y: 24, duration: 0.55, delay: 0.1 })
+
   // 按时间排序的所有朝代
   const sortedEras = useMemo(
     () => eras.slice().sort((a, b) => a.startYear - b.startYear),
@@ -243,7 +250,7 @@ function EraDetailInner({ eraId }: Props) {
 
   return (
     <>
-    <div className="p-4 flex-1 min-h-0 overflow-y-auto scrollbar-thin">
+    <div ref={headerRef} className="p-4 flex-1 min-h-0 overflow-y-auto scrollbar-thin">
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
           <div
@@ -263,7 +270,7 @@ function EraDetailInner({ eraId }: Props) {
             <div className="text-sm text-ink-300 mt-1 italic">{era.shortDesc}</div>
           )}
           {era.keyPoints && era.keyPoints.length > 0 && (
-            <div className="mt-3 p-3 rounded-lg bg-ink-700/40 border border-ink-500/60">
+            <div ref={keyPointsRef} className="mt-3 p-3 rounded-lg bg-ink-700/40 border border-ink-500/60">
               <div className="text-xs text-ink-300 uppercase tracking-wider mb-1.5">📚 5 个核心要点</div>
               <ol className="text-xs text-bone space-y-1 list-decimal pl-4 marker:text-ink-300">
                 {era.keyPoints.map((pt, i) => (

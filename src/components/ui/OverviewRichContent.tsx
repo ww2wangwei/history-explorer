@@ -44,7 +44,7 @@ export function OverviewRichContent({ item }: { item: ItemWithRich | any }) {
             if (s.type === 'paragraph') {
               return (
                 <div key={i}>
-                  {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📝 {s.heading}</div>}
+                  {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1"><Md text={'📝 ' + s.heading} /></div>}
                   <div className="text-sm text-parchment-50 leading-relaxed"><Md text={s.body} /></div>
                 </div>
               )
@@ -52,7 +52,7 @@ export function OverviewRichContent({ item }: { item: ItemWithRich | any }) {
             if (s.type === 'callout') {
               return (
                 <div key={i} className="p-3 rounded-lg bg-emerald-900/20 border border-emerald-700/40">
-                  {s.heading && <div className="text-xs text-emerald-300 uppercase tracking-wider mb-1">💡 {s.heading}</div>}
+                  {s.heading && <div className="text-xs text-emerald-300 uppercase tracking-wider mb-1"><Md text={'💡 ' + s.heading} /></div>}
                   <div className="text-sm text-parchment-50 leading-relaxed"><Md text={s.body} /></div>
                 </div>
               )
@@ -60,7 +60,7 @@ export function OverviewRichContent({ item }: { item: ItemWithRich | any }) {
             if (s.type === 'list') {
               return (
                 <div key={i}>
-                  {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📋 {s.heading}</div>}
+                  {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1"><Md text={'📋 ' + s.heading} /></div>}
                   <ul className="text-sm text-parchment-50 leading-relaxed space-y-1 list-disc list-inside">
                     {s.items?.map((it2: string, j: number) => (
                       <li key={j}><Md text={it2} /></li>

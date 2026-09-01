@@ -373,7 +373,7 @@ function QuickEventDetail({ era, event, onClose, onJumpToEra }: QuickEventDetail
               if (s.type === 'paragraph') {
                 return (
                   <div key={i}>
-                    {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📝 {s.heading}</div>}
+                    {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1" dangerouslySetInnerHTML={{ __html: renderMarkdownBold('📝 ' + s.heading) }} />}
                     <div className="text-sm text-parchment-50 leading-relaxed" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.body || '') }} />
                   </div>
                 )
@@ -381,7 +381,7 @@ function QuickEventDetail({ era, event, onClose, onJumpToEra }: QuickEventDetail
               if (s.type === 'callout') {
                 return (
                   <div key={i} className="p-3 rounded-lg bg-emerald-900/20 border border-emerald-700/40">
-                    {s.heading && <div className="text-xs text-emerald-300 uppercase tracking-wider mb-1">💡 {s.heading}</div>}
+                    {s.heading && <div className="text-xs text-emerald-300 uppercase tracking-wider mb-1" dangerouslySetInnerHTML={{ __html: renderMarkdownBold('💡 ' + s.heading) }} />}
                     <div className="text-sm text-parchment-50 leading-relaxed" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.body || '') }} />
                   </div>
                 )
@@ -389,7 +389,7 @@ function QuickEventDetail({ era, event, onClose, onJumpToEra }: QuickEventDetail
               if (s.type === 'list') {
                 return (
                   <div key={i}>
-                    {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📋 {s.heading}</div>}
+                    {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1" dangerouslySetInnerHTML={{ __html: renderMarkdownBold('📋 ' + s.heading) }} />}
                     <ul className="text-sm text-parchment-50 leading-relaxed space-y-1 list-disc list-inside">
                       {s.items?.map((it, j) => (
                         <li key={j} dangerouslySetInnerHTML={{ __html: renderMarkdownBold(it) }} />
@@ -402,7 +402,7 @@ function QuickEventDetail({ era, event, onClose, onJumpToEra }: QuickEventDetail
                 return (
                   <div key={i} className="p-3 rounded-lg bg-ink-700/30 border-l-4 border-vermilion-500/60">
                     <div className="text-sm text-parchment-50 italic" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.text || '') }} />
-                    {s.cite && <div className="text-xs text-ink-300 mt-1">— {s.cite}</div>}
+                    {s.cite && <div className="text-xs text-ink-300 mt-1" dangerouslySetInnerHTML={{ __html: renderMarkdownBold('— ' + s.cite) }} />}
                   </div>
                 )
               }

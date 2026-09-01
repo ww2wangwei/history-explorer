@@ -764,40 +764,40 @@ return (
               {event.sections.map((s: any, i: number) => {
                 if (s.type === 'paragraph') {
                   return (
-                    <div key={i}>
-                      {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📝 {s.heading}</div>}
-                      <div className="text-sm text-bone leading-relaxed" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.body || '') }} />
-                    </div>
-                  )
-                }
-                if (s.type === 'callout') {
-                  return (
-                    <div key={i} className="p-3 rounded-lg bg-emerald-900/20 border border-emerald-700/40">
-                      {s.heading && <div className="text-xs text-emerald-300 uppercase tracking-wider mb-1">💡 {s.heading}</div>}
-                      <div className="text-sm text-bone leading-relaxed" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.body || '') }} />
-                    </div>
-                  )
-                }
-                if (s.type === 'list') {
-                  return (
-                    <div key={i}>
-                      {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1">📋 {s.heading}</div>}
-                      <ul className="text-sm text-bone leading-relaxed space-y-1 list-disc list-inside">
-                        {s.items?.map((it: string, j: number) => (
-                          <li key={j} dangerouslySetInnerHTML={{ __html: renderMarkdownBold(it) }} />
-                        ))}
-                      </ul>
-                    </div>
-                  )
-                }
-                if (s.type === 'quote') {
-                  return (
-                    <div key={i} className="p-3 rounded-lg bg-ink-700/30 border-l-4 border-vermilion-500/60">
-                      <div className="text-sm text-bone italic" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.text || '') }} />
-                      {s.cite && <div className="text-xs text-ink-300 mt-1">— {s.cite}</div>}
-                    </div>
-                  )
-                }
+                <div key={i}>
+                  {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1" dangerouslySetInnerHTML={{ __html: renderMarkdownBold('📝 ' + s.heading) }} />}
+                  <div className="text-sm text-bone leading-relaxed" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.body || '') }} />
+                </div>
+              )
+            }
+            if (s.type === 'callout') {
+              return (
+                <div key={i} className="p-3 rounded-lg bg-emerald-900/20 border border-emerald-700/40">
+                  {s.heading && <div className="text-xs text-emerald-300 uppercase tracking-wider mb-1" dangerouslySetInnerHTML={{ __html: renderMarkdownBold('💡 ' + s.heading) }} />}
+                  <div className="text-sm text-bone leading-relaxed" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.body || '') }} />
+                </div>
+              )
+            }
+            if (s.type === 'list') {
+              return (
+                <div key={i}>
+                  {s.heading && <div className="text-xs text-ink-300 uppercase tracking-wider mb-1" dangerouslySetInnerHTML={{ __html: renderMarkdownBold('📋 ' + s.heading) }} />}
+                  <ul className="text-sm text-bone leading-relaxed space-y-1 list-disc list-inside">
+                    {s.items?.map((it: string, j: number) => (
+                      <li key={j} dangerouslySetInnerHTML={{ __html: renderMarkdownBold(it) }} />
+                    ))}
+                  </ul>
+                </div>
+              )
+            }
+            if (s.type === 'quote') {
+              return (
+                <div key={i} className="p-3 rounded-lg bg-ink-700/30 border-l-4 border-vermilion-500/60">
+                  <div className="text-sm text-bone italic" dangerouslySetInnerHTML={{ __html: renderMarkdownBold(s.text || '') }} />
+                  {s.cite && <div className="text-xs text-ink-300 mt-1" dangerouslySetInnerHTML={{ __html: renderMarkdownBold('— ' + s.cite) }} />}
+                </div>
+              )
+            }
                 return null
               })}
             </div>

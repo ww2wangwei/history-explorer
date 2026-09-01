@@ -113,7 +113,7 @@ function SectionBlock({ s, color, anchorId }: { s: RichSection; color: string; a
               className="text-[11px] font-semibold uppercase tracking-wider mb-2"
               style={{ color }}
             >
-              {s.heading}
+              {renderInline(s.heading)}
             </h3>
           )}
           <p className="text-[15px] text-parchment-50/95 leading-loose whitespace-pre-wrap">
@@ -134,7 +134,7 @@ function SectionBlock({ s, color, anchorId }: { s: RichSection; color: string; a
             <div className="text-xl shrink-0 mt-3 pl-3 text-2xl" style={{ color: st.border }}>{st.icon}</div>
             <div className="flex-1 min-w-0 p-3">
               {s.heading && (
-                <div className="text-sm font-semibold text-parchment-50 mb-1.5">{s.heading}</div>
+                <div className="text-sm font-semibold text-parchment-50 mb-1.5">{renderInline(s.heading)}</div>
               )}
               <p
                 className="text-sm text-parchment-50/90 leading-relaxed whitespace-pre-wrap"
@@ -160,7 +160,7 @@ function SectionBlock({ s, color, anchorId }: { s: RichSection; color: string; a
         <section id={anchorId} className="scroll-mt-4">
           {s.heading && (
             <h3 className="text-[11px] font-semibold uppercase tracking-wider mb-2" style={{ color }}>
-              {s.heading}
+              {renderInline(s.heading)}
             </h3>
           )}
           <ul className="space-y-1.5">
@@ -177,13 +177,13 @@ function SectionBlock({ s, color, anchorId }: { s: RichSection; color: string; a
       return (
         <section id={anchorId} className="scroll-mt-4 border-l-4 pl-4 py-2" style={{ borderLeftColor: color }}>
           {s.heading && (
-            <div className="text-[10px] text-ink-300 uppercase tracking-wider mb-2">{s.heading}</div>
+            <div className="text-[10px] text-ink-300 uppercase tracking-wider mb-2">{renderInline(s.heading)}</div>
           )}
           <blockquote className="text-base font-serif italic text-parchment-50/90 leading-relaxed whitespace-pre-wrap">
             {renderInline(s.text)}
           </blockquote>
           {s.cite && (
-            <div className="text-xs text-ink-300 mt-2">— {s.cite}</div>
+            <div className="text-xs text-ink-300 mt-2">— {renderInline(s.cite)}</div>
           )}
         </section>
       )
@@ -192,7 +192,7 @@ function SectionBlock({ s, color, anchorId }: { s: RichSection; color: string; a
         <section id={anchorId} className="scroll-mt-4">
           {s.heading && (
             <h3 className="text-[11px] font-semibold uppercase tracking-wider mb-2" style={{ color }}>
-              {s.heading}
+              {renderInline(s.heading)}
             </h3>
           )}
           <div className="rounded-lg border border-ink-700 overflow-x-auto">
